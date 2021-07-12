@@ -54,8 +54,8 @@ entry:
   ret i32 %0
 }
 
-@.str = private unnamed_addr constant [4 x i8] c"sth\00", section "llvm.metadata"
-@.str1 = private unnamed_addr constant [4 x i8] c"t.c\00", section "llvm.metadata"
+@.str = private unnamed_addr constant [4 x b8] c"sth\00", section "llvm.metadata"
+@.str1 = private unnamed_addr constant [4 x b8] c"t.c\00", section "llvm.metadata"
 
 declare i64 @llvm.objectsize.i64.p0(ptr, i1)
 declare i32 @llvm.annotation.i32(i32, ptr, ptr, i32)

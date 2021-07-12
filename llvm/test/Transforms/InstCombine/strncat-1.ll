@@ -4,9 +4,9 @@
 
 target datalayout = "e-p:32:32:32-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:32:64-f32:32:32-f64:32:64-v64:64:64-v128:128:128-a0:0:64-f80:128:128"
 
-@hello = constant [6 x i8] c"hello\00"
-@null = constant [1 x i8] zeroinitializer
-@null_hello = constant [7 x i8] c"\00hello\00"
+@hello = constant [6 x b8] c"hello\00"
+@null = constant [1 x b8] zeroinitializer
+@null_hello = constant [7 x b8] c"\00hello\00"
 
 declare ptr @strncat(ptr, ptr, i32)
 declare i32 @puts(ptr)
@@ -16,8 +16,8 @@ define i32 @main() {
 ; CHECK-NOT: call ptr @strncat
 ; CHECK: call i32 @puts
 
-  %target = alloca [1024 x i8]
-  store i8 0, ptr %target
+  %target = alloca [1024 x b8]
+  store b8 bitcast (i8 0 to b8), ptr %target
 
   ; rslt1 = strncat(target, "hello\00")
   %rslt1 = call ptr @strncat(ptr %target, ptr @hello, i32 6)

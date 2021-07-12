@@ -6073,10 +6073,14 @@ bool llvm::isGEPBasedOnPointerToString(const GEPOperator *GEP,
   if (GEP->getNumOperands() != 3)
     return false;
 
-  // Make sure the index-ee is a pointer to array of \p CharSize integers.
-  // CharSize.
+  // Make sure the index-ee is a pointer to array of \p CharSize bytes. Since
+  // char size can be greater than 8 bits, we currently model them as 8-bit
+  // bytes or integers of greater bitwidth.
   ArrayType *AT = dyn_cast<ArrayType>(GEP->getSourceElementType());
-  if (!AT || !AT->getElementType()->isIntegerTy(CharSize))
+  if (!AT)
+    return false;
+  Type *ElTy = AT->getElementType();
+  if (!ElTy->isByteTy(8) && !(CharSize > 8 && ElTy->isIntegerTy(CharSize)))
     return false;
 
   // Check to make sure that the first operand of the GEP is an integer and
@@ -6150,9 +6154,10 @@ bool llvm::getConstantDataArrayInfo(const Value *V,
   auto *Init = const_cast<Constant *>(GV->getInitializer());
   if (auto *ArrayInit = dyn_cast<ConstantDataArray>(Init)) {
     Type *InitElTy = ArrayInit->getElementType();
-    if (InitElTy->isIntegerTy(ElementSize)) {
+    if (InitElTy->isIntegerTy(ElementSize) || InitElTy->isByteTy(ElementSize)) {
       // If Init is an initializer for an array of the expected type
-      // and size, use it as is.
+      // and size, use it as is. Since char is lowered to a byte type,
+      // we check for both integer and bytes.
       Array = ArrayInit;
       ArrayTy = ArrayInit->getType();
     }

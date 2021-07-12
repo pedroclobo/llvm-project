@@ -1,7 +1,7 @@
 ; RUN: opt -passes=instcombine -S < %s | FileCheck %s
 
 
-@.str = private constant [3 x i8] c"%c\00"
+@.str = private constant [3 x b8] c"%c\00"
 
 define void @foo() nounwind ssp !dbg !0 {
 ;CHECK: call i32 @putchar{{.+}} !dbg

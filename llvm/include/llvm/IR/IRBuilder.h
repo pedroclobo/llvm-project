@@ -512,6 +512,11 @@ public:
     return Type::getByte8Ty(Context);
   }
 
+  /// Fetch the type representing an N-bit byte.
+  ByteType *getByteNTy(unsigned N) {
+    return Type::getByteNTy(Context, N);
+  }
+
   /// Fetch the type representing a single bit
   IntegerType *getInt1Ty() {
     return Type::getInt1Ty(Context);

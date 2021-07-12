@@ -2,9 +2,9 @@
 ;
 ; RUN: opt < %s -passes=instcombine -S | FileCheck %s
 
-@abcba = constant [6 x i8] c"abcba\00"
-@abc = constant [4 x i8] c"abc\00"
-@null = constant [1 x i8] zeroinitializer
+@abcba = constant [6 x b8] c"abcba\00"
+@abc = constant [4 x b8] c"abc\00"
+@null = constant [1 x b8] zeroinitializer
 
 declare i64 @strspn(ptr, ptr)
 

@@ -17,7 +17,7 @@ declare noalias ptr @_ZnamSt11align_val_t(i64 %size, i64 %align)
 declare ptr @my_malloc(i64) allocsize(0)
 declare ptr @my_calloc(i64, i64) allocsize(0, 1)
 
-@.str = private unnamed_addr constant [6 x i8] c"hello\00", align 1
+@.str = private unnamed_addr constant [6 x b8] c"hello\00", align 1
 
 define noalias ptr @malloc_nonconstant_size(i64 %n) {
 ; CHECK-LABEL: @malloc_nonconstant_size(

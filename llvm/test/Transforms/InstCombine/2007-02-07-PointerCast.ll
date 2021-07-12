@@ -6,13 +6,13 @@
 ; compile a kernel though...
 
 target datalayout = "e-p:32:32"
-@str = internal constant [6 x i8] c"%llx\0A\00"         ; <ptr> [#uses=1]
+@str = internal constant [6 x b8] c"%llx\0A\00"         ; <ptr> [#uses=1]
 
 declare i32 @printf(ptr, ...)
 
 define i32 @main(i32 %x, ptr %a) {
 entry:
-        %tmp = getelementptr [6 x i8], ptr @str, i32 0, i64 0               ; <ptr> [#uses=1]
+        %tmp = getelementptr [6 x b8], ptr @str, i32 0, i64 0               ; <ptr> [#uses=1]
         %tmp1 = load ptr, ptr %a            ; <ptr> [#uses=1]
         %tmp2 = ptrtoint ptr %tmp1 to i32               ; <i32> [#uses=1]
         %tmp3 = zext i32 %tmp2 to i64           ; <i64> [#uses=1]
