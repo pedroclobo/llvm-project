@@ -1080,6 +1080,9 @@ static std::string getMangledTypeStr(Type *Ty, bool &HasUnnamedType) {
       Result += "ppcf128";
       break;
     case Type::X86_AMXTyID:   Result += "x86amx";   break;
+    case Type::ByteTyID:
+      Result += "b" + utostr(cast<ByteType>(Ty)->getBitWidth());
+      break;
     case Type::IntegerTyID:
       Result += "i" + utostr(cast<IntegerType>(Ty)->getBitWidth());
       break;

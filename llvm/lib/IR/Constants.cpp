@@ -92,6 +92,10 @@ bool Constant::isNullValue() const {
   if (const ConstantInt *CI = dyn_cast<ConstantInt>(this))
     return CI->isZero();
 
+  // 0 is null.
+  if (const ConstantByte *CB = dyn_cast<ConstantByte>(this))
+    return CB->isZero();
+
   // +0.0 is null.
   if (const ConstantFP *CFP = dyn_cast<ConstantFP>(this))
     // ppc_fp128 determine isZero using high order double only
@@ -108,6 +112,10 @@ bool Constant::isAllOnesValue() const {
   // Check for -1 integers
   if (const ConstantInt *CI = dyn_cast<ConstantInt>(this))
     return CI->isMinusOne();
+
+  // Check for MaxValue bytes
+  if (const ConstantByte *CB = dyn_cast<ConstantByte>(this))
+    return CB->isMaxValue();
 
   // Check for FP which are bitcasted from -1 integers
   if (const ConstantFP *CFP = dyn_cast<ConstantFP>(this))
@@ -126,6 +134,10 @@ bool Constant::isOneValue() const {
   if (const ConstantInt *CI = dyn_cast<ConstantInt>(this))
     return CI->isOne();
 
+  // Check for 1 bytes
+  if (const ConstantByte *CB = dyn_cast<ConstantByte>(this))
+    return CB->isMaxValue();
+
   // Check for FP which are bitcasted from 1 integers
   if (const ConstantFP *CFP = dyn_cast<ConstantFP>(this))
     return CFP->getValueAPF().bitcastToAPInt().isOne();
@@ -142,6 +154,10 @@ bool Constant::isNotOneValue() const {
   // Check for 1 integers
   if (const ConstantInt *CI = dyn_cast<ConstantInt>(this))
     return !CI->isOneValue();
+
+  // Check for 1 bytes
+  if (const ConstantByte *CB = dyn_cast<ConstantByte>(this))
+    return !CB->isOneValue();
 
   // Check for FP which are bitcasted from 1 integers
   if (const ConstantFP *CFP = dyn_cast<ConstantFP>(this))
@@ -369,6 +385,8 @@ bool Constant::containsConstantExpression() const {
 /// Constructor to create a '0' constant of arbitrary type.
 Constant *Constant::getNullValue(Type *Ty) {
   switch (Ty->getTypeID()) {
+  case Type::ByteTyID:
+    return ConstantByte::get(Ty, 0);
   case Type::IntegerTyID:
     return ConstantInt::get(Ty, 0);
   case Type::HalfTyID:
@@ -407,6 +425,10 @@ Constant *Constant::getIntegerValue(Type *Ty, const APInt &V) {
   if (PointerType *PTy = dyn_cast<PointerType>(ScalarTy))
     C = ConstantExpr::getIntToPtr(C, PTy);
 
+  // Convert an integer to a byte, if necessary.
+  if (ByteType *BTy = dyn_cast<ByteType>(ScalarTy))
+    C = ConstantExpr::getBitCast(C, BTy);
+
   // Broadcast a scalar to a vector, if necessary.
   if (VectorType *VTy = dyn_cast<VectorType>(Ty))
     C = ConstantVector::getSplat(VTy->getElementCount(), C);
@@ -423,6 +445,10 @@ Constant *Constant::getAllOnesValue(Type *Ty) {
     APFloat FL = APFloat::getAllOnesValue(Ty->getFltSemantics());
     return ConstantFP::get(Ty->getContext(), FL);
   }
+
+  if (ByteType *BTy = dyn_cast<ByteType>(Ty))
+    return ConstantByte::get(Ty->getContext(),
+                             APInt::getAllOnes(BTy->getBitWidth()));
 
   VectorType *VTy = cast<VectorType>(Ty);
   return ConstantVector::getSplat(VTy->getElementCount(),
@@ -513,6 +539,9 @@ void llvm::deleteConstant(Constant *C) {
   switch (C->getValueID()) {
   case Constant::ConstantIntVal:
     delete static_cast<ConstantInt *>(C);
+    break;
+  case Constant::ConstantByteVal:
+    delete static_cast<ConstantByte *>(C);
     break;
   case Constant::ConstantFPVal:
     delete static_cast<ConstantFP *>(C);
@@ -954,6 +983,89 @@ ConstantInt *ConstantInt::get(IntegerType* Ty, StringRef Str, uint8_t radix) {
 /// Remove the constant from the constant table.
 void ConstantInt::destroyConstantImpl() {
   llvm_unreachable("You can't ConstantInt->destroyConstantImpl()!");
+}
+
+//===----------------------------------------------------------------------===//
+//                               ConstantByte
+//===----------------------------------------------------------------------===//
+
+ConstantByte::ConstantByte(Type *Ty, const APInt &V)
+    : ConstantData(Ty, ConstantByteVal), Val(V) {
+  assert(V.getBitWidth() ==
+             cast<ByteType>(Ty->getScalarType())->getBitWidth() &&
+         "Invalid constant for type");
+}
+
+// Get a ConstantByte from an APInt.
+ConstantByte *ConstantByte::get(LLVMContext &Context, const APInt &V) {
+  // get an existing value or the insertion position
+  LLVMContextImpl *pImpl = Context.pImpl;
+  std::unique_ptr<ConstantByte> &Slot =
+      V.isZero()  ? pImpl->ByteZeroConstants[V.getBitWidth()]
+      : V.isOne() ? pImpl->ByteOneConstants[V.getBitWidth()]
+                  : pImpl->ByteConstants[V];
+  if (!Slot) {
+    // Get the corresponding byte type for the bit width of the value.
+    ByteType *BTy = ByteType::get(Context, V.getBitWidth());
+    Slot.reset(new ConstantByte(BTy, V));
+  }
+  assert(Slot->getType() == ByteType::get(Context, V.getBitWidth()));
+  return Slot.get();
+}
+
+// Get a ConstantByte vector with each lane set to the same APInt.
+ConstantByte *ConstantByte::get(LLVMContext &Context, ElementCount EC,
+                                const APInt &V) {
+  // Get an existing value or the insertion position.
+  std::unique_ptr<ConstantByte> &Slot =
+      Context.pImpl->ByteSplatConstants[std::make_pair(EC, V)];
+  if (!Slot) {
+    ByteType *BTy = ByteType::get(Context, V.getBitWidth());
+    VectorType *VTy = VectorType::get(BTy, EC);
+    Slot.reset(new ConstantByte(VTy, V));
+  }
+
+#ifndef NDEBUG
+  ByteType *BTy = ByteType::get(Context, V.getBitWidth());
+  VectorType *VTy = VectorType::get(BTy, EC);
+  assert(Slot->getType() == VTy);
+#endif
+  return Slot.get();
+}
+
+Constant *ConstantByte::get(Type *Ty, uint64_t V) {
+  Constant *C = get(cast<ByteType>(Ty->getScalarType()), V);
+
+  // For vectors, broadcast the value.
+  if (VectorType *VTy = dyn_cast<VectorType>(Ty))
+    return ConstantVector::getSplat(VTy->getElementCount(), C);
+
+  return C;
+}
+
+ConstantByte *ConstantByte::get(ByteType *Ty, uint64_t V) {
+  return get(Ty->getContext(), APInt(Ty->getBitWidth(), V));
+}
+
+Constant *ConstantByte::get(Type *Ty, const APInt& V) {
+  ConstantByte *C = get(Ty->getContext(), V);
+  assert(C->getType() == Ty->getScalarType() &&
+         "ConstantByte type doesn't match the type implied by its value!");
+
+  // For vectors, broadcast the value.
+  if (VectorType *VTy = dyn_cast<VectorType>(Ty))
+    return ConstantVector::getSplat(VTy->getElementCount(), C);
+
+  return C;
+}
+
+ConstantByte *ConstantByte::get(ByteType* Ty, StringRef Str, uint8_t radix) {
+  return get(Ty->getContext(), APInt(Ty->getBitWidth(), Str, radix));
+}
+
+/// Remove the constant from the constant table.
+void ConstantByte::destroyConstantImpl() {
+  llvm_unreachable("You can't ConstantByte->destroyConstantImpl()!");
 }
 
 //===----------------------------------------------------------------------===//
