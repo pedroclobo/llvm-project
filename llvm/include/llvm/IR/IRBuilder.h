@@ -507,6 +507,11 @@ public:
   // Type creation methods
   //===--------------------------------------------------------------------===//
 
+  /// Fetch the type representing an 8-bit byte.
+  ByteType *getByte8Ty() {
+    return Type::getByte8Ty(Context);
+  }
+
   /// Fetch the type representing a single bit
   IntegerType *getInt1Ty() {
     return Type::getInt1Ty(Context);
@@ -568,6 +573,12 @@ public:
   /// Fetch the type representing a pointer.
   PointerType *getPtrTy(unsigned AddrSpace = 0) {
     return PointerType::get(Context, AddrSpace);
+  }
+
+  /// Fetch the type of a byte with size at least as big as that of a
+  /// pointer in the given address space.
+  ByteType *getBytePtrTy(const DataLayout &DL, unsigned AddrSpace = 0) {
+    return DL.getBytePtrType(Context, AddrSpace);
   }
 
   /// Fetch the type of an integer with size at least as big as that of a

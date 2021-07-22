@@ -548,6 +548,10 @@ public:
   /// This is always at least as good as the ABI alignment.
   Align getPrefTypeAlign(Type *Ty) const;
 
+  /// Returns a byte type with size at least as big as that of a
+  /// pointer in the given address space.
+  ByteType *getBytePtrType(LLVMContext &C, unsigned AddressSpace = 0) const;
+
   /// Returns an integer type with size at least as big as that of a
   /// pointer in the given address space.
   IntegerType *getIntPtrType(LLVMContext &C, unsigned AddressSpace = 0) const;
@@ -685,6 +689,8 @@ inline TypeSize DataLayout::getTypeSizeInBits(Type *Ty) const {
   case Type::StructTyID:
     // Get the layout annotation... which is lazily created on demand.
     return getStructLayout(cast<StructType>(Ty))->getSizeInBits();
+  case Type::ByteTyID:
+    return TypeSize::getFixed(Ty->getByteBitWidth());
   case Type::IntegerTyID:
     return TypeSize::getFixed(Ty->getIntegerBitWidth());
   case Type::HalfTyID:

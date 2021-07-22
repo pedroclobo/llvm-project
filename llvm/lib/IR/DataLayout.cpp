@@ -811,6 +811,9 @@ Align DataLayout::getAlignment(Type *Ty, bool abi_or_pref) const {
         abi_or_pref ? StructAlignment.ABIAlign : StructAlignment.PrefAlign;
     return std::max(Align, Layout->getAlignment());
   }
+  case Type::ByteTyID:
+    // Byte type has the same alignment as integer.
+    return getIntegerAlignment(Ty->getByteBitWidth(), abi_or_pref);
   case Type::IntegerTyID:
     return getIntegerAlignment(Ty->getIntegerBitWidth(), abi_or_pref);
   case Type::HalfTyID:

@@ -369,6 +369,14 @@ bool Constant::containsConstantExpression() const {
 /// Constructor to create a '0' constant of arbitrary type.
 Constant *Constant::getNullValue(Type *Ty) {
   switch (Ty->getTypeID()) {
+  case Type::ByteTyID: {
+    // Since byte constants do not exist, we use a constant expression instead,
+    // for example:
+    //   %constant = bitcast i8 %value to b8
+    Constant *C = getNullValue(
+        llvm::Type::getIntNTy(Ty->getContext(), Ty->getByteBitWidth()));
+    return ConstantExpr::getBitCast(C, Ty);
+  }
   case Type::IntegerTyID:
     return ConstantInt::get(Ty, 0);
   case Type::HalfTyID:
@@ -407,6 +415,10 @@ Constant *Constant::getIntegerValue(Type *Ty, const APInt &V) {
   if (PointerType *PTy = dyn_cast<PointerType>(ScalarTy))
     C = ConstantExpr::getIntToPtr(C, PTy);
 
+  // Convert an integer to a byte, if necessary.
+  if (ByteType *BTy = dyn_cast<ByteType>(ScalarTy))
+    C = ConstantExpr::getBitCast(C, BTy);
+
   // Broadcast a scalar to a vector, if necessary.
   if (VectorType *VTy = dyn_cast<VectorType>(Ty))
     C = ConstantVector::getSplat(VTy->getElementCount(), C);
@@ -422,6 +434,12 @@ Constant *Constant::getAllOnesValue(Type *Ty) {
   if (Ty->isFloatingPointTy()) {
     APFloat FL = APFloat::getAllOnesValue(Ty->getFltSemantics());
     return ConstantFP::get(Ty->getContext(), FL);
+  }
+
+  if (ByteType *BTy = dyn_cast<ByteType>(Ty)) {
+    Constant *C = ConstantInt::get(BTy->getContext(),
+                                   APInt::getAllOnes(BTy->getBitWidth()));
+    return ConstantExpr::getBitCast(C, BTy);
   }
 
   VectorType *VTy = cast<VectorType>(Ty);
