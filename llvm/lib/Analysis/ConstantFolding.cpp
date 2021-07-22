@@ -290,7 +290,9 @@ Constant *FoldBitCast(Constant *C, Type *DestTy, const DataLayout &DL) {
       ShiftAmt += isLittleEndian ? DstBitSize : -DstBitSize;
 
       // Truncate and remember this piece.
-      Result.push_back(ConstantInt::get(DstEltTy, Elt.trunc(DstBitSize)));
+      DstEltTy->isByteTy() ?
+        Result.push_back(ConstantByte::get(DstEltTy, Elt.trunc(DstBitSize))) :
+        Result.push_back(ConstantInt::get(DstEltTy, Elt.trunc(DstBitSize)));
     }
   }
 
