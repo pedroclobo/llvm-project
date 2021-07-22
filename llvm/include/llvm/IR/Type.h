@@ -26,6 +26,7 @@
 
 namespace llvm {
 
+class ByteType;
 class IntegerType;
 struct fltSemantics;
 class LLVMContext;
@@ -67,6 +68,7 @@ public:
     TokenTyID,     ///< Tokens
 
     // Derived types... see DerivedTypes.h file.
+    ByteTyID,           ///< Arbitrary bit width bytes
     IntegerTyID,        ///< Arbitrary bit width integers
     FunctionTyID,       ///< Functions
     PointerTyID,        ///< Pointers
@@ -233,6 +235,21 @@ public:
   /// Return true if this is 'token'.
   bool isTokenTy() const { return getTypeID() == TokenTyID; }
 
+  /// True if this is an instance of ByteType.
+  bool isByteTy() const { return getTypeID() == ByteTyID; }
+
+  /// Return true if this is an ByteType of the given width.
+  bool isByteTy(unsigned BitWidth) const;
+
+  /// Return true if this is a byte type or a vector of byte types.
+  bool isByteOrByteVectorTy() const { return getScalarType()->isByteTy(); }
+
+  /// Return true if this is an integer type or a vector of integer types of
+  /// the given width.
+  bool isByteOrByteVectorTy(unsigned BitWidth) const {
+    return getScalarType()->isByteTy(BitWidth);
+  }
+
   /// True if this is an instance of IntegerType.
   bool isIntegerTy() const { return getTypeID() == IntegerTyID; }
 
@@ -294,7 +311,7 @@ public:
   /// includes all first-class types except struct and array types.
   bool isSingleValueType() const {
     return isFloatingPointTy() || isIntegerTy() || isPointerTy() ||
-           isVectorTy() || isX86_AMXTy() || isTargetExtTy();
+           isVectorTy() || isX86_AMXTy() || isTargetExtTy() || isByteTy();
   }
 
   /// Return true if the type is an aggregate type. This means it is valid as
@@ -310,7 +327,8 @@ public:
   bool isSized(SmallPtrSetImpl<Type*> *Visited = nullptr) const {
     // If it's a primitive, it is always sized.
     if (getTypeID() == IntegerTyID || isFloatingPointTy() ||
-        getTypeID() == PointerTyID || getTypeID() == X86_AMXTyID)
+        getTypeID() == PointerTyID || getTypeID() == X86_AMXTyID ||
+        getTypeID() == ByteTyID)
       return true;
     // If it is not something that can have a size (e.g. a function or label),
     // it doesn't have a size.
@@ -392,6 +410,7 @@ public:
   // only intended to cover the core methods that are frequently used, helper
   // methods should not be added here.
 
+  inline unsigned getByteBitWidth() const;
   inline unsigned getIntegerBitWidth() const;
 
   inline Type *getFunctionParamType(unsigned i) const;
@@ -450,6 +469,13 @@ public:
   static Type *getPPC_FP128Ty(LLVMContext &C);
   static Type *getX86_AMXTy(LLVMContext &C);
   static Type *getTokenTy(LLVMContext &C);
+  static ByteType *getByteNTy(LLVMContext &C, unsigned N);
+  static ByteType *getByte1Ty(LLVMContext &C);
+  static ByteType *getByte8Ty(LLVMContext &C);
+  static ByteType *getByte16Ty(LLVMContext &C);
+  static ByteType *getByte32Ty(LLVMContext &C);
+  static ByteType *getByte64Ty(LLVMContext &C);
+  static ByteType *getByte128Ty(LLVMContext &C);
   static IntegerType *getIntNTy(LLVMContext &C, unsigned N);
   static IntegerType *getInt1Ty(LLVMContext &C);
   static IntegerType *getInt8Ty(LLVMContext &C);
