@@ -1,0 +1,61 @@
+; RUN: llvm-as < %s | llvm-dis | llvm-as | llvm-dis | FileCheck %s
+; RUN: verify-uselistorder %s
+
+; CHECK: common global [32 x b8] zeroinitializer
+; CHECK: constant [1 x b8] zeroinitializer
+; CHECK: constant [15 x b8] c"Hello, World!\0A\00"
+; CHECK: constant [15 x b8] c"Hello, World!\0A\00"
+@a = common global [32 x b8] zeroinitializer, align 1
+@b = constant [1 x b8] zeroinitializer
+@c = constant [15 x b8] [b8 72, b8 101, b8 108, b8 108, b8 111, b8 44, b8 32,  b8 87, b8 111, b8 114, b8 108, b8 100, b8 33,  b8 10, b8 0]
+@d = constant [15 x b8] c"Hello, World!\0A\00"
+
+; CHECK: @bytes(b1 %{{.*}}, b8 %{{.*}}, b16 %{{.*}}, b32 %{{.*}}, b64 %{{.*}}, b128 %{{.*}})
+define void @bytes(b1 %a, b8 %b, b16 %c, b32 %d, b64 %e, b128 %f) {
+  ret void
+}
+
+; CHECK-LABEL: byte_alloca
+; CHECK: alloca b8
+; CHECK: alloca b64
+define void @byte_alloca() {
+  %b1 = alloca b8, align 1
+  %b8 = alloca b64, align 8
+  ret void
+}
+
+; CHECK-LABEL: byte_load
+; CHECK: load b8, ptr %{{.*}}
+define void @byte_load(ptr %ptr) {
+  %v = load b8, ptr %ptr, align 1
+  ret void
+}
+
+; CHECK-LABEL: byte_store
+; CHECK: store b8 %{{.*}}, ptr %{{.*}}
+define void @byte_store(b8 %v, ptr %ptr) {
+  store b8 %v, ptr %ptr, align 1
+  ret void
+}
+
+; CHECK-LABEL: bitcasts
+; CHECK: bitcast ptr %{{.*}} to b64
+; CHECK: bitcast i64 %{{.*}} to b64
+; CHECK: bitcast b64 %{{.*}} to <8 x b8>
+; CHECK: bitcast <8 x b8> %{{.*}} to <2 x b32>
+; CHECK: bitcast <2 x b32> %{{.*}} to b64
+define void @bitcasts(i64 %i, b64 %s, ptr %p) {
+  %1 = bitcast ptr %p to b64
+  %2 = bitcast i64 %i to b64
+  %3 = bitcast b64 %s to <8 x b8>
+  %4 = bitcast <8 x b8> %3 to <2 x b32>
+  %5 = bitcast <2 x b32> %4 to b64
+  ret void
+}
+
+; CHECK-LABEL: byte_constant
+; CHECK: store b8 0, ptr %{{.*}}
+define void @byte_constant(ptr %ptr) {
+  store b8 0, ptr %ptr, align 1
+  ret void
+}
