@@ -3184,6 +3184,9 @@ bool CastInst::isBitCastable(Type *SrcTy, Type *DestTy) {
   if (SrcBits != DestBits)
     return false;
 
+  if (SrcTy->isByteOrByteVectorTy() && !DestTy->isByteOrByteVectorTy())
+    return false;
+
   return true;
 }
 
@@ -3234,7 +3237,16 @@ CastInst::getCastOpcode(
   unsigned DestBits = DestTy->getPrimitiveSizeInBits(); // 0 for ptr
 
   // Run through the possibilities ...
-  if (DestTy->isIntegerTy()) {                      // Casting to integral
+  if (DestTy->isByteTy()) {                         // Casting to byte
+    if (SrcTy->isIntegerTy()) {                     // Casting from integral
+      assert(DestBits == SrcBits && "Illegal cast from integer to byte type");
+      return BitCast;
+    } else if (SrcTy->isPointerTy()) {              // Casting from pointer
+      assert(DestBits == SrcBits && "Illegal cast from pointer to byte type");
+      return BitCast;
+    }
+    llvm_unreachable("Illegal cast to byte type");
+  } else if (DestTy->isIntegerTy()) {               // Casting to integral
     if (SrcTy->isIntegerTy()) {                     // Casting from integral
       if (DestBits < SrcBits)
         return Trunc;                               // int -> smaller int
@@ -3365,8 +3377,14 @@ CastInst::castIsValid(Instruction::CastOps op, Type *SrcTy, Type *DstTy) {
     PointerType *SrcPtrTy = dyn_cast<PointerType>(SrcTy->getScalarType());
     PointerType *DstPtrTy = dyn_cast<PointerType>(DstTy->getScalarType());
 
+    // Bytes can only be cast to bytes.
+    if (SrcTy->isByteOrByteVectorTy() && !DstTy->isByteOrByteVectorTy())
+      return false;
+
     // BitCast implies a no-op cast of type only. No bits change.
-    // However, you can't cast pointers to anything but pointers.
+    // However, you can't cast pointers to anything but pointers/bytes.
+    if (SrcPtrTy && DstTy->isByteOrByteVectorTy())
+      return true;
     if (!SrcPtrTy != !DstPtrTy)
       return false;
 
@@ -3378,6 +3396,10 @@ CastInst::castIsValid(Instruction::CastOps op, Type *SrcTy, Type *DstTy) {
     // If both are pointers then the address spaces must match.
     if (SrcPtrTy->getAddressSpace() != DstPtrTy->getAddressSpace())
       return false;
+
+    // Integers can be cast to bytes of the same size.
+    if (SrcTy->isIntOrIntVectorTy() && DstTy->isByteOrByteVectorTy())
+      return SrcScalarBitSize == DstScalarBitSize;
 
     // A vector of pointers must have the same number of elements.
     if (SrcIsVec && DstIsVec)
