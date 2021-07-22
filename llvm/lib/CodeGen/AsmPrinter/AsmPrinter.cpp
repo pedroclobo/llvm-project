@@ -3585,6 +3585,9 @@ const MCExpr *AsmPrinter::lowerConstant(const Constant *CV,
   if (const ConstantInt *CI = dyn_cast<ConstantInt>(CV))
     return MCConstantExpr::create(CI->getZExtValue(), Ctx);
 
+  if (const ConstantByte *CB = dyn_cast<ConstantByte>(CV))
+    return MCConstantExpr::create(CB->getZExtValue(), Ctx);
+
   if (const ConstantPtrAuth *CPA = dyn_cast<ConstantPtrAuth>(CV))
     return lowerConstantPtrAuth(*CPA);
 
@@ -3840,7 +3843,8 @@ static void emitGlobalConstantDataSequential(
 
   // Otherwise, emit the values in successive locations.
   uint64_t ElementByteSize = CDS->getElementByteSize();
-  if (isa<IntegerType>(CDS->getElementType())) {
+  if (isa<IntegerType>(CDS->getElementType()) ||
+      isa<ByteType>(CDS->getElementType())) {
     for (uint64_t I = 0, E = CDS->getNumElements(); I != E; ++I) {
       emitGlobalAliasInline(AP, ElementByteSize * I, AliasList);
       if (AP.isVerbose())

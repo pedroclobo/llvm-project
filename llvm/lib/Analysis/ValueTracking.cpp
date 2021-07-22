@@ -2311,6 +2311,9 @@ void computeKnownBits(const Value *V, const APInt &DemandedElts,
   if (isa<UndefValue>(V))
     return;
 
+  if (isa<ConstantByte>(V))
+    return;
+
   // There's no point in looking through other users of ConstantData for
   // assumptions.  Confirm that we've handled them all.
   assert(!isa<ConstantData>(V) && "Unhandled constant data!");
