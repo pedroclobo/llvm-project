@@ -286,6 +286,7 @@ public:
     VectorTy,
     TokenTy,
     IntegerTy,
+    ByteTy,
     FunctionTy,
     PointerTy,
     StructTy,
@@ -450,7 +451,8 @@ private:
   /// String mappings for CanonicalTypeID values
   static constexpr StringLiteral CanonicalTypeNames[] = {
       "FloatTy",   "VoidTy",   "LabelTy",   "MetadataTy",
-      "VectorTy",  "TokenTy",  "IntegerTy", "FunctionTy",
+      "VectorTy",  "TokenTy",  "IntegerTy", "ByteTy",
+      "FunctionTy",
       "PointerTy", "StructTy", "ArrayTy",   "UnknownTy"};
   static_assert(std::size(CanonicalTypeNames) ==
                     static_cast<unsigned>(CanonicalTypeID::MaxCanonicalType),
@@ -478,6 +480,7 @@ private:
       CanonicalTypeID::MetadataTy, // MetadataTyID
       CanonicalTypeID::VectorTy,   // X86_AMXTyID
       CanonicalTypeID::TokenTy,    // TokenTyID
+      CanonicalTypeID::ByteTy,     // ByteTyID
       CanonicalTypeID::IntegerTy,  // IntegerTyID
       CanonicalTypeID::FunctionTy, // FunctionTyID
       CanonicalTypeID::PointerTy,  // PointerTyID
