@@ -3943,6 +3943,24 @@ void SelectionDAGBuilder::visitAddrSpaceCast(const User &I) {
   setValue(&I, N);
 }
 
+void SelectionDAGBuilder::visitByteCast(const User &I) {
+  SDNodeFlags Flags;
+  if (auto *ExactOp = dyn_cast<PossiblyExactOperator>(&I))
+    Flags.setExact(ExactOp->isExact());
+
+  SDValue N = getValue(I.getOperand(0));
+  SDLoc dl = getCurSDLoc();
+  EVT DestVT = DAG.getTargetLoweringInfo().getValueType(DAG.getDataLayout(),
+                                                        I.getType());
+
+  if (DestVT != N.getValueType())
+    // Convert vector types.
+    setValue(&I, DAG.getNode(ISD::BITCAST, dl, DestVT, N));
+  else
+    // No-op cast.
+    setValue(&I, N);
+}
+
 void SelectionDAGBuilder::visitInsertElement(const User &I) {
   const TargetLowering &TLI = DAG.getTargetLoweringInfo();
   SDValue InVec = getValue(I.getOperand(0));
