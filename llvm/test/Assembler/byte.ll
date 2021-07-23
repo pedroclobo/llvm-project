@@ -59,3 +59,49 @@ define void @byte_constant(ptr %ptr) {
   store b8 0, ptr %ptr, align 1
   ret void
 }
+
+; CHECK-LABEL: bytecasts
+; CHECK: bytecast b8 %{{.*}} to i8
+; CHECK: bytecast b16 %{{.*}} to i16
+; CHECK: bytecast b32 %{{.*}} to i32
+; CHECK: bytecast b64 %{{.*}} to i64
+; CHECK: bytecast b64 %{{.*}} to ptr
+; CHECK: bytecast b16 %{{.*}} to half
+; CHECK: bytecast b32 %{{.*}} to float
+; CHECK: bytecast b64 %{{.*}} to double
+; CHECK: bytecast b32 %{{.*}} to i8
+; CHECK: bytecast b64 %{{.*}} to half
+; CHECK: bytecast b128 %{{.*}} to ptr
+; CHECK: bytecast exact b8 %{{.*}} to i8
+define void @bytecasts(b8 %b1, b16 %b2, b32 %b3, b64 %b4, b128 %b5) {
+  %1 = bytecast b8 %b1 to i8
+  %2 = bytecast b16 %b2 to i16
+  %3 = bytecast b32 %b3 to i32
+  %4 = bytecast b64 %b4 to i64
+  %5 = bytecast b64 %b4 to ptr
+  %6 = bytecast b16 %b2 to half
+  %7 = bytecast b32 %b3 to float
+  %8 = bytecast b64 %b4 to double
+  %9 = bytecast b32 %b3 to i8
+  %10 = bytecast b64 %b4 to half
+  %11 = bytecast b128 %b5 to ptr
+  %12 = bytecast exact b8 %b1 to i8
+  ret void
+}
+
+; CHECK-LABEL: vector_bytecasts
+; CHECK: bytecast <4 x b64> %{{.*}} to <4 x i64>
+; CHECK: bytecast <4 x b64> %{{.*}} to <4 x double>
+; CHECK: bytecast <4 x b64> %{{.*}} to <4 x ptr>
+; CHECK: bytecast <4 x b128> %{{.*}} to <4 x i32>
+; CHECK: bytecast <4 x b128> %{{.*}} to <4 x float>
+; CHECK: bytecast <4 x b128> %{{.*}} to <4 x ptr>
+define void @vector_bytecasts(<4 x b64> %b1, <4 x b128> %b2) {
+  %1 = bytecast <4 x b64> %b1 to <4 x i64>
+  %2 = bytecast <4 x b64> %b1 to <4 x double>
+  %3 = bytecast <4 x b64> %b1 to <4 x ptr>
+  %4 = bytecast <4 x b128> %b2 to <4 x i32>
+  %5 = bytecast <4 x b128> %b2 to <4 x float>
+  %6 = bytecast <4 x b128> %b2 to <4 x ptr>
+  ret void
+}

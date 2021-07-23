@@ -3992,6 +3992,43 @@ void SelectionDAGBuilder::visitAddrSpaceCast(const User &I) {
   setValue(&I, N);
 }
 
+// TODO: what about the flags?
+void SelectionDAGBuilder::visitByteCast(const User &I) {
+  SDNodeFlags Flags;
+  if (auto *ExactOp = dyn_cast<PossiblyExactOperator>(&I))
+    Flags.setExact(ExactOp->isExact());
+
+  SDValue N = getValue(I.getOperand(0));
+  SDLoc dl = getCurSDLoc();
+  const TargetLowering &TLI = DAG.getTargetLoweringInfo();
+  EVT DestVT = TLI.getValueType(DAG.getDataLayout(), I.getType());
+
+  // noop cast
+  if (DestVT == N.getValueType()) {
+    setValue(&I, N);
+    return;
+  }
+
+  unsigned SrcBits = N.getValueType().getScalarSizeInBits();
+  unsigned DestBits = DestVT.getScalarSizeInBits();
+  assert(SrcBits >= DestBits && "Invalid bytecast");
+
+  if (DestVT.isInteger())
+    N = DAG.getZExtOrTrunc(N, dl, DestVT);
+  else if (DestVT.isFloatingPoint()) {
+    if (SrcBits == DestBits) {
+      N = DAG.getNode(ISD::UINT_TO_FP, dl, DestVT, N);
+    } else {
+      // TODO: handle vectors
+      EVT FPVT = EVT::getFloatingPointVT(SrcBits);
+      N = DAG.getNode(ISD::UINT_TO_FP, dl, FPVT, N);
+      N = DAG.getFPExtendOrRound(N, dl, DestVT);
+    }
+  }
+
+  setValue(&I, N);
+}
+
 void SelectionDAGBuilder::visitInsertElement(const User &I) {
   const TargetLowering &TLI = DAG.getTargetLoweringInfo();
   SDValue InVec = getValue(I.getOperand(0));
