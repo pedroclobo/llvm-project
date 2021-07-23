@@ -1225,6 +1225,9 @@ public:
           SrcSize == DstSize)
         return 0;
       break;
+    case Instruction::ByteCast:
+      return 0;
+      break;
     case Instruction::FPExt:
       if (I && getTLI()->isExtFree(I))
         return 0;

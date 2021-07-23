@@ -8217,6 +8217,7 @@ static bool passingValueIsAlwaysUndefined(Value *V, Instruction *I, bool PtrValu
       case Instruction::GetElementPtr:
       case Instruction::Ret:
       case Instruction::BitCast:
+      case Instruction::ByteCast:
       case Instruction::Load:
       case Instruction::Store:
       case Instruction::Call:
