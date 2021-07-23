@@ -433,6 +433,7 @@ public:
     case Instruction::PtrToAddr:
     case Instruction::IntToPtr:
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::AddrSpaceCast:
     case Instruction::Select:
     case Instruction::ExtractElement:

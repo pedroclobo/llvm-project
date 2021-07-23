@@ -576,6 +576,7 @@ private:
   void visitPtrToIntInst(PtrToIntInst &I);
   void visitBitCastInst(BitCastInst &I);
   void visitAddrSpaceCastInst(AddrSpaceCastInst &I);
+  void visitByteCastInst(ByteCastInst &I);
   void visitPHINode(PHINode &PN);
   void visitCallBase(CallBase &Call);
   void visitUnaryOperator(UnaryOperator &U);
@@ -3803,6 +3804,13 @@ void Verifier::visitAddrSpaceCastInst(AddrSpaceCastInst &I) {
   visitInstruction(I);
 }
 
+void Verifier::visitByteCastInst(ByteCastInst &I) {
+  Check(CastInst::castIsValid(Instruction::ByteCast, I.getOperand(0),
+                              I.getType()),
+        "Invalid bytecast", &I);
+  visitInstruction(I);
+}
+
 /// visitPHINode - Ensure that a PHI node is well formed.
 ///
 void Verifier::visitPHINode(PHINode &PN) {
@@ -4363,8 +4371,9 @@ void Verifier::visitBinaryOperator(BinaryOperator &B) {
   case Instruction::Shl:
   case Instruction::LShr:
   case Instruction::AShr:
-    Check(B.getType()->isIntOrIntVectorTy(),
-          "Shifts only work with integral types!", &B);
+    Check(B.getType()->isIntOrIntVectorTy() ||
+              B.getType()->isByteOrByteVectorTy(),
+          "Shifts only work with integral/byte types!", &B);
     Check(B.getType() == B.getOperand(0)->getType(),
           "Shift return type must be same as operands!", &B);
     break;

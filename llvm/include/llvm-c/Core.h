@@ -58,6 +58,7 @@ LLVM_C_EXTERN_C_BEGIN
 
 /// External users depend on the following values being stable. It is not safe
 /// to reorder them.
+// clang-format off
 typedef enum {
   /* Terminator Instructions */
   LLVMRet            = 1,
@@ -115,6 +116,7 @@ typedef enum {
   LLVMIntToPtr       = 40,
   LLVMBitCast        = 41,
   LLVMAddrSpaceCast  = 60,
+  LLVMByteCast       = 70,
 
   /* Other Operators */
   LLVMICmp           = 42,
@@ -146,6 +148,7 @@ typedef enum {
   LLVMCleanupPad     = 64,
   LLVMCatchSwitch    = 65
 } LLVMOpcode;
+// clang-format on
 
 typedef enum {
   LLVMVoidTypeKind = 0,     /**< type with no size */
@@ -5043,6 +5046,8 @@ LLVM_C_ABI LLVMValueRef LLVMBuildIntToPtr(LLVMBuilderRef, LLVMValueRef Val,
                                           LLVMTypeRef DestTy, const char *Name);
 LLVM_C_ABI LLVMValueRef LLVMBuildBitCast(LLVMBuilderRef, LLVMValueRef Val,
                                          LLVMTypeRef DestTy, const char *Name);
+LLVM_C_ABI LLVMValueRef LLVMBuildByteCast(LLVMBuilderRef, LLVMValueRef Val,
+                                          LLVMTypeRef DestTy, const char *Name);
 LLVM_C_ABI LLVMValueRef LLVMBuildAddrSpaceCast(LLVMBuilderRef, LLVMValueRef Val,
                                                LLVMTypeRef DestTy,
                                                const char *Name);
