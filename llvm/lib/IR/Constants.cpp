@@ -1725,6 +1725,7 @@ Constant *ConstantExpr::getWithOperands(ArrayRef<Constant *> Ops, Type *Ty,
   case Instruction::PtrToInt:
   case Instruction::IntToPtr:
   case Instruction::BitCast:
+  case Instruction::ByteCast:
   case Instruction::AddrSpaceCast:
     return ConstantExpr::getCast(getOpcode(), Ops[0], Ty, OnlyIfReduced);
   case Instruction::InsertElement:
@@ -2411,6 +2412,8 @@ Constant *ConstantExpr::getCast(unsigned oc, Constant *C, Type *Ty,
     return getIntToPtr(C, Ty, OnlyIfReduced);
   case Instruction::BitCast:
     return getBitCast(C, Ty, OnlyIfReduced);
+  case Instruction::ByteCast:
+    return getByteCast(C, Ty, OnlyIfReduced);
   case Instruction::AddrSpaceCast:
     return getAddrSpaceCast(C, Ty, OnlyIfReduced);
   }
@@ -2500,6 +2503,13 @@ Constant *ConstantExpr::getBitCast(Constant *C, Type *DstTy,
   if (C->getType() == DstTy) return C;
 
   return getFoldedCast(Instruction::BitCast, C, DstTy, OnlyIfReduced);
+}
+
+Constant *ConstantExpr::getByteCast(Constant *C, Type *DstTy,
+                                    bool OnlyIfReduced) {
+  assert(CastInst::castIsValid(Instruction::ByteCast, C, DstTy) &&
+         "Invalid constantexpr bitcast!");
+  return getFoldedCast(Instruction::ByteCast, C, DstTy, OnlyIfReduced);
 }
 
 Constant *ConstantExpr::getAddrSpaceCast(Constant *C, Type *DstTy,
@@ -2620,6 +2630,7 @@ bool ConstantExpr::isDesirableCastOp(unsigned Opcode) {
   case Instruction::PtrToInt:
   case Instruction::IntToPtr:
   case Instruction::BitCast:
+  case Instruction::ByteCast:
   case Instruction::AddrSpaceCast:
     return true;
   default:
@@ -2642,6 +2653,7 @@ bool ConstantExpr::isSupportedCastOp(unsigned Opcode) {
   case Instruction::PtrToInt:
   case Instruction::IntToPtr:
   case Instruction::BitCast:
+  case Instruction::ByteCast:
   case Instruction::AddrSpaceCast:
     return true;
   default:
