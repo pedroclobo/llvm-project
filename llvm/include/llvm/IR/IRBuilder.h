@@ -2165,6 +2165,20 @@ public:
     return CreateCast(Instruction::AddrSpaceCast, V, DestTy, Name);
   }
 
+  Value *CreateByteCast(Value *V, Type *DestTy, const Twine &Name = "") {
+    return CreateCast(Instruction::ByteCast, V, DestTy, Name);
+  }
+
+  Value *CreateByteCastToInt(Value *V, const Twine &Name = "") {
+    Type *DestTy = getIntNTy(V->getType()->getByteBitWidth());
+    return CreateCast(Instruction::ByteCast, V, DestTy, Name);
+  }
+
+  Value *CreateByteCastToPtr(Value *V, unsigned AddrSpace = 0, const Twine &Name = "") {
+    Type *DestTy = getPtrTy(AddrSpace);
+    return CreateCast(Instruction::ByteCast, V, DestTy, Name);
+  }
+
   Value *CreateZExtOrBitCast(Value *V, Type *DestTy, const Twine &Name = "") {
     Instruction::CastOps CastOp =
         V->getType()->getScalarSizeInBits() == DestTy->getScalarSizeInBits()
