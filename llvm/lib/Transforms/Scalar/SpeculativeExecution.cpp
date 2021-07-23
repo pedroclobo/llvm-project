@@ -228,6 +228,7 @@ static InstructionCost ComputeSpeculationCost(const Instruction *I,
     case Instruction::SExt:
     case Instruction::Call:
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::PtrToInt:
     case Instruction::IntToPtr:
     case Instruction::AddrSpaceCast:

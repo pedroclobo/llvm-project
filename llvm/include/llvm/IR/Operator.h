@@ -150,7 +150,8 @@ struct OperandTraits<OverflowingBinaryOperator>
 DEFINE_TRANSPARENT_OPERAND_ACCESSORS(OverflowingBinaryOperator, Value)
 
 /// A udiv, sdiv, lshr, or ashr instruction, which can be marked as "exact",
-/// indicating that no bits are destroyed.
+/// indicating that no bits are destroyed. A bytecast instruction can also be
+/// marked as "exact", indicating that type punning is not allowed.
 class PossiblyExactOperator : public Operator {
 public:
   enum {
@@ -178,7 +179,8 @@ public:
     return OpC == Instruction::SDiv ||
            OpC == Instruction::UDiv ||
            OpC == Instruction::AShr ||
-           OpC == Instruction::LShr;
+           OpC == Instruction::LShr ||
+           OpC == Instruction::ByteCast;
   }
 
   static bool classof(const Instruction *I) {
@@ -414,6 +416,9 @@ class AShrOperator
 };
 class LShrOperator
   : public ConcreteOperator<PossiblyExactOperator, Instruction::LShr> {
+};
+class ByteCastOperator
+  : public ConcreteOperator<PossiblyExactOperator, Instruction::ByteCast> {
 };
 
 class GEPOperator

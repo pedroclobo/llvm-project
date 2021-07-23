@@ -2228,6 +2228,62 @@ public:
     return CreateCast(Instruction::AddrSpaceCast, V, DestTy, Name);
   }
 
+  Value *CreateByteCast(Value *V, Type *DestTy, const Twine &Name = "",
+                        bool IsExact = false) {
+    if (Value *Folded = Folder.FoldCast(Instruction::ByteCast, V, DestTy))
+      return Folded;
+    Instruction *I = CastInst::Create(Instruction::ByteCast, V, DestTy);
+    if (IsExact)
+      I->setIsExact();
+    return Insert(I, Name);
+  }
+
+  Value *CreateExactByteCast(Value *V, Type *DestTy, const Twine &Name = "") {
+    return CreateByteCast(V, DestTy, Name, true);
+  }
+
+  Value *CreateByteCastToInt(Value *V, const Twine &Name = "",
+                             bool IsExact = false) {
+    if (auto *VTy = dyn_cast<VectorType>(V->getType())) {
+      unsigned NumEls = VTy->getElementCount().getKnownMinValue();
+      unsigned BitWidth = VTy->getElementType()->getPrimitiveSizeInBits();
+
+      Type *DestElTy = getIntNTy(BitWidth);
+      VectorType *DestTy = VectorType::get(DestElTy, NumEls,
+                                           VTy->isScalableTy());
+
+      return CreateByteCast(V, DestTy, Name, IsExact);
+    }
+
+    Type *DestTy = getIntNTy(V->getType()->getByteBitWidth());
+    return CreateByteCast(V, DestTy, Name, IsExact);
+  }
+
+  Value *CreateExactByteCastToInt(Value *V, const Twine &Name = "") {
+    return CreateByteCastToInt(V, Name, true);
+  }
+
+  Value *CreateByteCastToPtr(Value *V, unsigned AddrSpace = 0,
+                             const Twine &Name = "", bool IsExact = false) {
+    if (auto *VTy = dyn_cast<VectorType>(V->getType())) {
+      unsigned NumEls = VTy->getElementCount().getKnownMinValue();
+
+      Type *DestElTy = getPtrTy(AddrSpace);
+      VectorType *DestTy = VectorType::get(DestElTy, NumEls,
+                                           VTy->isScalableTy());
+
+      return CreateByteCast(V, DestTy, Name, IsExact);
+    }
+
+    Type *DestTy = getPtrTy(AddrSpace);
+    return CreateByteCast(V, DestTy, Name, IsExact);
+  }
+
+  Value *CreateExactByteCastToPtr(Value *V, unsigned AddrSpace = 0,
+                                  const Twine &Name = "") {
+    return CreateByteCastToPtr(V, AddrSpace, Name, true);
+  }
+
   Value *CreateZExtOrBitCast(Value *V, Type *DestTy, const Twine &Name = "") {
     Instruction::CastOps CastOp =
         V->getType()->getScalarSizeInBits() == DestTy->getScalarSizeInBits()
@@ -2250,6 +2306,22 @@ public:
             ? Instruction::BitCast
             : Instruction::Trunc;
     return CreateCast(CastOp, V, DestTy, Name);
+  }
+
+  Value *CreateBitOrByteCast(Value *V, Type *DestTy, const Twine &Name = "") {
+    Instruction::CastOps CastOp =
+        V->getType()->isByteOrByteVectorTy()
+            ? Instruction::ByteCast
+            : Instruction::BitCast;
+    return CreateCast(CastOp, V, DestTy, Name);
+  }
+
+  Value *CreateBitOrExactByteCast(Value *V, Type *DestTy,
+                                  const Twine &Name = "") {
+    Value *Cast = CreateBitOrByteCast(V, DestTy, Name);
+    if (auto *BC = dyn_cast<ByteCastInst>(Cast))
+      BC->setIsExact(true);
+    return Cast;
   }
 
   Value *CreateCast(Instruction::CastOps Op, Value *V, Type *DestTy,

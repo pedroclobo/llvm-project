@@ -6094,6 +6094,7 @@ InstructionCost X86TTIImpl::getIntImmCostInst(unsigned Opcode, unsigned Idx,
   case Instruction::IntToPtr:
   case Instruction::PtrToInt:
   case Instruction::BitCast:
+  case Instruction::ByteCast:
   case Instruction::PHI:
   case Instruction::Call:
   case Instruction::Select:
