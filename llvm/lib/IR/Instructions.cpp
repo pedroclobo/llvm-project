@@ -2689,7 +2689,7 @@ void BinaryOperator::AssertOK() {
   case AShr:
     assert(getType() == LHS->getType() &&
            "Shift operation should return same type as operands!");
-    assert(getType()->isIntOrIntVectorTy() &&
+    assert((getType()->isIntOrIntVectorTy() || getType()->isByteOrByteVectorTy()) &&
            "Tried to create a shift operation on a non-integral type!");
     break;
   case And: case Or:
@@ -2797,6 +2797,7 @@ bool CastInst::isNoopCast(Instruction::CastOps Opcode,
     case Instruction::SIToFP:
     case Instruction::FPToUI:
     case Instruction::FPToSI:
+    case Instruction::ByteCast:
     case Instruction::AddrSpaceCast:
       // TODO: Target informations may give a more accurate answer here.
       return false;
@@ -2850,6 +2851,7 @@ unsigned CastInst::isEliminableCastPair(
   // INTTOPTR     n/a      Integral   Unsigned     Pointer      n/a
   // BITCAST       =       FirstClass   n/a       FirstClass    n/a
   // ADDRSPCST    n/a      Pointer      n/a        Pointer      n/a
+  // BYTECAST      =       Byte       Unsigned    FirstClass    n/a
   //
   // NOTE: some transforms are safe, but we consider them to be non-profitable.
   // For example, we could merge "fptoui double to i32" + "zext i32 to i64",
@@ -2862,25 +2864,26 @@ unsigned CastInst::isEliminableCastPair(
     Instruction::CastOpsEnd - Instruction::CastOpsBegin;
   // clang-format off
   static const uint8_t CastResults[numCastOps][numCastOps] = {
-    // T        F  F  U  S  F  F  P  P  I  B  A  -+
-    // R  Z  S  P  P  I  I  T  P  2  2  N  T  S   |
-    // U  E  E  2  2  2  2  R  E  I  A  T  C  C   +- secondOp
-    // N  X  X  U  S  F  F  N  X  N  D  2  V  V   |
-    // C  T  T  I  I  P  P  C  T  T  R  P  T  T  -+
-    {  1, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0}, // Trunc         -+
-    {  8, 1, 9,99,99, 2,17,99,99,99,99, 2, 3, 0}, // ZExt           |
-    {  8, 0, 1,99,99, 0, 2,99,99,99,99, 0, 3, 0}, // SExt           |
-    {  0, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0}, // FPToUI         |
-    {  0, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0}, // FPToSI         |
-    { 99,99,99, 0, 0,99,99, 0, 0,99,99,99, 4, 0}, // UIToFP         +- firstOp
-    { 99,99,99, 0, 0,99,99, 0, 0,99,99,99, 4, 0}, // SIToFP         |
-    { 99,99,99, 0, 0,99,99, 0, 0,99,99,99, 4, 0}, // FPTrunc        |
-    { 99,99,99, 2, 2,99,99, 8, 2,99,99,99, 4, 0}, // FPExt          |
-    {  1, 0, 0,99,99, 0, 0,99,99,99,99, 7, 3, 0}, // PtrToInt       |
-    {  1, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0}, // PtrToAddr      |
-    { 99,99,99,99,99,99,99,99,99,11,99,99,15, 0}, // IntToPtr       |
-    {  5, 5, 5, 0, 0, 5, 5, 0, 0,16,16, 5, 1,14}, // BitCast        |
-    {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,13,12}, // AddrSpaceCast -+
+    // T        F  F  U  S  F  F  P  P  I  B  A  B -+
+    // R  Z  S  P  P  I  I  T  P  2  2  N  T  S  Y  |
+    // U  E  E  2  2  2  2  R  E  I  A  T  C  C  T  +- secondOp
+    // N  X  X  U  S  F  F  N  X  N  D  2  V  V  C  |
+    // C  T  T  I  I  P  P  C  T  T  R  P  T  T  T -+
+    {  1, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0, 0}, // Trunc         -+
+    {  8, 1, 9,99,99, 2,17,99,99,99,99, 2, 3, 0, 0}, // ZExt           |
+    {  8, 0, 1,99,99, 0, 2,99,99,99,99, 0, 3, 0, 0}, // SExt           |
+    {  0, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0, 0}, // FPToUI         |
+    {  0, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0, 0}, // FPToSI         |
+    { 99,99,99, 0, 0,99,99, 0, 0,99,99,99, 4, 0, 0}, // UIToFP         +- firstOp
+    { 99,99,99, 0, 0,99,99, 0, 0,99,99,99, 4, 0, 0}, // SIToFP         |
+    { 99,99,99, 0, 0,99,99, 0, 0,99,99,99, 4, 0, 0}, // FPTrunc        |
+    { 99,99,99, 2, 2,99,99, 8, 2,99,99,99, 4, 0, 0}, // FPExt          |
+    {  1, 0, 0,99,99, 0, 0,99,99,99,99, 7, 3, 0, 0}, // PtrToInt       |
+    {  1, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0, 0}, // PtrToAddr      |
+    { 99,99,99,99,99,99,99,99,99,11,99,99,15, 0, 0}, // IntToPtr       |
+    {  5, 5, 5, 0, 0, 5, 5, 0, 0,16,16, 5, 1,14, 0}, // BitCast        |
+    {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,13,12, 0}, // AddrSpaceCast -+
+    {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,99}, // ByteCast -+
   };
   // clang-format on
 
@@ -3061,6 +3064,8 @@ CastInst *CastInst::Create(Instruction::CastOps op, Value *S, Type *Ty,
     return new BitCastInst(S, Ty, Name, InsertBefore);
   case AddrSpaceCast:
     return new AddrSpaceCastInst(S, Ty, Name, InsertBefore);
+  case ByteCast:
+    return new ByteCastInst(S, Ty, Name, InsertBefore);
   default:
     llvm_unreachable("Invalid opcode provided");
   }
@@ -3242,16 +3247,18 @@ CastInst::getCastOpcode(
 
   // Run through the possibilities ...
   if (DestTy->isByteTy()) {                         // Casting to byte
-    if (SrcTy->isIntegerTy()) {                     // Casting from integral
-      assert(DestBits == SrcBits && "Illegal cast from integer to byte type");
-      return BitCast;
-    } else if (SrcTy->isPointerTy()) {              // Casting from pointer
-      assert(DestBits == SrcBits && "Illegal cast from pointer to byte type");
-      return BitCast;
-    }
+    if (DestBits < SrcBits)
+      return Trunc;
+    assert(DestBits == SrcBits &&
+          "Illegal cast to byte type (wrong type or size)");
+    return BitCast;
     llvm_unreachable("Illegal cast to byte type");
-  } else if (DestTy->isIntegerTy()) {               // Casting to integral
-    if (SrcTy->isIntegerTy()) {                     // Casting from integral
+  } else if (DestTy->isIntegerTy()) {
+    if (SrcTy->isByteTy()) {                        // Casting from byte
+      assert(DestBits == SrcBits &&
+             "Casting byte to integer of different width");
+      return ByteCast;
+    } else if (SrcTy->isIntegerTy()) {              // Casting from integral
       if (DestBits < SrcBits)
         return Trunc;                               // int -> smaller int
       else if (DestBits > SrcBits) {                // its an extension
@@ -3290,12 +3297,16 @@ CastInst::getCastOpcode(
       } else  {
         return BitCast;                             // same size, no-op cast
       }
+    } else if (SrcTy->isByteTy()) {
+      assert(DestBits == SrcBits &&
+             "Casting byte to floating point of different width");
+      return ByteCast;
     } else if (SrcTy->isVectorTy()) {
       assert(DestBits == SrcBits &&
              "Casting vector to floating point of different width");
       return BitCast;                             // same size, no-op cast
     }
-    llvm_unreachable("Casting pointer or non-first class to float");
+    llvm_unreachable("Casting pointer or non-first class to float or byte");
   } else if (DestTy->isVectorTy()) {
     assert(DestBits == SrcBits &&
            "Illegal cast to vector (wrong type or size)");
@@ -3307,8 +3318,13 @@ CastInst::getCastOpcode(
       return BitCast;                               // ptr -> ptr
     } else if (SrcTy->isIntegerTy()) {
       return IntToPtr;                              // int -> ptr
+    } else if (SrcTy->isByteTy()) {
+      // TODO: remove hardcoded pointer size, needs datalayout information
+      assert(SrcBits <= 64 &&
+             "Casting byte to pointer of greater width");
+      return ByteCast;                              // byte -> ptr
     }
-    llvm_unreachable("Casting pointer to other than pointer or int");
+    llvm_unreachable("Casting pointer to other than pointer, int or byte");
   }
   llvm_unreachable("Casting to type that is not first-class");
 }
@@ -3387,6 +3403,7 @@ CastInst::castIsValid(Instruction::CastOps op, Type *SrcTy, Type *DstTy) {
 
     // BitCast implies a no-op cast of type only. No bits change.
     // However, you can't cast pointers to anything but pointers/bytes.
+    // TODO: need layout information here
     if (SrcPtrTy && DstTy->isByteOrByteVectorTy())
       return true;
     if (!SrcPtrTy != !DstPtrTy)
@@ -3412,6 +3429,18 @@ CastInst::castIsValid(Instruction::CastOps op, Type *SrcTy, Type *DstTy) {
       return SrcEC == ElementCount::getFixed(1);
     if (DstIsVec)
       return DstEC == ElementCount::getFixed(1);
+
+    return true;
+  }
+  case Instruction::ByteCast: {
+    if (!SrcTy->isByteOrByteVectorTy())
+      return false;
+    if (DstTy->isByteOrByteVectorTy())
+      return false;
+
+    PointerType *DstPtrTy = dyn_cast<PointerType>(DstTy->getScalarType());
+    if (!DstPtrTy)
+      return SrcTy->getPrimitiveSizeInBits() == DstTy->getPrimitiveSizeInBits();
 
     return true;
   }
@@ -3514,6 +3543,12 @@ AddrSpaceCastInst::AddrSpaceCastInst(Value *S, Type *Ty, const Twine &Name,
                                      InsertPosition InsertBefore)
     : CastInst(Ty, AddrSpaceCast, S, Name, InsertBefore) {
   assert(castIsValid(getOpcode(), S, Ty) && "Illegal AddrSpaceCast");
+}
+
+ByteCastInst::ByteCastInst(Value *S, Type *Ty, const Twine &Name,
+                                     InsertPosition InsertBefore)
+    : CastInst(Ty, ByteCast, S, Name, InsertBefore) {
+  assert(castIsValid(getOpcode(), S, Ty) && "Illegal ByteCast");
 }
 
 //===----------------------------------------------------------------------===//
@@ -4479,6 +4514,10 @@ BitCastInst *BitCastInst::cloneImpl() const {
 
 AddrSpaceCastInst *AddrSpaceCastInst::cloneImpl() const {
   return new AddrSpaceCastInst(getOperand(0), getType());
+}
+
+ByteCastInst *ByteCastInst::cloneImpl() const {
+  return new ByteCastInst(getOperand(0), getType());
 }
 
 CallInst *CallInst::cloneImpl() const {

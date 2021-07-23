@@ -1642,6 +1642,9 @@ define void @instructions.conversions() {
   ; CHECK: bitcast i32 0 to i32
   addrspacecast ptr null to ptr addrspace(1)
   ; CHECK: addrspacecast ptr null to ptr addrspace(1)
+  %im = bitcast i32 0 to b32
+  bytecast b32 %im to i32
+  ; CHECK: bytecast b32 %{{.*}} to i32
 
   ret void
 }

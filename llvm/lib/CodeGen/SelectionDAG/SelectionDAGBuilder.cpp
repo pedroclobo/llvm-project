@@ -4041,6 +4041,31 @@ void SelectionDAGBuilder::visitAddrSpaceCast(const User &I) {
   setValue(&I, N);
 }
 
+void SelectionDAGBuilder::visitByteCast(const User &I) {
+  SDNodeFlags Flags;
+  if (auto *ExactOp = dyn_cast<PossiblyExactOperator>(&I))
+    Flags.setExact(ExactOp->isExact());
+
+  SDValue N = getValue(I.getOperand(0));
+  SDLoc dl = getCurSDLoc();
+  EVT DestVT = DAG.getTargetLoweringInfo().getValueType(DAG.getDataLayout(),
+                                                        I.getType());
+
+  if (DestVT != N.getValueType())
+    // Convert vector types.
+    setValue(&I, DAG.getNode(ISD::BITCAST, dl, DestVT, N));
+  // Check if the original LLVM IR Operand was a ConstantByte, because
+  // getValue() might fold any kind of constant expression to an byte constant
+  // and that is not what we are looking for. Only recognize a bytecast of a
+  // genuine constant byte as an opaque constant.
+  else if(ConstantByte *C = dyn_cast<ConstantByte>(I.getOperand(0)))
+    setValue(&I, DAG.getConstant(C->getValue(), dl, DestVT, /*isTarget=*/false,
+                                 /*isOpaque*/true));
+  else
+    // No-op cast.
+    setValue(&I, N);
+}
+
 void SelectionDAGBuilder::visitInsertElement(const User &I) {
   const TargetLowering &TLI = DAG.getTargetLoweringInfo();
   SDValue InVec = getValue(I.getOperand(0));
