@@ -37,7 +37,11 @@ bool Operator::hasPoisonGeneratingFlags() const {
   case Instruction::SDiv:
   case Instruction::AShr:
   case Instruction::LShr:
-    return cast<PossiblyExactOperator>(this)->isExact();
+  case Instruction::ByteCast: {
+    if (auto *EI = dyn_cast<PossiblyExactOperator>(this))
+      return EI->isExact();
+    return false;
+  }
   case Instruction::Or:
     return cast<PossiblyDisjointInst>(this)->isDisjoint();
   case Instruction::GetElementPtr: {
