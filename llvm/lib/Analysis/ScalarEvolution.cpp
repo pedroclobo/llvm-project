@@ -7607,6 +7607,7 @@ ScalarEvolution::getOperandsToCreate(Value *V, SmallVectorImpl<Value *> &Ops) {
     llvm::append_range(Ops, U->operands());
     return nullptr;
 
+  case Instruction::ByteCast:
   case Instruction::IntToPtr:
     return getUnknown(V);
 
@@ -8067,8 +8068,9 @@ const SCEV *ScalarEvolution::createSCEV(Value *V) {
       return getUnknown(V);
     return IntOp;
   }
+  case Instruction::ByteCast:
   case Instruction::IntToPtr:
-    // Just don't deal with inttoptr casts.
+    // Just don't deal with inttoptr and bytecasts.
     return getUnknown(V);
 
   case Instruction::SDiv:
