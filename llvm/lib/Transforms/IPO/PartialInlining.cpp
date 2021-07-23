@@ -805,6 +805,7 @@ PartialInlinerImpl::computeBBInlineCost(BasicBlock *BB,
     // Skip free instructions.
     switch (I.getOpcode()) {
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::PtrToInt:
     case Instruction::IntToPtr:
     case Instruction::Alloca:
