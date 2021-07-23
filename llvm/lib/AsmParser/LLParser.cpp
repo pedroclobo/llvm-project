@@ -4276,6 +4276,7 @@ bool LLParser::parseValID(ValID &ID, PerFunctionState *PFS, Type *ExpectedTy) {
 
   case lltok::kw_trunc:
   case lltok::kw_bitcast:
+  case lltok::kw_bytecast:
   case lltok::kw_addrspacecast:
   case lltok::kw_inttoptr:
   case lltok::kw_ptrtoint: {
@@ -7244,6 +7245,14 @@ int LLParser::parseInstruction(Instruction *&Inst, BasicBlock *BB,
   case lltok::kw_inttoptr:
   case lltok::kw_ptrtoint:
     return parseCast(Inst, PFS, KeywordVal);
+  case lltok::kw_bytecast: {
+    bool Exact = EatIfPresent(lltok::kw_exact);
+    if (parseCast(Inst, PFS, KeywordVal))
+      return true;
+    if (Exact)
+      cast<ByteCastInst>(Inst)->setIsExact(true);
+    return false;
+  }
   case lltok::kw_fptrunc:
   case lltok::kw_fpext: {
     FastMathFlags FMF = EatFastMathFlagsIfPresent();
@@ -7828,7 +7837,8 @@ bool LLParser::parseUnaryOp(Instruction *&Inst, PerFunctionState &PFS,
     return true;
 
   bool Valid = IsFP ? LHS->getType()->isFPOrFPVectorTy()
-                    : LHS->getType()->isIntOrIntVectorTy();
+                    : (LHS->getType()->isIntOrIntVectorTy() ||
+                       LHS->getType()->isByteOrByteVectorTy());
 
   if (!Valid)
     return error(Loc, "invalid operand type for instruction");
@@ -7958,7 +7968,8 @@ bool LLParser::parseArithmetic(Instruction *&Inst, PerFunctionState &PFS,
     return true;
 
   bool Valid = IsFP ? LHS->getType()->isFPOrFPVectorTy()
-                    : LHS->getType()->isIntOrIntVectorTy();
+                    : (LHS->getType()->isIntOrIntVectorTy() ||
+                       LHS->getType()->isByteOrByteVectorTy());
 
   if (!Valid)
     return error(Loc, "invalid operand type for instruction");

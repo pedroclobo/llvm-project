@@ -255,6 +255,7 @@ void InstModificationIRStrategy::mutate(Instruction &Inst,
   case Instruction::SDiv:
   case Instruction::LShr:
   case Instruction::AShr:
+  case Instruction::ByteCast:
     Modifications.push_back([&Inst] { Inst.setIsExact(!Inst.isExact()); });
     break;
 
