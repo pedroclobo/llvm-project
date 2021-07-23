@@ -567,6 +567,7 @@ private:
   void visitPtrToIntInst(PtrToIntInst &I);
   void visitBitCastInst(BitCastInst &I);
   void visitAddrSpaceCastInst(AddrSpaceCastInst &I);
+  void visitByteCastInst(ByteCastInst &I);
   void visitPHINode(PHINode &PN);
   void visitCallBase(CallBase &Call);
   void visitUnaryOperator(UnaryOperator &U);
@@ -3490,6 +3491,13 @@ void Verifier::visitAddrSpaceCastInst(AddrSpaceCastInst &I) {
     Check(SrcVTy->getElementCount() ==
               cast<VectorType>(DestTy)->getElementCount(),
           "AddrSpaceCast vector pointer number of elements mismatch", &I);
+  visitInstruction(I);
+}
+
+void Verifier::visitByteCastInst(ByteCastInst &I) {
+  Check(
+      CastInst::castIsValid(Instruction::ByteCast, I.getOperand(0), I.getType()),
+      "Invalid bytecast", &I);
   visitInstruction(I);
 }
 

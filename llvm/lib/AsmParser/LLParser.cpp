@@ -7119,6 +7119,14 @@ int LLParser::parseInstruction(Instruction *&Inst, BasicBlock *BB,
   case lltok::kw_inttoptr:
   case lltok::kw_ptrtoint:
     return parseCast(Inst, PFS, KeywordVal);
+  case lltok::kw_bytecast: {
+    bool Exact = EatIfPresent(lltok::kw_exact);
+    if (parseCast(Inst, PFS, KeywordVal))
+      return true;
+    if (Exact)
+      cast<ByteCastInst>(Inst)->setIsExact(true);
+    return false;
+  }
   case lltok::kw_fptrunc:
   case lltok::kw_fpext: {
     FastMathFlags FMF = EatFastMathFlagsIfPresent();
