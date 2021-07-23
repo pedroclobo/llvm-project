@@ -743,6 +743,9 @@ public:
         // Identity and pointer-to-pointer casts are free.
         return 0;
       break;
+    case Instruction::ByteCast:
+      return 0;
+      break;
     case Instruction::Trunc: {
       // trunc to a native type is free (assuming the target has compare and
       // shift-right of the same width).
@@ -1447,6 +1450,7 @@ public:
     case Instruction::Trunc:
     case Instruction::FPTrunc:
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::FPExt:
     case Instruction::SExt:
     case Instruction::ZExt:
