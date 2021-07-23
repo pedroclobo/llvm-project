@@ -2198,6 +2198,28 @@ public:
     return CreateCast(Instruction::AddrSpaceCast, V, DestTy, Name);
   }
 
+  Value *CreateByteCast(Value *V, Type *DestTy, const Twine &Name = "",
+                        bool IsExact = false) {
+    if (Value *Folded = Folder.FoldCast(Instruction::ByteCast, V, DestTy))
+      return Folded;
+    Instruction *I = CastInst::Create(Instruction::ByteCast, V, DestTy);
+    if (IsExact)
+      I->setIsExact();
+    return Insert(I, Name);
+  }
+
+  Value *CreateByteCastToInt(Value *V, const Twine &Name = "",
+                             bool IsExact = false) {
+    Type *DestTy = getIntNTy(V->getType()->getByteBitWidth());
+    return CreateByteCast(V, DestTy, Name, IsExact);
+  }
+
+  Value *CreateByteCastToPtr(Value *V, unsigned AddrSpace = 0,
+                             const Twine &Name = "", bool IsExact = false) {
+    Type *DestTy = getPtrTy(AddrSpace);
+    return CreateByteCast(V, DestTy, Name, IsExact);
+  }
+
   Value *CreateZExtOrBitCast(Value *V, Type *DestTy, const Twine &Name = "") {
     Instruction::CastOps CastOp =
         V->getType()->getScalarSizeInBits() == DestTy->getScalarSizeInBits()
