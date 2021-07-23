@@ -323,6 +323,7 @@ enum Kind {
   kw_ptrtoint,
   kw_bitcast,
   kw_addrspacecast,
+  kw_bytecast,
   kw_select,
   kw_va_arg,
 
