@@ -437,6 +437,7 @@ void Instruction::dropPoisonGeneratingFlags() {
   case Instruction::SDiv:
   case Instruction::AShr:
   case Instruction::LShr:
+  case Instruction::ByteCast:
     cast<PossiblyExactOperator>(this)->setIsExact(false);
     break;
 
@@ -807,6 +808,7 @@ const char *Instruction::getOpcodeName(unsigned OpCode) {
   case PtrToInt:      return "ptrtoint";
   case BitCast:       return "bitcast";
   case AddrSpaceCast: return "addrspacecast";
+  case ByteCast:      return "bytecast";
 
   // Other instructions...
   case ICmp:           return "icmp";

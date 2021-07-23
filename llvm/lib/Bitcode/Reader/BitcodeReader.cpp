@@ -1282,6 +1282,7 @@ static int getDecodedCastOpcode(unsigned Val) {
   case bitc::CAST_PTRTOINT: return Instruction::PtrToInt;
   case bitc::CAST_INTTOPTR: return Instruction::IntToPtr;
   case bitc::CAST_BITCAST : return Instruction::BitCast;
+  case bitc::CAST_BYTECAST: return Instruction::ByteCast;
   case bitc::CAST_ADDRSPACECAST: return Instruction::AddrSpaceCast;
   }
 }
@@ -1728,6 +1729,9 @@ Expected<Value *> BitcodeReader::materializeValue(unsigned StartValID,
     if (Instruction::isCast(BC->Opcode)) {
       I = CastInst::Create((Instruction::CastOps)BC->Opcode, Ops[0],
                            BC->getType(), "constexpr", InsertBB);
+      if (isa<PossiblyExactOperator>(I) &&
+          (BC->Flags & PossiblyExactOperator::IsExact))
+        I->setIsExact();
     } else if (Instruction::isUnaryOp(BC->Opcode)) {
       I = UnaryOperator::Create((Instruction::UnaryOps)BC->Opcode, Ops[0],
                                 "constexpr", InsertBB);
@@ -5256,6 +5260,9 @@ Error BitcodeReader::parseFunctionBody(Function *F) {
             cast<TruncInst>(I)->setHasNoUnsignedWrap(true);
           if (Record[OpNum] & (1 << bitc::TIO_NO_SIGNED_WRAP))
             cast<TruncInst>(I)->setHasNoSignedWrap(true);
+        } else if (Opc == Instruction::ByteCast) {
+          if (Record[OpNum] & (1 << bitc::PEO_EXACT))
+            cast<ByteCastInst>(I)->setIsExact(true);
         }
         if (isa<FPMathOperator>(I)) {
           FastMathFlags FMF = getDecodedFastMathFlags(Record[OpNum]);
