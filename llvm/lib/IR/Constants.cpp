@@ -2315,6 +2315,8 @@ Constant *ConstantExpr::getCast(unsigned oc, Constant *C, Type *Ty,
     return getBitCast(C, Ty, OnlyIfReduced);
   case Instruction::AddrSpaceCast:
     return getAddrSpaceCast(C, Ty, OnlyIfReduced);
+  case Instruction::ByteCast:
+    return getByteCast(C, Ty, OnlyIfReduced);
   }
 }
 
@@ -2409,6 +2411,13 @@ Constant *ConstantExpr::getAddrSpaceCast(Constant *C, Type *DstTy,
   assert(CastInst::castIsValid(Instruction::AddrSpaceCast, C, DstTy) &&
          "Invalid constantexpr addrspacecast!");
   return getFoldedCast(Instruction::AddrSpaceCast, C, DstTy, OnlyIfReduced);
+}
+
+Constant *ConstantExpr::getByteCast(Constant *C, Type *DstTy,
+                                    bool OnlyIfReduced) {
+  assert(CastInst::castIsValid(Instruction::ByteCast, C, DstTy) &&
+         "Invalid constantexpr bytecast!");
+  return getFoldedCast(Instruction::ByteCast, C, DstTy, OnlyIfReduced);
 }
 
 Constant *ConstantExpr::get(unsigned Opcode, Constant *C1, Constant *C2,
@@ -2523,6 +2532,7 @@ bool ConstantExpr::isDesirableCastOp(unsigned Opcode) {
   case Instruction::IntToPtr:
   case Instruction::BitCast:
   case Instruction::AddrSpaceCast:
+  case Instruction::ByteCast:
     return true;
   default:
     llvm_unreachable("Argument must be cast opcode");
@@ -2545,6 +2555,7 @@ bool ConstantExpr::isSupportedCastOp(unsigned Opcode) {
   case Instruction::IntToPtr:
   case Instruction::BitCast:
   case Instruction::AddrSpaceCast:
+  case Instruction::ByteCast:
     return true;
   default:
     llvm_unreachable("Argument must be cast opcode");
@@ -3486,6 +3497,7 @@ Instruction *ConstantExpr::getAsInstruction() const {
   case Instruction::IntToPtr:
   case Instruction::BitCast:
   case Instruction::AddrSpaceCast:
+  case Instruction::ByteCast:
     return CastInst::Create((Instruction::CastOps)getOpcode(), Ops[0],
                             getType(), "");
   case Instruction::InsertElement:
