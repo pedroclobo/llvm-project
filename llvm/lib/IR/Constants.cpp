@@ -3283,6 +3283,9 @@ Constant *ConstantDataSequential::getElementAsConstant(unsigned Elt) const {
       getElementType()->isFloatTy() || getElementType()->isDoubleTy())
     return ConstantFP::get(getContext(), getElementAsAPFloat(Elt));
 
+  if (getElementType()->isByteTy())
+    return ConstantByte::get(getElementType(), getElementAsInteger(Elt));
+
   return ConstantInt::get(getElementType(), getElementAsInteger(Elt));
 }
 
