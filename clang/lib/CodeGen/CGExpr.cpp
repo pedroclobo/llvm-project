@@ -4581,8 +4581,11 @@ LValue CodeGenFunction::EmitArraySubscriptExpr(const ArraySubscriptExpr *E,
       EmitBoundsCheck(E, E->getBase(), Idx, IdxTy, Accessed);
 
     // Extend or truncate the index type to 32 or 64-bits.
-    if (Promote && Idx->getType() != IntPtrTy)
+    if (Promote && Idx->getType() != IntPtrTy) {
+      if (Idx->getType()->isByteOrByteVectorTy())
+        Idx = Builder.CreateByteCastToInt(Idx, "idxprom");
       Idx = Builder.CreateIntCast(Idx, IntPtrTy, IdxSigned, "idxprom");
+    }
 
     return Idx;
   };
