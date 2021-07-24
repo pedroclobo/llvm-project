@@ -2446,12 +2446,17 @@ ConstantEmitter::tryEmitPrivate(const APValue &Value, QualType DestType,
     return ConstantLValueEmitter(*this, Value, DestType,
                                  EnablePtrAuthFunctionTypeDiscrimination)
         .tryEmit();
-  case APValue::Int:
+  case APValue::Int: {
     if (PointerAuthQualifier PointerAuth = DestType.getPointerAuth();
         PointerAuth &&
         (PointerAuth.authenticatesNullValues() || Value.getInt() != 0))
       return nullptr;
+
+    llvm::Type *DestTy = CGM.getTypes().ConvertType(DestType);
+    if (DestTy->isByteTy())
+      return llvm::ConstantByte::get(CGM.getLLVMContext(), Value.getInt());
     return llvm::ConstantInt::get(CGM.getLLVMContext(), Value.getInt());
+  }
   case APValue::FixedPoint:
     return llvm::ConstantInt::get(CGM.getLLVMContext(),
                                   Value.getFixedPoint().getValue());
