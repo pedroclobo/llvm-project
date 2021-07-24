@@ -3031,8 +3031,16 @@ static llvm::Value *emitArgumentDemotion(CodeGenFunction &CGF,
   if (value->getType() == varType)
     return value;
 
-  assert((varType->isIntegerTy() || varType->isFloatingPointTy()) &&
+  assert((varType->isIntegerTy() || varType->isByteTy() ||
+          varType->isFloatingPointTy()) &&
          "unexpected promotion type");
+
+  if (isa<llvm::ByteType>(varType)) {
+    llvm::Type *intVarTy = llvm::Type::getIntNTy(varType->getContext(),
+                                                 varType->getByteBitWidth());
+    return CGF.Builder.CreateBitCast(
+        CGF.Builder.CreateTrunc(value, intVarTy, "arg.unpromote"), varType);
+  }
 
   if (isa<llvm::IntegerType>(varType))
     return CGF.Builder.CreateTrunc(value, varType, "arg.unpromote");
