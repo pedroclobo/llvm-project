@@ -2328,6 +2328,8 @@ void CodeGenFunction::EmitSwitchStmt(const SwitchStmt &S) {
   if (S.getConditionVariable())
     EmitDecl(*S.getConditionVariable());
   llvm::Value *CondV = EmitScalarExpr(S.getCond());
+  if (CondV->getType()->isByteTy())
+    CondV = Builder.CreateByteCastToInt(CondV);
   MaybeEmitDeferredVarDeclInit(S.getConditionVariable());
 
   // Create basic block to hold stuff that comes after switch
