@@ -2443,8 +2443,13 @@ ConstantEmitter::tryEmitPrivate(const APValue &Value, QualType DestType,
     return ConstantLValueEmitter(*this, Value, DestType,
                                  EnablePtrAuthFunctionTypeDiscrimination)
         .tryEmit();
-  case APValue::Int:
+  case APValue::Int: {
+    // Check if the actual type of a constant is a byte type.
+    llvm::Type *DestTy = CGM.getTypes().ConvertType(DestType);
+    if (DestTy->isByteTy())
+      return llvm::ConstantByte::get(CGM.getLLVMContext(), Value.getInt());
     return llvm::ConstantInt::get(CGM.getLLVMContext(), Value.getInt());
+  }
   case APValue::FixedPoint:
     return llvm::ConstantInt::get(CGM.getLLVMContext(),
                                   Value.getFixedPoint().getValue());
