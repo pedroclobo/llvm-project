@@ -502,7 +502,12 @@ public:
     return llvm::ConstantFP::get(VMContext, E->getValue());
   }
   Value *VisitCharacterLiteral(const CharacterLiteral *E) {
-    return llvm::ConstantInt::get(ConvertType(E->getType()), E->getValue());
+    llvm::Type *Ty = ConvertType(E->getType());
+    if (Ty->isIntegerTy())
+      return llvm::ConstantInt::get(Ty, E->getValue());
+
+    assert(Ty->isByteTy() && "character can only be an integer or a byte");
+    return llvm::ConstantByte::get(Ty, E->getValue());
   }
   Value *VisitObjCBoolLiteralExpr(const ObjCBoolLiteralExpr *E) {
     return llvm::ConstantInt::get(ConvertType(E->getType()), E->getValue());
@@ -984,6 +989,9 @@ Value *ScalarExprEmitter::EmitConversionToBool(Value *Src, QualType SrcType) {
 
   assert((SrcType->isIntegerType() || isa<llvm::PointerType>(Src->getType())) &&
          "Unknown scalar type to convert");
+
+  if (isa<llvm::ByteType>(Src->getType()))
+    Src = Builder.CreateExactByteCastToInt(Src, "conv");
 
   if (isa<llvm::IntegerType>(Src->getType()))
     return EmitIntToBoolConversion(Src);
@@ -1486,10 +1494,33 @@ Value *ScalarExprEmitter::EmitScalarCast(Value *Src, QualType SrcType,
     DstElementType = DstType;
   }
 
+  if (isa<llvm::ByteType>(SrcElementTy)) {
+    bool InputSigned = SrcElementType->isSignedIntegerOrEnumerationType();
+    if (SrcElementType->isBooleanType() && Opts.TreatBooleanAsSigned)
+      InputSigned = true;
+
+    llvm::Value *IntResult = Builder.CreateExactByteCastToInt(Src, "conv");
+    if (DstTy->isIntegerTy())
+      return Builder.CreateIntCast(IntResult, DstTy, InputSigned, "conv");
+
+    assert(DstTy->isFloatingPointTy() &&
+          "can only convert byte type to integer or float");
+
+    return InputSigned ? Builder.CreateSIToFP(IntResult, DstTy, "conv")
+                       : Builder.CreateUIToFP(IntResult, DstTy, "conv");
+  }
+
   if (isa<llvm::IntegerType>(SrcElementTy)) {
     bool InputSigned = SrcElementType->isSignedIntegerOrEnumerationType();
     if (SrcElementType->isBooleanType() && Opts.TreatBooleanAsSigned) {
       InputSigned = true;
+    }
+
+    if (isa<llvm::ByteType>(DstElementTy)) {
+      llvm::Type *DstITy =
+          llvm::Type::getIntNTy(DstTy->getContext(), DstTy->getByteBitWidth());
+      return Builder.CreateBitCast(
+          Builder.CreateIntCast(Src, DstITy, InputSigned, "conv"), DstTy);
     }
 
     if (isa<llvm::IntegerType>(DstElementTy))
@@ -1515,6 +1546,19 @@ Value *ScalarExprEmitter::EmitScalarCast(Value *Src, QualType SrcType,
     if (IsSigned)
       return Builder.CreateFPToSI(Src, DstTy, "conv");
     return Builder.CreateFPToUI(Src, DstTy, "conv");
+  }
+
+  if (isa<llvm::ByteType>(DstElementTy)) {
+    assert(SrcElementTy->isFloatingPointTy() && "Unknown real conversion");
+    bool InputSigned = SrcElementType->isSignedIntegerOrEnumerationType();
+
+    llvm::Type *DstITy =
+        llvm::Type::getIntNTy(DstTy->getContext(), DstTy->getByteBitWidth());
+    Value *V = InputSigned
+      ? Builder.CreateFPToSI(Src, DstITy, "conv")
+      : Builder.CreateFPToUI(Src, DstITy, "conv");
+
+    return Builder.CreateBitCast(V, DstTy, "conv");
   }
 
   if ((DstElementTy->is16bitFPTy() && SrcElementTy->is16bitFPTy())) {
@@ -3199,8 +3243,13 @@ ScalarExprEmitter::EmitScalarPrePostIncDec(const UnaryOperator *E, LValue LV,
       value = EmitOverflowCheckedBinOp(createBinOpInfoFromIncDec(
           E, value, isInc, E->getFPFeaturesInEffect(CGF.getLangOpts())));
     } else {
+      llvm::Type *OldTy = value->getType();
+      if (isa<llvm::ByteType>(OldTy))
+        value = Builder.CreateExactByteCastToInt(value, "conv");
       llvm::Value *amt = llvm::ConstantInt::get(value->getType(), amount, true);
       value = Builder.CreateAdd(value, amt, isInc ? "inc" : "dec");
+      if (isa<llvm::ByteType>(OldTy))
+        value = Builder.CreateBitCast(value, OldTy, "conv");
     }
 
   // Next most common: pointer increment.
