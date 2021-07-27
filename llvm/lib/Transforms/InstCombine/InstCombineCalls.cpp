@@ -168,7 +168,7 @@ Instruction *InstCombinerImpl::SimplifyAnyMemTransfer(AnyMemTransferInst *MI) {
       return nullptr;
 
   // Use an integer load+store unless we can find something better.
-  IntegerType* IntType = IntegerType::get(MI->getContext(), Size<<3);
+  ByteType *ByteType = ByteType::get(MI->getContext(), Size<<3);
 
   // If the memcpy has metadata describing the members, see if we can get the
   // TBAA tag describing our copy.
@@ -176,7 +176,7 @@ Instruction *InstCombinerImpl::SimplifyAnyMemTransfer(AnyMemTransferInst *MI) {
 
   Value *Src = MI->getArgOperand(1);
   Value *Dest = MI->getArgOperand(0);
-  LoadInst *L = Builder.CreateLoad(IntType, Src);
+  LoadInst *L = Builder.CreateLoad(ByteType, Src);
   // Alignment from the mem intrinsic will be better, so use it.
   L->setAlignment(*CopySrcAlign);
   L->setAAMetadata(AACopyMD);
