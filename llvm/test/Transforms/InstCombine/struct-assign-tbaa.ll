@@ -13,8 +13,8 @@ declare void @llvm.memcpy.p0.p0.i64(ptr nocapture, ptr nocapture, i64, i1) nounw
 define void @test1(ptr nocapture %a, ptr nocapture %b) {
 ; CHECK-LABEL: @test1(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr [[B:%.*]], align 4, !tbaa [[TBAA0:![0-9]+]]
-; CHECK-NEXT:    store i32 [[TMP0]], ptr [[A:%.*]], align 4, !tbaa [[TBAA0]]
+; CHECK-NEXT:    [[TMP0:%.*]] = load b32, ptr [[B:%.*]], align 4, !tbaa [[TBAA0:![0-9]+]]
+; CHECK-NEXT:    store b32 [[TMP0]], ptr [[A:%.*]], align 4, !tbaa [[TBAA0]]
 ; CHECK-NEXT:    ret void
 ;
 entry:
@@ -38,8 +38,8 @@ define ptr @test2() {
 define void @test3_multiple_fields(ptr nocapture %a, ptr nocapture %b) {
 ; CHECK-LABEL: @test3_multiple_fields(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[TMP0:%.*]] = load i64, ptr [[B:%.*]], align 4
-; CHECK-NEXT:    store i64 [[TMP0]], ptr [[A:%.*]], align 4
+; CHECK-NEXT:    [[TMP0:%.*]] = load b64, ptr [[B:%.*]], align 4
+; CHECK-NEXT:    store b64 [[TMP0]], ptr [[A:%.*]], align 4
 ; CHECK-NEXT:    ret void
 ;
 entry:
@@ -50,8 +50,8 @@ entry:
 define void @test4_multiple_copy_first_field(ptr nocapture %a, ptr nocapture %b) {
 ; CHECK-LABEL: @test4_multiple_copy_first_field(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr [[B:%.*]], align 4, !tbaa [[TBAA0]]
-; CHECK-NEXT:    store i32 [[TMP0]], ptr [[A:%.*]], align 4, !tbaa [[TBAA0]]
+; CHECK-NEXT:    [[TMP0:%.*]] = load b32, ptr [[B:%.*]], align 4, !tbaa [[TBAA0]]
+; CHECK-NEXT:    store b32 [[TMP0]], ptr [[A:%.*]], align 4, !tbaa [[TBAA0]]
 ; CHECK-NEXT:    ret void
 ;
 entry:
@@ -62,8 +62,8 @@ entry:
 define void @test5_multiple_copy_more_than_first_field(ptr nocapture %a, ptr nocapture %b) {
 ; CHECK-LABEL: @test5_multiple_copy_more_than_first_field(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr [[B:%.*]], align 4
-; CHECK-NEXT:    store i32 [[TMP0]], ptr [[A:%.*]], align 4
+; CHECK-NEXT:    [[TMP0:%.*]] = load b32, ptr [[B:%.*]], align 4
+; CHECK-NEXT:    store b32 [[TMP0]], ptr [[A:%.*]], align 4
 ; CHECK-NEXT:    ret void
 ;
 entry:
