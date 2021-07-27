@@ -832,8 +832,8 @@ public:
                             unsigned SrcAddrSpace, unsigned DestAddrSpace,
                             unsigned SrcAlign, unsigned DestAlign,
                             std::optional<uint32_t> AtomicElementSize) const {
-    return AtomicElementSize ? Type::getIntNTy(Context, *AtomicElementSize * 8)
-                             : Type::getInt8Ty(Context);
+    return AtomicElementSize ? Type::getByteNTy(Context, *AtomicElementSize * 8)
+                             : Type::getByte8Ty(Context);
   }
 
   void getMemcpyLoopResidualLoweringType(
@@ -842,7 +842,7 @@ public:
       unsigned SrcAlign, unsigned DestAlign,
       std::optional<uint32_t> AtomicCpySize) const {
     unsigned OpSizeInBytes = AtomicCpySize ? *AtomicCpySize : 1;
-    Type *OpType = Type::getIntNTy(Context, OpSizeInBytes * 8);
+    Type *OpType = Type::getByteNTy(Context, OpSizeInBytes * 8);
     for (unsigned i = 0; i != RemainingBytes; i += OpSizeInBytes)
       OpsOut.push_back(OpType);
   }

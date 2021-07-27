@@ -10,7 +10,7 @@ define i32 @test(ptr addrspace(1) nocapture %moves) {
 ; CHECK-SAME: (ptr addrspace(1) nocapture [[MOVES:%.*]]) {
 ; CHECK-NEXT:  entry:
 ; CHECK-NEXT:    [[GEP:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[MOVES]], i64 26
-; CHECK-NEXT:    store i64 0, ptr addrspace(1) [[GEP]], align 1
+; CHECK-NEXT:    store b64 bitcast (i64 0 to b64), ptr addrspace(1) [[GEP]], align 1
 ; CHECK-NEXT:    ret i32 0
 ;
 entry:
