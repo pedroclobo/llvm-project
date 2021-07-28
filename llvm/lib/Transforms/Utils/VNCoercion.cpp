@@ -309,6 +309,11 @@ static Value *getStoreValueForLoadHelper(Value *SrcVal, unsigned Offset,
   uint64_t LoadSize = (DL.getTypeSizeInBits(LoadTy).getFixedValue() + 7) / 8;
   // Compute which bits of the stored value are being used by the load.  Convert
   // to an integer type to start with.
+  if (SrcVal->getType()->isByteTy()) {
+    Type *ITy = Type::getIntNTy(SrcVal->getContext(),
+                                SrcVal->getType()->getByteBitWidth());
+    SrcVal = Builder.CreateCast(Instruction::ByteCast, SrcVal, ITy);
+  }
   if (SrcVal->getType()->isPtrOrPtrVectorTy())
     SrcVal =
         Builder.CreatePtrToInt(SrcVal, DL.getIntPtrType(SrcVal->getType()));
