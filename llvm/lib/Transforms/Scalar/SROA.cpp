@@ -1916,6 +1916,12 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy) {
            "We can't have the same bitwidth for different int types");
     return false;
   }
+  if (isa<ByteType>(OldTy) && isa<ByteType>(NewTy)) {
+    assert(cast<ByteType>(OldTy)->getBitWidth() !=
+               cast<ByteType>(NewTy)->getBitWidth() &&
+           "We can't have the same bitwidth for different byte types");
+    return false;
+  }
 
   if (DL.getTypeSizeInBits(NewTy).getFixedValue() !=
       DL.getTypeSizeInBits(OldTy).getFixedValue())
@@ -1975,6 +1981,8 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
 
   assert(!(isa<IntegerType>(OldTy) && isa<IntegerType>(NewTy)) &&
          "Integer types must be the exact same to convert.");
+  assert(!(isa<ByteType>(OldTy) && isa<ByteType>(NewTy)) &&
+         "Byte types must be the exact same to convert.");
 
   // See if we need inttoptr for this type pair. May require additional bitcast.
   if (OldTy->isIntOrIntVectorTy() && NewTy->isPtrOrPtrVectorTy()) {
@@ -2011,6 +2019,9 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
                                 NewTy);
     }
   }
+
+  if (OldTy->isByteOrByteVectorTy())
+    return IRB.CreateByteCast(V, NewTy);
 
   return IRB.CreateBitCast(V, NewTy);
 }
