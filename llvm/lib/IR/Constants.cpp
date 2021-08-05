@@ -2435,6 +2435,7 @@ bool ConstantExpr::isSupportedCastOp(unsigned Opcode) {
   case Instruction::PtrToInt:
   case Instruction::IntToPtr:
   case Instruction::BitCast:
+  case Instruction::ByteCast:
   case Instruction::AddrSpaceCast:
     return true;
   default:
