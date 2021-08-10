@@ -6756,6 +6756,7 @@ LoopVectorizationCostModel::getInstructionCost(Instruction *I,
   case Instruction::SIToFP:
   case Instruction::UIToFP:
   case Instruction::Trunc:
+  case Instruction::ByteCast:
   case Instruction::FPTrunc: {
     // Computes the CastContextHint from a Load/Store instruction.
     auto ComputeCCH = [&](Instruction *I) -> TTI::CastContextHint {
