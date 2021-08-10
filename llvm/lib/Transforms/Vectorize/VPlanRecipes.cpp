@@ -986,6 +986,7 @@ InstructionCost VPRecipeWithIRFlags::getCostForRecipeWithOpcode(
         Ctx.CostKind, {TTI::OK_AnyValue, TTI::OP_None},
         {TTI::OK_AnyValue, TTI::OP_None}, CtxI);
   }
+  case Instruction::ByteCast:
   case Instruction::BitCast: {
     Type *ScalarTy = Ctx.Types.inferScalarType(this);
     if (ScalarTy->isPointerTy())
@@ -2068,7 +2069,8 @@ bool VPIRFlags::flagsValidForOpcode(unsigned Opcode) const {
     return Opcode == Instruction::Or;
   case OperationType::PossiblyExactOp:
     return Opcode == Instruction::AShr || Opcode == Instruction::LShr ||
-           Opcode == Instruction::UDiv || Opcode == Instruction::SDiv;
+           Opcode == Instruction::UDiv || Opcode == Instruction::SDiv ||
+           Opcode == Instruction::ByteCast;
   case OperationType::GEPOp:
     return Opcode == Instruction::GetElementPtr ||
            Opcode == VPInstruction::PtrAdd ||
