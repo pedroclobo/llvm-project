@@ -6764,6 +6764,10 @@ LoopVectorizationCostModel::getInstructionCost(Instruction *I,
     VectorTy = toVectorTy(getLoadStoreType(I), Width);
     return getMemoryInstructionCost(I, VF);
   }
+  case Instruction::ByteCast:
+    // Bytecasts simply reinterpret types. They are free.
+    return 0;
+    [[fallthrough]];
   case Instruction::BitCast:
     if (I->getType()->isPointerTy())
       return 0;
