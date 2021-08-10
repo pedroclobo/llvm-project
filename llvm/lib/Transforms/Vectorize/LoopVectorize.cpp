@@ -6384,6 +6384,9 @@ LoopVectorizationCostModel::getInstructionCost(Instruction *I,
     if (I->getType()->isPointerTy())
       return 0;
     [[fallthrough]];
+  case Instruction::ByteCast:
+    return 0;
+    [[fallthrough]];
   case Instruction::ZExt:
   case Instruction::SExt:
   case Instruction::FPToUI:
