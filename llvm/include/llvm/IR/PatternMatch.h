@@ -1926,6 +1926,12 @@ inline ElementWiseBitCast_match<OpTy> m_ElementWiseBitCast(const OpTy &Op) {
   return ElementWiseBitCast_match<OpTy>(Op);
 }
 
+/// Matches ByteCast.
+template <typename OpTy>
+inline CastOperator_match<OpTy, Instruction::ByteCast> m_ByteCast(const OpTy &Op) {
+  return CastOperator_match<OpTy, Instruction::ByteCast>(Op);
+}
+
 /// Matches PtrToInt.
 template <typename OpTy>
 inline CastOperator_match<OpTy, Instruction::PtrToInt>
