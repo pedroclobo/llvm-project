@@ -8041,6 +8041,7 @@ BoUpSLP::TreeEntry::EntryState BoUpSLP::getScalarsVectorizationState(
   case Instruction::UIToFP:
   case Instruction::Trunc:
   case Instruction::FPTrunc:
+  case Instruction::ByteCast:
   case Instruction::BitCast: {
     Type *SrcTy = VL0->getOperand(0)->getType();
     for (Value *V : VL) {
@@ -8886,6 +8887,7 @@ void BoUpSLP::buildTree_rec(ArrayRef<Value *> VL, unsigned Depth,
     case Instruction::UIToFP:
     case Instruction::Trunc:
     case Instruction::FPTrunc:
+    case Instruction::ByteCast:
     case Instruction::BitCast: {
       auto [PrevMaxBW, PrevMinBW] = CastMaxMinBWSizes.value_or(
           std::make_pair(std::numeric_limits<unsigned>::min(),
@@ -11683,6 +11685,9 @@ BoUpSLP::getEntryCost(const TreeEntry *E, ArrayRef<Value *> VectorizedVals,
     }
     return Cost;
   }
+  case Instruction::ByteCast:
+    // Treat bytecasts as a no-op.
+    return 0;
   case Instruction::ZExt:
   case Instruction::SExt:
   case Instruction::FPToUI:
@@ -15847,6 +15852,7 @@ Value *BoUpSLP::vectorizeTree(TreeEntry *E) {
     case Instruction::UIToFP:
     case Instruction::Trunc:
     case Instruction::FPTrunc:
+    case Instruction::ByteCast:
     case Instruction::BitCast: {
       setInsertPointAfterBundle(E);
 
