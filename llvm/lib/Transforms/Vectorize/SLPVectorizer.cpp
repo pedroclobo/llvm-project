@@ -12807,6 +12807,7 @@ BoUpSLP::getEntryCost(const TreeEntry *E, ArrayRef<Value *> VectorizedVals,
   case Instruction::UIToFP:
   case Instruction::Trunc:
   case Instruction::FPTrunc:
+  case Instruction::ByteCast:
   case Instruction::BitCast: {
     auto SrcIt = MinBWs.find(getOperandEntry(E, 0));
     Type *SrcScalarTy = VL0->getOperand(0)->getType();
