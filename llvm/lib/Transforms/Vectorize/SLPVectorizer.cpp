@@ -9313,6 +9313,7 @@ BoUpSLP::TreeEntry::EntryState BoUpSLP::getScalarsVectorizationState(
   case Instruction::UIToFP:
   case Instruction::Trunc:
   case Instruction::FPTrunc:
+  case Instruction::ByteCast:
   case Instruction::BitCast: {
     Type *SrcTy = VL0->getOperand(0)->getType();
     for (Value *V : VL) {
@@ -10069,6 +10070,7 @@ class InstructionsCompatibilityAnalysis {
     case Instruction::Trunc:
     case Instruction::FPTrunc:
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::ICmp:
     case Instruction::FCmp:
     case Instruction::Select:
@@ -10893,6 +10895,7 @@ void BoUpSLP::buildTreeRec(ArrayRef<Value *> VLRef, unsigned Depth,
     case Instruction::UIToFP:
     case Instruction::Trunc:
     case Instruction::FPTrunc:
+    case Instruction::ByteCast:
     case Instruction::BitCast: {
       auto [PrevMaxBW, PrevMinBW] = CastMaxMinBWSizes.value_or(
           std::make_pair(std::numeric_limits<unsigned>::min(),
@@ -13766,6 +13769,7 @@ BoUpSLP::getEntryCost(const TreeEntry *E, ArrayRef<Value *> VectorizedVals,
   case Instruction::UIToFP:
   case Instruction::Trunc:
   case Instruction::FPTrunc:
+  case Instruction::ByteCast:
   case Instruction::BitCast: {
     auto SrcIt = MinBWs.find(getOperandEntry(E, 0));
     Type *SrcScalarTy = VL0->getOperand(0)->getType();
@@ -13785,7 +13789,11 @@ BoUpSLP::getEntryCost(const TreeEntry *E, ArrayRef<Value *> VectorizedVals,
       }
       unsigned BWSz = DL->getTypeSizeInBits(ScalarTy->getScalarType());
       if (BWSz == SrcBWSz) {
-        VecOpcode = Instruction::BitCast;
+        if (ScalarTy->isByteOrByteVectorTy() &&
+            !SrcScalarTy->isByteOrByteVectorTy())
+          VecOpcode = Instruction::ByteCast;
+        else
+          VecOpcode = Instruction::BitCast;
       } else if (BWSz < SrcBWSz) {
         VecOpcode = Instruction::Trunc;
       } else if (It != MinBWs.end()) {
@@ -13808,8 +13816,9 @@ BoUpSLP::getEntryCost(const TreeEntry *E, ArrayRef<Value *> VectorizedVals,
     };
     auto GetVectorCost = [=](InstructionCost CommonCost) {
       // Do not count cost here if minimum bitwidth is in effect and it is just
-      // a bitcast (here it is just a noop).
-      if (VecOpcode != Opcode && VecOpcode == Instruction::BitCast)
+      // a bitcast or a bytecast (here it is just a noop).
+      if (VecOpcode != Opcode && (VecOpcode == Instruction::BitCast ||
+                                  VecOpcode == Instruction::ByteCast))
         return CommonCost;
       auto *VI = VL0->getOpcode() == Opcode ? VL0 : nullptr;
       TTI::CastContextHint CCH = GetCastContextHint(VL0->getOperand(0));
@@ -16729,18 +16738,23 @@ Value *BoUpSLP::gather(
                                       Type *Ty) {
     Value *Scalar = V;
     if (Scalar->getType() != Ty) {
-      assert(Scalar->getType()->isIntOrIntVectorTy() &&
-             Ty->isIntOrIntVectorTy() && "Expected integer types only.");
-      Value *V = Scalar;
-      if (auto *CI = dyn_cast<CastInst>(Scalar);
-          isa_and_nonnull<SExtInst, ZExtInst>(CI)) {
-        Value *Op = CI->getOperand(0);
-        if (auto *IOp = dyn_cast<Instruction>(Op);
-            !IOp || !(isDeleted(IOp) || isVectorized(IOp)))
-          V = Op;
+      if (Scalar->getType()->isByteTy()) {
+        Value *V = Scalar;
+        Scalar = Builder.CreateTrunc(V, Ty);
+      } else {
+        assert(Scalar->getType()->isIntOrIntVectorTy() &&
+              Ty->isIntOrIntVectorTy() && "Expected integer types only.");
+        Value *V = Scalar;
+        if (auto *CI = dyn_cast<CastInst>(Scalar);
+            isa_and_nonnull<SExtInst, ZExtInst>(CI)) {
+          Value *Op = CI->getOperand(0);
+          if (auto *IOp = dyn_cast<Instruction>(Op);
+              !IOp || !(isDeleted(IOp) || isVectorized(IOp)))
+            V = Op;
+        }
+        Scalar = Builder.CreateIntCast(
+            V, Ty, !isKnownNonNegative(Scalar, SimplifyQuery(*DL)));
       }
-      Scalar = Builder.CreateIntCast(
-          V, Ty, !isKnownNonNegative(Scalar, SimplifyQuery(*DL)));
     }
 
     Instruction *InsElt;
@@ -18011,7 +18025,10 @@ Value *BoUpSLP::vectorizeTree(TreeEntry *E) {
   auto It = MinBWs.find(E);
   if (It != MinBWs.end()) {
     auto *VecTy = dyn_cast<FixedVectorType>(ScalarTy);
-    ScalarTy = IntegerType::get(F->getContext(), It->second.first);
+    if (ScalarTy->isByteTy())
+      ScalarTy = ByteType::get(F->getContext(), It->second.first);
+    else
+      ScalarTy = IntegerType::get(F->getContext(), It->second.first);
     if (VecTy)
       ScalarTy = getWidenedType(ScalarTy, VecTy->getNumElements());
   }
@@ -18411,6 +18428,7 @@ Value *BoUpSLP::vectorizeTree(TreeEntry *E) {
     case Instruction::UIToFP:
     case Instruction::Trunc:
     case Instruction::FPTrunc:
+    case Instruction::ByteCast:
     case Instruction::BitCast: {
       setInsertPointAfterBundle(E);
 
@@ -18429,7 +18447,11 @@ Value *BoUpSLP::vectorizeTree(TreeEntry *E) {
           SrcBWSz = SrcIt->second.first;
         unsigned BWSz = DL->getTypeSizeInBits(ScalarTy->getScalarType());
         if (BWSz == SrcBWSz) {
-          VecOpcode = Instruction::BitCast;
+          if (SrcScalarTy->isByteOrByteVectorTy() &&
+              !ScalarTy->isByteOrByteVectorTy())
+            VecOpcode = Instruction::ByteCast;
+          else
+            VecOpcode = Instruction::BitCast;
         } else if (BWSz < SrcBWSz) {
           VecOpcode = Instruction::Trunc;
         } else if (It != MinBWs.end()) {
