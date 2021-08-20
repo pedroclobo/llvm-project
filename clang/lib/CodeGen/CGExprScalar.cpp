@@ -474,7 +474,12 @@ public:
     return llvm::ConstantFP::get(VMContext, E->getValue());
   }
   Value *VisitCharacterLiteral(const CharacterLiteral *E) {
-    return llvm::ConstantInt::get(ConvertType(E->getType()), E->getValue());
+    llvm::Type *Ty = ConvertType(E->getType());
+    if (Ty->isIntegerTy())
+      return llvm::ConstantInt::get(Ty, E->getValue());
+
+    assert(Ty->isByteTy() && "character can only be an integer or a byte");
+    return llvm::ConstantByte::get(Ty, E->getValue());
   }
   Value *VisitObjCBoolLiteralExpr(const ObjCBoolLiteralExpr *E) {
     return llvm::ConstantInt::get(ConvertType(E->getType()), E->getValue());
