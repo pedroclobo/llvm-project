@@ -2568,12 +2568,18 @@ public:
 
   /// Return a boolean value testing if \p Arg == 0.
   Value *CreateIsNull(Value *Arg, const Twine &Name = "") {
-    return CreateICmpEQ(Arg, Constant::getNullValue(Arg->getType()), Name);
+    Value *Ptr = Arg;
+    if (Ptr->getType()->isByteOrByteVectorTy())
+      Ptr = CreateByteCast(Arg, Name);
+    return CreateICmpEQ(Ptr, Constant::getNullValue(Ptr->getType()), Name);
   }
 
   /// Return a boolean value testing if \p Arg != 0.
   Value *CreateIsNotNull(Value *Arg, const Twine &Name = "") {
-    return CreateICmpNE(Arg, Constant::getNullValue(Arg->getType()), Name);
+    Value *Ptr = Arg;
+    if (Ptr->getType()->isByteOrByteVectorTy())
+      Ptr = CreateByteCast(Arg, Name);
+    return CreateICmpNE(Ptr, Constant::getNullValue(Ptr->getType()), Name);
   }
 
   /// Return a boolean value testing if \p Arg < 0.
