@@ -1083,6 +1083,10 @@ bool LoopIdiomRecognize::processLoopStridedStore(
 
   CallInst *NewCall;
   if (SplatValue) {
+    // Guard against bytes.
+    if (SplatValue->getType()->isByteTy())
+      SplatValue = Builder.CreateByteCast(SplatValue);
+
     NewCall = Builder.CreateMemSet(
         BasePtr, SplatValue, NumBytes, MaybeAlign(StoreAlignment),
         /*isVolatile=*/false, AATags.TBAA, AATags.Scope, AATags.NoAlias);

@@ -5804,7 +5804,7 @@ KnownFPClass llvm::computeKnownFPClass(const Value *V,
 Value *llvm::isBytewiseValue(Value *V, const DataLayout &DL) {
 
   // All byte-wide stores are splatable, even of arbitrary variables.
-  if (V->getType()->isIntegerTy(8))
+  if (V->getType()->isIntegerTy(8) || V->getType()->isByteTy(8))
     return V;
 
   LLVMContext &Ctx = V->getContext();
