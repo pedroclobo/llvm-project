@@ -416,6 +416,8 @@ enum ConstantsCodes {
   CST_CODE_CE_GEP_WITH_INRANGE = 31,  // [opty, flags, range, n x operands]
   CST_CODE_CE_GEP = 32,               // [opty, flags, n x operands]
   CST_CODE_PTRAUTH = 33,              // [ptr, key, disc, addrdisc]
+  CST_CODE_STRING_BYTE = 34,          // byte STRING:    [values]
+  CST_CODE_CSTRING_BYTE = 35,         // byte CSTRING:   [values]
 };
 
 /// CastOpcodes - These are values used in the bitcode files to encode which

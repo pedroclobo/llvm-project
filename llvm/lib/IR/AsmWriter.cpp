@@ -1647,6 +1647,15 @@ static void WriteConstantInternal(raw_ostream &Out, const Constant *CV,
       return;
     }
 
+    // As a second special case, print the array as a string if it is an array
+    // of b8.
+    if (CA->isByteString()) {
+      Out << "b\"";
+      printEscapedString(CA->getAsString(), Out);
+      Out << '"';
+      return;
+    }
+
     Type *ETy = CA->getType()->getElementType();
     Out << '[';
     WriterCtx.TypePrinter->print(ETy, Out);
