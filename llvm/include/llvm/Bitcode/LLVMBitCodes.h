@@ -419,6 +419,8 @@ enum ConstantsCodes {
   CST_CODE_PTRAUTH = 33,              // [ptr, key, disc, addrdisc]
   CST_CODE_BYTE = 34,                 // BYTE:          [intval]
   CST_CODE_WIDE_BYTE = 35,            // WIDE_BYTE:     [n x intval]
+  CST_CODE_STRING_BYTE = 36,          // byte STRING:    [values]
+  CST_CODE_CSTRING_BYTE = 37,         // byte CSTRING:   [values]
 };
 
 /// CastOpcodes - These are values used in the bitcode files to encode which
