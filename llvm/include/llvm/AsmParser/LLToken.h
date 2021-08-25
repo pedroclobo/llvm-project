@@ -129,6 +129,7 @@ enum Kind {
   kw_prefix,
   kw_prologue,
   kw_c,
+  kw_b,
 
   kw_cc,
   kw_ccc,
