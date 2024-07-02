@@ -7,7 +7,7 @@
 %struct._IO_marker = type { ptr, ptr, i32 }
 
 @stderr = external global ptr, align 8
-@.str = private constant [8 x b8] c"crash!\0A\00", align 1
+@.str = private constant [8 x b8] b"crash!\0A\00", align 1
 
 @fwrite = alias i64 (ptr, i64, i64, ptr), ptr @__fwrite_alias
 

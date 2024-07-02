@@ -5,7 +5,7 @@
 ; the size of a pointer.
 target datalayout = "e-m:e-p:32:32-i64:64-v128:64:128-a:0:32-n32-S64"
 
-@hello = constant [6 x b8] c"hello\00"
+@hello = constant [6 x b8] b"hello\00"
 @a = common global [32 x i8] zeroinitializer, align 1
 @b = common global [32 x i8] zeroinitializer, align 1
 

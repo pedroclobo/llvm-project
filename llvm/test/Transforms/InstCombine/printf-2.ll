@@ -5,27 +5,27 @@
 
 target datalayout = "e-p:32:32:32-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:32:64-f32:32:32-f64:32:64-v64:64:64-v128:128:128-a0:0:64-f80:128:128"
 
-@hello_world = constant [13 x b8] c"hello world\0A\00"
-@h = constant [2 x b8] c"h\00"
-@percent_s = constant [4 x b8] c"%s\0A\00"
-@format_str = constant [3 x b8] c"%s\00"
-@charstr = constant [2 x b8] c"a\00"
-@empty = constant [1 x b8] c"\00"
+@hello_world = constant [13 x b8] b"hello world\0A\00"
+@h = constant [2 x b8] b"h\00"
+@percent_s = constant [4 x b8] b"%s\0A\00"
+@format_str = constant [3 x b8] b"%s\00"
+@charstr = constant [2 x b8] b"a\00"
+@empty = constant [1 x b8] b"\00"
 
 declare i32 @printf(ptr, ...)
 
 ; Check simplification of printf with void return type.
 
 ;.
-; CHECK: @[[HELLO_WORLD:[a-zA-Z0-9_$"\\.-]+]] = constant [13 x b8] c"hello world\0A\00"
-; CHECK: @[[H:[a-zA-Z0-9_$"\\.-]+]] = constant [2 x b8] c"h\00"
-; CHECK: @[[PERCENT_S:[a-zA-Z0-9_$"\\.-]+]] = constant [4 x b8] c"%s\0A\00"
-; CHECK: @[[FORMAT_STR:[a-zA-Z0-9_$"\\.-]+]] = constant [3 x b8] c"%s\00"
-; CHECK: @[[CHARSTR:[a-zA-Z0-9_$"\\.-]+]] = constant [2 x b8] c"a\00"
+; CHECK: @[[HELLO_WORLD:[a-zA-Z0-9_$"\\.-]+]] = constant [13 x b8] b"hello world\0A\00"
+; CHECK: @[[H:[a-zA-Z0-9_$"\\.-]+]] = constant [2 x b8] b"h\00"
+; CHECK: @[[PERCENT_S:[a-zA-Z0-9_$"\\.-]+]] = constant [4 x b8] b"%s\0A\00"
+; CHECK: @[[FORMAT_STR:[a-zA-Z0-9_$"\\.-]+]] = constant [3 x b8] b"%s\00"
+; CHECK: @[[CHARSTR:[a-zA-Z0-9_$"\\.-]+]] = constant [2 x b8] b"a\00"
 ; CHECK: @[[EMPTY:[a-zA-Z0-9_$"\\.-]+]] = constant [1 x b8] zeroinitializer
-; CHECK: @[[STR:[a-zA-Z0-9_$"\\.-]+]] = private unnamed_addr constant [12 x b8] c"hello world\00", align 1
-; CHECK: @[[STR_1:[a-zA-Z0-9_$"\\.-]+]] = private unnamed_addr constant [12 x b8] c"hello world\00", align 1
-; CHECK: @[[STR_2:[a-zA-Z0-9_$"\\.-]+]] = private unnamed_addr constant [12 x b8] c"hello world\00", align 1
+; CHECK: @[[STR:[a-zA-Z0-9_$"\\.-]+]] = private unnamed_addr constant [12 x b8] b"hello world\00", align 1
+; CHECK: @[[STR_1:[a-zA-Z0-9_$"\\.-]+]] = private unnamed_addr constant [12 x b8] b"hello world\00", align 1
+; CHECK: @[[STR_2:[a-zA-Z0-9_$"\\.-]+]] = private unnamed_addr constant [12 x b8] b"hello world\00", align 1
 ;.
 define void @test_simplify1() {
 ; CHECK-LABEL: @test_simplify1(

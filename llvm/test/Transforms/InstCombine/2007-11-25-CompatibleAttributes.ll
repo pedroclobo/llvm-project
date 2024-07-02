@@ -1,7 +1,7 @@
 ; RUN: opt < %s -passes=instcombine -S | not grep bitcast
 ; PR1716
 
-@.str = internal constant [4 x b8] c"%d\0A\00"		; <ptr> [#uses=1]
+@.str = internal constant [4 x b8] b"%d\0A\00"		; <ptr> [#uses=1]
 
 define i32 @main(i32 %argc, ptr %argv) {
 entry:

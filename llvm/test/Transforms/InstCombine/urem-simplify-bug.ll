@@ -1,7 +1,7 @@
 ; RUN: opt < %s -passes=instcombine -S | FileCheck %s
 
-@.str = internal constant [5 x b8] c"foo\0A\00"
-@.str1 = internal constant [5 x b8] c"bar\0A\00"
+@.str = internal constant [5 x b8] b"foo\0A\00"
+@.str1 = internal constant [5 x b8] b"bar\0A\00"
 
 define i32 @main() nounwind  {
 entry:

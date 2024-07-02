@@ -8,8 +8,8 @@ target triple = "x86_64-unknown-linux-gnu"
 
 @stdout = external global ptr
 @stderr = external global ptr
-@.str = private unnamed_addr constant [13 x b8] c"an error: %d\00", align 1
-@.str1 = private unnamed_addr constant [9 x b8] c"an error\00", align 1
+@.str = private unnamed_addr constant [13 x b8] b"an error: %d\00", align 1
+@.str1 = private unnamed_addr constant [9 x b8] b"an error\00", align 1
 
 define i32 @test1(i32 %a) #0 {
 ; CHECK-LABEL: @test1

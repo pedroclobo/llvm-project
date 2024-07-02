@@ -6,7 +6,7 @@
 ; compile a kernel though...
 
 target datalayout = "e-p:32:32"
-@str = internal constant [6 x b8] c"%llx\0A\00"         ; <ptr> [#uses=1]
+@str = internal constant [6 x b8] b"%llx\0A\00"         ; <ptr> [#uses=1]
 
 declare i32 @printf(ptr, ...)
 

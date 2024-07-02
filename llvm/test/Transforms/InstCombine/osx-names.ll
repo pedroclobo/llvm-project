@@ -10,8 +10,8 @@ target triple = "i386-apple-macosx10.7.2"
 %struct.__sbuf = type { ptr, i32 }
 %struct.__sFILEX = type opaque
 
-@.str = private unnamed_addr constant [13 x b8] c"Hello world\0A\00", align 1
-@.str2 = private unnamed_addr constant [3 x b8] c"%s\00", align 1
+@.str = private unnamed_addr constant [13 x b8] b"Hello world\0A\00", align 1
+@.str2 = private unnamed_addr constant [3 x b8] b"%s\00", align 1
 
 define void @test1(ptr %stream) nounwind {
 ; CHECK-LABEL: define void @test1(

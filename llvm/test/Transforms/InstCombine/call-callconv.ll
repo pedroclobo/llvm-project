@@ -7,7 +7,7 @@
 
 target datalayout = "p:32:32"
 
-@.str = private unnamed_addr constant [4 x b8] c"abc\00", align 1
+@.str = private unnamed_addr constant [4 x b8] b"abc\00", align 1
 
 define arm_aapcscc i32 @_abs(i32 %i) nounwind readnone {
 ; CHECK-LABEL: @_abs(

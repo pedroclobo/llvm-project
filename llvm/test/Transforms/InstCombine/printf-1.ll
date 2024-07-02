@@ -6,15 +6,15 @@
 
 target datalayout = "e-p:32:32:32-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:32:64-f32:32:32-f64:32:64-v64:64:64-v128:128:128-a0:0:64-f80:128:128"
 
-@hello_world = constant [13 x b8] c"hello world\0A\00"
-@h = constant [2 x b8] c"h\00"
-@h2 = constant [3 x b8] c"%%\00"
-@percent = constant [2 x b8] c"%\00"
-@percent_c = constant [3 x b8] c"%c\00"
-@percent_d = constant [3 x b8] c"%d\00"
-@percent_f = constant [3 x b8] c"%f\00"
-@percent_s = constant [4 x b8] c"%s\0A\00"
-@empty = constant [1 x b8] c"\00"
+@hello_world = constant [13 x b8] b"hello world\0A\00"
+@h = constant [2 x b8] b"h\00"
+@h2 = constant [3 x b8] b"%%\00"
+@percent = constant [2 x b8] b"%\00"
+@percent_c = constant [3 x b8] b"%c\00"
+@percent_d = constant [3 x b8] b"%d\00"
+@percent_f = constant [3 x b8] b"%f\00"
+@percent_s = constant [4 x b8] b"%s\0A\00"
+@empty = constant [1 x b8] b"\00"
 
 declare i32 @printf(ptr, ...)
 
