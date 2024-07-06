@@ -976,7 +976,7 @@ TargetTransformInfo::getCastContextHint(const Instruction *I) {
 
       // Similarly to the case above, strip bitcasts to bytes.
       if (auto *Cast = dyn_cast<BitCastInst>(U))
-        if (Cast->getDestTy()->isByteTy() && Cast->hasOneUse())
+        if (Cast->getDestTy()->isByteTy())
           U = *Cast->user_begin();
 
       return getLoadStoreKind(U, Instruction::Store, Intrinsic::masked_store,

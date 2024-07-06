@@ -2512,6 +2512,10 @@ bool CallAnalyzer::visitUnreachableInst(UnreachableInst &I) {
 }
 
 bool CallAnalyzer::visitInstruction(Instruction &I) {
+  // Bytecasts and bitcast to bytes are no-ops. They only reinterpret bytes.
+  if (isa<ByteCastInst>(I) || (isa<BitCastInst>(I) && I.getType()->isByteTy()))
+    return false;
+
   // Some instructions are free. All of the free intrinsics can also be
   // handled by SROA, etc.
   if (TTI.getInstructionCost(&I, TargetTransformInfo::TCK_SizeAndLatency) ==
@@ -2550,13 +2554,6 @@ CallAnalyzer::analyzeBlock(BasicBlock *BB,
 
     // Skip ephemeral values.
     if (EphValues.count(&I))
-      continue;
-
-    // Bytecasts and bitcast to bytes are no-ops, as they only reinterpret
-    // bytes. For the baseline implementation, skipping them is sufficient.
-    bool IsNoOpCast = isa<ByteCastInst>(I) ||
-                      (isa<BitCastInst>(I) && I.getType()->isByteTy());
-    if (IsNoOpCast)
       continue;
 
     ++NumInstructions;
