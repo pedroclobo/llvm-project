@@ -6947,9 +6947,8 @@ LoopVectorizationCostModel::getInstructionCost(Instruction *I, ElementCount VF,
     return getMemoryInstructionCost(I, VF);
   }
   case Instruction::ByteCast:
-    // Bytecasts to integers simply reinterpret types, and are free.
-    if (I->getType()->isIntegerTy())
-      return 0;
+    // Bytecasts reinterpret types. They are free.
+    return 0;
     [[fallthrough]];
   case Instruction::BitCast:
     if (I->getType()->isPointerTy())
