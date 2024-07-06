@@ -9373,7 +9373,7 @@ BoUpSLP::getEntryCost(const TreeEntry *E, ArrayRef<Value *> VectorizedVals,
     return Cost;
   }
   case Instruction::ByteCast:
-    // Currently, treat bytecasts as a no-op.
+    // Treat bytecasts as a no-op.
     return 0;
   case Instruction::ZExt:
   case Instruction::SExt:
