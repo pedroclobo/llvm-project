@@ -1288,7 +1288,7 @@ char *LLVMPrintTypeToString(LLVMTypeRef Val);
  */
 LLVMTypeRef LLVMByte1TypeInContext(LLVMContextRef C);
 LLVMTypeRef LLVMByte8TypeInContext(LLVMContextRef C);
-LLVMTypeRef LLVMByte6TypeInContext(LLVMContextRef C);
+LLVMTypeRef LLVMByte16TypeInContext(LLVMContextRef C);
 LLVMTypeRef LLVMByte32TypeInContext(LLVMContextRef C);
 LLVMTypeRef LLVMByte64TypeInContext(LLVMContextRef C);
 LLVMTypeRef LLVMByte128TypeInContext(LLVMContextRef C);
