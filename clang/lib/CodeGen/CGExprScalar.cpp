@@ -1420,14 +1420,15 @@ Value *ScalarExprEmitter::EmitScalarCast(Value *Src, QualType SrcType,
   }
 
   if (SrcElementTy->isByteTy()) {
-    bool InputSigned = SrcElementType->isSignedIntegerOrEnumerationType();
+    assert(!SrcElementType->isSignedIntegerOrEnumerationType() &&
+           "bytes cannot be signed, only unsigned");
+
     llvm::Value *IntResult = Builder.CreateByteCast(Src, "conv");
     if (DstTy->isIntegerTy())
-      return Builder.CreateIntCast(IntResult, DstTy, InputSigned, "conv");
+      return Builder.CreateIntCast(IntResult, DstTy, false, "conv");
 
     assert(DstTy->isFloatingPointTy());
-    return InputSigned ? Builder.CreateSIToFP(IntResult, DstTy, "conv")
-                       : Builder.CreateUIToFP(IntResult, DstTy, "conv");
+    Builder.CreateUIToFP(IntResult, DstTy, "conv");
   }
 
   if (SrcElementTy->isIntegerTy()) {
@@ -1474,9 +1475,8 @@ Value *ScalarExprEmitter::EmitScalarCast(Value *Src, QualType SrcType,
 
     llvm::Type *DstITy =
         llvm::Type::getIntNTy(DstTy->getContext(), DstTy->getByteBitWidth());
-    if (DstElementType->isSignedIntegerOrEnumerationType())
-      return Builder.CreateBitCast(Builder.CreateFPToSI(Src, DstITy, "conv"),
-                                   DstTy);
+    assert(!DstElementType->isSignedIntegerOrEnumerationType() &&
+           "bytes cannot be signed, only unsigned");
     return Builder.CreateBitCast(Builder.CreateFPToUI(Src, DstITy, "conv"),
                                  DstTy);
   }
