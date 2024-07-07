@@ -349,7 +349,6 @@ llvm::Type *CodeGenTypes::ConvertType(QualType T) {
       ResultType = llvm::Type::getInt1Ty(getLLVMContext());
       break;
 
-    case BuiltinType::Char_S:
     case BuiltinType::Char_U:
     case BuiltinType::UChar:
       // Types that access memory are bytes.
@@ -357,6 +356,7 @@ llvm::Type *CodeGenTypes::ConvertType(QualType T) {
           getLLVMContext(), static_cast<unsigned>(Context.getTypeSize(T)));
       break;
 
+    case BuiltinType::Char_S:
     case BuiltinType::SChar:
     case BuiltinType::Short:
     case BuiltinType::UShort:
