@@ -3,7 +3,7 @@
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-unknown-linux-gnu"
 
-@.str.2 = private unnamed_addr constant [7 x b8] b"Boom!\0A\00", align 1
+@.str.2 = private unnamed_addr constant [7 x i8] c"Boom!\0A\00", align 1
 
 define dso_local void @trap() {
 entry:

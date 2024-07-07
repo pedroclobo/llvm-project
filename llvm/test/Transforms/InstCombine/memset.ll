@@ -3,10 +3,10 @@
 
 define i32 @test(ptr %target) {
 ; CHECK-LABEL: @test(
-; CHECK-NEXT:    store i8 1, ptr [[TARGET:%.*]], align 1
-; CHECK-NEXT:    store i16 257, ptr [[TARGET]], align 2
-; CHECK-NEXT:    store i32 16843009, ptr [[TARGET]], align 4
-; CHECK-NEXT:    store i64 72340172838076673, ptr [[TARGET]], align 8
+; CHECK-NEXT:    store b8 bitcast (i8 1 to b8), ptr [[TARGET:%.*]], align 1
+; CHECK-NEXT:    store b16 bitcast (i16 257 to b16), ptr [[TARGET]], align 2
+; CHECK-NEXT:    store b32 bitcast (i32 16843009 to b32), ptr [[TARGET]], align 4
+; CHECK-NEXT:    store b64 bitcast (i64 72340172838076673 to b64), ptr [[TARGET]], align 8
 ; CHECK-NEXT:    ret i32 0
 ;
   call void @llvm.memset.p0.i32(ptr %target, i8 1, i32 0, i1 false)

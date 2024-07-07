@@ -53,11 +53,11 @@ define void @fold_strlcpy_s1(ptr %dst) {
 ; BE-NEXT:    call void @sink(ptr [[DST:%.*]], i64 1)
 ; BE-NEXT:    store i8 0, ptr [[DST]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 1)
-; BE-NEXT:    store i16 13312, ptr [[DST]], align 1
+; BE-NEXT:    store b16 bitcast (i16 13312 to b16), ptr [[DST]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 1)
-; BE-NEXT:    store i16 13312, ptr [[DST]], align 1
+; BE-NEXT:    store b16 bitcast (i16 13312 to b16), ptr [[DST]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 1)
-; BE-NEXT:    store i16 13312, ptr [[DST]], align 1
+; BE-NEXT:    store b16 bitcast (i16 13312 to b16), ptr [[DST]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 1)
 ; BE-NEXT:    ret void
 ;
@@ -65,11 +65,11 @@ define void @fold_strlcpy_s1(ptr %dst) {
 ; LE-NEXT:    call void @sink(ptr [[DST:%.*]], i64 1)
 ; LE-NEXT:    store i8 0, ptr [[DST]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 1)
-; LE-NEXT:    store i16 52, ptr [[DST]], align 1
+; LE-NEXT:    store b16 bitcast (i16 52 to b16), ptr [[DST]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 1)
-; LE-NEXT:    store i16 52, ptr [[DST]], align 1
+; LE-NEXT:    store b16 bitcast (i16 52 to b16), ptr [[DST]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 1)
-; LE-NEXT:    store i16 52, ptr [[DST]], align 1
+; LE-NEXT:    store b16 bitcast (i16 52 to b16), ptr [[DST]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 1)
 ; LE-NEXT:    ret void
 ;
@@ -108,11 +108,11 @@ define void @fold_strlcpy_s5(ptr %dst) {
 ; BE-NEXT:    call void @sink(ptr [[DST:%.*]], i64 4)
 ; BE-NEXT:    store i8 0, ptr [[DST]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 4)
-; BE-NEXT:    store i8 49, ptr [[DST]], align 1
+; BE-NEXT:    store b8 bitcast (i8 49 to b8), ptr [[DST]], align 1
 ; BE-NEXT:    [[TMP1:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 1
 ; BE-NEXT:    store i8 0, ptr [[TMP1]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 4)
-; BE-NEXT:    store i16 12594, ptr [[DST]], align 1
+; BE-NEXT:    store b16 bitcast (i16 12594 to b16), ptr [[DST]], align 1
 ; BE-NEXT:    [[TMP2:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 2
 ; BE-NEXT:    store i8 0, ptr [[TMP2]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 4)
@@ -132,11 +132,11 @@ define void @fold_strlcpy_s5(ptr %dst) {
 ; LE-NEXT:    call void @sink(ptr [[DST:%.*]], i64 4)
 ; LE-NEXT:    store i8 0, ptr [[DST]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 4)
-; LE-NEXT:    store i8 49, ptr [[DST]], align 1
+; LE-NEXT:    store b8 bitcast (i8 49 to b8), ptr [[DST]], align 1
 ; LE-NEXT:    [[TMP1:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 1
 ; LE-NEXT:    store i8 0, ptr [[TMP1]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 4)
-; LE-NEXT:    store i16 12849, ptr [[DST]], align 1
+; LE-NEXT:    store b16 bitcast (i16 12849 to b16), ptr [[DST]], align 1
 ; LE-NEXT:    [[TMP2:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 2
 ; LE-NEXT:    store i8 0, ptr [[TMP2]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 4)
@@ -282,11 +282,11 @@ define void @fold_strlcpy_a5(ptr %dst, i64 %n) {
 ; BE-NEXT:    call void @sink(ptr [[DST:%.*]], i64 5)
 ; BE-NEXT:    store i8 0, ptr [[DST]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 5)
-; BE-NEXT:    store i8 49, ptr [[DST]], align 1
+; BE-NEXT:    store b8 bitcast (i8 49 to b8), ptr [[DST]], align 1
 ; BE-NEXT:    [[TMP1:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 1
 ; BE-NEXT:    store i8 0, ptr [[TMP1]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 5)
-; BE-NEXT:    store i32 825373492, ptr [[DST]], align 1
+; BE-NEXT:    store b32 bitcast (i32 825373492 to b32), ptr [[DST]], align 1
 ; BE-NEXT:    [[TMP2:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 4
 ; BE-NEXT:    store i8 0, ptr [[TMP2]], align 1
 ; BE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 5)
@@ -304,11 +304,11 @@ define void @fold_strlcpy_a5(ptr %dst, i64 %n) {
 ; LE-NEXT:    call void @sink(ptr [[DST:%.*]], i64 5)
 ; LE-NEXT:    store i8 0, ptr [[DST]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 5)
-; LE-NEXT:    store i8 49, ptr [[DST]], align 1
+; LE-NEXT:    store b8 bitcast (i8 49 to b8), ptr [[DST]], align 1
 ; LE-NEXT:    [[TMP1:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 1
 ; LE-NEXT:    store i8 0, ptr [[TMP1]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 5)
-; LE-NEXT:    store i32 875770417, ptr [[DST]], align 1
+; LE-NEXT:    store b32 bitcast (i32 875770417 to b32), ptr [[DST]], align 1
 ; LE-NEXT:    [[TMP2:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 4
 ; LE-NEXT:    store i8 0, ptr [[TMP2]], align 1
 ; LE-NEXT:    call void @sink(ptr nonnull [[DST]], i64 5)

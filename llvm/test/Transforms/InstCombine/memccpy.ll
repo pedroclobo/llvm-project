@@ -10,7 +10,7 @@ declare ptr @memccpy(ptr, ptr, i32, i64)
 
 define ptr @memccpy_to_memcpy(ptr %dst) {
 ; CHECK-LABEL: @memccpy_to_memcpy(
-; CHECK-NEXT:    store i64 8245940763182785896, ptr [[DST:%.*]], align 1
+; CHECK-NEXT:    store b64 bitcast (i64 8245940763182785896 to b64), ptr [[DST:%.*]], align 1
 ; CHECK-NEXT:    [[CALL:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 8
 ; CHECK-NEXT:    ret ptr [[CALL]]
 ;
@@ -20,7 +20,7 @@ define ptr @memccpy_to_memcpy(ptr %dst) {
 
 define ptr @memccpy_to_memcpy2(ptr %dst) {
 ; CHECK-LABEL: @memccpy_to_memcpy2(
-; CHECK-NEXT:    store i64 8245940763182785896, ptr [[DST:%.*]], align 1
+; CHECK-NEXT:    store b64 bitcast (i64 8245940763182785896 to b64), ptr [[DST:%.*]], align 1
 ; CHECK-NEXT:    [[CALL:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 8
 ; CHECK-NEXT:    ret ptr [[CALL]]
 ;

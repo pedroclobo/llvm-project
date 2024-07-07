@@ -4,9 +4,9 @@
 
 target datalayout = "e-p:32:32:32-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:32:64-f32:32:32-f64:32:64-v64:64:64-v128:128:128-a0:0:64-f80:128:128-n8:16:32"
 
-@hello = constant [14 x b8] b"hello world\5Cn\00"
-@null = constant [1 x b8] zeroinitializer
-@newlines = constant [3 x b8] b"\0D\0A\00"
+@hello = constant [14 x i8] c"hello world\5Cn\00"
+@null = constant [1 x i8] zeroinitializer
+@newlines = constant [3 x i8] c"\0D\0A\00"
 @chp = global ptr zeroinitializer
 
 declare ptr @strchr(ptr, i32)

@@ -76,7 +76,7 @@ define void @fold_strncpy_s0(ptr %dst, i64 %n) {
 ; CHECK-NEXT:    call void @sink(ptr [[DST:%.*]], ptr [[DST]])
 ; CHECK-NEXT:    store i8 0, ptr [[DST]], align 1
 ; CHECK-NEXT:    call void @sink(ptr nonnull [[DST]], ptr nonnull [[DST]])
-; CHECK-NEXT:    store i16 0, ptr [[DST]], align 1
+; CHECK-NEXT:    store b16 bitcast (i16 0 to b16), ptr [[DST]], align 1
 ; CHECK-NEXT:    call void @sink(ptr nonnull [[DST]], ptr nonnull [[DST]])
 ; CHECK-NEXT:    call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(9) [[DST]], i8 0, i64 9, i1 false)
 ; CHECK-NEXT:    call void @sink(ptr nonnull [[DST]], ptr nonnull [[DST]])

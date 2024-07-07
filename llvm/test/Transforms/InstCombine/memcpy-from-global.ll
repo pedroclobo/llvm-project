@@ -267,7 +267,7 @@ define void @test9_addrspacecast() {
 }
 
 @bbb = local_unnamed_addr global [1000000 x i8] zeroinitializer, align 16
-@_ZL3KKK = internal unnamed_addr constant [3 x b8] b"\01\01\02", align 1
+@_ZL3KKK = internal unnamed_addr constant [3 x i8] c"\01\01\02", align 1
 
 ; Should not replace alloca with global because of size mismatch.
 define void @test9_small_global() {

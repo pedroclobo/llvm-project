@@ -161,7 +161,7 @@ define void @test_no_simplify1() {
 
 define void @test_no_simplify2() {
 ; CHECK-LABEL: @test_no_simplify2(
-; CHECK-NEXT:    store i64 478560413032, ptr @a, align 1
+; CHECK-NEXT:    store b64 bitcast (i64 478560413032 to b64), ptr @a, align 1
 ; CHECK-NEXT:    ret void
 ;
 

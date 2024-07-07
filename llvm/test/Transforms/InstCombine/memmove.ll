@@ -28,9 +28,9 @@ define void @test2(ptr %A, i32 %N) {
 
 define i32 @test3(ptr %target) { ; arg: ptr> [#uses=1]
 ; CHECK-LABEL: @test3(
-; CHECK-NEXT:    store i16 104, ptr [[TARGET:%.*]], align 2
-; CHECK-NEXT:    store i32 7103848, ptr [[TARGET]], align 4
-; CHECK-NEXT:    store i64 33037504440198504, ptr [[TARGET]], align 8
+; CHECK-NEXT:    store b16 bitcast (i16 104 to b16), ptr [[TARGET:%.*]], align 2
+; CHECK-NEXT:    store b32 bitcast (i32 7103848 to b32), ptr [[TARGET]], align 4
+; CHECK-NEXT:    store b64 bitcast (i64 33037504440198504 to b64), ptr [[TARGET]], align 8
 ; CHECK-NEXT:    ret i32 0
 ;
   %h_p = getelementptr [2 x i8], ptr @h, i32 0, i32 0		; <ptr> [#uses=1]

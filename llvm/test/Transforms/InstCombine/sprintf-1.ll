@@ -11,14 +11,14 @@
 
 target datalayout = "e-p:32:32:32-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:32:64-f32:32:32-f64:32:64-v64:64:64-v128:128:128-a0:0:64-f80:128:128"
 
-@hello_world = constant [13 x b8] b"hello world\0A\00"
-@null = constant [1 x b8] zeroinitializer
-@null_hello = constant [7 x b8] b"\00hello\00"
-@h = constant [2 x b8] b"h\00"
-@percent_c = constant [3 x b8] b"%c\00"
-@percent_d = constant [3 x b8] b"%d\00"
-@percent_f = constant [3 x b8] b"%f\00"
-@percent_s = constant [3 x b8] b"%s\00"
+@hello_world = constant [13 x i8] c"hello world\0A\00"
+@null = constant [1 x i8] zeroinitializer
+@null_hello = constant [7 x i8] c"\00hello\00"
+@h = constant [2 x i8] c"h\00"
+@percent_c = constant [3 x i8] c"%c\00"
+@percent_d = constant [3 x i8] c"%d\00"
+@percent_f = constant [3 x i8] c"%f\00"
+@percent_s = constant [3 x i8] c"%s\00"
 
 declare i32 @sprintf(ptr, ptr, ...)
 
@@ -55,9 +55,9 @@ define void @test_simplify3(ptr %dst) {
 
 define void @test_simplify4(ptr %dst) {
 ; CHECK-LABEL: @test_simplify4(
-; CHECK-NEXT:    store b8 bitcast (i8 104 to b8), ptr [[DST:%.*]], align 1
+; CHECK-NEXT:    store i8 104, ptr [[DST:%.*]], align 1
 ; CHECK-NEXT:    [[NUL:%.*]] = getelementptr inbounds i8, ptr [[DST]], i32 1
-; CHECK-NEXT:    store b8 bitcast (i8 0 to b8), ptr [[NUL]], align 1
+; CHECK-NEXT:    store i8 0, ptr [[NUL]], align 1
 ; CHECK-NEXT:    ret void
 ;
   call i32 (ptr, ptr, ...) @sprintf(ptr %dst, ptr @percent_c, i8 104)

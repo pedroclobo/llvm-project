@@ -5,7 +5,7 @@
 target datalayout = "e-m:w-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-windows-msvc18.0.0"
 
-@.str = private unnamed_addr constant [2 x b8] b"\0A\00", align 1
+@.str = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 
 define void @test1() personality ptr @__CxxFrameHandler3 {
 entry:

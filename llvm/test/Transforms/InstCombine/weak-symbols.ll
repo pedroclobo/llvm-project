@@ -3,9 +3,9 @@
 ;
 ; RUN: opt < %s -passes=instcombine -S | FileCheck %s
 
-@real_init = weak_odr constant [2 x b8] b"y\00"
-@fake_init = weak constant [2 x b8] b"y\00"
-@.str = private constant [2 x b8] b"y\00"
+@real_init = weak_odr constant [2 x i8] c"y\00"
+@fake_init = weak constant [2 x i8] c"y\00"
+@.str = private constant [2 x i8] c"y\00"
 
 define i32 @foo() nounwind {
 ; CHECK-LABEL: define i32 @foo(

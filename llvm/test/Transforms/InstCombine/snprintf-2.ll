@@ -22,21 +22,21 @@ declare i32 @snprintf(ptr, i64, ptr, ...)
 define void @fold_snprintf_fmt() {
 ; BE-LABEL: @fold_snprintf_fmt(
 ; BE-NEXT:    [[PDIMAX:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 17179869176), align 8
-; BE-NEXT:    store i32 825373440, ptr [[PDIMAX]], align 1
+; BE-NEXT:    store b32 bitcast (i32 825373440 to b32), ptr [[PDIMAX]], align 1
 ; BE-NEXT:    store i32 3, ptr @asiz, align 4
 ; BE-NEXT:    [[PD5:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 40), align 8
-; BE-NEXT:    store i32 825373440, ptr [[PD5]], align 1
+; BE-NEXT:    store b32 bitcast (i32 825373440 to b32), ptr [[PD5]], align 1
 ; BE-NEXT:    store i32 3, ptr getelementptr (i8, ptr @asiz, i64 20), align 4
 ; BE-NEXT:    [[PD4:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 32), align 8
-; BE-NEXT:    store i32 825373440, ptr [[PD4]], align 1
+; BE-NEXT:    store b32 bitcast (i32 825373440 to b32), ptr [[PD4]], align 1
 ; BE-NEXT:    store i32 3, ptr getelementptr (i8, ptr @asiz, i64 16), align 4
 ; BE-NEXT:    [[PD3:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 24), align 8
-; BE-NEXT:    store i16 12594, ptr [[PD3]], align 1
+; BE-NEXT:    store b16 bitcast (i16 12594 to b16), ptr [[PD3]], align 1
 ; BE-NEXT:    [[ENDPTR:%.*]] = getelementptr inbounds i8, ptr [[PD3]], i64 2
 ; BE-NEXT:    store i8 0, ptr [[ENDPTR]], align 1
 ; BE-NEXT:    store i32 3, ptr getelementptr (i8, ptr @asiz, i64 12), align 4
 ; BE-NEXT:    [[PD2:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 16), align 8
-; BE-NEXT:    store i8 49, ptr [[PD2]], align 1
+; BE-NEXT:    store b8 bitcast (i8 49 to b8), ptr [[PD2]], align 1
 ; BE-NEXT:    [[ENDPTR1:%.*]] = getelementptr inbounds i8, ptr [[PD2]], i64 1
 ; BE-NEXT:    store i8 0, ptr [[ENDPTR1]], align 1
 ; BE-NEXT:    store i32 3, ptr getelementptr (i8, ptr @asiz, i64 8), align 4
@@ -48,21 +48,21 @@ define void @fold_snprintf_fmt() {
 ;
 ; LE-LABEL: @fold_snprintf_fmt(
 ; LE-NEXT:    [[PDIMAX:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 17179869176), align 8
-; LE-NEXT:    store i32 3355185, ptr [[PDIMAX]], align 1
+; LE-NEXT:    store b32 bitcast (i32 3355185 to b32), ptr [[PDIMAX]], align 1
 ; LE-NEXT:    store i32 3, ptr @asiz, align 4
 ; LE-NEXT:    [[PD5:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 40), align 8
-; LE-NEXT:    store i32 3355185, ptr [[PD5]], align 1
+; LE-NEXT:    store b32 bitcast (i32 3355185 to b32), ptr [[PD5]], align 1
 ; LE-NEXT:    store i32 3, ptr getelementptr (i8, ptr @asiz, i64 20), align 4
 ; LE-NEXT:    [[PD4:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 32), align 8
-; LE-NEXT:    store i32 3355185, ptr [[PD4]], align 1
+; LE-NEXT:    store b32 bitcast (i32 3355185 to b32), ptr [[PD4]], align 1
 ; LE-NEXT:    store i32 3, ptr getelementptr (i8, ptr @asiz, i64 16), align 4
 ; LE-NEXT:    [[PD3:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 24), align 8
-; LE-NEXT:    store i16 12849, ptr [[PD3]], align 1
+; LE-NEXT:    store b16 bitcast (i16 12849 to b16), ptr [[PD3]], align 1
 ; LE-NEXT:    [[ENDPTR:%.*]] = getelementptr inbounds i8, ptr [[PD3]], i64 2
 ; LE-NEXT:    store i8 0, ptr [[ENDPTR]], align 1
 ; LE-NEXT:    store i32 3, ptr getelementptr (i8, ptr @asiz, i64 12), align 4
 ; LE-NEXT:    [[PD2:%.*]] = load ptr, ptr getelementptr (i8, ptr @adst, i64 16), align 8
-; LE-NEXT:    store i8 49, ptr [[PD2]], align 1
+; LE-NEXT:    store b8 bitcast (i8 49 to b8), ptr [[PD2]], align 1
 ; LE-NEXT:    [[ENDPTR1:%.*]] = getelementptr inbounds i8, ptr [[PD2]], i64 1
 ; LE-NEXT:    store i8 0, ptr [[ENDPTR1]], align 1
 ; LE-NEXT:    store i32 3, ptr getelementptr (i8, ptr @asiz, i64 8), align 4

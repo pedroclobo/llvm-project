@@ -18,6 +18,6 @@ declare void @llvm.memcpy.p0.p0.i32(ptr nocapture writeonly, ptr nocapture reado
 declare void @bar(ptr)
 declare void @gaz(ptr)
 
-; The mempcy should be simplified to a single store of an i8, not i4
-; CHECK: store i8 -1
+; The mempcy should be simplified to a single store of a b8, not b4
+; CHECK: store b8 bitcast (i8 -1 to b8)
 ; CHECK-NOT: store i4 -1
