@@ -278,8 +278,8 @@ uint64x2_t test_vpselq_u64(uint64x2_t a, uint64x2_t b, mve_pred16_t p)
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
 // CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = select <16 x i1> [[TMP1]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]]
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = select <16 x i1> [[TMP1]], <16 x b8> [[A:%.*]], <16 x b8> [[B:%.*]]
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vpselq_u8(uint8x16_t a, uint8x16_t b, mve_pred16_t p)
 {

@@ -82,12 +82,12 @@ void test_svst1_s64(svbool_t pg, int64_t *base, svint64_t data)
 
 // CHECK-LABEL: @test_svst1_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.masked.store.nxv16i8.p0(<vscale x 16 x i8> [[DATA:%.*]], ptr [[BASE:%.*]], i32 1, <vscale x 16 x i1> [[PG:%.*]])
+// CHECK-NEXT:    tail call void @llvm.masked.store.nxv16b8.p0(<vscale x 16 x b8> [[DATA:%.*]], ptr [[BASE:%.*]], i32 1, <vscale x 16 x i1> [[PG:%.*]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z13test_svst1_u8u10__SVBool_tPhu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.masked.store.nxv16i8.p0(<vscale x 16 x i8> [[DATA:%.*]], ptr [[BASE:%.*]], i32 1, <vscale x 16 x i1> [[PG:%.*]])
+// CPP-CHECK-NEXT:    tail call void @llvm.masked.store.nxv16b8.p0(<vscale x 16 x b8> [[DATA:%.*]], ptr [[BASE:%.*]], i32 1, <vscale x 16 x i1> [[PG:%.*]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svst1_u8(svbool_t pg, uint8_t *base, svuint8_t data)
@@ -301,7 +301,7 @@ void test_svst1_vnum_s64(svbool_t pg, int64_t *base, int64_t vnum, svint64_t dat
 // CHECK-NEXT:    [[TMP1:%.*]] = shl nuw nsw i64 [[TMP0]], 4
 // CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[VNUM:%.*]]
 // CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CHECK-NEXT:    tail call void @llvm.masked.store.nxv16i8.p0(<vscale x 16 x i8> [[DATA:%.*]], ptr [[TMP2]], i32 1, <vscale x 16 x i1> [[PG:%.*]])
+// CHECK-NEXT:    tail call void @llvm.masked.store.nxv16b8.p0(<vscale x 16 x b8> [[DATA:%.*]], ptr [[TMP2]], i32 1, <vscale x 16 x i1> [[PG:%.*]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z18test_svst1_vnum_u8u10__SVBool_tPhlu11__SVUint8_t(
@@ -310,7 +310,7 @@ void test_svst1_vnum_s64(svbool_t pg, int64_t *base, int64_t vnum, svint64_t dat
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = shl nuw nsw i64 [[TMP0]], 4
 // CPP-CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[VNUM:%.*]]
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CPP-CHECK-NEXT:    tail call void @llvm.masked.store.nxv16i8.p0(<vscale x 16 x i8> [[DATA:%.*]], ptr [[TMP2]], i32 1, <vscale x 16 x i1> [[PG:%.*]])
+// CPP-CHECK-NEXT:    tail call void @llvm.masked.store.nxv16b8.p0(<vscale x 16 x b8> [[DATA:%.*]], ptr [[TMP2]], i32 1, <vscale x 16 x i1> [[PG:%.*]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svst1_vnum_u8(svbool_t pg, uint8_t *base, int64_t vnum, svuint8_t data)

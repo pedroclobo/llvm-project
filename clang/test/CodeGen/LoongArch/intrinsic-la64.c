@@ -238,7 +238,7 @@ unsigned long int csrxchg_d(unsigned long int a, unsigned long int b) {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call i32 @llvm.loongarch.iocsrrd.b(i32 [[A:%.*]])
 // CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.iocsrrd.b(i32 [[A]])
-// CHECK-NEXT:    ret i8 0
+// CHECK-NEXT:    ret b8 bitcast (i8 0 to b8)
 //
 unsigned char iocsrrd_b(unsigned int a) {
   unsigned char b = __iocsrrd_b(a);
@@ -272,7 +272,8 @@ unsigned int iocsrrd_w(unsigned int a) {
 
 // CHECK-LABEL: @iocsrwr_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 [[A:%.*]] to i32
+// CHECK-NEXT:    [[CONV_I_B:%.*]] = bytecast b8 [[A:%.*]] to i8
+// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 [[CONV_I_B]] to i32
 // CHECK-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV_I]], i32 [[B:%.*]])
 // CHECK-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV_I]], i32 [[B]])
 // CHECK-NEXT:    ret void

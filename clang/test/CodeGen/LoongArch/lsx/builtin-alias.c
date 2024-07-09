@@ -5398,9 +5398,9 @@ v4i32 vssrlni_w_d(v4i32 _1, v4i32 _2) { return __lsx_vssrlni_w_d(_1, _2, 1); }
 v2i64 vssrlni_d_q(v2i64 _1, v2i64 _2) { return __lsx_vssrlni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @vssrlni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrlni.bu.h(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrlni.bu.h(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -5470,9 +5470,9 @@ v4i32 vssrlrni_w_d(v4i32 _1, v4i32 _2) { return __lsx_vssrlrni_w_d(_1, _2, 1); }
 v2i64 vssrlrni_d_q(v2i64 _1, v2i64 _2) { return __lsx_vssrlrni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @vssrlrni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrlrni.bu.h(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrlrni.bu.h(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -5622,9 +5622,9 @@ v4i32 vssrani_w_d(v4i32 _1, v4i32 _2) { return __lsx_vssrani_w_d(_1, _2, 1); }
 v2i64 vssrani_d_q(v2i64 _1, v2i64 _2) { return __lsx_vssrani_d_q(_1, _2, 1); }
 // CHECK-LABEL: @vssrani_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrani.bu.h(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrani.bu.h(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -5694,9 +5694,9 @@ v4i32 vssrarni_w_d(v4i32 _1, v4i32 _2) { return __lsx_vssrarni_w_d(_1, _2, 1); }
 v2i64 vssrarni_d_q(v2i64 _1, v2i64 _2) { return __lsx_vssrarni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @vssrarni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrarni.bu.h(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrarni.bu.h(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //

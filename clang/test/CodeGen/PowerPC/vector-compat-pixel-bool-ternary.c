@@ -8,13 +8,15 @@
 // RUN: %clang -mcpu=pwr9 -faltivec-src-compat=xl --target=powerpc-unknown-unknown -S -emit-llvm %s -o - | FileCheck %s
 
 // CHECK-LABEL: @bi8(
-// CHECK:         [[A_ADDR:%.*]] = alloca <16 x i8>, align 16
-// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca <16 x i8>, align 16
-// CHECK-NEXT:    store <16 x i8> [[A:%.*]], ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    store <16 x i8> [[B:%.*]], ptr [[B_ADDR]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <16 x i8>, ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[B_ADDR]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = call i32 @llvm.ppc.altivec.vcmpequb.p(i32 2, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK:         [[A_ADDR:%.*]] = alloca <16 x b8>, align 16
+// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca <16 x b8>, align 16
+// CHECK-NEXT:    store <16 x b8> [[A:%.*]], ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    store <16 x b8> [[B:%.*]], ptr [[B_ADDR]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <16 x b8>, ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[B_ADDR]], align 16
+// CHECK-NEXT:    [[B_TMP0:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[B_TMP1:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call i32 @llvm.ppc.altivec.vcmpequb.p(i32 2, <16 x i8> [[B_TMP0]], <16 x i8> [[B_TMP1]])
 // CHECK-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP2]], 0
 // CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[TOBOOL]] to i64
 // CHECK-NEXT:    [[COND:%.*]] = select i1 [[TOBOOL]], i32 3, i32 7

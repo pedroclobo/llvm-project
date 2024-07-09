@@ -4758,9 +4758,9 @@ v4i32 vaddwev_w_hu_h(v8u16 _1, v8i16 _2) {
 }
 // CHECK-LABEL: @vaddwev_h_bu_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vaddwev.h.bu.b(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vaddwev.h.bu.b(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]])
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -4791,9 +4791,9 @@ v4i32 vaddwod_w_hu_h(v8u16 _1, v8i16 _2) {
 }
 // CHECK-LABEL: @vaddwod_h_bu_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vaddwod.h.bu.b(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vaddwod.h.bu.b(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]])
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -5198,9 +5198,9 @@ v4i32 vmulwev_w_hu_h(v8u16 _1, v8i16 _2) {
 }
 // CHECK-LABEL: @vmulwev_h_bu_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vmulwev.h.bu.b(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vmulwev.h.bu.b(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]])
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -5231,9 +5231,9 @@ v4i32 vmulwod_w_hu_h(v8u16 _1, v8i16 _2) {
 }
 // CHECK-LABEL: @vmulwod_h_bu_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vmulwod.h.bu.b(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vmulwod.h.bu.b(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]])
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -5521,9 +5521,9 @@ v4i32 vmaddwev_w_hu_h(v4i32 _1, v8u16 _2, v8i16 _3) {
 // CHECK-LABEL: @vmaddwev_h_bu_b(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast i128 [[_3_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vmaddwev.h.bu.b(<8 x i16> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]])
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_3_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vmaddwev.h.bu.b(<8 x i16> [[TMP0]], <16 x i8> [[TMP2]], <16 x i8> [[TMP1]])
 // CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP3]] to i128
 // CHECK-NEXT:    ret i128 [[TMP4]]
 //
@@ -5557,9 +5557,9 @@ v4i32 vmaddwod_w_hu_h(v4i32 _1, v8u16 _2, v8i16 _3) {
 // CHECK-LABEL: @vmaddwod_h_bu_b(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast i128 [[_3_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vmaddwod.h.bu.b(<8 x i16> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]])
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_3_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <8 x i16> @llvm.loongarch.lsx.vmaddwod.h.bu.b(<8 x i16> [[TMP0]], <16 x i8> [[TMP2]], <16 x i8> [[TMP1]])
 // CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP3]] to i128
 // CHECK-NEXT:    ret i128 [[TMP4]]
 //
@@ -5982,9 +5982,9 @@ v2i64 vssrlni_d_q(v2i64 _1, v2i64 _2) {
 }
 // CHECK-LABEL: @vssrlni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrlni.bu.h(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrlni.bu.h(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -6070,9 +6070,9 @@ v2i64 vssrlrni_d_q(v2i64 _1, v2i64 _2) {
 }
 // CHECK-LABEL: @vssrlrni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrlrni.bu.h(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrlrni.bu.h(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -6246,9 +6246,9 @@ v2i64 vssrani_d_q(v2i64 _1, v2i64 _2) {
 }
 // CHECK-LABEL: @vssrani_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrani.bu.h(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrani.bu.h(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //
@@ -6334,9 +6334,9 @@ v2i64 vssrarni_d_q(v2i64 _1, v2i64 _2) {
 }
 // CHECK-LABEL: @vssrarni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrarni.bu.h(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i128 [[_2_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i128 [[_1_COERCE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.loongarch.lsx.vssrarni.bu.h(<16 x i8> [[TMP1]], <16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to i128
 // CHECK-NEXT:    ret i128 [[TMP3]]
 //

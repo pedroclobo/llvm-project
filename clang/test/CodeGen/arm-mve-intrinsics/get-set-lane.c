@@ -134,8 +134,8 @@ uint64_t test_vgetq_lane_u64(uint64x2_t a)
 
 // CHECK-LABEL: @test_vgetq_lane_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <16 x i8> [[A:%.*]], i32 1
-// CHECK-NEXT:    ret i8 [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <16 x b8> [[A:%.*]], i32 1
+// CHECK-NEXT:    ret b8 [[TMP0]]
 //
 uint8_t test_vgetq_lane_u8(uint8x16_t a)
 {
@@ -232,8 +232,8 @@ int64x2_t test_vsetq_lane_s64(int64_t a, int64x2_t b)
 
 // CHECK-LABEL: @test_vsetq_lane_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x i8> [[B:%.*]], i8 [[A:%.*]], i32 2
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x b8> [[B:%.*]], b8 [[A:%.*]], i32 2
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_vsetq_lane_u8(uint8_t a, uint8x16_t b)
 {

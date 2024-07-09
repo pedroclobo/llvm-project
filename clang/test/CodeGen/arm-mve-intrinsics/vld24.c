@@ -26,15 +26,15 @@ float16x8x2_t test_vld2q_f16(const float16_t *addr)
 
 // CHECK-LABEL: @test_vld4q_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.arm.mve.vld4q.v16i8.p0(ptr [[ADDR:%.*]])
-// CHECK-NEXT:    [[TMP1:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[TMP0]], 0
-// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T:%.*]] poison, <16 x i8> [[TMP1]], 0, 0
-// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[TMP0]], 1
-// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP2]], <16 x i8> [[TMP3]], 0, 1
-// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[TMP0]], 2
-// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP4]], <16 x i8> [[TMP5]], 0, 2
-// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[TMP0]], 3
-// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP6]], <16 x i8> [[TMP7]], 0, 3
+// CHECK-NEXT:    [[TMP0:%.*]] = call { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } @llvm.arm.mve.vld4q.v16b8.p0(ptr [[ADDR:%.*]])
+// CHECK-NEXT:    [[TMP1:%.*]] = extractvalue { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } [[TMP0]], 0
+// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T:%.*]] poison, <16 x b8> [[TMP1]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } [[TMP0]], 1
+// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP2]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } [[TMP0]], 2
+// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP4]], <16 x b8> [[TMP5]], 0, 2
+// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } [[TMP0]], 3
+// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP6]], <16 x b8> [[TMP7]], 0, 3
 // CHECK-NEXT:    ret [[STRUCT_UINT8X16X4_T]] [[TMP8]]
 //
 uint8x16x4_t test_vld4q_u8(const uint8_t *addr)

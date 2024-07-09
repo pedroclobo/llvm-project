@@ -176,6 +176,9 @@ static Value *EmitToInt(CodeGenFunction &CGF, llvm::Value *V,
   if (V->getType()->isPointerTy())
     return CGF.Builder.CreatePtrToInt(V, IntType);
 
+  if (V->getType()->isByteTy())
+    return CGF.Builder.CreateByteCast(V, IntType);
+
   assert(V->getType() == IntType);
   return V;
 }
@@ -186,6 +189,9 @@ static Value *EmitFromInt(CodeGenFunction &CGF, llvm::Value *V,
 
   if (ResultType->isPointerTy())
     return CGF.Builder.CreateIntToPtr(V, ResultType);
+
+  if (ResultType->isByteTy())
+    return CGF.Builder.CreateBitCast(V, ResultType);
 
   assert(V->getType() == ResultType);
   return V;
@@ -6068,8 +6074,12 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
         if (PTy->isX86_AMXTy())
           ArgValue = Builder.CreateIntrinsic(Intrinsic::x86_cast_vector_to_tile,
                                              {ArgValue->getType()}, {ArgValue});
-        else
-          ArgValue = Builder.CreateBitCast(ArgValue, PTy);
+        else {
+          if (ArgValue->getType()->isByteOrByteVectorTy() && !PTy->isByteOrByteVectorTy())
+            ArgValue = Builder.CreateByteCast(ArgValue, PTy);
+          else
+            ArgValue = Builder.CreateBitCast(ArgValue, PTy);
+        }
       }
 
       Args.push_back(ArgValue);

@@ -2020,11 +2020,8 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
     }
   }
 
-  if (OldTy->isByteOrByteVectorTy()) {
-    assert(OldTy->getScalarSizeInBits() == NewTy->getScalarSizeInBits() &&
-           "Byte and integer types must be the exact same to convert.");
-    return IRB.CreateByteCast(V);
-  }
+  if (OldTy->isByteOrByteVectorTy())
+    return IRB.CreateByteCast(V, NewTy);
 
   return IRB.CreateBitCast(V, NewTy);
 }

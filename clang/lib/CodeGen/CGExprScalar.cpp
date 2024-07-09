@@ -2346,11 +2346,12 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
     // bitcast.
     if (auto *FixedSrcTy = dyn_cast<llvm::FixedVectorType>(SrcTy)) {
       if (auto *ScalableDstTy = dyn_cast<llvm::ScalableVectorType>(DstTy)) {
-        // If we are casting a fixed i8 vector to a scalable i1 predicate
-        // vector, use a vector insert and bitcast the result.
+        // If we are casting a fixed i8/b8 vector to a scalable i1 predicate
+        // vector, use a vector insert and bitcast/bytecast the result.
         if (ScalableDstTy->getElementType()->isIntegerTy(1) &&
             ScalableDstTy->getElementCount().isKnownMultipleOf(8) &&
-            FixedSrcTy->getElementType()->isIntegerTy(8)) {
+            (FixedSrcTy->getElementType()->isIntegerTy(8) ||
+             FixedSrcTy->getElementType()->isByteTy(8))) {
           ScalableDstTy = llvm::ScalableVectorType::get(
               FixedSrcTy->getElementType(),
               ScalableDstTy->getElementCount().getKnownMinValue() / 8);
@@ -2360,8 +2361,11 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
           llvm::Value *Zero = llvm::Constant::getNullValue(CGF.CGM.Int64Ty);
           llvm::Value *Result = Builder.CreateInsertVector(
               ScalableDstTy, UndefVec, Src, Zero, "cast.scalable");
-          if (Result->getType() != DstTy)
-            Result = Builder.CreateBitCast(Result, DstTy);
+          if (Result->getType() != DstTy) {
+            Result->getType()->isByteOrByteVectorTy() ?
+              Result = Builder.CreateByteCast(Result, DstTy) :
+              Result = Builder.CreateBitCast(Result, DstTy);
+          }
           return Result;
         }
       }
@@ -2372,15 +2376,18 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
     // bitcast.
     if (auto *ScalableSrcTy = dyn_cast<llvm::ScalableVectorType>(SrcTy)) {
       if (auto *FixedDstTy = dyn_cast<llvm::FixedVectorType>(DstTy)) {
-        // If we are casting a scalable i1 predicate vector to a fixed i8
-        // vector, bitcast the source and use a vector extract.
+        // If we are casting a scalable i1 predicate vector to a fixed i8/b8
+        // vector, bitcast/bytecast the source and use a vector extract.
         if (ScalableSrcTy->getElementType()->isIntegerTy(1) &&
             ScalableSrcTy->getElementCount().isKnownMultipleOf(8) &&
-            FixedDstTy->getElementType()->isIntegerTy(8)) {
+            (FixedDstTy->getElementType()->isIntegerTy(8) ||
+             FixedDstTy->getElementType()->isByteTy(8))) {
           ScalableSrcTy = llvm::ScalableVectorType::get(
               FixedDstTy->getElementType(),
               ScalableSrcTy->getElementCount().getKnownMinValue() / 8);
-          Src = Builder.CreateBitCast(Src, ScalableSrcTy);
+          Src->getType()->isByteOrByteVectorTy() ?
+            Src = Builder.CreateByteCast(Src, ScalableSrcTy) :
+            Src = Builder.CreateBitCast(Src, ScalableSrcTy);
         }
         if (ScalableSrcTy->getElementType() == FixedDstTy->getElementType()) {
           llvm::Value *Zero = llvm::Constant::getNullValue(CGF.CGM.Int64Ty);
@@ -2407,6 +2414,10 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
       DestLV.setTBAAInfo(TBAAAccessInfo::getMayAliasInfo());
       return EmitLoadOfLValue(DestLV, CE->getExprLoc());
     }
+
+    if (SrcTy->isByteOrByteVectorTy() && !DstTy->isByteOrByteVectorTy())
+      return Builder.CreateByteCast(Src, DstTy);
+
     return Builder.CreateBitCast(Src, DstTy);
   }
   case CK_AddressSpaceConversion: {

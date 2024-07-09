@@ -60,11 +60,11 @@ svint64x3_t test_svundef3_s64()
 
 // CHECK-LABEL: @test_svundef3_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <vscale x 48 x i8> undef
+// CHECK-NEXT:    ret <vscale x 48 x b8> undef
 //
 // CPP-CHECK-LABEL: @_Z16test_svundef3_u8v(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    ret <vscale x 48 x i8> undef
+// CPP-CHECK-NEXT:    ret <vscale x 48 x b8> undef
 //
 svuint8x3_t test_svundef3_u8()
 {

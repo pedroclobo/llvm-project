@@ -3557,7 +3557,7 @@ unsigned CastInst::isEliminableCastPair(
     { 99,99,99,99,99,99,99,99,99,11,99,15, 0, 0}, // IntToPtr       |
     {  5, 5, 5, 0, 0, 5, 5, 0, 0,16, 5, 1,14, 1}, // BitCast        |
     {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,13,12, 0}, // AddrSpaceCast  |
-    {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,99}, // ByteCast      -+
+    {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,99}, // ByteCast      -+
   };
 
   // TODO: This logic could be encoded into the table above and handled in the
@@ -3568,10 +3568,14 @@ unsigned CastInst::isEliminableCastPair(
   bool IsSecondBitcast = (secondOp == Instruction::BitCast);
   bool AreBothBitcasts = IsFirstBitcast && IsSecondBitcast;
 
+  bool IsFirstBytecast  = (firstOp == Instruction::ByteCast);
+  bool IsSecondBytecast = (secondOp == Instruction::ByteCast);
+  bool OneIsBytecast = IsFirstBytecast || IsSecondBytecast;
+
   // Check if any of the casts convert scalars <-> vectors.
   if ((IsFirstBitcast  && isa<VectorType>(SrcTy) != isa<VectorType>(MidTy)) ||
       (IsSecondBitcast && isa<VectorType>(MidTy) != isa<VectorType>(DstTy)))
-    if (!AreBothBitcasts)
+    if (!AreBothBitcasts && !OneIsBytecast)
       return 0;
 
   int ElimCase = CastResults[firstOp-Instruction::CastOpsBegin]

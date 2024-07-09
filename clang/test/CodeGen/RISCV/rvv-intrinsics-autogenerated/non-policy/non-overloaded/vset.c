@@ -427,61 +427,61 @@ vint64m8_t test_vset_v_i64m4_i64m8(vint64m8_t dest, size_t index, vint64m4_t val
   return __riscv_vset_v_i64m4_i64m8(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vset_v_u8m1_u8m2
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vset_v_u8m1_u8m2
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.nxv8i8(<vscale x 16 x i8> [[DEST]], <vscale x 8 x i8> [[VAL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.nxv8b8(<vscale x 16 x b8> [[DEST]], <vscale x 8 x b8> [[VAL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vset_v_u8m1_u8m2(vuint8m2_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m2(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vset_v_u8m1_u8m4
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vset_v_u8m1_u8m4
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv8i8(<vscale x 32 x i8> [[DEST]], <vscale x 8 x i8> [[VAL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv8b8(<vscale x 32 x b8> [[DEST]], <vscale x 8 x b8> [[VAL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vset_v_u8m1_u8m4(vuint8m4_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m4(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vset_v_u8m2_u8m4
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vset_v_u8m2_u8m4
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[DEST]], <vscale x 16 x i8> [[VAL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv16b8(<vscale x 32 x b8> [[DEST]], <vscale x 16 x b8> [[VAL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vset_v_u8m2_u8m4(vuint8m4_t dest, size_t index, vuint8m2_t val) {
   return __riscv_vset_v_u8m2_u8m4(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vset_v_u8m1_u8m8
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vset_v_u8m1_u8m8
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> [[DEST]], <vscale x 8 x i8> [[VAL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> [[DEST]], <vscale x 8 x b8> [[VAL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vset_v_u8m1_u8m8(vuint8m8_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m8(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vset_v_u8m2_u8m8
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vset_v_u8m2_u8m8
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[DEST]], <vscale x 16 x i8> [[VAL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[DEST]], <vscale x 16 x b8> [[VAL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vset_v_u8m2_u8m8(vuint8m8_t dest, size_t index, vuint8m2_t val) {
   return __riscv_vset_v_u8m2_u8m8(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vset_v_u8m4_u8m8
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 32 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vset_v_u8m4_u8m8
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 32 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv32i8(<vscale x 64 x i8> [[DEST]], <vscale x 32 x i8> [[VAL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv32b8(<vscale x 64 x b8> [[DEST]], <vscale x 32 x b8> [[VAL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vset_v_u8m4_u8m8(vuint8m8_t dest, size_t index, vuint8m4_t val) {
   return __riscv_vset_v_u8m4_u8m8(dest, 0, val);
@@ -2067,321 +2067,321 @@ vint64m4x2_t test_vset_v_i64m4_i64m4x2(vint64m4x2_t dest, size_t index, vint64m4
   return __riscv_vset_v_i64m4_i64m4x2(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vset_v_u8mf8_u8mf8x2
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vset_v_u8mf8_u8mf8x2
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST]], <vscale x 1 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST]], <vscale x 1 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]]
 //
 vuint8mf8x2_t test_vset_v_u8mf8_u8mf8x2(vuint8mf8x2_t dest, size_t index, vuint8mf8_t val) {
   return __riscv_vset_v_u8mf8_u8mf8x2(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vset_v_u8mf8_u8mf8x3
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vset_v_u8mf8_u8mf8x3
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST]], <vscale x 1 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST]], <vscale x 1 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]]
 //
 vuint8mf8x3_t test_vset_v_u8mf8_u8mf8x3(vuint8mf8x3_t dest, size_t index, vuint8mf8_t val) {
   return __riscv_vset_v_u8mf8_u8mf8x3(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vset_v_u8mf8_u8mf8x4
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vset_v_u8mf8_u8mf8x4
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST]], <vscale x 1 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST]], <vscale x 1 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]]
 //
 vuint8mf8x4_t test_vset_v_u8mf8_u8mf8x4(vuint8mf8x4_t dest, size_t index, vuint8mf8_t val) {
   return __riscv_vset_v_u8mf8_u8mf8x4(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vset_v_u8mf8_u8mf8x5
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vset_v_u8mf8_u8mf8x5
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST]], <vscale x 1 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST]], <vscale x 1 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]]
 //
 vuint8mf8x5_t test_vset_v_u8mf8_u8mf8x5(vuint8mf8x5_t dest, size_t index, vuint8mf8_t val) {
   return __riscv_vset_v_u8mf8_u8mf8x5(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vset_v_u8mf8_u8mf8x6
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vset_v_u8mf8_u8mf8x6
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST]], <vscale x 1 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST]], <vscale x 1 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]]
 //
 vuint8mf8x6_t test_vset_v_u8mf8_u8mf8x6(vuint8mf8x6_t dest, size_t index, vuint8mf8_t val) {
   return __riscv_vset_v_u8mf8_u8mf8x6(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vset_v_u8mf8_u8mf8x7
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vset_v_u8mf8_u8mf8x7
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST]], <vscale x 1 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST]], <vscale x 1 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]]
 //
 vuint8mf8x7_t test_vset_v_u8mf8_u8mf8x7(vuint8mf8x7_t dest, size_t index, vuint8mf8_t val) {
   return __riscv_vset_v_u8mf8_u8mf8x7(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vset_v_u8mf8_u8mf8x8
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vset_v_u8mf8_u8mf8x8
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 1 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[DEST]], <vscale x 1 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[DEST]], <vscale x 1 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]]
 //
 vuint8mf8x8_t test_vset_v_u8mf8_u8mf8x8(vuint8mf8x8_t dest, size_t index, vuint8mf8_t val) {
   return __riscv_vset_v_u8mf8_u8mf8x8(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vset_v_u8mf4_u8mf4x2
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vset_v_u8mf4_u8mf4x2
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST]], <vscale x 2 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST]], <vscale x 2 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]]
 //
 vuint8mf4x2_t test_vset_v_u8mf4_u8mf4x2(vuint8mf4x2_t dest, size_t index, vuint8mf4_t val) {
   return __riscv_vset_v_u8mf4_u8mf4x2(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vset_v_u8mf4_u8mf4x3
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vset_v_u8mf4_u8mf4x3
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST]], <vscale x 2 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST]], <vscale x 2 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]]
 //
 vuint8mf4x3_t test_vset_v_u8mf4_u8mf4x3(vuint8mf4x3_t dest, size_t index, vuint8mf4_t val) {
   return __riscv_vset_v_u8mf4_u8mf4x3(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vset_v_u8mf4_u8mf4x4
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vset_v_u8mf4_u8mf4x4
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST]], <vscale x 2 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST]], <vscale x 2 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]]
 //
 vuint8mf4x4_t test_vset_v_u8mf4_u8mf4x4(vuint8mf4x4_t dest, size_t index, vuint8mf4_t val) {
   return __riscv_vset_v_u8mf4_u8mf4x4(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vset_v_u8mf4_u8mf4x5
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vset_v_u8mf4_u8mf4x5
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST]], <vscale x 2 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST]], <vscale x 2 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]]
 //
 vuint8mf4x5_t test_vset_v_u8mf4_u8mf4x5(vuint8mf4x5_t dest, size_t index, vuint8mf4_t val) {
   return __riscv_vset_v_u8mf4_u8mf4x5(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vset_v_u8mf4_u8mf4x6
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vset_v_u8mf4_u8mf4x6
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST]], <vscale x 2 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST]], <vscale x 2 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]]
 //
 vuint8mf4x6_t test_vset_v_u8mf4_u8mf4x6(vuint8mf4x6_t dest, size_t index, vuint8mf4_t val) {
   return __riscv_vset_v_u8mf4_u8mf4x6(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vset_v_u8mf4_u8mf4x7
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vset_v_u8mf4_u8mf4x7
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST]], <vscale x 2 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST]], <vscale x 2 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]]
 //
 vuint8mf4x7_t test_vset_v_u8mf4_u8mf4x7(vuint8mf4x7_t dest, size_t index, vuint8mf4_t val) {
   return __riscv_vset_v_u8mf4_u8mf4x7(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vset_v_u8mf4_u8mf4x8
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vset_v_u8mf4_u8mf4x8
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 2 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[DEST]], <vscale x 2 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[DEST]], <vscale x 2 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]]
 //
 vuint8mf4x8_t test_vset_v_u8mf4_u8mf4x8(vuint8mf4x8_t dest, size_t index, vuint8mf4_t val) {
   return __riscv_vset_v_u8mf4_u8mf4x8(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vset_v_u8mf2_u8mf2x2
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vset_v_u8mf2_u8mf2x2
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST]], <vscale x 4 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST]], <vscale x 4 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]]
 //
 vuint8mf2x2_t test_vset_v_u8mf2_u8mf2x2(vuint8mf2x2_t dest, size_t index, vuint8mf2_t val) {
   return __riscv_vset_v_u8mf2_u8mf2x2(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vset_v_u8mf2_u8mf2x3
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vset_v_u8mf2_u8mf2x3
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST]], <vscale x 4 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST]], <vscale x 4 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]]
 //
 vuint8mf2x3_t test_vset_v_u8mf2_u8mf2x3(vuint8mf2x3_t dest, size_t index, vuint8mf2_t val) {
   return __riscv_vset_v_u8mf2_u8mf2x3(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vset_v_u8mf2_u8mf2x4
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vset_v_u8mf2_u8mf2x4
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST]], <vscale x 4 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST]], <vscale x 4 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]]
 //
 vuint8mf2x4_t test_vset_v_u8mf2_u8mf2x4(vuint8mf2x4_t dest, size_t index, vuint8mf2_t val) {
   return __riscv_vset_v_u8mf2_u8mf2x4(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vset_v_u8mf2_u8mf2x5
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vset_v_u8mf2_u8mf2x5
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST]], <vscale x 4 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST]], <vscale x 4 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]]
 //
 vuint8mf2x5_t test_vset_v_u8mf2_u8mf2x5(vuint8mf2x5_t dest, size_t index, vuint8mf2_t val) {
   return __riscv_vset_v_u8mf2_u8mf2x5(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vset_v_u8mf2_u8mf2x6
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vset_v_u8mf2_u8mf2x6
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST]], <vscale x 4 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST]], <vscale x 4 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]]
 //
 vuint8mf2x6_t test_vset_v_u8mf2_u8mf2x6(vuint8mf2x6_t dest, size_t index, vuint8mf2_t val) {
   return __riscv_vset_v_u8mf2_u8mf2x6(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vset_v_u8mf2_u8mf2x7
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vset_v_u8mf2_u8mf2x7
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST]], <vscale x 4 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST]], <vscale x 4 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]]
 //
 vuint8mf2x7_t test_vset_v_u8mf2_u8mf2x7(vuint8mf2x7_t dest, size_t index, vuint8mf2_t val) {
   return __riscv_vset_v_u8mf2_u8mf2x7(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vset_v_u8mf2_u8mf2x8
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vset_v_u8mf2_u8mf2x8
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 4 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[DEST]], <vscale x 4 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[DEST]], <vscale x 4 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]]
 //
 vuint8mf2x8_t test_vset_v_u8mf2_u8mf2x8(vuint8mf2x8_t dest, size_t index, vuint8mf2_t val) {
   return __riscv_vset_v_u8mf2_u8mf2x8(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vset_v_u8m1_u8m1x2
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vset_v_u8m1_u8m1x2
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST]], <vscale x 8 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST]], <vscale x 8 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]]
 //
 vuint8m1x2_t test_vset_v_u8m1_u8m1x2(vuint8m1x2_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m1x2(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vset_v_u8m1_u8m1x3
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vset_v_u8m1_u8m1x3
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST]], <vscale x 8 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST]], <vscale x 8 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]]
 //
 vuint8m1x3_t test_vset_v_u8m1_u8m1x3(vuint8m1x3_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m1x3(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vset_v_u8m1_u8m1x4
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vset_v_u8m1_u8m1x4
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST]], <vscale x 8 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST]], <vscale x 8 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]]
 //
 vuint8m1x4_t test_vset_v_u8m1_u8m1x4(vuint8m1x4_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m1x4(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vset_v_u8m1_u8m1x5
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vset_v_u8m1_u8m1x5
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST]], <vscale x 8 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST]], <vscale x 8 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]]
 //
 vuint8m1x5_t test_vset_v_u8m1_u8m1x5(vuint8m1x5_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m1x5(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vset_v_u8m1_u8m1x6
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vset_v_u8m1_u8m1x6
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST]], <vscale x 8 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST]], <vscale x 8 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]]
 //
 vuint8m1x6_t test_vset_v_u8m1_u8m1x6(vuint8m1x6_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m1x6(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vset_v_u8m1_u8m1x7
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vset_v_u8m1_u8m1x7
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST]], <vscale x 8 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST]], <vscale x 8 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]]
 //
 vuint8m1x7_t test_vset_v_u8m1_u8m1x7(vuint8m1x7_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m1x7(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vset_v_u8m1_u8m1x8
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vset_v_u8m1_u8m1x8
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 8 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[DEST]], <vscale x 8 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[DEST]], <vscale x 8 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]]
 //
 vuint8m1x8_t test_vset_v_u8m1_u8m1x8(vuint8m1x8_t dest, size_t index, vuint8m1_t val) {
   return __riscv_vset_v_u8m1_u8m1x8(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @test_vset_v_u8m2_u8m2x2
-// CHECK-RV64-SAME: ({ <vscale x 16 x i8>, <vscale x 16 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8> } @test_vset_v_u8m2_u8m2x2
+// CHECK-RV64-SAME: ({ <vscale x 16 x b8>, <vscale x 16 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[DEST]], <vscale x 16 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[DEST]], <vscale x 16 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]]
 //
 vuint8m2x2_t test_vset_v_u8m2_u8m2x2(vuint8m2x2_t dest, size_t index, vuint8m2_t val) {
   return __riscv_vset_v_u8m2_u8m2x2(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_vset_v_u8m2_u8m2x3
-// CHECK-RV64-SAME: ({ <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_vset_v_u8m2_u8m2x3
+// CHECK-RV64-SAME: ({ <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[DEST]], <vscale x 16 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[DEST]], <vscale x 16 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]]
 //
 vuint8m2x3_t test_vset_v_u8m2_u8m2x3(vuint8m2x3_t dest, size_t index, vuint8m2_t val) {
   return __riscv_vset_v_u8m2_u8m2x3(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_vset_v_u8m2_u8m2x4
-// CHECK-RV64-SAME: ({ <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_vset_v_u8m2_u8m2x4
+// CHECK-RV64-SAME: ({ <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 16 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[DEST]], <vscale x 16 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[DEST]], <vscale x 16 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]]
 //
 vuint8m2x4_t test_vset_v_u8m2_u8m2x4(vuint8m2x4_t dest, size_t index, vuint8m2_t val) {
   return __riscv_vset_v_u8m2_u8m2x4(dest, 0, val);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 32 x i8>, <vscale x 32 x i8> } @test_vset_v_u8m4_u8m4x2
-// CHECK-RV64-SAME: ({ <vscale x 32 x i8>, <vscale x 32 x i8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 32 x i8> [[VAL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 32 x b8>, <vscale x 32 x b8> } @test_vset_v_u8m4_u8m4x2
+// CHECK-RV64-SAME: ({ <vscale x 32 x b8>, <vscale x 32 x b8> } [[DEST:%.*]], i64 noundef [[INDEX:%.*]], <vscale x 32 x b8> [[VAL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 32 x i8>, <vscale x 32 x i8> } [[DEST]], <vscale x 32 x i8> [[VAL]], 0
-// CHECK-RV64-NEXT:    ret { <vscale x 32 x i8>, <vscale x 32 x i8> } [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 32 x b8>, <vscale x 32 x b8> } [[DEST]], <vscale x 32 x b8> [[VAL]], 0
+// CHECK-RV64-NEXT:    ret { <vscale x 32 x b8>, <vscale x 32 x b8> } [[TMP0]]
 //
 vuint8m4x2_t test_vset_v_u8m4_u8m4x2(vuint8m4x2_t dest, size_t index, vuint8m4_t val) {
   return __riscv_vset_v_u8m4_u8m4x2(dest, 0, val);

@@ -8,7 +8,7 @@
 // CHECK-NEXT:    [[S16:%.*]] = alloca <vscale x 8 x i16>, align 16
 // CHECK-NEXT:    [[S32:%.*]] = alloca <vscale x 4 x i32>, align 16
 // CHECK-NEXT:    [[S64:%.*]] = alloca <vscale x 2 x i64>, align 16
-// CHECK-NEXT:    [[U8:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    [[U8:%.*]] = alloca <vscale x 16 x b8>, align 16
 // CHECK-NEXT:    [[U16:%.*]] = alloca <vscale x 8 x i16>, align 16
 // CHECK-NEXT:    [[U32:%.*]] = alloca <vscale x 4 x i32>, align 16
 // CHECK-NEXT:    [[U64:%.*]] = alloca <vscale x 2 x i64>, align 16
@@ -20,7 +20,7 @@
 // CHECK-NEXT:    [[S16X2:%.*]] = alloca <vscale x 16 x i16>, align 16
 // CHECK-NEXT:    [[S32X2:%.*]] = alloca <vscale x 8 x i32>, align 16
 // CHECK-NEXT:    [[X64X2:%.*]] = alloca <vscale x 4 x i64>, align 16
-// CHECK-NEXT:    [[U8X2:%.*]] = alloca <vscale x 32 x i8>, align 16
+// CHECK-NEXT:    [[U8X2:%.*]] = alloca <vscale x 32 x b8>, align 16
 // CHECK-NEXT:    [[U16X2:%.*]] = alloca <vscale x 16 x i16>, align 16
 // CHECK-NEXT:    [[U32X2:%.*]] = alloca <vscale x 8 x i32>, align 16
 // CHECK-NEXT:    [[U64X2:%.*]] = alloca <vscale x 4 x i64>, align 16
@@ -32,7 +32,7 @@
 // CHECK-NEXT:    [[S16X3:%.*]] = alloca <vscale x 24 x i16>, align 16
 // CHECK-NEXT:    [[S32X3:%.*]] = alloca <vscale x 12 x i32>, align 16
 // CHECK-NEXT:    [[X64X3:%.*]] = alloca <vscale x 6 x i64>, align 16
-// CHECK-NEXT:    [[U8X3:%.*]] = alloca <vscale x 48 x i8>, align 16
+// CHECK-NEXT:    [[U8X3:%.*]] = alloca <vscale x 48 x b8>, align 16
 // CHECK-NEXT:    [[U16X3:%.*]] = alloca <vscale x 24 x i16>, align 16
 // CHECK-NEXT:    [[U32X3:%.*]] = alloca <vscale x 12 x i32>, align 16
 // CHECK-NEXT:    [[U64X3:%.*]] = alloca <vscale x 6 x i64>, align 16
@@ -44,7 +44,7 @@
 // CHECK-NEXT:    [[S16X4:%.*]] = alloca <vscale x 32 x i16>, align 16
 // CHECK-NEXT:    [[S32X4:%.*]] = alloca <vscale x 16 x i32>, align 16
 // CHECK-NEXT:    [[X64X4:%.*]] = alloca <vscale x 8 x i64>, align 16
-// CHECK-NEXT:    [[U8X4:%.*]] = alloca <vscale x 64 x i8>, align 16
+// CHECK-NEXT:    [[U8X4:%.*]] = alloca <vscale x 64 x b8>, align 16
 // CHECK-NEXT:    [[U16X4:%.*]] = alloca <vscale x 32 x i16>, align 16
 // CHECK-NEXT:    [[U32X4:%.*]] = alloca <vscale x 16 x i32>, align 16
 // CHECK-NEXT:    [[U64X4:%.*]] = alloca <vscale x 8 x i64>, align 16
@@ -60,7 +60,7 @@
 // CHECK-NEXT:    store <vscale x 8 x i16> zeroinitializer, ptr [[S16]], align 16
 // CHECK-NEXT:    store <vscale x 4 x i32> zeroinitializer, ptr [[S32]], align 16
 // CHECK-NEXT:    store <vscale x 2 x i64> zeroinitializer, ptr [[S64]], align 16
-// CHECK-NEXT:    store <vscale x 16 x i8> zeroinitializer, ptr [[U8]], align 16
+// CHECK-NEXT:    store <vscale x 16 x b8> zeroinitializer, ptr [[U8]], align 16
 // CHECK-NEXT:    store <vscale x 8 x i16> zeroinitializer, ptr [[U16]], align 16
 // CHECK-NEXT:    store <vscale x 4 x i32> zeroinitializer, ptr [[U32]], align 16
 // CHECK-NEXT:    store <vscale x 2 x i64> zeroinitializer, ptr [[U64]], align 16
@@ -72,7 +72,7 @@
 // CHECK-NEXT:    store <vscale x 16 x i16> zeroinitializer, ptr [[S16X2]], align 16
 // CHECK-NEXT:    store <vscale x 8 x i32> zeroinitializer, ptr [[S32X2]], align 16
 // CHECK-NEXT:    store <vscale x 4 x i64> zeroinitializer, ptr [[X64X2]], align 16
-// CHECK-NEXT:    store <vscale x 32 x i8> zeroinitializer, ptr [[U8X2]], align 16
+// CHECK-NEXT:    store <vscale x 32 x b8> zeroinitializer, ptr [[U8X2]], align 16
 // CHECK-NEXT:    store <vscale x 16 x i16> zeroinitializer, ptr [[U16X2]], align 16
 // CHECK-NEXT:    store <vscale x 8 x i32> zeroinitializer, ptr [[U32X2]], align 16
 // CHECK-NEXT:    store <vscale x 4 x i64> zeroinitializer, ptr [[U64X2]], align 16
@@ -84,7 +84,7 @@
 // CHECK-NEXT:    store <vscale x 24 x i16> zeroinitializer, ptr [[S16X3]], align 16
 // CHECK-NEXT:    store <vscale x 12 x i32> zeroinitializer, ptr [[S32X3]], align 16
 // CHECK-NEXT:    store <vscale x 6 x i64> zeroinitializer, ptr [[X64X3]], align 16
-// CHECK-NEXT:    store <vscale x 48 x i8> zeroinitializer, ptr [[U8X3]], align 16
+// CHECK-NEXT:    store <vscale x 48 x b8> zeroinitializer, ptr [[U8X3]], align 16
 // CHECK-NEXT:    store <vscale x 24 x i16> zeroinitializer, ptr [[U16X3]], align 16
 // CHECK-NEXT:    store <vscale x 12 x i32> zeroinitializer, ptr [[U32X3]], align 16
 // CHECK-NEXT:    store <vscale x 6 x i64> zeroinitializer, ptr [[U64X3]], align 16
@@ -96,7 +96,7 @@
 // CHECK-NEXT:    store <vscale x 32 x i16> zeroinitializer, ptr [[S16X4]], align 16
 // CHECK-NEXT:    store <vscale x 16 x i32> zeroinitializer, ptr [[S32X4]], align 16
 // CHECK-NEXT:    store <vscale x 8 x i64> zeroinitializer, ptr [[X64X4]], align 16
-// CHECK-NEXT:    store <vscale x 64 x i8> zeroinitializer, ptr [[U8X4]], align 16
+// CHECK-NEXT:    store <vscale x 64 x b8> zeroinitializer, ptr [[U8X4]], align 16
 // CHECK-NEXT:    store <vscale x 32 x i16> zeroinitializer, ptr [[U16X4]], align 16
 // CHECK-NEXT:    store <vscale x 16 x i32> zeroinitializer, ptr [[U32X4]], align 16
 // CHECK-NEXT:    store <vscale x 8 x i64> zeroinitializer, ptr [[U64X4]], align 16
@@ -227,13 +227,13 @@ void test_copy_s64(__SVInt64_t a) {
 }
 
 // CHECK-LABEL: define dso_local void @_Z12test_copy_u8u11__SVUint8_t
-// CHECK-SAME: (<vscale x 16 x i8> [[A:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: (<vscale x 16 x b8> [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 16 x i8>, align 16
-// CHECK-NEXT:    [[B:%.*]] = alloca <vscale x 16 x i8>, align 16
-// CHECK-NEXT:    store <vscale x 16 x i8> [[A]], ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    store <vscale x 16 x i8> [[TMP0]], ptr [[B]], align 16
+// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x b8> [[A]], ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x b8>, ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    store <vscale x 16 x b8> [[TMP0]], ptr [[B]], align 16
 // CHECK-NEXT:    ret void
 //
 void test_copy_u8(__SVUint8_t a) {
@@ -395,13 +395,13 @@ void test_copy_s64x2(__clang_svint64x2_t a) {
 }
 
 // CHECK-LABEL: define dso_local void @_Z14test_copy_u8x211svuint8x2_t
-// CHECK-SAME: (<vscale x 32 x i8> [[A:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: (<vscale x 32 x b8> [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 32 x i8>, align 16
-// CHECK-NEXT:    [[B:%.*]] = alloca <vscale x 32 x i8>, align 16
-// CHECK-NEXT:    store <vscale x 32 x i8> [[A]], ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 32 x i8>, ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    store <vscale x 32 x i8> [[TMP0]], ptr [[B]], align 16
+// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 32 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <vscale x 32 x b8>, align 16
+// CHECK-NEXT:    store <vscale x 32 x b8> [[A]], ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 32 x b8>, ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    store <vscale x 32 x b8> [[TMP0]], ptr [[B]], align 16
 // CHECK-NEXT:    ret void
 //
 void test_copy_u8x2(__clang_svuint8x2_t a) {
@@ -563,13 +563,13 @@ void test_copy_s64x3(__clang_svint64x3_t a) {
 }
 
 // CHECK-LABEL: define dso_local void @_Z14test_copy_u8x311svuint8x3_t
-// CHECK-SAME: (<vscale x 48 x i8> [[A:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: (<vscale x 48 x b8> [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 48 x i8>, align 16
-// CHECK-NEXT:    [[B:%.*]] = alloca <vscale x 48 x i8>, align 16
-// CHECK-NEXT:    store <vscale x 48 x i8> [[A]], ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 48 x i8>, ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    store <vscale x 48 x i8> [[TMP0]], ptr [[B]], align 16
+// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 48 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <vscale x 48 x b8>, align 16
+// CHECK-NEXT:    store <vscale x 48 x b8> [[A]], ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 48 x b8>, ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    store <vscale x 48 x b8> [[TMP0]], ptr [[B]], align 16
 // CHECK-NEXT:    ret void
 //
 void test_copy_u8x3(__clang_svuint8x3_t a) {
@@ -731,13 +731,13 @@ void test_copy_s64x4(__clang_svint64x4_t a) {
 }
 
 // CHECK-LABEL: define dso_local void @_Z14test_copy_u8x411svuint8x4_t
-// CHECK-SAME: (<vscale x 64 x i8> [[A:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: (<vscale x 64 x b8> [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 64 x i8>, align 16
-// CHECK-NEXT:    [[B:%.*]] = alloca <vscale x 64 x i8>, align 16
-// CHECK-NEXT:    store <vscale x 64 x i8> [[A]], ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 64 x i8>, ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    store <vscale x 64 x i8> [[TMP0]], ptr [[B]], align 16
+// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 64 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <vscale x 64 x b8>, align 16
+// CHECK-NEXT:    store <vscale x 64 x b8> [[A]], ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 64 x b8>, ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    store <vscale x 64 x b8> [[TMP0]], ptr [[B]], align 16
 // CHECK-NEXT:    ret void
 //
 void test_copy_u8x4(__clang_svuint8x4_t a) {

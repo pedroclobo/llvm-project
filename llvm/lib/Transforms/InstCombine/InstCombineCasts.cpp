@@ -2815,6 +2815,18 @@ Instruction *InstCombinerImpl::visitBitCast(BitCastInst &CI) {
   return commonCastTransforms(CI);
 }
 
+Instruction *InstCombinerImpl::visitByteCast(ByteCastInst &CI) {
+  Value *Src = CI.getOperand(0);
+  Type *SrcTy = Src->getType();
+  Type *DestTy = CI.getType();
+
+  // Replace cast from one type to the same type by the operand.
+  if (DestTy == SrcTy)
+    return replaceInstUsesWith(CI, Src);
+
+  return commonCastTransforms(CI);
+}
+
 Instruction *InstCombinerImpl::visitAddrSpaceCast(AddrSpaceCastInst &CI) {
   return commonCastTransforms(CI);
 }
