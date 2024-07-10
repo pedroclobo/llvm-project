@@ -151,6 +151,13 @@ InstCombinerImpl::isEliminableCastPair(const CastInst *CI1,
       (Res == Instruction::PtrToInt && DstTy != SrcIntPtrTy))
     Res = 0;
 
+  // We don't want to fold bytecast(bitcast x) to x if the bytecast is not
+  // exact and the destination type is the byte type.
+  // Type punning could lead to a value mismatch.
+  if (dyn_cast<ByteCastInst>(CI1) && dyn_cast<BitCastInst>(CI2) &&
+      !CI1->isExact())
+    Res = 0;
+
   return Instruction::CastOps(Res);
 }
 
@@ -169,6 +176,11 @@ Instruction *InstCombinerImpl::commonCastTransforms(CastInst &CI) {
       // The first cast (CSrc) is eliminable so we need to fix up or replace
       // the second cast (CI). CSrc will then have a good chance of being dead.
       auto *Res = CastInst::Create(NewOpc, CSrc->getOperand(0), Ty);
+      // Retain bytecast exact flag.
+      if (Res->getOpcode() == Instruction::ByteCast &&
+         ((CSrc->getOpcode() == Instruction::ByteCast && CSrc->isExact()) ||
+          (CI.getOpcode() == Instruction::ByteCast && CI.isExact())))
+        Res->setIsExact(true);
       // Point debug users of the dying cast to the new one.
       if (CSrc->hasOneUse())
         replaceAllDbgUsesWith(*CSrc, *Res, CI, DT);
@@ -2948,6 +2960,18 @@ Instruction *InstCombinerImpl::visitBitCast(BitCastInst &CI) {
 
   if (Value *V = foldCopySignIdioms(CI, Builder, SQ.getWithInstruction(&CI)))
     return replaceInstUsesWith(CI, V);
+
+  return commonCastTransforms(CI);
+}
+
+Instruction *InstCombinerImpl::visitByteCast(ByteCastInst &CI) {
+  Value *Src = CI.getOperand(0);
+  Type *DestTy = CI.getType();
+
+  // Get rid of casts from one type to the same type. These are useless and can
+  // be replaced by the operand.
+  if (DestTy == Src->getType())
+    return replaceInstUsesWith(CI, Src);
 
   return commonCastTransforms(CI);
 }
