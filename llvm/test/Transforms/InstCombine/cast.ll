@@ -2244,8 +2244,8 @@ define i16 @test96(i16 %x, i16 %y) {
 ; ALL-NEXT:    [[A:%.*]] = add i16 [[X:%.*]], [[Y:%.*]]
 ; ALL-NEXT:    [[B:%.*]] = add i16 [[A]], 5
 ; ALL-NEXT:    [[C:%.*]] = mul i16 [[A]], 3
-; ALL-NEXT:    [[T:%.*]] = or i16 [[B]], [[C]]
-; ALL-NEXT:    ret i16 [[T]]
+; ALL-NEXT:    [[D:%.*]] = or i16 [[B]], [[C]]
+; ALL-NEXT:    ret i16 [[D]]
 ;
   %zx = zext i16 %x to i32
   %zy = zext i16 %y to i32
@@ -2381,4 +2381,240 @@ loop:
 exit:
   %s = sext i8 %a to i32
   ret i32 %s
+}
+
+define i8 @test102(i8 %i) {
+; ALL-LABEL: @test102(
+; ALL-NEXT:    ret i8 [[I:%.*]]
+;
+  %1 = bitcast i8 %i to b8
+  %2 = bytecast b8 %1 to i8
+  ret i8 %2
+}
+
+define i8 @test103(i8 %i) {
+; ALL-LABEL: @test103(
+; ALL-NEXT:    ret i8 [[I:%.*]]
+;
+  %1 = bitcast i8 %i to b8
+  %2 = bytecast exact b8 %1 to i8
+  ret i8 %2
+}
+
+define ptr @test104(ptr %i) {
+; ALL-LABEL: @test104(
+; ALL-NEXT:    ret ptr [[I:%.*]]
+;
+  %1 = bitcast ptr %i to b64
+  %2 = bytecast exact b64 %1 to ptr
+  ret ptr %2
+}
+
+define float @test105(float %i) {
+; ALL-LABEL: @test105(
+; ALL-NEXT:    ret float [[I:%.*]]
+;
+  %1 = bitcast float %i to b32
+  %2 = bytecast exact b32 %1 to float
+  ret float %2
+}
+
+define <4 x i8> @test106(<4 x i8> %i) {
+; ALL-LABEL: @test106(
+; ALL-NEXT:    ret <4 x i8> [[I:%.*]]
+;
+  %1 = bitcast <4 x i8> %i to <4 x b8>
+  %2 = bytecast <4 x b8> %1 to <4 x i8>
+  ret <4 x i8> %2
+}
+
+define <4 x float> @test107(<4 x float> %i) {
+; ALL-LABEL: @test107(
+; ALL-NEXT:    ret <4 x float> [[I:%.*]]
+;
+  %1 = bitcast <4 x float> %i to <4 x b32>
+  %2 = bytecast exact <4 x b32> %1 to <4 x float>
+  ret <4 x float> %2
+}
+
+define <2 x i64> @test108(<16 x b8> %a) {
+; ALL-LABEL: @test108(
+; ALL-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <2 x i64>
+; ALL-NEXT:    ret <2 x i64> [[TMP1]]
+;
+  %1 = bitcast <16 x b8> %a to <2 x b64>
+  %2 = bytecast exact <2 x b64> %1 to <2 x i64>
+  ret <2 x i64> %2
+}
+
+; Don't fold bitcast + trunc to the byte type.
+define b8 @test109(i32 %v) {
+; ALL-LABEL: @test109(
+; ALL-NEXT:    [[C:%.*]] = bitcast i32 [[V:%.*]] to b32
+; ALL-NEXT:    [[T:%.*]] = trunc b32 [[C]] to b8
+; ALL-NEXT:    ret b8 [[T]]
+;
+  %c = bitcast i32 %v to b32
+  %t = trunc b32 %c to b8
+  ret b8 %t
+}
+
+; Don't fold trunc + bytecast.
+define <2 x i64> @test110(b256 %v) {
+; ALL-LABEL: @test110(
+; ALL-NEXT:    [[T:%.*]] = trunc b256 [[V:%.*]] to b128
+; ALL-NEXT:    [[C:%.*]] = bytecast exact b128 [[T]] to <2 x i64>
+; ALL-NEXT:    ret <2 x i64> [[C]]
+;
+  %t = trunc b256 %v to b128
+  %c = bytecast exact b128 %t to <2 x i64>
+  ret <2 x i64> %c
+}
+
+define <2 x float> @test111(<2 x float> %a) {
+; ALL-LABEL: @test111(
+; ALL-NEXT:    ret <2 x float> [[A:%.*]]
+;
+  %1 = bitcast <2 x float> %a to b64
+  %2 = bytecast exact b64 %1 to <2 x float>
+  ret <2 x float> %2
+}
+
+define <4 x i64> @test112(<32 x i8> %a) {
+; ALL-LABEL: @test112(
+; ALL-NEXT:    [[TMP1:%.*]] = bitcast <32 x i8> [[A:%.*]] to <4 x i64>
+; ALL-NEXT:    ret <4 x i64> [[TMP1]]
+;
+  %1 = bitcast <32 x i8> %a to <4 x b64>
+  %2 = bytecast exact <4 x b64> %1 to <4 x i64>
+  ret <4 x i64> %2
+}
+
+define <16 x i8> @test113() {
+; ALL-LABEL: @test113(
+; ALL-NEXT:    ret <16 x i8> splat (i8 10)
+;
+  ret <16 x i8> bitcast (<4 x i32> bytecast (<16 x b8> splat (b8 10) to <4 x i32>) to <16 x i8>)
+}
+
+declare void @dummy()
+define i64 @test114() {
+; ALL-LABEL: @test114(
+; ALL-NEXT:    ret i64 ptrtoaddr (ptr @dummy to i64)
+;
+  ret i64 bytecast (b64 bitcast (ptr @dummy to b64) to i64)
+}
+
+define ptr @test115() {
+; ALL-LABEL: @test115(
+; ALL-NEXT:    ret ptr poison
+;
+  ret ptr bytecast (b64 bitcast (i64 1 to b64) to ptr)
+}
+
+define b8 @test116(b8 %b) {
+; ALL-LABEL: @test116(
+; ALL-NEXT:    ret b8 [[B:%.*]]
+;
+  %1 = bytecast exact b8 %b to i8
+  %2 = bitcast i8 %1 to b8
+  ret b8 %2
+}
+
+define b64 @test117(b64 %b) {
+; ALL-LABEL: @test117(
+; ALL-NEXT:    ret b64 [[B:%.*]]
+;
+  %1 = bytecast exact b64 %b to ptr
+  %2 = bitcast ptr %1 to b64
+  ret b64 %2
+}
+
+define b32 @test118(b32 %b) {
+; ALL-LABEL: @test118(
+; ALL-NEXT:    ret b32 [[B:%.*]]
+;
+  %1 = bytecast exact b32 %b to float
+  %2 = bitcast float %1 to b32
+  ret b32 %2
+}
+
+define <4 x b8> @test119(<4 x b8> %b) {
+; ALL-LABEL: @test119(
+; ALL-NEXT:    ret <4 x b8> [[B:%.*]]
+;
+  %1 = bytecast exact <4 x b8> %b to <4 x i8>
+  %2 = bitcast <4 x i8> %1 to <4 x b8>
+  ret <4 x b8> %2
+}
+
+define <4 x b32> @test120(<4 x b32> %b) {
+; ALL-LABEL: @test120(
+; ALL-NEXT:    ret <4 x b32> [[B:%.*]]
+;
+  %1 = bytecast exact <4 x b32> %b to <4 x float>
+  %2 = bitcast <4 x float> %1 to <4 x b32>
+  ret <4 x b32> %2
+}
+
+define <2 x i64> @test121(<16 x b8> %b) {
+; ALL-LABEL: @test121(
+; ALL-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B:%.*]] to <2 x i64>
+; ALL-NEXT:    ret <2 x i64> [[TMP1]]
+;
+  %1 = bytecast exact <16 x b8> %b to <4 x float>
+  %2 = bitcast <4 x float> %1 to <2 x i64>
+  ret <2 x i64> %2
+}
+
+define <2 x i64> @test122(<16 x b8> %a) {
+; ALL-LABEL: @test122(
+; ALL-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <2 x i64>
+; ALL-NEXT:    ret <2 x i64> [[TMP1]]
+;
+  %1 = bitcast <16 x b8> %a to <2 x b64>
+  %2 = bytecast exact <2 x b64> %1 to <2 x i64>
+  ret <2 x i64> %2
+}
+
+define b8 @test123(b8 %b) {
+; ALL-LABEL: @test123(
+; ALL-NEXT:    [[TMP1:%.*]] = bytecast b8 [[B1:%.*]] to i8
+; ALL-NEXT:    [[B:%.*]] = bitcast i8 [[TMP1]] to b8
+; ALL-NEXT:    ret b8 [[B]]
+;
+  %1 = bytecast b8 %b to i8
+  %2 = bitcast i8 %1 to b8
+  ret b8 %2
+}
+
+define ptr @test124(i64 %i) {
+; ALL-LABEL: @test124(
+; ALL-NEXT:    [[TMP1:%.*]] = inttoptr i64 [[I:%.*]] to ptr
+; ALL-NEXT:    ret ptr [[TMP1]]
+;
+  %1 = bitcast i64 %i to b64
+  %2 = bytecast exact b64 %1 to ptr
+  ret ptr %2
+}
+
+define ptr @test125(double %d) {
+; ALL-LABEL: @test125(
+; ALL-NEXT:    [[TMP1:%.*]] = bitcast double [[D:%.*]] to b64
+; ALL-NEXT:    [[TMP2:%.*]] = bytecast exact b64 [[TMP1]] to ptr
+; ALL-NEXT:    ret ptr [[TMP2]]
+;
+  %1 = bitcast double %d to b64
+  %2 = bytecast exact b64 %1 to ptr
+  ret ptr %2
+}
+
+define i64 @test126(ptr %p) {
+; ALL-LABEL: @test126(
+; ALL-NEXT:    [[TMP1:%.*]] = ptrtoaddr ptr [[P:%.*]] to i64
+; ALL-NEXT:    ret i64 [[TMP1]]
+;
+  %1 = bitcast ptr %p to b64
+  %2 = bytecast exact b64 %1 to i64
+  ret i64 %2
 }

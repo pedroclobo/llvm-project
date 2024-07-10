@@ -35,11 +35,9 @@ define i32 @test(i32 %n) {
 ; CHECK-NEXT:    [[P1_SROA_0_4_EXTRACT_TRUNC:%.*]] = trunc b64 [[P1_SROA_0_4_EXTRACT_SHIFT]] to b32
 ; CHECK-NEXT:    [[P1_SROA_5_0:%.*]] = bytecast exact b32 [[P1_SROA_0_4_EXTRACT_TRUNC]] to i32
 ; CHECK-NEXT:    [[V2_NEXT:%.*]] = shl i32 [[P1_SROA_5_0]], 1
-; CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact b64 [[TMP3]] to i64
 ; CHECK-NEXT:    [[P1_SROA_0_4_INSERT_EXT:%.*]] = zext i32 [[V2_NEXT]] to i64
 ; CHECK-NEXT:    [[P1_SROA_0_4_INSERT_SHIFT:%.*]] = shl nuw i64 [[P1_SROA_0_4_INSERT_EXT]], 32
-; CHECK-NEXT:    [[P1_SROA_0_4_INSERT_MASK5:%.*]] = and i64 [[TMP7]], 4294967295
-; CHECK-NEXT:    [[P1_SROA_0_4_INSERT_INSERT6:%.*]] = or disjoint i64 [[P1_SROA_0_4_INSERT_SHIFT]], [[P1_SROA_0_4_INSERT_MASK5]]
+; CHECK-NEXT:    [[P1_SROA_0_4_INSERT_INSERT6:%.*]] = or disjoint i64 [[P1_SROA_0_4_INSERT_SHIFT]], [[P1_SROA_0_0_INSERT_EXT]]
 ; CHECK-NEXT:    [[TMP5]] = bitcast i64 [[P1_SROA_0_4_INSERT_INSERT6]] to b64
 ; CHECK-NEXT:    [[C:%.*]] = icmp eq i32 [[V1_INC]], [[N:%.*]]
 ; CHECK-NEXT:    br i1 [[C]], label [[EXIT:%.*]], label [[LOOP]]

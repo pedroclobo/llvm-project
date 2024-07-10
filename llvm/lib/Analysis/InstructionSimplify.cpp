@@ -5531,8 +5531,14 @@ static Value *simplifyCastInst(unsigned CastOpc, Value *Op, Type *Ty,
       auto FirstOp = CI->getOpcode();
       auto SecondOp = static_cast<Instruction::CastOps>(CastOpc);
       if (CastInst::isEliminableCastPair(FirstOp, SecondOp, SrcTy, MidTy, DstTy,
-                                         &Q.DL) == Instruction::BitCast)
+                                         &Q.DL) == Instruction::BitCast) {
+        // We don't want to fold bytecast(bitcast x) to x if the bytecast is not
+        // exact and the destination type is the byte type.
+        // Type punning could lead to a value mismatch.
+        if (dyn_cast<ByteCastInst>(CI) && !CI->isExact())
+          return nullptr;
         return Src;
+      }
     }
   }
 
