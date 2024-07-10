@@ -2221,7 +2221,7 @@ KnownBits llvm::computeKnownBits(const Value *V, const SimplifyQuery &Q,
 void computeKnownBits(const Value *V, const APInt &DemandedElts,
                       KnownBits &Known, const SimplifyQuery &Q,
                       unsigned Depth) {
-  if (!DemandedElts) {
+  if (!DemandedElts || V->getType()->isByteOrByteVectorTy()) {
     // No demanded elts, better to assume we don't know anything.
     Known.resetAll();
     return;
