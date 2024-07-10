@@ -2123,3 +2123,120 @@ define i32 @test95(i32 %x) {
   %5 = zext i8 %4 to i32
   ret i32 %5
 }
+
+define i8 @test96(i8 %i) {
+; ALL-LABEL: @test96(
+; ALL-NEXT:    ret i8 [[I:%.*]]
+;
+  %1 = bitcast i8 %i to b8
+  %2 = bytecast b8 %1 to i8
+  ret i8 %2
+}
+
+define i8 @test97(i8 %i) {
+; ALL-LABEL: @test97(
+; ALL-NEXT:    ret i8 [[I:%.*]]
+;
+  %1 = bitcast i8 %i to b8
+  %2 = bytecast exact b8 %1 to i8
+  ret i8 %2
+}
+
+define ptr @test98(ptr %i) {
+; ALL-LABEL: @test98(
+; ALL-NEXT:    ret ptr [[I:%.*]]
+;
+  %1 = bitcast ptr %i to b64
+  %2 = bytecast exact b64 %1 to ptr
+  ret ptr %2
+}
+
+define float @test99(float %i) {
+; ALL-LABEL: @test99(
+; ALL-NEXT:    ret float [[I:%.*]]
+;
+  %1 = bitcast float %i to b32
+  %2 = bytecast exact b32 %1 to float
+  ret float %2
+}
+
+define <4 x i8> @test100(<4 x i8> %i) {
+; ALL-LABEL: @test100(
+; ALL-NEXT:    ret <4 x i8> [[I:%.*]]
+;
+  %1 = bitcast <4 x i8> %i to <4 x b8>
+  %2 = bytecast <4 x b8> %1 to <4 x i8>
+  ret <4 x i8> %2
+}
+
+define <4 x float> @test101(<4 x float> %i) {
+; ALL-LABEL: @test101(
+; ALL-NEXT:    ret <4 x float> [[I:%.*]]
+;
+  %1 = bitcast <4 x float> %i to <4 x b32>
+  %2 = bytecast exact <4 x b32> %1 to <4 x float>
+  ret <4 x float> %2
+}
+
+define i8 @test102(b32 %v) {
+; ALL-LABEL: @test102(
+; ALL-NEXT:    [[B:%.*]] = bytecast exact b32 [[V:%.*]] to i8
+; ALL-NEXT:    ret i8 [[B]]
+;
+  %a = bytecast exact b32 %v to i32
+  %b = trunc i32 %a to i8
+  ret i8 %b
+}
+
+define i8 @test103(b32 %v) {
+; ALL-LABEL: @test103(
+; ALL-NEXT:    [[B:%.*]] = bytecast b32 [[V:%.*]] to i8
+; ALL-NEXT:    ret i8 [[B]]
+;
+  %a = bytecast b32 %v to i32
+  %b = trunc i32 %a to i8
+  ret i8 %b
+}
+
+define <4 x i8> @test104(<4 x b32> %v) {
+; ALL-LABEL: @test104(
+; ALL-NEXT:    [[B:%.*]] = bytecast exact <4 x b32> [[V:%.*]] to <4 x i8>
+; ALL-NEXT:    ret <4 x i8> [[B]]
+;
+  %a = bytecast exact <4 x b32> %v to <4 x i32>
+  %b = trunc <4 x i32> %a to <4 x i8>
+  ret <4 x i8> %b
+}
+
+; Don't fold a (bitcast (bytecast x)) unless the source and destination types
+; are the same.
+define <2 x i64> @test105(<16 x b8> %a) {
+; ALL-LABEL: @test105(
+; ALL-NEXT:    [[TMP1:%.*]] = bitcast <16 x b8> [[A:%.*]] to <2 x b64>
+; ALL-NEXT:    [[TMP2:%.*]] = bytecast exact <2 x b64> [[TMP1]] to <2 x i64>
+; ALL-NEXT:    ret <2 x i64> [[TMP2]]
+;
+  %1 = bitcast <16 x b8> %a to <2 x b64>
+  %2 = bytecast exact <2 x b64> %1 to <2 x i64>
+  ret <2 x i64> %2
+}
+
+define i8 @test106(b16 %v) {
+; ALL-LABEL: @test106(
+; ALL-NEXT:    [[C:%.*]] = bytecast exact b16 [[V:%.*]] to i8
+; ALL-NEXT:    ret i8 [[C]]
+;
+  %t = trunc b16 %v to b8
+  %c = bytecast exact b8 %t to i8
+  ret i8 %c
+}
+
+define <2 x i8> @test107(<2 x b16> %v) {
+; ALL-LABEL: @test107(
+; ALL-NEXT:    [[C:%.*]] = bytecast exact <2 x b16> [[V:%.*]] to <2 x i8>
+; ALL-NEXT:    ret <2 x i8> [[C]]
+;
+  %t = trunc <2 x b16> %v to <2 x b8>
+  %c = bytecast exact <2 x b8> %t to <2 x i8>
+  ret <2 x i8> %c
+}

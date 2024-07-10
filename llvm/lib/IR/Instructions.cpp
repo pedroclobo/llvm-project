@@ -2810,7 +2810,7 @@ unsigned CastInst::isEliminableCastPair(
   Instruction::CastOps firstOp, Instruction::CastOps secondOp,
   Type *SrcTy, Type *MidTy, Type *DstTy, Type *SrcIntPtrTy, Type *MidIntPtrTy,
   Type *DstIntPtrTy) {
-  // Define the 144 possibilities for these two cast instructions. The values
+  // Define the 196 possibilities for these two cast instructions. The values
   // in this matrix determine what to do in a given situation and select the
   // case in the switch below.  The rows correspond to firstOp, the columns
   // correspond to secondOp.  In looking at the table below, keep in mind
@@ -2849,7 +2849,7 @@ unsigned CastInst::isEliminableCastPair(
     // U  E  E  2  2  2  2  R  E  I  T  C  C  T   +- secondOp
     // N  X  X  U  S  F  F  N  X  N  2  V  V  C   |
     // C  T  T  I  I  P  P  C  T  T  P  T  T  T  -+
-    {  1, 0, 0,99,99, 0, 0,99,99,99, 0, 3, 0, 0}, // Trunc         -+
+    {  1, 0, 0,99,99, 0, 0,99,99,99, 0, 3, 0, 2}, // Trunc         -+
     {  8, 1, 9,99,99, 2,17,99,99,99, 2, 3, 0, 0}, // ZExt           |
     {  8, 0, 1,99,99, 0, 2,99,99,99, 0, 3, 0, 0}, // SExt           |
     {  0, 0, 0,99,99, 0, 0,99,99,99, 0, 3, 0, 0}, // FPToUI         |
@@ -2860,9 +2860,9 @@ unsigned CastInst::isEliminableCastPair(
     { 99,99,99, 2, 2,99,99, 8, 2,99,99, 4, 0, 0}, // FPExt          |
     {  1, 0, 0,99,99, 0, 0,99,99,99, 7, 3, 0, 0}, // PtrToInt       |
     { 99,99,99,99,99,99,99,99,99,11,99,15, 0, 0}, // IntToPtr       |
-    {  5, 5, 5, 0, 0, 5, 5, 0, 0,16, 5, 1,14, 0}, // BitCast        |
+    {  5, 5, 5, 0, 0, 5, 5, 0, 0,16, 5, 1,14,18}, // BitCast        |
     {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,13,12, 0}, // AddrSpaceCast  |
-    {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,99}, // ByteCast      -+
+    {  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,99}, // ByteCast      -+
   };
 
   // TODO: This logic could be encoded into the table above and handled in the
@@ -2989,14 +2989,14 @@ unsigned CastInst::isEliminableCastPair(
       // FIXME: this state can be merged with (1), but the following assert
       // is useful to check the correcteness of the sequence due to semantic
       // change of bitcast.
-      assert(
-        SrcTy->isIntOrIntVectorTy() &&
-        MidTy->isPtrOrPtrVectorTy() &&
-        DstTy->isPtrOrPtrVectorTy() &&
-        MidTy->getPointerAddressSpace() == DstTy->getPointerAddressSpace() &&
-        "Illegal inttoptr, bitcast sequence!");
-      // Allowed, use first cast's opcode
-      return firstOp;
+      if (SrcTy->isIntOrIntVectorTy() &&
+          MidTy->isPtrOrPtrVectorTy() &&
+          DstTy->isPtrOrPtrVectorTy() &&
+          MidTy->getPointerAddressSpace() == DstTy->getPointerAddressSpace() &&
+          "Illegal inttoptr, bitcast sequence!")
+        // Allowed, use first cast's opcode
+        return firstOp;
+      return 0;
     case 16:
       // FIXME: this state can be merged with (2), but the following assert
       // is useful to check the correcteness of the sequence due to semantic
@@ -3012,6 +3012,11 @@ unsigned CastInst::isEliminableCastPair(
     case 17:
       // (sitofp (zext x)) -> (uitofp x)
       return Instruction::UIToFP;
+    case 18:
+      // (bitcast (bytecast x)) -> (bitcast x)
+      if (SrcTy != DstTy)
+        return 0;
+      return firstOp;
     case 99:
       // Cast combination can't happen (error in input). This is for all cases
       // where the MidTy is not the same for the two cast instructions.
