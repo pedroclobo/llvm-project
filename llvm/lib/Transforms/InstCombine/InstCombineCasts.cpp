@@ -147,6 +147,13 @@ InstCombinerImpl::isEliminableCastPair(const CastInst *CI1,
       (Res == Instruction::PtrToInt && DstTy != SrcIntPtrTy))
     Res = 0;
 
+  // We don't want to form a bytecast to a destination type that is neither an
+  // integer nor a pointer scalar/vector. We allow bytecasts to bytes as they
+  // are eliminated later.
+  if (Res == Instruction::ByteCast && !DstTy->isIntOrIntVectorTy() &&
+     !DstTy->isPtrOrPtrVectorTy() && !DstTy->isByteOrByteVectorTy())
+    Res = 0;
+
   return Instruction::CastOps(Res);
 }
 
@@ -2813,6 +2820,18 @@ Instruction *InstCombinerImpl::visitBitCast(BitCastInst &CI) {
 
   if (Instruction *I = foldBitCastSelect(CI, Builder))
     return I;
+
+  return commonCastTransforms(CI);
+}
+
+Instruction *InstCombinerImpl::visitByteCast(ByteCastInst &CI) {
+  Value *Src = CI.getOperand(0);
+  Type *DestTy = CI.getType();
+
+  // Get rid of casts from one type to the same type. These are useless and can
+  // be replaced by the operand.
+  if (DestTy == Src->getType())
+    return replaceInstUsesWith(CI, Src);
 
   return commonCastTransforms(CI);
 }
