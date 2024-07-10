@@ -2121,3 +2121,41 @@ define i32 @test95(i32 %x) {
   %5 = zext i8 %4 to i32
   ret i32 %5
 }
+
+define b8 @test96(b8 %A) {
+; ALL-LABEL: @test96(
+; ALL-NEXT:    ret b8 [[A:%.*]]
+;
+  %c1 = bytecast b8 %A to b8
+  %c2 = bytecast b8 %c1 to b8
+  ret b8 %c2
+}
+
+define b8 @test97(b8 %A) {
+; ALL-LABEL: @test97(
+; ALL-NEXT:    ret b8 [[A:%.*]]
+;
+  %c1 = bytecast b8 %A to i8
+  %c2 = bitcast i8 %c1 to b8
+  ret b8 %c2
+}
+
+define i8 @test98(i8 %A) {
+; ALL-LABEL: @test98(
+; ALL-NEXT:    ret i8 [[A:%.*]]
+;
+  %c1 = bitcast i8 %A to b8
+  %c2 = bytecast b8 %c1 to i8
+  ret i8 %c2
+}
+
+define float @test99(b32 %A) {
+; ALL-LABEL: @test99(
+; ALL-NEXT:    [[C1:%.*]] = bytecast b32 [[A:%.*]] to i32
+; ALL-NEXT:    [[C2:%.*]] = bitcast i32 [[C1]] to float
+; ALL-NEXT:    ret float [[C2]]
+;
+  %c1 = bytecast b32 %A to i32
+  %c2 = bitcast i32 %c1 to float
+  ret float %c2
+}
