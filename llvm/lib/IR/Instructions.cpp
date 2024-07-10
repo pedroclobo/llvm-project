@@ -2796,7 +2796,7 @@ unsigned CastInst::isEliminableCastPair(
   Instruction::CastOps firstOp, Instruction::CastOps secondOp,
   Type *SrcTy, Type *MidTy, Type *DstTy, Type *SrcIntPtrTy, Type *MidIntPtrTy,
   Type *DstIntPtrTy) {
-  // Define the 144 possibilities for these two cast instructions. The values
+  // Define the 196 possibilities for these two cast instructions. The values
   // in this matrix determine what to do in a given situation and select the
   // case in the switch below.  The rows correspond to firstOp, the columns
   // correspond to secondOp.  In looking at the table below, keep in mind
@@ -2846,9 +2846,9 @@ unsigned CastInst::isEliminableCastPair(
     { 99,99,99, 2, 2,99,99, 8, 2,99,99, 4, 0, 0}, // FPExt          |
     {  1, 0, 0,99,99, 0, 0,99,99,99, 7, 3, 0, 0}, // PtrToInt       |
     { 99,99,99,99,99,99,99,99,99,11,99,15, 0, 0}, // IntToPtr       |
-    {  5, 5, 5, 0, 0, 5, 5, 0, 0,16, 5, 1,14, 0}, // BitCast        |
+    {  5, 5, 5, 0, 0, 5, 5, 0, 0,16, 5, 1,14,18}, // BitCast        |
     {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,13,12, 0}, // AddrSpaceCast  |
-    {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,99}, // ByteCast      -+
+    {  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,99}, // ByteCast      -+
   };
 
   // TODO: This logic could be encoded into the table above and handled in the
@@ -2998,6 +2998,11 @@ unsigned CastInst::isEliminableCastPair(
     case 17:
       // (sitofp (zext x)) -> (uitofp x)
       return Instruction::UIToFP;
+    case 18:
+      // (bitcast (bytecast x)) -> (bitcast x)
+      if (SrcTy != DstTy)
+        return 0;
+      return firstOp;
     case 99:
       // Cast combination can't happen (error in input). This is for all cases
       // where the MidTy is not the same for the two cast instructions.
