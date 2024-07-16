@@ -28,16 +28,16 @@ define double @baz(double %x) {
 ; CHECK-SAME: double [[A0:%.*]]) {
 ; CHECK-NEXT:  [[BB76951:.*:]]
 ; CHECK-NEXT:    [[IFCOND:%.*]] = fcmp one double [[A0]], 0.000000e+00
-; CHECK-NEXT:    br i1 [[IFCOND]], label %[[BB47054:.*]], label %[[BB470541:.*]]
-; CHECK:       [[BB47054]]:
-; CHECK-NEXT:    %"vl16994bir()" = call double @bir()
+; CHECK-NEXT:    br i1 [[IFCOND]], label %[[BB57091:.*]], label %[[BB570911:.*]]
+; CHECK:       [[BB57091]]:
+; CHECK-NEXT:    %"vl12417bir()" = call double @bir()
 ; CHECK-NEXT:    br label %[[BB17254:.*]]
-; CHECK:       [[BB470541]]:
-; CHECK-NEXT:    %"vl88592bar()" = call double @bar()
+; CHECK:       [[BB570911]]:
+; CHECK-NEXT:    %"vl26594bar()" = call double @bar()
 ; CHECK-NEXT:    br label %[[BB17254]]
 ; CHECK:       [[BB17254]]:
-; CHECK-NEXT:    %"op16411(vl16994, vl88592)" = phi double [ %"vl16994bir()", %[[BB47054]] ], [ %"vl88592bar()", %[[BB470541]] ]
-; CHECK-NEXT:    ret double %"op16411(vl16994, vl88592)"
+; CHECK-NEXT:    %"op24395(vl12417, vl26594)" = phi double [ %"vl12417bir()", %[[BB57091]] ], [ %"vl26594bar()", %[[BB570911]] ]
+; CHECK-NEXT:    ret double %"op24395(vl12417, vl26594)"
 ;
 entry:
   %ifcond = fcmp one double %x, 0.000000e+00
