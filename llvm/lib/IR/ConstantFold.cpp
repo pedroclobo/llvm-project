@@ -94,6 +94,9 @@ static Constant *FoldBitCast(Constant *V, Type *DestTy) {
                              APFloat(DestTy->getFltSemantics(),
                                      CI->getValue()));
 
+    if (DestTy->isByteTy())
+      return ConstantByte::get(DestTy->getContext(), CI->getValue());
+
     // Otherwise, can't fold this (vector?)
     return nullptr;
   }
@@ -109,12 +112,16 @@ static Constant *FoldBitCast(Constant *V, Type *DestTy) {
     if (FP->getType()->isPPC_FP128Ty())
       return nullptr;
 
-    // Make sure dest type is compatible with the folded integer constant.
-    if (!DestTy->isIntegerTy())
-      return nullptr;
+    // Make sure dest type is compatible with the folded integer/byte constant.
+    if (DestTy->isIntegerTy())
+      return ConstantInt::get(FP->getContext(),
+                              FP->getValueAPF().bitcastToAPInt());
 
-    return ConstantInt::get(FP->getContext(),
-                            FP->getValueAPF().bitcastToAPInt());
+    if (DestTy->isByteTy())
+      return ConstantByte::get(FP->getContext(),
+                               FP->getValueAPF().bitcastToAPInt());
+
+    return nullptr;
   }
 
   return nullptr;
@@ -258,6 +265,15 @@ Constant *llvm::ConstantFoldCastInstruction(unsigned opc, Constant *V,
   case Instruction::BitCast:
     return FoldBitCast(V, DestTy);
   case Instruction::AddrSpaceCast:
+  case Instruction::ByteCast:
+    if (ConstantByte *CB = dyn_cast<ConstantByte>(V)) {
+      if (DestTy->isByteTy())
+        return V;
+      if (DestTy->isIntegerTy())
+        return ConstantInt::get(
+            V->getContext(), CB->getValue().sext(DestTy->getIntegerBitWidth()));
+    }
+    return nullptr;
   case Instruction::IntToPtr:
   case Instruction::PtrToInt:
     return nullptr;

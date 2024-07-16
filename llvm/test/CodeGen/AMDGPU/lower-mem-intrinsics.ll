@@ -209,10 +209,10 @@ define amdgpu_kernel void @variable_memcpy_caller0(ptr addrspace(1) %dst, ptr ad
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -245,10 +245,10 @@ define amdgpu_kernel void @variable_memcpy_caller1(ptr addrspace(1) %dst, ptr ad
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -281,10 +281,10 @@ define amdgpu_kernel void @memcpy_multi_use_one_function(ptr addrspace(1) %dst0,
 ; OPT:       loop-memcpy-residual4:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX6:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER5]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL4:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX6]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST0]], i64 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST0]], i64 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX6]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL4]], label [[POST_LOOP_MEMCPY_EXPANSION1:%.*]]
@@ -306,10 +306,10 @@ define amdgpu_kernel void @memcpy_multi_use_one_function(ptr addrspace(1) %dst0,
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP29:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP25:%.*]] = add i64 [[TMP18]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP26:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP25]]
-; OPT-NEXT:    [[TMP27:%.*]] = load i8, ptr addrspace(1) [[TMP26]], align 1
-; OPT-NEXT:    [[TMP28:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST1]], i64 [[TMP25]]
-; OPT-NEXT:    store i8 [[TMP27]], ptr addrspace(1) [[TMP28]], align 1
+; OPT-NEXT:    [[TMP26:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP25]]
+; OPT-NEXT:    [[TMP27:%.*]] = load b8, ptr addrspace(1) [[TMP26]], align 1
+; OPT-NEXT:    [[TMP28:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST1]], i64 [[TMP25]]
+; OPT-NEXT:    store b8 [[TMP27]], ptr addrspace(1) [[TMP28]], align 1
 ; OPT-NEXT:    [[TMP29]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP30:%.*]] = icmp ult i64 [[TMP29]], [[TMP17]]
 ; OPT-NEXT:    br i1 [[TMP30]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -346,10 +346,10 @@ define amdgpu_kernel void @memcpy_alt_type(ptr addrspace(1) %dst, ptr addrspace(
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(3) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST]], i32 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(3) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST]], i32 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -383,10 +383,10 @@ define amdgpu_kernel void @memcpy_multi_use_one_function_keep_small(ptr addrspac
 ; MAX1024:       loop-memcpy-residual:
 ; MAX1024-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; MAX1024-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; MAX1024-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
-; MAX1024-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; MAX1024-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST0]], i64 [[TMP10]]
-; MAX1024-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; MAX1024-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
+; MAX1024-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; MAX1024-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST0]], i64 [[TMP10]]
+; MAX1024-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; MAX1024-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; MAX1024-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; MAX1024-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -415,10 +415,10 @@ define amdgpu_kernel void @memcpy_multi_use_one_function_keep_small(ptr addrspac
 ; ALL:       loop-memcpy-residual:
 ; ALL-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; ALL-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; ALL-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
-; ALL-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; ALL-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST0]], i64 [[TMP10]]
-; ALL-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; ALL-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
+; ALL-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; ALL-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST0]], i64 [[TMP10]]
+; ALL-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; ALL-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; ALL-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; ALL-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -929,10 +929,10 @@ define amdgpu_kernel void @memcpy_global_align4_global_align4_variable(ptr addrs
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -965,10 +965,10 @@ define amdgpu_kernel void @memcpy_global_align2_global_align2_variable(ptr addrs
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1001,10 +1001,10 @@ define amdgpu_kernel void @memcpy_global_align1_global_align1_variable(ptr addrs
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i64 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST]], i64 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1037,10 +1037,10 @@ define amdgpu_kernel void @memcpy_local_align4_local_align4_variable(ptr addrspa
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(3) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(3) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1073,10 +1073,10 @@ define amdgpu_kernel void @memcpy_local_align2_local_align2_variable(ptr addrspa
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(3) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(3) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1109,10 +1109,10 @@ define amdgpu_kernel void @memcpy_local_align1_local_align1_variable(ptr addrspa
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(3) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(3) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1145,10 +1145,10 @@ define amdgpu_kernel void @memcpy_local_align4_global_align4_variable(ptr addrsp
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[SRC]], i32 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(1) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[SRC]], i32 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(1) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1181,10 +1181,10 @@ define amdgpu_kernel void @memcpy_global_align4_local_align4_variable(ptr addrsp
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(3) [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[DST]], i32 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(3) [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(1) [[DST]], i32 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr addrspace(1) [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1596,10 +1596,10 @@ define amdgpu_kernel void @memmove_local_align1_private_align1_unknown_size(ptr 
 ; MAX1024:       loop-memcpy-residual:
 ; MAX1024-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; MAX1024-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; MAX1024-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[SRC]], i32 [[TMP10]]
-; MAX1024-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(5) [[TMP11]], align 1, !alias.scope [[META0]]
-; MAX1024-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
-; MAX1024-NEXT:    store i8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1, !noalias [[META0]]
+; MAX1024-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(5) [[SRC]], i32 [[TMP10]]
+; MAX1024-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(5) [[TMP11]], align 1, !alias.scope [[META0]]
+; MAX1024-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
+; MAX1024-NEXT:    store b8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1, !noalias [[META0]]
 ; MAX1024-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; MAX1024-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; MAX1024-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1627,10 +1627,10 @@ define amdgpu_kernel void @memmove_local_align1_private_align1_unknown_size(ptr 
 ; ALL:       loop-memcpy-residual:
 ; ALL-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; ALL-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; ALL-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[SRC]], i32 [[TMP10]]
-; ALL-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(5) [[TMP11]], align 1, !alias.scope [[META9]]
-; ALL-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
-; ALL-NEXT:    store i8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1, !noalias [[META9]]
+; ALL-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(5) [[SRC]], i32 [[TMP10]]
+; ALL-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(5) [[TMP11]], align 1, !alias.scope [[META9]]
+; ALL-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[DST]], i32 [[TMP10]]
+; ALL-NEXT:    store b8 [[TMP12]], ptr addrspace(3) [[TMP13]], align 1, !noalias [[META9]]
 ; ALL-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; ALL-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; ALL-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1686,10 +1686,10 @@ define amdgpu_kernel void @memmove_private_align1_local_align1_unknown_size(ptr 
 ; MAX1024:       loop-memcpy-residual:
 ; MAX1024-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; MAX1024-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; MAX1024-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
-; MAX1024-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(3) [[TMP11]], align 1, !alias.scope [[META3]]
-; MAX1024-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[DST]], i32 [[TMP10]]
-; MAX1024-NEXT:    store i8 [[TMP12]], ptr addrspace(5) [[TMP13]], align 1, !noalias [[META3]]
+; MAX1024-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
+; MAX1024-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(3) [[TMP11]], align 1, !alias.scope [[META3]]
+; MAX1024-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(5) [[DST]], i32 [[TMP10]]
+; MAX1024-NEXT:    store b8 [[TMP12]], ptr addrspace(5) [[TMP13]], align 1, !noalias [[META3]]
 ; MAX1024-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; MAX1024-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; MAX1024-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1717,10 +1717,10 @@ define amdgpu_kernel void @memmove_private_align1_local_align1_unknown_size(ptr 
 ; ALL:       loop-memcpy-residual:
 ; ALL-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i32 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; ALL-NEXT:    [[TMP10:%.*]] = add i32 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; ALL-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
-; ALL-NEXT:    [[TMP12:%.*]] = load i8, ptr addrspace(3) [[TMP11]], align 1, !alias.scope [[META15]]
-; ALL-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[DST]], i32 [[TMP10]]
-; ALL-NEXT:    store i8 [[TMP12]], ptr addrspace(5) [[TMP13]], align 1, !noalias [[META15]]
+; ALL-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr addrspace(3) [[SRC]], i32 [[TMP10]]
+; ALL-NEXT:    [[TMP12:%.*]] = load b8, ptr addrspace(3) [[TMP11]], align 1, !alias.scope [[META15]]
+; ALL-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr addrspace(5) [[DST]], i32 [[TMP10]]
+; ALL-NEXT:    store b8 [[TMP12]], ptr addrspace(5) [[TMP13]], align 1, !noalias [[META15]]
 ; ALL-NEXT:    [[TMP14]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
 ; ALL-NEXT:    [[TMP15:%.*]] = icmp ult i32 [[TMP14]], [[TMP2]]
 ; ALL-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
@@ -1756,10 +1756,10 @@ define void @test_umin(i64 %0, i64 %idxprom, ptr %x, ptr %y) {
 ; OPT:       loop-memcpy-residual:
 ; OPT-NEXT:    [[RESIDUAL_LOOP_INDEX:%.*]] = phi i64 [ 0, [[LOOP_MEMCPY_RESIDUAL_HEADER]] ], [ [[TMP14:%.*]], [[LOOP_MEMCPY_RESIDUAL:%.*]] ]
 ; OPT-NEXT:    [[TMP10:%.*]] = add i64 [[TMP3]], [[RESIDUAL_LOOP_INDEX]]
-; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds i8, ptr [[X]], i64 [[TMP10]]
-; OPT-NEXT:    [[TMP12:%.*]] = load i8, ptr [[TMP11]], align 1
-; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds i8, ptr [[ARRAYIDX]], i64 [[TMP10]]
-; OPT-NEXT:    store i8 [[TMP12]], ptr [[TMP13]], align 1
+; OPT-NEXT:    [[TMP11:%.*]] = getelementptr inbounds b8, ptr [[X]], i64 [[TMP10]]
+; OPT-NEXT:    [[TMP12:%.*]] = load b8, ptr [[TMP11]], align 1
+; OPT-NEXT:    [[TMP13:%.*]] = getelementptr inbounds b8, ptr [[ARRAYIDX]], i64 [[TMP10]]
+; OPT-NEXT:    store b8 [[TMP12]], ptr [[TMP13]], align 1
 ; OPT-NEXT:    [[TMP14]] = add i64 [[RESIDUAL_LOOP_INDEX]], 1
 ; OPT-NEXT:    [[TMP15:%.*]] = icmp ult i64 [[TMP14]], [[TMP2]]
 ; OPT-NEXT:    br i1 [[TMP15]], label [[LOOP_MEMCPY_RESIDUAL]], label [[POST_LOOP_MEMCPY_EXPANSION:%.*]]
