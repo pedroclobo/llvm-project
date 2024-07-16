@@ -1215,6 +1215,9 @@ static bool processTrunc(TruncInst *TI, LazyValueInfo *LVI) {
   if (TI->hasNoSignedWrap() && TI->hasNoUnsignedWrap())
     return false;
 
+  if (!TI->getOperand(0)->getType()->isIntOrIntVectorTy())
+    return false;
+
   ConstantRange Range =
       LVI->getConstantRangeAtUse(TI->getOperandUse(0), /*UndefAllowed=*/false);
   uint64_t DestWidth = TI->getDestTy()->getScalarSizeInBits();
