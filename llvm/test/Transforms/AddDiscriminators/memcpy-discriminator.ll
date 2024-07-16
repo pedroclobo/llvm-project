@@ -59,10 +59,8 @@ entry:
 cond.true:
 ; CHECK-LABEL: cond.true:
 ; CHECK:       load b64, {{.*}}, !dbg ![[LOC:[0-9]+]]
-; CHECK-NEXT:  load b32, {{.*}}, !dbg ![[LOC]]
-; CHECK-NEXT:  bytecast exact b64 {{.*}} to i64, !dbg ![[LOC]]
-; CHECK-NEXT:  bytecast exact b32 {{.*}} to i32, !dbg ![[LOC]]
-; CHECK-NEXT:  %call = call i32 @bar({{.*}}), !dbg ![[LOC]]
+; CHECK:       load b32, {{.*}}, !dbg ![[LOC]]
+; CHECK:       %call = call i32 @bar({{.*}}), !dbg ![[LOC]]
 ; CHECK-NEXT:  br label %cond.end, !dbg ![[BR_LOC:[0-9]+]]
 
 ; CHECK-DAG: ![[LOC]] = !DILocation(line: 16, column: 23, scope: ![[SCOPE:[0-9]+]])
