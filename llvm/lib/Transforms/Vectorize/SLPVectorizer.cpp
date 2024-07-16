@@ -22541,9 +22541,7 @@ void BoUpSLP::computeMinimumValueSizes() {
     // If the maximum bit width we compute is less than the width of the roots'
     // type, we can proceed with the narrowing. Otherwise, do nothing.
     if (MaxBitWidth == 0 ||
-        MaxBitWidth >=
-            cast<IntegerType>(TreeRoot.front()->getType()->getScalarType())
-                ->getBitWidth()) {
+        MaxBitWidth >= TreeRoot.front()->getType()->getScalarSizeInBits()) {
       if (UserIgnoreList)
         AnalyzedMinBWVals.insert_range(TreeRoot);
       NodesToKeepBWs.insert_range(ToDemote);
