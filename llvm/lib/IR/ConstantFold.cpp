@@ -82,6 +82,9 @@ static Constant *FoldBitCast(Constant *V, Type *DestTy) {
     if (isa<VectorType>(DestTy) && !isa<VectorType>(SrcTy))
       return ConstantExpr::getBitCast(ConstantVector::get(V), DestTy);
 
+    if (DestTy->isByteTy())
+      return ConstantByte::get(DestTy->getContext(), CI->getValue());
+
     // Make sure dest type is compatible with the folded fp constant.
     // See note below regarding the PPC_FP128 restriction.
     if (DestTy->isFPOrFPVectorTy() && !DestTy->isPPC_FP128Ty() &&
