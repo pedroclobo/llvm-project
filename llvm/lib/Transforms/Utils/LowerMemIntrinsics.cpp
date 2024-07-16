@@ -210,10 +210,10 @@ void llvm::createMemCpyLoopUnknownSize(
   IntegerType *ILengthType = dyn_cast<IntegerType>(CopyLenType);
   assert(ILengthType &&
          "expected size argument to memcpy to be an integer type!");
-  Type *Int8Type = Type::getInt8Ty(Ctx);
-  bool LoopOpIsInt8 = LoopOpType == Int8Type;
+  Type *Byte8Type = Type::getByte8Ty(Ctx);
+  bool LoopOpIsByte8 = LoopOpType == Byte8Type;
   ConstantInt *CILoopOpSize = ConstantInt::get(ILengthType, LoopOpSize);
-  Value *RuntimeLoopCount = LoopOpIsInt8
+  Value *RuntimeLoopCount = LoopOpIsByte8
                                 ? CopyLen
                                 : getRuntimeLoopCount(DL, PLBuilder, CopyLen,
                                                       CILoopOpSize, LoopOpSize);
@@ -251,11 +251,11 @@ void llvm::createMemCpyLoopUnknownSize(
   LoopIndex->addIncoming(NewIndex, LoopBB);
 
   bool requiresResidual =
-      !LoopOpIsInt8 && !(AtomicElementSize && LoopOpSize == AtomicElementSize);
+      !LoopOpIsByte8 && !(AtomicElementSize && LoopOpSize == AtomicElementSize);
   if (requiresResidual) {
     Type *ResLoopOpType = AtomicElementSize
                               ? Type::getIntNTy(Ctx, *AtomicElementSize * 8)
-                              : Int8Type;
+                              : Byte8Type;
     unsigned ResLoopOpSize = DL.getTypeStoreSize(ResLoopOpType);
     assert((ResLoopOpSize == AtomicElementSize ? *AtomicElementSize : 1) &&
            "Store size is expected to match type size");

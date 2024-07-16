@@ -1452,6 +1452,14 @@ Instruction *InstCombinerImpl::visitStoreInst(StoreInst &SI) {
       break;
   }
 
+  // Storing a byte constant is equivalent to storing an integer constant.
+  // Replace `store bN X` by `store iN X`
+  if (isa<ConstantByte>(Val)) {
+    Type *ITy = Builder.getIntNTy(Val->getType()->getScalarSizeInBits());
+    APInt IntVal = cast<ConstantByte>(Val)->getValue();
+    return replaceOperand(SI, 0, ConstantInt::get(ITy, IntVal));
+  }
+
   // store X, null    -> turns into 'unreachable' in SimplifyCFG
   // store X, GEP(null, Y) -> turns into 'unreachable' in SimplifyCFG
   if (canSimplifyNullStoreOrGEP(SI)) {
