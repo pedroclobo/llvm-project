@@ -52,8 +52,8 @@ test_pmmintrin() {
 // CHECK: %[[CALL2:[0-9a-zA-Z_.]+]] = call <2 x double> @vec_add(double vector[2], double vector[2])(<2 x double> noundef %[[CALL]], <2 x double> noundef %[[CALL1]])
 
 // CHECK-LABEL: define available_externally <4 x float> @_mm_hadd_ps(<4 x float> noundef %{{[0-9a-zA-Z_.]+}}, <4 x float> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 16, i8 17, i8 18, i8 19, i8 24, i8 25, i8 26, i8 27>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 20, i8 21, i8 22, i8 23, i8 28, i8 29, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 16, b8 17, b8 18, b8 19, b8 24, b8 25, b8 26, b8 27>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 20, b8 21, b8 22, b8 23, b8 28, b8 29, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
 // CHECK: %[[CALL:[0-9a-zA-Z_.]+]] = call <4 x float> @vec_perm(float vector[4], float vector[4], unsigned char vector[16])
 // CHECK: %[[CALL1:[0-9a-zA-Z_.]+]] = call <4 x float> @vec_perm(float vector[4], float vector[4], unsigned char vector[16])
 // CHECK: %[[CALL2:[0-9a-zA-Z_.]+]] = call <4 x float> @vec_add(float vector[4], float vector[4])(<4 x float> noundef %[[CALL]], <4 x float> noundef %[[CALL1]])
@@ -64,8 +64,8 @@ test_pmmintrin() {
 // CHECK: %[[CALL2:[0-9a-zA-Z_.]+]] = call <2 x double> @vec_sub(double vector[2], double vector[2])(<2 x double> noundef %[[CALL]], <2 x double> noundef %[[CALL1]])
 
 // CHECK-LABEL: define available_externally <4 x float> @_mm_hsub_ps(<4 x float> noundef %{{[0-9a-zA-Z_.]+}}, <4 x float> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 16, i8 17, i8 18, i8 19, i8 24, i8 25, i8 26, i8 27>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 20, i8 21, i8 22, i8 23, i8 28, i8 29, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 16, b8 17, b8 18, b8 19, b8 24, b8 25, b8 26, b8 27>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 20, b8 21, b8 22, b8 23, b8 28, b8 29, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
 // CHECK: %[[CALL:[0-9a-zA-Z_.]+]] = call <4 x float> @vec_perm(float vector[4], float vector[4], unsigned char vector[16])
 // CHECK: %[[CALL1:[0-9a-zA-Z_.]+]] = call <4 x float> @vec_perm(float vector[4], float vector[4], unsigned char vector[16])
 // CHECK: %[[CALL2:[0-9a-zA-Z_.]+]] = call <4 x float> @vec_sub(float vector[4], float vector[4])(<4 x float> noundef %[[CALL]], <4 x float> noundef %[[CALL1]])

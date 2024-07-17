@@ -4900,6 +4900,15 @@ Value *ScalarExprEmitter::EmitCompare(const BinaryOperator *E,
 
       Value *CR6Param = Builder.getInt32(CR6);
       llvm::Function *F = CGF.CGM.getIntrinsic(ID);
+      llvm::FunctionType *FTy = F->getFunctionType();
+      if (FirstVecArg->getType()->isByteOrByteVectorTy() &&
+          !FTy->getParamType(0)->isByteOrByteVectorTy())
+        FirstVecArg = Builder.CreateByteCastToIntVector(
+            FirstVecArg, FirstVecArg->getType()->isScalableTy());
+      if (SecondVecArg->getType()->isByteOrByteVectorTy() &&
+          !FTy->getParamType(1)->isByteOrByteVectorTy())
+        SecondVecArg = Builder.CreateByteCastToIntVector(
+            SecondVecArg, SecondVecArg->getType()->isScalableTy());
       Result = Builder.CreateCall(F, {CR6Param, FirstVecArg, SecondVecArg});
 
       // The result type of intrinsic may not be same as E->getType().
@@ -4961,8 +4970,21 @@ Value *ScalarExprEmitter::EmitCompare(const BinaryOperator *E,
 
     // If this is a vector comparison, sign extend the result to the appropriate
     // vector integer type and return it (don't convert to bool).
-    if (LHSTy->isVectorType())
-      return Builder.CreateSExt(Result, ConvertType(E->getType()), "sext");
+    if (LHSTy->isVectorType()) {
+      auto *ETy = ConvertType(E->getType());
+      if (ETy->isByteOrByteVectorTy()) {
+        auto *VecTy = cast<llvm::VectorType>(ETy);
+        unsigned NumEls = VecTy->getElementCount().getKnownMinValue();
+        unsigned BitWidth = VecTy->getElementType()->getPrimitiveSizeInBits();
+        auto *DstElTy = Builder.getIntNTy(BitWidth);
+        auto *DstTy =
+            llvm::VectorType::get(DstElTy, NumEls, ETy->isScalableTy());
+
+        Result = Builder.CreateSExt(Result, DstTy, "sext");
+        return Builder.CreateBitCast(Result, ETy, "conv");
+      }
+      return Builder.CreateSExt(Result, ETy, "sext");
+    }
 
   } else {
     // Complex Comparison: can only be an equality comparison.
