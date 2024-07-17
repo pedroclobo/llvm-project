@@ -6,14 +6,22 @@
 
 // CHECK-LE-LABEL: @test1(
 // CHECK-LE-NEXT:  entry:
-// CHECK-LE-NEXT:    [[TMP0:%.*]] = tail call <512 x i1> @llvm.ppc.mma.assemble.acc(<16 x i8> [[VC4:%.*]], <16 x i8> [[VC3:%.*]], <16 x i8> [[VC2:%.*]], <16 x i8> [[VC1:%.*]])
-// CHECK-LE-NEXT:    store <512 x i1> [[TMP0]], ptr [[RESP:%.*]], align 64, !tbaa [[TBAA2:![0-9]+]]
+// CHECK-LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[VC4:%.*]] to <16 x i8>
+// CHECK-LE-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[VC3:%.*]] to <16 x i8>
+// CHECK-LE-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[VC2:%.*]] to <16 x i8>
+// CHECK-LE-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[VC1:%.*]] to <16 x i8>
+// CHECK-LE-NEXT:    [[TMP4:%.*]] = tail call <512 x i1> @llvm.ppc.mma.assemble.acc(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]])
+// CHECK-LE-NEXT:    store <512 x i1> [[TMP4]], ptr [[RESP:%.*]], align 64, !tbaa [[TBAA2:![0-9]+]]
 // CHECK-LE-NEXT:    ret void
 //
 // CHECK-BE-LABEL: @test1(
 // CHECK-BE-NEXT:  entry:
-// CHECK-BE-NEXT:    [[TMP0:%.*]] = tail call <512 x i1> @llvm.ppc.mma.assemble.acc(<16 x i8> [[VC1:%.*]], <16 x i8> [[VC2:%.*]], <16 x i8> [[VC3:%.*]], <16 x i8> [[VC4:%.*]])
-// CHECK-BE-NEXT:    store <512 x i1> [[TMP0]], ptr [[RESP:%.*]], align 64, !tbaa [[TBAA2:![0-9]+]]
+// CHECK-BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[VC1:%.*]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[VC2:%.*]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[VC3:%.*]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[VC4:%.*]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP4:%.*]] = tail call <512 x i1> @llvm.ppc.mma.assemble.acc(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]])
+// CHECK-BE-NEXT:    store <512 x i1> [[TMP4]], ptr [[RESP:%.*]], align 64, !tbaa [[TBAA2:![0-9]+]]
 // CHECK-BE-NEXT:    ret void
 //
 void test1(unsigned char *vqp, unsigned char *vpp, vector unsigned char vc1, vector unsigned char vc2,
@@ -27,14 +35,18 @@ void test1(unsigned char *vqp, unsigned char *vpp, vector unsigned char vc1, vec
 
 // CHECK-LE-LABEL: @test2(
 // CHECK-LE-NEXT:  entry:
-// CHECK-LE-NEXT:    [[TMP0:%.*]] = tail call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[VC2:%.*]], <16 x i8> [[VC1:%.*]])
-// CHECK-LE-NEXT:    store <256 x i1> [[TMP0]], ptr [[RESP:%.*]], align 32, !tbaa [[TBAA6:![0-9]+]]
+// CHECK-LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[VC2:%.*]] to <16 x i8>
+// CHECK-LE-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[VC1:%.*]] to <16 x i8>
+// CHECK-LE-NEXT:    [[TMP2:%.*]] = tail call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-LE-NEXT:    store <256 x i1> [[TMP2]], ptr [[RESP:%.*]], align 32, !tbaa [[TBAA6:![0-9]+]]
 // CHECK-LE-NEXT:    ret void
 //
 // CHECK-BE-LABEL: @test2(
 // CHECK-BE-NEXT:  entry:
-// CHECK-BE-NEXT:    [[TMP0:%.*]] = tail call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[VC1:%.*]], <16 x i8> [[VC2:%.*]])
-// CHECK-BE-NEXT:    store <256 x i1> [[TMP0]], ptr [[RESP:%.*]], align 32, !tbaa [[TBAA6:![0-9]+]]
+// CHECK-BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[VC1:%.*]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[VC2:%.*]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP2:%.*]] = tail call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-BE-NEXT:    store <256 x i1> [[TMP2]], ptr [[RESP:%.*]], align 32, !tbaa [[TBAA6:![0-9]+]]
 // CHECK-BE-NEXT:    ret void
 //
 void test2(unsigned char *vqp, unsigned char *vpp, vector unsigned char vc1,

@@ -1,38 +1,53 @@
 // RUN: not %clang_cc1 -target-feature +altivec -target-feature +vsx \
 // RUN:   -faltivec-src-compat=mixed -triple powerpc-unknown-unknown -emit-llvm %s -o - 2>&1 | FileCheck %s --check-prefix=ERROR
 // RUN: %clang_cc1 -target-feature +altivec -target-feature +vsx \
-// RUN:   -faltivec-src-compat=gcc -triple powerpc-unknown-unknown -emit-llvm %s -o - | FileCheck %s
+// RUN:   -faltivec-src-compat=gcc -triple powerpc-unknown-unknown -emit-llvm %s -o - | FileCheck %s --check-prefixes=CHECK,CHECK-1
 // RUN: not %clang_cc1 -target-feature +altivec -target-feature +vsx \
 // RUN:   -faltivec-src-compat=xl -triple powerpc-unknown-unknown -emit-llvm %s -o - 2>&1 | FileCheck %s --check-prefix=ERROR
-// RUN: %clang -mcpu=pwr8 -faltivec-src-compat=gcc --target=powerpc-unknown-unknown -S -emit-llvm %s -o - | FileCheck %s
-// RUN: %clang -mcpu=pwr9 -faltivec-src-compat=gcc --target=powerpc-unknown-unknown -S -emit-llvm %s -o - | FileCheck %s
+// RUN: %clang -mcpu=pwr8 -faltivec-src-compat=gcc --target=powerpc-unknown-unknown -S -emit-llvm %s -o - | FileCheck %s --check-prefixes=CHECK,CHECK-2
+// RUN: %clang -mcpu=pwr9 -faltivec-src-compat=gcc --target=powerpc-unknown-unknown -S -emit-llvm %s -o - | FileCheck %s --check-prefixes=CHECK,CHECK-2
 
 // CHECK-LABEL: @ui8(
-// CHECK:         [[A_ADDR:%.*]] = alloca <16 x i8>, align 16
-// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca <16 x i8>, align 16
-// CHECK-NEXT:    store <16 x i8> [[A:%.*]], ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    store <16 x i8> [[B:%.*]], ptr [[B_ADDR]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <16 x i8>, ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[B_ADDR]], align 16
-// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <16 x i8> [[TMP0]], [[TMP1]]
+// CHECK:         [[A_ADDR:%.*]] = alloca <16 x b8>, align 16
+// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca <16 x b8>, align 16
+// CHECK-NEXT:    store <16 x b8> [[A:%.*]], ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    store <16 x b8> [[B:%.*]], ptr [[B_ADDR]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <16 x b8>, ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[B_ADDR]], align 16
+// CHECK-NEXT:    [[CONV0:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[CONV1:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <16 x i8> [[CONV0]], [[CONV1]]
 // CHECK-NEXT:    [[SEXT:%.*]] = sext <16 x i1> [[CMP]] to <16 x i8>
-// CHECK-NEXT:    ret <16 x i8> [[SEXT]]
+// CHECK-NEXT:    [[CONV2:%.*]] = bitcast <16 x i8> [[SEXT]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[CONV2]]
 //
 // ERROR: returning 'int' from a function with incompatible result type
 vector unsigned char ui8(vector unsigned char a, vector unsigned char b) {
   return a == b;
 }
 
-// CHECK-LABEL: @si8(
-// CHECK:         [[A_ADDR:%.*]] = alloca <16 x i8>, align 16
-// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca <16 x i8>, align 16
-// CHECK-NEXT:    store <16 x i8> [[A:%.*]], ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    store <16 x i8> [[B:%.*]], ptr [[B_ADDR]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <16 x i8>, ptr [[A_ADDR]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[B_ADDR]], align 16
-// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <16 x i8> [[TMP0]], [[TMP1]]
-// CHECK-NEXT:    [[SEXT:%.*]] = sext <16 x i1> [[CMP]] to <16 x i8>
-// CHECK-NEXT:    ret <16 x i8> [[SEXT]]
+// CHECK-1-LABEL: @si8(
+// CHECK-1:         [[A_ADDR:%.*]] = alloca <16 x i8>, align 16
+// CHECK-1-NEXT:    [[B_ADDR:%.*]] = alloca <16 x i8>, align 16
+// CHECK-1-NEXT:    store <16 x i8> [[A:%.*]], ptr [[A_ADDR]], align 16
+// CHECK-1-NEXT:    store <16 x i8> [[B:%.*]], ptr [[B_ADDR]], align 16
+// CHECK-1-NEXT:    [[TMP0:%.*]] = load <16 x i8>, ptr [[A_ADDR]], align 16
+// CHECK-1-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[B_ADDR]], align 16
+// CHECK-1-NEXT:    [[CMP:%.*]] = icmp eq <16 x i8> [[TMP0]], [[TMP1]]
+// CHECK-1-NEXT:    [[SEXT:%.*]] = sext <16 x i1> [[CMP]] to <16 x i8>
+// CHECK-1-NEXT:    ret <16 x i8> [[SEXT]]
+// CHECK-2-LABEL: @si8(
+// CHECK-2:         [[A_ADDR:%.*]] = alloca <16 x i8>, align 16
+// CHECK-2-NEXT:    [[B_ADDR:%.*]] = alloca <16 x i8>, align 16
+// CHECK-2-NEXT:    store <16 x i8> [[A:%.*]], ptr [[A_ADDR]], align 16
+// CHECK-2-NEXT:    store <16 x i8> [[B:%.*]], ptr [[B_ADDR]], align 16
+// CHECK-2-NEXT:    [[TMP0:%.*]] = load <16 x i8>, ptr [[A_ADDR]], align 16
+// CHECK-2-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[B_ADDR]], align 16
+// CHECK-2-NEXT:    [[CMP:%.*]] = icmp eq <16 x i8> [[TMP0]], [[TMP1]]
+// CHECK-2-NEXT:    [[SEXT:%.*]] = sext <16 x i1> [[CMP]] to <16 x i8>
+// CHECK-2-NEXT:    [[CONV:%.*]] = bitcast <16 x i8> [[SEXT]] to <16 x b8>
+// CHECK-2-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[CONV]] to <16 x i8>
+// CHECK-2-NEXT:    ret <16 x i8> [[TMP2]]
 //
 // ERROR: returning 'int' from a function with incompatible result type
 vector signed char si8(vector signed char a, vector signed char b) {
