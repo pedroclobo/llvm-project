@@ -22,9 +22,9 @@
 unsigned char test_rotl8(unsigned char value, unsigned char shift) {
   return _rotl8(value, shift);
 }
-// CHECK: i8 @test_rotl8
-// CHECK:   [[R:%.*]] = call i8 @llvm.fshl.i8(i8 [[X:%.*]], i8 [[X]], i8 [[Y:%.*]])
-// CHECK:   ret i8 [[R]]
+// CHECK: b8 @test_rotl8
+// CHECK:   [[R:%.*]] = call b8 @llvm.fshl.b8(b8 [[X:%.*]], b8 [[X]], b8 [[Y:%.*]])
+// CHECK:   ret b8 [[R]]
 
 unsigned short test_rotl16(unsigned short value, unsigned char shift) {
   return _rotl16(value, shift);
@@ -62,9 +62,9 @@ unsigned __int64 test_rotl64(unsigned __int64 value, int shift) {
 unsigned char test_rotr8(unsigned char value, unsigned char shift) {
   return _rotr8(value, shift);
 }
-// CHECK: i8 @test_rotr8
-// CHECK:   [[R:%.*]] = call i8 @llvm.fshr.i8(i8 [[X:%.*]], i8 [[X]], i8 [[Y:%.*]])
-// CHECK:   ret i8 [[R]]
+// CHECK: b8 @test_rotr8
+// CHECK:   [[R:%.*]] = call b8 @llvm.fshr.b8(b8 [[X:%.*]], b8 [[X]], b8 [[Y:%.*]])
+// CHECK:   ret b8 [[R]]
 
 unsigned short test_rotr16(unsigned short value, unsigned char shift) {
   return _rotr16(value, shift);

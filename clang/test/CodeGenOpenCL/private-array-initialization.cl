@@ -12,11 +12,11 @@ void test() {
 }
 
 __kernel void initializer_cast_is_valid_crash() {
-// PRIVATE0: %v512 = alloca [64 x i8], align 1
+// PRIVATE0: %v512 = alloca [64 x b8], align 1
 // PRIVATE0: call void @llvm.memset.p0.i32(ptr align 1 %v512, i8 0, i32 64, i1 false)
 
 
-// PRIVATE5: %v512 = alloca [64 x i8], align 1, addrspace(5)
+// PRIVATE5: %v512 = alloca [64 x b8], align 1, addrspace(5)
 // PRIVATE5: call void @llvm.memset.p5.i64(ptr addrspace(5) align 1 %v512, i8 0, i64 64, i1 false)
   unsigned char v512[64] = {
       0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,

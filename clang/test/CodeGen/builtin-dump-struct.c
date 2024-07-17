@@ -143,9 +143,10 @@ void test(struct A *a) {
   // CHECK: call {{.*}} @printf(ptr noundef @[[STR_7]], ptr noundef @[[STR_4]], ptr noundef @[[STR_8]], ptr noundef @[[STR_9]], i32 noundef %[[VAL_conv3]])
 
   // CHECK: %[[VAL_i3:.*]] = getelementptr inbounds nuw %[[VAL_struct_A]], ptr %[[VAL_0]], i32 0, i32 2
-  // CHECK: %[[VAL_3:.*]] = load i8, ptr %[[VAL_i3]],
-  // CHECK: %[[VAL_conv5:.*]] = zext i8 %[[VAL_3]] to i32
-  // CHECK: call {{.*}} @printf(ptr noundef @[[STR_10]], ptr noundef @[[STR_4]], ptr noundef @[[STR_11]], ptr noundef @[[STR_12]], i32 noundef %[[VAL_conv5]])
+  // CHECK: %[[VAL_3:.*]] = load b8, ptr %[[VAL_i3]],
+  // CHECK: %[[VAL_conv5:.*]] = bytecast b8 %[[VAL_3]] to i8
+  // CHECK: %[[VAL_conv6:.*]] = zext i8 %[[VAL_conv5]] to i32
+  // CHECK: call {{.*}} @printf(ptr noundef @[[STR_10]], ptr noundef @[[STR_4]], ptr noundef @[[STR_11]], ptr noundef @[[STR_12]], i32 noundef %[[VAL_conv6]])
 
   // CHECK: %[[VAL_i4:.*]] = getelementptr inbounds nuw %[[VAL_struct_A]], ptr %[[VAL_0]], i32 0, i32 3
   // CHECK: %[[VAL_4:.*]] = load i16, ptr %[[VAL_i4]],

@@ -1172,6 +1172,7 @@ static void emitStoresForConstant(CodeGenModule &CGM, const VarDecl &D,
     return;
 
   bool canDoSingleStore = Ty->isIntOrIntVectorTy() ||
+                          Ty->isByteOrByteVectorTy() ||
                           Ty->isPtrOrPtrVectorTy() || Ty->isFPOrFPVectorTy();
   if (canDoSingleStore) {
     auto *I = Builder.CreateStore(constant, Loc, isVolatile);

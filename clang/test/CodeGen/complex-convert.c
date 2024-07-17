@@ -24,7 +24,7 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-LABEL: define {{.*}}void @foo(
   // Match the prototype to pick up the size of sc and sll.
   // CHECK: i[[CHSIZE:[0-9]+]]{{[^,]*}},
-  // CHECK: i[[CHSIZE]]{{[^,]*}},
+  // CHECK: b[[CHSIZE]]{{[^,]*}},
   // CHECK: i[[LLSIZE:[0-9]+]]
 
   // Match against the allocas to pick up the alignments.
@@ -34,14 +34,15 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK: store i64 %ull,
 
   sc1 = csc;
-  // CHECK: %[[VAR1:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]]  }, ptr %[[CSC:[A-Za-z0-9.]+]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR1:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]]  }, ptr %[[CSC:[A-Za-z0-9.]+]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR2:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR1]]
   // CHECK-NEXT: store i[[CHSIZE]] %[[VAR2]], ptr %[[SC1:[A-Za-z0-9.]+]], align [[CHALIGN]]
 
   sc1 = cuc;
-  // CHECK-NEXT: %[[VAR3:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]]  }, ptr %[[CUC:[A-Za-z0-9.]+]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR4:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR3]]
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR4]], ptr %[[SC1]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[VAR3:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]]  }, ptr %[[CUC:[A-Za-z0-9.]+]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR4:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR3]]
+  // CHECK-NEXT: %[[CONV1:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR4]] to i[[CHSIZE]]
+  // CHECK-NEXT: store i[[CHSIZE]] %[[CONV1]], ptr %[[SC1]], align [[CHALIGN]]
 
   sc1 = csll;
   // CHECK-NEXT: %[[VAR5:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]]  }, ptr %[[CSLL:[A-Za-z0-9.]+]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
@@ -58,24 +59,27 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   uc1 = csc;
   // CHECK-NEXT: %[[VAR11:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]]  }, ptr %[[CSC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR12:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR11]]
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR12]], ptr %[[UC1:[A-Za-z0-9.]+]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV2:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR12]] to b[[CHSIZE]]
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV2]], ptr %[[UC1:[A-Za-z0-9.]+]], align [[CHALIGN]]
 
   uc1 = cuc;
-  // CHECK-NEXT: %[[VAR13:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]]  }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR14:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR13]]
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR14]], ptr %[[UC1]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[VAR13:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]]  }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR14:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR13]]
+  // CHECK-NEXT: store b[[CHSIZE]] %[[VAR14]], ptr %[[UC1]], align [[CHALIGN]]
 
   uc1 = csll;
   // CHECK-NEXT: %[[VAR15:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]]  }, ptr %[[CSLL]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR16:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[VAR15]]
   // CHECK-NEXT: %[[VAR17:[A-Za-z0-9.]+]] = trunc i[[LLSIZE]] %[[VAR16]] to i[[CHSIZE]]
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR17]], ptr %[[UC1]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV3:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR17]] to b[[CHSIZE]]
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV3]], ptr %[[UC1]], align [[CHALIGN]]
 
   uc1 = cull;
   // CHECK-NEXT: %[[VAR18:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]]  }, ptr %[[CULL]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR19:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[VAR18]]
   // CHECK-NEXT: %[[VAR20:[A-Za-z0-9.]+]] = trunc i[[LLSIZE]] %[[VAR19]] to i[[CHSIZE]]
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR20]], ptr %[[UC1]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV4:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR20]] to b[[CHSIZE]]
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV4]], ptr %[[UC1]], align [[CHALIGN]]
 
   sll1 = csc;
   // CHECK-NEXT: %[[VAR21:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]]  }, ptr %[[CSC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
@@ -84,9 +88,10 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR23]], ptr %[[SLL1:[A-Za-z0-9]+]], align [[LLALIGN]]
 
   sll1 = cuc;
-  // CHECK-NEXT: %[[VAR24:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]]  }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR25:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR24]]
-  // CHECK-NEXT: %[[VAR26:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR25]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR24:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]]  }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR25:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR24]]
+  // CHECK-NEXT: %[[CONV4:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR25]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR26:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV4]] to i[[LLSIZE]]
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR26]], ptr %[[SLL1]], align [[LLALIGN]]
 
   sll1 = csll;
@@ -106,9 +111,10 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR33]], ptr %[[ULL1:[A-Za-z0-9]+]], align [[LLALIGN]]
 
   ull1 = cuc;
-  // CHECK-NEXT: %[[VAR34:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR35:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR34]]
-  // CHECK-NEXT: %[[VAR36:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR35]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR34:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR35:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR34]]
+  // CHECK-NEXT: %[[CONV5:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR35]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR36:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV5]] to i[[LLSIZE]]
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR36]], ptr %[[ULL1]], align [[LLALIGN]]
 
   ull1 = csll;
@@ -129,10 +135,11 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[CHSIZE]] 0, ptr %[[VAR43]]
 
   csc1 = uc;
-  // CHECK-NEXT: %[[VAR44:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR:[A-Za-z0-9.]+]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[VAR44:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR:[A-Za-z0-9.]+]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV6:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR44]] to i[[CHSIZE]]
   // CHECK-NEXT: %[[VAR45:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CSC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR46:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CSC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR44]], ptr %[[VAR45]]
+  // CHECK-NEXT: store i[[CHSIZE]] %[[CONV6]], ptr %[[VAR45]]
   // CHECK-NEXT: store i[[CHSIZE]] 0, ptr %[[VAR46]]
 
   csc1 = sll;
@@ -153,33 +160,36 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   
   cuc1 = sc;
   // CHECK-NEXT: %[[VAR55:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[SCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR56:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1:[A-Za-z0-9.]+]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR57:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR55]], ptr %[[VAR56]]
-  // CHECK-NEXT: store i[[CHSIZE]] 0, ptr %[[VAR57]]
+  // CHECK-NEXT: %[[CONV7:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR55]] to b[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR56:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1:[A-Za-z0-9.]+]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR57:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV7]], ptr %[[VAR56]]
+  // CHECK-NEXT: store b[[CHSIZE]] 0, ptr %[[VAR57]]
 
   cuc1 = uc;
-  // CHECK-NEXT: %[[VAR58:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR59:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR60:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR58]], ptr %[[VAR59]]
-  // CHECK-NEXT: store i[[CHSIZE]] 0, ptr %[[VAR60]]
+  // CHECK-NEXT: %[[VAR58:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[VAR59:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR60:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: store b[[CHSIZE]] %[[VAR58]], ptr %[[VAR59]]
+  // CHECK-NEXT: store b[[CHSIZE]] 0, ptr %[[VAR60]]
 
   cuc1 = sll;
   // CHECK-NEXT: %[[VAR61:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[SLLADDR]], align [[LLALIGN]]
   // CHECK-NEXT: %[[VAR62:[A-Za-z0-9.]+]] = trunc i[[LLSIZE]] %[[VAR61]] to i[[CHSIZE]]
-  // CHECK-NEXT: %[[VAR63:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR64:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR62]], ptr %[[VAR63]]
-  // CHECK-NEXT: store i[[CHSIZE]] 0, ptr %[[VAR64]]
+  // CHECK-NEXT: %[[CONV8:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR62]] to b[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR63:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR64:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV8]], ptr %[[VAR63]]
+  // CHECK-NEXT: store b[[CHSIZE]] 0, ptr %[[VAR64]]
 
   cuc1 = ull;
   // CHECK-NEXT: %[[VAR65:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[ULLADDR]], align [[LLALIGN]]
   // CHECK-NEXT: %[[VAR66:[A-Za-z0-9.]+]] = trunc i[[LLSIZE]] %[[VAR65]] to i[[CHSIZE]]
-  // CHECK-NEXT: %[[VAR67:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR68:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR66]], ptr %[[VAR67]]
-  // CHECK-NEXT: store i[[CHSIZE]] 0, ptr %[[VAR68]]
+  // CHECK-NEXT: %[[CONV9:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR66]] to b[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR67:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR68:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV9]], ptr %[[VAR67]]
+  // CHECK-NEXT: store b[[CHSIZE]] 0, ptr %[[VAR68]]
 
   csll1 = sc;
   // CHECK-NEXT: %[[VAR69:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[SCADDR]], align [[CHALIGN]]
@@ -190,8 +200,9 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[LLSIZE]] 0, ptr %[[VAR72]]
 
   csll1 = uc;
-  // CHECK-NEXT: %[[VAR73:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR74:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR73]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR73:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV10:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR73]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR74:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV10]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR75:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CSLL1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR76:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CSLL1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR74]], ptr %[[VAR75]]
@@ -220,8 +231,9 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[LLSIZE]] 0, ptr %[[VAR83]]
 
   cull1 = uc;
-  // CHECK-NEXT: %[[VAR84:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR85:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR84]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR84:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV11:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR84]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR85:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV11]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR86:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CULL1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR87:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CULL1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR85]], ptr %[[VAR86]]
@@ -262,20 +274,24 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   cuc1 = sc + cuc;
   // CHECK-NEXT: %[[VAR108:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[SCADDR]], align [[CHALIGN]]
   // CHECK-NEXT: %[[VAR109:[A-Za-z0-9.]+]] = sext i[[CHSIZE]] %[[VAR108]] to i[[ARSIZE]]
-  // CHECK-NEXT: %[[VAR110:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR111:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR110]]
-  // CHECK-NEXT: %[[VAR112:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: %[[VAR113:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR112]]
-  // CHECK-NEXT: %[[VAR114:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR111]] to i[[ARSIZE]]
-  // CHECK-NEXT: %[[VAR115:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR113]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[VAR110:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR111:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR110]]
+  // CHECK-NEXT: %[[VAR112:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: %[[VAR113:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR112]]
+  // CHECK-NEXT: %[[CONV12:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR111]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR114:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV12]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[CONV13:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR113]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR115:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV13]] to i[[ARSIZE]]
   // CHECK-NEXT: %[[VAR116:[A-Za-z0-9.]+]] = add i[[ARSIZE]] %[[VAR109]], %[[VAR114]]
   // CHECK-NEXT: %[[VAR117:[A-Za-z0-9.]+]] = add i[[ARSIZE]] 0, %[[VAR115]]
   // CHECK-NEXT: %[[VAR118:[A-Za-z0-9.]+]] = trunc i[[ARSIZE]] %[[VAR116]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[CONV14:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR118]] to b[[CHSIZE]]
   // CHECK-NEXT: %[[VAR119:[A-Za-z0-9.]+]] = trunc i[[ARSIZE]] %[[VAR117]] to i[[CHSIZE]]
-  // CHECK-NEXT: %[[VAR120:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR121:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR118]], ptr %[[VAR120]]
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR119]], ptr %[[VAR121]]
+  // CHECK-NEXT: %[[CONV15:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR119]] to b[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR120:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR121:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV14]], ptr %[[VAR120]]
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV15]], ptr %[[VAR121]]
 
   csll1 = sc + csll;
   // CHECK-NEXT: %[[VAR122:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[SCADDR]], align [[CHALIGN]]
@@ -306,8 +322,9 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR139]], ptr %[[VAR141]]
   
   csc1 = uc + csc;
-  // CHECK-NEXT: %[[VAR142:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR143:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR142]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[VAR142:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV16:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR142]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR143:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV16]] to i[[ARSIZE]]
   // CHECK-NEXT: %[[VAR144:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CSC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR145:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR144]]
   // CHECK-NEXT: %[[VAR146:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CSC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
@@ -324,26 +341,32 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[CHSIZE]] %[[VAR153]], ptr %[[VAR155]]
 
   cuc1 = uc + cuc;
-  // CHECK-NEXT: %[[VAR156:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR157:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR156]] to i[[ARSIZE]]
-  // CHECK-NEXT: %[[VAR158:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR159:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR158]]
-  // CHECK-NEXT: %[[VAR160:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: %[[VAR161:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR160]]
-  // CHECK-NEXT: %[[VAR162:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR159]] to i[[ARSIZE]]
-  // CHECK-NEXT: %[[VAR163:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR161]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[VAR156:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV16:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR156]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR157:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV16]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[VAR158:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR159:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR158]]
+  // CHECK-NEXT: %[[VAR160:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: %[[VAR161:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR160]]
+  // CHECK-NEXT: %[[CONV17:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR159]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR162:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV17]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[CONV18:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR161]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR163:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV18]] to i[[ARSIZE]]
   // CHECK-NEXT: %[[VAR164:[A-Za-z0-9.]+]] = add i[[ARSIZE]] %[[VAR157]], %[[VAR162]]
   // CHECK-NEXT: %[[VAR165:[A-Za-z0-9.]+]] = add i[[ARSIZE]] 0, %[[VAR163]]
   // CHECK-NEXT: %[[VAR166:[A-Za-z0-9.]+]] = trunc i[[ARSIZE]] %[[VAR164]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[CONV19:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR166]] to b[[CHSIZE]]
   // CHECK-NEXT: %[[VAR167:[A-Za-z0-9.]+]] = trunc i[[ARSIZE]] %[[VAR165]] to i[[CHSIZE]]
-  // CHECK-NEXT: %[[VAR168:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR169:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR166]], ptr %[[VAR168]]
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR167]], ptr %[[VAR169]]
+  // CHECK-NEXT: %[[CONV20:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR167]] to b[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR168:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR169:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV19]], ptr %[[VAR168]]
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV20]], ptr %[[VAR169]]
 
   csll1 = uc + csll;
-  // CHECK-NEXT: %[[VAR170:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR171:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR170]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR170:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV21:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR170]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR171:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV21]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR172:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CSLL]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR173:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[VAR172]]
   // CHECK-NEXT: %[[VAR174:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CSLL]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
@@ -356,8 +379,9 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR177]], ptr %[[VAR179]]
 
   cull1 = uc + cull;
-  // CHECK-NEXT: %[[VAR180:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR181:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR180]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR180:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV21:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR180]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR181:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV21]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR182:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CULL]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
   // CHECK-NEXT: %[[VAR183:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[VAR182]]
   // CHECK-NEXT: %[[VAR184:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CULL]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
@@ -386,12 +410,14 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
 
   csll1 = sll + cuc;
   // CHECK-NEXT: %[[VAR201:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[SLLADDR]], align [[LLALIGN]]
-  // CHECK-NEXT: %[[VAR202:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR203:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR202]]
-  // CHECK-NEXT: %[[VAR204:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: %[[VAR205:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR204]]
-  // CHECK-NEXT: %[[VAR206:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR203]] to i[[LLSIZE]]
-  // CHECK-NEXT: %[[VAR207:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR205]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR202:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR203:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR202]]
+  // CHECK-NEXT: %[[VAR204:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: %[[VAR205:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR204]]
+  // CHECK-NEXT: %[[CONV22:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR203]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR206:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV22]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[CONV23:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR205]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR207:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV23]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR208:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR201]], %[[VAR206]]
   // CHECK-NEXT: %[[VAR209:[A-Za-z0-9.]+]] = add i[[LLSIZE]] 0, %[[VAR207]]
   // CHECK-NEXT: %[[VAR210:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CSLL1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
@@ -442,12 +468,14 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
 
   cull1 = ull + cuc;
   // CHECK-NEXT: %[[VAR241:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[ULLADDR]], align [[LLALIGN]]
-  // CHECK-NEXT: %[[VAR242:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR243:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR242]]
-  // CHECK-NEXT: %[[VAR244:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: %[[VAR245:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR244]]
-  // CHECK-NEXT: %[[VAR246:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR243]] to i[[LLSIZE]]
-  // CHECK-NEXT: %[[VAR247:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR245]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR242:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR243:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR242]]
+  // CHECK-NEXT: %[[VAR244:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: %[[VAR245:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR244]]
+  // CHECK-NEXT: %[[CONV24:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR243]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR246:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV24]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[CONV25:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR245]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR247:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV25]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR248:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR241]], %[[VAR246]]
   // CHECK-NEXT: %[[VAR249:[A-Za-z0-9.]+]] = add i[[LLSIZE]] 0, %[[VAR247]]
   // CHECK-NEXT: %[[VAR250:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CULL1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
@@ -506,8 +534,9 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: %[[VAR287:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR286]]
   // CHECK-NEXT: %[[VAR288:[A-Za-z0-9.]+]] = sext i[[CHSIZE]] %[[VAR285]] to i[[ARSIZE]]
   // CHECK-NEXT: %[[VAR289:[A-Za-z0-9.]+]] = sext i[[CHSIZE]] %[[VAR287]] to i[[ARSIZE]]
-  // CHECK-NEXT: %[[VAR290:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR291:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR290]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[VAR290:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV26:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR290]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR291:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV26]] to i[[ARSIZE]]
   // CHECK-NEXT: %[[VAR292:[A-Za-z0-9.]+]] = add i[[ARSIZE]] %[[VAR288]], %[[VAR291]]
   // CHECK-NEXT: %[[VAR293:[A-Za-z0-9.]+]] = add i[[ARSIZE]] %[[VAR289]], 0
   // CHECK-NEXT: %[[VAR294:[A-Za-z0-9.]+]] = trunc i[[ARSIZE]] %[[VAR292]] to i[[CHSIZE]]
@@ -548,12 +577,14 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR317]], ptr %[[VAR319]]
   
   csc1 = cuc + sc;
-  // CHECK-NEXT: %[[VAR320:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR321:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR320]]
-  // CHECK-NEXT: %[[VAR322:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: %[[VAR323:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR322]]
-  // CHECK-NEXT: %[[VAR324:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR321]] to i[[ARSIZE]]
-  // CHECK-NEXT: %[[VAR325:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR323]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[VAR320:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR321:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR320]]
+  // CHECK-NEXT: %[[VAR322:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: %[[VAR323:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR322]]
+  // CHECK-NEXT: %[[CONV27:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR321]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR324:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV27]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[CONV28:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR323]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR325:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV28]] to i[[ARSIZE]]
   // CHECK-NEXT: %[[VAR326:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[SCADDR]], align [[CHALIGN]]
   // CHECK-NEXT: %[[VAR327:[A-Za-z0-9.]+]] = sext i[[CHSIZE]] %[[VAR326]] to i[[ARSIZE]]
   // CHECK-NEXT: %[[VAR328:[A-Za-z0-9.]+]] = add i[[ARSIZE]] %[[VAR324]], %[[VAR327]]
@@ -566,30 +597,37 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[CHSIZE]] %[[VAR331]], ptr %[[VAR333]]
 
   cuc1 = cuc + uc;
-  // CHECK-NEXT: %[[VAR334:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR335:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR334]]
-  // CHECK-NEXT: %[[VAR336:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: %[[VAR337:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR336]]
-  // CHECK-NEXT: %[[VAR338:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR335]] to i[[ARSIZE]]
-  // CHECK-NEXT: %[[VAR339:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR337]] to i[[ARSIZE]]
-  // CHECK-NEXT: %[[VAR340:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR341:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR340]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[VAR334:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR335:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR334]]
+  // CHECK-NEXT: %[[VAR336:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: %[[VAR337:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR336]]
+  // CHECK-NEXT: %[[CONV29:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR335]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR338:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV29]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[CONV30:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR337]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR339:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV30]] to i[[ARSIZE]]
+  // CHECK-NEXT: %[[VAR340:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV30:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR340]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR341:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV30]] to i[[ARSIZE]]
   // CHECK-NEXT: %[[VAR342:[A-Za-z0-9.]+]] = add i[[ARSIZE]] %[[VAR338]], %[[VAR341]]
   // CHECK-NEXT: %[[VAR343:[A-Za-z0-9.]+]] = add i[[ARSIZE]] %[[VAR339]], 0
   // CHECK-NEXT: %[[VAR344:[A-Za-z0-9.]+]] = trunc i[[ARSIZE]] %[[VAR342]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[CONV31:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR344]] to b[[CHSIZE]]
   // CHECK-NEXT: %[[VAR345:[A-Za-z0-9.]+]] = trunc i[[ARSIZE]] %[[VAR343]] to i[[CHSIZE]]
-  // CHECK-NEXT: %[[VAR346:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR347:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR344]], ptr %[[VAR346]]
-  // CHECK-NEXT: store i[[CHSIZE]] %[[VAR345]], ptr %[[VAR347]]
+  // CHECK-NEXT: %[[CONV32:[A-Za-z0-9.]+]] = bitcast i[[CHSIZE]] %[[VAR345]] to b[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR346:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR347:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC1]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV31]], ptr %[[VAR346]]
+  // CHECK-NEXT: store b[[CHSIZE]] %[[CONV32]], ptr %[[VAR347]]
 
   csll1 = cuc + sll;
-  // CHECK-NEXT: %[[VAR348:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR349:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR348]]
-  // CHECK-NEXT: %[[VAR350:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: %[[VAR351:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR350]]
-  // CHECK-NEXT: %[[VAR352:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR349]] to i[[LLSIZE]]
-  // CHECK-NEXT: %[[VAR353:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR351]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR348:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR349:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR348]]
+  // CHECK-NEXT: %[[VAR350:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: %[[VAR351:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR350]]
+  // CHECK-NEXT: %[[CONV33:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR349]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR352:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV33]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[CONV34:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR351]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR353:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV34]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR354:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[SLLADDR]], align [[LLALIGN]]
   // CHECK-NEXT: %[[VAR355:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR352]], %[[VAR354]]
   // CHECK-NEXT: %[[VAR356:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR353]], 0
@@ -599,12 +637,14 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: store i[[LLSIZE]] %[[VAR356]], ptr %[[VAR358]]
 
   cull1 = cuc + ull;
-  // CHECK-NEXT: %[[VAR357:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
-  // CHECK-NEXT: %[[VAR358:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR357]]
-  // CHECK-NEXT: %[[VAR359:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[CHSIZE]], i[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
-  // CHECK-NEXT: %[[VAR360:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[VAR359]]
-  // CHECK-NEXT: %[[VAR361:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR358]] to i[[LLSIZE]]
-  // CHECK-NEXT: %[[VAR362:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR360]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR357:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
+  // CHECK-NEXT: %[[VAR358:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR357]]
+  // CHECK-NEXT: %[[VAR359:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b[[CHSIZE]], b[[CHSIZE]] }, ptr %[[CUC]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
+  // CHECK-NEXT: %[[VAR360:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[VAR359]]
+  // CHECK-NEXT: %[[CONV35:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR358]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR361:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV35]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[CONV36:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR360]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR362:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV36]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR363:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[ULLADDR]], align [[LLALIGN]]
   // CHECK-NEXT: %[[VAR364:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR361]], %[[VAR363]]
   // CHECK-NEXT: %[[VAR365:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR362]], 0
@@ -632,8 +672,9 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: %[[VAR379:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[VAR378]]
   // CHECK-NEXT: %[[VAR380:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CSLL]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
   // CHECK-NEXT: %[[VAR381:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[VAR380]]
-  // CHECK-NEXT: %[[VAR382:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR383:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR382]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR382:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV36:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR382]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR383:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV36]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR384:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR379]], %[[VAR383]]
   // CHECK-NEXT: %[[VAR385:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR381]], 0
   // CHECK-NEXT: %[[VAR386:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CSLL1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0
@@ -686,8 +727,9 @@ void foo(signed char sc, unsigned char uc, signed long long sll,
   // CHECK-NEXT: %[[VAR417:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[VAR416]]
   // CHECK-NEXT: %[[VAR418:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CULL]], i{{[0-9]+}} 0, i{{[0-9]+}} 1
   // CHECK-NEXT: %[[VAR419:[A-Za-z0-9.]+]] = load i[[LLSIZE]], ptr %[[VAR418]]
-  // CHECK-NEXT: %[[VAR420:[A-Za-z0-9.]+]] = load i[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
-  // CHECK-NEXT: %[[VAR421:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[VAR420]] to i[[LLSIZE]]
+  // CHECK-NEXT: %[[VAR420:[A-Za-z0-9.]+]] = load b[[CHSIZE]], ptr %[[UCADDR]], align [[CHALIGN]]
+  // CHECK-NEXT: %[[CONV37:[A-Za-z0-9.]+]] = bytecast b[[CHSIZE]] %[[VAR420]] to i[[CHSIZE]]
+  // CHECK-NEXT: %[[VAR421:[A-Za-z0-9.]+]] = zext i[[CHSIZE]] %[[CONV37]] to i[[LLSIZE]]
   // CHECK-NEXT: %[[VAR422:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR417]], %[[VAR421]]
   // CHECK-NEXT: %[[VAR423:[A-Za-z0-9.]+]] = add i[[LLSIZE]] %[[VAR419]], 0
   // CHECK-NEXT: %[[VAR424:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i[[LLSIZE]], i[[LLSIZE]] }, ptr %[[CULL1]], i{{[0-9]+}} 0, i{{[0-9]+}} 0

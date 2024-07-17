@@ -44,7 +44,7 @@ void f4(long long i) {}
 // CHECK: define{{.*}} void @f5(i8 inreg noundef signext %a, i16 inreg noundef signext %b)
 void f5(signed char a, short b) {}
 
-// CHECK: define{{.*}} void @f6(i8 inreg noundef zeroext %a, i16 inreg noundef zeroext %b)
+// CHECK: define{{.*}} void @f6(b8 inreg noundef zeroext %a, i16 inreg noundef zeroext %b)
 void f6(unsigned char a, unsigned short b) {}
 
 enum my_enum {

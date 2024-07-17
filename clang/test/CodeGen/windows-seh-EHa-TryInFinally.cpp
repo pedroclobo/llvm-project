@@ -8,7 +8,7 @@
 // CHECK: invoke void @llvm.seh.try.end()
 // CHECK: invoke void @llvm.seh.try.end()
 
-// CHECK: define internal void @"?fin$0@0@main@@"(i8 noundef %abnormal_termination
+// CHECK: define internal void @"?fin$0@0@main@@"(b8 noundef %abnormal_termination
 // CHECK: invoke void @llvm.seh.try.begin()
 // CHECK: invoke void @llvm.seh.try.end()
 
@@ -51,9 +51,10 @@ int main() {
 // CHECK: %cleanup.dest = load i32, ptr %cleanup.dest.slot
 // CHECK: %1 = icmp ne i32 %cleanup.dest, 0
 // CHECK: %2 = zext i1 %1 to i8
-// CHECK: call void @"?fin$0@0@foo@@"(i8 noundef %2, ptr noundef %0)
+// CHECK: %3 = bitcast i8 %2 to b8
+// CHECK: call void @"?fin$0@0@foo@@"(b8 noundef %3, ptr noundef %0)
 // CHECK: ehcleanup:
-// CHECK: call void @"?fin$0@0@foo@@"(i8 noundef 1, ptr noundef %4)
+// CHECK: call void @"?fin$0@0@foo@@"(b8 noundef 1, ptr noundef %5)
 void foo()
 {
   __try {

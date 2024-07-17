@@ -53,8 +53,9 @@ void foo(void) {
 // CHECK: [[t0:%.+]] = load <8 x i8>, ptr {{@.+}},
 // CHECK: shl <8 x i8> <i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1>, [[t0]]
   vuc8 = 1 << vuc8;
-// CHECK: [[t1:%.+]] = load <8 x i8>, ptr {{@.+}},
-// CHECK: shl <8 x i8> <i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1>, [[t1]]
+// CHECK: [[t1:%.+]] = load <8 x b8>, ptr {{@.+}},
+// CHECK: [[ext:%.+]] = bytecast <8 x b8> [[t1]] to <8 x i8>
+// CHECK: shl <8 x i8> <i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1>, [[ext]]
   vi8 = 1 << vi8;
 // CHECK: [[t2:%.+]] = load <8 x i32>, ptr {{@.+}},
 // CHECK: shl <8 x i32> <i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1>, [[t2]]
@@ -77,13 +78,17 @@ void foo(void) {
   vuc8 = i << vuc8;
 // CHECK: [[t8:%.+]] = load i32, ptr @i,
 // CHECK: [[tconv:%.+]] = trunc i32 [[t8]] to i8
-// CHECK: [[splat_splatinsert7:%.+]] = insertelement <8 x i8> poison, i8 [[tconv]], i64 0
-// CHECK: [[splat_splat8:%.+]] = shufflevector <8 x i8> [[splat_splatinsert7]], <8 x i8> poison, <8 x i32> zeroinitializer
-// CHECK: [[t9:%.+]] = load <8 x i8>, ptr {{@.+}},
-// CHECK: shl <8 x i8> [[splat_splat8]], [[t9]]
+// CHECK: [[ext1:%.+]] = bitcast i8 [[tconv]] to b8
+// CHECK: [[splat_splatinsert7:%.+]] = insertelement <8 x b8> poison, b8 [[ext1]], i64 0
+// CHECK: [[splat_splat8:%.+]] = shufflevector <8 x b8> [[splat_splatinsert7]], <8 x b8> poison, <8 x i32> zeroinitializer
+// CHECK: [[conv0:%.+]] = bytecast <8 x b8> [[splat_splat8]] to <8 x i8>
+// CHECK: [[t9:%.+]] = load <8 x b8>, ptr {{@.+}},
+// CHECK: [[conv1:%.+]] = bytecast <8 x b8> [[t9]] to <8 x i8>
+// CHECK: shl <8 x i8> [[conv0]], [[conv1]]
   vi8 = uc << vi8;
-// CHECK: [[t10:%.+]] = load i8, ptr @uc,
-// CHECK: [[conv10:%.+]] = zext i8 [[t10]] to i32
+// CHECK: [[t10:%.+]] = load b8, ptr @uc,
+// CHECK: [[conv2:%.+]] = bytecast b8 [[t10]] to i8
+// CHECK: [[conv10:%.+]] = zext i8 [[conv2]] to i32
 // CHECK: [[splat_splatinsert11:%.+]] = insertelement <8 x i32> poison, i32 [[conv10]], i64 0
 // CHECK: [[splat_splat12:%.+]] = shufflevector <8 x i32> [[splat_splatinsert11]], <8 x i32> poison, <8 x i32> zeroinitializer
 // CHECK: [[t11:%.+]] = load <8 x i32>, ptr {{@.+}},
@@ -112,14 +117,16 @@ void foo(void) {
 // CHECK: shl <8 x i8> [[t17]], [[t18]]
   vi8 = vi8 << vuc8;
 // CHECK: [[t19:%.+]] = load <8 x i32>, ptr {{@.+}},
-// CHECK: [[t20:%.+]] = load <8 x i8>, ptr {{@.+}},
-// CHECK: [[shprom:%.+]] = zext <8 x i8> [[t20]] to <8 x i32>
+// CHECK: [[t20:%.+]] = load <8 x b8>, ptr {{@.+}},
+// CHECK: [[conv3:%.+]] = bytecast <8 x b8> [[t20]] to <8 x i8>
+// CHECK: [[shprom:%.+]] = zext <8 x i8> [[conv3]] to <8 x i32>
 // CHECK: shl <8 x i32> [[t19]], [[shprom]]
   vuc8 = vuc8 << vi8;
-// CHECK: [[t21:%.+]] = load <8 x i8>, ptr {{@.+}},
+// CHECK: [[t21:%.+]] = load <8 x b8>, ptr {{@.+}},
+// CHECK: [[conv4:%.+]] = bytecast <8 x b8> [[t21]] to <8 x i8>
 // CHECK: [[t22:%.+]] = load <8 x i32>, ptr {{@.+}},
 // CHECK: [[sh_prom25:%.+]] = trunc <8 x i32> [[t22]] to <8 x i8>
-// CHECK: shl <8 x i8> [[t21]], [[sh_prom25]]
+// CHECK: shl <8 x i8> [[conv4]], [[sh_prom25]]
   vus8 = vus8 << vui8;
 // CHECK: [[t23:%.+]] = load <8 x i16>, ptr {{@.+}},
 // CHECK: [[t24:%.+]] = load <8 x i32>, ptr {{@.+}},

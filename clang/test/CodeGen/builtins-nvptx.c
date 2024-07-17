@@ -583,7 +583,7 @@ __device__ void nvvm_atom(float *fp, float f, double *dfp, double df, int *ip,
 // CHECK-LABEL: nvvm_ldg
 __device__ void nvvm_ldg(const void *p) {
   // CHECK: call i8 @llvm.nvvm.ldg.global.i.i8.p0(ptr {{%[0-9]+}}, i32 1)
-  // CHECK: call i8 @llvm.nvvm.ldg.global.i.i8.p0(ptr {{%[0-9]+}}, i32 1)
+  // CHECK: call b8 @llvm.nvvm.ldg.global.i.b8.p0(ptr {{%[0-9]+}}, i32 1)
   // CHECK: call i8 @llvm.nvvm.ldg.global.i.i8.p0(ptr {{%[0-9]+}}, i32 1)
   __nvvm_ldg_c((const char *)p);
   __nvvm_ldg_uc((const unsigned char *)p);
@@ -621,7 +621,7 @@ __device__ void nvvm_ldg(const void *p) {
   // its member: n*alignof(t)."
 
   // CHECK: call <2 x i8> @llvm.nvvm.ldg.global.i.v2i8.p0(ptr {{%[0-9]+}}, i32 2)
-  // CHECK: call <2 x i8> @llvm.nvvm.ldg.global.i.v2i8.p0(ptr {{%[0-9]+}}, i32 2)
+  // CHECK: call <2 x b8> @llvm.nvvm.ldg.global.i.v2b8.p0(ptr {{%[0-9]+}}, i32 2)
   // CHECK: call <2 x i8> @llvm.nvvm.ldg.global.i.v2i8.p0(ptr {{%[0-9]+}}, i32 2)
   typedef char char2 __attribute__((ext_vector_type(2)));
   typedef unsigned char uchar2 __attribute__((ext_vector_type(2)));
@@ -631,7 +631,7 @@ __device__ void nvvm_ldg(const void *p) {
   __nvvm_ldg_sc2((const schar2 *)p);
 
   // CHECK: call <4 x i8> @llvm.nvvm.ldg.global.i.v4i8.p0(ptr {{%[0-9]+}}, i32 4)
-  // CHECK: call <4 x i8> @llvm.nvvm.ldg.global.i.v4i8.p0(ptr {{%[0-9]+}}, i32 4)
+  // CHECK: call <4 x b8> @llvm.nvvm.ldg.global.i.v4b8.p0(ptr {{%[0-9]+}}, i32 4)
   // CHECK: call <4 x i8> @llvm.nvvm.ldg.global.i.v4i8.p0(ptr {{%[0-9]+}}, i32 4)
   typedef char char4 __attribute__((ext_vector_type(4)));
   typedef unsigned char uchar4 __attribute__((ext_vector_type(4)));
@@ -700,7 +700,7 @@ __device__ void nvvm_ldg(const void *p) {
 // CHECK-LABEL: nvvm_ldu
 __device__ void nvvm_ldu(const void *p) {
   // CHECK: call i8 @llvm.nvvm.ldu.global.i.i8.p0(ptr {{%[0-9]+}}, i32 1)
-  // CHECK: call i8 @llvm.nvvm.ldu.global.i.i8.p0(ptr {{%[0-9]+}}, i32 1)
+  // CHECK: call b8 @llvm.nvvm.ldu.global.i.b8.p0(ptr {{%[0-9]+}}, i32 1)
   // CHECK: call i8 @llvm.nvvm.ldu.global.i.i8.p0(ptr {{%[0-9]+}}, i32 1)
   __nvvm_ldu_c((const char *)p);
   __nvvm_ldu_uc((const unsigned char *)p);
@@ -729,7 +729,7 @@ __device__ void nvvm_ldu(const void *p) {
   __nvvm_ldu_d((const double *)p);
 
   // CHECK: call <2 x i8> @llvm.nvvm.ldu.global.i.v2i8.p0(ptr {{%[0-9]+}}, i32 2)
-  // CHECK: call <2 x i8> @llvm.nvvm.ldu.global.i.v2i8.p0(ptr {{%[0-9]+}}, i32 2)
+  // CHECK: call <2 x b8> @llvm.nvvm.ldu.global.i.v2b8.p0(ptr {{%[0-9]+}}, i32 2)
   // CHECK: call <2 x i8> @llvm.nvvm.ldu.global.i.v2i8.p0(ptr {{%[0-9]+}}, i32 2)
   typedef char char2 __attribute__((ext_vector_type(2)));
   typedef unsigned char uchar2 __attribute__((ext_vector_type(2)));
@@ -739,7 +739,7 @@ __device__ void nvvm_ldu(const void *p) {
   __nvvm_ldu_sc2((const schar2 *)p);
 
   // CHECK: call <4 x i8> @llvm.nvvm.ldu.global.i.v4i8.p0(ptr {{%[0-9]+}}, i32 4)
-  // CHECK: call <4 x i8> @llvm.nvvm.ldu.global.i.v4i8.p0(ptr {{%[0-9]+}}, i32 4)
+  // CHECK: call <4 x b8> @llvm.nvvm.ldu.global.i.v4b8.p0(ptr {{%[0-9]+}}, i32 4)
   // CHECK: call <4 x i8> @llvm.nvvm.ldu.global.i.v4i8.p0(ptr {{%[0-9]+}}, i32 4)
   typedef char char4 __attribute__((ext_vector_type(4)));
   typedef unsigned char uchar4 __attribute__((ext_vector_type(4)));
@@ -920,7 +920,7 @@ __device__ void nvvm_async_copy(__attribute__((address_space(3))) void* dst, __a
   __nvvm_cp_async_ca_shared_global_16(dst, src, 2);
   // CHECK_PTX70_SM80: call void @llvm.nvvm.cp.async.cg.shared.global.16.s({{.*}}, i32 2)
   __nvvm_cp_async_cg_shared_global_16(dst, src, 2);
-  
+
   // CHECK_PTX70_SM80: call void @llvm.nvvm.cp.async.commit.group
   __nvvm_cp_async_commit_group();
   // CHECK_PTX70_SM80: call void @llvm.nvvm.cp.async.wait.group(i32 0)

@@ -2833,7 +2833,9 @@ void CodeGenFunction::EmitAsmStmt(const AsmStmt &S) {
       if (llvm::Type* AdjTy =
           getTargetHooks().adjustInlineAsmType(*this, OutputConstraint,
                                                Arg->getType()))
-        Arg = Builder.CreateBitCast(Arg, AdjTy);
+        Arg = Arg->getType()->isByteOrByteVectorTy()
+                  ? Builder.CreateByteCast(Arg, AdjTy)
+                  : Builder.CreateBitCast(Arg, AdjTy);
 
       // Update largest vector width for any vector types.
       if (auto *VT = dyn_cast<llvm::VectorType>(Arg->getType()))
@@ -2920,7 +2922,9 @@ void CodeGenFunction::EmitAsmStmt(const AsmStmt &S) {
     if (llvm::Type* AdjTy =
           getTargetHooks().adjustInlineAsmType(*this, ReplaceConstraint,
                                                    Arg->getType()))
-      Arg = Builder.CreateBitCast(Arg, AdjTy);
+      Arg = Arg->getType()->isByteOrByteVectorTy()
+                ? Builder.CreateByteCast(Arg, AdjTy)
+                : Builder.CreateBitCast(Arg, AdjTy);
     else
       CGM.getDiags().Report(S.getAsmLoc(), diag::err_asm_invalid_type_in_input)
           << InputExpr->getType() << InputConstraint;

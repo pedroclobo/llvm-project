@@ -54,8 +54,9 @@ int test(void) {
   // CHECKEXT:  [[TAG_s16:%.*]] = load i16, ptr @s16
   // CHECKEXT: [[CONV_s16:%.*]] = sext i16 [[TAG_s16]] to i64
 
-  // CHECKEXT:  [[TAG_u8:%.*]] = load i8, ptr @u8
-  // CHECKEXT: [[CONV_u8:%.*]] = zext i8 [[TAG_u8]] to i64
+  // CHECKEXT:  [[TAG_u8:%.*]] = load b8, ptr @u8
+  // CHECKEXT:   [[BC_u8:%.*]] = bytecast b8 [[TAG_u8]] to i8
+  // CHECKEXT: [[CONV_u8:%.*]] = zext i8 [[BC_u8]] to i64
 
   // CHECKEXT:  [[TAG_s8:%.*]] = load i8, ptr @s8
   // CHECKEXT: [[CONV_s8:%.*]] = sext i8 [[TAG_s8]] to i64
@@ -100,8 +101,9 @@ int test(void) {
   // CHECKEXT:  [[TAg_s16:%.*]] = load i16, ptr @s16
   // CHECKEXT: [[CONv_s16:%.*]] = sext i16 [[TAg_s16]] to i64
 
-  // CHECKEXT:  [[TAg_u8:%.*]] = load i8, ptr @u8
-  // CHECKEXT: [[CONv_u8:%.*]] = zext i8 [[TAg_u8]] to i64
+  // CHECKEXT:  [[TAg_u8:%.*]] = load b8, ptr @u8
+  // CHECKEXT:   [[Bc_u8:%.*]] = bytecast b8 [[TAg_u8:%.*]] to i8
+  // CHECKEXT: [[CONv_u8:%.*]] = zext i8 [[Bc_u8]] to i64
 
   // CHECKEXT:  [[TAg_s8:%.*]] = load i8, ptr @s8
   // CHECKEXT: [[CONv_s8:%.*]] = sext i8 [[TAg_s8]] to i64

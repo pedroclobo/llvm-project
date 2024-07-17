@@ -23,7 +23,7 @@ int main(void) {
   typedef enum __attribute__((mode(QI))) { A5, B5 } T5;
   T5 x5 = A5;
 
-  // CHECK: [[X6:%.+]] = alloca i8
+  // CHECK: [[X6:%.+]] = alloca b8
   typedef enum X __attribute__((mode(QI))) T6;
   T6 x6;
 

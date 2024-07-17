@@ -8,7 +8,7 @@ enum byte : unsigned char {};
 
 // CHECK-LABEL: define{{.*}} void @test0(
 extern "C" void test0(std::byte *sb, int *i) {
-  // CHECK: store i8 0, ptr %{{.*}} !tbaa [[TAG_CHAR:!.*]]
+  // CHECK: store b8 0, ptr %{{.*}} !tbaa [[TAG_CHAR:!.*]]
   *sb = std::byte{0};
 
   // CHECK: store i32 1, ptr %{{.*}} !tbaa [[TAG_INT:!.*]]

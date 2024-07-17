@@ -15,7 +15,7 @@ char fun_si8(char a, char b) {
   return a;
 }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @fun_zi8(i8 noundef zeroext %a, i8 noundef zeroext %b) #0 {
+// CHECK-LABEL: define{{.*}} zeroext b8 @fun_zi8(b8 noundef zeroext %a, b8 noundef zeroext %b) #0 {
 unsigned char fun_zi8(unsigned char a, unsigned char b) {
   return a;
 }

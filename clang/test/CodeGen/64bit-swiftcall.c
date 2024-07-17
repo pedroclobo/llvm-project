@@ -13,7 +13,7 @@
 #define ASYNC_CONTEXT __attribute__((swift_async_context))
 
 // CHECK-DAG: %struct.atomic_padded = type { { %struct.packed, [7 x i8] } }
-// CHECK-DAG: %struct.packed = type <{ i64, i8 }>
+// CHECK-DAG: %struct.packed = type <{ i64, b8 }>
 //
 // CHECK: [[STRUCT2_RESULT:@.*]] = private {{.*}} constant [[STRUCT2_TYPE:%.*]] { i32 0, i8 0, i8 undef, i8 0, i32 0, i32 0 }
 

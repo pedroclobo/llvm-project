@@ -22,10 +22,10 @@ void kernel ker() {
 
   uchar4 vc;
   vc = (uchar4)true;
-// CHECK: store <4 x i8> <i8 -1, i8 -1, i8 -1, i8 -1>, ptr %vc, align 4
+// CHECK: store <4 x b8> <b8 -1, b8 -1, b8 -1, b8 -1>, ptr %vc, align 4
   unsigned char c;
   c = (unsigned char)true;
-// CHECK: store i8 1, ptr %c, align 1
+// CHECK: store b8 1, ptr %c, align 1
 
   float4 vf;
   vf = (float4)true;

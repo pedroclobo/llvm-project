@@ -1745,7 +1745,8 @@ struct PerformSEHFinally final : EHScopeStack::Cleanup {
       FP = CGF.Builder.CreateCall(LocalAddrFn);
     }
 
-    llvm::Value *IsForEH =
+    llvm::Value *IsForEH = CGF.ConvertType(ArgTys[0])->isByteTy() ?
+        llvm::ConstantByte::get(CGF.ConvertType(ArgTys[0]), F.isForEHCleanup()) :
         llvm::ConstantInt::get(CGF.ConvertType(ArgTys[0]), F.isForEHCleanup());
 
     // Except _leave and fall-through at the end, all other exits in a _try
@@ -2159,6 +2160,8 @@ llvm::Value *CodeGenFunction::EmitSEHAbnormalTermination() {
   // Abnormal termination is just the first parameter to the outlined finally
   // helper.
   auto AI = CurFn->arg_begin();
+  if (AI->getType()->isByteTy())
+    return Builder.CreateZExt(Builder.CreateByteCastToInt(&*AI), Int32Ty);
   return Builder.CreateZExt(&*AI, Int32Ty);
 }
 

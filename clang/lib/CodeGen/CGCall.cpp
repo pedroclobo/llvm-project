@@ -5333,10 +5333,15 @@ RValue CodeGenFunction::EmitCall(const CGFunctionInfo &CallInfo,
 
         // We might have to widen integers, but we should never truncate.
         if (ArgInfo.getCoerceToType() != V->getType() &&
-            V->getType()->isIntegerTy())
-          V = ArgInfo.getCoerceToType()->isByteTy()
-                  ? Builder.CreateBitCast(V, ArgInfo.getCoerceToType())
-                  : Builder.CreateZExt(V, ArgInfo.getCoerceToType());
+            V->getType()->isIntegerTy()) {
+          if (ArgInfo.getCoerceToType()->isByteTy()) {
+            llvm::Type *IntermTy = llvm::IntegerType::get(
+                getLLVMContext(), ArgInfo.getCoerceToType()->getScalarSizeInBits());
+            V = Builder.CreateZExt(V, IntermTy);
+            V = Builder.CreateBitCast(V, ArgInfo.getCoerceToType());
+          } else
+            V = Builder.CreateZExt(V, ArgInfo.getCoerceToType());
+        }
 
         // If the argument doesn't match, perform a bitcast to coerce it.  This
         // can happen due to trivial type mismatches.
