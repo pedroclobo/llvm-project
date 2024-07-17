@@ -126,6 +126,7 @@ __m128d test_mm_mask_sqrt_sd(__m128d __W, __mmask8 __U, __m128d __A, __m128d __B
   // CONSTRAINED-NEXT: call double @llvm.experimental.constrained.sqrt.f64(double %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtsd
   // COMMONIR-NEXT: extractelement <2 x double> %{{.*}}, i64 0
+  // COMMONIR-NEXT: bytecast b8 %{{.*}} to i8
   // COMMONIR-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // COMMONIR-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // COMMONIR-NEXT: select i1 {{.*}}, double {{.*}}, double {{.*}}
@@ -140,6 +141,7 @@ __m128d test_mm_maskz_sqrt_sd(__mmask8 __U, __m128d __A, __m128d __B){
   // CONSTRAINED-NEXT: call double @llvm.experimental.constrained.sqrt.f64(double %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtsd
   // COMMONIR-NEXT: extractelement <2 x double> %{{.*}}, i64 0
+  // COMMONIR-NEXT: bytecast b8 %{{.*}} to i8
   // COMMONIR-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // COMMONIR-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // COMMONIR-NEXT: select i1 {{.*}}, double {{.*}}, double {{.*}}
@@ -154,6 +156,7 @@ __m128 test_mm_mask_sqrt_ss(__m128 __W, __mmask8 __U, __m128 __A, __m128 __B){
   // CONSTRAINED-NEXT: call float @llvm.experimental.constrained.sqrt.f32(float %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtss
   // COMMONIR-NEXT: extractelement <4 x float> %{{.*}}, i64 0
+  // COMMONIR-NEXT: bytecast b8 %{{.*}} to i8
   // COMMONIR-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // COMMONIR-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // COMMONIR-NEXT: select i1 {{.*}}, float {{.*}}, float {{.*}}
@@ -168,6 +171,7 @@ __m128 test_mm_maskz_sqrt_ss(__mmask8 __U, __m128 __A, __m128 __B){
   // CONSTRAINED-NEXT: call float @llvm.experimental.constrained.sqrt.f32(float %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtss
   // COMMONIR-NEXT: extractelement <4 x float> %{{.*}}, i64 0
+  // COMMONIR-NEXT: bytecast b8 %{{.*}} to i8
   // COMMONIR-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // COMMONIR-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // COMMONIR-NEXT: select i1 {{.*}}, float {{.*}}, float {{.*}}

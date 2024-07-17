@@ -6,7 +6,7 @@
 // CHECK-LABEL: define dso_local void @f1(i8 noundef %a)
 void f1(char a) {}
 
-// CHECK-LABEL: define dso_local void @f2(i8 noundef %a)
+// CHECK-LABEL: define dso_local void @f2(b8 noundef %a)
 void f2(unsigned char a) {}
 
 // CHECK-LABEL: define dso_local void @f3(i16 noundef %a)

@@ -1,7 +1,7 @@
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +xop -emit-llvm -o - -Wall -Werror | FileCheck %s
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +xop -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +xop -emit-llvm -o - -Wall -Werror | FileCheck %s
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +xop -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +xop -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-SC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +xop -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-NSC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +xop -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-SC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +xop -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-NSC
 
 
 #include <x86intrin.h>
@@ -408,7 +408,8 @@ __m128i test_mm_comfalse_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_comtrue_epu8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comtrue_epu8
-  // CHECK: ret <2 x i64> <i64 -1, i64 -1>
+  // CHECK-SC: ret <2 x i64> <i64 -1, i64 -1>
+  // CHECK-NSC: ret <2 x i64> bytecast (<16 x b8> <b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1> to <2 x i64>)
   return _mm_comtrue_epu8(a, b);
 }
 
@@ -432,7 +433,8 @@ __m128i test_mm_comtrue_epu64(__m128i a, __m128i b) {
 
 __m128i test_mm_comtrue_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comtrue_epi8
-  // CHECK: ret <2 x i64> <i64 -1, i64 -1>
+  // CHECK-SC: ret <2 x i64> <i64 -1, i64 -1>
+  // CHECK-NSC: ret <2 x i64> bytecast (<16 x b8> <b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1, b8 -1> to <2 x i64>)
   return _mm_comtrue_epi8(a, b);
 }
 

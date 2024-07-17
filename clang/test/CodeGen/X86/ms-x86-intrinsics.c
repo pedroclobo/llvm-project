@@ -14,8 +14,9 @@ char test__readfsbyte(unsigned long Offset) {
 // CHECK-I386-LABEL: define dso_local signext i8 @test__readfsbyte(i32 noundef %Offset)
 // CHECK-I386:   %inc = add i32 %Offset, 1
 // CHECK-I386:   [[PTR:%[0-9]+]] = inttoptr i32 %inc to ptr addrspace(257)
-// CHECK-I386:   [[VALUE:%[0-9]+]] = load volatile i8, ptr addrspace(257) [[PTR]], align 1
-// CHECK-I386:   ret i8 [[VALUE:%[0-9]+]]
+// CHECK-I386:   [[VALUE:%[0-9]+]] = load volatile b8, ptr addrspace(257) [[PTR]], align 1
+// CHECK-I386:   [[CONV:%.*]] = bytecast b8 [[VALUE]] to i8
+// CHECK-I386:   ret i8 [[CONV]]
 
 short test__readfsword(unsigned long Offset) {
   return __readfsword(++Offset);
@@ -67,10 +68,10 @@ unsigned __int64 test__emulu(unsigned int a, unsigned int b) {
 unsigned char test_inbyte(unsigned short port) {
   return __inbyte(port);
 }
-// CHECK-LABEL: i8 @test_inbyte(i16 noundef
+// CHECK-LABEL: b8 @test_inbyte(i16 noundef
 // CHECK-SAME:  [[PORT:%.*]])
-// CHECK:       [[TMP0:%.*]] = tail call i8 asm sideeffect "inb ${1:w}, ${0:b}", "={ax},N{dx},~{dirflag},~{fpsr},~{flags}"(i16 [[PORT]])
-// CHECK-NEXT:  ret i8 [[TMP0]]
+// CHECK:       [[TMP0:%.*]] = tail call b8 asm sideeffect "inb ${1:w}, ${0:b}", "={ax},N{dx},~{dirflag},~{fpsr},~{flags}"(i16 [[PORT]])
+// CHECK-NEXT:  ret b8 [[TMP0]]
 
 unsigned short test_inword(unsigned short port) {
   return __inword(port);
@@ -94,7 +95,7 @@ void test_outbyte(unsigned short port, unsigned char data) {
 // CHECK-LABEL: void @test_outbyte(
 // CHECK-SAME:  [[PORT:%.*]],
 // CHECK-SAME:  [[DATA:%.*]])
-// CHECK:       tail call void asm sideeffect "outb ${0:b}, ${1:w}", "{ax},N{dx},~{dirflag},~{fpsr},~{flags}"(i8 [[DATA]], i16 [[PORT]])
+// CHECK:       tail call void asm sideeffect "outb ${0:b}, ${1:w}", "{ax},N{dx},~{dirflag},~{fpsr},~{flags}"(b8 [[DATA]], i16 [[PORT]])
 
 void test_outword(unsigned short port, unsigned short data) {
     return __outword(port, data);
@@ -121,8 +122,9 @@ char test__readgsbyte(unsigned long Offset) {
 // CHECK-X64:   %inc = add i32 %Offset, 1
 // CHECK-X64:   [[ZEXT:%[0-9]+]] = zext i32 %inc to i64
 // CHECK-X64:   [[PTR:%[0-9]+]] = inttoptr i64 [[ZEXT]] to ptr addrspace(256)
-// CHECK-X64:   [[VALUE:%[0-9]+]] = load volatile i8, ptr addrspace(256) [[PTR]], align 1
-// CHECK-X64:   ret i8 [[VALUE:%[0-9]+]]
+// CHECK-X64:   [[VALUE:%[0-9]+]] = load volatile b8, ptr addrspace(256) [[PTR]], align 1
+// CHECK-X64:   [[CONV:%.*]] = bytecast b8 [[VALUE]] to i8
+// CHECK-X64:   ret i8 [[CONV]]
 
 short test__readgsword(unsigned long Offset) {
   return __readgsword(++Offset);
@@ -194,7 +196,7 @@ unsigned __int64 test__shiftleft128(unsigned __int64 l, unsigned __int64 h,
                                     unsigned char d) {
   return __shiftleft128(l, h, d);
 }
-// CHECK-X64-LABEL: define dso_local noundef i64 @test__shiftleft128(i64 noundef %l, i64 noundef %h, i8 noundef %d)
+// CHECK-X64-LABEL: define dso_local noundef i64 @test__shiftleft128(i64 noundef %l, i64 noundef %h, b8 noundef %d)
 // CHECK-X64: = zext i8 %{{.*}} to i64
 // CHECK-X64: = tail call i64 @llvm.fshl.i64(i64 %h, i64 %l, i64 %{{.*}})
 // CHECK-X64:  ret i64 %
@@ -203,7 +205,7 @@ unsigned __int64 test__shiftright128(unsigned __int64 l, unsigned __int64 h,
                                      unsigned char d) {
   return __shiftright128(l, h, d);
 }
-// CHECK-X64-LABEL: define dso_local noundef i64 @test__shiftright128(i64 noundef %l, i64 noundef %h, i8 noundef %d)
+// CHECK-X64-LABEL: define dso_local noundef i64 @test__shiftright128(i64 noundef %l, i64 noundef %h, b8 noundef %d)
 // CHECK-X64: = zext i8 %{{.*}} to i64
 // CHECK-X64: = tail call i64 @llvm.fshr.i64(i64 %h, i64 %l, i64 %{{.*}})
 // CHECK-X64:  ret i64 %

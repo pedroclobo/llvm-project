@@ -1,5 +1,5 @@
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +ssse3 -emit-llvm -o - -Wall -Werror | FileCheck %s
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +ssse3 -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +ssse3 -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-SC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +ssse3 -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-NSC
 
 
 #include <immintrin.h>
@@ -384,14 +384,22 @@ __m64 test_mm_sad_pu8(__m64 a, __m64 b) {
 
 __m64 test_mm_set_pi8(char a, char b, char c, char d, char e, char f, char g, char h) {
   // CHECK-LABEL: test_mm_set_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_set_pi8(a, b, c, d, e, f, g, h);
 }
 
@@ -413,14 +421,22 @@ __m64 test_mm_set_pi32(int a, int b) {
 
 __m64 test_mm_setr_pi8(char a, char b, char c, char d, char e, char f, char g, char h) {
   // CHECK-LABEL: test_mm_setr_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_setr_pi8(a, b, c, d, e, f, g, h);
 }
 
@@ -442,14 +458,22 @@ __m64 test_mm_setr_pi32(int a, int b) {
 
 __m64 test_mm_set1_pi8(char a) {
   // CHECK-LABEL: test_mm_set1_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_set1_pi8(a);
 }
 
