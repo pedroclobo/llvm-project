@@ -19581,6 +19581,12 @@ static Value *EmitSystemZIntrinsicWithCC(CodeGenFunction &CGF,
     Args[I] = CGF.EmitScalarExpr(E->getArg(I));
   Address CCPtr = CGF.EmitPointerWithAlignment(E->getArg(NumArgs));
   Function *F = CGF.CGM.getIntrinsic(IntrinsicID);
+  llvm::FunctionType *FTy = F->getFunctionType();
+  for (unsigned I = 0; I < NumArgs; ++I)
+    if (Args[I]->getType()->isByteOrByteVectorTy() &&
+        !FTy->getParamType(I)->isByteOrByteVectorTy())
+      Args[I] = CGF.Builder.CreateByteCastToIntVector(
+          Args[I], FTy->getParamType(I)->isScalableTy());
   Value *Call = CGF.Builder.CreateCall(F, Args);
   Value *CC = CGF.Builder.CreateExtractValue(Call, 1);
   CGF.Builder.CreateStore(CC, CCPtr);
@@ -19666,7 +19672,10 @@ Value *CodeGenFunction::EmitSystemZBuiltinExpr(unsigned BuiltinID,
     llvm::Value *Amt = EmitScalarExpr(E->getArg(1));
     // Splat scalar rotate amount to vector type.
     unsigned NumElts = cast<llvm::FixedVectorType>(ResultType)->getNumElements();
-    Amt = Builder.CreateIntCast(Amt, ResultType->getScalarType(), false);
+    if (Amt->getType()->isByteTy() && !ResultType->getScalarType()->isByteTy())
+      Amt = Builder.CreateByteCastToInt(Amt);
+    if (!Amt->getType()->isByteTy() && !ResultType->getScalarType()->isByteTy())
+      Amt = Builder.CreateIntCast(Amt, ResultType->getScalarType(), false);
     Amt = Builder.CreateVectorSplat(NumElts, Amt);
     Function *F = CGM.getIntrinsic(Intrinsic::fshl, ResultType);
     return Builder.CreateCall(F, { Src, Src, Amt });
