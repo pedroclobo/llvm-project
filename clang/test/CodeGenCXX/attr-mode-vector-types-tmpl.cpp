@@ -72,7 +72,7 @@ void test() {
   CheckIntScalarTypes<int>();
 
   // CHECK: define {{.*}} void @_Z19CheckIntScalarTypesI6EnumTyEvv()
-  // CHECK: %{{.+}} = alloca i8
+  // CHECK: %{{.+}} = alloca b8
   // CHECK: %{{.+}} = alloca i16
   // CHECK: %{{.+}} = alloca i32
   // CHECK: %{{.+}} = alloca i64

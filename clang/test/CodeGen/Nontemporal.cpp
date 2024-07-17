@@ -19,7 +19,7 @@ void test_all_sizes(void)                 // CHECK-LABEL: test_all_sizes
 {
   __builtin_nontemporal_store(true, &b1); // CHECK: store i8 1, ptr @b1, align 1, !nontemporal
   __builtin_nontemporal_store(b1, &b2);   // CHECK: store i8{{.*}}, align 1, !nontemporal
-  __builtin_nontemporal_store(1, &uc);    // CHECK: store i8{{.*}}align 1, !nontemporal
+  __builtin_nontemporal_store(1, &uc);    // CHECK: store b8{{.*}}align 1, !nontemporal
   __builtin_nontemporal_store(1, &sc);    // CHECK: store i8{{.*}}align 1, !nontemporal
   __builtin_nontemporal_store(1, &us);    // CHECK: store i16{{.*}}align 2, !nontemporal
   __builtin_nontemporal_store(1, &ss);    // CHECK: store i16{{.*}}align 2, !nontemporal
@@ -34,7 +34,7 @@ void test_all_sizes(void)                 // CHECK-LABEL: test_all_sizes
 
   b1 = __builtin_nontemporal_load(&b2);   // CHECK: load i8{{.*}}align 1, !nontemporal
   uc = __builtin_nontemporal_load(&sc);   // CHECK: load i8{{.*}}align 1, !nontemporal
-  sc = __builtin_nontemporal_load(&uc);   // CHECK: load i8{{.*}}align 1, !nontemporal
+  sc = __builtin_nontemporal_load(&uc);   // CHECK: load b8{{.*}}align 1, !nontemporal
   us = __builtin_nontemporal_load(&ss);   // CHECK: load i16{{.*}}align 2, !nontemporal
   ss = __builtin_nontemporal_load(&us);   // CHECK: load i16{{.*}}align 2, !nontemporal
   ui = __builtin_nontemporal_load(&si);   // CHECK: load i32{{.*}}align 4, !nontemporal
