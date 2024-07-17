@@ -2003,16 +2003,35 @@ Value *ScalarExprEmitter::VisitConvertVectorExpr(ConvertVectorExpr *E) {
     bool InputSigned = SrcEltType->isSignedIntegerOrEnumerationType();
     if (isa<llvm::IntegerType>(DstEltTy))
       Res = Builder.CreateIntCast(Src, DstTy, InputSigned, "conv");
-    else if (InputSigned)
+    else if (isa<llvm::ByteType>(DstEltTy)) {
+      llvm::VectorType *VecTy = cast<llvm::VectorType>(DstTy);
+      unsigned NumEls = VecTy->getElementCount().getKnownMinValue();
+      unsigned BitWidth = VecTy->getElementType()->getPrimitiveSizeInBits();
+      llvm::Type *IntermElTy =
+          llvm::IntegerType::get(DstTy->getContext(), BitWidth);
+      llvm::VectorType *IntermTy =
+          llvm::VectorType::get(IntermElTy, NumEls, DstTy->isScalableTy());
+
+      Res = Builder.CreateIntCast(Src, IntermTy, InputSigned, "conv");
+      Res = Builder.CreateBitCast(Res, DstTy, "conv");
+    } else if (InputSigned)
       Res = Builder.CreateSIToFP(Src, DstTy, "conv");
     else
       Res = Builder.CreateUIToFP(Src, DstTy, "conv");
   } else if (isa<llvm::IntegerType>(DstEltTy)) {
-    assert(SrcEltTy->isFloatingPointTy() && "Unknown real conversion");
-    if (DstEltType->isSignedIntegerOrEnumerationType())
-      Res = Builder.CreateFPToSI(Src, DstTy, "conv");
-    else
-      Res = Builder.CreateFPToUI(Src, DstTy, "conv");
+    assert((SrcEltTy->isFloatingPointTy() || SrcEltTy->isByteTy()) &&
+           "Unknown real conversion");
+    if (SrcEltTy->isFloatingPointTy())
+      if (DstEltType->isSignedIntegerOrEnumerationType())
+        Res = Builder.CreateFPToSI(Src, DstTy, "conv");
+      else
+        Res = Builder.CreateFPToUI(Src, DstTy, "conv");
+    else {
+      Res = Builder.CreateByteCastToIntVector(
+          Src, Src->getType()->isScalableTy(), "conv");
+      Res = Builder.CreateIntCast(
+          Res, DstTy, SrcEltType->isSignedIntegerOrEnumerationType(), "conv");
+    }
   } else {
     assert(SrcEltTy->isFloatingPointTy() && DstEltTy->isFloatingPointTy() &&
            "Unknown real conversion");

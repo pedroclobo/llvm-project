@@ -1,7 +1,7 @@
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +xop -emit-llvm -o - -Wall -Werror | FileCheck %s
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +xop -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +xop -emit-llvm -o - -Wall -Werror | FileCheck %s
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +xop -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +xop -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-SC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +xop -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-NSC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +xop -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-SC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +xop -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,CHECK-NSC
 
 
 #include <x86intrin.h>
@@ -196,7 +196,8 @@ __m128i test_mm_perm_epi8(__m128i a, __m128i b, __m128i c) {
 
 __m128i test_mm_rot_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_rot_epi8
-  // CHECK: call <16 x i8> @llvm.fshl.v16i8(<16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> %{{.*}})
+  // CHECK-SC: call <16 x i8> @llvm.fshl.v16i8(<16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> %{{.*}})
+  // CHECK-NSC: call <16 x b8> @llvm.fshl.v16b8(<16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x b8> %{{.*}})
   return _mm_rot_epi8(a, b);
 }
 
@@ -220,7 +221,8 @@ __m128i test_mm_rot_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_roti_epi8(__m128i a) {
   // CHECK-LABEL: test_mm_roti_epi8
-  // CHECK: call <16 x i8> @llvm.fshl.v16i8(<16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> <i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1>)
+  // CHECK-SC: call <16 x i8> @llvm.fshl.v16i8(<16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> <i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1, i8 1>)
+  // CHECK-NSC: call <16 x b8> @llvm.fshl.v16b8(<16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x b8> <b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1, b8 1>)
   return _mm_roti_epi8(a, 1);
 }
 

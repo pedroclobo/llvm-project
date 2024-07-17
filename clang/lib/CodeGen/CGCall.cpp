@@ -5334,7 +5334,9 @@ RValue CodeGenFunction::EmitCall(const CGFunctionInfo &CallInfo,
         // We might have to widen integers, but we should never truncate.
         if (ArgInfo.getCoerceToType() != V->getType() &&
             V->getType()->isIntegerTy())
-          V = Builder.CreateZExt(V, ArgInfo.getCoerceToType());
+          V = ArgInfo.getCoerceToType()->isByteTy()
+                  ? Builder.CreateBitCast(V, ArgInfo.getCoerceToType())
+                  : Builder.CreateZExt(V, ArgInfo.getCoerceToType());
 
         // If the argument doesn't match, perform a bitcast to coerce it.  This
         // can happen due to trivial type mismatches.

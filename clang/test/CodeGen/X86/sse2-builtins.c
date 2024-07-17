@@ -1,8 +1,8 @@
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +sse2 -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X64
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +sse2 -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X64
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +sse2 -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X86
-// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +sse2 -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X86
-// RUN: %clang_cc1 -flax-vector-conversions=none -fms-extensions -fms-compatibility -ffreestanding %s -triple=x86_64-windows-msvc -target-feature +sse2 -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X64
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +sse2 -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X64,CHECK-SC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=x86_64-apple-darwin -target-feature +sse2 -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X64,CHECK-NSC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +sse2 -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X86,CHECK-SC
+// RUN: %clang_cc1 -flax-vector-conversions=none -ffreestanding %s -triple=i386-apple-darwin -target-feature +sse2 -fno-signed-char -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X86,CHECK-NSC
+// RUN: %clang_cc1 -flax-vector-conversions=none -fms-extensions -fms-compatibility -ffreestanding %s -triple=x86_64-windows-msvc -target-feature +sse2 -emit-llvm -o - -Wall -Werror | FileCheck %s --check-prefixes=CHECK,X64,CHECK-SC
 
 
 #include <immintrin.h>
@@ -969,22 +969,38 @@ __m128i test_mm_set_epi8(char A, char B, char C, char D,
                          char I, char J, char K, char L,
                          char M, char N, char O, char P) {
   // CHECK-LABEL: test_mm_set_epi8
-  // CHECK: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK-SC: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK-NSC: insertelement <16 x b8> poison, b8 %{{.*}}, i32 0
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 1
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 2
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 3
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 4
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 5
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 6
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 7
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 8
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 9
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 10
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 11
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 12
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 13
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 14
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 15
   return _mm_set_epi8(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P);
 }
 
@@ -1048,22 +1064,38 @@ __m128d test_mm_set_sd(double A) {
 
 __m128i test_mm_set1_epi8(char A) {
   // CHECK-LABEL: test_mm_set1_epi8
-  // CHECK: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK-SC: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK-NSC: insertelement <16 x b8> poison, b8 %{{.*}}, i32 0
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 1
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 2
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 3
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 4
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 5
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 6
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 7
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 8
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 9
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 10
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 11
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 12
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 13
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 14
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 15
   return _mm_set1_epi8(A);
 }
 
@@ -1115,22 +1147,38 @@ __m128i test_mm_setr_epi8(char A, char B, char C, char D,
                           char I, char J, char K, char L,
                           char M, char N, char O, char P) {
   // CHECK-LABEL: test_mm_setr_epi8
-  // CHECK: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK-SC: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
+  // CHECK-SC: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK-NSC: insertelement <16 x b8> poison, b8 %{{.*}}, i32 0
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 1
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 2
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 3
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 4
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 5
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 6
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 7
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 8
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 9
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 10
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 11
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 12
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 13
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 14
+  // CHECK-NSC: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 15
   return _mm_setr_epi8(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P);
 }
 
@@ -1704,7 +1752,8 @@ __m128i test_mm_undefined_si128(void) {
 
 __m128i test_mm_unpackhi_epi8(__m128i A, __m128i B) {
   // CHECK-LABEL: test_mm_unpackhi_epi8
-  // CHECK: shufflevector <16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+  // CHECK-SC: shufflevector <16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+  // CHECK-NSC: shufflevector <16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
   return _mm_unpackhi_epi8(A, B);
 }
 
@@ -1734,7 +1783,8 @@ __m128d test_mm_unpackhi_pd(__m128d A, __m128d B) {
 
 __m128i test_mm_unpacklo_epi8(__m128i A, __m128i B) {
   // CHECK-LABEL: test_mm_unpacklo_epi8
-  // CHECK: shufflevector <16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+  // CHECK-SC: shufflevector <16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+  // CHECK-NSC: shufflevector <16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
   return _mm_unpacklo_epi8(A, B);
 }
 
