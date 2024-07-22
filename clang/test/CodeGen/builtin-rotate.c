@@ -2,8 +2,8 @@
 
 unsigned char rotl8(unsigned char x, unsigned char y) {
 // CHECK-LABEL: rotl8
-// CHECK: [[F:%.*]] = call i8 @llvm.fshl.i8(i8 [[X:%.*]], i8 [[X]], i8 [[Y:%.*]])
-// CHECK-NEXT: ret i8 [[F]]
+// CHECK: [[F:%.*]] = call b8 @llvm.fshl.b8(b8 [[X:%.*]], b8 [[X]], b8 [[Y:%.*]])
+// CHECK-NEXT: ret b8 [[F]]
 
   return __builtin_rotateleft8(x, y);
 }
@@ -34,8 +34,9 @@ unsigned long long rotl64(unsigned long long x, long long y) {
 
 char rotr8(char x, char y) {
 // CHECK-LABEL: rotr8
-// CHECK: [[F:%.*]] = call i8 @llvm.fshr.i8(i8 [[X:%.*]], i8 [[X]], i8 [[Y:%.*]])
-// CHECK-NEXT: ret i8 [[F]]
+// CHECK: [[F:%.*]] = call b8 @llvm.fshr.b8(b8 [[X:%.*]], b8 [[X]], b8 [[Y:%.*]])
+// CHECK: [[CONV:%.*]] = bytecast b8 [[F]] to i8
+// CHECK-NEXT: ret i8 [[CONV]]
 
   return __builtin_rotateright8(x, y);
 }

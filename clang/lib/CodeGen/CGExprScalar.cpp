@@ -1082,8 +1082,9 @@ EmitIntegerTruncationCheckHelper(Value *Src, QualType SrcType, Value *Dst,
   // This should be truncation of integral types.
   assert(Src != Dst);
   assert(SrcTy->getScalarSizeInBits() > Dst->getType()->getScalarSizeInBits());
-  assert(isa<llvm::IntegerType>(SrcTy) && isa<llvm::IntegerType>(DstTy) &&
-         "non-integer llvm type");
+  assert((isa<llvm::IntegerType>(SrcTy) || SrcTy->isByteTy(8)) &&
+          (isa<llvm::IntegerType>(DstTy) || DstTy->isByteTy(8)) &&
+         "non-integer/byte llvm type");
 
   bool SrcSigned = SrcType->isSignedIntegerOrEnumerationType();
   bool DstSigned = DstType->isSignedIntegerOrEnumerationType();
@@ -1102,7 +1103,12 @@ EmitIntegerTruncationCheckHelper(Value *Src, QualType SrcType, Value *Dst,
 
   llvm::Value *Check = nullptr;
   // 1. Extend the truncated value back to the same width as the Src.
-  Check = Builder.CreateIntCast(Dst, SrcTy, DstSigned, "anyext");
+  if (DstTy->isByteTy() && !SrcTy->isByteTy()) {
+    Check = Builder.CreateByteCastToInt(Dst, "conv");
+    Check = Builder.CreateIntCast(Check, SrcTy, DstSigned, "anyext");
+  } else {
+    Check = Builder.CreateIntCast(Dst, SrcTy, DstSigned, "anyext");
+  }
   // 2. Equality-compare with the original source value
   Check = Builder.CreateICmpEQ(Check, Src, "truncheck");
   // If the comparison result is 'i1 false', then the truncation was lossy.
@@ -1189,8 +1195,9 @@ EmitIntegerSignChangeCheckHelper(Value *Src, QualType SrcType, Value *Dst,
   llvm::Type *SrcTy = Src->getType();
   llvm::Type *DstTy = Dst->getType();
 
-  assert(isa<llvm::IntegerType>(SrcTy) && isa<llvm::IntegerType>(DstTy) &&
-         "non-integer llvm type");
+  assert((isa<llvm::IntegerType>(SrcTy) || SrcTy->isByteTy(8)) &&
+         (isa<llvm::IntegerType>(DstTy) || DstTy->isByteTy(8)) &&
+         "non-integer/byte llvm type");
 
   bool SrcSigned = SrcType->isSignedIntegerOrEnumerationType();
   bool DstSigned = DstType->isSignedIntegerOrEnumerationType();
@@ -4632,8 +4639,14 @@ Value *ScalarExprEmitter::EmitShl(const BinOpInfo &Ops) {
   // LLVM requires the LHS and RHS to be the same type: promote or truncate the
   // RHS to the same size as the LHS.
   Value *RHS = Ops.RHS;
-  if (Ops.LHS->getType() != RHS->getType())
+  if (Ops.LHS->getType() != RHS->getType()) {
+    if (RHS->getType()->isByteTy())
+      RHS = Builder.CreateByteCastToInt(RHS, "sh_prom");
+    else if (RHS->getType()->isByteOrByteVectorTy())
+      RHS = Builder.CreateByteCastToIntVector(
+          RHS, Ops.LHS->getType()->isScalableTy());
     RHS = Builder.CreateIntCast(RHS, Ops.LHS->getType(), false, "sh_prom");
+  }
 
   bool SanitizeSignedBase = CGF.SanOpts.has(SanitizerKind::ShiftBase) &&
                             Ops.Ty->hasSignedIntegerRepresentation() &&

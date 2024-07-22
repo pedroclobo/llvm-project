@@ -23,12 +23,14 @@ void test__stosb(unsigned char *Dest, unsigned char Data, size_t Count) {
 }
 
 // CHECK-I386: define{{.*}}void @test__stosb
-// CHECK-I386:   tail call void @llvm.memset.p0.i32(ptr align 1 %Dest, i8 %Data, i32 %Count, i1 true)
+// CHECK-I386:   %0 = bytecast b8 %Data to i8
+// CHECK-I386:   tail call void @llvm.memset.p0.i32(ptr align 1 %Dest, i8 %0, i32 %Count, i1 true)
 // CHECK-I386:   ret void
 // CHECK-I386: }
 
 // CHECK-X64: define{{.*}}void @test__stosb
-// CHECK-X64:   tail call void @llvm.memset.p0.i64(ptr align 1 %Dest, i8 %Data, i64 %Count, i1 true)
+// CHECK-X64:   %0 = bytecast b8 %Data to i8
+// CHECK-X64:   tail call void @llvm.memset.p0.i64(ptr align 1 %Dest, i8 %0, i64 %Count, i1 true)
 // CHECK-X64:   ret void
 // CHECK-X64: }
 
@@ -149,12 +151,12 @@ void *test_AddressOfReturnAddress(void) {
 unsigned char test_BitScanForward(unsigned long *Index, unsigned long Mask) {
   return _BitScanForward(++Index, Mask);
 }
-// CHECK: define{{.*}}i8 @test_BitScanForward(ptr {{[a-z_ ]*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK: define{{.*}}b8 @test_BitScanForward(ptr {{[a-z_ ]*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK:   [[ISNOTZERO:%[a-z0-9._]+]] = icmp eq i32 %Mask, 0
 // CHECK:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK:   [[END_LABEL]]:
-// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK:   ret i8 [[RESULT]]
+// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK:   ret b8 [[RESULT]]
 // CHECK:   [[ISNOTZERO_LABEL]]:
 // CHECK:   [[IDXGEP:%[a-z0-9._]+]] = getelementptr inbounds i8, ptr %Index, {{i64|i32}} 4
 // CHECK:   [[INDEX:%[0-9]+]] = tail call range(i32 0, 33) i32 @llvm.cttz.i32(i32 %Mask, i1 true)
@@ -164,12 +166,12 @@ unsigned char test_BitScanForward(unsigned long *Index, unsigned long Mask) {
 unsigned char test_BitScanReverse(unsigned long *Index, unsigned long Mask) {
   return _BitScanReverse(++Index, Mask);
 }
-// CHECK: define{{.*}}i8 @test_BitScanReverse(ptr {{[a-z_ ]*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK: define{{.*}}b8 @test_BitScanReverse(ptr {{[a-z_ ]*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK:   [[ISNOTZERO:%[0-9]+]] = icmp eq i32 %Mask, 0
 // CHECK:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK:   [[END_LABEL]]:
-// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK:   ret i8 [[RESULT]]
+// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK:   ret b8 [[RESULT]]
 // CHECK:   [[ISNOTZERO_LABEL]]:
 // CHECK:   [[IDXGEP:%[a-z0-9._]+]] = getelementptr inbounds i8, ptr %Index, {{i64|i32}} 4
 // CHECK:   [[REVINDEX:%[0-9]+]] = tail call range(i32 0, 33) i32 @llvm.ctlz.i32(i32 %Mask, i1 true)
@@ -181,12 +183,12 @@ unsigned char test_BitScanReverse(unsigned long *Index, unsigned long Mask) {
 unsigned char test_BitScanForward64(unsigned long *Index, unsigned __int64 Mask) {
   return _BitScanForward64(Index, Mask);
 }
-// CHECK-ARM-X64: define{{.*}}i8 @test_BitScanForward64(ptr {{[a-z_ ]*}}%Index, i64 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK-ARM-X64: define{{.*}}b8 @test_BitScanForward64(ptr {{[a-z_ ]*}}%Index, i64 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK-ARM-X64:   [[ISNOTZERO:%[a-z0-9._]+]] = icmp eq i64 %Mask, 0
 // CHECK-ARM-X64:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK-ARM-X64:   [[END_LABEL]]:
-// CHECK-ARM-X64:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK-ARM-X64:   ret i8 [[RESULT]]
+// CHECK-ARM-X64:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK-ARM-X64:   ret b8 [[RESULT]]
 // CHECK-ARM-X64:   [[ISNOTZERO_LABEL]]:
 // CHECK-ARM-X64:   [[INDEX:%[0-9]+]] = tail call range(i64 0, 65) i64 @llvm.cttz.i64(i64 %Mask, i1 true)
 // CHECK-ARM-X64:   [[TRUNC_INDEX:%[0-9]+]] = trunc nuw nsw i64 [[INDEX]] to i32
@@ -196,12 +198,12 @@ unsigned char test_BitScanForward64(unsigned long *Index, unsigned __int64 Mask)
 unsigned char test_BitScanReverse64(unsigned long *Index, unsigned __int64 Mask) {
   return _BitScanReverse64(Index, Mask);
 }
-// CHECK-ARM-X64: define{{.*}}i8 @test_BitScanReverse64(ptr {{[a-z_ ]*}}%Index, i64 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK-ARM-X64: define{{.*}}b8 @test_BitScanReverse64(ptr {{[a-z_ ]*}}%Index, i64 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK-ARM-X64:   [[ISNOTZERO:%[0-9]+]] = icmp eq i64 %Mask, 0
 // CHECK-ARM-X64:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK-ARM-X64:   [[END_LABEL]]:
-// CHECK-ARM-X64:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK-ARM-X64:   ret i8 [[RESULT]]
+// CHECK-ARM-X64:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK-ARM-X64:   ret b8 [[RESULT]]
 // CHECK-ARM-X64:   [[ISNOTZERO_LABEL]]:
 // CHECK-ARM-X64:   [[REVINDEX:%[0-9]+]] = tail call range(i64 0, 65) i64 @llvm.ctlz.i64(i64 %Mask, i1 true)
 // CHECK-ARM-X64:   [[TRUNC_REVINDEX:%[0-9]+]] = trunc nuw nsw i64 [[REVINDEX]] to i32
@@ -436,7 +438,7 @@ unsigned char test_InterlockedCompareExchange128(
   return _InterlockedCompareExchange128(++Destination, ++ExchangeHigh,
                                         ++ExchangeLow, ++ComparandResult);
 }
-// CHECK-64: define{{.*}}i8 @test_InterlockedCompareExchange128(ptr{{[a-z_ ]*}}%Destination, i64{{[a-z_ ]*}}%ExchangeHigh, i64{{[a-z_ ]*}}%ExchangeLow, ptr{{[a-z_ ]*}}%ComparandResult){{.*}}{
+// CHECK-64: define{{.*}}b8 @test_InterlockedCompareExchange128(ptr{{[a-z_ ]*}}%Destination, i64{{[a-z_ ]*}}%ExchangeHigh, i64{{[a-z_ ]*}}%ExchangeLow, ptr{{[a-z_ ]*}}%ComparandResult){{.*}}{
 // CHECK-64: %incdec.ptr = getelementptr inbounds i8, ptr %Destination, i64 8
 // CHECK-64: %inc = add nsw i64 %ExchangeHigh, 1
 // CHECK-64: %inc1 = add nsw i64 %ExchangeLow, 1
@@ -451,7 +453,8 @@ unsigned char test_InterlockedCompareExchange128(
 // CHECK-64: store i128 [[OLD]], ptr %incdec.ptr2, align 8
 // CHECK-64: [[SUC1:%[0-9]+]] = extractvalue { i128, i1 } [[RES]], 1
 // CHECK-64: [[SUC8:%[0-9]+]] = zext i1 [[SUC1]] to i8
-// CHECK-64: ret i8 [[SUC8]]
+// CHECK-64: [[SUC9:%[0-9]+]] = bitcast i8 [[SUC8]] to b8
+// CHECK-64: ret b8 [[SUC9]]
 // CHECK-64: }
 #endif
 
@@ -474,11 +477,11 @@ unsigned char test_InterlockedCompareExchange128_rel(
   return _InterlockedCompareExchange128_rel(Destination, ExchangeHigh,
                                             ExchangeLow, ComparandResult);
 }
-// CHECK-ARM64: define{{.*}}i8 @test_InterlockedCompareExchange128_acq({{.*}})
+// CHECK-ARM64: define{{.*}}b8 @test_InterlockedCompareExchange128_acq({{.*}})
 // CHECK-ARM64: cmpxchg volatile ptr %{{.*}}, i128 %{{.*}}, i128 %{{.*}} acquire acquire, align 16
-// CHECK-ARM64: define{{.*}}i8 @test_InterlockedCompareExchange128_nf({{.*}})
+// CHECK-ARM64: define{{.*}}b8 @test_InterlockedCompareExchange128_nf({{.*}})
 // CHECK-ARM64: cmpxchg volatile ptr %{{.*}}, i128 %{{.*}}, i128 %{{.*}} monotonic monotonic, align 16
-// CHECK-ARM64: define{{.*}}i8 @test_InterlockedCompareExchange128_rel({{.*}})
+// CHECK-ARM64: define{{.*}}b8 @test_InterlockedCompareExchange128_rel({{.*}})
 // CHECK-ARM64: cmpxchg volatile ptr %{{.*}}, i128 %{{.*}}, i128 %{{.*}} release monotonic, align 16
 #endif
 

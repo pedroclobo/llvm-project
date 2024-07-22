@@ -175,6 +175,8 @@ static Value *EmitToInt(CodeGenFunction &CGF, llvm::Value *V,
 
   if (V->getType()->isPointerTy())
     return CGF.Builder.CreatePtrToInt(V, IntType);
+  if (V->getType()->isByteTy())
+    return CGF.Builder.CreateByteCast(V, IntType);
 
   assert(V->getType() == IntType);
   return V;
@@ -186,6 +188,8 @@ static Value *EmitFromInt(CodeGenFunction &CGF, llvm::Value *V,
 
   if (ResultType->isPointerTy())
     return CGF.Builder.CreateIntToPtr(V, ResultType);
+  if (ResultType->isByteTy())
+    return CGF.Builder.CreateBitCast(V, ResultType);
 
   assert(V->getType() == ResultType);
   return V;
@@ -1007,6 +1011,8 @@ CodeGenFunction::emitFlexibleArrayMemberSize(const Expr *E, unsigned Type,
   if (!CountedByInst)
     return getDefaultBuiltinObjectSizeResult(Type, ResType);
 
+  if (CountedByInst->getType()->isByteTy())
+    CountedByInst = Builder.CreateByteCastToInt(CountedByInst);
   CountedByInst = Builder.CreateIntCast(CountedByInst, ResType, IsSigned);
 
   // Build a load of the index and subtract it from the count.
@@ -1827,7 +1833,9 @@ Value *CodeGenFunction::EmitMSVCBuiltinExpr(MSVCIntrin BuiltinID,
 
     Value *ArgZero = llvm::Constant::getNullValue(ArgType);
     Value *ResZero = llvm::Constant::getNullValue(ResultType);
-    Value *ResOne = llvm::ConstantInt::get(ResultType, 1);
+    Value *ResOne = ResultType->isByteTy()
+                        ? llvm::ConstantByte::get(ResultType, 1)
+                        : llvm::ConstantInt::get(ResultType, 1);
 
     BasicBlock *Begin = Builder.GetInsertBlock();
     BasicBlock *End = createBasicBlock("bitscan_end", this->CurFn);
@@ -2439,7 +2447,11 @@ RValue CodeGenFunction::emitRotate(const CallExpr *E, bool IsRotateRight) {
   // The builtin's shift arg may have a different type than the source arg and
   // result, but the LLVM intrinsic uses the same type for all values.
   llvm::Type *Ty = Src->getType();
-  ShiftAmt = Builder.CreateIntCast(ShiftAmt, Ty, false);
+  if (!ShiftAmt->getType()->isByteTy() || !Ty->isByteTy()) {
+    if (ShiftAmt->getType()->isByteTy())
+      ShiftAmt = Builder.CreateByteCastToInt(ShiftAmt);
+    ShiftAmt = Builder.CreateIntCast(ShiftAmt, Ty, false);
+  }
 
   // Rotate is a special case of LLVM funnel shift - 1st 2 args are the same.
   unsigned IID = IsRotateRight ? Intrinsic::fshr : Intrinsic::fshl;
@@ -3244,11 +3256,18 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
     Value *ZeroUndef =
         Builder.getInt1(HasFallback || getTarget().isCLZForZeroUndef());
     Value *Result = Builder.CreateCall(F, {ArgValue, ZeroUndef});
-    if (Result->getType() != ResultType)
+    if (Result->getType() != ResultType) {
+      if (Result->getType()->isByteTy())
+        Result = Builder.CreateByteCastToInt(Result, "cast");
       Result =
           Builder.CreateIntCast(Result, ResultType, /*isSigned*/ false, "cast");
+    }
     if (!HasFallback)
       return RValue::get(Result);
+
+    if (ArgValue->getType()->isByteTy())
+      ArgValue = Builder.CreateByteCastToInt(ArgValue, "cast");
+    ArgType = ArgValue->getType();
 
     Value *Zero = Constant::getNullValue(ArgType);
     Value *IsZero = Builder.CreateICmpEQ(ArgValue, Zero, "iszero");
@@ -3276,11 +3295,18 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
     Value *ZeroUndef =
         Builder.getInt1(HasFallback || getTarget().isCLZForZeroUndef());
     Value *Result = Builder.CreateCall(F, {ArgValue, ZeroUndef});
-    if (Result->getType() != ResultType)
+    if (Result->getType() != ResultType) {
+      if (Result->getType()->isByteTy())
+        Result = Builder.CreateByteCastToInt(Result, "cast");
       Result =
           Builder.CreateIntCast(Result, ResultType, /*isSigned*/ false, "cast");
+    }
     if (!HasFallback)
       return RValue::get(Result);
+
+    if (ArgValue->getType()->isByteTy())
+      ArgValue = Builder.CreateByteCastToInt(ArgValue, "cast");
+    ArgType = ArgValue->getType();
 
     Value *Zero = Constant::getNullValue(ArgType);
     Value *IsZero = Builder.CreateICmpEQ(ArgValue, Zero, "iszero");
@@ -3356,9 +3382,12 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
 
     llvm::Type *ResultType = ConvertType(E->getType());
     Value *Result = Builder.CreateCall(F, ArgValue);
-    if (Result->getType() != ResultType)
+    if (Result->getType() != ResultType) {
+      if (Result->getType()->isByteTy())
+        Result = Builder.CreateByteCastToInt(Result, "cast");
       Result =
           Builder.CreateIntCast(Result, ResultType, /*isSigned*/ false, "cast");
+    }
     return RValue::get(Result);
   }
   case Builtin::BI__builtin_unpredictable: {
@@ -16813,6 +16842,8 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__stosb: {
     // We treat __stosb as a volatile memset - it may not generate "rep stosb"
     // instruction, but it will create a memset that won't be optimized away.
+    if (Ops[1]->getType()->isByteTy())
+      Ops[1] = Builder.CreateByteCastToInt(Ops[1]);
     return Builder.CreateMemSet(Ops[0], Ops[1], Ops[2], Align(1), true);
   }
   case X86::BI__ud2:
@@ -21464,9 +21495,16 @@ Value *CodeGenFunction::EmitWebAssemblyBuiltinExpr(unsigned BuiltinID,
       break;
     case WebAssembly::BI__builtin_wasm_min_u_i8x16:
     case WebAssembly::BI__builtin_wasm_min_u_i16x8:
-    case WebAssembly::BI__builtin_wasm_min_u_i32x4:
+    case WebAssembly::BI__builtin_wasm_min_u_i32x4: {
+      if (LHS->getType()->isByteOrByteVectorTy())
+        LHS = Builder.CreateByteCastToIntVector(LHS,
+                                                LHS->getType()->isScalableTy());
+      if (RHS->getType()->isByteOrByteVectorTy())
+        RHS = Builder.CreateByteCastToIntVector(RHS,
+                                                RHS->getType()->isScalableTy());
       ICmp = Builder.CreateICmpULT(LHS, RHS);
       break;
+    }
     case WebAssembly::BI__builtin_wasm_max_s_i8x16:
     case WebAssembly::BI__builtin_wasm_max_s_i16x8:
     case WebAssembly::BI__builtin_wasm_max_s_i32x4:
@@ -21474,9 +21512,16 @@ Value *CodeGenFunction::EmitWebAssemblyBuiltinExpr(unsigned BuiltinID,
       break;
     case WebAssembly::BI__builtin_wasm_max_u_i8x16:
     case WebAssembly::BI__builtin_wasm_max_u_i16x8:
-    case WebAssembly::BI__builtin_wasm_max_u_i32x4:
+    case WebAssembly::BI__builtin_wasm_max_u_i32x4: {
+      if (LHS->getType()->isByteOrByteVectorTy())
+        LHS = Builder.CreateByteCastToIntVector(LHS,
+                                                LHS->getType()->isScalableTy());
+      if (RHS->getType()->isByteOrByteVectorTy())
+        RHS = Builder.CreateByteCastToIntVector(RHS,
+                                                RHS->getType()->isScalableTy());
       ICmp = Builder.CreateICmpUGT(LHS, RHS);
       break;
+    }
     default:
       llvm_unreachable("unexpected builtin ID");
     }
@@ -21516,6 +21561,11 @@ Value *CodeGenFunction::EmitWebAssemblyBuiltinExpr(unsigned BuiltinID,
     }
 
     Function *Callee = CGM.getIntrinsic(IntNo, ConvertType(E->getType()));
+    llvm::FunctionType *FTy = Callee->getFunctionType();
+    if (Vec->getType()->isByteOrByteVectorTy() &&
+        !FTy->getParamType(0)->isByteOrByteVectorTy())
+      Vec = Builder.CreateByteCastToIntVector(Vec,
+                                              Vec->getType()->isScalableTy());
     return Builder.CreateCall(Callee, Vec);
   }
   case WebAssembly::BI__builtin_wasm_bitselect: {

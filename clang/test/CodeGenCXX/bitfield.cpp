@@ -443,15 +443,19 @@ namespace N6 {
     // CHECK-X86-64:   %[[ext1:.*]] = zext i24 %[[val1]] to i32
     // CHECK-X86-64:   %[[ptr2:.*]] = getelementptr inbounds {{.*}}, ptr %{{.*}}, i32 0, i32 1
     // CHECK-X86-64:   %[[val2:.*]] = load i8, ptr %[[ptr2]]
-    // CHECK-X86-64:   %[[ext2:.*]] = zext i8 %[[val2]] to i32
-    // CHECK-X86-64:   %[[add:.*]]  = add nsw i32 %[[ext1]], %[[ext2]]
+    // CHECK-X86-64:   %[[ext2:.*]] = bitcast i8 %[[val2]] to b8
+    // CHECK-X86-64:   %[[conv:.*]] = bytecast b8 %[[ext2]] to i8
+    // CHECK-X86-64:   %[[ext3:.*]] = zext i8 %[[conv]] to i32
+    // CHECK-X86-64:   %[[add:.*]]  = add nsw i32 %[[ext1]], %[[ext3]]
     // CHECK-X86-64:                  ret i32 %[[add]]
     // CHECK-PPC64-LABEL: define{{.*}} zeroext i32 @_ZN2N64read
     // CHECK-PPC64:   %[[val1:.*]] = load i24, ptr %{{.*}}
     // CHECK-PPC64:   %[[ext1:.*]] = zext i24 %[[val1]] to i32
     // CHECK-PPC64:   %[[ptr2:.*]] = getelementptr inbounds {{.*}}, ptr %{{.*}}, i32 0, i32 1
     // CHECK-PPC64:   %[[val2:.*]] = load i8, ptr %[[ptr2]]
-    // CHECK-PPC64:   %[[ext2:.*]] = zext i8 %[[val2]] to i32
+    // CHECK-PPC64:   %[[ext3:.*]] = bitcast i8 %[[val2]] to b8
+    // CHECK-PPC64:   %[[conv:.*]] = bytecast b8 %[[ext3]] to i8
+    // CHECK-PPC64:   %[[ext2:.*]] = zext i8 %[[conv]] to i32
     // CHECK-PPC64:   %[[add:.*]]  = add nsw i32 %[[ext1]], %[[ext2]]
     // CHECK-PPC64:                  ret i32 %[[add]]
     return s->b1 + s->b2;
@@ -462,13 +466,15 @@ namespace N6 {
     // CHECK-X86-64:                  store i24 %[[new1]], ptr %{{.*}}
     // CHECK-X86-64:   %[[new2:.*]] = trunc i32 %{{.*}} to i8
     // CHECK-X86-64:   %[[ptr2:.*]] = getelementptr inbounds {{.*}}, ptr %{{.*}}, i32 0, i32 1
-    // CHECK-X86-64:                  store i8 %[[new2]], ptr %[[ptr2]]
+    // CHECK-X86-64:                 store i8 %{{.*}}, ptr %[[ptr2]]
     // CHECK-PPC64-LABEL: define{{.*}} void @_ZN2N65write
     // CHECK-PPC64:   %[[new1:.*]] = trunc i32 %{{.*}} to i24
     // CHECK-PPC64:                  store i24 %[[new1]], ptr %{{.*}}
     // CHECK-PPC64:   %[[new2:.*]] = trunc i32 %{{.*}} to i8
+    // CHECK-PPC64:   %[[ext1:.*]] = bitcast i8 %[[new2]] to b8
     // CHECK-PPC64:   %[[ptr2:.*]] = getelementptr inbounds {{.*}}, ptr %{{.*}}, i32 0, i32 1
-    // CHECK-PPC64:                  store i8 %[[new2]], ptr %[[ptr2]]
+    // CHECK-PPC64:   %[[conv:.*]] = bytecast b8 %[[ext1]] to i8
+    // CHECK-PPC64:                  store i8 %[[conv]], ptr %[[ptr2]]
     s->b1 = x;
     s->b2 = x;
   }

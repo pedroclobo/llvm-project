@@ -15,7 +15,7 @@ void constraints(void) {
 
   // CHECK: i8 asm sideeffect "mov.b8 $0, $1;", "=c,c"
   asm volatile ("mov.b8 %0, %1;" : "=c"(c) : "c"(c));
-  // CHECK: i8 asm sideeffect "mov.b8 $0, $1;", "=c,c"
+  // CHECK: b8 asm sideeffect "mov.b8 $0, $1;", "=c,c"
   asm volatile ("mov.b8 %0, %1;" : "=c"(uc) : "c"(uc));
 
   // CHECK: i16 asm sideeffect "mov.b16 $0, $1;", "=h,h"

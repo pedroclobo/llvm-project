@@ -33,7 +33,7 @@ void test3(int *vout, int vin)
 // CHECK: @test4
 int test4(volatile int *addr) {
   unsigned char oldval;
-  // CHECK: call i8 asm "frob $0", "=r,0{{.*}}"(i8 -1)
+  // CHECK: call b8 asm "frob $0", "=r,0{{.*}}"(b8 -1)
   __asm__ ("frob %0" : "=r"(oldval) : "0"(0xff));
   return (int)oldval;
 }

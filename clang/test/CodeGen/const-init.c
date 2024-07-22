@@ -61,7 +61,7 @@ struct {
 } __attribute__((__packed__)) gv1  = { .a = 0x0, .b = 7,  };
 
 // PR5118
-// CHECK: @gv2 ={{.*}} global %struct.anon.0 <{ i8 1, ptr null }>, align 1
+// CHECK: @gv2 ={{.*}} global <{ i8, ptr }> <{ i8 1, ptr null }>, align 1
 struct {
   unsigned char a;
   char *b;
