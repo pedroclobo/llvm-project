@@ -26,7 +26,7 @@ public:
   double a;
 };
 
-class C : public virtual A, 
+class C : public virtual A,
           public D, public B {
 public:
   double c1_field;
@@ -56,7 +56,7 @@ struct G
     int g_field;
 };
 
-struct H : public G, 
+struct H : public G,
            public virtual D
 {
 };
@@ -126,14 +126,14 @@ struct sd : virtual s, virtual ICh {
   char y;
   virtual int asd() {return -1;}
 };
-struct AV { 
-  virtual void foo(); 
+struct AV {
+  virtual void foo();
 };
-struct BV : AV { 
+struct BV : AV {
 };
-struct CV : virtual BV { 
-  CV(); 
-  virtual void foo(); 
+struct CV : virtual BV {
+  CV();
+  virtual void foo();
 };
 struct DV : BV {
 };
@@ -141,7 +141,7 @@ struct EV : CV, DV {
 };
 #pragma pack(pop)
 
-// This needs only for building layouts. 
+// This needs only for building layouts.
 // Without this clang doesn`t dump record layouts.
 int main() {
   // This avoid "Can't yet mangle constructors!" for MS ABI.
@@ -432,7 +432,7 @@ int main() {
 
 // CHECK: %class.D = type { ptr, double }
 // CHECK: %class.B = type { ptr, i32 }
-// CHECK: %class.A = type { %class.B, i32, i8 }
+// CHECK: %class.A = type { %class.B, i32, b8 }
 // CHECK: %class.C = type { %class.D, %class.B, ptr, double, i32, double, i32, [4 x i8], %class.A }
 // CHECK: %class.C.base = type { %class.D, %class.B, ptr, double, i32, double, i32 }
 // CHECK: %struct.BaseStruct = type { double, float, %class.C }
@@ -451,7 +451,7 @@ int main() {
 // CHECK: %struct.s = type { ptr, ptr, i32, i32, %struct.f }
 // CHECK: %class.IA = type { ptr }
 // CHECK: %class.ICh = type { ptr, ptr, i32, %class.IA }
-// CHECK: %struct.sd = type { ptr, i32, i8, i32, %struct.f, %struct.s.base, i32, %class.IA, %class.ICh.base }
+// CHECK: %struct.sd = type { ptr, i32, b8, i32, %struct.f, %struct.s.base, i32, %class.IA, %class.ICh.base }
 // CHECK: %struct.AV = type { ptr }
 // CHECK: %struct.BV = type { %struct.AV }
 // CHECK: %struct.CV = type { ptr, i32, %struct.BV }

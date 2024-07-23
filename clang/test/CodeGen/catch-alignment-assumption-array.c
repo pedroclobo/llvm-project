@@ -10,9 +10,9 @@ void *caller(void) {
   char str[] = "";
   // CHECK:                           define{{.*}}
   // CHECK-NEXT:                      entry:
-  // CHECK-NEXT:                        %[[STR:.*]] = alloca [1 x i8], align 1
+  // CHECK-NEXT:                        %[[STR:.*]] = alloca [1 x b8], align 1
   // CHECK-NEXT:                        call void @llvm.memset.p0.i64(ptr align 1 %[[STR]], i8 0, i64 1, i1 false)
-  // CHECK-NEXT:                        %[[ARRAYDECAY:.*]] = getelementptr inbounds [1 x i8], ptr %[[STR]], i64 0, i64 0
+  // CHECK-NEXT:                        %[[ARRAYDECAY:.*]] = getelementptr inbounds [1 x b8], ptr %[[STR]], i64 0, i64 0
   // CHECK-SANITIZE-NEXT:               %[[PTRINT:.*]] = ptrtoint ptr %[[ARRAYDECAY]] to i64
   // CHECK-SANITIZE-NEXT:               %[[MASKEDPTR:.*]] = and i64 %[[PTRINT]], 0
   // CHECK-SANITIZE-NEXT:               %[[MASKCOND:.*]] = icmp eq i64 %[[MASKEDPTR]], 0
@@ -24,7 +24,7 @@ void *caller(void) {
   // CHECK-SANITIZE-TRAP-NEXT:          call void @llvm.ubsantrap(i8 23){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT:   unreachable, !nosanitize
   // CHECK-SANITIZE:                  [[CONT]]:
-  // CHECK-NEXT:                        call void @llvm.assume(i1 true) [ "align"(ptr %[[ARRAYDECAY]], i64 1) ] 
+  // CHECK-NEXT:                        call void @llvm.assume(i1 true) [ "align"(ptr %[[ARRAYDECAY]], i64 1) ]
   // CHECK-NEXT:                        ret ptr %[[ARRAYDECAY]]
   // CHECK-NEXT:                      }
   return __builtin_assume_aligned(str, 1);

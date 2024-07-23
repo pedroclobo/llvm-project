@@ -8,9 +8,10 @@
 
 // CHECK-LABEL: @test_vmovlbq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <16 x i8> [[A:%.*]], <16 x i8> poison, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    [[TMP1:%.*]] = sext <8 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    ret <8 x i16> [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> poison, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    [[TMP2:%.*]] = sext <8 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
 //
 int16x8_t test_vmovlbq_s8(int8x16_t a)
 {
@@ -38,9 +39,10 @@ int32x4_t test_vmovlbq_s16(int16x8_t a)
 
 // CHECK-LABEL: @test_vmovlbq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <16 x i8> [[A:%.*]], <16 x i8> poison, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    [[TMP1:%.*]] = zext <8 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    ret <8 x i16> [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> poison, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext <8 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
 //
 uint16x8_t test_vmovlbq_u8(uint8x16_t a)
 {
@@ -68,9 +70,10 @@ uint32x4_t test_vmovlbq_u16(uint16x8_t a)
 
 // CHECK-LABEL: @test_vmovltq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <16 x i8> [[A:%.*]], <16 x i8> poison, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK-NEXT:    [[TMP1:%.*]] = sext <8 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    ret <8 x i16> [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> poison, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = sext <8 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
 //
 int16x8_t test_vmovltq_s8(int8x16_t a)
 {
@@ -98,9 +101,10 @@ int32x4_t test_vmovltq_s16(int16x8_t a)
 
 // CHECK-LABEL: @test_vmovltq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <16 x i8> [[A:%.*]], <16 x i8> poison, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK-NEXT:    [[TMP1:%.*]] = zext <8 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    ret <8 x i16> [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> poison, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext <8 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
 //
 uint16x8_t test_vmovltq_u8(uint8x16_t a)
 {
@@ -128,10 +132,11 @@ uint32x4_t test_vmovltq_u16(uint16x8_t a)
 
 // CHECK-LABEL: @test_vmovlbq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[A:%.*]], i32 0, i32 0, <8 x i1> [[TMP1]], <8 x i16> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[TMP0]], i32 0, i32 0, <8 x i1> [[TMP2]], <8 x i16> [[INACTIVE:%.*]])
+// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
 //
 int16x8_t test_vmovlbq_m_s8(int16x8_t inactive, int8x16_t a, mve_pred16_t p)
 {
@@ -160,10 +165,11 @@ int32x4_t test_vmovlbq_m_s16(int32x4_t inactive, int16x8_t a, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vmovlbq_m_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[A:%.*]], i32 1, i32 0, <8 x i1> [[TMP1]], <8 x i16> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[TMP0]], i32 1, i32 0, <8 x i1> [[TMP2]], <8 x i16> [[INACTIVE:%.*]])
+// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
 //
 uint16x8_t test_vmovlbq_m_u8(uint16x8_t inactive, uint8x16_t a, mve_pred16_t p)
 {
@@ -192,10 +198,11 @@ uint32x4_t test_vmovlbq_m_u16(uint32x4_t inactive, uint16x8_t a, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vmovltq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[A:%.*]], i32 0, i32 1, <8 x i1> [[TMP1]], <8 x i16> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[TMP0]], i32 0, i32 1, <8 x i1> [[TMP2]], <8 x i16> [[INACTIVE:%.*]])
+// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
 //
 int16x8_t test_vmovltq_m_s8(int16x8_t inactive, int8x16_t a, mve_pred16_t p)
 {
@@ -224,10 +231,11 @@ int32x4_t test_vmovltq_m_s16(int32x4_t inactive, int16x8_t a, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vmovltq_m_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[A:%.*]], i32 1, i32 1, <8 x i1> [[TMP1]], <8 x i16> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[TMP0]], i32 1, i32 1, <8 x i1> [[TMP2]], <8 x i16> [[INACTIVE:%.*]])
+// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
 //
 uint16x8_t test_vmovltq_m_u8(uint16x8_t inactive, uint8x16_t a, mve_pred16_t p)
 {
@@ -256,10 +264,11 @@ uint32x4_t test_vmovltq_m_u16(uint32x4_t inactive, uint16x8_t a, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vmovlbq_x_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[A:%.*]], i32 0, i32 0, <8 x i1> [[TMP1]], <8 x i16> undef)
-// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[TMP0]], i32 0, i32 0, <8 x i1> [[TMP2]], <8 x i16> undef)
+// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
 //
 int16x8_t test_vmovlbq_x_s8(int8x16_t a, mve_pred16_t p)
 {
@@ -288,10 +297,11 @@ int32x4_t test_vmovlbq_x_s16(int16x8_t a, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vmovlbq_x_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[A:%.*]], i32 1, i32 0, <8 x i1> [[TMP1]], <8 x i16> undef)
-// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[TMP0]], i32 1, i32 0, <8 x i1> [[TMP2]], <8 x i16> undef)
+// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
 //
 uint16x8_t test_vmovlbq_x_u8(uint8x16_t a, mve_pred16_t p)
 {
@@ -320,10 +330,11 @@ uint32x4_t test_vmovlbq_x_u16(uint16x8_t a, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vmovltq_x_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[A:%.*]], i32 0, i32 1, <8 x i1> [[TMP1]], <8 x i16> undef)
-// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[TMP0]], i32 0, i32 1, <8 x i1> [[TMP2]], <8 x i16> undef)
+// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
 //
 int16x8_t test_vmovltq_x_s8(int8x16_t a, mve_pred16_t p)
 {
@@ -352,10 +363,11 @@ int32x4_t test_vmovltq_x_s16(int16x8_t a, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vmovltq_x_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[A:%.*]], i32 1, i32 1, <8 x i1> [[TMP1]], <8 x i16> undef)
-// CHECK-NEXT:    ret <8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <8 x i1> @llvm.arm.mve.pred.i2v.v8i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <8 x i16> @llvm.arm.mve.vmovl.predicated.v8i16.v16i8.v8i1(<16 x i8> [[TMP0]], i32 1, i32 1, <8 x i1> [[TMP2]], <8 x i16> undef)
+// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
 //
 uint16x8_t test_vmovltq_x_u8(uint8x16_t a, mve_pred16_t p)
 {

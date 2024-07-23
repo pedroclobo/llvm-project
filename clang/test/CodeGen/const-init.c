@@ -9,7 +9,7 @@ char a[] = { "asdf" };
 // CHECK: @a ={{.*}} global [5 x i8] c"asdf\00"
 
 char a2[2][5] = { "asdf" };
-// CHECK: @a2 ={{.*}} global [2 x [5 x i8]] {{\[}}[5 x i8] c"asdf\00", [5 x i8] zeroinitializer]
+// CHECK: @a2 ={{.*}} global <{ [5 x i8], [5 x b8] }> <{ [5 x i8] c"asdf\00", [5 x b8] zeroinitializer }>
 
 // Double-implicit-conversions of array/functions (not legal C, but
 // clang accepts it for gcc compat).
@@ -61,7 +61,7 @@ struct {
 } __attribute__((__packed__)) gv1  = { .a = 0x0, .b = 7,  };
 
 // PR5118
-// CHECK: @gv2 ={{.*}} global %struct.anon.0 <{ i8 1, ptr null }>, align 1
+// CHECK: @gv2 ={{.*}} global <{ i8, ptr }> <{ i8 1, ptr null }>, align 1
 struct {
   unsigned char a;
   char *b;
@@ -155,7 +155,7 @@ void g29(void) {
   {
       DCC_PASSWD passwd;
   } DCC_SRVR_NM;
-  // CHECK: @g29.a = internal global %struct.DCC_SRVR_NM { [2 x i8] c"@\00" }, align 1
+  // CHECK: @g29.a = internal global { [2 x i8] } { [2 x i8] c"@\00" }, align 1
   // CHECK: @g29.b = internal global [1 x i32] [i32 ptrtoint (ptr @.str.1 to i32)], align 4
   // CHECK: @g29.c = internal global [1 x i32] [i32 97], align 4
   static DCC_SRVR_NM a = { {"@"} };

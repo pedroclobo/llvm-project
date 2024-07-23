@@ -52,10 +52,10 @@ int foo() {
 
 // CHECK-NOT: define{{.*}} zeroext i8 @_ZN10Issue54578li3_UCEy
 // CHECK: define{{.*}} i32 @_ZN10Issue545783fooEv(
-// CHECK: define{{.*}} signext i8 @_ZN10Issue545782f1IcEEcT_(
-// CHECK: ret i8 4
-// CHECK: define{{.*}} signext i8 @_ZN10Issue545782f2IcEEcT_(
-// CHECK: ret i8 4
+// CHECK: define{{.*}} signext b8 @_ZN10Issue545782f1IcEEcT_(
+// CHECK: ret b8 4
+// CHECK: define{{.*}} signext b8 @_ZN10Issue545782f2IcEEcT_(
+// CHECK: ret b8 4
 }
 
 namespace Issue55871 {

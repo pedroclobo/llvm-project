@@ -21,11 +21,11 @@ void test0(void) {
 // CHECK-NEXT:  [[SEVEN:%.*]]  = icmp eq ptr {{.*}}, null
 // CHECK-NEXT:  br i1 [[SEVEN]], label [[NULLINIT:%.*]], label [[CALL_LABEL:%.*]]
 // CHECK:       [[FN:%.*]] = load ptr, ptr
-// CHECK-NEXT:  [[CALL:%.*]] = call signext i8 [[FN]]
+// CHECK-NEXT:  [[CALL:%.*]] = call signext b8 [[FN]]
 // CHECK-NEXT:  br label [[CONT:%.*]]
 // CHECK:       call void @llvm.objc.release(ptr [[FIVE]]) [[NUW:#[0-9]+]]
 // CHECK-NEXT:  br label [[CONT]]
-// CHECK:       phi i8 [ [[CALL]], {{%.*}} ], [ 0, {{%.*}} ]
+// CHECK:       phi b8 [ [[CALL]], {{%.*}} ], [ 0, {{%.*}} ]
 
 // Ensure that we build PHIs correctly in the presence of cleanups.
 void test1(void) {

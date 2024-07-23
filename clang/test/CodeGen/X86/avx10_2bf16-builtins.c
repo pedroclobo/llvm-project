@@ -274,7 +274,7 @@ __m256bh test_mm256_loadu_pbh(void *p) {
 
 __m128bh test_mm_load_sbh(void const *A) {
   // CHECK-LABEL: test_mm_load_sbh
-  // CHECK: %{{.*}} = call <8 x bfloat> @llvm.masked.load.v8bf16.p0(ptr %{{.*}}, i32 1, <8 x i1> bitcast (<1 x i8> splat (i8 1) to <8 x i1>), <8 x bfloat> %{{.*}})
+  // CHECK: %{{.*}} = call <8 x bfloat> @llvm.masked.load.v8bf16.p0(ptr %{{.*}}, i32 1, <8 x i1> bytecast (<1 x b8> splat (b8 1) to <8 x i1>), <8 x bfloat> %{{.*}})
   return _mm_load_sbh(A);
 }
 
@@ -360,7 +360,7 @@ __m128bh test_mm_mask_move_sbh(__m128bh __W, __mmask8 __U, __m128bh __A, __m128b
   // CHECK: insertelement <8 x bfloat> %{{.*}}, bfloat [[EXT]], i32 0
   // CHECK: [[A:%.*]] = extractelement <8 x bfloat> [[VEC:%.*]], i64 0
   // CHECK-NEXT: [[B:%.*]] = extractelement <8 x bfloat> %{{.*}}, i64 0
-  // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.*]] = select i1 %{{.*}}, bfloat [[A]], bfloat [[B]]
   // CHECK-NEXT: insertelement <8 x bfloat> [[VEC]], bfloat [[SEL]], i64 0
@@ -373,7 +373,7 @@ __m128bh test_mm_maskz_move_sbh(__mmask8 __U, __m128bh __A, __m128bh __B) {
   // CHECK: insertelement <8 x bfloat> %{{.*}}, bfloat [[EXT]], i32 0
   // CHECK: [[A:%.*]] = extractelement <8 x bfloat> [[VEC:%.*]], i64 0
   // CHECK-NEXT: [[B:%.*]] = extractelement <8 x bfloat> %{{.*}}, i64 0
-  // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.*]] = select i1 %{{.*}}, bfloat [[A]], bfloat [[B]]
   // CHECK-NEXT: insertelement <8 x bfloat> [[VEC]], bfloat [[SEL]], i64 0
@@ -382,7 +382,7 @@ __m128bh test_mm_maskz_move_sbh(__mmask8 __U, __m128bh __A, __m128bh __B) {
 
 __m128bh test_mm_mask_blend_pbh(__mmask8 __U, __m128bh __A, __m128bh __W) {
   // CHECK-LABEL: @test_mm_mask_blend_pbh
-  // CHECK:  %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
+  // CHECK:  %{{.*}} = bytecast exact b8 %{{.*}} to <8 x i1>
   // CHECK:  %{{.*}} = select <8 x i1> %{{.*}}, <8 x bfloat> %{{.*}}, <8 x bfloat> %{{.*}}
   return _mm_mask_blend_pbh(__U, __A, __W);
 }
