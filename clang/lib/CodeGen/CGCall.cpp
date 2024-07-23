@@ -1303,11 +1303,12 @@ static llvm::Value *CreateCoercedLoad(Address Src, llvm::Type *Ty,
   // conversion.
   if (auto *ScalableDstTy = dyn_cast<llvm::ScalableVectorType>(Ty)) {
     if (auto *FixedSrcTy = dyn_cast<llvm::FixedVectorType>(SrcTy)) {
-      // If we are casting a fixed i8 vector to a scalable i1 predicate
+      // If we are casting a fixed i8/b8 vector to a scalable i1 predicate
       // vector, use a vector insert and bitcast the result.
       if (ScalableDstTy->getElementType()->isIntegerTy(1) &&
           ScalableDstTy->getElementCount().isKnownMultipleOf(8) &&
-          FixedSrcTy->getElementType()->isIntegerTy(8)) {
+          (FixedSrcTy->getElementType()->isIntegerTy(8) ||
+           FixedSrcTy->getElementType()->isByteTy(8))) {
         ScalableDstTy = llvm::ScalableVectorType::get(
             FixedSrcTy->getElementType(),
             ScalableDstTy->getElementCount().getKnownMinValue() / 8);
@@ -1319,7 +1320,9 @@ static llvm::Value *CreateCoercedLoad(Address Src, llvm::Type *Ty,
         llvm::Value *Result = CGF.Builder.CreateInsertVector(
             ScalableDstTy, PoisonVec, Load, Zero, "cast.scalable");
         if (ScalableDstTy != Ty)
-          Result = CGF.Builder.CreateBitCast(Result, Ty);
+          ScalableDstTy->isByteOrByteVectorTy()
+              ? Result = CGF.Builder.CreateByteCast(Result, Ty, "", /*IsExact*/ true)
+              : Result = CGF.Builder.CreateBitCast(Result, Ty);
         return Result;
       }
     }
@@ -1414,11 +1417,12 @@ static std::pair<llvm::Value *, bool>
 CoerceScalableToFixed(CodeGenFunction &CGF, llvm::FixedVectorType *ToTy,
                       llvm::ScalableVectorType *FromTy, llvm::Value *V,
                       StringRef Name = "") {
-  // If we are casting a scalable i1 predicate vector to a fixed i8
+  // If we are casting a scalable i1 predicate vector to a fixed i8/b8
   // vector, first bitcast the source.
   if (FromTy->getElementType()->isIntegerTy(1) &&
       FromTy->getElementCount().isKnownMultipleOf(8) &&
-      ToTy->getElementType() == CGF.Builder.getInt8Ty()) {
+      (ToTy->getElementType() == CGF.Builder.getInt8Ty() ||
+       ToTy->getElementType() == CGF.Builder.getByte8Ty())) {
     FromTy = llvm::ScalableVectorType::get(
         ToTy->getElementType(),
         FromTy->getElementCount().getKnownMinValue() / 8);
@@ -5399,8 +5403,15 @@ RValue CodeGenFunction::EmitCall(const CGFunctionInfo &CallInfo,
 
         // We might have to widen integers, but we should never truncate.
         if (ArgInfo.getCoerceToType() != V->getType() &&
-            V->getType()->isIntegerTy())
-          V = Builder.CreateZExt(V, ArgInfo.getCoerceToType());
+            V->getType()->isIntegerTy()) {
+          if (ArgInfo.getCoerceToType()->isByteTy()) {
+            llvm::Type *IntermTy = llvm::IntegerType::get(
+                getLLVMContext(), ArgInfo.getCoerceToType()->getScalarSizeInBits());
+            V = Builder.CreateZExt(V, IntermTy);
+            V = Builder.CreateBitCast(V, ArgInfo.getCoerceToType());
+          } else
+            V = Builder.CreateZExt(V, ArgInfo.getCoerceToType());
+        }
 
         // The only plausible mismatch here would be for pointer address spaces,
         // which can happen e.g. when passing a sret arg that is in the AllocaAS

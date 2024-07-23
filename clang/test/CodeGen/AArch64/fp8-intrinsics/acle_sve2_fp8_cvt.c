@@ -29,144 +29,160 @@
 #endif
 
 // CHECK-LABEL: define dso_local <vscale x 8 x bfloat> @test_svcvt1_bf16_mf8(
-// CHECK-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvt1.nxv8bf16(<vscale x 16 x i8> [[ZN]])
-// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvt1.nxv8bf16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x bfloat> @_Z20test_svcvt1_bf16_mf8u13__SVMfloat8_tm(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvt1.nxv8bf16(<vscale x 16 x i8> [[ZN]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvt1.nxv8bf16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 svbfloat16_t test_svcvt1_bf16_mf8(svmfloat8_t zn, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svcvt1_bf16,_mf8,_fpm)(zn, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x bfloat> @test_svcvt2_bf16_mf8(
-// CHECK-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvt2.nxv8bf16(<vscale x 16 x i8> [[ZN]])
-// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvt2.nxv8bf16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x bfloat> @_Z20test_svcvt2_bf16_mf8u13__SVMfloat8_tm(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvt2.nxv8bf16(<vscale x 16 x i8> [[ZN]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvt2.nxv8bf16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 svbfloat16_t test_svcvt2_bf16_mf8(svmfloat8_t zn, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svcvt2_bf16,_mf8,_fpm)(zn, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x bfloat> @test_svcvtlt1_bf16_mf8(
-// CHECK-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvtlt1.nxv8bf16(<vscale x 16 x i8> [[ZN]])
-// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvtlt1.nxv8bf16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x bfloat> @_Z22test_svcvtlt1_bf16_mf8u13__SVMfloat8_tm(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvtlt1.nxv8bf16(<vscale x 16 x i8> [[ZN]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvtlt1.nxv8bf16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 svbfloat16_t test_svcvtlt1_bf16_mf8(svmfloat8_t zn, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svcvtlt1_bf16,_mf8,_fpm)(zn, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x bfloat> @test_svcvtlt2_bf16_mf8(
-// CHECK-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvtlt2.nxv8bf16(<vscale x 16 x i8> [[ZN]])
-// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvtlt2.nxv8bf16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x bfloat> @_Z22test_svcvtlt2_bf16_mf8u13__SVMfloat8_tm(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvtlt2.nxv8bf16(<vscale x 16 x i8> [[ZN]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x bfloat> @llvm.aarch64.sve.fp8.cvtlt2.nxv8bf16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 svbfloat16_t test_svcvtlt2_bf16_mf8(svmfloat8_t zn, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svcvtlt2_bf16,_mf8,_fpm)(zn, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x half> @test_svcvt1_f16_mf8(
-// CHECK-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvt1.nxv8f16(<vscale x 16 x i8> [[ZN]])
-// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvt1.nxv8f16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP1]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x half> @_Z19test_svcvt1_f16_mf8u13__SVMfloat8_tm(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvt1.nxv8f16(<vscale x 16 x i8> [[ZN]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvt1.nxv8f16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP1]]
 //
 svfloat16_t test_svcvt1_f16_mf8(svmfloat8_t zn, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svcvt1_f16,_mf8,_fpm)(zn, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x half> @test_svcvt2_f16_mf8(
-// CHECK-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvt2.nxv8f16(<vscale x 16 x i8> [[ZN]])
-// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvt2.nxv8f16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP1]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x half> @_Z19test_svcvt2_f16_mf8u13__SVMfloat8_tm(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvt2.nxv8f16(<vscale x 16 x i8> [[ZN]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvt2.nxv8f16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP1]]
 //
 svfloat16_t test_svcvt2_f16_mf8(svmfloat8_t zn, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svcvt2_f16,_mf8,_fpm)(zn, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x half> @test_svcvtlt1_f16_mf8(
-// CHECK-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvtlt1.nxv8f16(<vscale x 16 x i8> [[ZN]])
-// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvtlt1.nxv8f16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP1]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x half> @_Z21test_svcvtlt1_f16_mf8u13__SVMfloat8_tm(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvtlt1.nxv8f16(<vscale x 16 x i8> [[ZN]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvtlt1.nxv8f16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP1]]
 //
 svfloat16_t test_svcvtlt1_f16_mf8(svmfloat8_t zn, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svcvtlt1_f16,_mf8,_fpm)(zn, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x half> @test_svcvtlt2_f16_mf8(
-// CHECK-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvtlt2.nxv8f16(<vscale x 16 x i8> [[ZN]])
-// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvtlt2.nxv8f16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP1]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x half> @_Z21test_svcvtlt2_f16_mf8u13__SVMfloat8_tm(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZN:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvtlt2.nxv8f16(<vscale x 16 x i8> [[ZN]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.cvtlt2.nxv8f16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP1]]
 //
 svfloat16_t test_svcvtlt2_f16_mf8(svmfloat8_t zn, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svcvtlt2_f16,_mf8,_fpm)(zn, fpm);

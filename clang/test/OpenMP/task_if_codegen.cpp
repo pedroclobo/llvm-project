@@ -189,23 +189,24 @@ int main() {
 // CHECK1-NEXT:    [[TMP17:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP15]], i32 0, i32 1
 // CHECK1-NEXT:    store i64 4, ptr [[TMP17]], align 8
 // CHECK1-NEXT:    [[TMP18:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP15]], i32 0, i32 2
-// CHECK1-NEXT:    store i8 3, ptr [[TMP18]], align 8
+// CHECK1-NEXT:    [[TMP19:%.*]] = bytecast exact b8 3 to i8
+// CHECK1-NEXT:    store i8 [[TMP19]], ptr [[TMP18]], align 8
 // CHECK1-NEXT:    store i64 1, ptr [[DEP_COUNTER_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP19:%.*]] = load i32, ptr @Arg, align 4
-// CHECK1-NEXT:    [[TOBOOL4:%.*]] = icmp ne i32 [[TMP19]], 0
+// CHECK1-NEXT:    [[TMP20:%.*]] = load i32, ptr @Arg, align 4
+// CHECK1-NEXT:    [[TOBOOL4:%.*]] = icmp ne i32 [[TMP20]], 0
 // CHECK1-NEXT:    br i1 [[TOBOOL4]], label [[OMP_IF_THEN5:%.*]], label [[OMP_IF_ELSE6:%.*]]
 // CHECK1:       omp_if.then5:
-// CHECK1-NEXT:    [[TMP20:%.*]] = call i32 @__kmpc_omp_task_with_deps(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP12]], i32 1, ptr [[TMP14]], i32 0, ptr null)
+// CHECK1-NEXT:    [[TMP21:%.*]] = call i32 @__kmpc_omp_task_with_deps(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP12]], i32 1, ptr [[TMP14]], i32 0, ptr null)
 // CHECK1-NEXT:    br label [[OMP_IF_END7:%.*]]
 // CHECK1:       omp_if.else6:
 // CHECK1-NEXT:    call void @__kmpc_omp_taskwait_deps_51(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, ptr [[TMP14]], i32 0, ptr null, i32 0)
 // CHECK1-NEXT:    call void @__kmpc_omp_task_begin_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP12]])
-// CHECK1-NEXT:    [[TMP21:%.*]] = call i32 @.omp_task_entry..8(i32 [[TMP0]], ptr [[TMP12]]) #[[ATTR3]]
+// CHECK1-NEXT:    [[TMP22:%.*]] = call i32 @.omp_task_entry..8(i32 [[TMP0]], ptr [[TMP12]]) #[[ATTR3]]
 // CHECK1-NEXT:    call void @__kmpc_omp_task_complete_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP12]])
 // CHECK1-NEXT:    br label [[OMP_IF_END7]]
 // CHECK1:       omp_if.end7:
-// CHECK1-NEXT:    [[TMP22:%.*]] = load i32, ptr @Arg, align 4
-// CHECK1-NEXT:    [[CALL:%.*]] = call noundef i32 @_Z5tmainIiEiT_(i32 noundef [[TMP22]])
+// CHECK1-NEXT:    [[TMP23:%.*]] = load i32, ptr @Arg, align 4
+// CHECK1-NEXT:    [[CALL:%.*]] = call noundef i32 @_Z5tmainIiEiT_(i32 noundef [[TMP23]])
 // CHECK1-NEXT:    ret i32 [[CALL]]
 //
 //
@@ -395,69 +396,72 @@ int main() {
 // CHECK1-NEXT:    [[TMP18:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP16]], i32 0, i32 1
 // CHECK1-NEXT:    store i64 4, ptr [[TMP18]], align 8
 // CHECK1-NEXT:    [[TMP19:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP16]], i32 0, i32 2
-// CHECK1-NEXT:    store i8 1, ptr [[TMP19]], align 8
+// CHECK1-NEXT:    [[TMP20:%.*]] = bytecast exact b8 1 to i8
+// CHECK1-NEXT:    store i8 [[TMP20]], ptr [[TMP19]], align 8
 // CHECK1-NEXT:    store i64 1, ptr [[DEP_COUNTER_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP20:%.*]] = load i32, ptr [[ARG_ADDR]], align 4
-// CHECK1-NEXT:    [[TOBOOL4:%.*]] = icmp ne i32 [[TMP20]], 0
+// CHECK1-NEXT:    [[TMP21:%.*]] = load i32, ptr [[ARG_ADDR]], align 4
+// CHECK1-NEXT:    [[TOBOOL4:%.*]] = icmp ne i32 [[TMP21]], 0
 // CHECK1-NEXT:    br i1 [[TOBOOL4]], label [[OMP_IF_THEN5:%.*]], label [[OMP_IF_ELSE6:%.*]]
 // CHECK1:       omp_if.then5:
-// CHECK1-NEXT:    [[TMP21:%.*]] = call i32 @__kmpc_omp_task_with_deps(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP12]], i32 1, ptr [[TMP14]], i32 0, ptr null)
+// CHECK1-NEXT:    [[TMP22:%.*]] = call i32 @__kmpc_omp_task_with_deps(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP12]], i32 1, ptr [[TMP14]], i32 0, ptr null)
 // CHECK1-NEXT:    br label [[OMP_IF_END7:%.*]]
 // CHECK1:       omp_if.else6:
 // CHECK1-NEXT:    call void @__kmpc_omp_taskwait_deps_51(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, ptr [[TMP14]], i32 0, ptr null, i32 0)
 // CHECK1-NEXT:    call void @__kmpc_omp_task_begin_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP12]])
-// CHECK1-NEXT:    [[TMP22:%.*]] = call i32 @.omp_task_entry..16(i32 [[TMP0]], ptr [[TMP12]]) #[[ATTR3]]
+// CHECK1-NEXT:    [[TMP23:%.*]] = call i32 @.omp_task_entry..16(i32 [[TMP0]], ptr [[TMP12]]) #[[ATTR3]]
 // CHECK1-NEXT:    call void @__kmpc_omp_task_complete_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP12]])
 // CHECK1-NEXT:    br label [[OMP_IF_END7]]
 // CHECK1:       omp_if.end7:
-// CHECK1-NEXT:    [[TMP23:%.*]] = call ptr @__kmpc_omp_task_alloc(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, i64 40, i64 1, ptr @.omp_task_entry..18)
-// CHECK1-NEXT:    [[TMP24:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_TASK_T_WITH_PRIVATES_17:%.*]], ptr [[TMP23]], i32 0, i32 0
-// CHECK1-NEXT:    [[TMP25:%.*]] = getelementptr inbounds [1 x %struct.kmp_depend_info], ptr [[DOTDEP_ARR_ADDR9]], i64 0, i64 0
-// CHECK1-NEXT:    [[TMP26:%.*]] = ptrtoint ptr [[ARG_ADDR]] to i64
-// CHECK1-NEXT:    [[TMP27:%.*]] = getelementptr [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP25]], i64 0
-// CHECK1-NEXT:    [[TMP28:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP27]], i32 0, i32 0
-// CHECK1-NEXT:    store i64 [[TMP26]], ptr [[TMP28]], align 8
-// CHECK1-NEXT:    [[TMP29:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP27]], i32 0, i32 1
-// CHECK1-NEXT:    store i64 4, ptr [[TMP29]], align 8
-// CHECK1-NEXT:    [[TMP30:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP27]], i32 0, i32 2
-// CHECK1-NEXT:    store i8 3, ptr [[TMP30]], align 8
+// CHECK1-NEXT:    [[TMP24:%.*]] = call ptr @__kmpc_omp_task_alloc(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, i64 40, i64 1, ptr @.omp_task_entry..18)
+// CHECK1-NEXT:    [[TMP25:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_TASK_T_WITH_PRIVATES_17:%.*]], ptr [[TMP24]], i32 0, i32 0
+// CHECK1-NEXT:    [[TMP26:%.*]] = getelementptr inbounds [1 x %struct.kmp_depend_info], ptr [[DOTDEP_ARR_ADDR9]], i64 0, i64 0
+// CHECK1-NEXT:    [[TMP27:%.*]] = ptrtoint ptr [[ARG_ADDR]] to i64
+// CHECK1-NEXT:    [[TMP28:%.*]] = getelementptr [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP26]], i64 0
+// CHECK1-NEXT:    [[TMP29:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP28]], i32 0, i32 0
+// CHECK1-NEXT:    store i64 [[TMP27]], ptr [[TMP29]], align 8
+// CHECK1-NEXT:    [[TMP30:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP28]], i32 0, i32 1
+// CHECK1-NEXT:    store i64 4, ptr [[TMP30]], align 8
+// CHECK1-NEXT:    [[TMP31:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP28]], i32 0, i32 2
+// CHECK1-NEXT:    [[TMP32:%.*]] = bytecast exact b8 3 to i8
+// CHECK1-NEXT:    store i8 [[TMP32]], ptr [[TMP31]], align 8
 // CHECK1-NEXT:    store i64 1, ptr [[DEP_COUNTER_ADDR10]], align 8
-// CHECK1-NEXT:    [[TMP31:%.*]] = load i32, ptr [[ARG_ADDR]], align 4
-// CHECK1-NEXT:    [[TOBOOL11:%.*]] = icmp ne i32 [[TMP31]], 0
+// CHECK1-NEXT:    [[TMP33:%.*]] = load i32, ptr [[ARG_ADDR]], align 4
+// CHECK1-NEXT:    [[TOBOOL11:%.*]] = icmp ne i32 [[TMP33]], 0
 // CHECK1-NEXT:    br i1 [[TOBOOL11]], label [[OMP_IF_THEN12:%.*]], label [[OMP_IF_ELSE13:%.*]]
 // CHECK1:       omp_if.then12:
-// CHECK1-NEXT:    [[TMP32:%.*]] = call i32 @__kmpc_omp_task_with_deps(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP23]], i32 1, ptr [[TMP25]], i32 0, ptr null)
+// CHECK1-NEXT:    [[TMP34:%.*]] = call i32 @__kmpc_omp_task_with_deps(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP24]], i32 1, ptr [[TMP26]], i32 0, ptr null)
 // CHECK1-NEXT:    br label [[OMP_IF_END14:%.*]]
 // CHECK1:       omp_if.else13:
-// CHECK1-NEXT:    call void @__kmpc_omp_taskwait_deps_51(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, ptr [[TMP25]], i32 0, ptr null, i32 0)
-// CHECK1-NEXT:    call void @__kmpc_omp_task_begin_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP23]])
-// CHECK1-NEXT:    [[TMP33:%.*]] = call i32 @.omp_task_entry..18(i32 [[TMP0]], ptr [[TMP23]]) #[[ATTR3]]
-// CHECK1-NEXT:    call void @__kmpc_omp_task_complete_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP23]])
+// CHECK1-NEXT:    call void @__kmpc_omp_taskwait_deps_51(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, ptr [[TMP26]], i32 0, ptr null, i32 0)
+// CHECK1-NEXT:    call void @__kmpc_omp_task_begin_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP24]])
+// CHECK1-NEXT:    [[TMP35:%.*]] = call i32 @.omp_task_entry..18(i32 [[TMP0]], ptr [[TMP24]]) #[[ATTR3]]
+// CHECK1-NEXT:    call void @__kmpc_omp_task_complete_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP24]])
 // CHECK1-NEXT:    br label [[OMP_IF_END14]]
 // CHECK1:       omp_if.end14:
-// CHECK1-NEXT:    [[TMP34:%.*]] = call ptr @__kmpc_omp_task_alloc(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, i64 40, i64 1, ptr @.omp_task_entry..20)
-// CHECK1-NEXT:    [[TMP35:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_TASK_T_WITH_PRIVATES_19:%.*]], ptr [[TMP34]], i32 0, i32 0
-// CHECK1-NEXT:    [[TMP36:%.*]] = getelementptr inbounds [1 x %struct.kmp_depend_info], ptr [[DOTDEP_ARR_ADDR16]], i64 0, i64 0
-// CHECK1-NEXT:    [[TMP37:%.*]] = ptrtoint ptr [[ARG_ADDR]] to i64
-// CHECK1-NEXT:    [[TMP38:%.*]] = getelementptr [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP36]], i64 0
-// CHECK1-NEXT:    [[TMP39:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP38]], i32 0, i32 0
-// CHECK1-NEXT:    store i64 [[TMP37]], ptr [[TMP39]], align 8
-// CHECK1-NEXT:    [[TMP40:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP38]], i32 0, i32 1
-// CHECK1-NEXT:    store i64 4, ptr [[TMP40]], align 8
-// CHECK1-NEXT:    [[TMP41:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP38]], i32 0, i32 2
-// CHECK1-NEXT:    store i8 3, ptr [[TMP41]], align 8
+// CHECK1-NEXT:    [[TMP36:%.*]] = call ptr @__kmpc_omp_task_alloc(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, i64 40, i64 1, ptr @.omp_task_entry..20)
+// CHECK1-NEXT:    [[TMP37:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_TASK_T_WITH_PRIVATES_19:%.*]], ptr [[TMP36]], i32 0, i32 0
+// CHECK1-NEXT:    [[TMP38:%.*]] = getelementptr inbounds [1 x %struct.kmp_depend_info], ptr [[DOTDEP_ARR_ADDR16]], i64 0, i64 0
+// CHECK1-NEXT:    [[TMP39:%.*]] = ptrtoint ptr [[ARG_ADDR]] to i64
+// CHECK1-NEXT:    [[TMP40:%.*]] = getelementptr [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP38]], i64 0
+// CHECK1-NEXT:    [[TMP41:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP40]], i32 0, i32 0
+// CHECK1-NEXT:    store i64 [[TMP39]], ptr [[TMP41]], align 8
+// CHECK1-NEXT:    [[TMP42:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP40]], i32 0, i32 1
+// CHECK1-NEXT:    store i64 4, ptr [[TMP42]], align 8
+// CHECK1-NEXT:    [[TMP43:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_DEPEND_INFO]], ptr [[TMP40]], i32 0, i32 2
+// CHECK1-NEXT:    [[TMP44:%.*]] = bytecast exact b8 3 to i8
+// CHECK1-NEXT:    store i8 [[TMP44]], ptr [[TMP43]], align 8
 // CHECK1-NEXT:    store i64 1, ptr [[DEP_COUNTER_ADDR17]], align 8
-// CHECK1-NEXT:    [[TMP42:%.*]] = load i32, ptr [[ARG_ADDR]], align 4
-// CHECK1-NEXT:    [[TOBOOL18:%.*]] = icmp ne i32 [[TMP42]], 0
+// CHECK1-NEXT:    [[TMP45:%.*]] = load i32, ptr [[ARG_ADDR]], align 4
+// CHECK1-NEXT:    [[TOBOOL18:%.*]] = icmp ne i32 [[TMP45]], 0
 // CHECK1-NEXT:    br i1 [[TOBOOL18]], label [[OMP_IF_THEN19:%.*]], label [[OMP_IF_ELSE20:%.*]]
 // CHECK1:       omp_if.then19:
-// CHECK1-NEXT:    [[TMP43:%.*]] = call i32 @__kmpc_omp_task_with_deps(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP34]], i32 1, ptr [[TMP36]], i32 0, ptr null)
+// CHECK1-NEXT:    [[TMP46:%.*]] = call i32 @__kmpc_omp_task_with_deps(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP36]], i32 1, ptr [[TMP38]], i32 0, ptr null)
 // CHECK1-NEXT:    br label [[OMP_IF_END21:%.*]]
 // CHECK1:       omp_if.else20:
-// CHECK1-NEXT:    call void @__kmpc_omp_taskwait_deps_51(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, ptr [[TMP36]], i32 0, ptr null, i32 0)
-// CHECK1-NEXT:    call void @__kmpc_omp_task_begin_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP34]])
-// CHECK1-NEXT:    [[TMP44:%.*]] = call i32 @.omp_task_entry..20(i32 [[TMP0]], ptr [[TMP34]]) #[[ATTR3]]
-// CHECK1-NEXT:    call void @__kmpc_omp_task_complete_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP34]])
+// CHECK1-NEXT:    call void @__kmpc_omp_taskwait_deps_51(ptr @[[GLOB1]], i32 [[TMP0]], i32 1, ptr [[TMP38]], i32 0, ptr null, i32 0)
+// CHECK1-NEXT:    call void @__kmpc_omp_task_begin_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP36]])
+// CHECK1-NEXT:    [[TMP47:%.*]] = call i32 @.omp_task_entry..20(i32 [[TMP0]], ptr [[TMP36]]) #[[ATTR3]]
+// CHECK1-NEXT:    call void @__kmpc_omp_task_complete_if0(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[TMP36]])
 // CHECK1-NEXT:    br label [[OMP_IF_END21]]
 // CHECK1:       omp_if.end21:
 // CHECK1-NEXT:    ret i32 0

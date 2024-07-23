@@ -2708,6 +2708,8 @@ void CGOpenMPRuntime::emitNumThreadsClause(CodeGenFunction &CGF,
   if (!CGF.HaveInsertPoint())
     return;
   // Build call __kmpc_push_num_threads(&loc, global_tid, num_threads)
+  if (NumThreads->getType()->isByteOrByteVectorTy())
+    NumThreads = CGF.Builder.CreateByteCastToInt(NumThreads, "", /*IsExact*/ true);
   llvm::Value *Args[] = {
       emitUpdateLocation(CGF, Loc), getThreadID(CGF, Loc),
       CGF.Builder.CreateIntCast(NumThreads, CGF.Int32Ty, /*isSigned*/ true)};
@@ -4106,7 +4108,9 @@ static void emitDependData(CodeGenFunction &CGF, QualType &KmpDependInfoTy,
         *std::next(KmpDependInfoRD->field_begin(),
                    static_cast<unsigned int>(RTLDependInfoFields::Flags)));
     CGF.EmitStoreOfScalar(
-        llvm::ConstantInt::get(LLVMFlagsTy, static_cast<unsigned int>(DepKind)),
+        LLVMFlagsTy->isIntegerTy() ?
+          llvm::ConstantInt::get(LLVMFlagsTy, static_cast<unsigned int>(DepKind)) :
+          llvm::ConstantByte::get(LLVMFlagsTy, static_cast<unsigned int>(DepKind)),
         FlagsLVal);
     if (unsigned *P = dyn_cast<unsigned *>(Pos)) {
       ++(*P);
@@ -6458,6 +6462,8 @@ llvm::Value *CGOpenMPRuntime::emitNumThreadsForTargetDirective(
     NumThreadsVal = CGF.Builder.getInt32(UpperBound);
   } else if (NT) {
     NumThreadsVal = CGF.EmitScalarExpr(NT, /*IgnoreResultAssign=*/true);
+    if (NumThreadsVal->getType()->isByteOrByteVectorTy())
+      NumThreadsVal = CGF.Builder.CreateByteCastToInt(NumThreadsVal, "", /*IsExact*/ true);
     NumThreadsVal = CGF.Builder.CreateIntCast(NumThreadsVal, CGF.Int32Ty,
                                               /*isSigned=*/false);
   } else if (ThreadLimitVal) {

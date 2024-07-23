@@ -4,14 +4,14 @@
 struct S { char buf[32]; };
 template<S s> constexpr const char* f() { return s.buf; }
 const char* fbuf = f<S{"a"}>();
-// CHECK: @_ZTAXtl1StlA32_cLc97EEEE = linkonce_odr constant { <{ i8, [31 x i8] }> }
+// CHECK: @_ZTAXtl1StlA32_cLc97EEEE = linkonce_odr constant { <{ b8, [31 x b8] }> }
 
 namespace {
   struct UN { char buf[64]; };
 }
 template <UN un> constexpr const char* g() { return un.buf; }
 const char* gbuf = g<UN{"b"}>();
-// CHECK: @_ZTAXtlN12_GLOBAL__N_12UNEtlA64_cLc98EEEE = internal constant { <{ i8, [63 x i8] }> }
+// CHECK: @_ZTAXtlN12_GLOBAL__N_12UNEtlA64_cLc98EEEE = internal constant { <{ b8, [63 x b8] }> }
 
 struct Foo { int *i; };
 int m = 0;

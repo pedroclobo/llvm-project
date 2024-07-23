@@ -28,9 +28,10 @@ float32x4_t test_vdupq_n_f32(float32_t w) {
 
 // vdupq_lane_f64 -> dup.2d v0, v0[0]
 // CHECK-LABEL: define{{.*}} <2 x double> @test_vdupq_lane_f64(<1 x double> noundef %V) #0 {
-// CHECK:   [[TMP0:%.*]] = bitcast <1 x double> %V to <8 x i8>
-// CHECK:   [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x double>
-// CHECK:   [[SHUFFLE:%.*]] = shufflevector <1 x double> [[TMP1]], <1 x double> [[TMP1]], <2 x i32> zeroinitializer
+// CHECK:   [[TMP0:%.*]] = bitcast <1 x double> %V to <8 x b8>
+// CHECK:   [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK:   [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x double>
+// CHECK:   [[SHUFFLE:%.*]] = shufflevector <1 x double> [[TMP2]], <1 x double> [[TMP2]], <2 x i32> zeroinitializer
 // CHECK:   ret <2 x double> [[SHUFFLE]]
 float64x2_t test_vdupq_lane_f64(float64x1_t V) {
     return vdupq_lane_f64(V, 0);

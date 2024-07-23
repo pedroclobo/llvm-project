@@ -207,10 +207,10 @@ struct five {
 } ATTR;
 char g13(struct five *a, struct five *b) {
   return a->b;
-// CHECK-LABEL: define{{.*}} signext i8 @_Z3g13
-// CHECK: load i8, ptr %{{.*}}, align 1, !tbaa [[TAG_char:!.*]]
-// PATH-LABEL: define{{.*}} signext i8 @_Z3g13
-// PATH: load i8, ptr %{{.*}}, align 1, !tbaa [[TAG_five_b:!.*]]
+// CHECK-LABEL: define{{.*}} signext b8 @_Z3g13
+// CHECK: load b8, ptr %{{.*}}, align 1, !tbaa [[TAG_char:!.*]]
+// PATH-LABEL: define{{.*}} signext b8 @_Z3g13
+// PATH: load b8, ptr %{{.*}}, align 1, !tbaa [[TAG_five_b:!.*]]
 }
 
 struct six {
@@ -220,10 +220,10 @@ struct six {
   char c;
 };
 char g14(struct six *a, struct six *b) {
-// CHECK-LABEL: define{{.*}} signext i8 @_Z3g14
-// CHECK: load i8, ptr %{{.*}}, align 1, !tbaa [[TAG_char]]
-// PATH-LABEL: define{{.*}} signext i8 @_Z3g14
-// PATH: load i8, ptr %{{.*}}, align 1, !tbaa [[TAG_six_b:!.*]]
+// CHECK-LABEL: define{{.*}} signext b8 @_Z3g14
+// CHECK: load b8, ptr %{{.*}}, align 1, !tbaa [[TAG_char]]
+// PATH-LABEL: define{{.*}} signext b8 @_Z3g14
+// PATH: load b8, ptr %{{.*}}, align 1, !tbaa [[TAG_six_b:!.*]]
   return a->b;
 }
 

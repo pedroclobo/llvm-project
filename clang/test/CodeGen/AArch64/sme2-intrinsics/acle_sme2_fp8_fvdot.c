@@ -17,17 +17,23 @@
 #endif
 
 // CHECK-LABEL: define dso_local void @test_svvdot_lane_za16_mf8_vg1x2(
-// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x b8> [[ZN_COERCE0:%.*]], <vscale x 16 x b8> [[ZN_COERCE1:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR]])
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdot.lane.za16.vg1x2(i32 [[SLICE]], <vscale x 16 x i8> [[ZN_COERCE0]], <vscale x 16 x i8> [[ZN_COERCE1]], <vscale x 16 x i8> [[ZM]], i32 7)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdot.lane.za16.vg1x2(i32 [[SLICE]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 7)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z31test_svvdot_lane_za16_mf8_vg1x2j13svmfloat8x2_tu13__SVMfloat8_tm(
-// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0:[0-9]+]] {
+// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x b8> [[ZN_COERCE0:%.*]], <vscale x 16 x b8> [[ZN_COERCE1:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0:[0-9]+]] {
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR]])
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdot.lane.za16.vg1x2(i32 [[SLICE]], <vscale x 16 x i8> [[ZN_COERCE0]], <vscale x 16 x i8> [[ZN_COERCE1]], <vscale x 16 x i8> [[ZM]], i32 7)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdot.lane.za16.vg1x2(i32 [[SLICE]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 7)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svvdot_lane_za16_mf8_vg1x2(uint32_t slice, svmfloat8x2_t zn,
@@ -38,17 +44,23 @@ void test_svvdot_lane_za16_mf8_vg1x2(uint32_t slice, svmfloat8x2_t zn,
 }
 
 // CHECK-LABEL: define dso_local void @test_svvdotb_lane_za32_mf8_vg1x4(
-// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x b8> [[ZN_COERCE0:%.*]], <vscale x 16 x b8> [[ZN_COERCE1:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR]])
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdotb.lane.za32.vg1x4(i32 [[SLICE]], <vscale x 16 x i8> [[ZN_COERCE0]], <vscale x 16 x i8> [[ZN_COERCE1]], <vscale x 16 x i8> [[ZM]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdotb.lane.za32.vg1x4(i32 [[SLICE]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z32test_svvdotb_lane_za32_mf8_vg1x4j13svmfloat8x2_tu13__SVMfloat8_tm(
-// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0]] {
+// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x b8> [[ZN_COERCE0:%.*]], <vscale x 16 x b8> [[ZN_COERCE1:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR]])
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdotb.lane.za32.vg1x4(i32 [[SLICE]], <vscale x 16 x i8> [[ZN_COERCE0]], <vscale x 16 x i8> [[ZN_COERCE1]], <vscale x 16 x i8> [[ZM]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdotb.lane.za32.vg1x4(i32 [[SLICE]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svvdotb_lane_za32_mf8_vg1x4(uint32_t slice, svmfloat8x2_t zn,
@@ -59,17 +71,23 @@ void test_svvdotb_lane_za32_mf8_vg1x4(uint32_t slice, svmfloat8x2_t zn,
 }
 
 // CHECK-LABEL: define dso_local void @test_svvdott_lane_za32_mf8_vg1x4(
-// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x b8> [[ZN_COERCE0:%.*]], <vscale x 16 x b8> [[ZN_COERCE1:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR]])
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdott.lane.za32.vg1x4(i32 [[SLICE]], <vscale x 16 x i8> [[ZN_COERCE0]], <vscale x 16 x i8> [[ZN_COERCE1]], <vscale x 16 x i8> [[ZM]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdott.lane.za32.vg1x4(i32 [[SLICE]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z32test_svvdott_lane_za32_mf8_vg1x4j13svmfloat8x2_tu13__SVMfloat8_tm(
-// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0]] {
+// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x b8> [[ZN_COERCE0:%.*]], <vscale x 16 x b8> [[ZN_COERCE1:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPMR:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR]])
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdott.lane.za32.vg1x4(i32 [[SLICE]], <vscale x 16 x i8> [[ZN_COERCE0]], <vscale x 16 x i8> [[ZN_COERCE1]], <vscale x 16 x i8> [[ZM]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fvdott.lane.za32.vg1x4(i32 [[SLICE]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svvdott_lane_za32_mf8_vg1x4(uint32_t slice, svmfloat8x2_t zn,

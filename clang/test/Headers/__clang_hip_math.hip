@@ -44,9 +44,9 @@ typedef unsigned long long uint64_t;
 // CHECK-NEXT:    br i1 [[OR_COND_I]], label [[IF_THEN_I:%.*]], label [[CLEANUP_I]]
 // CHECK:       if.then.i:
 // CHECK-NEXT:    [[MUL_I:%.*]] = shl i64 [[__R_0_I]], 3
-// CHECK-NEXT:    [[CONV5_I:%.*]] = zext nneg i8 [[TMP0]] to i64
+// CHECK-NEXT:    [[CONV15_I:%.*]] = zext nneg i8 [[TMP0]] to i64
 // CHECK-NEXT:    [[ADD_I:%.*]] = add i64 [[MUL_I]], -48
-// CHECK-NEXT:    [[SUB_I:%.*]] = add i64 [[ADD_I]], [[CONV5_I]]
+// CHECK-NEXT:    [[SUB_I:%.*]] = add i64 [[ADD_I]], [[CONV15_I]]
 // CHECK-NEXT:    [[INCDEC_PTR_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I]], i64 1
 // CHECK-NEXT:    br label [[CLEANUP_I]]
 // CHECK:       cleanup.i:
@@ -76,9 +76,9 @@ extern "C" __device__ uint64_t test___make_mantissa_base8(const char *p) {
 // CHECK-NEXT:    br i1 [[OR_COND_I]], label [[IF_THEN_I:%.*]], label [[CLEANUP_I]]
 // CHECK:       if.then.i:
 // CHECK-NEXT:    [[MUL_I:%.*]] = mul i64 [[__R_0_I]], 10
-// CHECK-NEXT:    [[CONV5_I:%.*]] = zext nneg i8 [[TMP0]] to i64
+// CHECK-NEXT:    [[CONV15_I:%.*]] = zext nneg i8 [[TMP0]] to i64
 // CHECK-NEXT:    [[ADD_I:%.*]] = add i64 [[MUL_I]], -48
-// CHECK-NEXT:    [[SUB_I:%.*]] = add i64 [[ADD_I]], [[CONV5_I]]
+// CHECK-NEXT:    [[SUB_I:%.*]] = add i64 [[ADD_I]], [[CONV15_I]]
 // CHECK-NEXT:    [[INCDEC_PTR_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I]], i64 1
 // CHECK-NEXT:    br label [[CLEANUP_I]]
 // CHECK:       cleanup.i:
@@ -105,27 +105,27 @@ extern "C" __device__ uint64_t test___make_mantissa_base10(const char *p) {
 // CHECK:       while.body.i:
 // CHECK-NEXT:    [[TMP1:%.*]] = add i8 [[TMP0]], -48
 // CHECK-NEXT:    [[OR_COND_I:%.*]] = icmp ult i8 [[TMP1]], 10
-// CHECK-NEXT:    br i1 [[OR_COND_I]], label [[IF_END31_I:%.*]], label [[IF_ELSE_I:%.*]]
+// CHECK-NEXT:    br i1 [[OR_COND_I]], label [[IF_END61_I:%.*]], label [[IF_ELSE_I:%.*]]
 // CHECK:       if.else.i:
 // CHECK-NEXT:    [[TMP2:%.*]] = add i8 [[TMP0]], -97
-// CHECK-NEXT:    [[OR_COND33_I:%.*]] = icmp ult i8 [[TMP2]], 6
-// CHECK-NEXT:    br i1 [[OR_COND33_I]], label [[IF_END31_I]], label [[IF_ELSE17_I:%.*]]
-// CHECK:       if.else17.i:
+// CHECK-NEXT:    [[OR_COND76_I:%.*]] = icmp ult i8 [[TMP2]], 6
+// CHECK-NEXT:    br i1 [[OR_COND76_I]], label [[IF_END61_I]], label [[IF_ELSE38_I:%.*]]
+// CHECK:       if.else38.i:
 // CHECK-NEXT:    [[TMP3:%.*]] = add i8 [[TMP0]], -65
-// CHECK-NEXT:    [[OR_COND34_I:%.*]] = icmp ult i8 [[TMP3]], 6
-// CHECK-NEXT:    br i1 [[OR_COND34_I]], label [[IF_END31_I]], label [[CLEANUP_I]]
-// CHECK:       if.end31.i:
-// CHECK-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I]] ], [ -87, [[IF_ELSE_I]] ], [ -55, [[IF_ELSE17_I]] ]
-// CHECK-NEXT:    [[MUL24_I:%.*]] = shl i64 [[__R_0_I]], 4
-// CHECK-NEXT:    [[CONV25_I:%.*]] = zext nneg i8 [[TMP0]] to i64
-// CHECK-NEXT:    [[ADD26_I:%.*]] = add i64 [[MUL24_I]], [[DOTSINK]]
-// CHECK-NEXT:    [[ADD28_I:%.*]] = add i64 [[ADD26_I]], [[CONV25_I]]
+// CHECK-NEXT:    [[OR_COND77_I:%.*]] = icmp ult i8 [[TMP3]], 6
+// CHECK-NEXT:    br i1 [[OR_COND77_I]], label [[IF_END61_I]], label [[CLEANUP_I]]
+// CHECK:       if.end61.i:
+// CHECK-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I]] ], [ -87, [[IF_ELSE_I]] ], [ -55, [[IF_ELSE38_I]] ]
+// CHECK-NEXT:    [[MUL51_I:%.*]] = shl i64 [[__R_0_I]], 4
+// CHECK-NEXT:    [[CONV53_I:%.*]] = zext nneg i8 [[TMP0]] to i64
+// CHECK-NEXT:    [[ADD54_I:%.*]] = add i64 [[MUL51_I]], [[DOTSINK]]
+// CHECK-NEXT:    [[ADD58_I:%.*]] = add i64 [[ADD54_I]], [[CONV53_I]]
 // CHECK-NEXT:    [[INCDEC_PTR_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I]], i64 1
 // CHECK-NEXT:    br label [[CLEANUP_I]]
 // CHECK:       cleanup.i:
-// CHECK-NEXT:    [[__TAGP_ADDR_1_I]] = phi ptr [ [[INCDEC_PTR_I]], [[IF_END31_I]] ], [ [[__TAGP_ADDR_0_I]], [[IF_ELSE17_I]] ]
-// CHECK-NEXT:    [[__R_2_I]] = phi i64 [ [[ADD28_I]], [[IF_END31_I]] ], [ [[__R_0_I]], [[IF_ELSE17_I]] ]
-// CHECK-NEXT:    [[COND_I:%.*]] = phi i1 [ true, [[IF_END31_I]] ], [ false, [[IF_ELSE17_I]] ]
+// CHECK-NEXT:    [[__TAGP_ADDR_1_I]] = phi ptr [ [[INCDEC_PTR_I]], [[IF_END61_I]] ], [ [[__TAGP_ADDR_0_I]], [[IF_ELSE38_I]] ]
+// CHECK-NEXT:    [[__R_2_I]] = phi i64 [ [[ADD58_I]], [[IF_END61_I]] ], [ [[__R_0_I]], [[IF_ELSE38_I]] ]
+// CHECK-NEXT:    [[COND_I:%.*]] = phi i1 [ true, [[IF_END61_I]] ], [ false, [[IF_ELSE38_I]] ]
 // CHECK-NEXT:    br i1 [[COND_I]], label [[WHILE_COND_I]], label [[_ZL22__MAKE_MANTISSA_BASE16PKC_EXIT]], !llvm.loop [[LOOP11:![0-9]+]]
 // CHECK:       _ZL22__make_mantissa_base16PKc.exit:
 // CHECK-NEXT:    [[RETVAL_2_I:%.*]] = phi i64 [ 0, [[CLEANUP_I]] ], [ [[__R_0_I]], [[WHILE_COND_I]] ]
@@ -139,47 +139,47 @@ extern "C" __device__ uint64_t test___make_mantissa_base16(const char *p) {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[P:%.*]], align 1, !tbaa [[TBAA4]]
 // CHECK-NEXT:    [[CMP_I:%.*]] = icmp eq i8 [[TMP0]], 48
-// CHECK-NEXT:    br i1 [[CMP_I]], label [[IF_THEN_I:%.*]], label [[WHILE_COND_I14_I:%.*]]
+// CHECK-NEXT:    br i1 [[CMP_I]], label [[IF_THEN_I:%.*]], label [[WHILE_COND_I23_I:%.*]]
 // CHECK:       if.then.i:
 // CHECK-NEXT:    [[INCDEC_PTR_I:%.*]] = getelementptr inbounds nuw i8, ptr [[P]], i64 1
 // CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr [[INCDEC_PTR_I]], align 1, !tbaa [[TBAA4]]
 // CHECK-NEXT:    switch i8 [[TMP1]], label [[WHILE_COND_I_I:%.*]] [
-// CHECK-NEXT:      i8 120, label [[WHILE_COND_I30_I_PREHEADER:%.*]]
-// CHECK-NEXT:      i8 88, label [[WHILE_COND_I30_I_PREHEADER]]
+// CHECK-NEXT:      i8 120, label [[WHILE_COND_I42_I_PREHEADER:%.*]]
+// CHECK-NEXT:      i8 88, label [[WHILE_COND_I42_I_PREHEADER]]
 // CHECK-NEXT:    ]
-// CHECK:       while.cond.i30.i.preheader:
-// CHECK-NEXT:    br label [[WHILE_COND_I30_I:%.*]]
-// CHECK:       while.cond.i30.i:
-// CHECK-NEXT:    [[__TAGP_ADDR_0_I31_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I37_I:%.*]], [[CLEANUP_I36_I:%.*]] ], [ [[INCDEC_PTR_I]], [[WHILE_COND_I30_I_PREHEADER]] ]
-// CHECK-NEXT:    [[__R_0_I32_I:%.*]] = phi i64 [ [[__R_2_I_I:%.*]], [[CLEANUP_I36_I]] ], [ 0, [[WHILE_COND_I30_I_PREHEADER]] ]
-// CHECK-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I31_I]], align 1, !tbaa [[TBAA4]]
-// CHECK-NEXT:    [[CMP_NOT_I33_I:%.*]] = icmp eq i8 [[TMP2]], 0
-// CHECK-NEXT:    br i1 [[CMP_NOT_I33_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT:%.*]], label [[WHILE_BODY_I34_I:%.*]]
-// CHECK:       while.body.i34.i:
+// CHECK:       while.cond.i42.i.preheader:
+// CHECK-NEXT:    br label [[WHILE_COND_I42_I:%.*]]
+// CHECK:       while.cond.i42.i:
+// CHECK-NEXT:    [[__TAGP_ADDR_0_I43_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I51_I:%.*]], [[CLEANUP_I50_I:%.*]] ], [ [[INCDEC_PTR_I]], [[WHILE_COND_I42_I_PREHEADER]] ]
+// CHECK-NEXT:    [[__R_0_I44_I:%.*]] = phi i64 [ [[__R_2_I_I:%.*]], [[CLEANUP_I50_I]] ], [ 0, [[WHILE_COND_I42_I_PREHEADER]] ]
+// CHECK-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I43_I]], align 1, !tbaa [[TBAA4]]
+// CHECK-NEXT:    [[CMP_NOT_I45_I:%.*]] = icmp eq i8 [[TMP2]], 0
+// CHECK-NEXT:    br i1 [[CMP_NOT_I45_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT:%.*]], label [[WHILE_BODY_I46_I:%.*]]
+// CHECK:       while.body.i46.i:
 // CHECK-NEXT:    [[TMP3:%.*]] = add i8 [[TMP2]], -48
-// CHECK-NEXT:    [[OR_COND_I35_I:%.*]] = icmp ult i8 [[TMP3]], 10
-// CHECK-NEXT:    br i1 [[OR_COND_I35_I]], label [[IF_END31_I_I:%.*]], label [[IF_ELSE_I_I:%.*]]
+// CHECK-NEXT:    [[OR_COND_I49_I:%.*]] = icmp ult i8 [[TMP3]], 10
+// CHECK-NEXT:    br i1 [[OR_COND_I49_I]], label [[IF_END61_I_I:%.*]], label [[IF_ELSE_I_I:%.*]]
 // CHECK:       if.else.i.i:
 // CHECK-NEXT:    [[TMP4:%.*]] = add i8 [[TMP2]], -97
-// CHECK-NEXT:    [[OR_COND33_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
-// CHECK-NEXT:    br i1 [[OR_COND33_I_I]], label [[IF_END31_I_I]], label [[IF_ELSE17_I_I:%.*]]
-// CHECK:       if.else17.i.i:
+// CHECK-NEXT:    [[OR_COND76_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
+// CHECK-NEXT:    br i1 [[OR_COND76_I_I]], label [[IF_END61_I_I]], label [[IF_ELSE38_I_I:%.*]]
+// CHECK:       if.else38.i.i:
 // CHECK-NEXT:    [[TMP5:%.*]] = add i8 [[TMP2]], -65
-// CHECK-NEXT:    [[OR_COND34_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
-// CHECK-NEXT:    br i1 [[OR_COND34_I_I]], label [[IF_END31_I_I]], label [[CLEANUP_I36_I]]
-// CHECK:       if.end31.i.i:
-// CHECK-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I34_I]] ], [ -87, [[IF_ELSE_I_I]] ], [ -55, [[IF_ELSE17_I_I]] ]
-// CHECK-NEXT:    [[MUL24_I_I:%.*]] = shl i64 [[__R_0_I32_I]], 4
-// CHECK-NEXT:    [[CONV25_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
-// CHECK-NEXT:    [[ADD26_I_I:%.*]] = add i64 [[MUL24_I_I]], [[DOTSINK]]
-// CHECK-NEXT:    [[ADD28_I_I:%.*]] = add i64 [[ADD26_I_I]], [[CONV25_I_I]]
-// CHECK-NEXT:    [[INCDEC_PTR_I40_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I31_I]], i64 1
-// CHECK-NEXT:    br label [[CLEANUP_I36_I]]
-// CHECK:       cleanup.i36.i:
-// CHECK-NEXT:    [[__TAGP_ADDR_1_I37_I]] = phi ptr [ [[INCDEC_PTR_I40_I]], [[IF_END31_I_I]] ], [ [[__TAGP_ADDR_0_I31_I]], [[IF_ELSE17_I_I]] ]
-// CHECK-NEXT:    [[__R_2_I_I]] = phi i64 [ [[ADD28_I_I]], [[IF_END31_I_I]] ], [ [[__R_0_I32_I]], [[IF_ELSE17_I_I]] ]
-// CHECK-NEXT:    [[COND_I_I:%.*]] = phi i1 [ true, [[IF_END31_I_I]] ], [ false, [[IF_ELSE17_I_I]] ]
-// CHECK-NEXT:    br i1 [[COND_I_I]], label [[WHILE_COND_I30_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT]], !llvm.loop [[LOOP11]]
+// CHECK-NEXT:    [[OR_COND77_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
+// CHECK-NEXT:    br i1 [[OR_COND77_I_I]], label [[IF_END61_I_I]], label [[CLEANUP_I50_I]]
+// CHECK:       if.end61.i.i:
+// CHECK-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I46_I]] ], [ -87, [[IF_ELSE_I_I]] ], [ -55, [[IF_ELSE38_I_I]] ]
+// CHECK-NEXT:    [[MUL51_I_I:%.*]] = shl i64 [[__R_0_I44_I]], 4
+// CHECK-NEXT:    [[CONV53_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
+// CHECK-NEXT:    [[ADD54_I_I:%.*]] = add i64 [[MUL51_I_I]], [[DOTSINK]]
+// CHECK-NEXT:    [[ADD58_I_I:%.*]] = add i64 [[ADD54_I_I]], [[CONV53_I_I]]
+// CHECK-NEXT:    [[INCDEC_PTR_I55_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I43_I]], i64 1
+// CHECK-NEXT:    br label [[CLEANUP_I50_I]]
+// CHECK:       cleanup.i50.i:
+// CHECK-NEXT:    [[__TAGP_ADDR_1_I51_I]] = phi ptr [ [[INCDEC_PTR_I55_I]], [[IF_END61_I_I]] ], [ [[__TAGP_ADDR_0_I43_I]], [[IF_ELSE38_I_I]] ]
+// CHECK-NEXT:    [[__R_2_I_I]] = phi i64 [ [[ADD58_I_I]], [[IF_END61_I_I]] ], [ [[__R_0_I44_I]], [[IF_ELSE38_I_I]] ]
+// CHECK-NEXT:    [[COND_I52_I:%.*]] = phi i1 [ true, [[IF_END61_I_I]] ], [ false, [[IF_ELSE38_I_I]] ]
+// CHECK-NEXT:    br i1 [[COND_I52_I]], label [[WHILE_COND_I42_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT]], !llvm.loop [[LOOP11]]
 // CHECK:       while.cond.i.i:
 // CHECK-NEXT:    [[__TAGP_ADDR_0_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I_I:%.*]], [[CLEANUP_I_I:%.*]] ], [ [[INCDEC_PTR_I]], [[IF_THEN_I]] ]
 // CHECK-NEXT:    [[__R_0_I_I:%.*]] = phi i64 [ [[__R_1_I_I:%.*]], [[CLEANUP_I_I]] ], [ 0, [[IF_THEN_I]] ]
@@ -192,38 +192,38 @@ extern "C" __device__ uint64_t test___make_mantissa_base16(const char *p) {
 // CHECK-NEXT:    br i1 [[OR_COND_I_I]], label [[IF_THEN_I_I:%.*]], label [[CLEANUP_I_I]]
 // CHECK:       if.then.i.i:
 // CHECK-NEXT:    [[MUL_I_I:%.*]] = shl i64 [[__R_0_I_I]], 3
-// CHECK-NEXT:    [[CONV5_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
+// CHECK-NEXT:    [[CONV15_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
 // CHECK-NEXT:    [[ADD_I_I:%.*]] = add i64 [[MUL_I_I]], -48
-// CHECK-NEXT:    [[SUB_I_I:%.*]] = add i64 [[ADD_I_I]], [[CONV5_I_I]]
+// CHECK-NEXT:    [[SUB_I_I:%.*]] = add i64 [[ADD_I_I]], [[CONV15_I_I]]
 // CHECK-NEXT:    [[INCDEC_PTR_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I_I]], i64 1
 // CHECK-NEXT:    br label [[CLEANUP_I_I]]
 // CHECK:       cleanup.i.i:
 // CHECK-NEXT:    [[__TAGP_ADDR_1_I_I]] = phi ptr [ [[INCDEC_PTR_I_I]], [[IF_THEN_I_I]] ], [ [[__TAGP_ADDR_0_I_I]], [[WHILE_BODY_I_I]] ]
 // CHECK-NEXT:    [[__R_1_I_I]] = phi i64 [ [[SUB_I_I]], [[IF_THEN_I_I]] ], [ [[__R_0_I_I]], [[WHILE_BODY_I_I]] ]
 // CHECK-NEXT:    br i1 [[OR_COND_I_I]], label [[WHILE_COND_I_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT]], !llvm.loop [[LOOP7]]
-// CHECK:       while.cond.i14.i:
-// CHECK-NEXT:    [[__TAGP_ADDR_0_I15_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I21_I:%.*]], [[CLEANUP_I20_I:%.*]] ], [ [[P]], [[ENTRY:%.*]] ]
-// CHECK-NEXT:    [[__R_0_I16_I:%.*]] = phi i64 [ [[__R_1_I22_I:%.*]], [[CLEANUP_I20_I]] ], [ 0, [[ENTRY]] ]
-// CHECK-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I15_I]], align 1, !tbaa [[TBAA4]]
-// CHECK-NEXT:    [[CMP_NOT_I17_I:%.*]] = icmp eq i8 [[TMP8]], 0
-// CHECK-NEXT:    br i1 [[CMP_NOT_I17_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT]], label [[WHILE_BODY_I18_I:%.*]]
-// CHECK:       while.body.i18.i:
+// CHECK:       while.cond.i23.i:
+// CHECK-NEXT:    [[__TAGP_ADDR_0_I24_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I32_I:%.*]], [[CLEANUP_I31_I:%.*]] ], [ [[P]], [[ENTRY:%.*]] ]
+// CHECK-NEXT:    [[__R_0_I25_I:%.*]] = phi i64 [ [[__R_1_I33_I:%.*]], [[CLEANUP_I31_I]] ], [ 0, [[ENTRY]] ]
+// CHECK-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I24_I]], align 1, !tbaa [[TBAA4]]
+// CHECK-NEXT:    [[CMP_NOT_I26_I:%.*]] = icmp eq i8 [[TMP8]], 0
+// CHECK-NEXT:    br i1 [[CMP_NOT_I26_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT]], label [[WHILE_BODY_I27_I:%.*]]
+// CHECK:       while.body.i27.i:
 // CHECK-NEXT:    [[TMP9:%.*]] = add i8 [[TMP8]], -48
-// CHECK-NEXT:    [[OR_COND_I19_I:%.*]] = icmp ult i8 [[TMP9]], 10
-// CHECK-NEXT:    br i1 [[OR_COND_I19_I]], label [[IF_THEN_I24_I:%.*]], label [[CLEANUP_I20_I]]
-// CHECK:       if.then.i24.i:
-// CHECK-NEXT:    [[MUL_I25_I:%.*]] = mul i64 [[__R_0_I16_I]], 10
-// CHECK-NEXT:    [[CONV5_I26_I:%.*]] = zext nneg i8 [[TMP8]] to i64
-// CHECK-NEXT:    [[ADD_I27_I:%.*]] = add i64 [[MUL_I25_I]], -48
-// CHECK-NEXT:    [[SUB_I28_I:%.*]] = add i64 [[ADD_I27_I]], [[CONV5_I26_I]]
-// CHECK-NEXT:    [[INCDEC_PTR_I29_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I15_I]], i64 1
-// CHECK-NEXT:    br label [[CLEANUP_I20_I]]
-// CHECK:       cleanup.i20.i:
-// CHECK-NEXT:    [[__TAGP_ADDR_1_I21_I]] = phi ptr [ [[INCDEC_PTR_I29_I]], [[IF_THEN_I24_I]] ], [ [[__TAGP_ADDR_0_I15_I]], [[WHILE_BODY_I18_I]] ]
-// CHECK-NEXT:    [[__R_1_I22_I]] = phi i64 [ [[SUB_I28_I]], [[IF_THEN_I24_I]] ], [ [[__R_0_I16_I]], [[WHILE_BODY_I18_I]] ]
-// CHECK-NEXT:    br i1 [[OR_COND_I19_I]], label [[WHILE_COND_I14_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT]], !llvm.loop [[LOOP10]]
+// CHECK-NEXT:    [[OR_COND_I30_I:%.*]] = icmp ult i8 [[TMP9]], 10
+// CHECK-NEXT:    br i1 [[OR_COND_I30_I]], label [[IF_THEN_I36_I:%.*]], label [[CLEANUP_I31_I]]
+// CHECK:       if.then.i36.i:
+// CHECK-NEXT:    [[MUL_I37_I:%.*]] = mul i64 [[__R_0_I25_I]], 10
+// CHECK-NEXT:    [[CONV15_I38_I:%.*]] = zext nneg i8 [[TMP8]] to i64
+// CHECK-NEXT:    [[ADD_I39_I:%.*]] = add i64 [[MUL_I37_I]], -48
+// CHECK-NEXT:    [[SUB_I40_I:%.*]] = add i64 [[ADD_I39_I]], [[CONV15_I38_I]]
+// CHECK-NEXT:    [[INCDEC_PTR_I41_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I24_I]], i64 1
+// CHECK-NEXT:    br label [[CLEANUP_I31_I]]
+// CHECK:       cleanup.i31.i:
+// CHECK-NEXT:    [[__TAGP_ADDR_1_I32_I]] = phi ptr [ [[INCDEC_PTR_I41_I]], [[IF_THEN_I36_I]] ], [ [[__TAGP_ADDR_0_I24_I]], [[WHILE_BODY_I27_I]] ]
+// CHECK-NEXT:    [[__R_1_I33_I]] = phi i64 [ [[SUB_I40_I]], [[IF_THEN_I36_I]] ], [ [[__R_0_I25_I]], [[WHILE_BODY_I27_I]] ]
+// CHECK-NEXT:    br i1 [[OR_COND_I30_I]], label [[WHILE_COND_I23_I]], label [[_ZL15__MAKE_MANTISSAPKC_EXIT]], !llvm.loop [[LOOP10]]
 // CHECK:       _ZL15__make_mantissaPKc.exit:
-// CHECK-NEXT:    [[RETVAL_0_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I]] ], [ [[__R_0_I_I]], [[WHILE_COND_I_I]] ], [ 0, [[CLEANUP_I36_I]] ], [ [[__R_0_I32_I]], [[WHILE_COND_I30_I]] ], [ 0, [[CLEANUP_I20_I]] ], [ [[__R_0_I16_I]], [[WHILE_COND_I14_I]] ]
+// CHECK-NEXT:    [[RETVAL_0_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I]] ], [ [[__R_0_I_I]], [[WHILE_COND_I_I]] ], [ 0, [[CLEANUP_I50_I]] ], [ [[__R_0_I44_I]], [[WHILE_COND_I42_I]] ], [ 0, [[CLEANUP_I31_I]] ], [ [[__R_0_I25_I]], [[WHILE_COND_I23_I]] ]
 // CHECK-NEXT:    ret i64 [[RETVAL_0_I]]
 //
 extern "C" __device__ uint64_t test___make_mantissa(const char *p) {
@@ -2365,47 +2365,47 @@ extern "C" __device__ double test_modf(double x, double* y) {
 // DEFAULT-NEXT:  entry:
 // DEFAULT-NEXT:    [[TMP0:%.*]] = load i8, ptr [[TAG:%.*]], align 1, !tbaa [[TBAA4]]
 // DEFAULT-NEXT:    [[CMP_I_I:%.*]] = icmp eq i8 [[TMP0]], 48
-// DEFAULT-NEXT:    br i1 [[CMP_I_I]], label [[IF_THEN_I_I:%.*]], label [[WHILE_COND_I14_I_I:%.*]]
+// DEFAULT-NEXT:    br i1 [[CMP_I_I]], label [[IF_THEN_I_I:%.*]], label [[WHILE_COND_I23_I_I:%.*]]
 // DEFAULT:       if.then.i.i:
 // DEFAULT-NEXT:    [[INCDEC_PTR_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[TAG]], i64 1
 // DEFAULT-NEXT:    [[TMP1:%.*]] = load i8, ptr [[INCDEC_PTR_I_I]], align 1, !tbaa [[TBAA4]]
 // DEFAULT-NEXT:    switch i8 [[TMP1]], label [[WHILE_COND_I_I_I:%.*]] [
-// DEFAULT-NEXT:      i8 120, label [[WHILE_COND_I30_I_I_PREHEADER:%.*]]
-// DEFAULT-NEXT:      i8 88, label [[WHILE_COND_I30_I_I_PREHEADER]]
+// DEFAULT-NEXT:      i8 120, label [[WHILE_COND_I42_I_I_PREHEADER:%.*]]
+// DEFAULT-NEXT:      i8 88, label [[WHILE_COND_I42_I_I_PREHEADER]]
 // DEFAULT-NEXT:    ]
-// DEFAULT:       while.cond.i30.i.i.preheader:
-// DEFAULT-NEXT:    br label [[WHILE_COND_I30_I_I:%.*]]
-// DEFAULT:       while.cond.i30.i.i:
-// DEFAULT-NEXT:    [[__TAGP_ADDR_0_I31_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I37_I_I:%.*]], [[CLEANUP_I36_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[WHILE_COND_I30_I_I_PREHEADER]] ]
-// DEFAULT-NEXT:    [[__R_0_I32_I_I:%.*]] = phi i64 [ [[__R_2_I_I_I:%.*]], [[CLEANUP_I36_I_I]] ], [ 0, [[WHILE_COND_I30_I_I_PREHEADER]] ]
-// DEFAULT-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I31_I_I]], align 1, !tbaa [[TBAA4]]
-// DEFAULT-NEXT:    [[CMP_NOT_I33_I_I:%.*]] = icmp eq i8 [[TMP2]], 0
-// DEFAULT-NEXT:    br i1 [[CMP_NOT_I33_I_I]], label [[_ZL4NANFPKC_EXIT:%.*]], label [[WHILE_BODY_I34_I_I:%.*]]
-// DEFAULT:       while.body.i34.i.i:
+// DEFAULT:       while.cond.i42.i.i.preheader:
+// DEFAULT-NEXT:    br label [[WHILE_COND_I42_I_I:%.*]]
+// DEFAULT:       while.cond.i42.i.i:
+// DEFAULT-NEXT:    [[__TAGP_ADDR_0_I43_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I51_I_I:%.*]], [[CLEANUP_I50_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[WHILE_COND_I42_I_I_PREHEADER]] ]
+// DEFAULT-NEXT:    [[__R_0_I44_I_I:%.*]] = phi i64 [ [[__R_2_I_I_I:%.*]], [[CLEANUP_I50_I_I]] ], [ 0, [[WHILE_COND_I42_I_I_PREHEADER]] ]
+// DEFAULT-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I43_I_I]], align 1, !tbaa [[TBAA4]]
+// DEFAULT-NEXT:    [[CMP_NOT_I45_I_I:%.*]] = icmp eq i8 [[TMP2]], 0
+// DEFAULT-NEXT:    br i1 [[CMP_NOT_I45_I_I]], label [[_ZL4NANFPKC_EXIT:%.*]], label [[WHILE_BODY_I46_I_I:%.*]]
+// DEFAULT:       while.body.i46.i.i:
 // DEFAULT-NEXT:    [[TMP3:%.*]] = add i8 [[TMP2]], -48
-// DEFAULT-NEXT:    [[OR_COND_I35_I_I:%.*]] = icmp ult i8 [[TMP3]], 10
-// DEFAULT-NEXT:    br i1 [[OR_COND_I35_I_I]], label [[IF_END31_I_I_I:%.*]], label [[IF_ELSE_I_I_I:%.*]]
+// DEFAULT-NEXT:    [[OR_COND_I49_I_I:%.*]] = icmp ult i8 [[TMP3]], 10
+// DEFAULT-NEXT:    br i1 [[OR_COND_I49_I_I]], label [[IF_END61_I_I_I:%.*]], label [[IF_ELSE_I_I_I:%.*]]
 // DEFAULT:       if.else.i.i.i:
 // DEFAULT-NEXT:    [[TMP4:%.*]] = add i8 [[TMP2]], -97
-// DEFAULT-NEXT:    [[OR_COND33_I_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
-// DEFAULT-NEXT:    br i1 [[OR_COND33_I_I_I]], label [[IF_END31_I_I_I]], label [[IF_ELSE17_I_I_I:%.*]]
-// DEFAULT:       if.else17.i.i.i:
+// DEFAULT-NEXT:    [[OR_COND76_I_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
+// DEFAULT-NEXT:    br i1 [[OR_COND76_I_I_I]], label [[IF_END61_I_I_I]], label [[IF_ELSE38_I_I_I:%.*]]
+// DEFAULT:       if.else38.i.i.i:
 // DEFAULT-NEXT:    [[TMP5:%.*]] = add i8 [[TMP2]], -65
-// DEFAULT-NEXT:    [[OR_COND34_I_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
-// DEFAULT-NEXT:    br i1 [[OR_COND34_I_I_I]], label [[IF_END31_I_I_I]], label [[CLEANUP_I36_I_I]]
-// DEFAULT:       if.end31.i.i.i:
-// DEFAULT-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I34_I_I]] ], [ -87, [[IF_ELSE_I_I_I]] ], [ -55, [[IF_ELSE17_I_I_I]] ]
-// DEFAULT-NEXT:    [[MUL24_I_I_I:%.*]] = shl i64 [[__R_0_I32_I_I]], 4
-// DEFAULT-NEXT:    [[CONV25_I_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
-// DEFAULT-NEXT:    [[ADD26_I_I_I:%.*]] = add i64 [[MUL24_I_I_I]], [[DOTSINK]]
-// DEFAULT-NEXT:    [[ADD28_I_I_I:%.*]] = add i64 [[ADD26_I_I_I]], [[CONV25_I_I_I]]
-// DEFAULT-NEXT:    [[INCDEC_PTR_I40_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I31_I_I]], i64 1
-// DEFAULT-NEXT:    br label [[CLEANUP_I36_I_I]]
-// DEFAULT:       cleanup.i36.i.i:
-// DEFAULT-NEXT:    [[__TAGP_ADDR_1_I37_I_I]] = phi ptr [ [[INCDEC_PTR_I40_I_I]], [[IF_END31_I_I_I]] ], [ [[__TAGP_ADDR_0_I31_I_I]], [[IF_ELSE17_I_I_I]] ]
-// DEFAULT-NEXT:    [[__R_2_I_I_I]] = phi i64 [ [[ADD28_I_I_I]], [[IF_END31_I_I_I]] ], [ [[__R_0_I32_I_I]], [[IF_ELSE17_I_I_I]] ]
-// DEFAULT-NEXT:    [[COND_I_I_I:%.*]] = phi i1 [ true, [[IF_END31_I_I_I]] ], [ false, [[IF_ELSE17_I_I_I]] ]
-// DEFAULT-NEXT:    br i1 [[COND_I_I_I]], label [[WHILE_COND_I30_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP11]]
+// DEFAULT-NEXT:    [[OR_COND77_I_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
+// DEFAULT-NEXT:    br i1 [[OR_COND77_I_I_I]], label [[IF_END61_I_I_I]], label [[CLEANUP_I50_I_I]]
+// DEFAULT:       if.end61.i.i.i:
+// DEFAULT-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I46_I_I]] ], [ -87, [[IF_ELSE_I_I_I]] ], [ -55, [[IF_ELSE38_I_I_I]] ]
+// DEFAULT-NEXT:    [[MUL51_I_I_I:%.*]] = shl i64 [[__R_0_I44_I_I]], 4
+// DEFAULT-NEXT:    [[CONV53_I_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
+// DEFAULT-NEXT:    [[ADD54_I_I_I:%.*]] = add i64 [[MUL51_I_I_I]], [[DOTSINK]]
+// DEFAULT-NEXT:    [[ADD58_I_I_I:%.*]] = add i64 [[ADD54_I_I_I]], [[CONV53_I_I_I]]
+// DEFAULT-NEXT:    [[INCDEC_PTR_I55_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I43_I_I]], i64 1
+// DEFAULT-NEXT:    br label [[CLEANUP_I50_I_I]]
+// DEFAULT:       cleanup.i50.i.i:
+// DEFAULT-NEXT:    [[__TAGP_ADDR_1_I51_I_I]] = phi ptr [ [[INCDEC_PTR_I55_I_I]], [[IF_END61_I_I_I]] ], [ [[__TAGP_ADDR_0_I43_I_I]], [[IF_ELSE38_I_I_I]] ]
+// DEFAULT-NEXT:    [[__R_2_I_I_I]] = phi i64 [ [[ADD58_I_I_I]], [[IF_END61_I_I_I]] ], [ [[__R_0_I44_I_I]], [[IF_ELSE38_I_I_I]] ]
+// DEFAULT-NEXT:    [[COND_I52_I_I:%.*]] = phi i1 [ true, [[IF_END61_I_I_I]] ], [ false, [[IF_ELSE38_I_I_I]] ]
+// DEFAULT-NEXT:    br i1 [[COND_I52_I_I]], label [[WHILE_COND_I42_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP11]]
 // DEFAULT:       while.cond.i.i.i:
 // DEFAULT-NEXT:    [[__TAGP_ADDR_0_I_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I_I_I:%.*]], [[CLEANUP_I_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[IF_THEN_I_I]] ]
 // DEFAULT-NEXT:    [[__R_0_I_I_I:%.*]] = phi i64 [ [[__R_1_I_I_I:%.*]], [[CLEANUP_I_I_I]] ], [ 0, [[IF_THEN_I_I]] ]
@@ -2418,38 +2418,38 @@ extern "C" __device__ double test_modf(double x, double* y) {
 // DEFAULT-NEXT:    br i1 [[OR_COND_I_I_I]], label [[IF_THEN_I_I_I:%.*]], label [[CLEANUP_I_I_I]]
 // DEFAULT:       if.then.i.i.i:
 // DEFAULT-NEXT:    [[MUL_I_I_I:%.*]] = shl i64 [[__R_0_I_I_I]], 3
-// DEFAULT-NEXT:    [[CONV5_I_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
+// DEFAULT-NEXT:    [[CONV15_I_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
 // DEFAULT-NEXT:    [[ADD_I_I_I:%.*]] = add i64 [[MUL_I_I_I]], -48
-// DEFAULT-NEXT:    [[SUB_I_I_I:%.*]] = add i64 [[ADD_I_I_I]], [[CONV5_I_I_I]]
+// DEFAULT-NEXT:    [[SUB_I_I_I:%.*]] = add i64 [[ADD_I_I_I]], [[CONV15_I_I_I]]
 // DEFAULT-NEXT:    [[INCDEC_PTR_I_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I_I_I]], i64 1
 // DEFAULT-NEXT:    br label [[CLEANUP_I_I_I]]
 // DEFAULT:       cleanup.i.i.i:
 // DEFAULT-NEXT:    [[__TAGP_ADDR_1_I_I_I]] = phi ptr [ [[INCDEC_PTR_I_I_I]], [[IF_THEN_I_I_I]] ], [ [[__TAGP_ADDR_0_I_I_I]], [[WHILE_BODY_I_I_I]] ]
 // DEFAULT-NEXT:    [[__R_1_I_I_I]] = phi i64 [ [[SUB_I_I_I]], [[IF_THEN_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_BODY_I_I_I]] ]
 // DEFAULT-NEXT:    br i1 [[OR_COND_I_I_I]], label [[WHILE_COND_I_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP7]]
-// DEFAULT:       while.cond.i14.i.i:
-// DEFAULT-NEXT:    [[__TAGP_ADDR_0_I15_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I21_I_I:%.*]], [[CLEANUP_I20_I_I:%.*]] ], [ [[TAG]], [[ENTRY:%.*]] ]
-// DEFAULT-NEXT:    [[__R_0_I16_I_I:%.*]] = phi i64 [ [[__R_1_I22_I_I:%.*]], [[CLEANUP_I20_I_I]] ], [ 0, [[ENTRY]] ]
-// DEFAULT-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I15_I_I]], align 1, !tbaa [[TBAA4]]
-// DEFAULT-NEXT:    [[CMP_NOT_I17_I_I:%.*]] = icmp eq i8 [[TMP8]], 0
-// DEFAULT-NEXT:    br i1 [[CMP_NOT_I17_I_I]], label [[_ZL4NANFPKC_EXIT]], label [[WHILE_BODY_I18_I_I:%.*]]
-// DEFAULT:       while.body.i18.i.i:
+// DEFAULT:       while.cond.i23.i.i:
+// DEFAULT-NEXT:    [[__TAGP_ADDR_0_I24_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I32_I_I:%.*]], [[CLEANUP_I31_I_I:%.*]] ], [ [[TAG]], [[ENTRY:%.*]] ]
+// DEFAULT-NEXT:    [[__R_0_I25_I_I:%.*]] = phi i64 [ [[__R_1_I33_I_I:%.*]], [[CLEANUP_I31_I_I]] ], [ 0, [[ENTRY]] ]
+// DEFAULT-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I24_I_I]], align 1, !tbaa [[TBAA4]]
+// DEFAULT-NEXT:    [[CMP_NOT_I26_I_I:%.*]] = icmp eq i8 [[TMP8]], 0
+// DEFAULT-NEXT:    br i1 [[CMP_NOT_I26_I_I]], label [[_ZL4NANFPKC_EXIT]], label [[WHILE_BODY_I27_I_I:%.*]]
+// DEFAULT:       while.body.i27.i.i:
 // DEFAULT-NEXT:    [[TMP9:%.*]] = add i8 [[TMP8]], -48
-// DEFAULT-NEXT:    [[OR_COND_I19_I_I:%.*]] = icmp ult i8 [[TMP9]], 10
-// DEFAULT-NEXT:    br i1 [[OR_COND_I19_I_I]], label [[IF_THEN_I24_I_I:%.*]], label [[CLEANUP_I20_I_I]]
-// DEFAULT:       if.then.i24.i.i:
-// DEFAULT-NEXT:    [[MUL_I25_I_I:%.*]] = mul i64 [[__R_0_I16_I_I]], 10
-// DEFAULT-NEXT:    [[CONV5_I26_I_I:%.*]] = zext nneg i8 [[TMP8]] to i64
-// DEFAULT-NEXT:    [[ADD_I27_I_I:%.*]] = add i64 [[MUL_I25_I_I]], -48
-// DEFAULT-NEXT:    [[SUB_I28_I_I:%.*]] = add i64 [[ADD_I27_I_I]], [[CONV5_I26_I_I]]
-// DEFAULT-NEXT:    [[INCDEC_PTR_I29_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I15_I_I]], i64 1
-// DEFAULT-NEXT:    br label [[CLEANUP_I20_I_I]]
-// DEFAULT:       cleanup.i20.i.i:
-// DEFAULT-NEXT:    [[__TAGP_ADDR_1_I21_I_I]] = phi ptr [ [[INCDEC_PTR_I29_I_I]], [[IF_THEN_I24_I_I]] ], [ [[__TAGP_ADDR_0_I15_I_I]], [[WHILE_BODY_I18_I_I]] ]
-// DEFAULT-NEXT:    [[__R_1_I22_I_I]] = phi i64 [ [[SUB_I28_I_I]], [[IF_THEN_I24_I_I]] ], [ [[__R_0_I16_I_I]], [[WHILE_BODY_I18_I_I]] ]
-// DEFAULT-NEXT:    br i1 [[OR_COND_I19_I_I]], label [[WHILE_COND_I14_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP10]]
+// DEFAULT-NEXT:    [[OR_COND_I30_I_I:%.*]] = icmp ult i8 [[TMP9]], 10
+// DEFAULT-NEXT:    br i1 [[OR_COND_I30_I_I]], label [[IF_THEN_I36_I_I:%.*]], label [[CLEANUP_I31_I_I]]
+// DEFAULT:       if.then.i36.i.i:
+// DEFAULT-NEXT:    [[MUL_I37_I_I:%.*]] = mul i64 [[__R_0_I25_I_I]], 10
+// DEFAULT-NEXT:    [[CONV15_I38_I_I:%.*]] = zext nneg i8 [[TMP8]] to i64
+// DEFAULT-NEXT:    [[ADD_I39_I_I:%.*]] = add i64 [[MUL_I37_I_I]], -48
+// DEFAULT-NEXT:    [[SUB_I40_I_I:%.*]] = add i64 [[ADD_I39_I_I]], [[CONV15_I38_I_I]]
+// DEFAULT-NEXT:    [[INCDEC_PTR_I41_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I24_I_I]], i64 1
+// DEFAULT-NEXT:    br label [[CLEANUP_I31_I_I]]
+// DEFAULT:       cleanup.i31.i.i:
+// DEFAULT-NEXT:    [[__TAGP_ADDR_1_I32_I_I]] = phi ptr [ [[INCDEC_PTR_I41_I_I]], [[IF_THEN_I36_I_I]] ], [ [[__TAGP_ADDR_0_I24_I_I]], [[WHILE_BODY_I27_I_I]] ]
+// DEFAULT-NEXT:    [[__R_1_I33_I_I]] = phi i64 [ [[SUB_I40_I_I]], [[IF_THEN_I36_I_I]] ], [ [[__R_0_I25_I_I]], [[WHILE_BODY_I27_I_I]] ]
+// DEFAULT-NEXT:    br i1 [[OR_COND_I30_I_I]], label [[WHILE_COND_I23_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP10]]
 // DEFAULT:       _ZL4nanfPKc.exit:
-// DEFAULT-NEXT:    [[RETVAL_0_I_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_COND_I_I_I]] ], [ 0, [[CLEANUP_I36_I_I]] ], [ [[__R_0_I32_I_I]], [[WHILE_COND_I30_I_I]] ], [ 0, [[CLEANUP_I20_I_I]] ], [ [[__R_0_I16_I_I]], [[WHILE_COND_I14_I_I]] ]
+// DEFAULT-NEXT:    [[RETVAL_0_I_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_COND_I_I_I]] ], [ 0, [[CLEANUP_I50_I_I]] ], [ [[__R_0_I44_I_I]], [[WHILE_COND_I42_I_I]] ], [ 0, [[CLEANUP_I31_I_I]] ], [ [[__R_0_I25_I_I]], [[WHILE_COND_I23_I_I]] ]
 // DEFAULT-NEXT:    [[CONV_I:%.*]] = trunc i64 [[RETVAL_0_I_I]] to i32
 // DEFAULT-NEXT:    [[BF_VALUE_I:%.*]] = and i32 [[CONV_I]], 4194303
 // DEFAULT-NEXT:    [[BF_SET9_I:%.*]] = or disjoint i32 [[BF_VALUE_I]], 2143289344
@@ -2464,47 +2464,47 @@ extern "C" __device__ double test_modf(double x, double* y) {
 // APPROX-NEXT:  entry:
 // APPROX-NEXT:    [[TMP0:%.*]] = load i8, ptr [[TAG:%.*]], align 1, !tbaa [[TBAA4]]
 // APPROX-NEXT:    [[CMP_I_I:%.*]] = icmp eq i8 [[TMP0]], 48
-// APPROX-NEXT:    br i1 [[CMP_I_I]], label [[IF_THEN_I_I:%.*]], label [[WHILE_COND_I14_I_I:%.*]]
+// APPROX-NEXT:    br i1 [[CMP_I_I]], label [[IF_THEN_I_I:%.*]], label [[WHILE_COND_I23_I_I:%.*]]
 // APPROX:       if.then.i.i:
 // APPROX-NEXT:    [[INCDEC_PTR_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[TAG]], i64 1
 // APPROX-NEXT:    [[TMP1:%.*]] = load i8, ptr [[INCDEC_PTR_I_I]], align 1, !tbaa [[TBAA4]]
 // APPROX-NEXT:    switch i8 [[TMP1]], label [[WHILE_COND_I_I_I:%.*]] [
-// APPROX-NEXT:      i8 120, label [[WHILE_COND_I30_I_I_PREHEADER:%.*]]
-// APPROX-NEXT:      i8 88, label [[WHILE_COND_I30_I_I_PREHEADER]]
+// APPROX-NEXT:      i8 120, label [[WHILE_COND_I42_I_I_PREHEADER:%.*]]
+// APPROX-NEXT:      i8 88, label [[WHILE_COND_I42_I_I_PREHEADER]]
 // APPROX-NEXT:    ]
-// APPROX:       while.cond.i30.i.i.preheader:
-// APPROX-NEXT:    br label [[WHILE_COND_I30_I_I:%.*]]
-// APPROX:       while.cond.i30.i.i:
-// APPROX-NEXT:    [[__TAGP_ADDR_0_I31_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I37_I_I:%.*]], [[CLEANUP_I36_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[WHILE_COND_I30_I_I_PREHEADER]] ]
-// APPROX-NEXT:    [[__R_0_I32_I_I:%.*]] = phi i64 [ [[__R_2_I_I_I:%.*]], [[CLEANUP_I36_I_I]] ], [ 0, [[WHILE_COND_I30_I_I_PREHEADER]] ]
-// APPROX-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I31_I_I]], align 1, !tbaa [[TBAA4]]
-// APPROX-NEXT:    [[CMP_NOT_I33_I_I:%.*]] = icmp eq i8 [[TMP2]], 0
-// APPROX-NEXT:    br i1 [[CMP_NOT_I33_I_I]], label [[_ZL4NANFPKC_EXIT:%.*]], label [[WHILE_BODY_I34_I_I:%.*]]
-// APPROX:       while.body.i34.i.i:
+// APPROX:       while.cond.i42.i.i.preheader:
+// APPROX-NEXT:    br label [[WHILE_COND_I42_I_I:%.*]]
+// APPROX:       while.cond.i42.i.i:
+// APPROX-NEXT:    [[__TAGP_ADDR_0_I43_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I51_I_I:%.*]], [[CLEANUP_I50_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[WHILE_COND_I42_I_I_PREHEADER]] ]
+// APPROX-NEXT:    [[__R_0_I44_I_I:%.*]] = phi i64 [ [[__R_2_I_I_I:%.*]], [[CLEANUP_I50_I_I]] ], [ 0, [[WHILE_COND_I42_I_I_PREHEADER]] ]
+// APPROX-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I43_I_I]], align 1, !tbaa [[TBAA4]]
+// APPROX-NEXT:    [[CMP_NOT_I45_I_I:%.*]] = icmp eq i8 [[TMP2]], 0
+// APPROX-NEXT:    br i1 [[CMP_NOT_I45_I_I]], label [[_ZL4NANFPKC_EXIT:%.*]], label [[WHILE_BODY_I46_I_I:%.*]]
+// APPROX:       while.body.i46.i.i:
 // APPROX-NEXT:    [[TMP3:%.*]] = add i8 [[TMP2]], -48
-// APPROX-NEXT:    [[OR_COND_I35_I_I:%.*]] = icmp ult i8 [[TMP3]], 10
-// APPROX-NEXT:    br i1 [[OR_COND_I35_I_I]], label [[IF_END31_I_I_I:%.*]], label [[IF_ELSE_I_I_I:%.*]]
+// APPROX-NEXT:    [[OR_COND_I49_I_I:%.*]] = icmp ult i8 [[TMP3]], 10
+// APPROX-NEXT:    br i1 [[OR_COND_I49_I_I]], label [[IF_END61_I_I_I:%.*]], label [[IF_ELSE_I_I_I:%.*]]
 // APPROX:       if.else.i.i.i:
 // APPROX-NEXT:    [[TMP4:%.*]] = add i8 [[TMP2]], -97
-// APPROX-NEXT:    [[OR_COND33_I_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
-// APPROX-NEXT:    br i1 [[OR_COND33_I_I_I]], label [[IF_END31_I_I_I]], label [[IF_ELSE17_I_I_I:%.*]]
-// APPROX:       if.else17.i.i.i:
+// APPROX-NEXT:    [[OR_COND76_I_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
+// APPROX-NEXT:    br i1 [[OR_COND76_I_I_I]], label [[IF_END61_I_I_I]], label [[IF_ELSE38_I_I_I:%.*]]
+// APPROX:       if.else38.i.i.i:
 // APPROX-NEXT:    [[TMP5:%.*]] = add i8 [[TMP2]], -65
-// APPROX-NEXT:    [[OR_COND34_I_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
-// APPROX-NEXT:    br i1 [[OR_COND34_I_I_I]], label [[IF_END31_I_I_I]], label [[CLEANUP_I36_I_I]]
-// APPROX:       if.end31.i.i.i:
-// APPROX-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I34_I_I]] ], [ -87, [[IF_ELSE_I_I_I]] ], [ -55, [[IF_ELSE17_I_I_I]] ]
-// APPROX-NEXT:    [[MUL24_I_I_I:%.*]] = shl i64 [[__R_0_I32_I_I]], 4
-// APPROX-NEXT:    [[CONV25_I_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
-// APPROX-NEXT:    [[ADD26_I_I_I:%.*]] = add i64 [[MUL24_I_I_I]], [[DOTSINK]]
-// APPROX-NEXT:    [[ADD28_I_I_I:%.*]] = add i64 [[ADD26_I_I_I]], [[CONV25_I_I_I]]
-// APPROX-NEXT:    [[INCDEC_PTR_I40_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I31_I_I]], i64 1
-// APPROX-NEXT:    br label [[CLEANUP_I36_I_I]]
-// APPROX:       cleanup.i36.i.i:
-// APPROX-NEXT:    [[__TAGP_ADDR_1_I37_I_I]] = phi ptr [ [[INCDEC_PTR_I40_I_I]], [[IF_END31_I_I_I]] ], [ [[__TAGP_ADDR_0_I31_I_I]], [[IF_ELSE17_I_I_I]] ]
-// APPROX-NEXT:    [[__R_2_I_I_I]] = phi i64 [ [[ADD28_I_I_I]], [[IF_END31_I_I_I]] ], [ [[__R_0_I32_I_I]], [[IF_ELSE17_I_I_I]] ]
-// APPROX-NEXT:    [[COND_I_I_I:%.*]] = phi i1 [ true, [[IF_END31_I_I_I]] ], [ false, [[IF_ELSE17_I_I_I]] ]
-// APPROX-NEXT:    br i1 [[COND_I_I_I]], label [[WHILE_COND_I30_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP11]]
+// APPROX-NEXT:    [[OR_COND77_I_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
+// APPROX-NEXT:    br i1 [[OR_COND77_I_I_I]], label [[IF_END61_I_I_I]], label [[CLEANUP_I50_I_I]]
+// APPROX:       if.end61.i.i.i:
+// APPROX-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I46_I_I]] ], [ -87, [[IF_ELSE_I_I_I]] ], [ -55, [[IF_ELSE38_I_I_I]] ]
+// APPROX-NEXT:    [[MUL51_I_I_I:%.*]] = shl i64 [[__R_0_I44_I_I]], 4
+// APPROX-NEXT:    [[CONV53_I_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
+// APPROX-NEXT:    [[ADD54_I_I_I:%.*]] = add i64 [[MUL51_I_I_I]], [[DOTSINK]]
+// APPROX-NEXT:    [[ADD58_I_I_I:%.*]] = add i64 [[ADD54_I_I_I]], [[CONV53_I_I_I]]
+// APPROX-NEXT:    [[INCDEC_PTR_I55_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I43_I_I]], i64 1
+// APPROX-NEXT:    br label [[CLEANUP_I50_I_I]]
+// APPROX:       cleanup.i50.i.i:
+// APPROX-NEXT:    [[__TAGP_ADDR_1_I51_I_I]] = phi ptr [ [[INCDEC_PTR_I55_I_I]], [[IF_END61_I_I_I]] ], [ [[__TAGP_ADDR_0_I43_I_I]], [[IF_ELSE38_I_I_I]] ]
+// APPROX-NEXT:    [[__R_2_I_I_I]] = phi i64 [ [[ADD58_I_I_I]], [[IF_END61_I_I_I]] ], [ [[__R_0_I44_I_I]], [[IF_ELSE38_I_I_I]] ]
+// APPROX-NEXT:    [[COND_I52_I_I:%.*]] = phi i1 [ true, [[IF_END61_I_I_I]] ], [ false, [[IF_ELSE38_I_I_I]] ]
+// APPROX-NEXT:    br i1 [[COND_I52_I_I]], label [[WHILE_COND_I42_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP11]]
 // APPROX:       while.cond.i.i.i:
 // APPROX-NEXT:    [[__TAGP_ADDR_0_I_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I_I_I:%.*]], [[CLEANUP_I_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[IF_THEN_I_I]] ]
 // APPROX-NEXT:    [[__R_0_I_I_I:%.*]] = phi i64 [ [[__R_1_I_I_I:%.*]], [[CLEANUP_I_I_I]] ], [ 0, [[IF_THEN_I_I]] ]
@@ -2517,38 +2517,38 @@ extern "C" __device__ double test_modf(double x, double* y) {
 // APPROX-NEXT:    br i1 [[OR_COND_I_I_I]], label [[IF_THEN_I_I_I:%.*]], label [[CLEANUP_I_I_I]]
 // APPROX:       if.then.i.i.i:
 // APPROX-NEXT:    [[MUL_I_I_I:%.*]] = shl i64 [[__R_0_I_I_I]], 3
-// APPROX-NEXT:    [[CONV5_I_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
+// APPROX-NEXT:    [[CONV15_I_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
 // APPROX-NEXT:    [[ADD_I_I_I:%.*]] = add i64 [[MUL_I_I_I]], -48
-// APPROX-NEXT:    [[SUB_I_I_I:%.*]] = add i64 [[ADD_I_I_I]], [[CONV5_I_I_I]]
+// APPROX-NEXT:    [[SUB_I_I_I:%.*]] = add i64 [[ADD_I_I_I]], [[CONV15_I_I_I]]
 // APPROX-NEXT:    [[INCDEC_PTR_I_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I_I_I]], i64 1
 // APPROX-NEXT:    br label [[CLEANUP_I_I_I]]
 // APPROX:       cleanup.i.i.i:
 // APPROX-NEXT:    [[__TAGP_ADDR_1_I_I_I]] = phi ptr [ [[INCDEC_PTR_I_I_I]], [[IF_THEN_I_I_I]] ], [ [[__TAGP_ADDR_0_I_I_I]], [[WHILE_BODY_I_I_I]] ]
 // APPROX-NEXT:    [[__R_1_I_I_I]] = phi i64 [ [[SUB_I_I_I]], [[IF_THEN_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_BODY_I_I_I]] ]
 // APPROX-NEXT:    br i1 [[OR_COND_I_I_I]], label [[WHILE_COND_I_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP7]]
-// APPROX:       while.cond.i14.i.i:
-// APPROX-NEXT:    [[__TAGP_ADDR_0_I15_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I21_I_I:%.*]], [[CLEANUP_I20_I_I:%.*]] ], [ [[TAG]], [[ENTRY:%.*]] ]
-// APPROX-NEXT:    [[__R_0_I16_I_I:%.*]] = phi i64 [ [[__R_1_I22_I_I:%.*]], [[CLEANUP_I20_I_I]] ], [ 0, [[ENTRY]] ]
-// APPROX-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I15_I_I]], align 1, !tbaa [[TBAA4]]
-// APPROX-NEXT:    [[CMP_NOT_I17_I_I:%.*]] = icmp eq i8 [[TMP8]], 0
-// APPROX-NEXT:    br i1 [[CMP_NOT_I17_I_I]], label [[_ZL4NANFPKC_EXIT]], label [[WHILE_BODY_I18_I_I:%.*]]
-// APPROX:       while.body.i18.i.i:
+// APPROX:       while.cond.i23.i.i:
+// APPROX-NEXT:    [[__TAGP_ADDR_0_I24_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I32_I_I:%.*]], [[CLEANUP_I31_I_I:%.*]] ], [ [[TAG]], [[ENTRY:%.*]] ]
+// APPROX-NEXT:    [[__R_0_I25_I_I:%.*]] = phi i64 [ [[__R_1_I33_I_I:%.*]], [[CLEANUP_I31_I_I]] ], [ 0, [[ENTRY]] ]
+// APPROX-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I24_I_I]], align 1, !tbaa [[TBAA4]]
+// APPROX-NEXT:    [[CMP_NOT_I26_I_I:%.*]] = icmp eq i8 [[TMP8]], 0
+// APPROX-NEXT:    br i1 [[CMP_NOT_I26_I_I]], label [[_ZL4NANFPKC_EXIT]], label [[WHILE_BODY_I27_I_I:%.*]]
+// APPROX:       while.body.i27.i.i:
 // APPROX-NEXT:    [[TMP9:%.*]] = add i8 [[TMP8]], -48
-// APPROX-NEXT:    [[OR_COND_I19_I_I:%.*]] = icmp ult i8 [[TMP9]], 10
-// APPROX-NEXT:    br i1 [[OR_COND_I19_I_I]], label [[IF_THEN_I24_I_I:%.*]], label [[CLEANUP_I20_I_I]]
-// APPROX:       if.then.i24.i.i:
-// APPROX-NEXT:    [[MUL_I25_I_I:%.*]] = mul i64 [[__R_0_I16_I_I]], 10
-// APPROX-NEXT:    [[CONV5_I26_I_I:%.*]] = zext nneg i8 [[TMP8]] to i64
-// APPROX-NEXT:    [[ADD_I27_I_I:%.*]] = add i64 [[MUL_I25_I_I]], -48
-// APPROX-NEXT:    [[SUB_I28_I_I:%.*]] = add i64 [[ADD_I27_I_I]], [[CONV5_I26_I_I]]
-// APPROX-NEXT:    [[INCDEC_PTR_I29_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I15_I_I]], i64 1
-// APPROX-NEXT:    br label [[CLEANUP_I20_I_I]]
-// APPROX:       cleanup.i20.i.i:
-// APPROX-NEXT:    [[__TAGP_ADDR_1_I21_I_I]] = phi ptr [ [[INCDEC_PTR_I29_I_I]], [[IF_THEN_I24_I_I]] ], [ [[__TAGP_ADDR_0_I15_I_I]], [[WHILE_BODY_I18_I_I]] ]
-// APPROX-NEXT:    [[__R_1_I22_I_I]] = phi i64 [ [[SUB_I28_I_I]], [[IF_THEN_I24_I_I]] ], [ [[__R_0_I16_I_I]], [[WHILE_BODY_I18_I_I]] ]
-// APPROX-NEXT:    br i1 [[OR_COND_I19_I_I]], label [[WHILE_COND_I14_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP10]]
+// APPROX-NEXT:    [[OR_COND_I30_I_I:%.*]] = icmp ult i8 [[TMP9]], 10
+// APPROX-NEXT:    br i1 [[OR_COND_I30_I_I]], label [[IF_THEN_I36_I_I:%.*]], label [[CLEANUP_I31_I_I]]
+// APPROX:       if.then.i36.i.i:
+// APPROX-NEXT:    [[MUL_I37_I_I:%.*]] = mul i64 [[__R_0_I25_I_I]], 10
+// APPROX-NEXT:    [[CONV15_I38_I_I:%.*]] = zext nneg i8 [[TMP8]] to i64
+// APPROX-NEXT:    [[ADD_I39_I_I:%.*]] = add i64 [[MUL_I37_I_I]], -48
+// APPROX-NEXT:    [[SUB_I40_I_I:%.*]] = add i64 [[ADD_I39_I_I]], [[CONV15_I38_I_I]]
+// APPROX-NEXT:    [[INCDEC_PTR_I41_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I24_I_I]], i64 1
+// APPROX-NEXT:    br label [[CLEANUP_I31_I_I]]
+// APPROX:       cleanup.i31.i.i:
+// APPROX-NEXT:    [[__TAGP_ADDR_1_I32_I_I]] = phi ptr [ [[INCDEC_PTR_I41_I_I]], [[IF_THEN_I36_I_I]] ], [ [[__TAGP_ADDR_0_I24_I_I]], [[WHILE_BODY_I27_I_I]] ]
+// APPROX-NEXT:    [[__R_1_I33_I_I]] = phi i64 [ [[SUB_I40_I_I]], [[IF_THEN_I36_I_I]] ], [ [[__R_0_I25_I_I]], [[WHILE_BODY_I27_I_I]] ]
+// APPROX-NEXT:    br i1 [[OR_COND_I30_I_I]], label [[WHILE_COND_I23_I_I]], label [[_ZL4NANFPKC_EXIT]], !llvm.loop [[LOOP10]]
 // APPROX:       _ZL4nanfPKc.exit:
-// APPROX-NEXT:    [[RETVAL_0_I_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_COND_I_I_I]] ], [ 0, [[CLEANUP_I36_I_I]] ], [ [[__R_0_I32_I_I]], [[WHILE_COND_I30_I_I]] ], [ 0, [[CLEANUP_I20_I_I]] ], [ [[__R_0_I16_I_I]], [[WHILE_COND_I14_I_I]] ]
+// APPROX-NEXT:    [[RETVAL_0_I_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_COND_I_I_I]] ], [ 0, [[CLEANUP_I50_I_I]] ], [ [[__R_0_I44_I_I]], [[WHILE_COND_I42_I_I]] ], [ 0, [[CLEANUP_I31_I_I]] ], [ [[__R_0_I25_I_I]], [[WHILE_COND_I23_I_I]] ]
 // APPROX-NEXT:    [[CONV_I:%.*]] = trunc i64 [[RETVAL_0_I_I]] to i32
 // APPROX-NEXT:    [[BF_VALUE_I:%.*]] = and i32 [[CONV_I]], 4194303
 // APPROX-NEXT:    [[BF_SET9_I:%.*]] = or disjoint i32 [[BF_VALUE_I]], 2143289344
@@ -2563,47 +2563,47 @@ extern "C" __device__ float test_nanf(const char *tag) {
 // DEFAULT-NEXT:  entry:
 // DEFAULT-NEXT:    [[TMP0:%.*]] = load i8, ptr [[TAG:%.*]], align 1, !tbaa [[TBAA4]]
 // DEFAULT-NEXT:    [[CMP_I_I:%.*]] = icmp eq i8 [[TMP0]], 48
-// DEFAULT-NEXT:    br i1 [[CMP_I_I]], label [[IF_THEN_I_I:%.*]], label [[WHILE_COND_I14_I_I:%.*]]
+// DEFAULT-NEXT:    br i1 [[CMP_I_I]], label [[IF_THEN_I_I:%.*]], label [[WHILE_COND_I23_I_I:%.*]]
 // DEFAULT:       if.then.i.i:
 // DEFAULT-NEXT:    [[INCDEC_PTR_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[TAG]], i64 1
 // DEFAULT-NEXT:    [[TMP1:%.*]] = load i8, ptr [[INCDEC_PTR_I_I]], align 1, !tbaa [[TBAA4]]
 // DEFAULT-NEXT:    switch i8 [[TMP1]], label [[WHILE_COND_I_I_I:%.*]] [
-// DEFAULT-NEXT:      i8 120, label [[WHILE_COND_I30_I_I_PREHEADER:%.*]]
-// DEFAULT-NEXT:      i8 88, label [[WHILE_COND_I30_I_I_PREHEADER]]
+// DEFAULT-NEXT:      i8 120, label [[WHILE_COND_I42_I_I_PREHEADER:%.*]]
+// DEFAULT-NEXT:      i8 88, label [[WHILE_COND_I42_I_I_PREHEADER]]
 // DEFAULT-NEXT:    ]
-// DEFAULT:       while.cond.i30.i.i.preheader:
-// DEFAULT-NEXT:    br label [[WHILE_COND_I30_I_I:%.*]]
-// DEFAULT:       while.cond.i30.i.i:
-// DEFAULT-NEXT:    [[__TAGP_ADDR_0_I31_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I37_I_I:%.*]], [[CLEANUP_I36_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[WHILE_COND_I30_I_I_PREHEADER]] ]
-// DEFAULT-NEXT:    [[__R_0_I32_I_I:%.*]] = phi i64 [ [[__R_2_I_I_I:%.*]], [[CLEANUP_I36_I_I]] ], [ 0, [[WHILE_COND_I30_I_I_PREHEADER]] ]
-// DEFAULT-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I31_I_I]], align 1, !tbaa [[TBAA4]]
-// DEFAULT-NEXT:    [[CMP_NOT_I33_I_I:%.*]] = icmp eq i8 [[TMP2]], 0
-// DEFAULT-NEXT:    br i1 [[CMP_NOT_I33_I_I]], label [[_ZL3NANPKC_EXIT:%.*]], label [[WHILE_BODY_I34_I_I:%.*]]
-// DEFAULT:       while.body.i34.i.i:
+// DEFAULT:       while.cond.i42.i.i.preheader:
+// DEFAULT-NEXT:    br label [[WHILE_COND_I42_I_I:%.*]]
+// DEFAULT:       while.cond.i42.i.i:
+// DEFAULT-NEXT:    [[__TAGP_ADDR_0_I43_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I51_I_I:%.*]], [[CLEANUP_I50_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[WHILE_COND_I42_I_I_PREHEADER]] ]
+// DEFAULT-NEXT:    [[__R_0_I44_I_I:%.*]] = phi i64 [ [[__R_2_I_I_I:%.*]], [[CLEANUP_I50_I_I]] ], [ 0, [[WHILE_COND_I42_I_I_PREHEADER]] ]
+// DEFAULT-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I43_I_I]], align 1, !tbaa [[TBAA4]]
+// DEFAULT-NEXT:    [[CMP_NOT_I45_I_I:%.*]] = icmp eq i8 [[TMP2]], 0
+// DEFAULT-NEXT:    br i1 [[CMP_NOT_I45_I_I]], label [[_ZL3NANPKC_EXIT:%.*]], label [[WHILE_BODY_I46_I_I:%.*]]
+// DEFAULT:       while.body.i46.i.i:
 // DEFAULT-NEXT:    [[TMP3:%.*]] = add i8 [[TMP2]], -48
-// DEFAULT-NEXT:    [[OR_COND_I35_I_I:%.*]] = icmp ult i8 [[TMP3]], 10
-// DEFAULT-NEXT:    br i1 [[OR_COND_I35_I_I]], label [[IF_END31_I_I_I:%.*]], label [[IF_ELSE_I_I_I:%.*]]
+// DEFAULT-NEXT:    [[OR_COND_I49_I_I:%.*]] = icmp ult i8 [[TMP3]], 10
+// DEFAULT-NEXT:    br i1 [[OR_COND_I49_I_I]], label [[IF_END61_I_I_I:%.*]], label [[IF_ELSE_I_I_I:%.*]]
 // DEFAULT:       if.else.i.i.i:
 // DEFAULT-NEXT:    [[TMP4:%.*]] = add i8 [[TMP2]], -97
-// DEFAULT-NEXT:    [[OR_COND33_I_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
-// DEFAULT-NEXT:    br i1 [[OR_COND33_I_I_I]], label [[IF_END31_I_I_I]], label [[IF_ELSE17_I_I_I:%.*]]
-// DEFAULT:       if.else17.i.i.i:
+// DEFAULT-NEXT:    [[OR_COND76_I_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
+// DEFAULT-NEXT:    br i1 [[OR_COND76_I_I_I]], label [[IF_END61_I_I_I]], label [[IF_ELSE38_I_I_I:%.*]]
+// DEFAULT:       if.else38.i.i.i:
 // DEFAULT-NEXT:    [[TMP5:%.*]] = add i8 [[TMP2]], -65
-// DEFAULT-NEXT:    [[OR_COND34_I_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
-// DEFAULT-NEXT:    br i1 [[OR_COND34_I_I_I]], label [[IF_END31_I_I_I]], label [[CLEANUP_I36_I_I]]
-// DEFAULT:       if.end31.i.i.i:
-// DEFAULT-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I34_I_I]] ], [ -87, [[IF_ELSE_I_I_I]] ], [ -55, [[IF_ELSE17_I_I_I]] ]
-// DEFAULT-NEXT:    [[MUL24_I_I_I:%.*]] = shl i64 [[__R_0_I32_I_I]], 4
-// DEFAULT-NEXT:    [[CONV25_I_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
-// DEFAULT-NEXT:    [[ADD26_I_I_I:%.*]] = add i64 [[MUL24_I_I_I]], [[DOTSINK]]
-// DEFAULT-NEXT:    [[ADD28_I_I_I:%.*]] = add i64 [[ADD26_I_I_I]], [[CONV25_I_I_I]]
-// DEFAULT-NEXT:    [[INCDEC_PTR_I40_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I31_I_I]], i64 1
-// DEFAULT-NEXT:    br label [[CLEANUP_I36_I_I]]
-// DEFAULT:       cleanup.i36.i.i:
-// DEFAULT-NEXT:    [[__TAGP_ADDR_1_I37_I_I]] = phi ptr [ [[INCDEC_PTR_I40_I_I]], [[IF_END31_I_I_I]] ], [ [[__TAGP_ADDR_0_I31_I_I]], [[IF_ELSE17_I_I_I]] ]
-// DEFAULT-NEXT:    [[__R_2_I_I_I]] = phi i64 [ [[ADD28_I_I_I]], [[IF_END31_I_I_I]] ], [ [[__R_0_I32_I_I]], [[IF_ELSE17_I_I_I]] ]
-// DEFAULT-NEXT:    [[COND_I_I_I:%.*]] = phi i1 [ true, [[IF_END31_I_I_I]] ], [ false, [[IF_ELSE17_I_I_I]] ]
-// DEFAULT-NEXT:    br i1 [[COND_I_I_I]], label [[WHILE_COND_I30_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP11]]
+// DEFAULT-NEXT:    [[OR_COND77_I_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
+// DEFAULT-NEXT:    br i1 [[OR_COND77_I_I_I]], label [[IF_END61_I_I_I]], label [[CLEANUP_I50_I_I]]
+// DEFAULT:       if.end61.i.i.i:
+// DEFAULT-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I46_I_I]] ], [ -87, [[IF_ELSE_I_I_I]] ], [ -55, [[IF_ELSE38_I_I_I]] ]
+// DEFAULT-NEXT:    [[MUL51_I_I_I:%.*]] = shl i64 [[__R_0_I44_I_I]], 4
+// DEFAULT-NEXT:    [[CONV53_I_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
+// DEFAULT-NEXT:    [[ADD54_I_I_I:%.*]] = add i64 [[MUL51_I_I_I]], [[DOTSINK]]
+// DEFAULT-NEXT:    [[ADD58_I_I_I:%.*]] = add i64 [[ADD54_I_I_I]], [[CONV53_I_I_I]]
+// DEFAULT-NEXT:    [[INCDEC_PTR_I55_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I43_I_I]], i64 1
+// DEFAULT-NEXT:    br label [[CLEANUP_I50_I_I]]
+// DEFAULT:       cleanup.i50.i.i:
+// DEFAULT-NEXT:    [[__TAGP_ADDR_1_I51_I_I]] = phi ptr [ [[INCDEC_PTR_I55_I_I]], [[IF_END61_I_I_I]] ], [ [[__TAGP_ADDR_0_I43_I_I]], [[IF_ELSE38_I_I_I]] ]
+// DEFAULT-NEXT:    [[__R_2_I_I_I]] = phi i64 [ [[ADD58_I_I_I]], [[IF_END61_I_I_I]] ], [ [[__R_0_I44_I_I]], [[IF_ELSE38_I_I_I]] ]
+// DEFAULT-NEXT:    [[COND_I52_I_I:%.*]] = phi i1 [ true, [[IF_END61_I_I_I]] ], [ false, [[IF_ELSE38_I_I_I]] ]
+// DEFAULT-NEXT:    br i1 [[COND_I52_I_I]], label [[WHILE_COND_I42_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP11]]
 // DEFAULT:       while.cond.i.i.i:
 // DEFAULT-NEXT:    [[__TAGP_ADDR_0_I_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I_I_I:%.*]], [[CLEANUP_I_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[IF_THEN_I_I]] ]
 // DEFAULT-NEXT:    [[__R_0_I_I_I:%.*]] = phi i64 [ [[__R_1_I_I_I:%.*]], [[CLEANUP_I_I_I]] ], [ 0, [[IF_THEN_I_I]] ]
@@ -2616,38 +2616,38 @@ extern "C" __device__ float test_nanf(const char *tag) {
 // DEFAULT-NEXT:    br i1 [[OR_COND_I_I_I]], label [[IF_THEN_I_I_I:%.*]], label [[CLEANUP_I_I_I]]
 // DEFAULT:       if.then.i.i.i:
 // DEFAULT-NEXT:    [[MUL_I_I_I:%.*]] = shl i64 [[__R_0_I_I_I]], 3
-// DEFAULT-NEXT:    [[CONV5_I_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
+// DEFAULT-NEXT:    [[CONV15_I_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
 // DEFAULT-NEXT:    [[ADD_I_I_I:%.*]] = add i64 [[MUL_I_I_I]], -48
-// DEFAULT-NEXT:    [[SUB_I_I_I:%.*]] = add i64 [[ADD_I_I_I]], [[CONV5_I_I_I]]
+// DEFAULT-NEXT:    [[SUB_I_I_I:%.*]] = add i64 [[ADD_I_I_I]], [[CONV15_I_I_I]]
 // DEFAULT-NEXT:    [[INCDEC_PTR_I_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I_I_I]], i64 1
 // DEFAULT-NEXT:    br label [[CLEANUP_I_I_I]]
 // DEFAULT:       cleanup.i.i.i:
 // DEFAULT-NEXT:    [[__TAGP_ADDR_1_I_I_I]] = phi ptr [ [[INCDEC_PTR_I_I_I]], [[IF_THEN_I_I_I]] ], [ [[__TAGP_ADDR_0_I_I_I]], [[WHILE_BODY_I_I_I]] ]
 // DEFAULT-NEXT:    [[__R_1_I_I_I]] = phi i64 [ [[SUB_I_I_I]], [[IF_THEN_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_BODY_I_I_I]] ]
 // DEFAULT-NEXT:    br i1 [[OR_COND_I_I_I]], label [[WHILE_COND_I_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP7]]
-// DEFAULT:       while.cond.i14.i.i:
-// DEFAULT-NEXT:    [[__TAGP_ADDR_0_I15_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I21_I_I:%.*]], [[CLEANUP_I20_I_I:%.*]] ], [ [[TAG]], [[ENTRY:%.*]] ]
-// DEFAULT-NEXT:    [[__R_0_I16_I_I:%.*]] = phi i64 [ [[__R_1_I22_I_I:%.*]], [[CLEANUP_I20_I_I]] ], [ 0, [[ENTRY]] ]
-// DEFAULT-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I15_I_I]], align 1, !tbaa [[TBAA4]]
-// DEFAULT-NEXT:    [[CMP_NOT_I17_I_I:%.*]] = icmp eq i8 [[TMP8]], 0
-// DEFAULT-NEXT:    br i1 [[CMP_NOT_I17_I_I]], label [[_ZL3NANPKC_EXIT]], label [[WHILE_BODY_I18_I_I:%.*]]
-// DEFAULT:       while.body.i18.i.i:
+// DEFAULT:       while.cond.i23.i.i:
+// DEFAULT-NEXT:    [[__TAGP_ADDR_0_I24_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I32_I_I:%.*]], [[CLEANUP_I31_I_I:%.*]] ], [ [[TAG]], [[ENTRY:%.*]] ]
+// DEFAULT-NEXT:    [[__R_0_I25_I_I:%.*]] = phi i64 [ [[__R_1_I33_I_I:%.*]], [[CLEANUP_I31_I_I]] ], [ 0, [[ENTRY]] ]
+// DEFAULT-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I24_I_I]], align 1, !tbaa [[TBAA4]]
+// DEFAULT-NEXT:    [[CMP_NOT_I26_I_I:%.*]] = icmp eq i8 [[TMP8]], 0
+// DEFAULT-NEXT:    br i1 [[CMP_NOT_I26_I_I]], label [[_ZL3NANPKC_EXIT]], label [[WHILE_BODY_I27_I_I:%.*]]
+// DEFAULT:       while.body.i27.i.i:
 // DEFAULT-NEXT:    [[TMP9:%.*]] = add i8 [[TMP8]], -48
-// DEFAULT-NEXT:    [[OR_COND_I19_I_I:%.*]] = icmp ult i8 [[TMP9]], 10
-// DEFAULT-NEXT:    br i1 [[OR_COND_I19_I_I]], label [[IF_THEN_I24_I_I:%.*]], label [[CLEANUP_I20_I_I]]
-// DEFAULT:       if.then.i24.i.i:
-// DEFAULT-NEXT:    [[MUL_I25_I_I:%.*]] = mul i64 [[__R_0_I16_I_I]], 10
-// DEFAULT-NEXT:    [[CONV5_I26_I_I:%.*]] = zext nneg i8 [[TMP8]] to i64
-// DEFAULT-NEXT:    [[ADD_I27_I_I:%.*]] = add i64 [[MUL_I25_I_I]], -48
-// DEFAULT-NEXT:    [[SUB_I28_I_I:%.*]] = add i64 [[ADD_I27_I_I]], [[CONV5_I26_I_I]]
-// DEFAULT-NEXT:    [[INCDEC_PTR_I29_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I15_I_I]], i64 1
-// DEFAULT-NEXT:    br label [[CLEANUP_I20_I_I]]
-// DEFAULT:       cleanup.i20.i.i:
-// DEFAULT-NEXT:    [[__TAGP_ADDR_1_I21_I_I]] = phi ptr [ [[INCDEC_PTR_I29_I_I]], [[IF_THEN_I24_I_I]] ], [ [[__TAGP_ADDR_0_I15_I_I]], [[WHILE_BODY_I18_I_I]] ]
-// DEFAULT-NEXT:    [[__R_1_I22_I_I]] = phi i64 [ [[SUB_I28_I_I]], [[IF_THEN_I24_I_I]] ], [ [[__R_0_I16_I_I]], [[WHILE_BODY_I18_I_I]] ]
-// DEFAULT-NEXT:    br i1 [[OR_COND_I19_I_I]], label [[WHILE_COND_I14_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP10]]
+// DEFAULT-NEXT:    [[OR_COND_I30_I_I:%.*]] = icmp ult i8 [[TMP9]], 10
+// DEFAULT-NEXT:    br i1 [[OR_COND_I30_I_I]], label [[IF_THEN_I36_I_I:%.*]], label [[CLEANUP_I31_I_I]]
+// DEFAULT:       if.then.i36.i.i:
+// DEFAULT-NEXT:    [[MUL_I37_I_I:%.*]] = mul i64 [[__R_0_I25_I_I]], 10
+// DEFAULT-NEXT:    [[CONV15_I38_I_I:%.*]] = zext nneg i8 [[TMP8]] to i64
+// DEFAULT-NEXT:    [[ADD_I39_I_I:%.*]] = add i64 [[MUL_I37_I_I]], -48
+// DEFAULT-NEXT:    [[SUB_I40_I_I:%.*]] = add i64 [[ADD_I39_I_I]], [[CONV15_I38_I_I]]
+// DEFAULT-NEXT:    [[INCDEC_PTR_I41_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I24_I_I]], i64 1
+// DEFAULT-NEXT:    br label [[CLEANUP_I31_I_I]]
+// DEFAULT:       cleanup.i31.i.i:
+// DEFAULT-NEXT:    [[__TAGP_ADDR_1_I32_I_I]] = phi ptr [ [[INCDEC_PTR_I41_I_I]], [[IF_THEN_I36_I_I]] ], [ [[__TAGP_ADDR_0_I24_I_I]], [[WHILE_BODY_I27_I_I]] ]
+// DEFAULT-NEXT:    [[__R_1_I33_I_I]] = phi i64 [ [[SUB_I40_I_I]], [[IF_THEN_I36_I_I]] ], [ [[__R_0_I25_I_I]], [[WHILE_BODY_I27_I_I]] ]
+// DEFAULT-NEXT:    br i1 [[OR_COND_I30_I_I]], label [[WHILE_COND_I23_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP10]]
 // DEFAULT:       _ZL3nanPKc.exit:
-// DEFAULT-NEXT:    [[RETVAL_0_I_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_COND_I_I_I]] ], [ 0, [[CLEANUP_I36_I_I]] ], [ [[__R_0_I32_I_I]], [[WHILE_COND_I30_I_I]] ], [ 0, [[CLEANUP_I20_I_I]] ], [ [[__R_0_I16_I_I]], [[WHILE_COND_I14_I_I]] ]
+// DEFAULT-NEXT:    [[RETVAL_0_I_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_COND_I_I_I]] ], [ 0, [[CLEANUP_I50_I_I]] ], [ [[__R_0_I44_I_I]], [[WHILE_COND_I42_I_I]] ], [ 0, [[CLEANUP_I31_I_I]] ], [ [[__R_0_I25_I_I]], [[WHILE_COND_I23_I_I]] ]
 // DEFAULT-NEXT:    [[BF_VALUE_I:%.*]] = and i64 [[RETVAL_0_I_I]], 2251799813685247
 // DEFAULT-NEXT:    [[BF_SET9_I:%.*]] = or disjoint i64 [[BF_VALUE_I]], 9221120237041090560
 // DEFAULT-NEXT:    [[TMP10:%.*]] = bitcast i64 [[BF_SET9_I]] to double
@@ -2661,47 +2661,47 @@ extern "C" __device__ float test_nanf(const char *tag) {
 // APPROX-NEXT:  entry:
 // APPROX-NEXT:    [[TMP0:%.*]] = load i8, ptr [[TAG:%.*]], align 1, !tbaa [[TBAA4]]
 // APPROX-NEXT:    [[CMP_I_I:%.*]] = icmp eq i8 [[TMP0]], 48
-// APPROX-NEXT:    br i1 [[CMP_I_I]], label [[IF_THEN_I_I:%.*]], label [[WHILE_COND_I14_I_I:%.*]]
+// APPROX-NEXT:    br i1 [[CMP_I_I]], label [[IF_THEN_I_I:%.*]], label [[WHILE_COND_I23_I_I:%.*]]
 // APPROX:       if.then.i.i:
 // APPROX-NEXT:    [[INCDEC_PTR_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[TAG]], i64 1
 // APPROX-NEXT:    [[TMP1:%.*]] = load i8, ptr [[INCDEC_PTR_I_I]], align 1, !tbaa [[TBAA4]]
 // APPROX-NEXT:    switch i8 [[TMP1]], label [[WHILE_COND_I_I_I:%.*]] [
-// APPROX-NEXT:      i8 120, label [[WHILE_COND_I30_I_I_PREHEADER:%.*]]
-// APPROX-NEXT:      i8 88, label [[WHILE_COND_I30_I_I_PREHEADER]]
+// APPROX-NEXT:      i8 120, label [[WHILE_COND_I42_I_I_PREHEADER:%.*]]
+// APPROX-NEXT:      i8 88, label [[WHILE_COND_I42_I_I_PREHEADER]]
 // APPROX-NEXT:    ]
-// APPROX:       while.cond.i30.i.i.preheader:
-// APPROX-NEXT:    br label [[WHILE_COND_I30_I_I:%.*]]
-// APPROX:       while.cond.i30.i.i:
-// APPROX-NEXT:    [[__TAGP_ADDR_0_I31_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I37_I_I:%.*]], [[CLEANUP_I36_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[WHILE_COND_I30_I_I_PREHEADER]] ]
-// APPROX-NEXT:    [[__R_0_I32_I_I:%.*]] = phi i64 [ [[__R_2_I_I_I:%.*]], [[CLEANUP_I36_I_I]] ], [ 0, [[WHILE_COND_I30_I_I_PREHEADER]] ]
-// APPROX-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I31_I_I]], align 1, !tbaa [[TBAA4]]
-// APPROX-NEXT:    [[CMP_NOT_I33_I_I:%.*]] = icmp eq i8 [[TMP2]], 0
-// APPROX-NEXT:    br i1 [[CMP_NOT_I33_I_I]], label [[_ZL3NANPKC_EXIT:%.*]], label [[WHILE_BODY_I34_I_I:%.*]]
-// APPROX:       while.body.i34.i.i:
+// APPROX:       while.cond.i42.i.i.preheader:
+// APPROX-NEXT:    br label [[WHILE_COND_I42_I_I:%.*]]
+// APPROX:       while.cond.i42.i.i:
+// APPROX-NEXT:    [[__TAGP_ADDR_0_I43_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I51_I_I:%.*]], [[CLEANUP_I50_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[WHILE_COND_I42_I_I_PREHEADER]] ]
+// APPROX-NEXT:    [[__R_0_I44_I_I:%.*]] = phi i64 [ [[__R_2_I_I_I:%.*]], [[CLEANUP_I50_I_I]] ], [ 0, [[WHILE_COND_I42_I_I_PREHEADER]] ]
+// APPROX-NEXT:    [[TMP2:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I43_I_I]], align 1, !tbaa [[TBAA4]]
+// APPROX-NEXT:    [[CMP_NOT_I45_I_I:%.*]] = icmp eq i8 [[TMP2]], 0
+// APPROX-NEXT:    br i1 [[CMP_NOT_I45_I_I]], label [[_ZL3NANPKC_EXIT:%.*]], label [[WHILE_BODY_I46_I_I:%.*]]
+// APPROX:       while.body.i46.i.i:
 // APPROX-NEXT:    [[TMP3:%.*]] = add i8 [[TMP2]], -48
-// APPROX-NEXT:    [[OR_COND_I35_I_I:%.*]] = icmp ult i8 [[TMP3]], 10
-// APPROX-NEXT:    br i1 [[OR_COND_I35_I_I]], label [[IF_END31_I_I_I:%.*]], label [[IF_ELSE_I_I_I:%.*]]
+// APPROX-NEXT:    [[OR_COND_I49_I_I:%.*]] = icmp ult i8 [[TMP3]], 10
+// APPROX-NEXT:    br i1 [[OR_COND_I49_I_I]], label [[IF_END61_I_I_I:%.*]], label [[IF_ELSE_I_I_I:%.*]]
 // APPROX:       if.else.i.i.i:
 // APPROX-NEXT:    [[TMP4:%.*]] = add i8 [[TMP2]], -97
-// APPROX-NEXT:    [[OR_COND33_I_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
-// APPROX-NEXT:    br i1 [[OR_COND33_I_I_I]], label [[IF_END31_I_I_I]], label [[IF_ELSE17_I_I_I:%.*]]
-// APPROX:       if.else17.i.i.i:
+// APPROX-NEXT:    [[OR_COND76_I_I_I:%.*]] = icmp ult i8 [[TMP4]], 6
+// APPROX-NEXT:    br i1 [[OR_COND76_I_I_I]], label [[IF_END61_I_I_I]], label [[IF_ELSE38_I_I_I:%.*]]
+// APPROX:       if.else38.i.i.i:
 // APPROX-NEXT:    [[TMP5:%.*]] = add i8 [[TMP2]], -65
-// APPROX-NEXT:    [[OR_COND34_I_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
-// APPROX-NEXT:    br i1 [[OR_COND34_I_I_I]], label [[IF_END31_I_I_I]], label [[CLEANUP_I36_I_I]]
-// APPROX:       if.end31.i.i.i:
-// APPROX-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I34_I_I]] ], [ -87, [[IF_ELSE_I_I_I]] ], [ -55, [[IF_ELSE17_I_I_I]] ]
-// APPROX-NEXT:    [[MUL24_I_I_I:%.*]] = shl i64 [[__R_0_I32_I_I]], 4
-// APPROX-NEXT:    [[CONV25_I_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
-// APPROX-NEXT:    [[ADD26_I_I_I:%.*]] = add i64 [[MUL24_I_I_I]], [[DOTSINK]]
-// APPROX-NEXT:    [[ADD28_I_I_I:%.*]] = add i64 [[ADD26_I_I_I]], [[CONV25_I_I_I]]
-// APPROX-NEXT:    [[INCDEC_PTR_I40_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I31_I_I]], i64 1
-// APPROX-NEXT:    br label [[CLEANUP_I36_I_I]]
-// APPROX:       cleanup.i36.i.i:
-// APPROX-NEXT:    [[__TAGP_ADDR_1_I37_I_I]] = phi ptr [ [[INCDEC_PTR_I40_I_I]], [[IF_END31_I_I_I]] ], [ [[__TAGP_ADDR_0_I31_I_I]], [[IF_ELSE17_I_I_I]] ]
-// APPROX-NEXT:    [[__R_2_I_I_I]] = phi i64 [ [[ADD28_I_I_I]], [[IF_END31_I_I_I]] ], [ [[__R_0_I32_I_I]], [[IF_ELSE17_I_I_I]] ]
-// APPROX-NEXT:    [[COND_I_I_I:%.*]] = phi i1 [ true, [[IF_END31_I_I_I]] ], [ false, [[IF_ELSE17_I_I_I]] ]
-// APPROX-NEXT:    br i1 [[COND_I_I_I]], label [[WHILE_COND_I30_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP11]]
+// APPROX-NEXT:    [[OR_COND77_I_I_I:%.*]] = icmp ult i8 [[TMP5]], 6
+// APPROX-NEXT:    br i1 [[OR_COND77_I_I_I]], label [[IF_END61_I_I_I]], label [[CLEANUP_I50_I_I]]
+// APPROX:       if.end61.i.i.i:
+// APPROX-NEXT:    [[DOTSINK:%.*]] = phi i64 [ -48, [[WHILE_BODY_I46_I_I]] ], [ -87, [[IF_ELSE_I_I_I]] ], [ -55, [[IF_ELSE38_I_I_I]] ]
+// APPROX-NEXT:    [[MUL51_I_I_I:%.*]] = shl i64 [[__R_0_I44_I_I]], 4
+// APPROX-NEXT:    [[CONV53_I_I_I:%.*]] = zext nneg i8 [[TMP2]] to i64
+// APPROX-NEXT:    [[ADD54_I_I_I:%.*]] = add i64 [[MUL51_I_I_I]], [[DOTSINK]]
+// APPROX-NEXT:    [[ADD58_I_I_I:%.*]] = add i64 [[ADD54_I_I_I]], [[CONV53_I_I_I]]
+// APPROX-NEXT:    [[INCDEC_PTR_I55_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I43_I_I]], i64 1
+// APPROX-NEXT:    br label [[CLEANUP_I50_I_I]]
+// APPROX:       cleanup.i50.i.i:
+// APPROX-NEXT:    [[__TAGP_ADDR_1_I51_I_I]] = phi ptr [ [[INCDEC_PTR_I55_I_I]], [[IF_END61_I_I_I]] ], [ [[__TAGP_ADDR_0_I43_I_I]], [[IF_ELSE38_I_I_I]] ]
+// APPROX-NEXT:    [[__R_2_I_I_I]] = phi i64 [ [[ADD58_I_I_I]], [[IF_END61_I_I_I]] ], [ [[__R_0_I44_I_I]], [[IF_ELSE38_I_I_I]] ]
+// APPROX-NEXT:    [[COND_I52_I_I:%.*]] = phi i1 [ true, [[IF_END61_I_I_I]] ], [ false, [[IF_ELSE38_I_I_I]] ]
+// APPROX-NEXT:    br i1 [[COND_I52_I_I]], label [[WHILE_COND_I42_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP11]]
 // APPROX:       while.cond.i.i.i:
 // APPROX-NEXT:    [[__TAGP_ADDR_0_I_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I_I_I:%.*]], [[CLEANUP_I_I_I:%.*]] ], [ [[INCDEC_PTR_I_I]], [[IF_THEN_I_I]] ]
 // APPROX-NEXT:    [[__R_0_I_I_I:%.*]] = phi i64 [ [[__R_1_I_I_I:%.*]], [[CLEANUP_I_I_I]] ], [ 0, [[IF_THEN_I_I]] ]
@@ -2714,38 +2714,38 @@ extern "C" __device__ float test_nanf(const char *tag) {
 // APPROX-NEXT:    br i1 [[OR_COND_I_I_I]], label [[IF_THEN_I_I_I:%.*]], label [[CLEANUP_I_I_I]]
 // APPROX:       if.then.i.i.i:
 // APPROX-NEXT:    [[MUL_I_I_I:%.*]] = shl i64 [[__R_0_I_I_I]], 3
-// APPROX-NEXT:    [[CONV5_I_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
+// APPROX-NEXT:    [[CONV15_I_I_I:%.*]] = zext nneg i8 [[TMP6]] to i64
 // APPROX-NEXT:    [[ADD_I_I_I:%.*]] = add i64 [[MUL_I_I_I]], -48
-// APPROX-NEXT:    [[SUB_I_I_I:%.*]] = add i64 [[ADD_I_I_I]], [[CONV5_I_I_I]]
+// APPROX-NEXT:    [[SUB_I_I_I:%.*]] = add i64 [[ADD_I_I_I]], [[CONV15_I_I_I]]
 // APPROX-NEXT:    [[INCDEC_PTR_I_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I_I_I]], i64 1
 // APPROX-NEXT:    br label [[CLEANUP_I_I_I]]
 // APPROX:       cleanup.i.i.i:
 // APPROX-NEXT:    [[__TAGP_ADDR_1_I_I_I]] = phi ptr [ [[INCDEC_PTR_I_I_I]], [[IF_THEN_I_I_I]] ], [ [[__TAGP_ADDR_0_I_I_I]], [[WHILE_BODY_I_I_I]] ]
 // APPROX-NEXT:    [[__R_1_I_I_I]] = phi i64 [ [[SUB_I_I_I]], [[IF_THEN_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_BODY_I_I_I]] ]
 // APPROX-NEXT:    br i1 [[OR_COND_I_I_I]], label [[WHILE_COND_I_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP7]]
-// APPROX:       while.cond.i14.i.i:
-// APPROX-NEXT:    [[__TAGP_ADDR_0_I15_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I21_I_I:%.*]], [[CLEANUP_I20_I_I:%.*]] ], [ [[TAG]], [[ENTRY:%.*]] ]
-// APPROX-NEXT:    [[__R_0_I16_I_I:%.*]] = phi i64 [ [[__R_1_I22_I_I:%.*]], [[CLEANUP_I20_I_I]] ], [ 0, [[ENTRY]] ]
-// APPROX-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I15_I_I]], align 1, !tbaa [[TBAA4]]
-// APPROX-NEXT:    [[CMP_NOT_I17_I_I:%.*]] = icmp eq i8 [[TMP8]], 0
-// APPROX-NEXT:    br i1 [[CMP_NOT_I17_I_I]], label [[_ZL3NANPKC_EXIT]], label [[WHILE_BODY_I18_I_I:%.*]]
-// APPROX:       while.body.i18.i.i:
+// APPROX:       while.cond.i23.i.i:
+// APPROX-NEXT:    [[__TAGP_ADDR_0_I24_I_I:%.*]] = phi ptr [ [[__TAGP_ADDR_1_I32_I_I:%.*]], [[CLEANUP_I31_I_I:%.*]] ], [ [[TAG]], [[ENTRY:%.*]] ]
+// APPROX-NEXT:    [[__R_0_I25_I_I:%.*]] = phi i64 [ [[__R_1_I33_I_I:%.*]], [[CLEANUP_I31_I_I]] ], [ 0, [[ENTRY]] ]
+// APPROX-NEXT:    [[TMP8:%.*]] = load i8, ptr [[__TAGP_ADDR_0_I24_I_I]], align 1, !tbaa [[TBAA4]]
+// APPROX-NEXT:    [[CMP_NOT_I26_I_I:%.*]] = icmp eq i8 [[TMP8]], 0
+// APPROX-NEXT:    br i1 [[CMP_NOT_I26_I_I]], label [[_ZL3NANPKC_EXIT]], label [[WHILE_BODY_I27_I_I:%.*]]
+// APPROX:       while.body.i27.i.i:
 // APPROX-NEXT:    [[TMP9:%.*]] = add i8 [[TMP8]], -48
-// APPROX-NEXT:    [[OR_COND_I19_I_I:%.*]] = icmp ult i8 [[TMP9]], 10
-// APPROX-NEXT:    br i1 [[OR_COND_I19_I_I]], label [[IF_THEN_I24_I_I:%.*]], label [[CLEANUP_I20_I_I]]
-// APPROX:       if.then.i24.i.i:
-// APPROX-NEXT:    [[MUL_I25_I_I:%.*]] = mul i64 [[__R_0_I16_I_I]], 10
-// APPROX-NEXT:    [[CONV5_I26_I_I:%.*]] = zext nneg i8 [[TMP8]] to i64
-// APPROX-NEXT:    [[ADD_I27_I_I:%.*]] = add i64 [[MUL_I25_I_I]], -48
-// APPROX-NEXT:    [[SUB_I28_I_I:%.*]] = add i64 [[ADD_I27_I_I]], [[CONV5_I26_I_I]]
-// APPROX-NEXT:    [[INCDEC_PTR_I29_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I15_I_I]], i64 1
-// APPROX-NEXT:    br label [[CLEANUP_I20_I_I]]
-// APPROX:       cleanup.i20.i.i:
-// APPROX-NEXT:    [[__TAGP_ADDR_1_I21_I_I]] = phi ptr [ [[INCDEC_PTR_I29_I_I]], [[IF_THEN_I24_I_I]] ], [ [[__TAGP_ADDR_0_I15_I_I]], [[WHILE_BODY_I18_I_I]] ]
-// APPROX-NEXT:    [[__R_1_I22_I_I]] = phi i64 [ [[SUB_I28_I_I]], [[IF_THEN_I24_I_I]] ], [ [[__R_0_I16_I_I]], [[WHILE_BODY_I18_I_I]] ]
-// APPROX-NEXT:    br i1 [[OR_COND_I19_I_I]], label [[WHILE_COND_I14_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP10]]
+// APPROX-NEXT:    [[OR_COND_I30_I_I:%.*]] = icmp ult i8 [[TMP9]], 10
+// APPROX-NEXT:    br i1 [[OR_COND_I30_I_I]], label [[IF_THEN_I36_I_I:%.*]], label [[CLEANUP_I31_I_I]]
+// APPROX:       if.then.i36.i.i:
+// APPROX-NEXT:    [[MUL_I37_I_I:%.*]] = mul i64 [[__R_0_I25_I_I]], 10
+// APPROX-NEXT:    [[CONV15_I38_I_I:%.*]] = zext nneg i8 [[TMP8]] to i64
+// APPROX-NEXT:    [[ADD_I39_I_I:%.*]] = add i64 [[MUL_I37_I_I]], -48
+// APPROX-NEXT:    [[SUB_I40_I_I:%.*]] = add i64 [[ADD_I39_I_I]], [[CONV15_I38_I_I]]
+// APPROX-NEXT:    [[INCDEC_PTR_I41_I_I:%.*]] = getelementptr inbounds nuw i8, ptr [[__TAGP_ADDR_0_I24_I_I]], i64 1
+// APPROX-NEXT:    br label [[CLEANUP_I31_I_I]]
+// APPROX:       cleanup.i31.i.i:
+// APPROX-NEXT:    [[__TAGP_ADDR_1_I32_I_I]] = phi ptr [ [[INCDEC_PTR_I41_I_I]], [[IF_THEN_I36_I_I]] ], [ [[__TAGP_ADDR_0_I24_I_I]], [[WHILE_BODY_I27_I_I]] ]
+// APPROX-NEXT:    [[__R_1_I33_I_I]] = phi i64 [ [[SUB_I40_I_I]], [[IF_THEN_I36_I_I]] ], [ [[__R_0_I25_I_I]], [[WHILE_BODY_I27_I_I]] ]
+// APPROX-NEXT:    br i1 [[OR_COND_I30_I_I]], label [[WHILE_COND_I23_I_I]], label [[_ZL3NANPKC_EXIT]], !llvm.loop [[LOOP10]]
 // APPROX:       _ZL3nanPKc.exit:
-// APPROX-NEXT:    [[RETVAL_0_I_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_COND_I_I_I]] ], [ 0, [[CLEANUP_I36_I_I]] ], [ [[__R_0_I32_I_I]], [[WHILE_COND_I30_I_I]] ], [ 0, [[CLEANUP_I20_I_I]] ], [ [[__R_0_I16_I_I]], [[WHILE_COND_I14_I_I]] ]
+// APPROX-NEXT:    [[RETVAL_0_I_I:%.*]] = phi i64 [ 0, [[CLEANUP_I_I_I]] ], [ [[__R_0_I_I_I]], [[WHILE_COND_I_I_I]] ], [ 0, [[CLEANUP_I50_I_I]] ], [ [[__R_0_I44_I_I]], [[WHILE_COND_I42_I_I]] ], [ 0, [[CLEANUP_I31_I_I]] ], [ [[__R_0_I25_I_I]], [[WHILE_COND_I23_I_I]] ]
 // APPROX-NEXT:    [[BF_VALUE_I:%.*]] = and i64 [[RETVAL_0_I_I]], 2251799813685247
 // APPROX-NEXT:    [[BF_SET9_I:%.*]] = or disjoint i64 [[BF_VALUE_I]], 9221120237041090560
 // APPROX-NEXT:    [[TMP10:%.*]] = bitcast i64 [[BF_SET9_I]] to double

@@ -326,8 +326,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK1-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 {
 // CHECK1-NEXT:  entry:
 // CHECK1-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK1-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK1-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK1-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK1-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK1-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK1-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK1-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
@@ -342,23 +342,25 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK1-NEXT:    [[TMP2:%.*]] = icmp ne i32 [[TMP1]], 0
 // CHECK1-NEXT:    br i1 [[TMP2]], label [[OMP_IF_THEN:%.*]], label [[OMP_IF_END:%.*]]
 // CHECK1:       omp_if.then:
-// CHECK1-NEXT:    store i8 2, ptr [[A]], align 1
+// CHECK1-NEXT:    [[TMP3:%.*]] = bytecast exact b8 2 to i8
+// CHECK1-NEXT:    store i8 [[TMP3]], ptr [[A]], align 1
 // CHECK1-NEXT:    call void @__kmpc_end_single(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK1-NEXT:    br label [[OMP_IF_END]]
 // CHECK1:       omp_if.end:
-// CHECK1-NEXT:    [[TMP3:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK1-NEXT:    [[TMP4:%.*]] = icmp ne i32 [[TMP3]], 0
-// CHECK1-NEXT:    br i1 [[TMP4]], label [[OMP_IF_THEN1:%.*]], label [[OMP_IF_END2:%.*]]
+// CHECK1-NEXT:    [[TMP4:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
+// CHECK1-NEXT:    [[TMP5:%.*]] = icmp ne i32 [[TMP4]], 0
+// CHECK1-NEXT:    br i1 [[TMP5]], label [[OMP_IF_THEN1:%.*]], label [[OMP_IF_END2:%.*]]
 // CHECK1:       omp_if.then1:
-// CHECK1-NEXT:    store i8 2, ptr [[A]], align 1
+// CHECK1-NEXT:    [[TMP6:%.*]] = bytecast exact b8 2 to i8
+// CHECK1-NEXT:    store i8 [[TMP6]], ptr [[A]], align 1
 // CHECK1-NEXT:    call void @__kmpc_end_single(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK1-NEXT:    br label [[OMP_IF_END2]]
 // CHECK1:       omp_if.end2:
 // CHECK1-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2:[0-9]+]], i32 [[TMP0]])
 // CHECK1-NEXT:    store i32 0, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
-// CHECK1-NEXT:    [[TMP5:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK1-NEXT:    [[TMP6:%.*]] = icmp ne i32 [[TMP5]], 0
-// CHECK1-NEXT:    br i1 [[TMP6]], label [[OMP_IF_THEN3:%.*]], label [[OMP_IF_END4:%.*]]
+// CHECK1-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
+// CHECK1-NEXT:    [[TMP8:%.*]] = icmp ne i32 [[TMP7]], 0
+// CHECK1-NEXT:    br i1 [[TMP8]], label [[OMP_IF_THEN3:%.*]], label [[OMP_IF_END4:%.*]]
 // CHECK1:       omp_if.then3:
 // CHECK1-NEXT:    invoke void @_Z3foov()
 // CHECK1-NEXT:            to label [[INVOKE_CONT:%.*]] unwind label [[TERMINATE_LPAD:%.*]]
@@ -367,28 +369,29 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK1-NEXT:    store i32 1, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
 // CHECK1-NEXT:    br label [[OMP_IF_END4]]
 // CHECK1:       omp_if.end4:
-// CHECK1-NEXT:    [[TMP7:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 0
-// CHECK1-NEXT:    store ptr [[A]], ptr [[TMP7]], align 8
-// CHECK1-NEXT:    [[TMP8:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 1
-// CHECK1-NEXT:    store ptr @tc, ptr [[TMP8]], align 8
-// CHECK1-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 2
-// CHECK1-NEXT:    [[TMP10:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc, i64 4, ptr @tc.cache.)
-// CHECK1-NEXT:    store ptr [[TMP10]], ptr [[TMP9]], align 8
-// CHECK1-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 3
-// CHECK1-NEXT:    store ptr [[A2]], ptr [[TMP11]], align 8
-// CHECK1-NEXT:    [[TMP12:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 4
-// CHECK1-NEXT:    [[TMP13:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc2, i64 8, ptr @tc2.cache.)
-// CHECK1-NEXT:    store ptr [[TMP13]], ptr [[TMP12]], align 8
-// CHECK1-NEXT:    [[TMP14:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
-// CHECK1-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP14]])
-// CHECK1-NEXT:    [[TMP15:%.*]] = load i8, ptr [[A]], align 1
-// CHECK1-NEXT:    [[CONV:%.*]] = sext i8 [[TMP15]] to i32
-// CHECK1-NEXT:    ret i32 [[CONV]]
+// CHECK1-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 0
+// CHECK1-NEXT:    store ptr [[A]], ptr [[TMP9]], align 8
+// CHECK1-NEXT:    [[TMP10:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 1
+// CHECK1-NEXT:    store ptr @tc, ptr [[TMP10]], align 8
+// CHECK1-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 2
+// CHECK1-NEXT:    [[TMP12:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc, i64 4, ptr @tc.cache.)
+// CHECK1-NEXT:    store ptr [[TMP12]], ptr [[TMP11]], align 8
+// CHECK1-NEXT:    [[TMP13:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 3
+// CHECK1-NEXT:    store ptr [[A2]], ptr [[TMP13]], align 8
+// CHECK1-NEXT:    [[TMP14:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 4
+// CHECK1-NEXT:    [[TMP15:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc2, i64 8, ptr @tc2.cache.)
+// CHECK1-NEXT:    store ptr [[TMP15]], ptr [[TMP14]], align 8
+// CHECK1-NEXT:    [[TMP16:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
+// CHECK1-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP16]])
+// CHECK1-NEXT:    [[TMP17:%.*]] = load b8, ptr [[A]], align 1
+// CHECK1-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP17]] to i8
+// CHECK1-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32
+// CHECK1-NEXT:    ret i32 [[CONV5]]
 // CHECK1:       terminate.lpad:
-// CHECK1-NEXT:    [[TMP16:%.*]] = landingpad { ptr, i32 }
+// CHECK1-NEXT:    [[TMP18:%.*]] = landingpad { ptr, i32 }
 // CHECK1-NEXT:            catch ptr null
-// CHECK1-NEXT:    [[TMP17:%.*]] = extractvalue { ptr, i32 } [[TMP16]], 0
-// CHECK1-NEXT:    call void @__clang_call_terminate(ptr [[TMP17]]) #[[ATTR11:[0-9]+]]
+// CHECK1-NEXT:    [[TMP19:%.*]] = extractvalue { ptr, i32 } [[TMP18]], 0
+// CHECK1-NEXT:    call void @__clang_call_terminate(ptr [[TMP19]]) #[[ATTR11:[0-9]+]]
 // CHECK1-NEXT:    unreachable
 //
 //
@@ -435,8 +438,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK1-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[TMP4]], align 8
 // CHECK1-NEXT:    [[TMP6:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 0
 // CHECK1-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP6]], align 8
-// CHECK1-NEXT:    [[TMP8:%.*]] = load i8, ptr [[TMP7]], align 1
-// CHECK1-NEXT:    store i8 [[TMP8]], ptr [[TMP5]], align 1
+// CHECK1-NEXT:    [[TMP8:%.*]] = load b8, ptr [[TMP7]], align 1
+// CHECK1-NEXT:    store b8 [[TMP8]], ptr [[TMP5]], align 1
 // CHECK1-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP2]], i64 0, i64 1
 // CHECK1-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8
 // CHECK1-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 1
@@ -1210,8 +1213,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK2-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 {
 // CHECK2-NEXT:  entry:
 // CHECK2-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK2-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK2-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK2-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK2-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK2-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK2-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK2-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
@@ -1226,23 +1229,25 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK2-NEXT:    [[TMP2:%.*]] = icmp ne i32 [[TMP1]], 0
 // CHECK2-NEXT:    br i1 [[TMP2]], label [[OMP_IF_THEN:%.*]], label [[OMP_IF_END:%.*]]
 // CHECK2:       omp_if.then:
-// CHECK2-NEXT:    store i8 2, ptr [[A]], align 1
+// CHECK2-NEXT:    [[TMP3:%.*]] = bytecast exact b8 2 to i8
+// CHECK2-NEXT:    store i8 [[TMP3]], ptr [[A]], align 1
 // CHECK2-NEXT:    call void @__kmpc_end_single(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK2-NEXT:    br label [[OMP_IF_END]]
 // CHECK2:       omp_if.end:
-// CHECK2-NEXT:    [[TMP3:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK2-NEXT:    [[TMP4:%.*]] = icmp ne i32 [[TMP3]], 0
-// CHECK2-NEXT:    br i1 [[TMP4]], label [[OMP_IF_THEN1:%.*]], label [[OMP_IF_END2:%.*]]
+// CHECK2-NEXT:    [[TMP4:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
+// CHECK2-NEXT:    [[TMP5:%.*]] = icmp ne i32 [[TMP4]], 0
+// CHECK2-NEXT:    br i1 [[TMP5]], label [[OMP_IF_THEN1:%.*]], label [[OMP_IF_END2:%.*]]
 // CHECK2:       omp_if.then1:
-// CHECK2-NEXT:    store i8 2, ptr [[A]], align 1
+// CHECK2-NEXT:    [[TMP6:%.*]] = bytecast exact b8 2 to i8
+// CHECK2-NEXT:    store i8 [[TMP6]], ptr [[A]], align 1
 // CHECK2-NEXT:    call void @__kmpc_end_single(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK2-NEXT:    br label [[OMP_IF_END2]]
 // CHECK2:       omp_if.end2:
 // CHECK2-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2:[0-9]+]], i32 [[TMP0]])
 // CHECK2-NEXT:    store i32 0, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
-// CHECK2-NEXT:    [[TMP5:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK2-NEXT:    [[TMP6:%.*]] = icmp ne i32 [[TMP5]], 0
-// CHECK2-NEXT:    br i1 [[TMP6]], label [[OMP_IF_THEN3:%.*]], label [[OMP_IF_END4:%.*]]
+// CHECK2-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
+// CHECK2-NEXT:    [[TMP8:%.*]] = icmp ne i32 [[TMP7]], 0
+// CHECK2-NEXT:    br i1 [[TMP8]], label [[OMP_IF_THEN3:%.*]], label [[OMP_IF_END4:%.*]]
 // CHECK2:       omp_if.then3:
 // CHECK2-NEXT:    invoke void @_Z3foov()
 // CHECK2-NEXT:            to label [[INVOKE_CONT:%.*]] unwind label [[TERMINATE_LPAD:%.*]]
@@ -1251,28 +1256,29 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK2-NEXT:    store i32 1, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
 // CHECK2-NEXT:    br label [[OMP_IF_END4]]
 // CHECK2:       omp_if.end4:
-// CHECK2-NEXT:    [[TMP7:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 0
-// CHECK2-NEXT:    store ptr [[A]], ptr [[TMP7]], align 8
-// CHECK2-NEXT:    [[TMP8:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 1
-// CHECK2-NEXT:    store ptr @tc, ptr [[TMP8]], align 8
-// CHECK2-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 2
-// CHECK2-NEXT:    [[TMP10:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc, i64 4, ptr @tc.cache.)
-// CHECK2-NEXT:    store ptr [[TMP10]], ptr [[TMP9]], align 8
-// CHECK2-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 3
-// CHECK2-NEXT:    store ptr [[A2]], ptr [[TMP11]], align 8
-// CHECK2-NEXT:    [[TMP12:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 4
-// CHECK2-NEXT:    [[TMP13:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc2, i64 8, ptr @tc2.cache.)
-// CHECK2-NEXT:    store ptr [[TMP13]], ptr [[TMP12]], align 8
-// CHECK2-NEXT:    [[TMP14:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
-// CHECK2-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP14]])
-// CHECK2-NEXT:    [[TMP15:%.*]] = load i8, ptr [[A]], align 1
-// CHECK2-NEXT:    [[CONV:%.*]] = sext i8 [[TMP15]] to i32
-// CHECK2-NEXT:    ret i32 [[CONV]]
+// CHECK2-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 0
+// CHECK2-NEXT:    store ptr [[A]], ptr [[TMP9]], align 8
+// CHECK2-NEXT:    [[TMP10:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 1
+// CHECK2-NEXT:    store ptr @tc, ptr [[TMP10]], align 8
+// CHECK2-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 2
+// CHECK2-NEXT:    [[TMP12:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc, i64 4, ptr @tc.cache.)
+// CHECK2-NEXT:    store ptr [[TMP12]], ptr [[TMP11]], align 8
+// CHECK2-NEXT:    [[TMP13:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 3
+// CHECK2-NEXT:    store ptr [[A2]], ptr [[TMP13]], align 8
+// CHECK2-NEXT:    [[TMP14:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 4
+// CHECK2-NEXT:    [[TMP15:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc2, i64 8, ptr @tc2.cache.)
+// CHECK2-NEXT:    store ptr [[TMP15]], ptr [[TMP14]], align 8
+// CHECK2-NEXT:    [[TMP16:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
+// CHECK2-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP16]])
+// CHECK2-NEXT:    [[TMP17:%.*]] = load b8, ptr [[A]], align 1
+// CHECK2-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP17]] to i8
+// CHECK2-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32
+// CHECK2-NEXT:    ret i32 [[CONV5]]
 // CHECK2:       terminate.lpad:
-// CHECK2-NEXT:    [[TMP16:%.*]] = landingpad { ptr, i32 }
+// CHECK2-NEXT:    [[TMP18:%.*]] = landingpad { ptr, i32 }
 // CHECK2-NEXT:            catch ptr null
-// CHECK2-NEXT:    [[TMP17:%.*]] = extractvalue { ptr, i32 } [[TMP16]], 0
-// CHECK2-NEXT:    call void @__clang_call_terminate(ptr [[TMP17]]) #[[ATTR11:[0-9]+]]
+// CHECK2-NEXT:    [[TMP19:%.*]] = extractvalue { ptr, i32 } [[TMP18]], 0
+// CHECK2-NEXT:    call void @__clang_call_terminate(ptr [[TMP19]]) #[[ATTR11:[0-9]+]]
 // CHECK2-NEXT:    unreachable
 //
 //
@@ -1319,8 +1325,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK2-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[TMP4]], align 8
 // CHECK2-NEXT:    [[TMP6:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 0
 // CHECK2-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP6]], align 8
-// CHECK2-NEXT:    [[TMP8:%.*]] = load i8, ptr [[TMP7]], align 1
-// CHECK2-NEXT:    store i8 [[TMP8]], ptr [[TMP5]], align 1
+// CHECK2-NEXT:    [[TMP8:%.*]] = load b8, ptr [[TMP7]], align 1
+// CHECK2-NEXT:    store b8 [[TMP8]], ptr [[TMP5]], align 1
 // CHECK2-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP2]], i64 0, i64 1
 // CHECK2-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8
 // CHECK2-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 1
@@ -2102,8 +2108,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK4-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 {
 // CHECK4-NEXT:  entry:
 // CHECK4-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK4-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK4-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK4-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK4-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK4-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK4-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK4-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
@@ -2118,23 +2124,25 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK4-NEXT:    [[TMP2:%.*]] = icmp ne i32 [[TMP1]], 0
 // CHECK4-NEXT:    br i1 [[TMP2]], label [[OMP_IF_THEN:%.*]], label [[OMP_IF_END:%.*]]
 // CHECK4:       omp_if.then:
-// CHECK4-NEXT:    store i8 2, ptr [[A]], align 1
+// CHECK4-NEXT:    [[TMP3:%.*]] = bytecast exact b8 2 to i8
+// CHECK4-NEXT:    store i8 [[TMP3]], ptr [[A]], align 1
 // CHECK4-NEXT:    call void @__kmpc_end_single(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK4-NEXT:    br label [[OMP_IF_END]]
 // CHECK4:       omp_if.end:
-// CHECK4-NEXT:    [[TMP3:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK4-NEXT:    [[TMP4:%.*]] = icmp ne i32 [[TMP3]], 0
-// CHECK4-NEXT:    br i1 [[TMP4]], label [[OMP_IF_THEN1:%.*]], label [[OMP_IF_END2:%.*]]
+// CHECK4-NEXT:    [[TMP4:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
+// CHECK4-NEXT:    [[TMP5:%.*]] = icmp ne i32 [[TMP4]], 0
+// CHECK4-NEXT:    br i1 [[TMP5]], label [[OMP_IF_THEN1:%.*]], label [[OMP_IF_END2:%.*]]
 // CHECK4:       omp_if.then1:
-// CHECK4-NEXT:    store i8 2, ptr [[A]], align 1
+// CHECK4-NEXT:    [[TMP6:%.*]] = bytecast exact b8 2 to i8
+// CHECK4-NEXT:    store i8 [[TMP6]], ptr [[A]], align 1
 // CHECK4-NEXT:    call void @__kmpc_end_single(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK4-NEXT:    br label [[OMP_IF_END2]]
 // CHECK4:       omp_if.end2:
 // CHECK4-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2:[0-9]+]], i32 [[TMP0]])
 // CHECK4-NEXT:    store i32 0, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
-// CHECK4-NEXT:    [[TMP5:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK4-NEXT:    [[TMP6:%.*]] = icmp ne i32 [[TMP5]], 0
-// CHECK4-NEXT:    br i1 [[TMP6]], label [[OMP_IF_THEN3:%.*]], label [[OMP_IF_END4:%.*]]
+// CHECK4-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB1]], i32 [[TMP0]])
+// CHECK4-NEXT:    [[TMP8:%.*]] = icmp ne i32 [[TMP7]], 0
+// CHECK4-NEXT:    br i1 [[TMP8]], label [[OMP_IF_THEN3:%.*]], label [[OMP_IF_END4:%.*]]
 // CHECK4:       omp_if.then3:
 // CHECK4-NEXT:    invoke void @_Z3foov()
 // CHECK4-NEXT:            to label [[INVOKE_CONT:%.*]] unwind label [[TERMINATE_LPAD:%.*]]
@@ -2143,28 +2151,29 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK4-NEXT:    store i32 1, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
 // CHECK4-NEXT:    br label [[OMP_IF_END4]]
 // CHECK4:       omp_if.end4:
-// CHECK4-NEXT:    [[TMP7:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 0
-// CHECK4-NEXT:    store ptr [[A]], ptr [[TMP7]], align 8
-// CHECK4-NEXT:    [[TMP8:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 1
-// CHECK4-NEXT:    store ptr @tc, ptr [[TMP8]], align 8
-// CHECK4-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 2
-// CHECK4-NEXT:    [[TMP10:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc, i64 4, ptr @tc.cache.)
-// CHECK4-NEXT:    store ptr [[TMP10]], ptr [[TMP9]], align 8
-// CHECK4-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 3
-// CHECK4-NEXT:    store ptr [[A2]], ptr [[TMP11]], align 8
-// CHECK4-NEXT:    [[TMP12:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 4
-// CHECK4-NEXT:    [[TMP13:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc2, i64 8, ptr @tc2.cache.)
-// CHECK4-NEXT:    store ptr [[TMP13]], ptr [[TMP12]], align 8
-// CHECK4-NEXT:    [[TMP14:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
-// CHECK4-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP14]])
-// CHECK4-NEXT:    [[TMP15:%.*]] = load i8, ptr [[A]], align 1
-// CHECK4-NEXT:    [[CONV:%.*]] = sext i8 [[TMP15]] to i32
-// CHECK4-NEXT:    ret i32 [[CONV]]
+// CHECK4-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 0
+// CHECK4-NEXT:    store ptr [[A]], ptr [[TMP9]], align 8
+// CHECK4-NEXT:    [[TMP10:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 1
+// CHECK4-NEXT:    store ptr @tc, ptr [[TMP10]], align 8
+// CHECK4-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 2
+// CHECK4-NEXT:    [[TMP12:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc, i64 4, ptr @tc.cache.)
+// CHECK4-NEXT:    store ptr [[TMP12]], ptr [[TMP11]], align 8
+// CHECK4-NEXT:    [[TMP13:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 3
+// CHECK4-NEXT:    store ptr [[A2]], ptr [[TMP13]], align 8
+// CHECK4-NEXT:    [[TMP14:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 4
+// CHECK4-NEXT:    [[TMP15:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB1]], i32 [[TMP0]], ptr @tc2, i64 8, ptr @tc2.cache.)
+// CHECK4-NEXT:    store ptr [[TMP15]], ptr [[TMP14]], align 8
+// CHECK4-NEXT:    [[TMP16:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
+// CHECK4-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP16]])
+// CHECK4-NEXT:    [[TMP17:%.*]] = load b8, ptr [[A]], align 1
+// CHECK4-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP17]] to i8
+// CHECK4-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32
+// CHECK4-NEXT:    ret i32 [[CONV5]]
 // CHECK4:       terminate.lpad:
-// CHECK4-NEXT:    [[TMP16:%.*]] = landingpad { ptr, i32 }
+// CHECK4-NEXT:    [[TMP18:%.*]] = landingpad { ptr, i32 }
 // CHECK4-NEXT:            catch ptr null
-// CHECK4-NEXT:    [[TMP17:%.*]] = extractvalue { ptr, i32 } [[TMP16]], 0
-// CHECK4-NEXT:    call void @__clang_call_terminate(ptr [[TMP17]]) #[[ATTR11:[0-9]+]]
+// CHECK4-NEXT:    [[TMP19:%.*]] = extractvalue { ptr, i32 } [[TMP18]], 0
+// CHECK4-NEXT:    call void @__clang_call_terminate(ptr [[TMP19]]) #[[ATTR11:[0-9]+]]
 // CHECK4-NEXT:    unreachable
 //
 //
@@ -2211,8 +2220,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK4-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[TMP4]], align 8
 // CHECK4-NEXT:    [[TMP6:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 0
 // CHECK4-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP6]], align 8
-// CHECK4-NEXT:    [[TMP8:%.*]] = load i8, ptr [[TMP7]], align 1
-// CHECK4-NEXT:    store i8 [[TMP8]], ptr [[TMP5]], align 1
+// CHECK4-NEXT:    [[TMP8:%.*]] = load b8, ptr [[TMP7]], align 1
+// CHECK4-NEXT:    store b8 [[TMP8]], ptr [[TMP5]], align 1
 // CHECK4-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP2]], i64 0, i64 1
 // CHECK4-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8
 // CHECK4-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 1
@@ -3024,8 +3033,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK5-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 !dbg [[DBG51:![0-9]+]] {
 // CHECK5-NEXT:  entry:
 // CHECK5-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK5-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK5-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK5-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK5-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK5-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK5-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK5-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
@@ -3040,23 +3049,25 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK5-NEXT:    [[TMP2:%.*]] = icmp ne i32 [[TMP1]], 0, !dbg [[DBG52]]
 // CHECK5-NEXT:    br i1 [[TMP2]], label [[OMP_IF_THEN:%.*]], label [[OMP_IF_END:%.*]], !dbg [[DBG52]]
 // CHECK5:       omp_if.then:
-// CHECK5-NEXT:    store i8 2, ptr [[A]], align 1, !dbg [[DBG56:![0-9]+]]
+// CHECK5-NEXT:    [[TMP3:%.*]] = bytecast exact b8 2 to i8, !dbg [[DBG56:![0-9]+]]
+// CHECK5-NEXT:    store i8 [[TMP3]], ptr [[A]], align 1, !dbg [[DBG56]]
 // CHECK5-NEXT:    call void @__kmpc_end_single(ptr @[[GLOB5]], i32 [[TMP0]]), !dbg [[DBG57:![0-9]+]]
 // CHECK5-NEXT:    br label [[OMP_IF_END]], !dbg [[DBG57]]
 // CHECK5:       omp_if.end:
-// CHECK5-NEXT:    [[TMP3:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB7:[0-9]+]], i32 [[TMP0]]), !dbg [[DBG58:![0-9]+]]
-// CHECK5-NEXT:    [[TMP4:%.*]] = icmp ne i32 [[TMP3]], 0, !dbg [[DBG58]]
-// CHECK5-NEXT:    br i1 [[TMP4]], label [[OMP_IF_THEN1:%.*]], label [[OMP_IF_END2:%.*]], !dbg [[DBG58]]
+// CHECK5-NEXT:    [[TMP4:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB7:[0-9]+]], i32 [[TMP0]]), !dbg [[DBG58:![0-9]+]]
+// CHECK5-NEXT:    [[TMP5:%.*]] = icmp ne i32 [[TMP4]], 0, !dbg [[DBG58]]
+// CHECK5-NEXT:    br i1 [[TMP5]], label [[OMP_IF_THEN1:%.*]], label [[OMP_IF_END2:%.*]], !dbg [[DBG58]]
 // CHECK5:       omp_if.then1:
-// CHECK5-NEXT:    store i8 2, ptr [[A]], align 1, !dbg [[DBG59:![0-9]+]]
+// CHECK5-NEXT:    [[TMP6:%.*]] = bytecast exact b8 2 to i8, !dbg [[DBG59:![0-9]+]]
+// CHECK5-NEXT:    store i8 [[TMP6]], ptr [[A]], align 1, !dbg [[DBG59]]
 // CHECK5-NEXT:    call void @__kmpc_end_single(ptr @[[GLOB7]], i32 [[TMP0]]), !dbg [[DBG60:![0-9]+]]
 // CHECK5-NEXT:    br label [[OMP_IF_END2]], !dbg [[DBG60]]
 // CHECK5:       omp_if.end2:
 // CHECK5-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB8:[0-9]+]], i32 [[TMP0]]), !dbg [[DBG61:![0-9]+]]
 // CHECK5-NEXT:    store i32 0, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4, !dbg [[DBG62:![0-9]+]]
-// CHECK5-NEXT:    [[TMP5:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB10:[0-9]+]], i32 [[TMP0]]), !dbg [[DBG62]]
-// CHECK5-NEXT:    [[TMP6:%.*]] = icmp ne i32 [[TMP5]], 0, !dbg [[DBG62]]
-// CHECK5-NEXT:    br i1 [[TMP6]], label [[OMP_IF_THEN3:%.*]], label [[OMP_IF_END4:%.*]], !dbg [[DBG62]]
+// CHECK5-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_single(ptr @[[GLOB10:[0-9]+]], i32 [[TMP0]]), !dbg [[DBG62]]
+// CHECK5-NEXT:    [[TMP8:%.*]] = icmp ne i32 [[TMP7]], 0, !dbg [[DBG62]]
+// CHECK5-NEXT:    br i1 [[TMP8]], label [[OMP_IF_THEN3:%.*]], label [[OMP_IF_END4:%.*]], !dbg [[DBG62]]
 // CHECK5:       omp_if.then3:
 // CHECK5-NEXT:    invoke void @_Z3foov()
 // CHECK5-NEXT:            to label [[INVOKE_CONT:%.*]] unwind label [[TERMINATE_LPAD:%.*]], !dbg [[DBG63:![0-9]+]]
@@ -3065,28 +3076,29 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK5-NEXT:    store i32 1, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4, !dbg [[DBG63]]
 // CHECK5-NEXT:    br label [[OMP_IF_END4]], !dbg [[DBG63]]
 // CHECK5:       omp_if.end4:
-// CHECK5-NEXT:    [[TMP7:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 0, !dbg [[DBG63]]
-// CHECK5-NEXT:    store ptr [[A]], ptr [[TMP7]], align 8, !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP8:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 1, !dbg [[DBG63]]
-// CHECK5-NEXT:    store ptr @tc, ptr [[TMP8]], align 8, !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 2, !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP10:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB12:[0-9]+]], i32 [[TMP0]], ptr @tc, i64 4, ptr @tc.cache.), !dbg [[DBG64:![0-9]+]]
-// CHECK5-NEXT:    store ptr [[TMP10]], ptr [[TMP9]], align 8, !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 3, !dbg [[DBG63]]
-// CHECK5-NEXT:    store ptr [[A2]], ptr [[TMP11]], align 8, !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP12:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 4, !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP13:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB14:[0-9]+]], i32 [[TMP0]], ptr @tc2, i64 8, ptr @tc2.cache.), !dbg [[DBG65:![0-9]+]]
-// CHECK5-NEXT:    store ptr [[TMP13]], ptr [[TMP12]], align 8, !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP14:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4, !dbg [[DBG63]]
-// CHECK5-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB10]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP14]]), !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP15:%.*]] = load i8, ptr [[A]], align 1, !dbg [[DBG66:![0-9]+]]
-// CHECK5-NEXT:    [[CONV:%.*]] = sext i8 [[TMP15]] to i32, !dbg [[DBG66]]
-// CHECK5-NEXT:    ret i32 [[CONV]], !dbg [[DBG67:![0-9]+]]
+// CHECK5-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 0, !dbg [[DBG63]]
+// CHECK5-NEXT:    store ptr [[A]], ptr [[TMP9]], align 8, !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP10:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 1, !dbg [[DBG63]]
+// CHECK5-NEXT:    store ptr @tc, ptr [[TMP10]], align 8, !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 2, !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP12:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB12:[0-9]+]], i32 [[TMP0]], ptr @tc, i64 4, ptr @tc.cache.), !dbg [[DBG64:![0-9]+]]
+// CHECK5-NEXT:    store ptr [[TMP12]], ptr [[TMP11]], align 8, !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP13:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 3, !dbg [[DBG63]]
+// CHECK5-NEXT:    store ptr [[A2]], ptr [[TMP13]], align 8, !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP14:%.*]] = getelementptr inbounds [5 x ptr], ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], i64 0, i64 4, !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP15:%.*]] = call ptr @__kmpc_threadprivate_cached(ptr @[[GLOB14:[0-9]+]], i32 [[TMP0]], ptr @tc2, i64 8, ptr @tc2.cache.), !dbg [[DBG65:![0-9]+]]
+// CHECK5-NEXT:    store ptr [[TMP15]], ptr [[TMP14]], align 8, !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP16:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4, !dbg [[DBG63]]
+// CHECK5-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB10]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP16]]), !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP17:%.*]] = load b8, ptr [[A]], align 1, !dbg [[DBG66:![0-9]+]]
+// CHECK5-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP17]] to i8, !dbg [[DBG66]]
+// CHECK5-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32, !dbg [[DBG66]]
+// CHECK5-NEXT:    ret i32 [[CONV5]], !dbg [[DBG67:![0-9]+]]
 // CHECK5:       terminate.lpad:
-// CHECK5-NEXT:    [[TMP16:%.*]] = landingpad { ptr, i32 }
+// CHECK5-NEXT:    [[TMP18:%.*]] = landingpad { ptr, i32 }
 // CHECK5-NEXT:            catch ptr null, !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP17:%.*]] = extractvalue { ptr, i32 } [[TMP16]], 0, !dbg [[DBG63]]
-// CHECK5-NEXT:    call void @__clang_call_terminate(ptr [[TMP17]]) #[[ATTR11:[0-9]+]], !dbg [[DBG63]]
+// CHECK5-NEXT:    [[TMP19:%.*]] = extractvalue { ptr, i32 } [[TMP18]], 0, !dbg [[DBG63]]
+// CHECK5-NEXT:    call void @__clang_call_terminate(ptr [[TMP19]]) #[[ATTR11:[0-9]+]], !dbg [[DBG63]]
 // CHECK5-NEXT:    unreachable, !dbg [[DBG63]]
 //
 //
@@ -3133,8 +3145,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK5-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[TMP4]], align 8, !dbg [[DBG75]]
 // CHECK5-NEXT:    [[TMP6:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 0, !dbg [[DBG75]]
 // CHECK5-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP6]], align 8, !dbg [[DBG75]]
-// CHECK5-NEXT:    [[TMP8:%.*]] = load i8, ptr [[TMP7]], align 1, !dbg [[DBG76:![0-9]+]]
-// CHECK5-NEXT:    store i8 [[TMP8]], ptr [[TMP5]], align 1, !dbg [[DBG76]]
+// CHECK5-NEXT:    [[TMP8:%.*]] = load b8, ptr [[TMP7]], align 1, !dbg [[DBG76:![0-9]+]]
+// CHECK5-NEXT:    store b8 [[TMP8]], ptr [[TMP5]], align 1, !dbg [[DBG76]]
 // CHECK5-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP2]], i64 0, i64 1, !dbg [[DBG75]]
 // CHECK5-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8, !dbg [[DBG75]]
 // CHECK5-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 1, !dbg [[DBG75]]

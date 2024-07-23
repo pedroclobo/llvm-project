@@ -20,7 +20,7 @@ void test_numeric(void) {
   id ulit = @25u;
   // CHECK: {{call.*objc_msgSend.*i64 42.* [ "clang.arc.attachedcall"(i8* (i8*)* @llvm.objc.retainAutoreleasedReturnValue) ]}}
   id ulllit = @42ull;
-  // CHECK: {{call.*objc_msgSend.*i8 signext 97.* [ "clang.arc.attachedcall"(i8* (i8*)* @llvm.objc.retainAutoreleasedReturnValue) ]}}
+  // CHECK: {{call.*objc_msgSend.*b8 signext 97.* [ "clang.arc.attachedcall"(i8* (i8*)* @llvm.objc.retainAutoreleasedReturnValue) ]}}
   id charlit = @'a';
   // CHECK: call void @llvm.objc.release
   // CHECK: call void @llvm.lifetime.end
