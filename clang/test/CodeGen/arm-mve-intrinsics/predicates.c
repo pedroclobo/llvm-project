@@ -211,8 +211,11 @@ int64x2_t test_vpselq_s64(int64x2_t a, int64x2_t b, mve_pred16_t p)
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
 // CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = select <16 x i1> [[TMP1]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]]
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = select <16 x i1> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 int8x16_t test_vpselq_s8(int8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -278,8 +281,11 @@ uint64x2_t test_vpselq_u64(uint64x2_t a, uint64x2_t b, mve_pred16_t p)
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
 // CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = select <16 x i1> [[TMP1]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]]
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = select <16 x i1> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vpselq_u8(uint8x16_t a, uint8x16_t b, mve_pred16_t p)
 {

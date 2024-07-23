@@ -69,7 +69,7 @@
 // CHECK-DAG: [[IDENT_T:%.+]] = type { i32, i32, i32, i32, ptr }
 // CHECK-DAG: [[KMP_TASK_T_WITH_PRIVATES:%.+]] = type { [[KMP_TASK_T:%.+]] }
 // CHECK-DAG: [[KMP_TASK_T]] = type { ptr, ptr, i32, %{{[^,]+}}, %{{[^,]+}} }
-// CHECK-DAG: [[TT:%.+]] = type { i64, i8 }
+// CHECK-DAG: [[TT:%.+]] = type { i64, b8 }
 // CHECK-DAG: [[S1:%.+]] = type { double }
 // CHECK-DAG: [[ENTTY:%.+]] = type { i64, i16, i16, i32, ptr, ptr, i64, i64, ptr }
 

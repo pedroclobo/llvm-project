@@ -19,7 +19,7 @@ void test1() {
   (*(fptr_t)cptr)();
 }
 
-// CHECK-LABEL: define{{.*}} i8 @test2
+// CHECK-LABEL: define{{.*}} b8 @test2
 char test2() {
   return *(char *)fptr;
 

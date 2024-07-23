@@ -21,13 +21,13 @@ void basic_finally(void) {
 //
 // CHECK: [[invoke_cont]]
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@basic_finally@@"({{i8 noundef( zeroext)?}} 0, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@basic_finally@@"({{b8 noundef( zeroext)?}} 0, ptr noundef %[[fp]])
 // CHECK-NEXT: ret void
 //
 // CHECK: [[lpad]]
 // CHECK-NEXT: %[[pad:[^ ]*]] = cleanuppad
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@basic_finally@@"({{i8 noundef( zeroext)?}} 1, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@basic_finally@@"({{b8 noundef( zeroext)?}} 1, ptr noundef %[[fp]])
 // CHECK-NEXT: cleanupret from %[[pad]] unwind to caller
 
 // CHECK: define internal void @"?fin$0@0@basic_finally@@"({{.*}})
@@ -61,7 +61,7 @@ l:
 //
 // CHECK: [[invoke_cont]]
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@label_in_finally@@"({{i8 noundef( zeroext)?}} 0, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@label_in_finally@@"({{b8 noundef( zeroext)?}} 0, ptr noundef %[[fp]])
 // CHECK: ret void
 
 // CHECK: define internal void @"?fin$0@0@label_in_finally@@"({{.*}})
@@ -89,18 +89,19 @@ void use_abnormal_termination(void) {
 //
 // CHECK: [[invoke_cont]]
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@use_abnormal_termination@@"({{i8 noundef( zeroext)?}} 0, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@use_abnormal_termination@@"({{b8 noundef( zeroext)?}} 0, ptr noundef %[[fp]])
 // CHECK: ret void
 //
 // CHECK: [[lpad]]
 // CHECK-NEXT: %[[pad:[^ ]*]] = cleanuppad
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@use_abnormal_termination@@"({{i8 noundef( zeroext)?}} 1, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@use_abnormal_termination@@"({{b8 noundef( zeroext)?}} 1, ptr noundef %[[fp]])
 // CHECK-NEXT: cleanupret from %[[pad]] unwind to caller
 
-// CHECK: define internal void @"?fin$0@0@use_abnormal_termination@@"({{i8 noundef( zeroext)?}} %[[abnormal:abnormal_termination]], ptr noundef %frame_pointer)
+// CHECK: define internal void @"?fin$0@0@use_abnormal_termination@@"({{b8 noundef( zeroext)?}} %[[abnormal:abnormal_termination]], ptr noundef %frame_pointer)
 // CHECK-SAME: [[finally_attrs]]
-// CHECK: %[[abnormal_zext:[^ ]*]] = zext i8 %[[abnormal]] to i32
+// CHECK: %[[abnormal_bytecast:[^ ]*]] = bytecast exact b8 %[[abnormal]] to i8
+// CHECK: %[[abnormal_zext:[^ ]*]] = zext i8 %[[abnormal_bytecast]] to i32
 // CHECK: store i32 %[[abnormal_zext]], ptr @crashed
 // CHECK-NEXT: ret void
 

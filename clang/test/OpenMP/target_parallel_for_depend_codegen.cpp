@@ -38,7 +38,7 @@
 #ifndef HEADER
 #define HEADER
 
-// CHECK-DAG: [[TT:%.+]] = type { i64, i8 }
+// CHECK-DAG: [[TT:%.+]] = type { i64, b8 }
 // CHECK-DAG: [[ENTTY:%.+]] = type { i64, i16, i16, i32, ptr, ptr, i64, i64, ptr }
 
 // TCHECK: [[ENTTY:%.+]] = type { i64, i16, i16, i32, ptr, ptr, i64, i64, ptr }

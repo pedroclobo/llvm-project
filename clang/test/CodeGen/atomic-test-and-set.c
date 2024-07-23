@@ -76,7 +76,7 @@ void clear_dynamic(char *ptr, int order) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 monotonic, align 1
@@ -94,7 +94,7 @@ void test_and_set_relaxed(char *ptr) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 acquire, align 1
@@ -112,7 +112,7 @@ void test_and_set_consume(char *ptr) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 acquire, align 1
@@ -130,7 +130,7 @@ void test_and_set_acquire(char *ptr) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 release, align 1
@@ -148,7 +148,7 @@ void test_and_set_release(char *ptr) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 acq_rel, align 1
@@ -166,7 +166,7 @@ void test_and_set_acq_rel(char *ptr) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 seq_cst, align 1
@@ -185,7 +185,7 @@ void test_and_set_seq_cst(char *ptr) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
 // CHECK-NEXT:    [[ORDER_ADDR:%.*]] = alloca i32, align 4
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    store i32 [[ORDER]], ptr [[ORDER_ADDR]], align 4
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
@@ -235,7 +235,7 @@ void test_and_set_dynamic(char *ptr, int order) {
 // CHECK-SAME: ) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[X:%.*]] = alloca [10 x i32], align 4
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    [[ARRAYDECAY:%.*]] = getelementptr inbounds [10 x i32], ptr [[X]], i64 0, i64 0
 // CHECK-NEXT:    [[TMP0:%.*]] = atomicrmw volatile xchg ptr [[ARRAYDECAY]], i8 1 seq_cst, align 4
 // CHECK-NEXT:    [[TOBOOL:%.*]] = icmp ne i8 [[TMP0]], 0
@@ -296,7 +296,7 @@ void clear_incomplete(struct incomplete *ptr) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 monotonic, align 4
@@ -313,7 +313,7 @@ void test_and_set_int(int *ptr) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 monotonic, align 1
@@ -330,7 +330,7 @@ void test_and_set_void(void *ptr) {
 // CHECK-SAME: ptr noundef [[PTR:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[PTR]], ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = atomicrmw xchg ptr [[TMP0]], i8 1 monotonic, align 1

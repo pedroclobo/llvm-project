@@ -72,14 +72,14 @@ const int *a_sink = &a;
 
 // CHECK-ARR-LABEL: define{{.*}} void @_Z13test_arr_exprv
 void test_arr_expr() {
-  // CHECK-ARR: %x1 = alloca [101 x i8],
+  // CHECK-ARR: %x1 = alloca [101 x b8],
   char x1[std::is_constant_evaluated() && __builtin_is_constant_evaluated() ? 101 : 1];
 
-  // CHECK-ARR: %x2 = alloca [42 x i8],
+  // CHECK-ARR: %x2 = alloca [42 x b8],
   char x2[std::is_constant_evaluated() && __builtin_is_constant_evaluated() ? 42 : RANDU()];
 
   // CHECK-ARR: call ptr @llvm.stacksave.p0()
-  // CHECK-ARR: %vla = alloca i8, i64 13,
+  // CHECK-ARR: %vla = alloca b8, i64 13,
   char x3[std::is_constant_evaluated() || __builtin_is_constant_evaluated() ? RANDU() : 13];
 }
 
