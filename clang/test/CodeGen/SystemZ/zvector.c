@@ -19,10 +19,6 @@ volatile vector signed long long sl, sl2;
 volatile vector unsigned long long ul, ul2;
 volatile vector bool long long bl, bl2;
 
-volatile vector signed __int128 slll, slll2;
-volatile vector unsigned __int128 ulll, ulll2;
-volatile vector bool __int128 blll, blll2;
-
 volatile vector double fd, fd2;
 
 volatile int cnt;
@@ -46,12 +42,8 @@ volatile int cnt;
 // CHECK-NEXT:    store volatile <2 x i64> [[TMP6]], ptr @sl, align 8
 // CHECK-NEXT:    [[TMP7:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    store volatile <2 x i64> [[TMP7]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    store volatile <1 x i128> [[TMP8]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP9:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    store volatile <1 x i128> [[TMP9]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP10:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    store volatile <2 x double> [[TMP10]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    store volatile <2 x double> [[TMP8]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_assign(void) {
@@ -67,9 +59,6 @@ void test_assign(void) {
 
   sl = sl2;
   ul = ul2;
-
-  slll = slll2;
-  ulll = ulll2;
 
   fd = fd2;
 }
@@ -93,12 +82,8 @@ void test_assign(void) {
 // CHECK-NEXT:    store volatile <2 x i64> [[TMP6]], ptr @sl, align 8
 // CHECK-NEXT:    [[TMP7:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    store volatile <2 x i64> [[TMP7]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    store volatile <1 x i128> [[TMP8]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP9:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    store volatile <1 x i128> [[TMP9]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP10:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    store volatile <2 x double> [[TMP10]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    store volatile <2 x double> [[TMP8]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_pos(void) {
@@ -114,9 +99,6 @@ void test_pos(void) {
 
   sl = +sl2;
   ul = +ul2;
-
-  slll = +slll2;
-  ulll = +ulll2;
 
   fd = +fd2;
 }
@@ -136,11 +118,8 @@ void test_pos(void) {
 // CHECK-NEXT:    [[TMP3:%.*]] = load volatile <2 x i64>, ptr @sl2, align 8
 // CHECK-NEXT:    [[SUB3:%.*]] = sub <2 x i64> zeroinitializer, [[TMP3]]
 // CHECK-NEXT:    store volatile <2 x i64> [[SUB3]], ptr @sl, align 8
-// CHECK-NEXT:    [[TMP4:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[SUB4:%.*]] = sub <1 x i128> zeroinitializer, [[TMP4]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB4]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP5:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[FNEG:%.*]] = fneg <2 x double> [[TMP5]]
+// CHECK-NEXT:    [[TMP4:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[FNEG:%.*]] = fneg <2 x double> [[TMP4]]
 // CHECK-NEXT:    store volatile <2 x double> [[FNEG]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
@@ -150,7 +129,6 @@ void test_neg(void) {
   ss = -ss2;
   si = -si2;
   sl = -sl2;
-  slll = -slll2;
   fd = -fd2;
 }
 
@@ -181,15 +159,9 @@ void test_neg(void) {
 // CHECK-NEXT:    [[TMP7:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[INC7:%.*]] = add <2 x i64> [[TMP7]], splat (i64 1)
 // CHECK-NEXT:    store volatile <2 x i64> [[INC7]], ptr @ul2, align 8
-// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[INC8:%.*]] = add <1 x i128> [[TMP8]], splat (i128 1)
-// CHECK-NEXT:    store volatile <1 x i128> [[INC8]], ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP9:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[INC9:%.*]] = add <1 x i128> [[TMP9]], splat (i128 1)
-// CHECK-NEXT:    store volatile <1 x i128> [[INC9]], ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP10:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[INC10:%.*]] = fadd <2 x double> [[TMP10]], splat (double 1.000000e+00)
-// CHECK-NEXT:    store volatile <2 x double> [[INC10]], ptr @fd2, align 8
+// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[INC8:%.*]] = fadd <2 x double> [[TMP8]], splat (double 1.000000e+00)
+// CHECK-NEXT:    store volatile <2 x double> [[INC8]], ptr @fd2, align 8
 // CHECK-NEXT:    ret void
 //
 void test_preinc(void) {
@@ -205,9 +177,6 @@ void test_preinc(void) {
 
   ++sl2;
   ++ul2;
-
-  ++slll2;
-  ++ulll2;
 
   ++fd2;
 }
@@ -239,15 +208,9 @@ void test_preinc(void) {
 // CHECK-NEXT:    [[TMP7:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[INC7:%.*]] = add <2 x i64> [[TMP7]], splat (i64 1)
 // CHECK-NEXT:    store volatile <2 x i64> [[INC7]], ptr @ul2, align 8
-// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[INC8:%.*]] = add <1 x i128> [[TMP8]], splat (i128 1)
-// CHECK-NEXT:    store volatile <1 x i128> [[INC8]], ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP9:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[INC9:%.*]] = add <1 x i128> [[TMP9]], splat (i128 1)
-// CHECK-NEXT:    store volatile <1 x i128> [[INC9]], ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP10:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[INC10:%.*]] = fadd <2 x double> [[TMP10]], splat (double 1.000000e+00)
-// CHECK-NEXT:    store volatile <2 x double> [[INC10]], ptr @fd2, align 8
+// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[INC8:%.*]] = fadd <2 x double> [[TMP8]], splat (double 1.000000e+00)
+// CHECK-NEXT:    store volatile <2 x double> [[INC8]], ptr @fd2, align 8
 // CHECK-NEXT:    ret void
 //
 void test_postinc(void) {
@@ -263,9 +226,6 @@ void test_postinc(void) {
 
   sl2++;
   ul2++;
-
-  slll2++;
-  ulll2++;
 
   fd2++;
 }
@@ -297,15 +257,9 @@ void test_postinc(void) {
 // CHECK-NEXT:    [[TMP7:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[DEC7:%.*]] = add <2 x i64> [[TMP7]], splat (i64 -1)
 // CHECK-NEXT:    store volatile <2 x i64> [[DEC7]], ptr @ul2, align 8
-// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[DEC8:%.*]] = add <1 x i128> [[TMP8]], splat (i128 18446744073709551615)
-// CHECK-NEXT:    store volatile <1 x i128> [[DEC8]], ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP9:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[DEC9:%.*]] = add <1 x i128> [[TMP9]], splat (i128 18446744073709551615)
-// CHECK-NEXT:    store volatile <1 x i128> [[DEC9]], ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP10:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[DEC10:%.*]] = fadd <2 x double> [[TMP10]], splat (double -1.000000e+00)
-// CHECK-NEXT:    store volatile <2 x double> [[DEC10]], ptr @fd2, align 8
+// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[DEC8:%.*]] = fadd <2 x double> [[TMP8]], splat (double -1.000000e+00)
+// CHECK-NEXT:    store volatile <2 x double> [[DEC8]], ptr @fd2, align 8
 // CHECK-NEXT:    ret void
 //
 void test_predec(void) {
@@ -321,9 +275,6 @@ void test_predec(void) {
 
   --sl2;
   --ul2;
-
-  --slll2;
-  --ulll2;
 
   --fd2;
 }
@@ -355,15 +306,9 @@ void test_predec(void) {
 // CHECK-NEXT:    [[TMP7:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[DEC7:%.*]] = add <2 x i64> [[TMP7]], splat (i64 -1)
 // CHECK-NEXT:    store volatile <2 x i64> [[DEC7]], ptr @ul2, align 8
-// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[DEC8:%.*]] = add <1 x i128> [[TMP8]], splat (i128 18446744073709551615)
-// CHECK-NEXT:    store volatile <1 x i128> [[DEC8]], ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP9:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[DEC9:%.*]] = add <1 x i128> [[TMP9]], splat (i128 18446744073709551615)
-// CHECK-NEXT:    store volatile <1 x i128> [[DEC9]], ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP10:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[DEC10:%.*]] = fadd <2 x double> [[TMP10]], splat (double -1.000000e+00)
-// CHECK-NEXT:    store volatile <2 x double> [[DEC10]], ptr @fd2, align 8
+// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[DEC8:%.*]] = fadd <2 x double> [[TMP8]], splat (double -1.000000e+00)
+// CHECK-NEXT:    store volatile <2 x double> [[DEC8]], ptr @fd2, align 8
 // CHECK-NEXT:    ret void
 //
 void test_postdec(void) {
@@ -379,9 +324,6 @@ void test_postdec(void) {
 
   sl2--;
   ul2--;
-
-  slll2--;
-  ulll2--;
 
   fd2--;
 }
@@ -485,34 +427,10 @@ void test_postdec(void) {
 // CHECK-NEXT:    [[TMP47:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[ADD23:%.*]] = add <2 x i64> [[TMP46]], [[TMP47]]
 // CHECK-NEXT:    store volatile <2 x i64> [[ADD23]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP48:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP49:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[ADD24:%.*]] = add <1 x i128> [[TMP48]], [[TMP49]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD24]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP50:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP51:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[ADD25:%.*]] = add <1 x i128> [[TMP50]], [[TMP51]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD25]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP52:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP53:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[ADD26:%.*]] = add <1 x i128> [[TMP52]], [[TMP53]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD26]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP54:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP55:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[ADD27:%.*]] = add <1 x i128> [[TMP54]], [[TMP55]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD27]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[ADD28:%.*]] = add <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD28]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[ADD29:%.*]] = add <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD29]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[ADD30:%.*]] = fadd <2 x double> [[TMP60]], [[TMP61]]
-// CHECK-NEXT:    store volatile <2 x double> [[ADD30]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP48:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP49:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[ADD24:%.*]] = fadd <2 x double> [[TMP48]], [[TMP49]]
+// CHECK-NEXT:    store volatile <2 x double> [[ADD24]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_add(void) {
@@ -544,13 +462,6 @@ void test_add(void) {
   ul = ul + ul2;
   ul = ul + bl2;
   ul = bl + ul2;
-
-  slll = slll + slll2;
-  slll = slll + blll2;
-  slll = blll + slll2;
-  ulll = ulll + ulll2;
-  ulll = ulll + blll2;
-  ulll = blll + ulll2;
 
   fd = fd + fd2;
 }
@@ -622,26 +533,10 @@ void test_add(void) {
 // CHECK-NEXT:    [[TMP31:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[ADD15:%.*]] = add <2 x i64> [[TMP31]], [[TMP30]]
 // CHECK-NEXT:    store volatile <2 x i64> [[ADD15]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP32:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP33:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[ADD16:%.*]] = add <1 x i128> [[TMP33]], [[TMP32]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD16]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP34:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP35:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[ADD17:%.*]] = add <1 x i128> [[TMP35]], [[TMP34]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD17]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP36:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP37:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[ADD18:%.*]] = add <1 x i128> [[TMP37]], [[TMP36]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD18]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP38:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP39:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[ADD19:%.*]] = add <1 x i128> [[TMP39]], [[TMP38]]
-// CHECK-NEXT:    store volatile <1 x i128> [[ADD19]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP40:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[TMP41:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[ADD20:%.*]] = fadd <2 x double> [[TMP41]], [[TMP40]]
-// CHECK-NEXT:    store volatile <2 x double> [[ADD20]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP32:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[TMP33:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[ADD16:%.*]] = fadd <2 x double> [[TMP33]], [[TMP32]]
+// CHECK-NEXT:    store volatile <2 x double> [[ADD16]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_add_assign(void) {
@@ -665,11 +560,6 @@ void test_add_assign(void) {
   sl += bl2;
   ul += ul2;
   ul += bl2;
-
-  slll += slll2;
-  slll += blll2;
-  ulll += ulll2;
-  ulll += blll2;
 
   fd += fd2;
 }
@@ -773,34 +663,10 @@ void test_add_assign(void) {
 // CHECK-NEXT:    [[TMP47:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[SUB23:%.*]] = sub <2 x i64> [[TMP46]], [[TMP47]]
 // CHECK-NEXT:    store volatile <2 x i64> [[SUB23]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP48:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP49:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[SUB24:%.*]] = sub <1 x i128> [[TMP48]], [[TMP49]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB24]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP50:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP51:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[SUB25:%.*]] = sub <1 x i128> [[TMP50]], [[TMP51]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB25]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP52:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP53:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[SUB26:%.*]] = sub <1 x i128> [[TMP52]], [[TMP53]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB26]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP54:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP55:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[SUB27:%.*]] = sub <1 x i128> [[TMP54]], [[TMP55]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB27]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[SUB28:%.*]] = sub <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB28]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[SUB29:%.*]] = sub <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB29]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[SUB30:%.*]] = fsub <2 x double> [[TMP60]], [[TMP61]]
-// CHECK-NEXT:    store volatile <2 x double> [[SUB30]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP48:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP49:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[SUB24:%.*]] = fsub <2 x double> [[TMP48]], [[TMP49]]
+// CHECK-NEXT:    store volatile <2 x double> [[SUB24]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_sub(void) {
@@ -832,13 +698,6 @@ void test_sub(void) {
   ul = ul - ul2;
   ul = ul - bl2;
   ul = bl - ul2;
-
-  slll = slll - slll2;
-  slll = slll - blll2;
-  slll = blll - slll2;
-  ulll = ulll - ulll2;
-  ulll = ulll - blll2;
-  ulll = blll - ulll2;
 
   fd = fd - fd2;
 }
@@ -910,26 +769,10 @@ void test_sub(void) {
 // CHECK-NEXT:    [[TMP31:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[SUB15:%.*]] = sub <2 x i64> [[TMP31]], [[TMP30]]
 // CHECK-NEXT:    store volatile <2 x i64> [[SUB15]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP32:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP33:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SUB16:%.*]] = sub <1 x i128> [[TMP33]], [[TMP32]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB16]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP34:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP35:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SUB17:%.*]] = sub <1 x i128> [[TMP35]], [[TMP34]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB17]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP36:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP37:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SUB18:%.*]] = sub <1 x i128> [[TMP37]], [[TMP36]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB18]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP38:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP39:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SUB19:%.*]] = sub <1 x i128> [[TMP39]], [[TMP38]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SUB19]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP40:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[TMP41:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[SUB20:%.*]] = fsub <2 x double> [[TMP41]], [[TMP40]]
-// CHECK-NEXT:    store volatile <2 x double> [[SUB20]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP32:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[TMP33:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[SUB16:%.*]] = fsub <2 x double> [[TMP33]], [[TMP32]]
+// CHECK-NEXT:    store volatile <2 x double> [[SUB16]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_sub_assign(void) {
@@ -953,11 +796,6 @@ void test_sub_assign(void) {
   sl -= bl2;
   ul -= ul2;
   ul -= bl2;
-
-  slll -= slll2;
-  slll -= blll2;
-  ulll -= ulll2;
-  ulll -= blll2;
 
   fd -= fd2;
 }
@@ -997,18 +835,10 @@ void test_sub_assign(void) {
 // CHECK-NEXT:    [[TMP15:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[MUL7:%.*]] = mul <2 x i64> [[TMP14]], [[TMP15]]
 // CHECK-NEXT:    store volatile <2 x i64> [[MUL7]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[MUL8:%.*]] = mul <1 x i128> [[TMP16]], [[TMP17]]
-// CHECK-NEXT:    store volatile <1 x i128> [[MUL8]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP18:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP19:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[MUL9:%.*]] = mul <1 x i128> [[TMP18]], [[TMP19]]
-// CHECK-NEXT:    store volatile <1 x i128> [[MUL9]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP20:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP21:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[MUL10:%.*]] = fmul <2 x double> [[TMP20]], [[TMP21]]
-// CHECK-NEXT:    store volatile <2 x double> [[MUL10]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[MUL8:%.*]] = fmul <2 x double> [[TMP16]], [[TMP17]]
+// CHECK-NEXT:    store volatile <2 x double> [[MUL8]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_mul(void) {
@@ -1024,9 +854,6 @@ void test_mul(void) {
 
   sl = sl * sl2;
   ul = ul * ul2;
-
-  slll = slll * slll2;
-  ulll = ulll * ulll2;
 
   fd = fd * fd2;
 }
@@ -1066,18 +893,10 @@ void test_mul(void) {
 // CHECK-NEXT:    [[TMP15:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[MUL7:%.*]] = mul <2 x i64> [[TMP15]], [[TMP14]]
 // CHECK-NEXT:    store volatile <2 x i64> [[MUL7]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[MUL8:%.*]] = mul <1 x i128> [[TMP17]], [[TMP16]]
-// CHECK-NEXT:    store volatile <1 x i128> [[MUL8]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP18:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP19:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[MUL9:%.*]] = mul <1 x i128> [[TMP19]], [[TMP18]]
-// CHECK-NEXT:    store volatile <1 x i128> [[MUL9]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP20:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[TMP21:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[MUL10:%.*]] = fmul <2 x double> [[TMP21]], [[TMP20]]
-// CHECK-NEXT:    store volatile <2 x double> [[MUL10]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[MUL8:%.*]] = fmul <2 x double> [[TMP17]], [[TMP16]]
+// CHECK-NEXT:    store volatile <2 x double> [[MUL8]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_mul_assign(void) {
@@ -1093,9 +912,6 @@ void test_mul_assign(void) {
 
   sl *= sl2;
   ul *= ul2;
-
-  slll *= slll2;
-  ulll *= ulll2;
 
   fd *= fd2;
 }
@@ -1135,18 +951,10 @@ void test_mul_assign(void) {
 // CHECK-NEXT:    [[TMP15:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[DIV7:%.*]] = udiv <2 x i64> [[TMP14]], [[TMP15]]
 // CHECK-NEXT:    store volatile <2 x i64> [[DIV7]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[DIV8:%.*]] = sdiv <1 x i128> [[TMP16]], [[TMP17]]
-// CHECK-NEXT:    store volatile <1 x i128> [[DIV8]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP18:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP19:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[DIV9:%.*]] = udiv <1 x i128> [[TMP18]], [[TMP19]]
-// CHECK-NEXT:    store volatile <1 x i128> [[DIV9]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP20:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP21:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[DIV10:%.*]] = fdiv <2 x double> [[TMP20]], [[TMP21]]
-// CHECK-NEXT:    store volatile <2 x double> [[DIV10]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[DIV8:%.*]] = fdiv <2 x double> [[TMP16]], [[TMP17]]
+// CHECK-NEXT:    store volatile <2 x double> [[DIV8]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_div(void) {
@@ -1162,9 +970,6 @@ void test_div(void) {
 
   sl = sl / sl2;
   ul = ul / ul2;
-
-  slll = slll / slll2;
-  ulll = ulll / ulll2;
 
   fd = fd / fd2;
 }
@@ -1204,18 +1009,10 @@ void test_div(void) {
 // CHECK-NEXT:    [[TMP15:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[DIV7:%.*]] = udiv <2 x i64> [[TMP15]], [[TMP14]]
 // CHECK-NEXT:    store volatile <2 x i64> [[DIV7]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[DIV8:%.*]] = sdiv <1 x i128> [[TMP17]], [[TMP16]]
-// CHECK-NEXT:    store volatile <1 x i128> [[DIV8]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP18:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP19:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[DIV9:%.*]] = udiv <1 x i128> [[TMP19]], [[TMP18]]
-// CHECK-NEXT:    store volatile <1 x i128> [[DIV9]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP20:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[TMP21:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[DIV10:%.*]] = fdiv <2 x double> [[TMP21]], [[TMP20]]
-// CHECK-NEXT:    store volatile <2 x double> [[DIV10]], ptr @fd, align 8
+// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[DIV8:%.*]] = fdiv <2 x double> [[TMP17]], [[TMP16]]
+// CHECK-NEXT:    store volatile <2 x double> [[DIV8]], ptr @fd, align 8
 // CHECK-NEXT:    ret void
 //
 void test_div_assign(void) {
@@ -1231,9 +1028,6 @@ void test_div_assign(void) {
 
   sl /= sl2;
   ul /= ul2;
-
-  slll /= slll2;
-  ulll /= ulll2;
 
   fd /= fd2;
 }
@@ -1273,14 +1067,6 @@ void test_div_assign(void) {
 // CHECK-NEXT:    [[TMP15:%.*]] = load volatile <2 x i64>, ptr @ul2, align 8
 // CHECK-NEXT:    [[REM7:%.*]] = urem <2 x i64> [[TMP14]], [[TMP15]]
 // CHECK-NEXT:    store volatile <2 x i64> [[REM7]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[REM8:%.*]] = srem <1 x i128> [[TMP16]], [[TMP17]]
-// CHECK-NEXT:    store volatile <1 x i128> [[REM8]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP18:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP19:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[REM9:%.*]] = urem <1 x i128> [[TMP18]], [[TMP19]]
-// CHECK-NEXT:    store volatile <1 x i128> [[REM9]], ptr @ulll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_rem(void) {
@@ -1296,9 +1082,6 @@ void test_rem(void) {
 
   sl = sl % sl2;
   ul = ul % ul2;
-
-  slll = slll % slll2;
-  ulll = ulll % ulll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_rem_assign(
@@ -1336,14 +1119,6 @@ void test_rem(void) {
 // CHECK-NEXT:    [[TMP15:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[REM7:%.*]] = urem <2 x i64> [[TMP15]], [[TMP14]]
 // CHECK-NEXT:    store volatile <2 x i64> [[REM7]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[REM8:%.*]] = srem <1 x i128> [[TMP17]], [[TMP16]]
-// CHECK-NEXT:    store volatile <1 x i128> [[REM8]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP18:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP19:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[REM9:%.*]] = urem <1 x i128> [[TMP19]], [[TMP18]]
-// CHECK-NEXT:    store volatile <1 x i128> [[REM9]], ptr @ulll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_rem_assign(void) {
@@ -1359,9 +1134,6 @@ void test_rem_assign(void) {
 
   sl %= sl2;
   ul %= ul2;
-
-  slll %= slll2;
-  ulll %= ulll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_not(
@@ -1403,15 +1175,6 @@ void test_rem_assign(void) {
 // CHECK-NEXT:    [[TMP11:%.*]] = load volatile <2 x i64>, ptr @bl2, align 8
 // CHECK-NEXT:    [[NOT11:%.*]] = xor <2 x i64> [[TMP11]], splat (i64 -1)
 // CHECK-NEXT:    store volatile <2 x i64> [[NOT11]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP12:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[NOT12:%.*]] = xor <1 x i128> [[TMP12]], splat (i128 -1)
-// CHECK-NEXT:    store volatile <1 x i128> [[NOT12]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP13:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[NOT13:%.*]] = xor <1 x i128> [[TMP13]], splat (i128 -1)
-// CHECK-NEXT:    store volatile <1 x i128> [[NOT13]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP14:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[NOT14:%.*]] = xor <1 x i128> [[TMP14]], splat (i128 -1)
-// CHECK-NEXT:    store volatile <1 x i128> [[NOT14]], ptr @blll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_not(void) {
@@ -1431,10 +1194,6 @@ void test_not(void) {
   sl = ~sl2;
   ul = ~ul2;
   bl = ~bl2;
-
-  slll = ~slll2;
-  ulll = ~ulll2;
-  blll = ~blll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_and(
@@ -1552,34 +1311,6 @@ void test_not(void) {
 // CHECK-NEXT:    [[TMP55:%.*]] = load volatile <2 x i64>, ptr @bl2, align 8
 // CHECK-NEXT:    [[AND27:%.*]] = and <2 x i64> [[TMP54]], [[TMP55]]
 // CHECK-NEXT:    store volatile <2 x i64> [[AND27]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[AND28:%.*]] = and <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND28]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[AND29:%.*]] = and <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND29]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[AND30:%.*]] = and <1 x i128> [[TMP60]], [[TMP61]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND30]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[AND31:%.*]] = and <1 x i128> [[TMP62]], [[TMP63]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND31]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[AND32:%.*]] = and <1 x i128> [[TMP64]], [[TMP65]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND32]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[AND33:%.*]] = and <1 x i128> [[TMP66]], [[TMP67]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND33]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[AND34:%.*]] = and <1 x i128> [[TMP68]], [[TMP69]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND34]], ptr @blll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_and(void) {
@@ -1615,14 +1346,6 @@ void test_and(void) {
   ul = ul & bl2;
   ul = bl & ul2;
   bl = bl & bl2;
-
-  slll = slll & slll2;
-  slll = slll & blll2;
-  slll = blll & slll2;
-  ulll = ulll & ulll2;
-  ulll = ulll & blll2;
-  ulll = blll & ulll2;
-  blll = blll & blll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_and_assign(
@@ -1708,26 +1431,6 @@ void test_and(void) {
 // CHECK-NEXT:    [[TMP39:%.*]] = load volatile <2 x i64>, ptr @bl, align 8
 // CHECK-NEXT:    [[AND19:%.*]] = and <2 x i64> [[TMP39]], [[TMP38]]
 // CHECK-NEXT:    store volatile <2 x i64> [[AND19]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP40:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP41:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[AND20:%.*]] = and <1 x i128> [[TMP41]], [[TMP40]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND20]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP42:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP43:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[AND21:%.*]] = and <1 x i128> [[TMP43]], [[TMP42]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND21]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP44:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP45:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[AND22:%.*]] = and <1 x i128> [[TMP45]], [[TMP44]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND22]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP46:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP47:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[AND23:%.*]] = and <1 x i128> [[TMP47]], [[TMP46]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND23]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP48:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP49:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[AND24:%.*]] = and <1 x i128> [[TMP49]], [[TMP48]]
-// CHECK-NEXT:    store volatile <1 x i128> [[AND24]], ptr @blll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_and_assign(void) {
@@ -1755,12 +1458,6 @@ void test_and_assign(void) {
   ul &= ul2;
   ul &= bl2;
   bl &= bl2;
-
-  slll &= slll2;
-  slll &= blll2;
-  ulll &= ulll2;
-  ulll &= blll2;
-  blll &= blll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_or(
@@ -1878,34 +1575,6 @@ void test_and_assign(void) {
 // CHECK-NEXT:    [[TMP55:%.*]] = load volatile <2 x i64>, ptr @bl2, align 8
 // CHECK-NEXT:    [[OR27:%.*]] = or <2 x i64> [[TMP54]], [[TMP55]]
 // CHECK-NEXT:    store volatile <2 x i64> [[OR27]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[OR28:%.*]] = or <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR28]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[OR29:%.*]] = or <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR29]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[OR30:%.*]] = or <1 x i128> [[TMP60]], [[TMP61]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR30]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[OR31:%.*]] = or <1 x i128> [[TMP62]], [[TMP63]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR31]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[OR32:%.*]] = or <1 x i128> [[TMP64]], [[TMP65]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR32]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[OR33:%.*]] = or <1 x i128> [[TMP66]], [[TMP67]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR33]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[OR34:%.*]] = or <1 x i128> [[TMP68]], [[TMP69]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR34]], ptr @blll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_or(void) {
@@ -1941,14 +1610,6 @@ void test_or(void) {
   ul = ul | bl2;
   ul = bl | ul2;
   bl = bl | bl2;
-
-  slll = slll | slll2;
-  slll = slll | blll2;
-  slll = blll | slll2;
-  ulll = ulll | ulll2;
-  ulll = ulll | blll2;
-  ulll = blll | ulll2;
-  blll = blll | blll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_or_assign(
@@ -2034,26 +1695,6 @@ void test_or(void) {
 // CHECK-NEXT:    [[TMP39:%.*]] = load volatile <2 x i64>, ptr @bl, align 8
 // CHECK-NEXT:    [[OR19:%.*]] = or <2 x i64> [[TMP39]], [[TMP38]]
 // CHECK-NEXT:    store volatile <2 x i64> [[OR19]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP40:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP41:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[OR20:%.*]] = or <1 x i128> [[TMP41]], [[TMP40]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR20]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP42:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP43:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[OR21:%.*]] = or <1 x i128> [[TMP43]], [[TMP42]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR21]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP44:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP45:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[OR22:%.*]] = or <1 x i128> [[TMP45]], [[TMP44]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR22]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP46:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP47:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[OR23:%.*]] = or <1 x i128> [[TMP47]], [[TMP46]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR23]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP48:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP49:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[OR24:%.*]] = or <1 x i128> [[TMP49]], [[TMP48]]
-// CHECK-NEXT:    store volatile <1 x i128> [[OR24]], ptr @blll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_or_assign(void) {
@@ -2081,12 +1722,6 @@ void test_or_assign(void) {
   ul |= ul2;
   ul |= bl2;
   bl |= bl2;
-
-  slll |= slll2;
-  slll |= blll2;
-  ulll |= ulll2;
-  ulll |= blll2;
-  blll |= blll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_xor(
@@ -2204,34 +1839,6 @@ void test_or_assign(void) {
 // CHECK-NEXT:    [[TMP55:%.*]] = load volatile <2 x i64>, ptr @bl2, align 8
 // CHECK-NEXT:    [[XOR27:%.*]] = xor <2 x i64> [[TMP54]], [[TMP55]]
 // CHECK-NEXT:    store volatile <2 x i64> [[XOR27]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[XOR28:%.*]] = xor <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR28]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[XOR29:%.*]] = xor <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR29]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[XOR30:%.*]] = xor <1 x i128> [[TMP60]], [[TMP61]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR30]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[XOR31:%.*]] = xor <1 x i128> [[TMP62]], [[TMP63]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR31]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[XOR32:%.*]] = xor <1 x i128> [[TMP64]], [[TMP65]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR32]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[XOR33:%.*]] = xor <1 x i128> [[TMP66]], [[TMP67]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR33]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[XOR34:%.*]] = xor <1 x i128> [[TMP68]], [[TMP69]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR34]], ptr @blll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_xor(void) {
@@ -2267,14 +1874,6 @@ void test_xor(void) {
   ul = ul ^ bl2;
   ul = bl ^ ul2;
   bl = bl ^ bl2;
-
-  slll = slll ^ slll2;
-  slll = slll ^ blll2;
-  slll = blll ^ slll2;
-  ulll = ulll ^ ulll2;
-  ulll = ulll ^ blll2;
-  ulll = blll ^ ulll2;
-  blll = blll ^ blll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_xor_assign(
@@ -2360,26 +1959,6 @@ void test_xor(void) {
 // CHECK-NEXT:    [[TMP39:%.*]] = load volatile <2 x i64>, ptr @bl, align 8
 // CHECK-NEXT:    [[XOR19:%.*]] = xor <2 x i64> [[TMP39]], [[TMP38]]
 // CHECK-NEXT:    store volatile <2 x i64> [[XOR19]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP40:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP41:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[XOR20:%.*]] = xor <1 x i128> [[TMP41]], [[TMP40]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR20]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP42:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP43:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[XOR21:%.*]] = xor <1 x i128> [[TMP43]], [[TMP42]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR21]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP44:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP45:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[XOR22:%.*]] = xor <1 x i128> [[TMP45]], [[TMP44]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR22]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP46:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP47:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[XOR23:%.*]] = xor <1 x i128> [[TMP47]], [[TMP46]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR23]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP48:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[TMP49:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[XOR24:%.*]] = xor <1 x i128> [[TMP49]], [[TMP48]]
-// CHECK-NEXT:    store volatile <1 x i128> [[XOR24]], ptr @blll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_xor_assign(void) {
@@ -2407,12 +1986,6 @@ void test_xor_assign(void) {
   ul ^= ul2;
   ul ^= bl2;
   bl ^= bl2;
-
-  slll ^= slll2;
-  slll ^= blll2;
-  ulll ^= ulll2;
-  ulll ^= blll2;
-  blll ^= blll2;
 }
 
 // CHECK-LABEL: define dso_local void @test_sl(
@@ -2560,42 +2133,6 @@ void test_xor_assign(void) {
 // CHECK-NEXT:    [[TMP55:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[SHL50:%.*]] = shl <2 x i64> [[TMP55]], splat (i64 5)
 // CHECK-NEXT:    store volatile <2 x i64> [[SHL50]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[SHL51:%.*]] = shl <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL51]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[SHL52:%.*]] = shl <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL52]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile i32, ptr @cnt, align 4
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT53:%.*]] = insertelement <1 x i32> poison, i32 [[TMP61]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT54:%.*]] = shufflevector <1 x i32> [[SPLAT_SPLATINSERT53]], <1 x i32> poison, <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[SH_PROM55:%.*]] = zext <1 x i32> [[SPLAT_SPLAT54]] to <1 x i128>
-// CHECK-NEXT:    [[SHL56:%.*]] = shl <1 x i128> [[TMP60]], [[SH_PROM55]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL56]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SHL57:%.*]] = shl <1 x i128> [[TMP62]], splat (i128 5)
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL57]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[SHL58:%.*]] = shl <1 x i128> [[TMP63]], [[TMP64]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL58]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[SHL59:%.*]] = shl <1 x i128> [[TMP65]], [[TMP66]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL59]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile i32, ptr @cnt, align 4
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT60:%.*]] = insertelement <1 x i32> poison, i32 [[TMP68]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT61:%.*]] = shufflevector <1 x i32> [[SPLAT_SPLATINSERT60]], <1 x i32> poison, <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[SH_PROM62:%.*]] = zext <1 x i32> [[SPLAT_SPLAT61]] to <1 x i128>
-// CHECK-NEXT:    [[SHL63:%.*]] = shl <1 x i128> [[TMP67]], [[SH_PROM62]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL63]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SHL64:%.*]] = shl <1 x i128> [[TMP69]], splat (i128 5)
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL64]], ptr @ulll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_sl(void) {
@@ -2635,15 +2172,6 @@ void test_sl(void) {
   ul = ul << ul2;
   ul = ul << cnt;
   ul = ul << 5;
-
-  slll = slll << slll2;
-  slll = slll << ulll2;
-  slll = slll << cnt;
-  slll = slll << 5;
-  ulll = ulll << slll2;
-  ulll = ulll << ulll2;
-  ulll = ulll << cnt;
-  ulll = ulll << 5;
 }
 
 // CHECK-LABEL: define dso_local void @test_sl_assign(
@@ -2791,42 +2319,6 @@ void test_sl(void) {
 // CHECK-NEXT:    [[TMP55:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[SHL50:%.*]] = shl <2 x i64> [[TMP55]], splat (i64 5)
 // CHECK-NEXT:    store volatile <2 x i64> [[SHL50]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SHL51:%.*]] = shl <1 x i128> [[TMP57]], [[TMP56]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL51]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SHL52:%.*]] = shl <1 x i128> [[TMP59]], [[TMP58]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL52]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile i32, ptr @cnt, align 4
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT53:%.*]] = insertelement <1 x i32> poison, i32 [[TMP60]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT54:%.*]] = shufflevector <1 x i32> [[SPLAT_SPLATINSERT53]], <1 x i32> poison, <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SH_PROM55:%.*]] = zext <1 x i32> [[SPLAT_SPLAT54]] to <1 x i128>
-// CHECK-NEXT:    [[SHL56:%.*]] = shl <1 x i128> [[TMP61]], [[SH_PROM55]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL56]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SHL57:%.*]] = shl <1 x i128> [[TMP62]], splat (i128 5)
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL57]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SHL58:%.*]] = shl <1 x i128> [[TMP64]], [[TMP63]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL58]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SHL59:%.*]] = shl <1 x i128> [[TMP66]], [[TMP65]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL59]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile i32, ptr @cnt, align 4
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT60:%.*]] = insertelement <1 x i32> poison, i32 [[TMP67]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT61:%.*]] = shufflevector <1 x i32> [[SPLAT_SPLATINSERT60]], <1 x i32> poison, <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SH_PROM62:%.*]] = zext <1 x i32> [[SPLAT_SPLAT61]] to <1 x i128>
-// CHECK-NEXT:    [[SHL63:%.*]] = shl <1 x i128> [[TMP68]], [[SH_PROM62]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL63]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SHL64:%.*]] = shl <1 x i128> [[TMP69]], splat (i128 5)
-// CHECK-NEXT:    store volatile <1 x i128> [[SHL64]], ptr @ulll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_sl_assign(void) {
@@ -2866,15 +2358,6 @@ void test_sl_assign(void) {
   ul <<= ul2;
   ul <<= cnt;
   ul <<= 5;
-
-  slll <<= slll2;
-  slll <<= ulll2;
-  slll <<= cnt;
-  slll <<= 5;
-  ulll <<= slll2;
-  ulll <<= ulll2;
-  ulll <<= cnt;
-  ulll <<= 5;
 }
 
 // CHECK-LABEL: define dso_local void @test_sr(
@@ -3022,42 +2505,6 @@ void test_sl_assign(void) {
 // CHECK-NEXT:    [[TMP55:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[SHR50:%.*]] = lshr <2 x i64> [[TMP55]], splat (i64 5)
 // CHECK-NEXT:    store volatile <2 x i64> [[SHR50]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[SHR51:%.*]] = ashr <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR51]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[SHR52:%.*]] = ashr <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR52]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile i32, ptr @cnt, align 4
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT53:%.*]] = insertelement <1 x i32> poison, i32 [[TMP61]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT54:%.*]] = shufflevector <1 x i32> [[SPLAT_SPLATINSERT53]], <1 x i32> poison, <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[SH_PROM55:%.*]] = zext <1 x i32> [[SPLAT_SPLAT54]] to <1 x i128>
-// CHECK-NEXT:    [[SHR56:%.*]] = ashr <1 x i128> [[TMP60]], [[SH_PROM55]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR56]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SHR57:%.*]] = ashr <1 x i128> [[TMP62]], splat (i128 5)
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR57]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[SHR58:%.*]] = lshr <1 x i128> [[TMP63]], [[TMP64]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR58]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[SHR59:%.*]] = lshr <1 x i128> [[TMP65]], [[TMP66]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR59]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile i32, ptr @cnt, align 4
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT60:%.*]] = insertelement <1 x i32> poison, i32 [[TMP68]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT61:%.*]] = shufflevector <1 x i32> [[SPLAT_SPLATINSERT60]], <1 x i32> poison, <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[SH_PROM62:%.*]] = zext <1 x i32> [[SPLAT_SPLAT61]] to <1 x i128>
-// CHECK-NEXT:    [[SHR63:%.*]] = lshr <1 x i128> [[TMP67]], [[SH_PROM62]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR63]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SHR64:%.*]] = lshr <1 x i128> [[TMP69]], splat (i128 5)
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR64]], ptr @ulll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_sr(void) {
@@ -3097,15 +2544,6 @@ void test_sr(void) {
   ul = ul >> ul2;
   ul = ul >> cnt;
   ul = ul >> 5;
-
-  slll = slll >> slll2;
-  slll = slll >> ulll2;
-  slll = slll >> cnt;
-  slll = slll >> 5;
-  ulll = ulll >> slll2;
-  ulll = ulll >> ulll2;
-  ulll = ulll >> cnt;
-  ulll = ulll >> 5;
 }
 
 // CHECK-LABEL: define dso_local void @test_sr_assign(
@@ -3253,42 +2691,6 @@ void test_sr(void) {
 // CHECK-NEXT:    [[TMP55:%.*]] = load volatile <2 x i64>, ptr @ul, align 8
 // CHECK-NEXT:    [[SHR50:%.*]] = lshr <2 x i64> [[TMP55]], splat (i64 5)
 // CHECK-NEXT:    store volatile <2 x i64> [[SHR50]], ptr @ul, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SHR51:%.*]] = ashr <1 x i128> [[TMP57]], [[TMP56]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR51]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SHR52:%.*]] = ashr <1 x i128> [[TMP59]], [[TMP58]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR52]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile i32, ptr @cnt, align 4
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT53:%.*]] = insertelement <1 x i32> poison, i32 [[TMP60]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT54:%.*]] = shufflevector <1 x i32> [[SPLAT_SPLATINSERT53]], <1 x i32> poison, <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SH_PROM55:%.*]] = zext <1 x i32> [[SPLAT_SPLAT54]] to <1 x i128>
-// CHECK-NEXT:    [[SHR56:%.*]] = ashr <1 x i128> [[TMP61]], [[SH_PROM55]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR56]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[SHR57:%.*]] = ashr <1 x i128> [[TMP62]], splat (i128 5)
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR57]], ptr @slll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SHR58:%.*]] = lshr <1 x i128> [[TMP64]], [[TMP63]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR58]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SHR59:%.*]] = lshr <1 x i128> [[TMP66]], [[TMP65]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR59]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile i32, ptr @cnt, align 4
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT60:%.*]] = insertelement <1 x i32> poison, i32 [[TMP67]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT61:%.*]] = shufflevector <1 x i32> [[SPLAT_SPLATINSERT60]], <1 x i32> poison, <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SH_PROM62:%.*]] = zext <1 x i32> [[SPLAT_SPLAT61]] to <1 x i128>
-// CHECK-NEXT:    [[SHR63:%.*]] = lshr <1 x i128> [[TMP68]], [[SH_PROM62]]
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR63]], ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[SHR64:%.*]] = lshr <1 x i128> [[TMP69]], splat (i128 5)
-// CHECK-NEXT:    store volatile <1 x i128> [[SHR64]], ptr @ulll, align 8
 // CHECK-NEXT:    ret void
 //
 void test_sr_assign(void) {
@@ -3328,15 +2730,6 @@ void test_sr_assign(void) {
   ul >>= ul2;
   ul >>= cnt;
   ul >>= 5;
-
-  slll >>= slll2;
-  slll >>= ulll2;
-  slll >>= cnt;
-  slll >>= 5;
-  ulll >>= slll2;
-  ulll >>= ulll2;
-  ulll >>= cnt;
-  ulll >>= 5;
 }
 
 
@@ -3483,46 +2876,11 @@ void test_sr_assign(void) {
 // CHECK-NEXT:    [[CMP53:%.*]] = icmp eq <2 x i64> [[TMP54]], [[TMP55]]
 // CHECK-NEXT:    [[SEXT54:%.*]] = sext <2 x i1> [[CMP53]] to <2 x i64>
 // CHECK-NEXT:    store volatile <2 x i64> [[SEXT54]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[CMP55:%.*]] = icmp eq <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    [[SEXT56:%.*]] = sext <1 x i1> [[CMP55]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT56]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP57:%.*]] = icmp eq <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    [[SEXT58:%.*]] = sext <1 x i1> [[CMP57]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT58]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[CMP59:%.*]] = icmp eq <1 x i128> [[TMP60]], [[TMP61]]
-// CHECK-NEXT:    [[SEXT60:%.*]] = sext <1 x i1> [[CMP59]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT60]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[CMP61:%.*]] = icmp eq <1 x i128> [[TMP62]], [[TMP63]]
-// CHECK-NEXT:    [[SEXT62:%.*]] = sext <1 x i1> [[CMP61]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT62]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP63:%.*]] = icmp eq <1 x i128> [[TMP64]], [[TMP65]]
-// CHECK-NEXT:    [[SEXT64:%.*]] = sext <1 x i1> [[CMP63]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT64]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[CMP65:%.*]] = icmp eq <1 x i128> [[TMP66]], [[TMP67]]
-// CHECK-NEXT:    [[SEXT66:%.*]] = sext <1 x i1> [[CMP65]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT66]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP67:%.*]] = icmp eq <1 x i128> [[TMP68]], [[TMP69]]
-// CHECK-NEXT:    [[SEXT68:%.*]] = sext <1 x i1> [[CMP67]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT68]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP70:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP71:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[CMP69:%.*]] = fcmp oeq <2 x double> [[TMP70]], [[TMP71]]
-// CHECK-NEXT:    [[SEXT70:%.*]] = sext <2 x i1> [[CMP69]] to <2 x i64>
-// CHECK-NEXT:    store volatile <2 x i64> [[SEXT70]], ptr @bl, align 8
+// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[CMP55:%.*]] = fcmp oeq <2 x double> [[TMP56]], [[TMP57]]
+// CHECK-NEXT:    [[SEXT56:%.*]] = sext <2 x i1> [[CMP55]] to <2 x i64>
+// CHECK-NEXT:    store volatile <2 x i64> [[SEXT56]], ptr @bl, align 8
 // CHECK-NEXT:    ret void
 //
 void test_cmpeq(void) {
@@ -3558,14 +2916,6 @@ void test_cmpeq(void) {
   bl = ul == bl2;
   bl = bl == ul2;
   bl = bl == bl2;
-
-  blll = slll == slll2;
-  blll = slll == blll2;
-  blll = blll == slll2;
-  blll = ulll == ulll2;
-  blll = ulll == blll2;
-  blll = blll == ulll2;
-  blll = blll == blll2;
 
   bl = fd == fd2;
 }
@@ -3713,46 +3063,11 @@ void test_cmpeq(void) {
 // CHECK-NEXT:    [[CMP53:%.*]] = icmp ne <2 x i64> [[TMP54]], [[TMP55]]
 // CHECK-NEXT:    [[SEXT54:%.*]] = sext <2 x i1> [[CMP53]] to <2 x i64>
 // CHECK-NEXT:    store volatile <2 x i64> [[SEXT54]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[CMP55:%.*]] = icmp ne <1 x i128> [[TMP56]], [[TMP57]]
-// CHECK-NEXT:    [[SEXT56:%.*]] = sext <1 x i1> [[CMP55]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT56]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP57:%.*]] = icmp ne <1 x i128> [[TMP58]], [[TMP59]]
-// CHECK-NEXT:    [[SEXT58:%.*]] = sext <1 x i1> [[CMP57]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT58]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP60:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP61:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[CMP59:%.*]] = icmp ne <1 x i128> [[TMP60]], [[TMP61]]
-// CHECK-NEXT:    [[SEXT60:%.*]] = sext <1 x i1> [[CMP59]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT60]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[CMP61:%.*]] = icmp ne <1 x i128> [[TMP62]], [[TMP63]]
-// CHECK-NEXT:    [[SEXT62:%.*]] = sext <1 x i1> [[CMP61]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT62]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP63:%.*]] = icmp ne <1 x i128> [[TMP64]], [[TMP65]]
-// CHECK-NEXT:    [[SEXT64:%.*]] = sext <1 x i1> [[CMP63]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT64]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[CMP65:%.*]] = icmp ne <1 x i128> [[TMP66]], [[TMP67]]
-// CHECK-NEXT:    [[SEXT66:%.*]] = sext <1 x i1> [[CMP65]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT66]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP69:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP67:%.*]] = icmp ne <1 x i128> [[TMP68]], [[TMP69]]
-// CHECK-NEXT:    [[SEXT68:%.*]] = sext <1 x i1> [[CMP67]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT68]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP70:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP71:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[CMP69:%.*]] = fcmp une <2 x double> [[TMP70]], [[TMP71]]
-// CHECK-NEXT:    [[SEXT70:%.*]] = sext <2 x i1> [[CMP69]] to <2 x i64>
-// CHECK-NEXT:    store volatile <2 x i64> [[SEXT70]], ptr @bl, align 8
+// CHECK-NEXT:    [[TMP56:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP57:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[CMP55:%.*]] = fcmp une <2 x double> [[TMP56]], [[TMP57]]
+// CHECK-NEXT:    [[SEXT56:%.*]] = sext <2 x i1> [[CMP55]] to <2 x i64>
+// CHECK-NEXT:    store volatile <2 x i64> [[SEXT56]], ptr @bl, align 8
 // CHECK-NEXT:    ret void
 //
 void test_cmpne(void) {
@@ -3788,14 +3103,6 @@ void test_cmpne(void) {
   bl = ul != bl2;
   bl = bl != ul2;
   bl = bl != bl2;
-
-  blll = slll != slll2;
-  blll = slll != blll2;
-  blll = blll != slll2;
-  blll = ulll != ulll2;
-  blll = ulll != blll2;
-  blll = blll != ulll2;
-  blll = blll != blll2;
 
   bl = fd != fd2;
 }
@@ -3863,26 +3170,11 @@ void test_cmpne(void) {
 // CHECK-NEXT:    [[CMP21:%.*]] = icmp uge <2 x i64> [[TMP22]], [[TMP23]]
 // CHECK-NEXT:    [[SEXT22:%.*]] = sext <2 x i1> [[CMP21]] to <2 x i64>
 // CHECK-NEXT:    store volatile <2 x i64> [[SEXT22]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP24:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP25:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[CMP23:%.*]] = icmp sge <1 x i128> [[TMP24]], [[TMP25]]
-// CHECK-NEXT:    [[SEXT24:%.*]] = sext <1 x i1> [[CMP23]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT24]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP26:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP27:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[CMP25:%.*]] = icmp uge <1 x i128> [[TMP26]], [[TMP27]]
-// CHECK-NEXT:    [[SEXT26:%.*]] = sext <1 x i1> [[CMP25]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT26]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP28:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP29:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP27:%.*]] = icmp uge <1 x i128> [[TMP28]], [[TMP29]]
-// CHECK-NEXT:    [[SEXT28:%.*]] = sext <1 x i1> [[CMP27]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT28]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP30:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP31:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[CMP29:%.*]] = fcmp oge <2 x double> [[TMP30]], [[TMP31]]
-// CHECK-NEXT:    [[SEXT30:%.*]] = sext <2 x i1> [[CMP29]] to <2 x i64>
-// CHECK-NEXT:    store volatile <2 x i64> [[SEXT30]], ptr @bl, align 8
+// CHECK-NEXT:    [[TMP24:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP25:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[CMP23:%.*]] = fcmp oge <2 x double> [[TMP24]], [[TMP25]]
+// CHECK-NEXT:    [[SEXT24:%.*]] = sext <2 x i1> [[CMP23]] to <2 x i64>
+// CHECK-NEXT:    store volatile <2 x i64> [[SEXT24]], ptr @bl, align 8
 // CHECK-NEXT:    ret void
 //
 void test_cmpge(void) {
@@ -3902,10 +3194,6 @@ void test_cmpge(void) {
   bl = sl >= sl2;
   bl = ul >= ul2;
   bl = bl >= bl2;
-
-  blll = slll >= slll2;
-  blll = ulll >= ulll2;
-  blll = blll >= blll2;
 
   bl = fd >= fd2;
 }
@@ -3973,26 +3261,11 @@ void test_cmpge(void) {
 // CHECK-NEXT:    [[CMP21:%.*]] = icmp ugt <2 x i64> [[TMP22]], [[TMP23]]
 // CHECK-NEXT:    [[SEXT22:%.*]] = sext <2 x i1> [[CMP21]] to <2 x i64>
 // CHECK-NEXT:    store volatile <2 x i64> [[SEXT22]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP24:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP25:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[CMP23:%.*]] = icmp sgt <1 x i128> [[TMP24]], [[TMP25]]
-// CHECK-NEXT:    [[SEXT24:%.*]] = sext <1 x i1> [[CMP23]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT24]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP26:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP27:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[CMP25:%.*]] = icmp ugt <1 x i128> [[TMP26]], [[TMP27]]
-// CHECK-NEXT:    [[SEXT26:%.*]] = sext <1 x i1> [[CMP25]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT26]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP28:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP29:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP27:%.*]] = icmp ugt <1 x i128> [[TMP28]], [[TMP29]]
-// CHECK-NEXT:    [[SEXT28:%.*]] = sext <1 x i1> [[CMP27]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT28]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP30:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP31:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[CMP29:%.*]] = fcmp ogt <2 x double> [[TMP30]], [[TMP31]]
-// CHECK-NEXT:    [[SEXT30:%.*]] = sext <2 x i1> [[CMP29]] to <2 x i64>
-// CHECK-NEXT:    store volatile <2 x i64> [[SEXT30]], ptr @bl, align 8
+// CHECK-NEXT:    [[TMP24:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP25:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[CMP23:%.*]] = fcmp ogt <2 x double> [[TMP24]], [[TMP25]]
+// CHECK-NEXT:    [[SEXT24:%.*]] = sext <2 x i1> [[CMP23]] to <2 x i64>
+// CHECK-NEXT:    store volatile <2 x i64> [[SEXT24]], ptr @bl, align 8
 // CHECK-NEXT:    ret void
 //
 void test_cmpgt(void) {
@@ -4012,10 +3285,6 @@ void test_cmpgt(void) {
   bl = sl > sl2;
   bl = ul > ul2;
   bl = bl > bl2;
-
-  blll = slll > slll2;
-  blll = ulll > ulll2;
-  blll = blll > blll2;
 
   bl = fd > fd2;
 }
@@ -4083,26 +3352,11 @@ void test_cmpgt(void) {
 // CHECK-NEXT:    [[CMP21:%.*]] = icmp ule <2 x i64> [[TMP22]], [[TMP23]]
 // CHECK-NEXT:    [[SEXT22:%.*]] = sext <2 x i1> [[CMP21]] to <2 x i64>
 // CHECK-NEXT:    store volatile <2 x i64> [[SEXT22]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP24:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP25:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[CMP23:%.*]] = icmp sle <1 x i128> [[TMP24]], [[TMP25]]
-// CHECK-NEXT:    [[SEXT24:%.*]] = sext <1 x i1> [[CMP23]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT24]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP26:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP27:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[CMP25:%.*]] = icmp ule <1 x i128> [[TMP26]], [[TMP27]]
-// CHECK-NEXT:    [[SEXT26:%.*]] = sext <1 x i1> [[CMP25]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT26]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP28:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP29:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP27:%.*]] = icmp ule <1 x i128> [[TMP28]], [[TMP29]]
-// CHECK-NEXT:    [[SEXT28:%.*]] = sext <1 x i1> [[CMP27]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT28]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP30:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP31:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[CMP29:%.*]] = fcmp ole <2 x double> [[TMP30]], [[TMP31]]
-// CHECK-NEXT:    [[SEXT30:%.*]] = sext <2 x i1> [[CMP29]] to <2 x i64>
-// CHECK-NEXT:    store volatile <2 x i64> [[SEXT30]], ptr @bl, align 8
+// CHECK-NEXT:    [[TMP24:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP25:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[CMP23:%.*]] = fcmp ole <2 x double> [[TMP24]], [[TMP25]]
+// CHECK-NEXT:    [[SEXT24:%.*]] = sext <2 x i1> [[CMP23]] to <2 x i64>
+// CHECK-NEXT:    store volatile <2 x i64> [[SEXT24]], ptr @bl, align 8
 // CHECK-NEXT:    ret void
 //
 void test_cmple(void) {
@@ -4122,10 +3376,6 @@ void test_cmple(void) {
   bl = sl <= sl2;
   bl = ul <= ul2;
   bl = bl <= bl2;
-
-  blll = slll <= slll2;
-  blll = ulll <= ulll2;
-  blll = blll <= blll2;
 
   bl = fd <= fd2;
 }
@@ -4193,26 +3443,11 @@ void test_cmple(void) {
 // CHECK-NEXT:    [[CMP21:%.*]] = icmp ult <2 x i64> [[TMP22]], [[TMP23]]
 // CHECK-NEXT:    [[SEXT22:%.*]] = sext <2 x i1> [[CMP21]] to <2 x i64>
 // CHECK-NEXT:    store volatile <2 x i64> [[SEXT22]], ptr @bl, align 8
-// CHECK-NEXT:    [[TMP24:%.*]] = load volatile <1 x i128>, ptr @slll, align 8
-// CHECK-NEXT:    [[TMP25:%.*]] = load volatile <1 x i128>, ptr @slll2, align 8
-// CHECK-NEXT:    [[CMP23:%.*]] = icmp slt <1 x i128> [[TMP24]], [[TMP25]]
-// CHECK-NEXT:    [[SEXT24:%.*]] = sext <1 x i1> [[CMP23]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT24]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP26:%.*]] = load volatile <1 x i128>, ptr @ulll, align 8
-// CHECK-NEXT:    [[TMP27:%.*]] = load volatile <1 x i128>, ptr @ulll2, align 8
-// CHECK-NEXT:    [[CMP25:%.*]] = icmp ult <1 x i128> [[TMP26]], [[TMP27]]
-// CHECK-NEXT:    [[SEXT26:%.*]] = sext <1 x i1> [[CMP25]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT26]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP28:%.*]] = load volatile <1 x i128>, ptr @blll, align 8
-// CHECK-NEXT:    [[TMP29:%.*]] = load volatile <1 x i128>, ptr @blll2, align 8
-// CHECK-NEXT:    [[CMP27:%.*]] = icmp ult <1 x i128> [[TMP28]], [[TMP29]]
-// CHECK-NEXT:    [[SEXT28:%.*]] = sext <1 x i1> [[CMP27]] to <1 x i128>
-// CHECK-NEXT:    store volatile <1 x i128> [[SEXT28]], ptr @blll, align 8
-// CHECK-NEXT:    [[TMP30:%.*]] = load volatile <2 x double>, ptr @fd, align 8
-// CHECK-NEXT:    [[TMP31:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
-// CHECK-NEXT:    [[CMP29:%.*]] = fcmp olt <2 x double> [[TMP30]], [[TMP31]]
-// CHECK-NEXT:    [[SEXT30:%.*]] = sext <2 x i1> [[CMP29]] to <2 x i64>
-// CHECK-NEXT:    store volatile <2 x i64> [[SEXT30]], ptr @bl, align 8
+// CHECK-NEXT:    [[TMP24:%.*]] = load volatile <2 x double>, ptr @fd, align 8
+// CHECK-NEXT:    [[TMP25:%.*]] = load volatile <2 x double>, ptr @fd2, align 8
+// CHECK-NEXT:    [[CMP23:%.*]] = fcmp olt <2 x double> [[TMP24]], [[TMP25]]
+// CHECK-NEXT:    [[SEXT24:%.*]] = sext <2 x i1> [[CMP23]] to <2 x i64>
+// CHECK-NEXT:    store volatile <2 x i64> [[SEXT24]], ptr @bl, align 8
 // CHECK-NEXT:    ret void
 //
 void test_cmplt(void) {
@@ -4232,10 +3467,6 @@ void test_cmplt(void) {
   bl = sl < sl2;
   bl = ul < ul2;
   bl = bl < bl2;
-
-  blll = slll < slll2;
-  blll = ulll < ulll2;
-  blll = blll < blll2;
 
   bl = fd < fd2;
 }

@@ -26,15 +26,15 @@ float16x8x2_t test_vld2q_f16(const float16_t *addr)
 
 // CHECK-LABEL: @test_vld4q_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.arm.mve.vld4q.v16i8.p0(ptr [[ADDR:%.*]])
-// CHECK-NEXT:    [[TMP1:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[TMP0]], 0
-// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T:%.*]] poison, <16 x i8> [[TMP1]], 0, 0
-// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[TMP0]], 1
-// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP2]], <16 x i8> [[TMP3]], 0, 1
-// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[TMP0]], 2
-// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP4]], <16 x i8> [[TMP5]], 0, 2
-// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[TMP0]], 3
-// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP6]], <16 x i8> [[TMP7]], 0, 3
+// CHECK-NEXT:    [[TMP0:%.*]] = call { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } @llvm.arm.mve.vld4q.v16b8.p0(ptr [[ADDR:%.*]])
+// CHECK-NEXT:    [[TMP1:%.*]] = extractvalue { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } [[TMP0]], 0
+// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T:%.*]] poison, <16 x b8> [[TMP1]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } [[TMP0]], 1
+// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP2]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } [[TMP0]], 2
+// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP4]], <16 x b8> [[TMP5]], 0, 2
+// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } [[TMP0]], 3
+// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[TMP6]], <16 x b8> [[TMP7]], 0, 3
 // CHECK-NEXT:    ret [[STRUCT_UINT8X16X4_T]] [[TMP8]]
 //
 uint8x16x4_t test_vld4q_u8(const uint8_t *addr)
@@ -69,18 +69,18 @@ void test_vst2q_u32(uint32_t *addr, uint32x4x2_t value)
 // CHECK-LABEL: @test_vst4q_s8(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_INT8X16X4_T:%.*]] [[VALUE_COERCE:%.*]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[TMP0]], 2
-// CHECK-NEXT:    [[DOTFCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[TMP0]], 3
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_1_INSERT]], <16 x i8> [[DOTFCA_2_EXTRACT]], 0, 2
-// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_2_INSERT]], <16 x i8> [[DOTFCA_3_EXTRACT]], 0, 3
-// CHECK-NEXT:    call void @llvm.arm.mve.vst4q.p0.v16i8(ptr [[ADDR:%.*]], <16 x i8> [[DOTFCA_0_EXTRACT]], <16 x i8> [[DOTFCA_1_EXTRACT]], <16 x i8> [[DOTFCA_2_EXTRACT]], <16 x i8> [[DOTFCA_3_EXTRACT]], i32 0)
-// CHECK-NEXT:    call void @llvm.arm.mve.vst4q.p0.v16i8(ptr [[ADDR]], <16 x i8> [[DOTFCA_0_EXTRACT]], <16 x i8> [[DOTFCA_1_EXTRACT]], <16 x i8> [[DOTFCA_2_EXTRACT]], <16 x i8> [[DOTFCA_3_EXTRACT]], i32 1)
-// CHECK-NEXT:    call void @llvm.arm.mve.vst4q.p0.v16i8(ptr [[ADDR]], <16 x i8> [[DOTFCA_0_EXTRACT]], <16 x i8> [[DOTFCA_1_EXTRACT]], <16 x i8> [[DOTFCA_2_EXTRACT]], <16 x i8> [[DOTFCA_3_EXTRACT]], i32 2)
-// CHECK-NEXT:    call void @llvm.arm.mve.vst4q.p0.v16i8(ptr [[ADDR]], <16 x i8> [[DOTFCA_0_EXTRACT]], <16 x i8> [[DOTFCA_1_EXTRACT]], <16 x i8> [[DOTFCA_2_EXTRACT]], <16 x i8> [[DOTFCA_3_EXTRACT]], i32 3)
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[TMP0]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[TMP0]], 1
+// CHECK-NEXT:    [[DOTFCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[TMP0]], 2
+// CHECK-NEXT:    [[DOTFCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[TMP0]], 3
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_1_INSERT]], <16 x b8> [[DOTFCA_2_EXTRACT]], 0, 2
+// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_2_INSERT]], <16 x b8> [[DOTFCA_3_EXTRACT]], 0, 3
+// CHECK-NEXT:    call void @llvm.arm.mve.vst4q.p0.v16b8(ptr [[ADDR:%.*]], <16 x b8> [[DOTFCA_0_EXTRACT]], <16 x b8> [[DOTFCA_1_EXTRACT]], <16 x b8> [[DOTFCA_2_EXTRACT]], <16 x b8> [[DOTFCA_3_EXTRACT]], i32 0)
+// CHECK-NEXT:    call void @llvm.arm.mve.vst4q.p0.v16b8(ptr [[ADDR]], <16 x b8> [[DOTFCA_0_EXTRACT]], <16 x b8> [[DOTFCA_1_EXTRACT]], <16 x b8> [[DOTFCA_2_EXTRACT]], <16 x b8> [[DOTFCA_3_EXTRACT]], i32 1)
+// CHECK-NEXT:    call void @llvm.arm.mve.vst4q.p0.v16b8(ptr [[ADDR]], <16 x b8> [[DOTFCA_0_EXTRACT]], <16 x b8> [[DOTFCA_1_EXTRACT]], <16 x b8> [[DOTFCA_2_EXTRACT]], <16 x b8> [[DOTFCA_3_EXTRACT]], i32 2)
+// CHECK-NEXT:    call void @llvm.arm.mve.vst4q.p0.v16b8(ptr [[ADDR]], <16 x b8> [[DOTFCA_0_EXTRACT]], <16 x b8> [[DOTFCA_1_EXTRACT]], <16 x b8> [[DOTFCA_2_EXTRACT]], <16 x b8> [[DOTFCA_3_EXTRACT]], i32 3)
 // CHECK-NEXT:    ret void
 //
 void test_vst4q_s8(int8_t *addr, int8x16x4_t value)

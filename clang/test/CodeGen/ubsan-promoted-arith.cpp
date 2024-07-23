@@ -16,7 +16,7 @@ enum E2 : char {
 // CHECK-NOT: sadd.with.overflow
 char add1(char c) { return c + c; }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @_Z4add2
+// CHECK-LABEL: define{{.*}} zeroext b8 @_Z4add2
 // CHECK-NOT: uadd.with.overflow
 uchar add2(uchar uc) { return uc + uc; }
 
@@ -32,7 +32,7 @@ char add4(E2 e) { return e + b; }
 // CHECK-NOT: ssub.with.overflow
 char sub1(char c) { return c - c; }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @_Z4sub2
+// CHECK-LABEL: define{{.*}} zeroext b8 @_Z4sub2
 // CHECK-NOT: usub.with.overflow
 uchar sub2(uchar uc) { return uc - uc; }
 
@@ -50,7 +50,7 @@ int sub4(int i) { return -i; }
 // CHECK-NOT: smul.with.overflow
 char mul1(char c) { return c * c; }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @_Z4mul2
+// CHECK-LABEL: define{{.*}} zeroext b8 @_Z4mul2
 // CHECK-NOT: smul.with.overflow
 uchar mul2(uchar uc) { return uc * uc; }
 
@@ -76,7 +76,7 @@ short mul6(short s) { return s * s; }
 // CHECK-NOT: ubsan_handle_divrem_overflow
 char div1(char c) { return c / c; }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @_Z4div2
+// CHECK-LABEL: define{{.*}} zeroext b8 @_Z4div2
 // CHECK-NOT: ubsan_handle_divrem_overflow
 uchar div2(uchar uc) { return uc / uc; }
 
@@ -98,7 +98,7 @@ char div5(int i, char c) { return i / c; }
 // CHECK-NOT: ubsan_handle_divrem_overflow
 char rem1(char c) { return c % c; }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @_Z4rem2
+// CHECK-LABEL: define{{.*}} zeroext b8 @_Z4rem2
 // CHECK-NOT: ubsan_handle_divrem_overflow
 uchar rem2(uchar uc) { return uc % uc; }
 
@@ -114,7 +114,7 @@ char rem4(char c, int i) { return c % i; }
 // CHECK-NOT: sadd.with.overflow
 char inc1(char c) { return c++ + (char)0; }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @_Z4inc2
+// CHECK-LABEL: define{{.*}} zeroext b8 @_Z4inc2
 // CHECK-NOT: uadd.with.overflow
 uchar inc2(uchar uc) { return uc++ + (uchar)0; }
 

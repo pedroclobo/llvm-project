@@ -8,8 +8,14 @@
 
 // CHECK-LABEL: @test_vqdmladhq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 0, i32 0)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vqdmladhq_s8(int8x16_t inactive, int8x16_t a, int8x16_t b) {
 #ifdef POLYMORPHIC
@@ -47,8 +53,14 @@ int32x4_t test_vqdmladhq_s32(int32x4_t inactive, int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vqdmladhxq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 0, i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 1, i32 0, i32 0)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vqdmladhxq_s8(int8x16_t inactive, int8x16_t a, int8x16_t b) {
 #ifdef POLYMORPHIC
@@ -86,8 +98,14 @@ int32x4_t test_vqdmladhxq_s32(int32x4_t inactive, int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vqdmlsdhq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 0, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vqdmlsdhq_s8(int8x16_t inactive, int8x16_t a, int8x16_t b) {
 #ifdef POLYMORPHIC
@@ -125,8 +143,14 @@ int32x4_t test_vqdmlsdhq_s32(int32x4_t inactive, int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vqdmlsdhxq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 0, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 1, i32 0, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vqdmlsdhxq_s8(int8x16_t inactive, int8x16_t a, int8x16_t b) {
 #ifdef POLYMORPHIC
@@ -164,8 +188,14 @@ int32x4_t test_vqdmlsdhxq_s32(int32x4_t inactive, int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vqrdmladhq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 1, i32 0)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vqrdmladhq_s8(int8x16_t inactive, int8x16_t a, int8x16_t b) {
 #ifdef POLYMORPHIC
@@ -203,8 +233,14 @@ int32x4_t test_vqrdmladhq_s32(int32x4_t inactive, int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vqrdmladhxq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 1, i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 1, i32 1, i32 0)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vqrdmladhxq_s8(int8x16_t inactive, int8x16_t a, int8x16_t b) {
 #ifdef POLYMORPHIC
@@ -242,8 +278,14 @@ int32x4_t test_vqrdmladhxq_s32(int32x4_t inactive, int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vqrdmlsdhq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 1, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vqrdmlsdhq_s8(int8x16_t inactive, int8x16_t a, int8x16_t b) {
 #ifdef POLYMORPHIC
@@ -281,8 +323,14 @@ int32x4_t test_vqrdmlsdhq_s32(int32x4_t inactive, int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vqrdmlsdhxq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 1, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 1, i32 1, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vqrdmlsdhxq_s8(int8x16_t inactive, int8x16_t a, int8x16_t b) {
 #ifdef POLYMORPHIC
@@ -320,10 +368,16 @@ int32x4_t test_vqrdmlsdhxq_s32(int32x4_t inactive, int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vqdmladhq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 0, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 0, i32 0, <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vqdmladhq_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -365,10 +419,16 @@ int32x4_t test_vqdmladhq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mve
 
 // CHECK-LABEL: @test_vqdmladhxq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 0, i32 0, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 1, i32 0, i32 0, <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vqdmladhxq_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -410,10 +470,16 @@ int32x4_t test_vqdmladhxq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mv
 
 // CHECK-LABEL: @test_vqdmlsdhq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 0, i32 1, <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vqdmlsdhq_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -455,10 +521,16 @@ int32x4_t test_vqdmlsdhq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mve
 
 // CHECK-LABEL: @test_vqdmlsdhxq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 0, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 1, i32 0, i32 1, <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vqdmlsdhxq_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -500,10 +572,16 @@ int32x4_t test_vqdmlsdhxq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mv
 
 // CHECK-LABEL: @test_vqrdmladhq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 0, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 1, i32 0, <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vqrdmladhq_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -545,10 +623,16 @@ int32x4_t test_vqrdmladhq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mv
 
 // CHECK-LABEL: @test_vqrdmladhxq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 1, i32 0, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 1, i32 1, i32 0, <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vqrdmladhxq_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -590,10 +674,16 @@ int32x4_t test_vqrdmladhxq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, m
 
 // CHECK-LABEL: @test_vqrdmlsdhq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 1, i32 1, <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vqrdmlsdhq_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -635,10 +725,16 @@ int32x4_t test_vqrdmlsdhq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mv
 
 // CHECK-LABEL: @test_vqrdmlsdhxq_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 1, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vqdmlad.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i32 1, i32 1, i32 1, <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vqrdmlsdhxq_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC

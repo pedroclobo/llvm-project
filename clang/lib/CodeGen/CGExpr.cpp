@@ -1217,6 +1217,8 @@ void CodeGenFunction::EmitBoundsCheckImpl(const Expr *E, llvm::Value *Bound,
 
   bool IndexSigned = IndexType->isSignedIntegerOrEnumerationType();
   llvm::Value *IndexVal = Builder.CreateIntCast(Index, SizeTy, IndexSigned);
+  if (Bound->getType()->isByteTy())
+    Bound = Builder.CreateByteCastToInt(Bound, "", /*IsExact*/ true);
   llvm::Value *BoundVal = Builder.CreateIntCast(Bound, SizeTy, false);
 
   llvm::Constant *StaticData[] = {
@@ -2325,7 +2327,13 @@ RValue CodeGenFunction::EmitLoadOfBitfieldLValue(LValue LV,
       Val = Builder.CreateAnd(
           Val, llvm::APInt::getLowBitsSet(StorageSize, Info.Size), "bf.clear");
   }
-  Val = Builder.CreateIntCast(Val, ResLTy, Info.IsSigned, "bf.cast");
+  if (ResLTy->isByteTy()) {
+    auto *IntTy =
+        llvm::IntegerType::get(getLLVMContext(), ResLTy->getByteBitWidth());
+    Val = Builder.CreateIntCast(Val, IntTy, Info.IsSigned, "bf.cast");
+    Val = Builder.CreateBitCast(Val, ResLTy, "bf.cast");
+  } else
+    Val = Builder.CreateIntCast(Val, ResLTy, Info.IsSigned, "bf.cast");
   EmitScalarRangeCheck(Val, LV.getType(), Loc);
   return RValue::get(Val);
 }
@@ -2569,6 +2577,8 @@ void CodeGenFunction::EmitStoreThroughBitfieldLValue(RValue Src, LValue Dst,
   llvm::Value *SrcVal = Src.getScalarVal();
 
   // Cast the source to the storage type and shift it into place.
+  if (SrcVal->getType()->isByteTy())
+    SrcVal = Builder.CreateByteCastToInt(SrcVal, "", /*IsExact*/ true);
   SrcVal = Builder.CreateIntCast(SrcVal, Ptr.getElementType(),
                                  /*isSigned=*/false);
   llvm::Value *MaskedVal = SrcVal;
@@ -2631,8 +2641,16 @@ void CodeGenFunction::EmitStoreThroughBitfieldLValue(RValue Src, LValue Dst,
       }
     }
 
-    ResultVal = Builder.CreateIntCast(ResultVal, ResLTy, Info.IsSigned,
-                                      "bf.result.cast");
+    if (ResLTy->isByteTy()) {
+      llvm::IntegerType *ITy = llvm::IntegerType::get(
+        getLLVMContext(), ResLTy->getPrimitiveSizeInBits());
+      ResultVal = Builder.CreateIntCast(ResultVal, ITy, Info.IsSigned,
+                                        "bf.result.cast");
+      ResultVal = Builder.CreateBitCast(ResultVal, ResLTy, "bf.result.cast");
+    } else {
+      ResultVal = Builder.CreateIntCast(ResultVal, ResLTy, Info.IsSigned,
+                                        "bf.result.cast");
+    }
     *Result = EmitFromMemory(ResultVal, Dst.getType());
   }
 }
@@ -3480,6 +3498,15 @@ llvm::Value *CodeGenFunction::EmitCheckValue(llvm::Value *V) {
   if (V->getType()->isIntegerTy() &&
       V->getType()->getIntegerBitWidth() <= TargetTy->getIntegerBitWidth())
     return Builder.CreateZExt(V, TargetTy);
+
+  if (V->getType()->isByteTy(8) &&
+      V->getType()->getByteBitWidth() <= TargetTy->getIntegerBitWidth()) {
+
+    llvm::IntegerType *IntTy = llvm::IntegerType::get(getLLVMContext(),
+                                                      V->getType()->getByteBitWidth());
+    V = Builder.CreateByteCast(V, IntTy, "", /*IsExact*/ true);
+    return Builder.CreateZExt(V, TargetTy);
+  }
 
   // Pointers are passed directly, everything else is passed by address.
   if (!V->getType()->isPointerTy()) {
@@ -4570,8 +4597,11 @@ LValue CodeGenFunction::EmitArraySectionExpr(const ArraySectionExpr *E,
     // without ':' symbol for the default length -> length = 1.
     // Idx = LowerBound ?: 0;
     if (auto *LowerBound = E->getLowerBound()) {
+      llvm::Value *LowerBoundVal = EmitScalarExpr(LowerBound);
+      if (LowerBoundVal->getType()->isByteTy())
+        LowerBoundVal = Builder.CreateByteCastToInt(LowerBoundVal, "", /*IsExact*/ true);
       Idx = Builder.CreateIntCast(
-          EmitScalarExpr(LowerBound), IntPtrTy,
+          LowerBoundVal, IntPtrTy,
           LowerBound->getType()->hasSignedIntegerRepresentation());
     } else
       Idx = llvm::ConstantInt::getNullValue(IntPtrTy);

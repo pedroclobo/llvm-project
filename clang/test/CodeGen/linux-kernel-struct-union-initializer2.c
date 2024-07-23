@@ -74,29 +74,38 @@ void test2(long long y) {
 
 // Test non-const initializer for struct with padding and bit fields.
 // CHECK-LABEL: define dso_local void @test3(
-// CHECK-SAME: i8 noundef zeroext [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: b8 noundef zeroext [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    [[S:%.*]] = alloca [[STRUCT_S2:%.*]], align 4
-// CHECK-NEXT:    store i8 [[B]], ptr [[B_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[B]], ptr [[B_ADDR]], align 1
 // CHECK-NEXT:    store i16 0, ptr [[S]], align 4
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[B_ADDR]], align 1
-// CHECK-NEXT:    [[TMP1:%.*]] = zext i8 [[TMP0]] to i16
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[B_ADDR]], align 1
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i8 [[TMP1]] to i16
 // CHECK-NEXT:    [[BF_LOAD:%.*]] = load i16, ptr [[S]], align 4
-// CHECK-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP1]], 7
+// CHECK-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP2]], 7
 // CHECK-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD]], -8
 // CHECK-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_VALUE]]
 // CHECK-NEXT:    store i16 [[BF_SET]], ptr [[S]], align 4
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact b8 0 to i8
+// CHECK-NEXT:    [[TMP4:%.*]] = zext i8 [[TMP3]] to i16
 // CHECK-NEXT:    [[BF_LOAD1:%.*]] = load i16, ptr [[S]], align 4
-// CHECK-NEXT:    [[BF_CLEAR2:%.*]] = and i16 [[BF_LOAD1]], -16129
-// CHECK-NEXT:    [[BF_SET3:%.*]] = or i16 [[BF_CLEAR2]], 0
-// CHECK-NEXT:    store i16 [[BF_SET3]], ptr [[S]], align 4
-// CHECK-NEXT:    [[BF_LOAD4:%.*]] = load i16, ptr [[S]], align 4
-// CHECK-NEXT:    [[BF_CLEAR5:%.*]] = and i16 [[BF_LOAD4]], 16383
-// CHECK-NEXT:    [[BF_SET6:%.*]] = or i16 [[BF_CLEAR5]], 0
-// CHECK-NEXT:    store i16 [[BF_SET6]], ptr [[S]], align 4
-// CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[S]], i64 2
-// CHECK-NEXT:    call void @llvm.memset.p0.i64(ptr align 2 [[TMP2]], i8 0, i64 2, i1 false)
+// CHECK-NEXT:    [[BF_VALUE2:%.*]] = and i16 [[TMP4]], 63
+// CHECK-NEXT:    [[BF_SHL:%.*]] = shl i16 [[BF_VALUE2]], 8
+// CHECK-NEXT:    [[BF_CLEAR3:%.*]] = and i16 [[BF_LOAD1]], -16129
+// CHECK-NEXT:    [[BF_SET4:%.*]] = or i16 [[BF_CLEAR3]], [[BF_SHL]]
+// CHECK-NEXT:    store i16 [[BF_SET4]], ptr [[S]], align 4
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact b8 0 to i8
+// CHECK-NEXT:    [[TMP6:%.*]] = zext i8 [[TMP5]] to i16
+// CHECK-NEXT:    [[BF_LOAD5:%.*]] = load i16, ptr [[S]], align 4
+// CHECK-NEXT:    [[BF_VALUE6:%.*]] = and i16 [[TMP6]], 3
+// CHECK-NEXT:    [[BF_SHL7:%.*]] = shl i16 [[BF_VALUE6]], 14
+// CHECK-NEXT:    [[BF_CLEAR8:%.*]] = and i16 [[BF_LOAD5]], 16383
+// CHECK-NEXT:    [[BF_SET9:%.*]] = or i16 [[BF_CLEAR8]], [[BF_SHL7]]
+// CHECK-NEXT:    store i16 [[BF_SET9]], ptr [[S]], align 4
+// CHECK-NEXT:    [[TMP7:%.*]] = getelementptr i8, ptr [[S]], i64 2
+// CHECK-NEXT:    call void @llvm.memset.p0.i64(ptr align 2 [[TMP7]], i8 0, i64 2, i1 false)
 // CHECK-NEXT:    [[I:%.*]] = getelementptr inbounds nuw [[STRUCT_S2]], ptr [[S]], i32 0, i32 1
 // CHECK-NEXT:    store i32 0, ptr [[I]], align 4
 // CHECK-NEXT:    ret void
@@ -147,26 +156,33 @@ void test5(int a, int b) {
 }
 
 // CHECK-LABEL: define dso_local void @test6(
-// CHECK-SAME: i8 noundef signext [[X:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: b8 noundef signext [[X:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[X_ADDR:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[X_ADDR:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    [[S:%.*]] = alloca [[STRUCT_S5:%.*]], align 1
-// CHECK-NEXT:    store i8 [[X]], ptr [[X_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[X]], ptr [[X_ADDR]], align 1
 // CHECK-NEXT:    [[X1:%.*]] = getelementptr inbounds nuw [[STRUCT_S5]], ptr [[S]], i32 0, i32 0
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X_ADDR]], align 1
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[X1]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[TMP0]], ptr [[X1]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = getelementptr i8, ptr [[S]], i64 1
 // CHECK-NEXT:    store i16 0, ptr [[TMP1]], align 1
 // CHECK-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_S5]], ptr [[S]], i32 0, i32 1
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact b8 0 to i8
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i8 [[TMP2]] to i16
 // CHECK-NEXT:    [[BF_LOAD:%.*]] = load i16, ptr [[Y]], align 1
+// CHECK-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP3]], 15
 // CHECK-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD]], -16
-// CHECK-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], 0
+// CHECK-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_VALUE]]
 // CHECK-NEXT:    store i16 [[BF_SET]], ptr [[Y]], align 1
 // CHECK-NEXT:    [[Z:%.*]] = getelementptr inbounds nuw [[STRUCT_S5]], ptr [[S]], i32 0, i32 1
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact b8 0 to i8
+// CHECK-NEXT:    [[TMP5:%.*]] = zext i8 [[TMP4]] to i16
 // CHECK-NEXT:    [[BF_LOAD2:%.*]] = load i16, ptr [[Z]], align 1
-// CHECK-NEXT:    [[BF_CLEAR3:%.*]] = and i16 [[BF_LOAD2]], -2033
-// CHECK-NEXT:    [[BF_SET4:%.*]] = or i16 [[BF_CLEAR3]], 0
-// CHECK-NEXT:    store i16 [[BF_SET4]], ptr [[Z]], align 1
+// CHECK-NEXT:    [[BF_VALUE3:%.*]] = and i16 [[TMP5]], 127
+// CHECK-NEXT:    [[BF_SHL:%.*]] = shl i16 [[BF_VALUE3]], 4
+// CHECK-NEXT:    [[BF_CLEAR4:%.*]] = and i16 [[BF_LOAD2]], -2033
+// CHECK-NEXT:    [[BF_SET5:%.*]] = or i16 [[BF_CLEAR4]], [[BF_SHL]]
+// CHECK-NEXT:    store i16 [[BF_SET5]], ptr [[Z]], align 1
 // CHECK-NEXT:    ret void
 //
 void test6(char x) {
