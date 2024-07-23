@@ -8,11 +8,15 @@
 
 // CHECK-LABEL: @test_vqrdmlah_laneq_s16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[V:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i16> [[TMP1]], <8 x i16> [[TMP1]], <4 x i32> <i32 7, i32 7, i32 7, i32 7>
-// CHECK-NEXT:    [[VQRDMLAH_V3_I:%.*]] = call <4 x i16> @llvm.aarch64.neon.sqrdmlah.v4i16(<4 x i16> [[A:%.*]], <4 x i16> [[B:%.*]], <4 x i16> [[LANE]])
-// CHECK-NEXT:    ret <4 x i16> [[VQRDMLAH_V3_I]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[V:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP2]], <4 x i32> <i32 7, i32 7, i32 7, i32 7>
+// CHECK-NEXT:    [[VQRDMLAH_S163_I:%.*]] = call <4 x i16> @llvm.aarch64.neon.sqrdmlah.v4i16(<4 x i16> [[A:%.*]], <4 x i16> [[B:%.*]], <4 x i16> [[LANE]])
+// CHECK-NEXT:    [[VQRDMLAH_S164_I:%.*]] = bitcast <4 x i16> [[VQRDMLAH_S163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VQRDMLAH_S164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x i16>
+// CHECK-NEXT:    ret <4 x i16> [[TMP4]]
 //
 int16x4_t test_vqrdmlah_laneq_s16(int16x4_t a, int16x4_t b, int16x8_t v) {
   return vqrdmlah_laneq_s16(a, b, v, 7);
@@ -20,11 +24,15 @@ int16x4_t test_vqrdmlah_laneq_s16(int16x4_t a, int16x4_t b, int16x8_t v) {
 
 // CHECK-LABEL: @test_vqrdmlah_laneq_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[V:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x i32> [[TMP1]], <4 x i32> [[TMP1]], <2 x i32> <i32 3, i32 3>
-// CHECK-NEXT:    [[VQRDMLAH_V3_I:%.*]] = call <2 x i32> @llvm.aarch64.neon.sqrdmlah.v2i32(<2 x i32> [[A:%.*]], <2 x i32> [[B:%.*]], <2 x i32> [[LANE]])
-// CHECK-NEXT:    ret <2 x i32> [[VQRDMLAH_V3_I]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[V:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP2]], <2 x i32> <i32 3, i32 3>
+// CHECK-NEXT:    [[VQRDMLAH_S323_I:%.*]] = call <2 x i32> @llvm.aarch64.neon.sqrdmlah.v2i32(<2 x i32> [[A:%.*]], <2 x i32> [[B:%.*]], <2 x i32> [[LANE]])
+// CHECK-NEXT:    [[VQRDMLAH_S324_I:%.*]] = bitcast <2 x i32> [[VQRDMLAH_S323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VQRDMLAH_S324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <2 x b32> [[TMP3]] to <2 x i32>
+// CHECK-NEXT:    ret <2 x i32> [[TMP4]]
 //
 int32x2_t test_vqrdmlah_laneq_s32(int32x2_t a, int32x2_t b, int32x4_t v) {
   return vqrdmlah_laneq_s32(a, b, v, 3);
@@ -32,11 +40,15 @@ int32x2_t test_vqrdmlah_laneq_s32(int32x2_t a, int32x2_t b, int32x4_t v) {
 
 // CHECK-LABEL: @test_vqrdmlahq_laneq_s16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[V:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i16> [[TMP1]], <8 x i16> [[TMP1]], <8 x i32> <i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7>
-// CHECK-NEXT:    [[VQRDMLAHQ_V3_I:%.*]] = call <8 x i16> @llvm.aarch64.neon.sqrdmlah.v8i16(<8 x i16> [[A:%.*]], <8 x i16> [[B:%.*]], <8 x i16> [[LANE]])
-// CHECK-NEXT:    ret <8 x i16> [[VQRDMLAHQ_V3_I]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[V:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP2]], <8 x i32> <i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7>
+// CHECK-NEXT:    [[VQRDMLAHQ_S163_I:%.*]] = call <8 x i16> @llvm.aarch64.neon.sqrdmlah.v8i16(<8 x i16> [[A:%.*]], <8 x i16> [[B:%.*]], <8 x i16> [[LANE]])
+// CHECK-NEXT:    [[VQRDMLAHQ_S164_I:%.*]] = bitcast <8 x i16> [[VQRDMLAHQ_S163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VQRDMLAHQ_S164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b16> [[TMP3]] to <8 x i16>
+// CHECK-NEXT:    ret <8 x i16> [[TMP4]]
 //
 int16x8_t test_vqrdmlahq_laneq_s16(int16x8_t a, int16x8_t b, int16x8_t v) {
   return vqrdmlahq_laneq_s16(a, b, v, 7);
@@ -44,11 +56,15 @@ int16x8_t test_vqrdmlahq_laneq_s16(int16x8_t a, int16x8_t b, int16x8_t v) {
 
 // CHECK-LABEL: @test_vqrdmlahq_laneq_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[V:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x i32> [[TMP1]], <4 x i32> [[TMP1]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
-// CHECK-NEXT:    [[VQRDMLAHQ_V3_I:%.*]] = call <4 x i32> @llvm.aarch64.neon.sqrdmlah.v4i32(<4 x i32> [[A:%.*]], <4 x i32> [[B:%.*]], <4 x i32> [[LANE]])
-// CHECK-NEXT:    ret <4 x i32> [[VQRDMLAHQ_V3_I]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[V:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP2]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
+// CHECK-NEXT:    [[VQRDMLAHQ_S323_I:%.*]] = call <4 x i32> @llvm.aarch64.neon.sqrdmlah.v4i32(<4 x i32> [[A:%.*]], <4 x i32> [[B:%.*]], <4 x i32> [[LANE]])
+// CHECK-NEXT:    [[VQRDMLAHQ_S324_I:%.*]] = bitcast <4 x i32> [[VQRDMLAHQ_S323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VQRDMLAHQ_S324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x i32>
+// CHECK-NEXT:    ret <4 x i32> [[TMP4]]
 //
 int32x4_t test_vqrdmlahq_laneq_s32(int32x4_t a, int32x4_t b, int32x4_t v) {
   return vqrdmlahq_laneq_s32(a, b, v, 3);
@@ -126,11 +142,15 @@ int32_t test_vqrdmlahs_laneq_s32(int32_t a, int32_t b, int32x4_t c) {
 
 // CHECK-LABEL: @test_vqrdmlsh_laneq_s16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[V:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i16> [[TMP1]], <8 x i16> [[TMP1]], <4 x i32> <i32 7, i32 7, i32 7, i32 7>
-// CHECK-NEXT:    [[VQRDMLSH_V3_I:%.*]] = call <4 x i16> @llvm.aarch64.neon.sqrdmlsh.v4i16(<4 x i16> [[A:%.*]], <4 x i16> [[B:%.*]], <4 x i16> [[LANE]])
-// CHECK-NEXT:    ret <4 x i16> [[VQRDMLSH_V3_I]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[V:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP2]], <4 x i32> <i32 7, i32 7, i32 7, i32 7>
+// CHECK-NEXT:    [[VQRDMLSH_S163_I:%.*]] = call <4 x i16> @llvm.aarch64.neon.sqrdmlsh.v4i16(<4 x i16> [[A:%.*]], <4 x i16> [[B:%.*]], <4 x i16> [[LANE]])
+// CHECK-NEXT:    [[VQRDMLSH_S164_I:%.*]] = bitcast <4 x i16> [[VQRDMLSH_S163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VQRDMLSH_S164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x i16>
+// CHECK-NEXT:    ret <4 x i16> [[TMP4]]
 //
 int16x4_t test_vqrdmlsh_laneq_s16(int16x4_t a, int16x4_t b, int16x8_t v) {
   return vqrdmlsh_laneq_s16(a, b, v, 7);
@@ -138,11 +158,15 @@ int16x4_t test_vqrdmlsh_laneq_s16(int16x4_t a, int16x4_t b, int16x8_t v) {
 
 // CHECK-LABEL: @test_vqrdmlsh_laneq_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[V:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x i32> [[TMP1]], <4 x i32> [[TMP1]], <2 x i32> <i32 3, i32 3>
-// CHECK-NEXT:    [[VQRDMLSH_V3_I:%.*]] = call <2 x i32> @llvm.aarch64.neon.sqrdmlsh.v2i32(<2 x i32> [[A:%.*]], <2 x i32> [[B:%.*]], <2 x i32> [[LANE]])
-// CHECK-NEXT:    ret <2 x i32> [[VQRDMLSH_V3_I]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[V:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP2]], <2 x i32> <i32 3, i32 3>
+// CHECK-NEXT:    [[VQRDMLSH_S323_I:%.*]] = call <2 x i32> @llvm.aarch64.neon.sqrdmlsh.v2i32(<2 x i32> [[A:%.*]], <2 x i32> [[B:%.*]], <2 x i32> [[LANE]])
+// CHECK-NEXT:    [[VQRDMLSH_S324_I:%.*]] = bitcast <2 x i32> [[VQRDMLSH_S323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VQRDMLSH_S324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <2 x b32> [[TMP3]] to <2 x i32>
+// CHECK-NEXT:    ret <2 x i32> [[TMP4]]
 //
 int32x2_t test_vqrdmlsh_laneq_s32(int32x2_t a, int32x2_t b, int32x4_t v) {
   return vqrdmlsh_laneq_s32(a, b, v, 3);
@@ -150,11 +174,15 @@ int32x2_t test_vqrdmlsh_laneq_s32(int32x2_t a, int32x2_t b, int32x4_t v) {
 
 // CHECK-LABEL: @test_vqrdmlshq_laneq_s16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[V:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i16> [[TMP1]], <8 x i16> [[TMP1]], <8 x i32> <i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7>
-// CHECK-NEXT:    [[VQRDMLSHQ_V3_I:%.*]] = call <8 x i16> @llvm.aarch64.neon.sqrdmlsh.v8i16(<8 x i16> [[A:%.*]], <8 x i16> [[B:%.*]], <8 x i16> [[LANE]])
-// CHECK-NEXT:    ret <8 x i16> [[VQRDMLSHQ_V3_I]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[V:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP2]], <8 x i32> <i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7>
+// CHECK-NEXT:    [[VQRDMLSHQ_S163_I:%.*]] = call <8 x i16> @llvm.aarch64.neon.sqrdmlsh.v8i16(<8 x i16> [[A:%.*]], <8 x i16> [[B:%.*]], <8 x i16> [[LANE]])
+// CHECK-NEXT:    [[VQRDMLSHQ_S164_I:%.*]] = bitcast <8 x i16> [[VQRDMLSHQ_S163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VQRDMLSHQ_S164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b16> [[TMP3]] to <8 x i16>
+// CHECK-NEXT:    ret <8 x i16> [[TMP4]]
 //
 int16x8_t test_vqrdmlshq_laneq_s16(int16x8_t a, int16x8_t b, int16x8_t v) {
   return vqrdmlshq_laneq_s16(a, b, v, 7);
@@ -162,11 +190,15 @@ int16x8_t test_vqrdmlshq_laneq_s16(int16x8_t a, int16x8_t b, int16x8_t v) {
 
 // CHECK-LABEL: @test_vqrdmlshq_laneq_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[V:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x i32> [[TMP1]], <4 x i32> [[TMP1]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
-// CHECK-NEXT:    [[VQRDMLSHQ_V3_I:%.*]] = call <4 x i32> @llvm.aarch64.neon.sqrdmlsh.v4i32(<4 x i32> [[A:%.*]], <4 x i32> [[B:%.*]], <4 x i32> [[LANE]])
-// CHECK-NEXT:    ret <4 x i32> [[VQRDMLSHQ_V3_I]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[V:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP2]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
+// CHECK-NEXT:    [[VQRDMLSHQ_S323_I:%.*]] = call <4 x i32> @llvm.aarch64.neon.sqrdmlsh.v4i32(<4 x i32> [[A:%.*]], <4 x i32> [[B:%.*]], <4 x i32> [[LANE]])
+// CHECK-NEXT:    [[VQRDMLSHQ_S324_I:%.*]] = bitcast <4 x i32> [[VQRDMLSHQ_S323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VQRDMLSHQ_S324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x i32>
+// CHECK-NEXT:    ret <4 x i32> [[TMP4]]
 //
 int32x4_t test_vqrdmlshq_laneq_s32(int32x4_t a, int32x4_t b, int32x4_t v) {
   return vqrdmlshq_laneq_s32(a, b, v, 3);

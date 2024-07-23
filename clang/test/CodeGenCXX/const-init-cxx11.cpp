@@ -74,7 +74,7 @@ namespace BaseClass {
   struct Test : Ts... { constexpr Test() : Ts()..., n(5) {} int n; };
 
   using Test1 = Test<N, C, Cs<1,2>, D, X<C,1>>;
-  // CHECK: @_ZN9BaseClass2t1E ={{.*}} constant {{.*}} { i32 3, i8 1, i8 1, i8 1, double 4.000000e+00, i8 1, i32 5 }, align 8
+  // CHECK: @_ZN9BaseClass2t1E ={{.*}} constant {{.*}} { i32 3, b8 1, b8 1, b8 1, double 4.000000e+00, b8 1, i32 5 }, align 8
   extern constexpr Test1 t1 = Test1();
 
   struct DN : D, N {};
@@ -93,7 +93,7 @@ namespace BaseClass {
 
   struct __attribute((packed)) PackedD { double y = 2; };
   struct Test3 : C, PackedD { constexpr Test3() {} };
-  // CHECK: @_ZN9BaseClass2t3E ={{.*}} constant <{ i8, double }> <{ i8 1, double 2.000000e+00 }>
+  // CHECK: @_ZN9BaseClass2t3E ={{.*}} constant <{ b8, double }> <{ b8 1, double 2.000000e+00 }>
   extern constexpr Test3 t3 = Test3();
 }
 

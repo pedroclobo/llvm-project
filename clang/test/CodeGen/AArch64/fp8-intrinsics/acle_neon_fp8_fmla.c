@@ -11,7 +11,7 @@
 // CHECK-LABEL: define dso_local <8 x half> @test_vmlalb(
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
 // CHECK-NEXT:    [[VMLAL1_I:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.v8f16(<8 x half> [[VD]], <16 x i8> [[VN]], <16 x i8> [[VM]])
 // CHECK-NEXT:    ret <8 x half> [[VMLAL1_I]]
@@ -19,7 +19,7 @@
 // CHECK-CXX-LABEL: define dso_local noundef <8 x half> @_Z11test_vmlalb13__Float16x8_t14__Mfloat8x16_tS0_m(
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
 // CHECK-CXX-NEXT:    [[VMLAL1_I:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.v8f16(<8 x half> [[VD]], <16 x i8> [[VN]], <16 x i8> [[VM]])
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL1_I]]
@@ -31,7 +31,7 @@ float16x8_t test_vmlalb(float16x8_t vd, mfloat8x16_t vn, mfloat8x16_t vm, fpm_t 
 // CHECK-LABEL: define dso_local <8 x half> @test_vmlalt(
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
 // CHECK-NEXT:    [[VMLAL1_I:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.v8f16(<8 x half> [[VD]], <16 x i8> [[VN]], <16 x i8> [[VM]])
 // CHECK-NEXT:    ret <8 x half> [[VMLAL1_I]]
@@ -39,7 +39,7 @@ float16x8_t test_vmlalb(float16x8_t vd, mfloat8x16_t vn, mfloat8x16_t vm, fpm_t 
 // CHECK-CXX-LABEL: define dso_local noundef <8 x half> @_Z11test_vmlalt13__Float16x8_t14__Mfloat8x16_tS0_m(
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
 // CHECK-CXX-NEXT:    [[VMLAL1_I:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.v8f16(<8 x half> [[VD]], <16 x i8> [[VN]], <16 x i8> [[VM]])
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL1_I]]
@@ -123,20 +123,20 @@ float32x4_t test_vmlalltt(float32x4_t vd, mfloat8x16_t vn, mfloat8x16_t vm, fpm_
 // CHECK-LABEL: define dso_local <8 x half> @test_vmlalb_lane(
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <8 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.vector.insert.v16i8.v8i8(<16 x i8> poison, <8 x i8> [[VM]], i64 0)
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[TMP1]], i32 0)
 // CHECK-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
 // CHECK-CXX-LABEL: define dso_local noundef <8 x half> @_Z16test_vmlalb_lane13__Float16x8_t14__Mfloat8x16_t13__Mfloat8x8_tm(
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <8 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-CXX-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.vector.insert.v16i8.v8i8(<16 x i8> poison, <8 x i8> [[VM]], i64 0)
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[TMP1]], i32 0)
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -147,18 +147,18 @@ float16x8_t test_vmlalb_lane(float16x8_t vd, mfloat8x16_t vn, mfloat8x8_t vm, fp
 // CHECK-LABEL: define dso_local <8 x half> @test_vmlalb_laneq(
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[VM]], i32 0)
 // CHECK-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
 // CHECK-CXX-LABEL: define dso_local noundef <8 x half> @_Z17test_vmlalb_laneq13__Float16x8_t14__Mfloat8x16_tS0_m(
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[VM]], i32 0)
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -169,20 +169,20 @@ float16x8_t test_vmlalb_laneq(float16x8_t vd, mfloat8x16_t vn, mfloat8x16_t vm, 
 // CHECK-LABEL: define dso_local <8 x half> @test_vmlalt_lane(
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <8 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.vector.insert.v16i8.v8i8(<16 x i8> poison, <8 x i8> [[VM]], i64 0)
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[TMP1]], i32 7)
 // CHECK-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
 // CHECK-CXX-LABEL: define dso_local noundef <8 x half> @_Z16test_vmlalt_lane13__Float16x8_t14__Mfloat8x16_t13__Mfloat8x8_tm(
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <8 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-CXX-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.vector.insert.v16i8.v8i8(<16 x i8> poison, <8 x i8> [[VM]], i64 0)
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[TMP1]], i32 7)
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -193,18 +193,18 @@ float16x8_t test_vmlalt_lane(float16x8_t vd, mfloat8x16_t vn, mfloat8x8_t vm, fp
 // CHECK-LABEL: define dso_local <8 x half> @test_vmlalt_laneq(
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[VM]], i32 15)
 // CHECK-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
 // CHECK-CXX-LABEL: define dso_local noundef <8 x half> @_Z17test_vmlalt_laneq13__Float16x8_t14__Mfloat8x16_tS0_m(
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[VM]], i32 15)
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //

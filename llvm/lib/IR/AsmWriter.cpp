@@ -1747,7 +1747,8 @@ static void WriteConstantInternal(raw_ostream &Out, const Constant *CV,
     // TODO: Remove this block when the UseConstant{Int,FP}ForFixedLengthSplat
     // options are removed.
     if (auto *SplatVal = CV->getSplatValue()) {
-      if (isa<ConstantInt>(SplatVal) || isa<ConstantFP>(SplatVal)) {
+      if (isa<ConstantInt>(SplatVal) || isa<ConstantByte>(SplatVal) ||
+          isa<ConstantFP>(SplatVal)) {
         Out << "splat (";
         WriterCtx.TypePrinter->print(ETy, Out);
         Out << ' ';
@@ -1799,7 +1800,8 @@ static void WriteConstantInternal(raw_ostream &Out, const Constant *CV,
     // options are removed.
     if (CE->getOpcode() == Instruction::ShuffleVector) {
       if (auto *SplatVal = CE->getSplatValue()) {
-        if (isa<ConstantInt>(SplatVal) || isa<ConstantFP>(SplatVal)) {
+      if (isa<ConstantInt>(SplatVal) || isa<ConstantByte>(SplatVal) ||
+          isa<ConstantFP>(SplatVal)) {
           Out << "splat (";
           WriterCtx.TypePrinter->print(SplatVal->getType(), Out);
           Out << ' ';

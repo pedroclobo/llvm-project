@@ -225,6 +225,8 @@ Value *EmitToInt(CodeGenFunction &CGF, llvm::Value *V,
 
   if (V->getType()->isPointerTy())
     return CGF.Builder.CreatePtrToInt(V, IntType);
+  if (V->getType()->isByteTy())
+    return CGF.Builder.CreateByteCast(V, IntType, "", /*isExact=*/true);
 
   assert(V->getType() == IntType);
   return V;
@@ -236,6 +238,8 @@ Value *EmitFromInt(CodeGenFunction &CGF, llvm::Value *V,
 
   if (ResultType->isPointerTy())
     return CGF.Builder.CreateIntToPtr(V, ResultType);
+  if (ResultType->isByteTy())
+    return CGF.Builder.CreateBitCast(V, ResultType);
 
   assert(V->getType() == ResultType);
   return V;
@@ -1582,7 +1586,9 @@ Value *CodeGenFunction::EmitMSVCBuiltinExpr(MSVCIntrin BuiltinID,
 
     Value *ArgZero = llvm::Constant::getNullValue(ArgType);
     Value *ResZero = llvm::Constant::getNullValue(ResultType);
-    Value *ResOne = llvm::ConstantInt::get(ResultType, 1);
+    Value *ResOne = ResultType->isByteTy()
+                        ? llvm::ConstantByte::get(ResultType, 1)
+                        : llvm::ConstantInt::get(ResultType, 1);
 
     BasicBlock *Begin = Builder.GetInsertBlock();
     BasicBlock *End = createBasicBlock("bitscan_end", this->CurFn);
@@ -2211,7 +2217,11 @@ RValue CodeGenFunction::emitRotate(const CallExpr *E, bool IsRotateRight) {
   // The builtin's shift arg may have a different type than the source arg and
   // result, but the LLVM intrinsic uses the same type for all values.
   llvm::Type *Ty = Src->getType();
-  ShiftAmt = Builder.CreateIntCast(ShiftAmt, Ty, false);
+  if (!ShiftAmt->getType()->isByteTy() || !Ty->isByteTy()) {
+    if (ShiftAmt->getType()->isByteTy())
+      ShiftAmt = Builder.CreateByteCastToInt(ShiftAmt, "", /*IsExact=*/true);
+    ShiftAmt = Builder.CreateIntCast(ShiftAmt, Ty, false);
+  }
 
   // Rotate is a special case of LLVM funnel shift - 1st 2 args are the same.
   unsigned IID = IsRotateRight ? Intrinsic::fshr : Intrinsic::fshl;
@@ -3076,11 +3086,19 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
     Value *ZeroUndef =
         Builder.getInt1(HasFallback || getTarget().isCLZForZeroUndef());
     Value *Result = Builder.CreateCall(F, {ArgValue, ZeroUndef});
-    if (Result->getType() != ResultType)
+    if (Result->getType() != ResultType) {
+      if (Result->getType()->isByteTy())
+        Result = Builder.CreateByteCastToInt(Result, "cast", /*isExact*/ true);
       Result =
           Builder.CreateIntCast(Result, ResultType, /*isSigned*/ false, "cast");
+    }
     if (!HasFallback)
       return RValue::get(Result);
+
+    if (ArgValue->getType()->isByteTy())
+      ArgValue = Builder.CreateByteCastToInt(ArgValue, "cast",
+                                             /*isExact*/ true);
+    ArgType = ArgValue->getType();
 
     Value *Zero = Constant::getNullValue(ArgType);
     Value *IsZero = Builder.CreateICmpEQ(ArgValue, Zero, "iszero");
@@ -3108,11 +3126,19 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
     Value *ZeroUndef =
         Builder.getInt1(HasFallback || getTarget().isCLZForZeroUndef());
     Value *Result = Builder.CreateCall(F, {ArgValue, ZeroUndef});
-    if (Result->getType() != ResultType)
+    if (Result->getType() != ResultType) {
+      if (Result->getType()->isByteTy())
+        Result = Builder.CreateByteCastToInt(Result, "cast", /*isExact*/ true);
       Result =
           Builder.CreateIntCast(Result, ResultType, /*isSigned*/ false, "cast");
+    }
     if (!HasFallback)
       return RValue::get(Result);
+
+    if (ArgValue->getType()->isByteTy())
+      ArgValue = Builder.CreateByteCastToInt(ArgValue, "cast",
+                                             /*isExact*/ true);
+    ArgType = ArgValue->getType();
 
     Value *Zero = Constant::getNullValue(ArgType);
     Value *IsZero = Builder.CreateICmpEQ(ArgValue, Zero, "iszero");
@@ -3188,9 +3214,12 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
 
     llvm::Type *ResultType = ConvertType(E->getType());
     Value *Result = Builder.CreateCall(F, ArgValue);
-    if (Result->getType() != ResultType)
+    if (Result->getType() != ResultType) {
+      if (Result->getType()->isByteTy())
+        Result = Builder.CreateByteCastToInt(Result, "cast", /*isExact*/ true);
       Result =
           Builder.CreateIntCast(Result, ResultType, /*isSigned*/ false, "cast");
+    }
     return RValue::get(Result);
   }
   case Builtin::BI__builtin_unpredictable: {
@@ -3770,6 +3799,10 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
     Value *Op0 = EmitScalarExpr(E->getArg(0));
     Value *Op1 = EmitScalarExpr(E->getArg(1));
     Value *Result;
+    if (Op0->getType()->isByteOrByteVectorTy())
+      Op0 = Builder.CreateByteCastToInt(Op0, "", /*isExact*/ true);
+    if (Op1->getType()->isByteOrByteVectorTy())
+      Op1 = Builder.CreateByteCastToInt(Op1, "", /*isExact*/ true);
     assert(Op0->getType()->isIntOrIntVectorTy() && "integer type expected");
     QualType Ty = E->getArg(0)->getType();
     if (auto *VecTy = Ty->getAs<VectorType>())
@@ -3788,6 +3821,12 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
     Value *Op0 = EmitScalarExpr(E->getArg(0));
     Value *Op1 = EmitScalarExpr(E->getArg(1));
     Value *Result;
+
+    if (Op0->getType()->isByteOrByteVectorTy())
+      Op0 = Builder.CreateByteCastToInt(Op0, "", /*isExact*/ true);
+    if (Op1->getType()->isByteOrByteVectorTy())
+      Op1 = Builder.CreateByteCastToInt(Op1, "", /*isExact*/ true);
+
     if (Op0->getType()->isIntOrIntVectorTy()) {
       QualType Ty = E->getArg(0)->getType();
       if (auto *VecTy = Ty->getAs<VectorType>())
@@ -3803,6 +3842,12 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
     Value *Op0 = EmitScalarExpr(E->getArg(0));
     Value *Op1 = EmitScalarExpr(E->getArg(1));
     Value *Result;
+
+    if (Op0->getType()->isByteOrByteVectorTy())
+      Op0 = Builder.CreateByteCastToInt(Op0, "", /*isExact*/ true);
+    if (Op1->getType()->isByteOrByteVectorTy())
+      Op1 = Builder.CreateByteCastToInt(Op1, "", /*isExact*/ true);
+
     if (Op0->getType()->isIntOrIntVectorTy()) {
       QualType Ty = E->getArg(0)->getType();
       if (auto *VecTy = Ty->getAs<VectorType>())
@@ -4996,8 +5041,14 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
     llvm::Value *Carry2;
     llvm::Value *Sum2 = EmitOverflowIntrinsic(*this, IntrinsicId,
                                               Sum1, Carryin, Carry2);
-    llvm::Value *CarryOut = Builder.CreateZExt(Builder.CreateOr(Carry1, Carry2),
-                                               X->getType());
+    llvm::Value *CarryOut = Builder.CreateOr(Carry1, Carry2);
+    if (X->getType()->isByteTy()) {
+      llvm::IntegerType *IntermTy = llvm::IntegerType::get(getLLVMContext(),
+                                        X->getType()->getScalarSizeInBits());
+      CarryOut = Builder.CreateZExt(CarryOut, IntermTy);
+      CarryOut = Builder.CreateBitCast(CarryOut, X->getType());
+    } else
+      CarryOut = Builder.CreateZExt(CarryOut, X->getType());
     Builder.CreateStore(CarryOut, CarryOutPtr);
     return RValue::get(Sum2);
   }
@@ -6067,7 +6118,10 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
           ArgValue = Builder.CreateIntrinsic(Intrinsic::x86_cast_vector_to_tile,
                                              {ArgValue->getType()}, {ArgValue});
         else
-          ArgValue = Builder.CreateBitCast(ArgValue, PTy);
+          ArgValue = ArgValue->getType()->isByteOrByteVectorTy() &&
+                     !PTy->isByteOrByteVectorTy()
+            ? Builder.CreateByteCast(ArgValue, PTy, "", /*IsExact*/ true)
+            : Builder.CreateBitCast(ArgValue, PTy);
       }
 
       Args.push_back(ArgValue);

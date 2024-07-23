@@ -41,6 +41,14 @@ llvm::Constant *clang::CodeGen::initializationPatternFor(CodeGenModule &CGM,
     return llvm::ConstantInt::get(
         Ty, llvm::APInt::getSplat(BitWidth, llvm::APInt(64, IntValue)));
   }
+  if (Ty->isByteOrByteVectorTy()) {
+    unsigned BitWidth =
+        cast<llvm::ByteType>(Ty->getScalarType())->getBitWidth();
+    if (BitWidth <= 64)
+      return llvm::ConstantByte::get(Ty, IntValue);
+    return llvm::ConstantByte::get(
+        Ty, llvm::APInt::getSplat(BitWidth, llvm::APInt(64, IntValue)));
+  }
   if (Ty->isPtrOrPtrVectorTy()) {
     auto *PtrTy = cast<llvm::PointerType>(Ty->getScalarType());
     unsigned PtrWidth =

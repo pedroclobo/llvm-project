@@ -54,14 +54,16 @@ translateX86ToMsvcIntrin(unsigned BuiltinID) {
   llvm_unreachable("must return from switch");
 }
 
-// Convert the mask from an integer type to a vector of i1.
+// Convert the mask from an integer/byte type to a vector of i1.
 static Value *getMaskVecValue(CodeGenFunction &CGF, Value *Mask,
                               unsigned NumElts) {
 
   auto *MaskTy = llvm::FixedVectorType::get(
       CGF.Builder.getInt1Ty(),
-      cast<IntegerType>(Mask->getType())->getBitWidth());
-  Value *MaskVec = CGF.Builder.CreateBitCast(Mask, MaskTy);
+      Mask->getType()->getScalarSizeInBits());
+  Value *MaskVec = Mask->getType()->isByteOrByteVectorTy()
+    ? CGF.Builder.CreateByteCast(Mask, MaskTy, "", true)
+    : CGF.Builder.CreateBitCast(Mask, MaskTy);
 
   // If we have less than 8 elements, then the starting mask was an i8 and
   // we need to extract down to the right number of elements.

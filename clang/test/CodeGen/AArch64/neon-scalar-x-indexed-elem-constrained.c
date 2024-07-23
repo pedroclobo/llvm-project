@@ -61,13 +61,16 @@ float32_t test_vfmss_lane_f32(float32_t a, float32_t b, float32x2_t c) {
 }
 
 // COMMON-LABEL: test_vfma_lane_f64
-// COMMONIR:        [[TMP0:%.*]] = bitcast <1 x double> %a to <8 x i8>
-// COMMONIR:        [[TMP1:%.*]] = bitcast <1 x double> %b to <8 x i8>
-// COMMONIR:        [[TMP2:%.*]] = bitcast <1 x double> %v to <8 x i8>
-// COMMONIR:        [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
-// COMMONIR:        [[LANE:%.*]] = shufflevector <1 x double> [[TMP3]], <1 x double> [[TMP3]], <1 x i32> zeroinitializer
-// COMMONIR:        [[FMLA:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x double>
-// COMMONIR:        [[FMLA1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x double>
+// COMMONIR:        [[TMP0:%.*]] = bitcast <1 x double> %a to <8 x b8>
+// COMMONIR:        [[TMP1:%.*]] = bitcast <1 x double> %b to <8 x b8>
+// COMMONIR:        [[TMP2:%.*]] = bitcast <1 x double> %v to <8 x b8>
+// COMMONIR:        [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// COMMONIR:        [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
+// COMMONIR:        [[LANE:%.*]] = shufflevector <1 x double> [[TMP4]], <1 x double> [[TMP4]], <1 x i32> zeroinitializer
+// COMMONIR:        [[CONV:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// COMMONIR:        [[FMLA:%.*]] = bitcast <8 x i8> [[CONV]] to <1 x double>
+// COMMONIR:        [[CONV1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// COMMONIR:        [[FMLA1:%.*]] = bitcast <8 x i8> [[CONV1]] to <1 x double>
 // UNCONSTRAINED:   [[FMLA2:%.*]] = call <1 x double> @llvm.fma.v1f64(<1 x double> [[FMLA]], <1 x double> [[LANE]], <1 x double> [[FMLA1]])
 // CONSTRAINED:     [[FMLA2:%.*]] = call <1 x double> @llvm.experimental.constrained.fma.v1f64(<1 x double> [[FMLA]], <1 x double> [[LANE]], <1 x double> [[FMLA1]], metadata !"round.tonearest", metadata !"fpexcept.strict")
 // CHECK-ASM:       fmadd d{{[0-9]+}}, d{{[0-9]+}}, d{{[0-9]+}}, d{{[0-9]+}}
@@ -78,13 +81,16 @@ float64x1_t test_vfma_lane_f64(float64x1_t a, float64x1_t b, float64x1_t v) {
 
 // COMMON-LABEL: test_vfms_lane_f64
 // COMMONIR:        [[SUB:%.*]] = fneg <1 x double> %b
-// COMMONIR:        [[TMP0:%.*]] = bitcast <1 x double> %a to <8 x i8>
-// COMMONIR:        [[TMP1:%.*]] = bitcast <1 x double> [[SUB]] to <8 x i8>
-// COMMONIR:        [[TMP2:%.*]] = bitcast <1 x double> %v to <8 x i8>
-// COMMONIR:        [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
-// COMMONIR:        [[LANE:%.*]] = shufflevector <1 x double> [[TMP3]], <1 x double> [[TMP3]], <1 x i32> zeroinitializer
-// COMMONIR:        [[FMLA:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x double>
-// COMMONIR:        [[FMLA1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x double>
+// COMMONIR:        [[TMP0:%.*]] = bitcast <1 x double> %a to <8 x b8>
+// COMMONIR:        [[TMP1:%.*]] = bitcast <1 x double> [[SUB]] to <8 x b8>
+// COMMONIR:        [[TMP2:%.*]] = bitcast <1 x double> %v to <8 x b8>
+// COMMONIR:        [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// COMMONIR:        [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
+// COMMONIR:        [[LANE:%.*]] = shufflevector <1 x double> [[TMP4]], <1 x double> [[TMP4]], <1 x i32> zeroinitializer
+// COMMONIR:        [[CONV:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// COMMONIR:        [[FMLA:%.*]] = bitcast <8 x i8> [[CONV]] to <1 x double>
+// COMMONIR:        [[CONV1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// COMMONIR:        [[FMLA1:%.*]] = bitcast <8 x i8> [[CONV1]] to <1 x double>
 // UNCONSTRAINED:   [[FMLA2:%.*]] = call <1 x double> @llvm.fma.v1f64(<1 x double> [[FMLA]], <1 x double> [[LANE]], <1 x double> [[FMLA1]])
 // CONSTRAINED:     [[FMLA2:%.*]] = call <1 x double> @llvm.experimental.constrained.fma.v1f64(<1 x double> [[FMLA]], <1 x double> [[LANE]], <1 x double> [[FMLA1]], metadata !"round.tonearest", metadata !"fpexcept.strict")
 // CHECK-ASM:       fmsub d{{[0-9]+}}, d{{[0-9]+}}, d{{[0-9]+}}, d{{[0-9]+}}
@@ -94,18 +100,21 @@ float64x1_t test_vfms_lane_f64(float64x1_t a, float64x1_t b, float64x1_t v) {
 }
 
 // COMMON-LABEL: test_vfma_laneq_f64
-// COMMONIR:        [[TMP0:%.*]] = bitcast <1 x double> %a to <8 x i8>
-// COMMONIR:        [[TMP1:%.*]] = bitcast <1 x double> %b to <8 x i8>
-// COMMONIR:        [[TMP2:%.*]] = bitcast <2 x double> %v to <16 x i8>
-// COMMONIR:        [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to double
-// COMMONIR:        [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to double
-// COMMONIR:        [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
-// COMMONIR:        [[EXTRACT:%.*]] = extractelement <2 x double> [[TMP5]], i32 0
-// UNCONSTRAINED:   [[TMP6:%.*]] = call double @llvm.fma.f64(double [[TMP4]], double [[EXTRACT]], double [[TMP3]])
-// CONSTRAINED:     [[TMP6:%.*]] = call double @llvm.experimental.constrained.fma.f64(double [[TMP4]], double [[EXTRACT]], double [[TMP3]], metadata !"round.tonearest", metadata !"fpexcept.strict")
+// COMMONIR:        [[TMP0:%.*]] = bitcast <1 x double> %a to <8 x b8>
+// COMMONIR:        [[TMP1:%.*]] = bitcast <1 x double> %b to <8 x b8>
+// COMMONIR:        [[TMP2:%.*]] = bitcast <2 x double> %v to <16 x b8>
+// COMMONIR:        [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// COMMONIR:        [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to double
+// COMMONIR:        [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// COMMONIR:        [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to double
+// COMMONIR:        [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// COMMONIR:        [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <2 x double>
+// COMMONIR:        [[EXTRACT:%.*]] = extractelement <2 x double> [[TMP8]], i32 0
+// UNCONSTRAINED:   [[TMP9:%.*]] = call double @llvm.fma.f64(double [[TMP6]], double [[EXTRACT]], double [[TMP4]])
+// CONSTRAINED:     [[TMP9:%.*]] = call double @llvm.experimental.constrained.fma.f64(double [[TMP6]], double [[EXTRACT]], double [[TMP4]], metadata !"round.tonearest", metadata !"fpexcept.strict")
 // CHECK-ASM:       fmadd d{{[0-9]+}}, d{{[0-9]+}}, d{{[0-9]+}}, d{{[0-9]+}}
-// COMMONIR:        [[TMP7:%.*]] = bitcast double [[TMP6]] to <1 x double>
-// COMMONIR:        ret <1 x double> [[TMP7]]
+// COMMONIR:        [[TMP10:%.*]] = bitcast double [[TMP9]] to <1 x double>
+// COMMONIR:        ret <1 x double> [[TMP10]]
 float64x1_t test_vfma_laneq_f64(float64x1_t a, float64x1_t b, float64x2_t v) {
   return vfma_laneq_f64(a, b, v, 0);
 }
@@ -113,18 +122,21 @@ float64x1_t test_vfma_laneq_f64(float64x1_t a, float64x1_t b, float64x2_t v) {
 // COMMON-LABEL: test_vfms_laneq_f64
 // COMMONIR:        [[SUB:%.*]] = fneg <1 x double> %b
 // CHECK-ASM:       fneg d{{[0-9]+}}, d{{[0-9]+}}
-// COMMONIR:        [[TMP0:%.*]] = bitcast <1 x double> %a to <8 x i8>
-// COMMONIR:        [[TMP1:%.*]] = bitcast <1 x double> [[SUB]] to <8 x i8>
-// COMMONIR:        [[TMP2:%.*]] = bitcast <2 x double> %v to <16 x i8>
-// COMMONIR:        [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to double
-// COMMONIR:        [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to double
-// COMMONIR:        [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
-// COMMONIR:        [[EXTRACT:%.*]] = extractelement <2 x double> [[TMP5]], i32 0
-// UNCONSTRAINED:   [[TMP6:%.*]] = call double @llvm.fma.f64(double [[TMP4]], double [[EXTRACT]], double [[TMP3]])
-// CONSTRAINED:     [[TMP6:%.*]] = call double @llvm.experimental.constrained.fma.f64(double [[TMP4]], double [[EXTRACT]], double [[TMP3]], metadata !"round.tonearest", metadata !"fpexcept.strict")
+// COMMONIR:        [[TMP0:%.*]] = bitcast <1 x double> %a to <8 x b8>
+// COMMONIR:        [[TMP1:%.*]] = bitcast <1 x double> [[SUB]] to <8 x b8>
+// COMMONIR:        [[TMP2:%.*]] = bitcast <2 x double> %v to <16 x b8>
+// COMMONIR:        [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// COMMONIR:        [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to double
+// COMMONIR:        [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// COMMONIR:        [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to double
+// COMMONIR:        [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// COMMONIR:        [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <2 x double>
+// COMMONIR:        [[EXTRACT:%.*]] = extractelement <2 x double> [[TMP8]], i32 0
+// UNCONSTRAINED:   [[TMP9:%.*]] = call double @llvm.fma.f64(double [[TMP6]], double [[EXTRACT]], double [[TMP4]])
+// CONSTRAINED:     [[TMP9:%.*]] = call double @llvm.experimental.constrained.fma.f64(double [[TMP6]], double [[EXTRACT]], double [[TMP4]], metadata !"round.tonearest", metadata !"fpexcept.strict")
 // CHECK-ASM:       fmadd d{{[0-9]+}}, d{{[0-9]+}}, d{{[0-9]+}}, d{{[0-9]+}}
-// COMMONIR:        [[TMP7:%.*]] = bitcast double [[TMP6]] to <1 x double>
-// COMMONIR:        ret <1 x double> [[TMP7]]
+// COMMONIR:        [[TMP10:%.*]] = bitcast double [[TMP9]] to <1 x double>
+// COMMONIR:        ret <1 x double> [[TMP10]]
 float64x1_t test_vfms_laneq_f64(float64x1_t a, float64x1_t b, float64x2_t v) {
   return vfms_laneq_f64(a, b, v, 0);
 }

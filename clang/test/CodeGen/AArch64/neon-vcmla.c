@@ -12,7 +12,10 @@
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLA_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot0.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[RHS]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_F163_I]]
+// CHECK-NEXT:    [[VCMLA_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x b8> [[VCMLA_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b16> [[TMP0]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP1]]
 //
 float16x4_t test_vcmla_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
   return vcmla_f16(acc, lhs, rhs);
@@ -22,7 +25,10 @@ float16x4_t test_vcmla_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLA_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot0.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[RHS]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_F323_I]]
+// CHECK-NEXT:    [[VCMLA_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x b8> [[VCMLA_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b32> [[TMP0]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP1]]
 //
 float32x2_t test_vcmla_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
   return vcmla_f32(acc, lhs, rhs);
@@ -32,7 +38,10 @@ float32x2_t test_vcmla_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot0.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[RHS]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b16> [[TMP0]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP1]]
 //
 float16x8_t test_vcmlaq_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
   return vcmlaq_f16(acc, lhs, rhs);
@@ -42,7 +51,10 @@ float16x8_t test_vcmlaq_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot0.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[RHS]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b32> [[TMP0]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP1]]
 //
 float32x4_t test_vcmlaq_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
   return vcmlaq_f32(acc, lhs, rhs);
@@ -52,7 +64,10 @@ float32x4_t test_vcmlaq_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
 // CHECK-SAME: <2 x double> noundef [[ACC:%.*]], <2 x double> noundef [[LHS:%.*]], <2 x double> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_F643_I:%.*]] = call <2 x double> @llvm.aarch64.neon.vcmla.rot0.v2f64(<2 x double> [[ACC]], <2 x double> [[LHS]], <2 x double> [[RHS]])
-// CHECK-NEXT:    ret <2 x double> [[VCMLAQ_F643_I]]
+// CHECK-NEXT:    [[VCMLAQ_F644_I:%.*]] = bitcast <2 x double> [[VCMLAQ_F643_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_F644_I]] to <2 x b64>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b64> [[TMP0]] to <2 x double>
+// CHECK-NEXT:    ret <2 x double> [[TMP1]]
 //
 float64x2_t test_vcmlaq_f64(float64x2_t acc, float64x2_t lhs, float64x2_t rhs) {
   return vcmlaq_f64(acc, lhs, rhs);
@@ -62,7 +77,10 @@ float64x2_t test_vcmlaq_f64(float64x2_t acc, float64x2_t lhs, float64x2_t rhs) {
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLA_ROT90_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot90.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[RHS]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT90_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT90_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT90_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x b8> [[VCMLA_ROT90_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b16> [[TMP0]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP1]]
 //
 float16x4_t test_vcmla_rot90_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
   return vcmla_rot90_f16(acc, lhs, rhs);
@@ -72,7 +90,10 @@ float16x4_t test_vcmla_rot90_f16(float16x4_t acc, float16x4_t lhs, float16x4_t r
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLA_ROT90_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot90.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[RHS]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT90_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT90_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT90_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x b8> [[VCMLA_ROT90_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b32> [[TMP0]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP1]]
 //
 float32x2_t test_vcmla_rot90_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
   return vcmla_rot90_f32(acc, lhs, rhs);
@@ -82,7 +103,10 @@ float32x2_t test_vcmla_rot90_f32(float32x2_t acc, float32x2_t lhs, float32x2_t r
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT90_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot90.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[RHS]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT90_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT90_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT90_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT90_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b16> [[TMP0]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP1]]
 //
 float16x8_t test_vcmlaq_rot90_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
   return vcmlaq_rot90_f16(acc, lhs, rhs);
@@ -92,7 +116,10 @@ float16x8_t test_vcmlaq_rot90_f16(float16x8_t acc, float16x8_t lhs, float16x8_t 
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT90_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot90.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[RHS]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT90_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT90_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT90_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT90_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b32> [[TMP0]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP1]]
 //
 float32x4_t test_vcmlaq_rot90_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
   return vcmlaq_rot90_f32(acc, lhs, rhs);
@@ -102,7 +129,10 @@ float32x4_t test_vcmlaq_rot90_f32(float32x4_t acc, float32x4_t lhs, float32x4_t 
 // CHECK-SAME: <2 x double> noundef [[ACC:%.*]], <2 x double> noundef [[LHS:%.*]], <2 x double> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT90_F643_I:%.*]] = call <2 x double> @llvm.aarch64.neon.vcmla.rot90.v2f64(<2 x double> [[ACC]], <2 x double> [[LHS]], <2 x double> [[RHS]])
-// CHECK-NEXT:    ret <2 x double> [[VCMLAQ_ROT90_F643_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT90_F644_I:%.*]] = bitcast <2 x double> [[VCMLAQ_ROT90_F643_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT90_F644_I]] to <2 x b64>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b64> [[TMP0]] to <2 x double>
+// CHECK-NEXT:    ret <2 x double> [[TMP1]]
 //
 float64x2_t test_vcmlaq_rot90_f64(float64x2_t acc, float64x2_t lhs, float64x2_t rhs) {
   return vcmlaq_rot90_f64(acc, lhs, rhs);
@@ -112,7 +142,10 @@ float64x2_t test_vcmlaq_rot90_f64(float64x2_t acc, float64x2_t lhs, float64x2_t 
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLA_ROT180_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot180.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[RHS]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT180_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT180_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT180_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x b8> [[VCMLA_ROT180_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b16> [[TMP0]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP1]]
 //
 float16x4_t test_vcmla_rot180_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
   return vcmla_rot180_f16(acc, lhs, rhs);
@@ -122,7 +155,10 @@ float16x4_t test_vcmla_rot180_f16(float16x4_t acc, float16x4_t lhs, float16x4_t 
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLA_ROT180_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot180.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[RHS]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT180_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT180_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT180_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x b8> [[VCMLA_ROT180_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b32> [[TMP0]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP1]]
 //
 float32x2_t test_vcmla_rot180_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
   return vcmla_rot180_f32(acc, lhs, rhs);
@@ -132,7 +168,10 @@ float32x2_t test_vcmla_rot180_f32(float32x2_t acc, float32x2_t lhs, float32x2_t 
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT180_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot180.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[RHS]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT180_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT180_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT180_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT180_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b16> [[TMP0]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP1]]
 //
 float16x8_t test_vcmlaq_rot180_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
   return vcmlaq_rot180_f16(acc, lhs, rhs);
@@ -142,7 +181,10 @@ float16x8_t test_vcmlaq_rot180_f16(float16x8_t acc, float16x8_t lhs, float16x8_t
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT180_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot180.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[RHS]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT180_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT180_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT180_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT180_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b32> [[TMP0]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP1]]
 //
 float32x4_t test_vcmlaq_rot180_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
   return vcmlaq_rot180_f32(acc, lhs, rhs);
@@ -152,7 +194,10 @@ float32x4_t test_vcmlaq_rot180_f32(float32x4_t acc, float32x4_t lhs, float32x4_t
 // CHECK-SAME: <2 x double> noundef [[ACC:%.*]], <2 x double> noundef [[LHS:%.*]], <2 x double> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT180_F643_I:%.*]] = call <2 x double> @llvm.aarch64.neon.vcmla.rot180.v2f64(<2 x double> [[ACC]], <2 x double> [[LHS]], <2 x double> [[RHS]])
-// CHECK-NEXT:    ret <2 x double> [[VCMLAQ_ROT180_F643_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT180_F644_I:%.*]] = bitcast <2 x double> [[VCMLAQ_ROT180_F643_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT180_F644_I]] to <2 x b64>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b64> [[TMP0]] to <2 x double>
+// CHECK-NEXT:    ret <2 x double> [[TMP1]]
 //
 float64x2_t test_vcmlaq_rot180_f64(float64x2_t acc, float64x2_t lhs, float64x2_t rhs) {
   return vcmlaq_rot180_f64(acc, lhs, rhs);
@@ -162,7 +207,10 @@ float64x2_t test_vcmlaq_rot180_f64(float64x2_t acc, float64x2_t lhs, float64x2_t
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLA_ROT270_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot270.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[RHS]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT270_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT270_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT270_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x b8> [[VCMLA_ROT270_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b16> [[TMP0]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP1]]
 //
 float16x4_t test_vcmla_rot270_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
   return vcmla_rot270_f16(acc, lhs, rhs);
@@ -172,7 +220,10 @@ float16x4_t test_vcmla_rot270_f16(float16x4_t acc, float16x4_t lhs, float16x4_t 
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLA_ROT270_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot270.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[RHS]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT270_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT270_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT270_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x b8> [[VCMLA_ROT270_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b32> [[TMP0]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP1]]
 //
 float32x2_t test_vcmla_rot270_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
   return vcmla_rot270_f32(acc, lhs, rhs);
@@ -182,7 +233,10 @@ float32x2_t test_vcmla_rot270_f32(float32x2_t acc, float32x2_t lhs, float32x2_t 
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT270_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot270.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[RHS]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT270_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT270_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT270_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT270_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b16> [[TMP0]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP1]]
 //
 float16x8_t test_vcmlaq_rot270_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
   return vcmlaq_rot270_f16(acc, lhs, rhs);
@@ -192,7 +246,10 @@ float16x8_t test_vcmlaq_rot270_f16(float16x8_t acc, float16x8_t lhs, float16x8_t
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT270_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot270.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[RHS]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT270_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT270_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT270_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT270_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b32> [[TMP0]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP1]]
 //
 float32x4_t test_vcmlaq_rot270_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
   return vcmlaq_rot270_f32(acc, lhs, rhs);
@@ -202,7 +259,10 @@ float32x4_t test_vcmlaq_rot270_f32(float32x4_t acc, float32x4_t lhs, float32x4_t
 // CHECK-SAME: <2 x double> noundef [[ACC:%.*]], <2 x double> noundef [[LHS:%.*]], <2 x double> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[VCMLAQ_ROT270_F643_I:%.*]] = call <2 x double> @llvm.aarch64.neon.vcmla.rot270.v2f64(<2 x double> [[ACC]], <2 x double> [[LHS]], <2 x double> [[RHS]])
-// CHECK-NEXT:    ret <2 x double> [[VCMLAQ_ROT270_F643_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT270_F644_I:%.*]] = bitcast <2 x double> [[VCMLAQ_ROT270_F643_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT270_F644_I]] to <2 x b64>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b64> [[TMP0]] to <2 x double>
+// CHECK-NEXT:    ret <2 x double> [[TMP1]]
 //
 float64x2_t test_vcmlaq_rot270_f64(float64x2_t acc, float64x2_t lhs, float64x2_t rhs) {
   return vcmlaq_rot270_f64(acc, lhs, rhs);
@@ -211,19 +271,22 @@ float64x2_t test_vcmlaq_rot270_f64(float64x2_t acc, float64x2_t lhs, float64x2_t
 // CHECK-LABEL: define dso_local <4 x half> @test_vcmla_lane_f16(
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_150:%.*]] = alloca <4 x half>, align 8
-// CHECK-NEXT:    [[__REINT1_150:%.*]] = alloca <2 x i32>, align 8
-// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__REINT_150]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__REINT_150]], align 8
+// CHECK-NEXT:    [[__S2_150:%.*]] = alloca <4 x half>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i32>, align 8
+// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__S2_150]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__S2_150]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <2 x i32> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i32> poison, i32 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__REINT_150]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__S2_150]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i32> [[VECINIT]], i32 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[__REINT1_150]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[__REINT1_150]], align 8
+// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot0.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[TMP2]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_F163_I]]
+// CHECK-NEXT:    [[VCMLA_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VCMLA_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP4]]
 //
 float16x4_t test_vcmla_lane_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
   return vcmla_lane_f16(acc, lhs, rhs, 1);
@@ -233,19 +296,22 @@ float16x4_t test_vcmla_lane_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rh
 // CHECK-LABEL: define dso_local <4 x half> @test_vcmla_laneq_f16(
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_154:%.*]] = alloca <8 x half>, align 16
-// CHECK-NEXT:    [[__REINT1_154:%.*]] = alloca <2 x i32>, align 8
-// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__REINT_154]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__REINT_154]], align 16
+// CHECK-NEXT:    [[__S2_154:%.*]] = alloca <8 x half>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i32>, align 8
+// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__S2_154]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__S2_154]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <4 x i32> [[TMP0]], i32 3
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i32> poison, i32 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__REINT_154]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__S2_154]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i32> [[VECINIT]], i32 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[__REINT1_154]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[__REINT1_154]], align 8
+// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot0.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[TMP2]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_F163_I]]
+// CHECK-NEXT:    [[VCMLA_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VCMLA_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP4]]
 //
 float16x4_t test_vcmla_laneq_f16(float16x4_t acc, float16x4_t lhs, float16x8_t rhs) {
   return vcmla_laneq_f16(acc, lhs, rhs, 3);
@@ -254,25 +320,28 @@ float16x4_t test_vcmla_laneq_f16(float16x4_t acc, float16x4_t lhs, float16x8_t r
 // CHECK-LABEL: define dso_local <8 x half> @test_vcmlaq_lane_f16(
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_152:%.*]] = alloca <4 x half>, align 8
-// CHECK-NEXT:    [[__REINT1_152:%.*]] = alloca <4 x i32>, align 16
-// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__REINT_152]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__REINT_152]], align 8
+// CHECK-NEXT:    [[__S2_152:%.*]] = alloca <4 x half>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <4 x i32>, align 16
+// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__S2_152]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__S2_152]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <2 x i32> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <4 x i32> poison, i32 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__REINT_152]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__S2_152]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <4 x i32> [[VECINIT]], i32 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    [[TMP2:%.*]] = load <2 x i32>, ptr [[__REINT_152]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <2 x i32>, ptr [[__S2_152]], align 8
 // CHECK-NEXT:    [[VGET_LANE8:%.*]] = extractelement <2 x i32> [[TMP2]], i32 1
 // CHECK-NEXT:    [[VECINIT10:%.*]] = insertelement <4 x i32> [[VECINIT5]], i32 [[VGET_LANE8]], i32 2
-// CHECK-NEXT:    [[TMP3:%.*]] = load <2 x i32>, ptr [[__REINT_152]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <2 x i32>, ptr [[__S2_152]], align 8
 // CHECK-NEXT:    [[VGET_LANE13:%.*]] = extractelement <2 x i32> [[TMP3]], i32 1
 // CHECK-NEXT:    [[VECINIT15:%.*]] = insertelement <4 x i32> [[VECINIT10]], i32 [[VGET_LANE13]], i32 3
-// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[__REINT1_152]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[__REINT1_152]], align 16
+// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot0.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[TMP4]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x b8> [[VCMLAQ_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b16> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP6]]
 //
 float16x8_t test_vcmlaq_lane_f16(float16x8_t acc, float16x8_t lhs, float16x4_t rhs) {
   return vcmlaq_lane_f16(acc, lhs, rhs, 1);
@@ -281,25 +350,28 @@ float16x8_t test_vcmlaq_lane_f16(float16x8_t acc, float16x8_t lhs, float16x4_t r
 // CHECK-LABEL: define dso_local <8 x half> @test_vcmlaq_laneq_f16(
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_156:%.*]] = alloca <8 x half>, align 16
-// CHECK-NEXT:    [[__REINT1_156:%.*]] = alloca <4 x i32>, align 16
-// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__REINT_156]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__REINT_156]], align 16
+// CHECK-NEXT:    [[__S2_156:%.*]] = alloca <8 x half>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <4 x i32>, align 16
+// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__S2_156]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__S2_156]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <4 x i32> [[TMP0]], i32 3
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <4 x i32> poison, i32 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__REINT_156]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__S2_156]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <4 x i32> [[VECINIT]], i32 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x i32>, ptr [[__REINT_156]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x i32>, ptr [[__S2_156]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE8:%.*]] = extractelement <4 x i32> [[TMP2]], i32 3
 // CHECK-NEXT:    [[VECINIT10:%.*]] = insertelement <4 x i32> [[VECINIT5]], i32 [[VGETQ_LANE8]], i32 2
-// CHECK-NEXT:    [[TMP3:%.*]] = load <4 x i32>, ptr [[__REINT_156]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = load <4 x i32>, ptr [[__S2_156]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE13:%.*]] = extractelement <4 x i32> [[TMP3]], i32 3
 // CHECK-NEXT:    [[VECINIT15:%.*]] = insertelement <4 x i32> [[VECINIT10]], i32 [[VGETQ_LANE13]], i32 3
-// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[__REINT1_156]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[__REINT1_156]], align 16
+// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot0.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[TMP4]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x b8> [[VCMLAQ_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b16> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP6]]
 //
 float16x8_t test_vcmlaq_laneq_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
   return vcmlaq_laneq_f16(acc, lhs, rhs, 3);
@@ -308,16 +380,19 @@ float16x8_t test_vcmlaq_laneq_f16(float16x8_t acc, float16x8_t lhs, float16x8_t 
 // CHECK-LABEL: define dso_local <2 x float> @test_vcmla_lane_f32(
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_182:%.*]] = alloca <2 x float>, align 8
-// CHECK-NEXT:    [[__REINT1_182:%.*]] = alloca <1 x i64>, align 8
-// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__REINT_182]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__REINT_182]], align 8
+// CHECK-NEXT:    [[__S2_182:%.*]] = alloca <2 x float>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <1 x i64>, align 8
+// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__S2_182]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__S2_182]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <1 x i64> [[TMP0]], i32 0
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <1 x i64> poison, i64 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[__REINT1_182]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[__REINT1_182]], align 8
+// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot0.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[TMP1]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_F323_I]]
+// CHECK-NEXT:    [[VCMLA_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x b8> [[VCMLA_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <2 x b32> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP3]]
 //
 float32x2_t test_vcmla_lane_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
   return vcmla_lane_f32(acc, lhs, rhs, 0);
@@ -327,16 +402,19 @@ float32x2_t test_vcmla_lane_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rh
 // CHECK-LABEL: define dso_local <2 x float> @test_vcmla_laneq_f32(
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_186:%.*]] = alloca <4 x float>, align 16
-// CHECK-NEXT:    [[__REINT1_186:%.*]] = alloca <1 x i64>, align 8
-// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__REINT_186]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__REINT_186]], align 16
+// CHECK-NEXT:    [[__S2_186:%.*]] = alloca <4 x float>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <1 x i64>, align 8
+// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__S2_186]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__S2_186]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <2 x i64> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <1 x i64> poison, i64 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[__REINT1_186]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[__REINT1_186]], align 8
+// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot0.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[TMP1]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_F323_I]]
+// CHECK-NEXT:    [[VCMLA_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x b8> [[VCMLA_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <2 x b32> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP3]]
 //
 float32x2_t test_vcmla_laneq_f32(float32x2_t acc, float32x2_t lhs, float32x4_t rhs) {
   return vcmla_laneq_f32(acc, lhs, rhs, 1);
@@ -345,19 +423,22 @@ float32x2_t test_vcmla_laneq_f32(float32x2_t acc, float32x2_t lhs, float32x4_t r
 // CHECK-LABEL: define dso_local <4 x float> @test_vcmlaq_lane_f32(
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_184:%.*]] = alloca <2 x float>, align 8
-// CHECK-NEXT:    [[__REINT1_184:%.*]] = alloca <2 x i64>, align 16
-// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__REINT_184]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__REINT_184]], align 8
+// CHECK-NEXT:    [[__S2_184:%.*]] = alloca <2 x float>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i64>, align 16
+// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__S2_184]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__S2_184]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <1 x i64> [[TMP0]], i32 0
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i64> poison, i64 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i64>, ptr [[__REINT_184]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i64>, ptr [[__S2_184]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i64> [[VECINIT]], i64 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[__REINT1_184]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[__REINT1_184]], align 16
+// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot0.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[TMP2]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VCMLAQ_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP4]]
 //
 float32x4_t test_vcmlaq_lane_f32(float32x4_t acc, float32x4_t lhs, float32x2_t rhs) {
   return vcmlaq_lane_f32(acc, lhs, rhs, 0);
@@ -366,19 +447,22 @@ float32x4_t test_vcmlaq_lane_f32(float32x4_t acc, float32x4_t lhs, float32x2_t r
 // CHECK-LABEL: define dso_local <4 x float> @test_vcmlaq_laneq_f32(
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_188:%.*]] = alloca <4 x float>, align 16
-// CHECK-NEXT:    [[__REINT1_188:%.*]] = alloca <2 x i64>, align 16
-// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__REINT_188]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__REINT_188]], align 16
+// CHECK-NEXT:    [[__S2_188:%.*]] = alloca <4 x float>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i64>, align 16
+// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__S2_188]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__S2_188]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <2 x i64> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i64> poison, i64 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i64>, ptr [[__REINT_188]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i64>, ptr [[__S2_188]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i64> [[VECINIT]], i64 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[__REINT1_188]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[__REINT1_188]], align 16
+// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot0.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[TMP2]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VCMLAQ_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP4]]
 //
 float32x4_t test_vcmlaq_laneq_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
   return vcmlaq_laneq_f32(acc, lhs, rhs, 1);
@@ -387,19 +471,22 @@ float32x4_t test_vcmlaq_laneq_f32(float32x4_t acc, float32x4_t lhs, float32x4_t 
 // CHECK-LABEL: define dso_local <4 x half> @test_vcmla_rot90_lane_f16(
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_174:%.*]] = alloca <4 x half>, align 8
-// CHECK-NEXT:    [[__REINT1_174:%.*]] = alloca <2 x i32>, align 8
-// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__REINT_174]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__REINT_174]], align 8
+// CHECK-NEXT:    [[__S2_174:%.*]] = alloca <4 x half>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i32>, align 8
+// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__S2_174]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__S2_174]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <2 x i32> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i32> poison, i32 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__REINT_174]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__S2_174]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i32> [[VECINIT]], i32 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[__REINT1_174]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[__REINT1_174]], align 8
+// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT90_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot90.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[TMP2]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT90_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT90_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT90_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VCMLA_ROT90_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP4]]
 //
 float16x4_t test_vcmla_rot90_lane_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
   return vcmla_rot90_lane_f16(acc, lhs, rhs, 1);
@@ -409,19 +496,22 @@ float16x4_t test_vcmla_rot90_lane_f16(float16x4_t acc, float16x4_t lhs, float16x
 // CHECK-LABEL: define dso_local <4 x half> @test_vcmla_rot90_laneq_f16(
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_178:%.*]] = alloca <8 x half>, align 16
-// CHECK-NEXT:    [[__REINT1_178:%.*]] = alloca <2 x i32>, align 8
-// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__REINT_178]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__REINT_178]], align 16
+// CHECK-NEXT:    [[__S2_178:%.*]] = alloca <8 x half>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i32>, align 8
+// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__S2_178]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__S2_178]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <4 x i32> [[TMP0]], i32 3
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i32> poison, i32 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__REINT_178]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__S2_178]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i32> [[VECINIT]], i32 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[__REINT1_178]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[__REINT1_178]], align 8
+// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT90_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot90.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[TMP2]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT90_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT90_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT90_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VCMLA_ROT90_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP4]]
 //
 float16x4_t test_vcmla_rot90_laneq_f16(float16x4_t acc, float16x4_t lhs, float16x8_t rhs) {
   return vcmla_rot90_laneq_f16(acc, lhs, rhs, 3);
@@ -430,25 +520,28 @@ float16x4_t test_vcmla_rot90_laneq_f16(float16x4_t acc, float16x4_t lhs, float16
 // CHECK-LABEL: define dso_local <8 x half> @test_vcmlaq_rot90_lane_f16(
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_176:%.*]] = alloca <4 x half>, align 8
-// CHECK-NEXT:    [[__REINT1_176:%.*]] = alloca <4 x i32>, align 16
-// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__REINT_176]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__REINT_176]], align 8
+// CHECK-NEXT:    [[__S2_176:%.*]] = alloca <4 x half>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <4 x i32>, align 16
+// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__S2_176]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__S2_176]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <2 x i32> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <4 x i32> poison, i32 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__REINT_176]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__S2_176]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <4 x i32> [[VECINIT]], i32 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    [[TMP2:%.*]] = load <2 x i32>, ptr [[__REINT_176]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <2 x i32>, ptr [[__S2_176]], align 8
 // CHECK-NEXT:    [[VGET_LANE8:%.*]] = extractelement <2 x i32> [[TMP2]], i32 1
 // CHECK-NEXT:    [[VECINIT10:%.*]] = insertelement <4 x i32> [[VECINIT5]], i32 [[VGET_LANE8]], i32 2
-// CHECK-NEXT:    [[TMP3:%.*]] = load <2 x i32>, ptr [[__REINT_176]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <2 x i32>, ptr [[__S2_176]], align 8
 // CHECK-NEXT:    [[VGET_LANE13:%.*]] = extractelement <2 x i32> [[TMP3]], i32 1
 // CHECK-NEXT:    [[VECINIT15:%.*]] = insertelement <4 x i32> [[VECINIT10]], i32 [[VGET_LANE13]], i32 3
-// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[__REINT1_176]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[__REINT1_176]], align 16
+// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT90_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot90.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[TMP4]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT90_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT90_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT90_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT90_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b16> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP6]]
 //
 float16x8_t test_vcmlaq_rot90_lane_f16(float16x8_t acc, float16x8_t lhs, float16x4_t rhs) {
   return vcmlaq_rot90_lane_f16(acc, lhs, rhs, 1);
@@ -457,25 +550,28 @@ float16x8_t test_vcmlaq_rot90_lane_f16(float16x8_t acc, float16x8_t lhs, float16
 // CHECK-LABEL: define dso_local <8 x half> @test_vcmlaq_rot90_laneq_f16(
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_180:%.*]] = alloca <8 x half>, align 16
-// CHECK-NEXT:    [[__REINT1_180:%.*]] = alloca <4 x i32>, align 16
-// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__REINT_180]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__REINT_180]], align 16
+// CHECK-NEXT:    [[__S2_180:%.*]] = alloca <8 x half>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <4 x i32>, align 16
+// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__S2_180]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__S2_180]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <4 x i32> [[TMP0]], i32 3
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <4 x i32> poison, i32 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__REINT_180]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__S2_180]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <4 x i32> [[VECINIT]], i32 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x i32>, ptr [[__REINT_180]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x i32>, ptr [[__S2_180]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE8:%.*]] = extractelement <4 x i32> [[TMP2]], i32 3
 // CHECK-NEXT:    [[VECINIT10:%.*]] = insertelement <4 x i32> [[VECINIT5]], i32 [[VGETQ_LANE8]], i32 2
-// CHECK-NEXT:    [[TMP3:%.*]] = load <4 x i32>, ptr [[__REINT_180]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = load <4 x i32>, ptr [[__S2_180]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE13:%.*]] = extractelement <4 x i32> [[TMP3]], i32 3
 // CHECK-NEXT:    [[VECINIT15:%.*]] = insertelement <4 x i32> [[VECINIT10]], i32 [[VGETQ_LANE13]], i32 3
-// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[__REINT1_180]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[__REINT1_180]], align 16
+// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT90_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot90.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[TMP4]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT90_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT90_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT90_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT90_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b16> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP6]]
 //
 float16x8_t test_vcmlaq_rot90_laneq_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
   return vcmlaq_rot90_laneq_f16(acc, lhs, rhs, 3);
@@ -484,16 +580,19 @@ float16x8_t test_vcmlaq_rot90_laneq_f16(float16x8_t acc, float16x8_t lhs, float1
 // CHECK-LABEL: define dso_local <2 x float> @test_vcmla_rot90_lane_f32(
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_206:%.*]] = alloca <2 x float>, align 8
-// CHECK-NEXT:    [[__REINT1_206:%.*]] = alloca <1 x i64>, align 8
-// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__REINT_206]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__REINT_206]], align 8
+// CHECK-NEXT:    [[__S2_206:%.*]] = alloca <2 x float>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <1 x i64>, align 8
+// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__S2_206]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__S2_206]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <1 x i64> [[TMP0]], i32 0
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <1 x i64> poison, i64 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[__REINT1_206]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[__REINT1_206]], align 8
+// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT90_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot90.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[TMP1]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT90_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT90_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT90_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x b8> [[VCMLA_ROT90_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <2 x b32> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP3]]
 //
 float32x2_t test_vcmla_rot90_lane_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
   return vcmla_rot90_lane_f32(acc, lhs, rhs, 0);
@@ -503,16 +602,19 @@ float32x2_t test_vcmla_rot90_lane_f32(float32x2_t acc, float32x2_t lhs, float32x
 // CHECK-LABEL: define dso_local <2 x float> @test_vcmla_rot90_laneq_f32(
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_210:%.*]] = alloca <4 x float>, align 16
-// CHECK-NEXT:    [[__REINT1_210:%.*]] = alloca <1 x i64>, align 8
-// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__REINT_210]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__REINT_210]], align 16
+// CHECK-NEXT:    [[__S2_210:%.*]] = alloca <4 x float>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <1 x i64>, align 8
+// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__S2_210]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__S2_210]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <2 x i64> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <1 x i64> poison, i64 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[__REINT1_210]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[__REINT1_210]], align 8
+// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT90_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot90.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[TMP1]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT90_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT90_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT90_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x b8> [[VCMLA_ROT90_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <2 x b32> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP3]]
 //
 float32x2_t test_vcmla_rot90_laneq_f32(float32x2_t acc, float32x2_t lhs, float32x4_t rhs) {
   return vcmla_rot90_laneq_f32(acc, lhs, rhs, 1);
@@ -521,19 +623,22 @@ float32x2_t test_vcmla_rot90_laneq_f32(float32x2_t acc, float32x2_t lhs, float32
 // CHECK-LABEL: define dso_local <4 x float> @test_vcmlaq_rot90_lane_f32(
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_208:%.*]] = alloca <2 x float>, align 8
-// CHECK-NEXT:    [[__REINT1_208:%.*]] = alloca <2 x i64>, align 16
-// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__REINT_208]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__REINT_208]], align 8
+// CHECK-NEXT:    [[__S2_208:%.*]] = alloca <2 x float>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i64>, align 16
+// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__S2_208]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__S2_208]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <1 x i64> [[TMP0]], i32 0
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i64> poison, i64 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i64>, ptr [[__REINT_208]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i64>, ptr [[__S2_208]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i64> [[VECINIT]], i64 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[__REINT1_208]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[__REINT1_208]], align 16
+// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT90_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot90.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[TMP2]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT90_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT90_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT90_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT90_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP4]]
 //
 float32x4_t test_vcmlaq_rot90_lane_f32(float32x4_t acc, float32x4_t lhs, float32x2_t rhs) {
   return vcmlaq_rot90_lane_f32(acc, lhs, rhs, 0);
@@ -542,19 +647,22 @@ float32x4_t test_vcmlaq_rot90_lane_f32(float32x4_t acc, float32x4_t lhs, float32
 // CHECK-LABEL: define dso_local <4 x float> @test_vcmlaq_rot90_laneq_f32(
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_212:%.*]] = alloca <4 x float>, align 16
-// CHECK-NEXT:    [[__REINT1_212:%.*]] = alloca <2 x i64>, align 16
-// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__REINT_212]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__REINT_212]], align 16
+// CHECK-NEXT:    [[__S2_212:%.*]] = alloca <4 x float>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i64>, align 16
+// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__S2_212]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__S2_212]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <2 x i64> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i64> poison, i64 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i64>, ptr [[__REINT_212]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i64>, ptr [[__S2_212]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i64> [[VECINIT]], i64 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[__REINT1_212]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[__REINT1_212]], align 16
+// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT90_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot90.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[TMP2]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT90_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT90_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT90_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT90_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP4]]
 //
 float32x4_t test_vcmlaq_rot90_laneq_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
   return vcmlaq_rot90_laneq_f32(acc, lhs, rhs, 1);
@@ -563,19 +671,22 @@ float32x4_t test_vcmlaq_rot90_laneq_f32(float32x4_t acc, float32x4_t lhs, float3
 // CHECK-LABEL: define dso_local <4 x half> @test_vcmla_rot180_lane_f16(
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_158:%.*]] = alloca <4 x half>, align 8
-// CHECK-NEXT:    [[__REINT1_158:%.*]] = alloca <2 x i32>, align 8
-// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__REINT_158]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__REINT_158]], align 8
+// CHECK-NEXT:    [[__S2_158:%.*]] = alloca <4 x half>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i32>, align 8
+// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__S2_158]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__S2_158]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <2 x i32> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i32> poison, i32 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__REINT_158]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__S2_158]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i32> [[VECINIT]], i32 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[__REINT1_158]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[__REINT1_158]], align 8
+// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT180_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot180.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[TMP2]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT180_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT180_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT180_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VCMLA_ROT180_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP4]]
 //
 float16x4_t test_vcmla_rot180_lane_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
   return vcmla_rot180_lane_f16(acc, lhs, rhs, 1);
@@ -585,19 +696,22 @@ float16x4_t test_vcmla_rot180_lane_f16(float16x4_t acc, float16x4_t lhs, float16
 // CHECK-LABEL: define dso_local <4 x half> @test_vcmla_rot180_laneq_f16(
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_162:%.*]] = alloca <8 x half>, align 16
-// CHECK-NEXT:    [[__REINT1_162:%.*]] = alloca <2 x i32>, align 8
-// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__REINT_162]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__REINT_162]], align 16
+// CHECK-NEXT:    [[__S2_162:%.*]] = alloca <8 x half>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i32>, align 8
+// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__S2_162]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__S2_162]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <4 x i32> [[TMP0]], i32 3
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i32> poison, i32 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__REINT_162]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__S2_162]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i32> [[VECINIT]], i32 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[__REINT1_162]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[__REINT1_162]], align 8
+// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT180_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot180.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[TMP2]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT180_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT180_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT180_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VCMLA_ROT180_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP4]]
 //
 float16x4_t test_vcmla_rot180_laneq_f16(float16x4_t acc, float16x4_t lhs, float16x8_t rhs) {
   return vcmla_rot180_laneq_f16(acc, lhs, rhs, 3);
@@ -606,25 +720,28 @@ float16x4_t test_vcmla_rot180_laneq_f16(float16x4_t acc, float16x4_t lhs, float1
 // CHECK-LABEL: define dso_local <8 x half> @test_vcmlaq_rot180_lane_f16(
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_160:%.*]] = alloca <4 x half>, align 8
-// CHECK-NEXT:    [[__REINT1_160:%.*]] = alloca <4 x i32>, align 16
-// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__REINT_160]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__REINT_160]], align 8
+// CHECK-NEXT:    [[__S2_160:%.*]] = alloca <4 x half>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <4 x i32>, align 16
+// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__S2_160]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__S2_160]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <2 x i32> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <4 x i32> poison, i32 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__REINT_160]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__S2_160]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <4 x i32> [[VECINIT]], i32 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    [[TMP2:%.*]] = load <2 x i32>, ptr [[__REINT_160]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <2 x i32>, ptr [[__S2_160]], align 8
 // CHECK-NEXT:    [[VGET_LANE8:%.*]] = extractelement <2 x i32> [[TMP2]], i32 1
 // CHECK-NEXT:    [[VECINIT10:%.*]] = insertelement <4 x i32> [[VECINIT5]], i32 [[VGET_LANE8]], i32 2
-// CHECK-NEXT:    [[TMP3:%.*]] = load <2 x i32>, ptr [[__REINT_160]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <2 x i32>, ptr [[__S2_160]], align 8
 // CHECK-NEXT:    [[VGET_LANE13:%.*]] = extractelement <2 x i32> [[TMP3]], i32 1
 // CHECK-NEXT:    [[VECINIT15:%.*]] = insertelement <4 x i32> [[VECINIT10]], i32 [[VGET_LANE13]], i32 3
-// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[__REINT1_160]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[__REINT1_160]], align 16
+// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT180_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot180.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[TMP4]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT180_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT180_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT180_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT180_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b16> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP6]]
 //
 float16x8_t test_vcmlaq_rot180_lane_f16(float16x8_t acc, float16x8_t lhs, float16x4_t rhs) {
   return vcmlaq_rot180_lane_f16(acc, lhs, rhs, 1);
@@ -633,25 +750,28 @@ float16x8_t test_vcmlaq_rot180_lane_f16(float16x8_t acc, float16x8_t lhs, float1
 // CHECK-LABEL: define dso_local <8 x half> @test_vcmlaq_rot180_laneq_f16(
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_164:%.*]] = alloca <8 x half>, align 16
-// CHECK-NEXT:    [[__REINT1_164:%.*]] = alloca <4 x i32>, align 16
-// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__REINT_164]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__REINT_164]], align 16
+// CHECK-NEXT:    [[__S2_164:%.*]] = alloca <8 x half>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <4 x i32>, align 16
+// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__S2_164]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__S2_164]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <4 x i32> [[TMP0]], i32 3
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <4 x i32> poison, i32 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__REINT_164]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__S2_164]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <4 x i32> [[VECINIT]], i32 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x i32>, ptr [[__REINT_164]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x i32>, ptr [[__S2_164]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE8:%.*]] = extractelement <4 x i32> [[TMP2]], i32 3
 // CHECK-NEXT:    [[VECINIT10:%.*]] = insertelement <4 x i32> [[VECINIT5]], i32 [[VGETQ_LANE8]], i32 2
-// CHECK-NEXT:    [[TMP3:%.*]] = load <4 x i32>, ptr [[__REINT_164]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = load <4 x i32>, ptr [[__S2_164]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE13:%.*]] = extractelement <4 x i32> [[TMP3]], i32 3
 // CHECK-NEXT:    [[VECINIT15:%.*]] = insertelement <4 x i32> [[VECINIT10]], i32 [[VGETQ_LANE13]], i32 3
-// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[__REINT1_164]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[__REINT1_164]], align 16
+// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT180_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot180.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[TMP4]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT180_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT180_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT180_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT180_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b16> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP6]]
 //
 float16x8_t test_vcmlaq_rot180_laneq_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
   return vcmlaq_rot180_laneq_f16(acc, lhs, rhs, 3);
@@ -660,16 +780,19 @@ float16x8_t test_vcmlaq_rot180_laneq_f16(float16x8_t acc, float16x8_t lhs, float
 // CHECK-LABEL: define dso_local <2 x float> @test_vcmla_rot180_lane_f32(
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_190:%.*]] = alloca <2 x float>, align 8
-// CHECK-NEXT:    [[__REINT1_190:%.*]] = alloca <1 x i64>, align 8
-// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__REINT_190]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__REINT_190]], align 8
+// CHECK-NEXT:    [[__S2_190:%.*]] = alloca <2 x float>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <1 x i64>, align 8
+// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__S2_190]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__S2_190]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <1 x i64> [[TMP0]], i32 0
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <1 x i64> poison, i64 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[__REINT1_190]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[__REINT1_190]], align 8
+// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT180_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot180.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[TMP1]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT180_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT180_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT180_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x b8> [[VCMLA_ROT180_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <2 x b32> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP3]]
 //
 float32x2_t test_vcmla_rot180_lane_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
   return vcmla_rot180_lane_f32(acc, lhs, rhs, 0);
@@ -679,16 +802,19 @@ float32x2_t test_vcmla_rot180_lane_f32(float32x2_t acc, float32x2_t lhs, float32
 // CHECK-LABEL: define dso_local <2 x float> @test_vcmla_rot180_laneq_f32(
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_194:%.*]] = alloca <4 x float>, align 16
-// CHECK-NEXT:    [[__REINT1_194:%.*]] = alloca <1 x i64>, align 8
-// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__REINT_194]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__REINT_194]], align 16
+// CHECK-NEXT:    [[__S2_194:%.*]] = alloca <4 x float>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <1 x i64>, align 8
+// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__S2_194]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__S2_194]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <2 x i64> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <1 x i64> poison, i64 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[__REINT1_194]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[__REINT1_194]], align 8
+// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT180_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot180.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[TMP1]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT180_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT180_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT180_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x b8> [[VCMLA_ROT180_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <2 x b32> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP3]]
 //
 float32x2_t test_vcmla_rot180_laneq_f32(float32x2_t acc, float32x2_t lhs, float32x4_t rhs) {
   return vcmla_rot180_laneq_f32(acc, lhs, rhs, 1);
@@ -697,19 +823,22 @@ float32x2_t test_vcmla_rot180_laneq_f32(float32x2_t acc, float32x2_t lhs, float3
 // CHECK-LABEL: define dso_local <4 x float> @test_vcmlaq_rot180_lane_f32(
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_192:%.*]] = alloca <2 x float>, align 8
-// CHECK-NEXT:    [[__REINT1_192:%.*]] = alloca <2 x i64>, align 16
-// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__REINT_192]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__REINT_192]], align 8
+// CHECK-NEXT:    [[__S2_192:%.*]] = alloca <2 x float>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i64>, align 16
+// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__S2_192]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__S2_192]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <1 x i64> [[TMP0]], i32 0
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i64> poison, i64 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i64>, ptr [[__REINT_192]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i64>, ptr [[__S2_192]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i64> [[VECINIT]], i64 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[__REINT1_192]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[__REINT1_192]], align 16
+// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT180_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot180.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[TMP2]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT180_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT180_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT180_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT180_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP4]]
 //
 float32x4_t test_vcmlaq_rot180_lane_f32(float32x4_t acc, float32x4_t lhs, float32x2_t rhs) {
   return vcmlaq_rot180_lane_f32(acc, lhs, rhs, 0);
@@ -718,19 +847,22 @@ float32x4_t test_vcmlaq_rot180_lane_f32(float32x4_t acc, float32x4_t lhs, float3
 // CHECK-LABEL: define dso_local <4 x float> @test_vcmlaq_rot180_laneq_f32(
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_196:%.*]] = alloca <4 x float>, align 16
-// CHECK-NEXT:    [[__REINT1_196:%.*]] = alloca <2 x i64>, align 16
-// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__REINT_196]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__REINT_196]], align 16
+// CHECK-NEXT:    [[__S2_196:%.*]] = alloca <4 x float>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i64>, align 16
+// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__S2_196]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__S2_196]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <2 x i64> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i64> poison, i64 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i64>, ptr [[__REINT_196]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i64>, ptr [[__S2_196]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i64> [[VECINIT]], i64 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[__REINT1_196]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[__REINT1_196]], align 16
+// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT180_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot180.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[TMP2]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT180_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT180_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT180_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT180_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP4]]
 //
 float32x4_t test_vcmlaq_rot180_laneq_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
   return vcmlaq_rot180_laneq_f32(acc, lhs, rhs, 1);
@@ -739,19 +871,22 @@ float32x4_t test_vcmlaq_rot180_laneq_f32(float32x4_t acc, float32x4_t lhs, float
 // CHECK-LABEL: define dso_local <4 x half> @test_vcmla_rot270_lane_f16(
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_166:%.*]] = alloca <4 x half>, align 8
-// CHECK-NEXT:    [[__REINT1_166:%.*]] = alloca <2 x i32>, align 8
-// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__REINT_166]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__REINT_166]], align 8
+// CHECK-NEXT:    [[__S2_166:%.*]] = alloca <4 x half>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i32>, align 8
+// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__S2_166]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__S2_166]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <2 x i32> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i32> poison, i32 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__REINT_166]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__S2_166]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i32> [[VECINIT]], i32 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[__REINT1_166]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[__REINT1_166]], align 8
+// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT270_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot270.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[TMP2]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT270_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT270_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT270_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VCMLA_ROT270_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP4]]
 //
 float16x4_t test_vcmla_rot270_lane_f16(float16x4_t acc, float16x4_t lhs, float16x4_t rhs) {
   return vcmla_rot270_lane_f16(acc, lhs, rhs, 1);
@@ -761,19 +896,22 @@ float16x4_t test_vcmla_rot270_lane_f16(float16x4_t acc, float16x4_t lhs, float16
 // CHECK-LABEL: define dso_local <4 x half> @test_vcmla_rot270_laneq_f16(
 // CHECK-SAME: <4 x half> noundef [[ACC:%.*]], <4 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_170:%.*]] = alloca <8 x half>, align 16
-// CHECK-NEXT:    [[__REINT1_170:%.*]] = alloca <2 x i32>, align 8
-// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__REINT_170]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__REINT_170]], align 16
+// CHECK-NEXT:    [[__S2_170:%.*]] = alloca <8 x half>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i32>, align 8
+// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__S2_170]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__S2_170]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <4 x i32> [[TMP0]], i32 3
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i32> poison, i32 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__REINT_170]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__S2_170]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i32> [[VECINIT]], i32 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[__REINT1_170]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[__REINT1_170]], align 8
+// CHECK-NEXT:    store <2 x i32> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT270_F163_I:%.*]] = call <4 x half> @llvm.aarch64.neon.vcmla.rot270.v4f16(<4 x half> [[ACC]], <4 x half> [[LHS]], <4 x half> [[TMP2]])
-// CHECK-NEXT:    ret <4 x half> [[VCMLA_ROT270_F163_I]]
+// CHECK-NEXT:    [[VCMLA_ROT270_F164_I:%.*]] = bitcast <4 x half> [[VCMLA_ROT270_F163_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x b8> [[VCMLA_ROT270_F164_I]] to <4 x b16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b16> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    ret <4 x half> [[TMP4]]
 //
 float16x4_t test_vcmla_rot270_laneq_f16(float16x4_t acc, float16x4_t lhs, float16x8_t rhs) {
   return vcmla_rot270_laneq_f16(acc, lhs, rhs, 3);
@@ -782,25 +920,28 @@ float16x4_t test_vcmla_rot270_laneq_f16(float16x4_t acc, float16x4_t lhs, float1
 // CHECK-LABEL: define dso_local <8 x half> @test_vcmlaq_rot270_lane_f16(
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <4 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_168:%.*]] = alloca <4 x half>, align 8
-// CHECK-NEXT:    [[__REINT1_168:%.*]] = alloca <4 x i32>, align 16
-// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__REINT_168]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__REINT_168]], align 8
+// CHECK-NEXT:    [[__S2_168:%.*]] = alloca <4 x half>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <4 x i32>, align 16
+// CHECK-NEXT:    store <4 x half> [[RHS]], ptr [[__S2_168]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i32>, ptr [[__S2_168]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <2 x i32> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <4 x i32> poison, i32 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__REINT_168]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i32>, ptr [[__S2_168]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <4 x i32> [[VECINIT]], i32 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    [[TMP2:%.*]] = load <2 x i32>, ptr [[__REINT_168]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <2 x i32>, ptr [[__S2_168]], align 8
 // CHECK-NEXT:    [[VGET_LANE8:%.*]] = extractelement <2 x i32> [[TMP2]], i32 1
 // CHECK-NEXT:    [[VECINIT10:%.*]] = insertelement <4 x i32> [[VECINIT5]], i32 [[VGET_LANE8]], i32 2
-// CHECK-NEXT:    [[TMP3:%.*]] = load <2 x i32>, ptr [[__REINT_168]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <2 x i32>, ptr [[__S2_168]], align 8
 // CHECK-NEXT:    [[VGET_LANE13:%.*]] = extractelement <2 x i32> [[TMP3]], i32 1
 // CHECK-NEXT:    [[VECINIT15:%.*]] = insertelement <4 x i32> [[VECINIT10]], i32 [[VGET_LANE13]], i32 3
-// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[__REINT1_168]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[__REINT1_168]], align 16
+// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT270_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot270.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[TMP4]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT270_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT270_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT270_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT270_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b16> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP6]]
 //
 float16x8_t test_vcmlaq_rot270_lane_f16(float16x8_t acc, float16x8_t lhs, float16x4_t rhs) {
   return vcmlaq_rot270_lane_f16(acc, lhs, rhs, 1);
@@ -809,25 +950,28 @@ float16x8_t test_vcmlaq_rot270_lane_f16(float16x8_t acc, float16x8_t lhs, float1
 // CHECK-LABEL: define dso_local <8 x half> @test_vcmlaq_rot270_laneq_f16(
 // CHECK-SAME: <8 x half> noundef [[ACC:%.*]], <8 x half> noundef [[LHS:%.*]], <8 x half> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_172:%.*]] = alloca <8 x half>, align 16
-// CHECK-NEXT:    [[__REINT1_172:%.*]] = alloca <4 x i32>, align 16
-// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__REINT_172]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__REINT_172]], align 16
+// CHECK-NEXT:    [[__S2_172:%.*]] = alloca <8 x half>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <4 x i32>, align 16
+// CHECK-NEXT:    store <8 x half> [[RHS]], ptr [[__S2_172]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <4 x i32>, ptr [[__S2_172]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <4 x i32> [[TMP0]], i32 3
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <4 x i32> poison, i32 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__REINT_172]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <4 x i32>, ptr [[__S2_172]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <4 x i32> [[VECINIT]], i32 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x i32>, ptr [[__REINT_172]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x i32>, ptr [[__S2_172]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE8:%.*]] = extractelement <4 x i32> [[TMP2]], i32 3
 // CHECK-NEXT:    [[VECINIT10:%.*]] = insertelement <4 x i32> [[VECINIT5]], i32 [[VGETQ_LANE8]], i32 2
-// CHECK-NEXT:    [[TMP3:%.*]] = load <4 x i32>, ptr [[__REINT_172]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = load <4 x i32>, ptr [[__S2_172]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE13:%.*]] = extractelement <4 x i32> [[TMP3]], i32 3
 // CHECK-NEXT:    [[VECINIT15:%.*]] = insertelement <4 x i32> [[VECINIT10]], i32 [[VGETQ_LANE13]], i32 3
-// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[__REINT1_172]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[__REINT1_172]], align 16
+// CHECK-NEXT:    store <4 x i32> [[VECINIT15]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <8 x half>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT270_F163_I:%.*]] = call <8 x half> @llvm.aarch64.neon.vcmla.rot270.v8f16(<8 x half> [[ACC]], <8 x half> [[LHS]], <8 x half> [[TMP4]])
-// CHECK-NEXT:    ret <8 x half> [[VCMLAQ_ROT270_F163_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT270_F164_I:%.*]] = bitcast <8 x half> [[VCMLAQ_ROT270_F163_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT270_F164_I]] to <8 x b16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b16> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    ret <8 x half> [[TMP6]]
 //
 float16x8_t test_vcmlaq_rot270_laneq_f16(float16x8_t acc, float16x8_t lhs, float16x8_t rhs) {
   return vcmlaq_rot270_laneq_f16(acc, lhs, rhs, 3);
@@ -836,16 +980,19 @@ float16x8_t test_vcmlaq_rot270_laneq_f16(float16x8_t acc, float16x8_t lhs, float
 // CHECK-LABEL: define dso_local <2 x float> @test_vcmla_rot270_lane_f32(
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_198:%.*]] = alloca <2 x float>, align 8
-// CHECK-NEXT:    [[__REINT1_198:%.*]] = alloca <1 x i64>, align 8
-// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__REINT_198]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__REINT_198]], align 8
+// CHECK-NEXT:    [[__S2_198:%.*]] = alloca <2 x float>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <1 x i64>, align 8
+// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__S2_198]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__S2_198]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <1 x i64> [[TMP0]], i32 0
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <1 x i64> poison, i64 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[__REINT1_198]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[__REINT1_198]], align 8
+// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT270_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot270.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[TMP1]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT270_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT270_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT270_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x b8> [[VCMLA_ROT270_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <2 x b32> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP3]]
 //
 float32x2_t test_vcmla_rot270_lane_f32(float32x2_t acc, float32x2_t lhs, float32x2_t rhs) {
   return vcmla_rot270_lane_f32(acc, lhs, rhs, 0);
@@ -855,16 +1002,19 @@ float32x2_t test_vcmla_rot270_lane_f32(float32x2_t acc, float32x2_t lhs, float32
 // CHECK-LABEL: define dso_local <2 x float> @test_vcmla_rot270_laneq_f32(
 // CHECK-SAME: <2 x float> noundef [[ACC:%.*]], <2 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_202:%.*]] = alloca <4 x float>, align 16
-// CHECK-NEXT:    [[__REINT1_202:%.*]] = alloca <1 x i64>, align 8
-// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__REINT_202]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__REINT_202]], align 16
+// CHECK-NEXT:    [[__S2_202:%.*]] = alloca <4 x float>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <1 x i64>, align 8
+// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__S2_202]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__S2_202]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <2 x i64> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <1 x i64> poison, i64 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[__REINT1_202]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[__REINT1_202]], align 8
+// CHECK-NEXT:    store <1 x i64> [[VECINIT]], ptr [[DOTCOMPOUNDLITERAL]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 8
 // CHECK-NEXT:    [[VCMLA_ROT270_F323_I:%.*]] = call <2 x float> @llvm.aarch64.neon.vcmla.rot270.v2f32(<2 x float> [[ACC]], <2 x float> [[LHS]], <2 x float> [[TMP1]])
-// CHECK-NEXT:    ret <2 x float> [[VCMLA_ROT270_F323_I]]
+// CHECK-NEXT:    [[VCMLA_ROT270_F324_I:%.*]] = bitcast <2 x float> [[VCMLA_ROT270_F323_I]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x b8> [[VCMLA_ROT270_F324_I]] to <2 x b32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <2 x b32> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    ret <2 x float> [[TMP3]]
 //
 float32x2_t test_vcmla_rot270_laneq_f32(float32x2_t acc, float32x2_t lhs, float32x4_t rhs) {
   return vcmla_rot270_laneq_f32(acc, lhs, rhs, 1);
@@ -873,19 +1023,22 @@ float32x2_t test_vcmla_rot270_laneq_f32(float32x2_t acc, float32x2_t lhs, float3
 // CHECK-LABEL: define dso_local <4 x float> @test_vcmlaq_rot270_lane_f32(
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <2 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_200:%.*]] = alloca <2 x float>, align 8
-// CHECK-NEXT:    [[__REINT1_200:%.*]] = alloca <2 x i64>, align 16
-// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__REINT_200]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__REINT_200]], align 8
+// CHECK-NEXT:    [[__S2_200:%.*]] = alloca <2 x float>, align 8
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i64>, align 16
+// CHECK-NEXT:    store <2 x float> [[RHS]], ptr [[__S2_200]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = load <1 x i64>, ptr [[__S2_200]], align 8
 // CHECK-NEXT:    [[VGET_LANE:%.*]] = extractelement <1 x i64> [[TMP0]], i32 0
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i64> poison, i64 [[VGET_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i64>, ptr [[__REINT_200]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i64>, ptr [[__S2_200]], align 8
 // CHECK-NEXT:    [[VGET_LANE3:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i64> [[VECINIT]], i64 [[VGET_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[__REINT1_200]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[__REINT1_200]], align 16
+// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT270_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot270.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[TMP2]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT270_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT270_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT270_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT270_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP4]]
 //
 float32x4_t test_vcmlaq_rot270_lane_f32(float32x4_t acc, float32x4_t lhs, float32x2_t rhs) {
   return vcmlaq_rot270_lane_f32(acc, lhs, rhs, 0);
@@ -894,19 +1047,22 @@ float32x4_t test_vcmlaq_rot270_lane_f32(float32x4_t acc, float32x4_t lhs, float3
 // CHECK-LABEL: define dso_local <4 x float> @test_vcmlaq_rot270_laneq_f32(
 // CHECK-SAME: <4 x float> noundef [[ACC:%.*]], <4 x float> noundef [[LHS:%.*]], <4 x float> noundef [[RHS:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[__REINT_204:%.*]] = alloca <4 x float>, align 16
-// CHECK-NEXT:    [[__REINT1_204:%.*]] = alloca <2 x i64>, align 16
-// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__REINT_204]], align 16
-// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__REINT_204]], align 16
+// CHECK-NEXT:    [[__S2_204:%.*]] = alloca <4 x float>, align 16
+// CHECK-NEXT:    [[DOTCOMPOUNDLITERAL:%.*]] = alloca <2 x i64>, align 16
+// CHECK-NEXT:    store <4 x float> [[RHS]], ptr [[__S2_204]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <2 x i64>, ptr [[__S2_204]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE:%.*]] = extractelement <2 x i64> [[TMP0]], i32 1
 // CHECK-NEXT:    [[VECINIT:%.*]] = insertelement <2 x i64> poison, i64 [[VGETQ_LANE]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i64>, ptr [[__REINT_204]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <2 x i64>, ptr [[__S2_204]], align 16
 // CHECK-NEXT:    [[VGETQ_LANE3:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
 // CHECK-NEXT:    [[VECINIT5:%.*]] = insertelement <2 x i64> [[VECINIT]], i64 [[VGETQ_LANE3]], i32 1
-// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[__REINT1_204]], align 16
-// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[__REINT1_204]], align 16
+// CHECK-NEXT:    store <2 x i64> [[VECINIT5]], ptr [[DOTCOMPOUNDLITERAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <4 x float>, ptr [[DOTCOMPOUNDLITERAL]], align 16
 // CHECK-NEXT:    [[VCMLAQ_ROT270_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.vcmla.rot270.v4f32(<4 x float> [[ACC]], <4 x float> [[LHS]], <4 x float> [[TMP2]])
-// CHECK-NEXT:    ret <4 x float> [[VCMLAQ_ROT270_F323_I]]
+// CHECK-NEXT:    [[VCMLAQ_ROT270_F324_I:%.*]] = bitcast <4 x float> [[VCMLAQ_ROT270_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x b8> [[VCMLAQ_ROT270_F324_I]] to <4 x b32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <4 x b32> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    ret <4 x float> [[TMP4]]
 //
 float32x4_t test_vcmlaq_rot270_laneq_f32(float32x4_t acc, float32x4_t lhs, float32x4_t rhs) {
   return vcmlaq_rot270_laneq_f32(acc, lhs, rhs, 1);

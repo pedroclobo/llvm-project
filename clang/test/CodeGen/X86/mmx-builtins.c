@@ -400,14 +400,22 @@ __m64 test_mm_sad_pu8(__m64 a, __m64 b) {
 
 __m64 test_mm_set_pi8(char a, char b, char c, char d, char e, char f, char g, char h) {
   // CHECK-LABEL: test_mm_set_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_set_pi8(a, b, c, d, e, f, g, h);
 }
 TEST_CONSTEXPR(match_v8qi(_mm_set_pi8(0, -1, 2, -3, 4, -5, 6, -7), -7, 6, -5, 4, -3, 2, -1, 0));
@@ -432,14 +440,22 @@ TEST_CONSTEXPR(match_v2si(_mm_set_pi32(5000, -1500), -1500, 5000));
 
 __m64 test_mm_setr_pi8(char a, char b, char c, char d, char e, char f, char g, char h) {
   // CHECK-LABEL: test_mm_setr_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_setr_pi8(a, b, c, d, e, f, g, h);
 }
 TEST_CONSTEXPR(match_v8qi(_mm_setr_pi8(0, -1, 2, -3, 4, -5, 6, -7), 0, -1, 2, -3, 4, -5, 6, -7));
@@ -471,14 +487,22 @@ TEST_CONSTEXPR(match_m64(_mm_setzero_si64(), 0ULL));
 
 __m64 test_mm_set1_pi8(char a) {
   // CHECK-LABEL: test_mm_set1_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_set1_pi8(a);
 }
 TEST_CONSTEXPR(match_v8qi(_mm_set1_pi8(99), 99, 99, 99, 99, 99, 99, 99, 99));

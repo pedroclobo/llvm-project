@@ -109,7 +109,7 @@ StrongSmall g1, g2;
 // CHECK: %[[STRUCT_TRIVIAL]] = type { [4 x i32] }
 // CHECK: %[[STRUCT_BLOCK_BYREF_T:.*]] = type { ptr, ptr, i32, i32, ptr, ptr, ptr, %[[STRUCT_STRONGOUTER]] }
 // CHECK: %[[STRUCT_STRONGBLOCK:.*]] = type { ptr }
-// CHECK: %[[STRUCT_BITFIELD1:.*]] = type { i8, i8, ptr, i32, ptr, [3 x i32], ptr, double, i8, i8 }
+// CHECK: %[[STRUCT_BITFIELD1:.*]] = type { b8, i8, ptr, i32, ptr, [3 x i32], ptr, double, i8, b8 }
 
 // CHECK: define{{.*}} void @test_constructor_destructor_StrongOuter()
 // CHECK: %[[T:.*]] = alloca %[[STRUCT_STRONGOUTER]], align 8
@@ -631,8 +631,8 @@ void test_copy_constructor_Bitfield0(Bitfield0 *a) {
 // CHECK: store volatile i8 %[[BF_SET]], ptr %[[I5]], align 8
 // CHECK: %[[I6:.*]] = getelementptr inbounds nuw %[[STRUCT_BITFIELD1]], ptr %[[V0]], i32 0, i32 9
 // CHECK: %[[I64:.*]] = getelementptr inbounds nuw %[[STRUCT_BITFIELD1]], ptr %[[V1]], i32 0, i32 9
-// CHECK: %[[V59:.*]] = load volatile i8, ptr %[[I64]], align 1
-// CHECK: store volatile i8 %[[V59]], ptr %[[I6]], align 1
+// CHECK: %[[V59:.*]] = load volatile b8, ptr %[[I64]], align 1
+// CHECK: store volatile b8 %[[V59]], ptr %[[I6]], align 1
 
 void test_copy_constructor_Bitfield1(Bitfield1 *a) {
   Bitfield1 t = *a;

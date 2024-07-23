@@ -10,7 +10,7 @@
 
 typedef double dx5x5_t __attribute__((matrix_type(5, 5)));
 
-// CHECK: %struct.Matrix = type { i8, [12 x float], float }
+// CHECK: %struct.Matrix = type { b8, [12 x float], float }
 
 void load_store_double(dx5x5_t *a, dx5x5_t *b) {
   // CHECK-LABEL:  define{{.*}} void @load_store_double(
