@@ -22079,5 +22079,11 @@ Value *CodeGenFunction::EmitRISCVBuiltinExpr(unsigned BuiltinID,
   assert(ID != Intrinsic::not_intrinsic);
 
   llvm::Function *F = CGM.getIntrinsic(ID, IntrinsicTypes);
+  llvm::FunctionType *FTy = F->getFunctionType();
+  for (unsigned i = 0; i < FTy->getNumParams(); ++i)
+    if (Ops[i]->getType()->isByteOrByteVectorTy() &&
+        !FTy->getParamType(i)->isByteOrByteVectorTy())
+      Ops[i] = Builder.CreateByteCast(Ops[i], FTy->getParamType(i));
+
   return Builder.CreateCall(F, Ops, "");
 }

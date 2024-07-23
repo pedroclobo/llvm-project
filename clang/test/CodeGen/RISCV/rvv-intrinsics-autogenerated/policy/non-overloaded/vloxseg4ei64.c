@@ -315,57 +315,57 @@ vint64m2x4_t test_vloxseg4ei64_v_i64m2x4_tu(vint64m2x4_t maskedoff_tuple, const 
   return __riscv_vloxseg4ei64_v_i64m2x4_tu(maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vloxseg4ei64_v_u8mf8x4_tu
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vloxseg4ei64_v_u8mf8x4_tu
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @llvm.riscv.vloxseg4.nxv1i8.nxv1i64.i64(<vscale x 1 x i8> [[TMP0]], <vscale x 1 x i8> [[TMP1]], <vscale x 1 x i8> [[TMP2]], <vscale x 1 x i8> [[TMP3]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @llvm.riscv.vloxseg4.nxv1b8.nxv1i64.i64(<vscale x 1 x b8> [[TMP0]], <vscale x 1 x b8> [[TMP1]], <vscale x 1 x b8> [[TMP2]], <vscale x 1 x b8> [[TMP3]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP4]]
 //
 vuint8mf8x4_t test_vloxseg4ei64_v_u8mf8x4_tu(vuint8mf8x4_t maskedoff_tuple, const uint8_t *base, vuint64m1_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf8x4_tu(maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vloxseg4ei64_v_u8mf4x4_tu
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vloxseg4ei64_v_u8mf4x4_tu
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @llvm.riscv.vloxseg4.nxv2i8.nxv2i64.i64(<vscale x 2 x i8> [[TMP0]], <vscale x 2 x i8> [[TMP1]], <vscale x 2 x i8> [[TMP2]], <vscale x 2 x i8> [[TMP3]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @llvm.riscv.vloxseg4.nxv2b8.nxv2i64.i64(<vscale x 2 x b8> [[TMP0]], <vscale x 2 x b8> [[TMP1]], <vscale x 2 x b8> [[TMP2]], <vscale x 2 x b8> [[TMP3]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP4]]
 //
 vuint8mf4x4_t test_vloxseg4ei64_v_u8mf4x4_tu(vuint8mf4x4_t maskedoff_tuple, const uint8_t *base, vuint64m2_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf4x4_tu(maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vloxseg4ei64_v_u8mf2x4_tu
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vloxseg4ei64_v_u8mf2x4_tu
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @llvm.riscv.vloxseg4.nxv4i8.nxv4i64.i64(<vscale x 4 x i8> [[TMP0]], <vscale x 4 x i8> [[TMP1]], <vscale x 4 x i8> [[TMP2]], <vscale x 4 x i8> [[TMP3]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @llvm.riscv.vloxseg4.nxv4b8.nxv4i64.i64(<vscale x 4 x b8> [[TMP0]], <vscale x 4 x b8> [[TMP1]], <vscale x 4 x b8> [[TMP2]], <vscale x 4 x b8> [[TMP3]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP4]]
 //
 vuint8mf2x4_t test_vloxseg4ei64_v_u8mf2x4_tu(vuint8mf2x4_t maskedoff_tuple, const uint8_t *base, vuint64m4_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf2x4_tu(maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vloxseg4ei64_v_u8m1x4_tu
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vloxseg4ei64_v_u8m1x4_tu
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @llvm.riscv.vloxseg4.nxv8i8.nxv8i64.i64(<vscale x 8 x i8> [[TMP0]], <vscale x 8 x i8> [[TMP1]], <vscale x 8 x i8> [[TMP2]], <vscale x 8 x i8> [[TMP3]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @llvm.riscv.vloxseg4.nxv8b8.nxv8i64.i64(<vscale x 8 x b8> [[TMP0]], <vscale x 8 x b8> [[TMP1]], <vscale x 8 x b8> [[TMP2]], <vscale x 8 x b8> [[TMP3]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP4]]
 //
 vuint8m1x4_t test_vloxseg4ei64_v_u8m1x4_tu(vuint8m1x4_t maskedoff_tuple, const uint8_t *base, vuint64m8_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8m1x4_tu(maskedoff_tuple, base, bindex, vl);
@@ -805,57 +805,57 @@ vint64m2x4_t test_vloxseg4ei64_v_i64m2x4_tum(vbool32_t mask, vint64m2x4_t masked
   return __riscv_vloxseg4ei64_v_i64m2x4_tum(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vloxseg4ei64_v_u8mf8x4_tum
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vloxseg4ei64_v_u8mf8x4_tum
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @llvm.riscv.vloxseg4.mask.nxv1i8.nxv1i64.i64(<vscale x 1 x i8> [[TMP0]], <vscale x 1 x i8> [[TMP1]], <vscale x 1 x i8> [[TMP2]], <vscale x 1 x i8> [[TMP3]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @llvm.riscv.vloxseg4.mask.nxv1b8.nxv1i64.i64(<vscale x 1 x b8> [[TMP0]], <vscale x 1 x b8> [[TMP1]], <vscale x 1 x b8> [[TMP2]], <vscale x 1 x b8> [[TMP3]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP4]]
 //
 vuint8mf8x4_t test_vloxseg4ei64_v_u8mf8x4_tum(vbool64_t mask, vuint8mf8x4_t maskedoff_tuple, const uint8_t *base, vuint64m1_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf8x4_tum(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vloxseg4ei64_v_u8mf4x4_tum
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vloxseg4ei64_v_u8mf4x4_tum
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @llvm.riscv.vloxseg4.mask.nxv2i8.nxv2i64.i64(<vscale x 2 x i8> [[TMP0]], <vscale x 2 x i8> [[TMP1]], <vscale x 2 x i8> [[TMP2]], <vscale x 2 x i8> [[TMP3]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @llvm.riscv.vloxseg4.mask.nxv2b8.nxv2i64.i64(<vscale x 2 x b8> [[TMP0]], <vscale x 2 x b8> [[TMP1]], <vscale x 2 x b8> [[TMP2]], <vscale x 2 x b8> [[TMP3]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP4]]
 //
 vuint8mf4x4_t test_vloxseg4ei64_v_u8mf4x4_tum(vbool32_t mask, vuint8mf4x4_t maskedoff_tuple, const uint8_t *base, vuint64m2_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf4x4_tum(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vloxseg4ei64_v_u8mf2x4_tum
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vloxseg4ei64_v_u8mf2x4_tum
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @llvm.riscv.vloxseg4.mask.nxv4i8.nxv4i64.i64(<vscale x 4 x i8> [[TMP0]], <vscale x 4 x i8> [[TMP1]], <vscale x 4 x i8> [[TMP2]], <vscale x 4 x i8> [[TMP3]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @llvm.riscv.vloxseg4.mask.nxv4b8.nxv4i64.i64(<vscale x 4 x b8> [[TMP0]], <vscale x 4 x b8> [[TMP1]], <vscale x 4 x b8> [[TMP2]], <vscale x 4 x b8> [[TMP3]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP4]]
 //
 vuint8mf2x4_t test_vloxseg4ei64_v_u8mf2x4_tum(vbool16_t mask, vuint8mf2x4_t maskedoff_tuple, const uint8_t *base, vuint64m4_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf2x4_tum(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vloxseg4ei64_v_u8m1x4_tum
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vloxseg4ei64_v_u8m1x4_tum
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @llvm.riscv.vloxseg4.mask.nxv8i8.nxv8i64.i64(<vscale x 8 x i8> [[TMP0]], <vscale x 8 x i8> [[TMP1]], <vscale x 8 x i8> [[TMP2]], <vscale x 8 x i8> [[TMP3]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @llvm.riscv.vloxseg4.mask.nxv8b8.nxv8i64.i64(<vscale x 8 x b8> [[TMP0]], <vscale x 8 x b8> [[TMP1]], <vscale x 8 x b8> [[TMP2]], <vscale x 8 x b8> [[TMP3]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP4]]
 //
 vuint8m1x4_t test_vloxseg4ei64_v_u8m1x4_tum(vbool8_t mask, vuint8m1x4_t maskedoff_tuple, const uint8_t *base, vuint64m8_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8m1x4_tum(mask, maskedoff_tuple, base, bindex, vl);
@@ -1295,57 +1295,57 @@ vint64m2x4_t test_vloxseg4ei64_v_i64m2x4_tumu(vbool32_t mask, vint64m2x4_t maske
   return __riscv_vloxseg4ei64_v_i64m2x4_tumu(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vloxseg4ei64_v_u8mf8x4_tumu
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vloxseg4ei64_v_u8mf8x4_tumu
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @llvm.riscv.vloxseg4.mask.nxv1i8.nxv1i64.i64(<vscale x 1 x i8> [[TMP0]], <vscale x 1 x i8> [[TMP1]], <vscale x 1 x i8> [[TMP2]], <vscale x 1 x i8> [[TMP3]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @llvm.riscv.vloxseg4.mask.nxv1b8.nxv1i64.i64(<vscale x 1 x b8> [[TMP0]], <vscale x 1 x b8> [[TMP1]], <vscale x 1 x b8> [[TMP2]], <vscale x 1 x b8> [[TMP3]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP4]]
 //
 vuint8mf8x4_t test_vloxseg4ei64_v_u8mf8x4_tumu(vbool64_t mask, vuint8mf8x4_t maskedoff_tuple, const uint8_t *base, vuint64m1_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf8x4_tumu(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vloxseg4ei64_v_u8mf4x4_tumu
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vloxseg4ei64_v_u8mf4x4_tumu
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @llvm.riscv.vloxseg4.mask.nxv2i8.nxv2i64.i64(<vscale x 2 x i8> [[TMP0]], <vscale x 2 x i8> [[TMP1]], <vscale x 2 x i8> [[TMP2]], <vscale x 2 x i8> [[TMP3]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @llvm.riscv.vloxseg4.mask.nxv2b8.nxv2i64.i64(<vscale x 2 x b8> [[TMP0]], <vscale x 2 x b8> [[TMP1]], <vscale x 2 x b8> [[TMP2]], <vscale x 2 x b8> [[TMP3]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP4]]
 //
 vuint8mf4x4_t test_vloxseg4ei64_v_u8mf4x4_tumu(vbool32_t mask, vuint8mf4x4_t maskedoff_tuple, const uint8_t *base, vuint64m2_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf4x4_tumu(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vloxseg4ei64_v_u8mf2x4_tumu
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vloxseg4ei64_v_u8mf2x4_tumu
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @llvm.riscv.vloxseg4.mask.nxv4i8.nxv4i64.i64(<vscale x 4 x i8> [[TMP0]], <vscale x 4 x i8> [[TMP1]], <vscale x 4 x i8> [[TMP2]], <vscale x 4 x i8> [[TMP3]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @llvm.riscv.vloxseg4.mask.nxv4b8.nxv4i64.i64(<vscale x 4 x b8> [[TMP0]], <vscale x 4 x b8> [[TMP1]], <vscale x 4 x b8> [[TMP2]], <vscale x 4 x b8> [[TMP3]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP4]]
 //
 vuint8mf2x4_t test_vloxseg4ei64_v_u8mf2x4_tumu(vbool16_t mask, vuint8mf2x4_t maskedoff_tuple, const uint8_t *base, vuint64m4_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf2x4_tumu(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vloxseg4ei64_v_u8m1x4_tumu
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vloxseg4ei64_v_u8m1x4_tumu
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @llvm.riscv.vloxseg4.mask.nxv8i8.nxv8i64.i64(<vscale x 8 x i8> [[TMP0]], <vscale x 8 x i8> [[TMP1]], <vscale x 8 x i8> [[TMP2]], <vscale x 8 x i8> [[TMP3]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @llvm.riscv.vloxseg4.mask.nxv8b8.nxv8i64.i64(<vscale x 8 x b8> [[TMP0]], <vscale x 8 x b8> [[TMP1]], <vscale x 8 x b8> [[TMP2]], <vscale x 8 x b8> [[TMP3]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP4]]
 //
 vuint8m1x4_t test_vloxseg4ei64_v_u8m1x4_tumu(vbool8_t mask, vuint8m1x4_t maskedoff_tuple, const uint8_t *base, vuint64m8_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8m1x4_tumu(mask, maskedoff_tuple, base, bindex, vl);
@@ -1785,57 +1785,57 @@ vint64m2x4_t test_vloxseg4ei64_v_i64m2x4_mu(vbool32_t mask, vint64m2x4_t maskedo
   return __riscv_vloxseg4ei64_v_i64m2x4_mu(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vloxseg4ei64_v_u8mf8x4_mu
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vloxseg4ei64_v_u8mf8x4_mu
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @llvm.riscv.vloxseg4.mask.nxv1i8.nxv1i64.i64(<vscale x 1 x i8> [[TMP0]], <vscale x 1 x i8> [[TMP1]], <vscale x 1 x i8> [[TMP2]], <vscale x 1 x i8> [[TMP3]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @llvm.riscv.vloxseg4.mask.nxv1b8.nxv1i64.i64(<vscale x 1 x b8> [[TMP0]], <vscale x 1 x b8> [[TMP1]], <vscale x 1 x b8> [[TMP2]], <vscale x 1 x b8> [[TMP3]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP4]]
 //
 vuint8mf8x4_t test_vloxseg4ei64_v_u8mf8x4_mu(vbool64_t mask, vuint8mf8x4_t maskedoff_tuple, const uint8_t *base, vuint64m1_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf8x4_mu(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vloxseg4ei64_v_u8mf4x4_mu
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vloxseg4ei64_v_u8mf4x4_mu
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @llvm.riscv.vloxseg4.mask.nxv2i8.nxv2i64.i64(<vscale x 2 x i8> [[TMP0]], <vscale x 2 x i8> [[TMP1]], <vscale x 2 x i8> [[TMP2]], <vscale x 2 x i8> [[TMP3]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @llvm.riscv.vloxseg4.mask.nxv2b8.nxv2i64.i64(<vscale x 2 x b8> [[TMP0]], <vscale x 2 x b8> [[TMP1]], <vscale x 2 x b8> [[TMP2]], <vscale x 2 x b8> [[TMP3]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP4]]
 //
 vuint8mf4x4_t test_vloxseg4ei64_v_u8mf4x4_mu(vbool32_t mask, vuint8mf4x4_t maskedoff_tuple, const uint8_t *base, vuint64m2_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf4x4_mu(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vloxseg4ei64_v_u8mf2x4_mu
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vloxseg4ei64_v_u8mf2x4_mu
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @llvm.riscv.vloxseg4.mask.nxv4i8.nxv4i64.i64(<vscale x 4 x i8> [[TMP0]], <vscale x 4 x i8> [[TMP1]], <vscale x 4 x i8> [[TMP2]], <vscale x 4 x i8> [[TMP3]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @llvm.riscv.vloxseg4.mask.nxv4b8.nxv4i64.i64(<vscale x 4 x b8> [[TMP0]], <vscale x 4 x b8> [[TMP1]], <vscale x 4 x b8> [[TMP2]], <vscale x 4 x b8> [[TMP3]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP4]]
 //
 vuint8mf2x4_t test_vloxseg4ei64_v_u8mf2x4_mu(vbool16_t mask, vuint8mf2x4_t maskedoff_tuple, const uint8_t *base, vuint64m4_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8mf2x4_mu(mask, maskedoff_tuple, base, bindex, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vloxseg4ei64_v_u8m1x4_mu
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vloxseg4ei64_v_u8m1x4_mu
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[MASKEDOFF_TUPLE]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @llvm.riscv.vloxseg4.mask.nxv8i8.nxv8i64.i64(<vscale x 8 x i8> [[TMP0]], <vscale x 8 x i8> [[TMP1]], <vscale x 8 x i8> [[TMP2]], <vscale x 8 x i8> [[TMP3]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[MASKEDOFF_TUPLE]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @llvm.riscv.vloxseg4.mask.nxv8b8.nxv8i64.i64(<vscale x 8 x b8> [[TMP0]], <vscale x 8 x b8> [[TMP1]], <vscale x 8 x b8> [[TMP2]], <vscale x 8 x b8> [[TMP3]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP4]]
 //
 vuint8m1x4_t test_vloxseg4ei64_v_u8m1x4_mu(vbool8_t mask, vuint8m1x4_t maskedoff_tuple, const uint8_t *base, vuint64m8_t bindex, size_t vl) {
   return __riscv_vloxseg4ei64_v_u8m1x4_mu(mask, maskedoff_tuple, base, bindex, vl);

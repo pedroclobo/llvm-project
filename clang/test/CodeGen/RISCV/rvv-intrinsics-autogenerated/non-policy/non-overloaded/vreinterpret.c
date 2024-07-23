@@ -7,127 +7,141 @@
 
 #include <riscv_vector.h>
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vreinterpret_v_i8mf8_u8mf8
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vreinterpret_v_i8mf8_u8mf8
 // CHECK-RV64-SAME: (<vscale x 1 x i8> [[SRC:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 1 x i8> [[SRC]] to <vscale x 1 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vreinterpret_v_i8mf8_u8mf8(vint8mf8_t src) {
   return __riscv_vreinterpret_v_i8mf8_u8mf8(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vreinterpret_v_i8mf4_u8mf4
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vreinterpret_v_i8mf4_u8mf4
 // CHECK-RV64-SAME: (<vscale x 2 x i8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 2 x i8> [[SRC]] to <vscale x 2 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vreinterpret_v_i8mf4_u8mf4(vint8mf4_t src) {
   return __riscv_vreinterpret_v_i8mf4_u8mf4(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vreinterpret_v_i8mf2_u8mf2
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vreinterpret_v_i8mf2_u8mf2
 // CHECK-RV64-SAME: (<vscale x 4 x i8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i8> [[SRC]] to <vscale x 4 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vreinterpret_v_i8mf2_u8mf2(vint8mf2_t src) {
   return __riscv_vreinterpret_v_i8mf2_u8mf2(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_i8m1_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_i8m1_u8m1
 // CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vreinterpret_v_i8m1_u8m1(vint8m1_t src) {
   return __riscv_vreinterpret_v_i8m1_u8m1(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vreinterpret_v_i8m2_u8m2
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vreinterpret_v_i8m2_u8m2
 // CHECK-RV64-SAME: (<vscale x 16 x i8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[SRC]] to <vscale x 16 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vreinterpret_v_i8m2_u8m2(vint8m2_t src) {
   return __riscv_vreinterpret_v_i8m2_u8m2(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vreinterpret_v_i8m4_u8m4
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vreinterpret_v_i8m4_u8m4
 // CHECK-RV64-SAME: (<vscale x 32 x i8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x i8> [[SRC]] to <vscale x 32 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vreinterpret_v_i8m4_u8m4(vint8m4_t src) {
   return __riscv_vreinterpret_v_i8m4_u8m4(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vreinterpret_v_i8m8_u8m8
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vreinterpret_v_i8m8_u8m8
 // CHECK-RV64-SAME: (<vscale x 64 x i8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 64 x i8> [[SRC]] to <vscale x 64 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vreinterpret_v_i8m8_u8m8(vint8m8_t src) {
   return __riscv_vreinterpret_v_i8m8_u8m8(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vreinterpret_v_u8mf8_i8mf8
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[SRC]] to <vscale x 1 x i8>
+// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
 //
 vint8mf8_t test_vreinterpret_v_u8mf8_i8mf8(vuint8mf8_t src) {
   return __riscv_vreinterpret_v_u8mf8_i8mf8(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vreinterpret_v_u8mf4_i8mf4
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 2 x b8> [[SRC]] to <vscale x 2 x i8>
+// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
 //
 vint8mf4_t test_vreinterpret_v_u8mf4_i8mf4(vuint8mf4_t src) {
   return __riscv_vreinterpret_v_u8mf4_i8mf4(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vreinterpret_v_u8mf2_i8mf2
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 4 x b8> [[SRC]] to <vscale x 4 x i8>
+// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
 //
 vint8mf2_t test_vreinterpret_v_u8mf2_i8mf2(vuint8mf2_t src) {
   return __riscv_vreinterpret_v_u8mf2_i8mf2(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_u8m1_i8m1
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 8 x i8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
 //
 vint8m1_t test_vreinterpret_v_u8m1_i8m1(vuint8m1_t src) {
   return __riscv_vreinterpret_v_u8m1_i8m1(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vreinterpret_v_u8m2_i8m2
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SRC]] to <vscale x 16 x i8>
+// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 vint8m2_t test_vreinterpret_v_u8m2_i8m2(vuint8m2_t src) {
   return __riscv_vreinterpret_v_u8m2_i8m2(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vreinterpret_v_u8m4_i8m4
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 32 x b8> [[SRC]] to <vscale x 32 x i8>
+// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
 //
 vint8m4_t test_vreinterpret_v_u8m4_i8m4(vuint8m4_t src) {
   return __riscv_vreinterpret_v_u8m4_i8m4(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vreinterpret_v_u8m8_i8m8
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[SRC]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 64 x b8> [[SRC]] to <vscale x 64 x i8>
+// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
 //
 vint8m8_t test_vreinterpret_v_u8m8_i8m8(vuint8m8_t src) {
   return __riscv_vreinterpret_v_u8m8_i8m8(src);
@@ -1064,9 +1078,9 @@ vint16m8_t test_vreinterpret_v_i8m8_i16m8(vint8m8_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i16> @test_vreinterpret_v_u8mf4_u16mf4
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 2 x i8> [[SRC]] to <vscale x 1 x i16>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 2 x b8> [[SRC]] to <vscale x 1 x i16>
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i16> [[TMP0]]
 //
 vuint16mf4_t test_vreinterpret_v_u8mf4_u16mf4(vuint8mf4_t src) {
@@ -1074,9 +1088,9 @@ vuint16mf4_t test_vreinterpret_v_u8mf4_u16mf4(vuint8mf4_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i16> @test_vreinterpret_v_u8mf2_u16mf2
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i8> [[SRC]] to <vscale x 2 x i16>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 4 x b8> [[SRC]] to <vscale x 2 x i16>
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i16> [[TMP0]]
 //
 vuint16mf2_t test_vreinterpret_v_u8mf2_u16mf2(vuint8mf2_t src) {
@@ -1084,9 +1098,9 @@ vuint16mf2_t test_vreinterpret_v_u8mf2_u16mf2(vuint8mf2_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i16> @test_vreinterpret_v_u8m1_u16m1
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 4 x i16>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 4 x i16>
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i16> [[TMP0]]
 //
 vuint16m1_t test_vreinterpret_v_u8m1_u16m1(vuint8m1_t src) {
@@ -1094,9 +1108,9 @@ vuint16m1_t test_vreinterpret_v_u8m1_u16m1(vuint8m1_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i16> @test_vreinterpret_v_u8m2_u16m2
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[SRC]] to <vscale x 8 x i16>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SRC]] to <vscale x 8 x i16>
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i16> [[TMP0]]
 //
 vuint16m2_t test_vreinterpret_v_u8m2_u16m2(vuint8m2_t src) {
@@ -1104,9 +1118,9 @@ vuint16m2_t test_vreinterpret_v_u8m2_u16m2(vuint8m2_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i16> @test_vreinterpret_v_u8m4_u16m4
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x i8> [[SRC]] to <vscale x 16 x i16>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 32 x b8> [[SRC]] to <vscale x 16 x i16>
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i16> [[TMP0]]
 //
 vuint16m4_t test_vreinterpret_v_u8m4_u16m4(vuint8m4_t src) {
@@ -1114,9 +1128,9 @@ vuint16m4_t test_vreinterpret_v_u8m4_u16m4(vuint8m4_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i16> @test_vreinterpret_v_u8m8_u16m8
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 64 x i8> [[SRC]] to <vscale x 32 x i16>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 64 x b8> [[SRC]] to <vscale x 32 x i16>
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i16> [[TMP0]]
 //
 vuint16m8_t test_vreinterpret_v_u8m8_u16m8(vuint8m8_t src) {
@@ -1174,9 +1188,9 @@ vint32m8_t test_vreinterpret_v_i8m8_i32m8(vint8m8_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i32> @test_vreinterpret_v_u8mf2_u32mf2
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i8> [[SRC]] to <vscale x 1 x i32>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 4 x b8> [[SRC]] to <vscale x 1 x i32>
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i32> [[TMP0]]
 //
 vuint32mf2_t test_vreinterpret_v_u8mf2_u32mf2(vuint8mf2_t src) {
@@ -1184,9 +1198,9 @@ vuint32mf2_t test_vreinterpret_v_u8mf2_u32mf2(vuint8mf2_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i32> @test_vreinterpret_v_u8m1_u32m1
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 2 x i32>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 2 x i32>
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i32> [[TMP0]]
 //
 vuint32m1_t test_vreinterpret_v_u8m1_u32m1(vuint8m1_t src) {
@@ -1194,9 +1208,9 @@ vuint32m1_t test_vreinterpret_v_u8m1_u32m1(vuint8m1_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i32> @test_vreinterpret_v_u8m2_u32m2
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[SRC]] to <vscale x 4 x i32>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SRC]] to <vscale x 4 x i32>
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
 //
 vuint32m2_t test_vreinterpret_v_u8m2_u32m2(vuint8m2_t src) {
@@ -1204,9 +1218,9 @@ vuint32m2_t test_vreinterpret_v_u8m2_u32m2(vuint8m2_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i32> @test_vreinterpret_v_u8m4_u32m4
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x i8> [[SRC]] to <vscale x 8 x i32>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 32 x b8> [[SRC]] to <vscale x 8 x i32>
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i32> [[TMP0]]
 //
 vuint32m4_t test_vreinterpret_v_u8m4_u32m4(vuint8m4_t src) {
@@ -1214,9 +1228,9 @@ vuint32m4_t test_vreinterpret_v_u8m4_u32m4(vuint8m4_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i32> @test_vreinterpret_v_u8m8_u32m8
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 64 x i8> [[SRC]] to <vscale x 16 x i32>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 64 x b8> [[SRC]] to <vscale x 16 x i32>
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i32> [[TMP0]]
 //
 vuint32m8_t test_vreinterpret_v_u8m8_u32m8(vuint8m8_t src) {
@@ -1264,9 +1278,9 @@ vint64m8_t test_vreinterpret_v_i8m8_i64m8(vint8m8_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i64> @test_vreinterpret_v_u8m1_u64m1
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 1 x i64>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 1 x i64>
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i64> [[TMP0]]
 //
 vuint64m1_t test_vreinterpret_v_u8m1_u64m1(vuint8m1_t src) {
@@ -1274,9 +1288,9 @@ vuint64m1_t test_vreinterpret_v_u8m1_u64m1(vuint8m1_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i64> @test_vreinterpret_v_u8m2_u64m2
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[SRC]] to <vscale x 2 x i64>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SRC]] to <vscale x 2 x i64>
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i64> [[TMP0]]
 //
 vuint64m2_t test_vreinterpret_v_u8m2_u64m2(vuint8m2_t src) {
@@ -1284,9 +1298,9 @@ vuint64m2_t test_vreinterpret_v_u8m2_u64m2(vuint8m2_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i64> @test_vreinterpret_v_u8m4_u64m4
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x i8> [[SRC]] to <vscale x 4 x i64>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 32 x b8> [[SRC]] to <vscale x 4 x i64>
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i64> [[TMP0]]
 //
 vuint64m4_t test_vreinterpret_v_u8m4_u64m4(vuint8m4_t src) {
@@ -1294,9 +1308,9 @@ vuint64m4_t test_vreinterpret_v_u8m4_u64m4(vuint8m4_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i64> @test_vreinterpret_v_u8m8_u64m8
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 64 x i8> [[SRC]] to <vscale x 8 x i64>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 64 x b8> [[SRC]] to <vscale x 8 x i64>
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i64> [[TMP0]]
 //
 vuint64m8_t test_vreinterpret_v_u8m8_u64m8(vuint8m8_t src) {
@@ -1363,61 +1377,61 @@ vint8m8_t test_vreinterpret_v_i16m8_i8m8(vint16m8_t src) {
   return __riscv_vreinterpret_v_i16m8_i8m8(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vreinterpret_v_u16mf4_u8mf4
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vreinterpret_v_u16mf4_u8mf4
 // CHECK-RV64-SAME: (<vscale x 1 x i16> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 1 x i16> [[SRC]] to <vscale x 2 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 1 x i16> [[SRC]] to <vscale x 2 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vreinterpret_v_u16mf4_u8mf4(vuint16mf4_t src) {
   return __riscv_vreinterpret_v_u16mf4_u8mf4(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vreinterpret_v_u16mf2_u8mf2
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vreinterpret_v_u16mf2_u8mf2
 // CHECK-RV64-SAME: (<vscale x 2 x i16> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 2 x i16> [[SRC]] to <vscale x 4 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 2 x i16> [[SRC]] to <vscale x 4 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vreinterpret_v_u16mf2_u8mf2(vuint16mf2_t src) {
   return __riscv_vreinterpret_v_u16mf2_u8mf2(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_u16m1_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_u16m1_u8m1
 // CHECK-RV64-SAME: (<vscale x 4 x i16> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i16> [[SRC]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i16> [[SRC]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vreinterpret_v_u16m1_u8m1(vuint16m1_t src) {
   return __riscv_vreinterpret_v_u16m1_u8m1(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vreinterpret_v_u16m2_u8m2
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vreinterpret_v_u16m2_u8m2
 // CHECK-RV64-SAME: (<vscale x 8 x i16> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i16> [[SRC]] to <vscale x 16 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i16> [[SRC]] to <vscale x 16 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vreinterpret_v_u16m2_u8m2(vuint16m2_t src) {
   return __riscv_vreinterpret_v_u16m2_u8m2(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vreinterpret_v_u16m4_u8m4
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vreinterpret_v_u16m4_u8m4
 // CHECK-RV64-SAME: (<vscale x 16 x i16> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i16> [[SRC]] to <vscale x 32 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i16> [[SRC]] to <vscale x 32 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vreinterpret_v_u16m4_u8m4(vuint16m4_t src) {
   return __riscv_vreinterpret_v_u16m4_u8m4(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vreinterpret_v_u16m8_u8m8
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vreinterpret_v_u16m8_u8m8
 // CHECK-RV64-SAME: (<vscale x 32 x i16> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x i16> [[SRC]] to <vscale x 64 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x i16> [[SRC]] to <vscale x 64 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vreinterpret_v_u16m8_u8m8(vuint16m8_t src) {
   return __riscv_vreinterpret_v_u16m8_u8m8(src);
@@ -1653,51 +1667,51 @@ vint8m8_t test_vreinterpret_v_i32m8_i8m8(vint32m8_t src) {
   return __riscv_vreinterpret_v_i32m8_i8m8(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vreinterpret_v_u32mf2_u8mf2
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vreinterpret_v_u32mf2_u8mf2
 // CHECK-RV64-SAME: (<vscale x 1 x i32> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 1 x i32> [[SRC]] to <vscale x 4 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 1 x i32> [[SRC]] to <vscale x 4 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vreinterpret_v_u32mf2_u8mf2(vuint32mf2_t src) {
   return __riscv_vreinterpret_v_u32mf2_u8mf2(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_u32m1_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_u32m1_u8m1
 // CHECK-RV64-SAME: (<vscale x 2 x i32> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 2 x i32> [[SRC]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 2 x i32> [[SRC]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vreinterpret_v_u32m1_u8m1(vuint32m1_t src) {
   return __riscv_vreinterpret_v_u32m1_u8m1(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vreinterpret_v_u32m2_u8m2
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vreinterpret_v_u32m2_u8m2
 // CHECK-RV64-SAME: (<vscale x 4 x i32> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i32> [[SRC]] to <vscale x 16 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i32> [[SRC]] to <vscale x 16 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vreinterpret_v_u32m2_u8m2(vuint32m2_t src) {
   return __riscv_vreinterpret_v_u32m2_u8m2(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vreinterpret_v_u32m4_u8m4
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vreinterpret_v_u32m4_u8m4
 // CHECK-RV64-SAME: (<vscale x 8 x i32> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i32> [[SRC]] to <vscale x 32 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i32> [[SRC]] to <vscale x 32 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vreinterpret_v_u32m4_u8m4(vuint32m4_t src) {
   return __riscv_vreinterpret_v_u32m4_u8m4(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vreinterpret_v_u32m8_u8m8
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vreinterpret_v_u32m8_u8m8
 // CHECK-RV64-SAME: (<vscale x 16 x i32> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i32> [[SRC]] to <vscale x 64 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i32> [[SRC]] to <vscale x 64 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vreinterpret_v_u32m8_u8m8(vuint32m8_t src) {
   return __riscv_vreinterpret_v_u32m8_u8m8(src);
@@ -1923,41 +1937,41 @@ vint8m8_t test_vreinterpret_v_i64m8_i8m8(vint64m8_t src) {
   return __riscv_vreinterpret_v_i64m8_i8m8(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_u64m1_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_u64m1_u8m1
 // CHECK-RV64-SAME: (<vscale x 1 x i64> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 1 x i64> [[SRC]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 1 x i64> [[SRC]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vreinterpret_v_u64m1_u8m1(vuint64m1_t src) {
   return __riscv_vreinterpret_v_u64m1_u8m1(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vreinterpret_v_u64m2_u8m2
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vreinterpret_v_u64m2_u8m2
 // CHECK-RV64-SAME: (<vscale x 2 x i64> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 2 x i64> [[SRC]] to <vscale x 16 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 2 x i64> [[SRC]] to <vscale x 16 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vreinterpret_v_u64m2_u8m2(vuint64m2_t src) {
   return __riscv_vreinterpret_v_u64m2_u8m2(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vreinterpret_v_u64m4_u8m4
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vreinterpret_v_u64m4_u8m4
 // CHECK-RV64-SAME: (<vscale x 4 x i64> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i64> [[SRC]] to <vscale x 32 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 4 x i64> [[SRC]] to <vscale x 32 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vreinterpret_v_u64m4_u8m4(vuint64m4_t src) {
   return __riscv_vreinterpret_v_u64m4_u8m4(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vreinterpret_v_u64m8_u8m8
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vreinterpret_v_u64m8_u8m8
 // CHECK-RV64-SAME: (<vscale x 8 x i64> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i64> [[SRC]] to <vscale x 64 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i64> [[SRC]] to <vscale x 64 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vreinterpret_v_u64m8_u8m8(vuint64m8_t src) {
   return __riscv_vreinterpret_v_u64m8_u8m8(src);
@@ -2278,9 +2292,9 @@ vint8m1_t test_vreinterpret_v_b1_i8m1(vbool1_t src) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vreinterpret_v_u8m1_b64
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 64 x i1>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 64 x i1>
 // CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 1 x i1> @llvm.vector.extract.nxv1i1.nxv64i1(<vscale x 64 x i1> [[TMP0]], i64 0)
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP1]]
 //
@@ -2288,21 +2302,21 @@ vbool64_t test_vreinterpret_v_u8m1_b64(vuint8m1_t src) {
   return __riscv_vreinterpret_v_u8m1_b64(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_b64_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_b64_u8m1
 // CHECK-RV64-SAME: (<vscale x 1 x i1> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
 // CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.vector.insert.nxv64i1.nxv1i1(<vscale x 64 x i1> poison, <vscale x 1 x i1> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP1]]
 //
 vuint8m1_t test_vreinterpret_v_b64_u8m1(vbool64_t src) {
   return __riscv_vreinterpret_v_b64_u8m1(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vreinterpret_v_u8m1_b32
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 64 x i1>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 64 x i1>
 // CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 2 x i1> @llvm.vector.extract.nxv2i1.nxv64i1(<vscale x 64 x i1> [[TMP0]], i64 0)
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP1]]
 //
@@ -2310,21 +2324,21 @@ vbool32_t test_vreinterpret_v_u8m1_b32(vuint8m1_t src) {
   return __riscv_vreinterpret_v_u8m1_b32(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_b32_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_b32_u8m1
 // CHECK-RV64-SAME: (<vscale x 2 x i1> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
 // CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.vector.insert.nxv64i1.nxv2i1(<vscale x 64 x i1> poison, <vscale x 2 x i1> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP1]]
 //
 vuint8m1_t test_vreinterpret_v_b32_u8m1(vbool32_t src) {
   return __riscv_vreinterpret_v_b32_u8m1(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vreinterpret_v_u8m1_b16
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 64 x i1>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 64 x i1>
 // CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 4 x i1> @llvm.vector.extract.nxv4i1.nxv64i1(<vscale x 64 x i1> [[TMP0]], i64 0)
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP1]]
 //
@@ -2332,21 +2346,21 @@ vbool16_t test_vreinterpret_v_u8m1_b16(vuint8m1_t src) {
   return __riscv_vreinterpret_v_u8m1_b16(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_b16_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_b16_u8m1
 // CHECK-RV64-SAME: (<vscale x 4 x i1> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
 // CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.vector.insert.nxv64i1.nxv4i1(<vscale x 64 x i1> poison, <vscale x 4 x i1> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP1]]
 //
 vuint8m1_t test_vreinterpret_v_b16_u8m1(vbool16_t src) {
   return __riscv_vreinterpret_v_b16_u8m1(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vreinterpret_v_u8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 64 x i1>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 64 x i1>
 // CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 8 x i1> @llvm.vector.extract.nxv8i1.nxv64i1(<vscale x 64 x i1> [[TMP0]], i64 0)
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP1]]
 //
@@ -2354,21 +2368,21 @@ vbool8_t test_vreinterpret_v_u8m1_b8(vuint8m1_t src) {
   return __riscv_vreinterpret_v_u8m1_b8(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_b8_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_b8_u8m1
 // CHECK-RV64-SAME: (<vscale x 8 x i1> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
 // CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.vector.insert.nxv64i1.nxv8i1(<vscale x 64 x i1> poison, <vscale x 8 x i1> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP1]]
 //
 vuint8m1_t test_vreinterpret_v_b8_u8m1(vbool8_t src) {
   return __riscv_vreinterpret_v_b8_u8m1(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vreinterpret_v_u8m1_b4
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 64 x i1>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 64 x i1>
 // CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 16 x i1> @llvm.vector.extract.nxv16i1.nxv64i1(<vscale x 64 x i1> [[TMP0]], i64 0)
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP1]]
 //
@@ -2376,21 +2390,21 @@ vbool4_t test_vreinterpret_v_u8m1_b4(vuint8m1_t src) {
   return __riscv_vreinterpret_v_u8m1_b4(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_b4_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_b4_u8m1
 // CHECK-RV64-SAME: (<vscale x 16 x i1> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
 // CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.vector.insert.nxv64i1.nxv16i1(<vscale x 64 x i1> poison, <vscale x 16 x i1> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP1]]
 //
 vuint8m1_t test_vreinterpret_v_b4_u8m1(vbool4_t src) {
   return __riscv_vreinterpret_v_b4_u8m1(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vreinterpret_v_u8m1_b2
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 64 x i1>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 64 x i1>
 // CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 32 x i1> @llvm.vector.extract.nxv32i1.nxv64i1(<vscale x 64 x i1> [[TMP0]], i64 0)
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP1]]
 //
@@ -2398,21 +2412,21 @@ vbool2_t test_vreinterpret_v_u8m1_b2(vuint8m1_t src) {
   return __riscv_vreinterpret_v_u8m1_b2(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_b2_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_b2_u8m1
 // CHECK-RV64-SAME: (<vscale x 32 x i1> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
 // CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.vector.insert.nxv64i1.nxv32i1(<vscale x 64 x i1> poison, <vscale x 32 x i1> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP1]]
 //
 vuint8m1_t test_vreinterpret_v_b2_u8m1(vbool2_t src) {
   return __riscv_vreinterpret_v_b2_u8m1(src);
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vreinterpret_v_u8m1_b1
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[SRC:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x i8> [[SRC]] to <vscale x 64 x i1>
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 8 x b8> [[SRC]] to <vscale x 64 x i1>
 // CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 64 x i1> @llvm.vector.extract.nxv64i1.nxv64i1(<vscale x 64 x i1> [[TMP0]], i64 0)
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP1]]
 //
@@ -2420,12 +2434,12 @@ vbool1_t test_vreinterpret_v_u8m1_b1(vuint8m1_t src) {
   return __riscv_vreinterpret_v_u8m1_b1(src);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vreinterpret_v_b1_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vreinterpret_v_b1_u8m1
 // CHECK-RV64-SAME: (<vscale x 64 x i1> [[SRC:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
 // CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.vector.insert.nxv64i1.nxv64i1(<vscale x 64 x i1> poison, <vscale x 64 x i1> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x i8>
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i1> [[TMP0]] to <vscale x 8 x b8>
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP1]]
 //
 vuint8m1_t test_vreinterpret_v_b1_u8m1(vbool1_t src) {
   return __riscv_vreinterpret_v_b1_u8m1(src);

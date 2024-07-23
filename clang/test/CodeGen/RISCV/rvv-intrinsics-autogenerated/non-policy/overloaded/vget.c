@@ -427,61 +427,61 @@ vint64m4_t test_vget_v_i64m8_i64m4(vint64m8_t src, size_t index) {
   return __riscv_vget_i64m4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m2_u8m1
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m2_u8m1
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv16i8(<vscale x 16 x i8> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv16b8(<vscale x 16 x b8> [[SRC]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m2_u8m1(vuint8m2_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m4_u8m1
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m4_u8m1
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv32i8(<vscale x 32 x i8> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv32b8(<vscale x 32 x b8> [[SRC]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m4_u8m1(vuint8m4_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m8_u8m1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m8_u8m1
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv64i8(<vscale x 64 x i8> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv64b8(<vscale x 64 x b8> [[SRC]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m8_u8m1(vuint8m8_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vget_v_u8m4_u8m2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vget_v_u8m4_u8m2
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv32b8(<vscale x 32 x b8> [[SRC]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vget_v_u8m4_u8m2(vuint8m4_t src, size_t index) {
   return __riscv_vget_u8m2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vget_v_u8m8_u8m2
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vget_v_u8m8_u8m2
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv64i8(<vscale x 64 x i8> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv64b8(<vscale x 64 x b8> [[SRC]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vget_v_u8m8_u8m2(vuint8m8_t src, size_t index) {
   return __riscv_vget_u8m2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vget_v_u8m8_u8m4
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vget_v_u8m8_u8m4
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.vector.extract.nxv32i8.nxv64i8(<vscale x 64 x i8> [[SRC]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.vector.extract.nxv32b8.nxv64b8(<vscale x 64 x b8> [[SRC]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vget_v_u8m8_u8m4(vuint8m8_t src, size_t index) {
   return __riscv_vget_u8m4(src, 0);
@@ -2067,321 +2067,321 @@ vint64m4_t test_vget_v_i64m4x2_i64m4(vint64m4x2_t src, size_t index) {
   return __riscv_vget_i64m4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vget_v_u8mf8x2_u8mf8
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vget_v_u8mf8x2_u8mf8
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vget_v_u8mf8x2_u8mf8(vuint8mf8x2_t src, size_t index) {
   return __riscv_vget_u8mf8(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vget_v_u8mf8x3_u8mf8
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vget_v_u8mf8x3_u8mf8
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vget_v_u8mf8x3_u8mf8(vuint8mf8x3_t src, size_t index) {
   return __riscv_vget_u8mf8(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vget_v_u8mf8x4_u8mf8
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vget_v_u8mf8x4_u8mf8
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vget_v_u8mf8x4_u8mf8(vuint8mf8x4_t src, size_t index) {
   return __riscv_vget_u8mf8(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vget_v_u8mf8x5_u8mf8
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vget_v_u8mf8x5_u8mf8
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vget_v_u8mf8x5_u8mf8(vuint8mf8x5_t src, size_t index) {
   return __riscv_vget_u8mf8(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vget_v_u8mf8x6_u8mf8
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vget_v_u8mf8x6_u8mf8
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vget_v_u8mf8x6_u8mf8(vuint8mf8x6_t src, size_t index) {
   return __riscv_vget_u8mf8(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vget_v_u8mf8x7_u8mf8
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vget_v_u8mf8x7_u8mf8
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vget_v_u8mf8x7_u8mf8(vuint8mf8x7_t src, size_t index) {
   return __riscv_vget_u8mf8(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vget_v_u8mf8x8_u8mf8
-// CHECK-RV64-SAME: ({ <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vget_v_u8mf8x8_u8mf8
+// CHECK-RV64-SAME: ({ <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vget_v_u8mf8x8_u8mf8(vuint8mf8x8_t src, size_t index) {
   return __riscv_vget_u8mf8(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vget_v_u8mf4x2_u8mf4
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vget_v_u8mf4x2_u8mf4
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vget_v_u8mf4x2_u8mf4(vuint8mf4x2_t src, size_t index) {
   return __riscv_vget_u8mf4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vget_v_u8mf4x3_u8mf4
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vget_v_u8mf4x3_u8mf4
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vget_v_u8mf4x3_u8mf4(vuint8mf4x3_t src, size_t index) {
   return __riscv_vget_u8mf4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vget_v_u8mf4x4_u8mf4
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vget_v_u8mf4x4_u8mf4
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vget_v_u8mf4x4_u8mf4(vuint8mf4x4_t src, size_t index) {
   return __riscv_vget_u8mf4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vget_v_u8mf4x5_u8mf4
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vget_v_u8mf4x5_u8mf4
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vget_v_u8mf4x5_u8mf4(vuint8mf4x5_t src, size_t index) {
   return __riscv_vget_u8mf4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vget_v_u8mf4x6_u8mf4
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vget_v_u8mf4x6_u8mf4
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vget_v_u8mf4x6_u8mf4(vuint8mf4x6_t src, size_t index) {
   return __riscv_vget_u8mf4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vget_v_u8mf4x7_u8mf4
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vget_v_u8mf4x7_u8mf4
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vget_v_u8mf4x7_u8mf4(vuint8mf4x7_t src, size_t index) {
   return __riscv_vget_u8mf4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vget_v_u8mf4x8_u8mf4
-// CHECK-RV64-SAME: ({ <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vget_v_u8mf4x8_u8mf4
+// CHECK-RV64-SAME: ({ <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vget_v_u8mf4x8_u8mf4(vuint8mf4x8_t src, size_t index) {
   return __riscv_vget_u8mf4(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vget_v_u8mf2x2_u8mf2
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vget_v_u8mf2x2_u8mf2
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vget_v_u8mf2x2_u8mf2(vuint8mf2x2_t src, size_t index) {
   return __riscv_vget_u8mf2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vget_v_u8mf2x3_u8mf2
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vget_v_u8mf2x3_u8mf2
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vget_v_u8mf2x3_u8mf2(vuint8mf2x3_t src, size_t index) {
   return __riscv_vget_u8mf2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vget_v_u8mf2x4_u8mf2
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vget_v_u8mf2x4_u8mf2
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vget_v_u8mf2x4_u8mf2(vuint8mf2x4_t src, size_t index) {
   return __riscv_vget_u8mf2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vget_v_u8mf2x5_u8mf2
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vget_v_u8mf2x5_u8mf2
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vget_v_u8mf2x5_u8mf2(vuint8mf2x5_t src, size_t index) {
   return __riscv_vget_u8mf2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vget_v_u8mf2x6_u8mf2
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vget_v_u8mf2x6_u8mf2
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vget_v_u8mf2x6_u8mf2(vuint8mf2x6_t src, size_t index) {
   return __riscv_vget_u8mf2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vget_v_u8mf2x7_u8mf2
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vget_v_u8mf2x7_u8mf2
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vget_v_u8mf2x7_u8mf2(vuint8mf2x7_t src, size_t index) {
   return __riscv_vget_u8mf2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vget_v_u8mf2x8_u8mf2
-// CHECK-RV64-SAME: ({ <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vget_v_u8mf2x8_u8mf2
+// CHECK-RV64-SAME: ({ <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vget_v_u8mf2x8_u8mf2(vuint8mf2x8_t src, size_t index) {
   return __riscv_vget_u8mf2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m1x2_u8m1
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m1x2_u8m1
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m1x2_u8m1(vuint8m1x2_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m1x3_u8m1
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m1x3_u8m1
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m1x3_u8m1(vuint8m1x3_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m1x4_u8m1
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m1x4_u8m1
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m1x4_u8m1(vuint8m1x4_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m1x5_u8m1
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m1x5_u8m1
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m1x5_u8m1(vuint8m1x5_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m1x6_u8m1
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m1x6_u8m1
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m1x6_u8m1(vuint8m1x6_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m1x7_u8m1
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m1x7_u8m1
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m1x7_u8m1(vuint8m1x7_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vget_v_u8m1x8_u8m1
-// CHECK-RV64-SAME: ({ <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vget_v_u8m1x8_u8m1
+// CHECK-RV64-SAME: ({ <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m1x8_u8m1(vuint8m1x8_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vget_v_u8m2x2_u8m2
-// CHECK-RV64-SAME: ({ <vscale x 16 x i8>, <vscale x 16 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vget_v_u8m2x2_u8m2
+// CHECK-RV64-SAME: ({ <vscale x 16 x b8>, <vscale x 16 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vget_v_u8m2x2_u8m2(vuint8m2x2_t src, size_t index) {
   return __riscv_vget_u8m2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vget_v_u8m2x3_u8m2
-// CHECK-RV64-SAME: ({ <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vget_v_u8m2x3_u8m2
+// CHECK-RV64-SAME: ({ <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vget_v_u8m2x3_u8m2(vuint8m2x3_t src, size_t index) {
   return __riscv_vget_u8m2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vget_v_u8m2x4_u8m2
-// CHECK-RV64-SAME: ({ <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vget_v_u8m2x4_u8m2
+// CHECK-RV64-SAME: ({ <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vget_v_u8m2x4_u8m2(vuint8m2x4_t src, size_t index) {
   return __riscv_vget_u8m2(src, 0);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vget_v_u8m4x2_u8m4
-// CHECK-RV64-SAME: ({ <vscale x 32 x i8>, <vscale x 32 x i8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vget_v_u8m4x2_u8m4
+// CHECK-RV64-SAME: ({ <vscale x 32 x b8>, <vscale x 32 x b8> } [[SRC:%.*]], i64 noundef [[INDEX:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 32 x i8>, <vscale x 32 x i8> } [[SRC]], 0
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = extractvalue { <vscale x 32 x b8>, <vscale x 32 x b8> } [[SRC]], 0
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vget_v_u8m4x2_u8m4(vuint8m4x2_t src, size_t index) {
   return __riscv_vget_u8m4(src, 0);
