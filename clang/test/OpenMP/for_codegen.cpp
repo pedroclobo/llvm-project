@@ -481,7 +481,7 @@ void test_auto(float *a, float *b, float *c, float *d) {
     for (x = 11; x > 0; --x) {
 // CHECK: [[LOOP1_BODY]]
 // Start of body: indices are calculated from IV:
-// CHECK: store i8 {{%[^,]+}}, ptr {{%[^,]+}}
+// CHECK: store b8 {{%[^,]+}}, ptr {{%[^,]+}}
 // CHECK: store i32 {{%[^,]+}}, ptr {{%[^,]+}}
 // ... loop body ...
 // End of body: store into a[i]:
@@ -526,7 +526,7 @@ void runtime(float *a, float *b, float *c, float *d) {
     for (x = -10; x < 10; ++x) {
 // CHECK: [[LOOP1_BODY]]
 // Start of body: indices are calculated from IV:
-// CHECK: store i8 {{%[^,]+}}, ptr {{%[^,]+}}
+// CHECK: store b8 {{%[^,]+}}, ptr {{%[^,]+}}
 // CHECK: store i32 {{%[^,]+}}, ptr {{%[^,]+}}
 // ... loop body ...
 // End of body: store into a[i]:
@@ -546,16 +546,17 @@ void runtime(float *a, float *b, float *c, float *d) {
 
 // CHECK-LABEL: test_precond
 void test_precond() {
-  // CHECK: [[A_ADDR:%.+]] = alloca i8,
-  // CHECK: [[I_ADDR:%.+]] = alloca i8,
-  // CHECK: [[CAP:%.+]] = alloca i8,
+  // CHECK: [[A_ADDR:%.+]] = alloca b8,
+  // CHECK: [[I_ADDR:%.+]] = alloca b8,
+  // CHECK: [[CAP:%.+]] = alloca b8,
   char a = 0;
   // CHECK: store i8 0,
   // CHECK: store i32
-  // CHECK: store i8
-  // CHECK: [[A:%.+]] = load i8, ptr [[CAP]],
-  // CHECK: [[CONV:%.+]] = sext i8 [[A]] to i32
-  // CHECK: [[CMP:%.+]] = icmp slt i32 [[CONV]], 10
+  // CHECK: store b8
+  // CHECK: [[A:%.+]] = load b8, ptr [[CAP]],
+  // CHECK: [[CONV1:%.+]] = bytecast exact b8 [[A]] to i8
+  // CHECK: [[CONV2:%.+]] = sext i8 [[CONV1]] to i32
+  // CHECK: [[CMP:%.+]] = icmp slt i32 [[CONV2]], 10
   // CHECK: br i1 [[CMP]], label %[[PRECOND_THEN:[^,]+]], label %[[PRECOND_END:[^,]+]]
   // CHECK: [[PRECOND_THEN]]
   // CHECK: call void @__kmpc_for_static_init_4
@@ -591,18 +592,18 @@ void parallel_for(float *a) {
 char i = 1, j = 2, k = 3;
 // CHECK-LABEL: for_with_global_lcv
 void for_with_global_lcv() {
-// CHECK: alloca i8,
-// CHECK: [[I_ADDR:%.+]] = alloca i8,
-// CHECK: alloca i8,
-// CHECK: [[J_ADDR:%.+]] = alloca i8,
+// CHECK: alloca b8,
+// CHECK: [[I_ADDR:%.+]] = alloca b8,
+// CHECK: alloca b8,
+// CHECK: [[J_ADDR:%.+]] = alloca b8,
 
 // CHECK: call void @__kmpc_for_static_init_4(
 // CHECK-NOT: [[I]]
-// CHECK: store i8 %{{.+}}, ptr [[I_ADDR]]
+// CHECK: store b8 %{{.+}}, ptr [[I_ADDR]]
 // CHECK-NOT: [[I]]
-// CHECK: [[I_VAL:%.+]] = load i8, ptr [[I_ADDR]],
+// CHECK: [[I_VAL:%.+]] = load b8, ptr [[I_ADDR]],
 // CHECK-NOT: [[I]]
-// CHECK: store i8 [[I_VAL]], ptr [[K]]
+// CHECK: store b8 [[I_VAL]], ptr [[K]]
 // CHECK-NOT: [[I]]
 // CHECK: call void @__kmpc_for_static_fini(
 // CHECK: call void @__kmpc_barrier(
@@ -612,11 +613,11 @@ void for_with_global_lcv() {
   }
 // CHECK: call void @__kmpc_for_static_init_4(
 // CHECK-NOT: [[J]]
-// CHECK: store i8 %{{.+}}, ptr [[J_ADDR]]
+// CHECK: store b8 %{{.+}}, ptr [[J_ADDR]]
 // CHECK-NOT: [[J]]
-// CHECK: [[J_VAL:%.+]] = load i8, ptr [[J_ADDR]],
+// CHECK: [[J_VAL:%.+]] = load b8, ptr [[J_ADDR]],
 // CHECK-NOT: [[J]]
-// CHECK: store i8 [[J_VAL]], ptr [[K]]
+// CHECK: store b8 [[J_VAL]], ptr [[K]]
 // CHECK-NOT: [[J]]
 // CHECK: call void @__kmpc_for_static_fini(
 #pragma omp for collapse(2)
@@ -633,11 +634,11 @@ void for_with_global_lcv() {
 
 // CHECK-LABEL: for_with_references
 void for_with_references() {
-// CHECK: [[I:%.+]] = alloca i8,
+// CHECK: [[I:%.+]] = alloca b8,
 // CHECK: [[CNT:%.+]] = alloca ptr,
-// CHECK: [[CNT_PRIV:%.+]] = alloca i8,
+// CHECK: [[CNT_PRIV:%.+]] = alloca b8,
 // CHECK: call void @__kmpc_for_static_init_8(
-// CHECK-NOT: load i8, ptr [[CNT]],
+// CHECK-NOT: load b8, ptr [[CNT]],
 // CHECK: call void @__kmpc_for_static_fini(
   char i = 0;
   char &cnt = i;
@@ -649,11 +650,11 @@ void for_with_references() {
 
 // CHECK-LABEL: for_with_references_dep_cond
 void for_with_references_dep_cond() {
-// CHECK: [[I:%.+]] = alloca i8,
+// CHECK: [[I:%.+]] = alloca b8,
 // CHECK: [[CNT:%.+]] = alloca ptr,
 // CHECK: [[CNT_PRIV:%.+]] = alloca i8,
 // CHECK: call void @__kmpc_for_static_init_8(
-// CHECK-NOT: load i8, ptr [[CNT]],
+// CHECK-NOT: load b8, ptr [[CNT]],
 // CHECK: call void @__kmpc_for_static_fini(
   char i = 0;
   char &cnt = i;

@@ -64,8 +64,8 @@ int bar(int n){
 // CHECK1-NEXT:    br i1 [[EXEC_USER_CODE]], label [[USER_CODE_ENTRY:%.*]], label [[WORKER_EXIT:%.*]]
 // CHECK1:       user_code.entry:
 // CHECK1-NEXT:    [[TMP1:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1:[0-9]+]])
-// CHECK1-NEXT:    [[TMP2:%.*]] = load i8, ptr [[A_ADDR]], align 1
-// CHECK1-NEXT:    store i8 [[TMP2]], ptr [[A_CASTED]], align 1
+// CHECK1-NEXT:    [[TMP2:%.*]] = load b8, ptr [[A_ADDR]], align 1
+// CHECK1-NEXT:    store b8 [[TMP2]], ptr [[A_CASTED]], align 1
 // CHECK1-NEXT:    [[TMP3:%.*]] = load i64, ptr [[A_CASTED]], align 8
 // CHECK1-NEXT:    store i32 0, ptr [[DOTZERO_ADDR]], align 4
 // CHECK1-NEXT:    store i32 [[TMP1]], ptr [[DOTTHREADID_TEMP_]], align 4
@@ -222,8 +222,8 @@ int bar(int n){
 // CHECK2-NEXT:    br i1 [[EXEC_USER_CODE]], label [[USER_CODE_ENTRY:%.*]], label [[WORKER_EXIT:%.*]]
 // CHECK2:       user_code.entry:
 // CHECK2-NEXT:    [[TMP1:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1:[0-9]+]])
-// CHECK2-NEXT:    [[TMP2:%.*]] = load i8, ptr [[A_ADDR]], align 1
-// CHECK2-NEXT:    store i8 [[TMP2]], ptr [[A_CASTED]], align 1
+// CHECK2-NEXT:    [[TMP2:%.*]] = load b8, ptr [[A_ADDR]], align 1
+// CHECK2-NEXT:    store b8 [[TMP2]], ptr [[A_CASTED]], align 1
 // CHECK2-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A_CASTED]], align 4
 // CHECK2-NEXT:    store i32 0, ptr [[DOTZERO_ADDR]], align 4
 // CHECK2-NEXT:    store i32 [[TMP1]], ptr [[DOTTHREADID_TEMP_]], align 4

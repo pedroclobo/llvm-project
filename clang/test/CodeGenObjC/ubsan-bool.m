@@ -10,7 +10,7 @@ BOOL f1(void) {
   // C-NOT: call void @__ubsan_handle_load_invalid_value
   BOOL a = 2;
   return a + 1;
-  // SHARED: ret i8
+  // SHARED: ret b8
 }
 
 struct S1 {
@@ -22,12 +22,14 @@ BOOL f2(struct S1 *s) {
   // OBJC: [[LOAD:%.*]] = load i8, ptr {{.*}}
   // OBJC: [[SHL:%.*]] = shl i8 [[LOAD]], 7
   // OBJC: [[ASHR:%.*]] = ashr i8 [[SHL]], 7
-  // OBJC: icmp ule i8 [[ASHR]], 1, !nosanitize
+  // OBJC: [[BFCAST:%.*]] = bitcast i8 [[ASHR]] to b8
+  // OBJC: [[CONV:%.*]] = bytecast exact b8 [[BFCAST]] to i8
+  // OBJC: icmp ule i8 [[CONV]], 1, !nosanitize
   // OBJC: call void @__ubsan_handle_load_invalid_value
 
   // C-NOT: call void @__ubsan_handle_load_invalid_value
   return s->b1;
-  // SHARED: ret i8
+  // SHARED: ret b8
 }
 
 #ifdef __OBJC__
@@ -45,13 +47,15 @@ BOOL f2(struct S1 *s) {
 @end
 
 // Check the synthesized getter.
-// OBJC-LABEL: define internal signext i8 @"\01-[I1 b1]"
+// OBJC-LABEL: define internal signext b8 @"\01-[I1 b1]"
 // OBJC: [[IVAR:%.*]] = load i64, ptr @"OBJC_IVAR_$_I1.b1"
 // OBJC: [[ADDR:%.*]] = getelementptr inbounds i8, ptr {{.*}}, i64 [[IVAR]]
 // OBJC: [[LOAD:%.*]] = load i8, ptr {{.*}}
 // OBJC: [[SHL:%.*]] = shl i8 [[LOAD]], 7
 // OBJC: [[ASHR:%.*]] = ashr i8 [[SHL]], 7
-// OBJC: icmp ule i8 [[ASHR]], 1, !nosanitize
+// OBJC: [[BFCAST:%.*]] = bitcast i8 [[ASHR]] to b8
+// OBJC: [[CONV:%.*]] = bytecast exact b8 [[BFCAST]] to i8
+// OBJC: icmp ule i8 [[CONV]], 1, !nosanitize
 // OBJC: call void @__ubsan_handle_load_invalid_value
 
 // Also check direct accesses to the ivar.
@@ -60,10 +64,12 @@ BOOL f3(I1 *i) {
   // OBJC: [[LOAD:%.*]] = load i8, ptr {{.*}}
   // OBJC: [[SHL:%.*]] = shl i8 [[LOAD]], 7
   // OBJC: [[ASHR:%.*]] = ashr i8 [[SHL]], 7
-  // OBJC: icmp ule i8 [[ASHR]], 1, !nosanitize
+  // OBJC: [[BFCAST:%.*]] = bitcast i8 [[ASHR]] to b8
+  // OBJC: [[CONV:%.*]] = bytecast exact b8 [[BFCAST]] to i8
+  // OBJC: icmp ule i8 [[CONV]], 1, !nosanitize
   // OBJC: call void @__ubsan_handle_load_invalid_value
 
   return i->b1;
-  // OBJC: ret i8
+  // OBJC: ret b8
 }
 #endif /* __OBJC__ */

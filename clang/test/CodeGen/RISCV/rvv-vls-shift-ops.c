@@ -34,11 +34,14 @@ typedef vfloat64m1_t fixed_float64m1_t __attribute__((riscv_rvv_vector_bits(__ri
 
 // CHECK-LABEL: @lshift_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHL]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[B:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[B_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[EXT2:%.*]] = bytecast exact <32 x b8> [[B]] to <32 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHL]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_int8m1_t lshift_i8(fixed_int8m1_t a, fixed_int8m1_t b) {
   return a << b;
@@ -46,11 +49,14 @@ fixed_int8m1_t lshift_i8(fixed_int8m1_t a, fixed_int8m1_t b) {
 
 // CHECK-LABEL: @rshift_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[SHR:%.*]] = ashr <32 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[B:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[B_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[EXT2:%.*]] = bytecast exact <32 x b8> [[B]] to <32 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHR]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_int8m1_t rshift_i8(fixed_int8m1_t a, fixed_int8m1_t b) {
   return a >> b;
@@ -58,11 +64,14 @@ fixed_int8m1_t rshift_i8(fixed_int8m1_t a, fixed_int8m1_t b) {
 
 // CHECK-LABEL: @lshift_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHL]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[B:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[B_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[EXT2:%.*]] = bytecast exact <32 x b8> [[B]] to <32 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHL]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_uint8m1_t lshift_u8(fixed_uint8m1_t a, fixed_uint8m1_t b) {
   return a << b;
@@ -70,11 +79,14 @@ fixed_uint8m1_t lshift_u8(fixed_uint8m1_t a, fixed_uint8m1_t b) {
 
 // CHECK-LABEL: @rshift_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[B:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[B_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[EXT2:%.*]] = bytecast exact <32 x b8> [[B]] to <32 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHR]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_uint8m1_t rshift_u8(fixed_uint8m1_t a, fixed_uint8m1_t b) {
   return a >> b;
@@ -226,14 +238,17 @@ fixed_uint64m1_t rshift_u64(fixed_uint64m1_t a, fixed_uint64m1_t b) {
 
 // CHECK-LABEL: @lshift_i8_rsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[B:%.*]] to i32
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i32> poison, i32 [[CONV]], i64 0
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[B:%.*]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i32> poison, i32 [[CONV1]], i64 0
 // CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x i32> [[SPLAT_SPLATINSERT]], <32 x i32> poison, <32 x i32> zeroinitializer
-// CHECK-NEXT:    [[SH_PROM:%.*]] = trunc <32 x i32> [[SPLAT_SPLAT]] to <32 x i8>
-// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[A]], [[SH_PROM]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHL]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[EXT2:%.*]] = trunc <32 x i32> [[SPLAT_SPLAT]] to <32 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHL]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_int8m1_t lshift_i8_rsplat(fixed_int8m1_t a, int8_t b) {
   return a << b;
@@ -241,12 +256,15 @@ fixed_int8m1_t lshift_i8_rsplat(fixed_int8m1_t a, int8_t b) {
 
 // CHECK-LABEL: @lshift_i8_lsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x i8> [[SPLAT_SPLATINSERT]], <32 x i8> poison, <32 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[SPLAT_SPLAT]], [[A]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHL]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x b8> [[SPLAT_SPLATINSERT]], <32 x b8> poison, <32 x i32> zeroinitializer
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[SPLAT_SPLAT]] to <32 x i8>
+// CHECK-NEXT:    [[EXT1:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[EXT]], [[EXT1]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHL]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_int8m1_t lshift_i8_lsplat(fixed_int8m1_t a, int8_t b) {
   return b << a;
@@ -254,14 +272,17 @@ fixed_int8m1_t lshift_i8_lsplat(fixed_int8m1_t a, int8_t b) {
 
 // CHECK-LABEL: @rshift_i8_rsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[B:%.*]] to i32
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i32> poison, i32 [[CONV]], i64 0
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[B:%.*]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i32> poison, i32 [[CONV1]], i64 0
 // CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x i32> [[SPLAT_SPLATINSERT]], <32 x i32> poison, <32 x i32> zeroinitializer
-// CHECK-NEXT:    [[SH_PROM:%.*]] = trunc <32 x i32> [[SPLAT_SPLAT]] to <32 x i8>
-// CHECK-NEXT:    [[SHR:%.*]] = ashr <32 x i8> [[A]], [[SH_PROM]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[EXT2:%.*]] = trunc <32 x i32> [[SPLAT_SPLAT]] to <32 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHR]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_int8m1_t rshift_i8_rsplat(fixed_int8m1_t a, int8_t b) {
   return a >> b;
@@ -269,12 +290,15 @@ fixed_int8m1_t rshift_i8_rsplat(fixed_int8m1_t a, int8_t b) {
 
 // CHECK-LABEL: @rshift_i8_lsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x i8> [[SPLAT_SPLATINSERT]], <32 x i8> poison, <32 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHR:%.*]] = ashr <32 x i8> [[SPLAT_SPLAT]], [[A]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x b8> [[SPLAT_SPLATINSERT]], <32 x b8> poison, <32 x i32> zeroinitializer
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[SPLAT_SPLAT]] to <32 x i8>
+// CHECK-NEXT:    [[EXT1:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[EXT]], [[EXT1]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHR]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_int8m1_t rshift_i8_lsplat(fixed_int8m1_t a, int8_t b) {
   return b >> a;
@@ -282,14 +306,17 @@ fixed_int8m1_t rshift_i8_lsplat(fixed_int8m1_t a, int8_t b) {
 
 // CHECK-LABEL: @lshift_u8_rsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[CONV:%.*]] = zext i8 [[B:%.*]] to i32
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i32> poison, i32 [[CONV]], i64 0
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[B:%.*]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = zext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i32> poison, i32 [[CONV1]], i64 0
 // CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x i32> [[SPLAT_SPLATINSERT]], <32 x i32> poison, <32 x i32> zeroinitializer
-// CHECK-NEXT:    [[SH_PROM:%.*]] = trunc <32 x i32> [[SPLAT_SPLAT]] to <32 x i8>
-// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[A]], [[SH_PROM]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHL]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[EXT2:%.*]] = trunc <32 x i32> [[SPLAT_SPLAT]] to <32 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHL]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_uint8m1_t lshift_u8_rsplat(fixed_uint8m1_t a, uint8_t b) {
   return a << b;
@@ -297,12 +324,15 @@ fixed_uint8m1_t lshift_u8_rsplat(fixed_uint8m1_t a, uint8_t b) {
 
 // CHECK-LABEL: @lshift_u8_lsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x i8> [[SPLAT_SPLATINSERT]], <32 x i8> poison, <32 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[SPLAT_SPLAT]], [[A]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHL]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x b8> [[SPLAT_SPLATINSERT]], <32 x b8> poison, <32 x i32> zeroinitializer
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[SPLAT_SPLAT]] to <32 x i8>
+// CHECK-NEXT:    [[EXT1:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <32 x i8> [[EXT]], [[EXT1]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHL]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_uint8m1_t lshift_u8_lsplat(fixed_uint8m1_t a, uint8_t b) {
   return b << a;
@@ -310,14 +340,17 @@ fixed_uint8m1_t lshift_u8_lsplat(fixed_uint8m1_t a, uint8_t b) {
 
 // CHECK-LABEL: @rshift_u8_rsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[CONV:%.*]] = zext i8 [[B:%.*]] to i32
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i32> poison, i32 [[CONV]], i64 0
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[B:%.*]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = zext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i32> poison, i32 [[CONV1]], i64 0
 // CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x i32> [[SPLAT_SPLATINSERT]], <32 x i32> poison, <32 x i32> zeroinitializer
-// CHECK-NEXT:    [[SH_PROM:%.*]] = trunc <32 x i32> [[SPLAT_SPLAT]] to <32 x i8>
-// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[A]], [[SH_PROM]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[EXT2:%.*]] = trunc <32 x i32> [[SPLAT_SPLAT]] to <32 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHR]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_uint8m1_t rshift_u8_rsplat(fixed_uint8m1_t a, uint8_t b) {
   return a >> b;
@@ -325,12 +358,15 @@ fixed_uint8m1_t rshift_u8_rsplat(fixed_uint8m1_t a, uint8_t b) {
 
 // CHECK-LABEL: @rshift_u8_lsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x i8> [[SPLAT_SPLATINSERT]], <32 x i8> poison, <32 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[SPLAT_SPLAT]], [[A]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> poison, <32 x i8> [[SHR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <32 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <32 x b8> [[SPLAT_SPLATINSERT]], <32 x b8> poison, <32 x i32> zeroinitializer
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <32 x b8> [[SPLAT_SPLAT]] to <32 x i8>
+// CHECK-NEXT:    [[EXT1:%.*]] = bytecast exact <32 x b8> [[A]] to <32 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <32 x i8> [[EXT]], [[EXT1]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <32 x i8> [[SHR]] to <32 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> poison, <32 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[CAST_SCALABLE]]
 //
 fixed_uint8m1_t rshift_u8_lsplat(fixed_uint8m1_t a, uint8_t b) {
   return b >> a;

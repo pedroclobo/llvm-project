@@ -24,13 +24,15 @@
 
 // CHECK-LABEL: @test_svunpklo_s16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.sunpklo.nxv8i16(<vscale x 16 x i8> [[OP:%.*]])
-// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.sunpklo.nxv8i16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z17test_svunpklo_s16u10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.sunpklo.nxv8i16(<vscale x 16 x i8> [[OP:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.sunpklo.nxv8i16(<vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP1]]
 //
 svint16_t test_svunpklo_s16(svint8_t op) MODE_ATTR
 {
@@ -69,13 +71,15 @@ svint64_t test_svunpklo_s64(svint32_t op) MODE_ATTR
 
 // CHECK-LABEL: @test_svunpklo_u16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uunpklo.nxv8i16(<vscale x 16 x i8> [[OP:%.*]])
-// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uunpklo.nxv8i16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z17test_svunpklo_u16u11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uunpklo.nxv8i16(<vscale x 16 x i8> [[OP:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uunpklo.nxv8i16(<vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP1]]
 //
 svuint16_t test_svunpklo_u16(svuint8_t op) MODE_ATTR
 {

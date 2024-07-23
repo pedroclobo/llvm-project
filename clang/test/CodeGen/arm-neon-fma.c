@@ -16,14 +16,17 @@
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[ACCUM]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[LHS]] to <2 x i32>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x float> [[RHS]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP5]] to <2 x float>
-// CHECK-NEXT:    [[TMP9:%.*]] = call <2 x float> @llvm.fma.v2f32(<2 x float> [[TMP7]], <2 x float> [[TMP8]], <2 x float> [[TMP6]])
-// CHECK-NEXT:    ret <2 x float> [[TMP9]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <2 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <2 x float>
+// CHECK-NEXT:    [[TMP12:%.*]] = call <2 x float> @llvm.fma.v2f32(<2 x float> [[TMP9]], <2 x float> [[TMP11]], <2 x float> [[TMP7]])
+// CHECK-NEXT:    ret <2 x float> [[TMP12]]
 //
 float32x2_t test_fma_order(float32x2_t accum, float32x2_t lhs, float32x2_t rhs) {
   return vfma_f32(accum, lhs, rhs);
@@ -35,14 +38,17 @@ float32x2_t test_fma_order(float32x2_t accum, float32x2_t lhs, float32x2_t rhs) 
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[ACCUM]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[LHS]] to <4 x i32>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[RHS]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <4 x float>
-// CHECK-NEXT:    [[TMP9:%.*]] = call <4 x float> @llvm.fma.v4f32(<4 x float> [[TMP7]], <4 x float> [[TMP8]], <4 x float> [[TMP6]])
-// CHECK-NEXT:    ret <4 x float> [[TMP9]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <4 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <4 x float>
+// CHECK-NEXT:    [[TMP12:%.*]] = call <4 x float> @llvm.fma.v4f32(<4 x float> [[TMP9]], <4 x float> [[TMP11]], <4 x float> [[TMP7]])
+// CHECK-NEXT:    ret <4 x float> [[TMP12]]
 //
 float32x4_t test_fmaq_order(float32x4_t accum, float32x4_t lhs, float32x4_t rhs) {
   return vfmaq_f32(accum, lhs, rhs);
@@ -56,14 +62,17 @@ float32x4_t test_fmaq_order(float32x4_t accum, float32x4_t lhs, float32x4_t rhs)
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[A]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B]] to <2 x i32>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x float> [[VECINIT1_I]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP5]] to <2 x float>
-// CHECK-NEXT:    [[TMP9:%.*]] = call <2 x float> @llvm.fma.v2f32(<2 x float> [[TMP7]], <2 x float> [[TMP8]], <2 x float> [[TMP6]])
-// CHECK-NEXT:    ret <2 x float> [[TMP9]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <2 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <2 x float>
+// CHECK-NEXT:    [[TMP12:%.*]] = call <2 x float> @llvm.fma.v2f32(<2 x float> [[TMP9]], <2 x float> [[TMP11]], <2 x float> [[TMP7]])
+// CHECK-NEXT:    ret <2 x float> [[TMP12]]
 //
 float32x2_t test_vfma_n_f32(float32x2_t a, float32x2_t b, float32_t n) {
   return vfma_n_f32(a, b, n);
@@ -79,14 +88,17 @@ float32x2_t test_vfma_n_f32(float32x2_t a, float32x2_t b, float32_t n) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B]] to <4 x i32>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[VECINIT3_I]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <4 x float>
-// CHECK-NEXT:    [[TMP9:%.*]] = call <4 x float> @llvm.fma.v4f32(<4 x float> [[TMP7]], <4 x float> [[TMP8]], <4 x float> [[TMP6]])
-// CHECK-NEXT:    ret <4 x float> [[TMP9]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <4 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <4 x float>
+// CHECK-NEXT:    [[TMP12:%.*]] = call <4 x float> @llvm.fma.v4f32(<4 x float> [[TMP9]], <4 x float> [[TMP11]], <4 x float> [[TMP7]])
+// CHECK-NEXT:    ret <4 x float> [[TMP12]]
 //
 float32x4_t test_vfmaq_n_f32(float32x4_t a, float32x4_t b, float32_t n) {
   return vfmaq_n_f32(a, b, n);

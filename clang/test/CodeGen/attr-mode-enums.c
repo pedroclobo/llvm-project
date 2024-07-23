@@ -5,7 +5,7 @@
 //   2. "enum X __attribute__((mode(QI))) var;" forms a complete integer type.
 
 int main(void) {
-  // CHECK: [[X1:%.+]] = alloca i8
+  // CHECK: [[X1:%.+]] = alloca b8
   enum { A1, B1 } __attribute__((mode(QI))) x1 = A1;
 
   // CHECK: [[X2:%.+]] = alloca i16
@@ -19,18 +19,18 @@ int main(void) {
   typedef enum { A4, B4 } T4 __attribute__((mode(DI)));
   T4 x4 = B4;
 
-  // CHECK: [[X5:%.+]] = alloca i8
+  // CHECK: [[X5:%.+]] = alloca b8
   typedef enum __attribute__((mode(QI))) { A5, B5 } T5;
   T5 x5 = A5;
 
-  // CHECK: [[X6:%.+]] = alloca i8
+  // CHECK: [[X6:%.+]] = alloca b8
   typedef enum X __attribute__((mode(QI))) T6;
   T6 x6;
 
   // CHECK: [[X7:%.+]] = alloca i128
   enum { A7, B7 } __attribute__((mode(TI))) x7 = A7;
 
-  // CHECK: [[X8:%.+]] = alloca i8
+  // CHECK: [[X8:%.+]] = alloca b8
   enum __attribute__((mode(QI))) { A8, B8 } x8 = B8;
 
   // CHECK: store i8 0, ptr [[X1]]

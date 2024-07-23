@@ -12,9 +12,9 @@
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL1_I:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.v8f16(<8 x half> [[VMLAL_I]], <16 x i8> [[VN]], <16 x i8> [[VM]])
 // CHECK-NEXT:    ret <8 x half> [[VMLAL1_I]]
 //
@@ -22,9 +22,9 @@
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL1_I:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.v8f16(<8 x half> [[VMLAL_I]], <16 x i8> [[VN]], <16 x i8> [[VM]])
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL1_I]]
 //
@@ -36,9 +36,9 @@ float16x8_t test_vmlalb(float16x8_t vd, mfloat8x16_t vn, mfloat8x16_t vm, fpm_t 
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL1_I:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.v8f16(<8 x half> [[VMLAL_I]], <16 x i8> [[VN]], <16 x i8> [[VM]])
 // CHECK-NEXT:    ret <8 x half> [[VMLAL1_I]]
 //
@@ -46,9 +46,9 @@ float16x8_t test_vmlalb(float16x8_t vd, mfloat8x16_t vn, mfloat8x16_t vm, fpm_t 
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL1_I:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.v8f16(<8 x half> [[VMLAL_I]], <16 x i8> [[VN]], <16 x i8> [[VM]])
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL1_I]]
 //
@@ -132,10 +132,10 @@ float32x4_t test_vmlalltt(float32x4_t vd, mfloat8x16_t vn, mfloat8x16_t vm, fpm_
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <8 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.vector.insert.v16i8.v8i8(<16 x i8> poison, <8 x i8> [[VM]], i64 0)
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[TMP2]], i32 0)
 // CHECK-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -143,10 +143,10 @@ float32x4_t test_vmlalltt(float32x4_t vd, mfloat8x16_t vn, mfloat8x16_t vm, fpm_
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <8 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-CXX-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.vector.insert.v16i8.v8i8(<16 x i8> poison, <8 x i8> [[VM]], i64 0)
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[TMP2]], i32 0)
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -158,9 +158,9 @@ float16x8_t test_vmlalb_lane(float16x8_t vd, mfloat8x16_t vn, mfloat8x8_t vm, fp
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[VM]], i32 0)
 // CHECK-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -168,9 +168,9 @@ float16x8_t test_vmlalb_lane(float16x8_t vd, mfloat8x16_t vn, mfloat8x8_t vm, fp
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalb.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[VM]], i32 0)
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -182,10 +182,10 @@ float16x8_t test_vmlalb_laneq(float16x8_t vd, mfloat8x16_t vn, mfloat8x16_t vm, 
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <8 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.vector.insert.v16i8.v8i8(<16 x i8> poison, <8 x i8> [[VM]], i64 0)
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[TMP2]], i32 7)
 // CHECK-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -193,10 +193,10 @@ float16x8_t test_vmlalb_laneq(float16x8_t vd, mfloat8x16_t vn, mfloat8x16_t vm, 
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <8 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-CXX-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.vector.insert.v16i8.v8i8(<16 x i8> poison, <8 x i8> [[VM]], i64 0)
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[TMP2]], i32 7)
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -208,9 +208,9 @@ float16x8_t test_vmlalt_lane(float16x8_t vd, mfloat8x16_t vn, mfloat8x8_t vm, fp
 // CHECK-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[VM]], i32 15)
 // CHECK-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //
@@ -218,9 +218,9 @@ float16x8_t test_vmlalt_lane(float16x8_t vd, mfloat8x16_t vn, mfloat8x8_t vm, fp
 // CHECK-CXX-SAME: <8 x half> noundef [[VD:%.*]], <16 x i8> [[VN:%.*]], <16 x i8> [[VM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VD]] to <8 x i16>
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VMLAL_LANE:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VMLAL_LANE1:%.*]] = call <8 x half> @llvm.aarch64.neon.fp8.fmlalt.lane.v8f16(<8 x half> [[VMLAL_LANE]], <16 x i8> [[VN]], <16 x i8> [[VM]], i32 15)
 // CHECK-CXX-NEXT:    ret <8 x half> [[VMLAL_LANE1]]
 //

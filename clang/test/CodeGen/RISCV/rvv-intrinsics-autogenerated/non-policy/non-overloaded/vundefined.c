@@ -112,52 +112,52 @@ vfloat64m4_t test_vundefined_f64m4() { return __riscv_vundefined_f64m4(); }
 //
 vfloat64m8_t test_vundefined_f64m8() { return __riscv_vundefined_f64m8(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vundefined_i8mf8(
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vundefined_i8mf8(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> poison
 //
 vint8mf8_t test_vundefined_i8mf8() { return __riscv_vundefined_i8mf8(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vundefined_i8mf4(
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vundefined_i8mf4(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> poison
 //
 vint8mf4_t test_vundefined_i8mf4() { return __riscv_vundefined_i8mf4(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vundefined_i8mf2(
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vundefined_i8mf2(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> poison
 //
 vint8mf2_t test_vundefined_i8mf2() { return __riscv_vundefined_i8mf2(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vundefined_i8m1(
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vundefined_i8m1(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> poison
 //
 vint8m1_t test_vundefined_i8m1() { return __riscv_vundefined_i8m1(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vundefined_i8m2(
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vundefined_i8m2(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> poison
 //
 vint8m2_t test_vundefined_i8m2() { return __riscv_vundefined_i8m2(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vundefined_i8m4(
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vundefined_i8m4(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> poison
 //
 vint8m4_t test_vundefined_i8m4() { return __riscv_vundefined_i8m4(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vundefined_i8m8(
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vundefined_i8m8(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> poison
 //
 vint8m8_t test_vundefined_i8m8() { return __riscv_vundefined_i8m8(); }
 
@@ -266,52 +266,52 @@ vint64m4_t test_vundefined_i64m4() { return __riscv_vundefined_i64m4(); }
 //
 vint64m8_t test_vundefined_i64m8() { return __riscv_vundefined_i64m8(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vundefined_u8mf8(
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vundefined_u8mf8(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> poison
 //
 vuint8mf8_t test_vundefined_u8mf8() { return __riscv_vundefined_u8mf8(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vundefined_u8mf4(
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vundefined_u8mf4(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> poison
 //
 vuint8mf4_t test_vundefined_u8mf4() { return __riscv_vundefined_u8mf4(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vundefined_u8mf2(
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vundefined_u8mf2(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> poison
 //
 vuint8mf2_t test_vundefined_u8mf2() { return __riscv_vundefined_u8mf2(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vundefined_u8m1(
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vundefined_u8m1(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> poison
 //
 vuint8m1_t test_vundefined_u8m1() { return __riscv_vundefined_u8m1(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vundefined_u8m2(
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vundefined_u8m2(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> poison
 //
 vuint8m2_t test_vundefined_u8m2() { return __riscv_vundefined_u8m2(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vundefined_u8m4(
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vundefined_u8m4(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> poison
 //
 vuint8m4_t test_vundefined_u8m4() { return __riscv_vundefined_u8m4(); }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vundefined_u8m8(
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vundefined_u8m8(
 // CHECK-RV64-SAME: ) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> poison
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> poison
 //
 vuint8m8_t test_vundefined_u8m8() { return __riscv_vundefined_u8m8(); }
 

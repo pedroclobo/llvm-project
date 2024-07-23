@@ -49,12 +49,12 @@ extern "C" {
 unsigned char test_BitScanForward(unsigned LONG *Index, unsigned LONG Mask) {
   return _BitScanForward(Index, Mask);
 }
-// CHECK: define{{.*}}i8 @test_BitScanForward(ptr {{.*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK: define{{.*}}b8 @test_BitScanForward(ptr {{.*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK:   [[ISNOTZERO:%[a-z0-9._]+]] = icmp eq i32 %Mask, 0
 // CHECK:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK:   [[END_LABEL]]:
-// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK:   ret i8 [[RESULT]]
+// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK:   ret b8 [[RESULT]]
 // CHECK:   [[ISNOTZERO_LABEL]]:
 // CHECK:   [[INDEX:%[0-9]+]] = tail call range(i32 0, 33) i32 @llvm.cttz.i32(i32 %Mask, i1 true)
 // CHECK:   store i32 [[INDEX]], ptr %Index, align 4
@@ -63,12 +63,12 @@ unsigned char test_BitScanForward(unsigned LONG *Index, unsigned LONG Mask) {
 unsigned char test_BitScanReverse(unsigned LONG *Index, unsigned LONG Mask) {
   return _BitScanReverse(Index, Mask);
 }
-// CHECK: define{{.*}}i8 @test_BitScanReverse(ptr {{.*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK: define{{.*}}b8 @test_BitScanReverse(ptr {{.*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK:   [[ISNOTZERO:%[0-9]+]] = icmp eq i32 %Mask, 0
 // CHECK:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK:   [[END_LABEL]]:
-// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK:   ret i8 [[RESULT]]
+// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK:   ret b8 [[RESULT]]
 // CHECK:   [[ISNOTZERO_LABEL]]:
 // CHECK:   [[REVINDEX:%[0-9]+]] = tail call range(i32 0, 33) i32 @llvm.ctlz.i32(i32 %Mask, i1 true)
 // CHECK:   [[INDEX:%[0-9]+]] = xor i32 [[REVINDEX]], 31
@@ -79,12 +79,12 @@ unsigned char test_BitScanReverse(unsigned LONG *Index, unsigned LONG Mask) {
 unsigned char test_BitScanForward64(unsigned LONG *Index, unsigned __int64 Mask) {
   return _BitScanForward64(Index, Mask);
 }
-// CHECK: define{{.*}}i8 @test_BitScanForward64(ptr {{.*}}%Index, i64 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK: define{{.*}}b8 @test_BitScanForward64(ptr {{.*}}%Index, i64 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK:   [[ISNOTZERO:%[a-z0-9._]+]] = icmp eq i64 %Mask, 0
 // CHECK:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK:   [[END_LABEL]]:
-// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK:   ret i8 [[RESULT]]
+// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK:   ret b8 [[RESULT]]
 // CHECK:   [[ISNOTZERO_LABEL]]:
 // CHECK:   [[INDEX:%[0-9]+]] = tail call range(i64 0, 65) i64 @llvm.cttz.i64(i64 %Mask, i1 true)
 // CHECK:   [[TRUNC_INDEX:%[0-9]+]] = trunc nuw nsw i64 [[INDEX]] to i32
@@ -94,12 +94,12 @@ unsigned char test_BitScanForward64(unsigned LONG *Index, unsigned __int64 Mask)
 unsigned char test_BitScanReverse64(unsigned LONG *Index, unsigned __int64 Mask) {
   return _BitScanReverse64(Index, Mask);
 }
-// CHECK: define{{.*}}i8 @test_BitScanReverse64(ptr {{.*}}%Index, i64 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK: define{{.*}}b8 @test_BitScanReverse64(ptr {{.*}}%Index, i64 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK:   [[ISNOTZERO:%[0-9]+]] = icmp eq i64 %Mask, 0
 // CHECK:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK:   [[END_LABEL]]:
-// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK:   ret i8 [[RESULT]]
+// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK:   ret b8 [[RESULT]]
 // CHECK:   [[ISNOTZERO_LABEL]]:
 // CHECK:   [[REVINDEX:%[0-9]+]] = tail call range(i64 0, 65) i64 @llvm.ctlz.i64(i64 %Mask, i1 true)
 // CHECK:   [[TRUNC_REVINDEX:%[0-9]+]] = trunc nuw nsw i64 [[REVINDEX]] to i32

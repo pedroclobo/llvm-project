@@ -79,7 +79,7 @@ struct SmallWithSmallWithPrivate {
 };
 
 // WIN32: declare dso_local void @"{{.*take_bools_and_chars.*}}"
-// WIN32:       (ptr inalloca(<{ i8, [3 x i8], i8, [3 x i8], %struct.SmallWithDtor, i8, [3 x i8], i8, [3 x i8], i32, i8, [3 x i8] }>)
+// WIN32:       (ptr inalloca(<{ b8, [3 x i8], b8, [3 x i8], %struct.SmallWithDtor, b8, [3 x i8], i8, [3 x i8], i32, i8, [3 x i8] }>)
 void take_bools_and_chars(char a, char b, SmallWithDtor c, char d, bool e, int f, bool g);
 void call_bools_and_chars() {
   take_bools_and_chars('A', 'B', SmallWithDtor(), 'D', true, 13, false);

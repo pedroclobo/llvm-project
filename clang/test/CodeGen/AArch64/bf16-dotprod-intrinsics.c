@@ -11,12 +11,12 @@
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[R:%.*]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <4 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x bfloat> [[B:%.*]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x bfloat>
-// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <2 x float>
+// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <4 x bfloat>
+// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <4 x bfloat>
 // CHECK-NEXT:    [[VBFDOT3_I:%.*]] = call <2 x float> @llvm.aarch64.neon.bfdot.v2f32.v4bf16(<2 x float> [[VBFDOT_I]], <4 x bfloat> [[VBFDOT1_I]], <4 x bfloat> [[VBFDOT2_I]])
 // CHECK-NEXT:    ret <2 x float> [[VBFDOT3_I]]
 //
@@ -29,12 +29,12 @@ float32x2_t test_vbfdot_f32(float32x2_t r, bfloat16x4_t a, bfloat16x4_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x bfloat> [[B:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFDOT3_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfdot.v4f32.v8bf16(<4 x float> [[VBFDOT_I]], <8 x bfloat> [[VBFDOT1_I]], <8 x bfloat> [[VBFDOT2_I]])
 // CHECK-NEXT:    ret <4 x float> [[VBFDOT3_I]]
 //
@@ -47,20 +47,21 @@ float32x4_t test_vbfdotq_f32(float32x4_t r, bfloat16x8_t a, bfloat16x8_t b){
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[B:%.*]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <2 x float>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x float> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP4]], <2 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x float> [[LANE]] to <2 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i32> [[TMP5]] to <4 x bfloat>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x float> [[R:%.*]] to <2 x i32>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <4 x i16>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <4 x bfloat> [[TMP6]] to <4 x i16>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <2 x i32> [[TMP7]] to <8 x i8>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <4 x i16> [[TMP8]] to <8 x i8>
-// CHECK-NEXT:    [[TMP12:%.*]] = bitcast <4 x i16> [[TMP9]] to <8 x i8>
-// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bitcast <8 x i8> [[TMP10]] to <2 x float>
-// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bitcast <8 x i8> [[TMP11]] to <4 x bfloat>
-// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bitcast <8 x i8> [[TMP12]] to <4 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP5]], <2 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x float> [[LANE]] to <2 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i32> [[TMP6]] to <4 x bfloat>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <2 x float> [[R:%.*]] to <2 x i32>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <4 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <4 x bfloat> [[TMP7]] to <4 x i16>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <2 x i32> [[TMP8]] to <8 x b8>
+// CHECK-NEXT:    [[TMP12:%.*]] = bitcast <4 x i16> [[TMP9]] to <8 x b8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <4 x i16> [[TMP10]] to <8 x b8>
+// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bytecast exact <8 x b8> [[TMP11]] to <2 x float>
+// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bytecast exact <8 x b8> [[TMP12]] to <4 x bfloat>
+// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bytecast exact <8 x b8> [[TMP13]] to <4 x bfloat>
 // CHECK-NEXT:    [[VBFDOT3_I:%.*]] = call <2 x float> @llvm.aarch64.neon.bfdot.v2f32.v4bf16(<2 x float> [[VBFDOT_I]], <4 x bfloat> [[VBFDOT1_I]], <4 x bfloat> [[VBFDOT2_I]])
 // CHECK-NEXT:    ret <2 x float> [[VBFDOT3_I]]
 //
@@ -73,20 +74,21 @@ float32x2_t test_vbfdot_lane_f32(float32x2_t r, bfloat16x4_t a, bfloat16x4_t b){
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x bfloat> [[B:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <4 x float>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP4]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x float> [[LANE]] to <4 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i32> [[TMP5]] to <8 x bfloat>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x bfloat> [[TMP6]] to <8 x i16>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <4 x i32> [[TMP7]] to <16 x i8>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i16> [[TMP8]] to <16 x i8>
-// CHECK-NEXT:    [[TMP12:%.*]] = bitcast <8 x i16> [[TMP9]] to <16 x i8>
-// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bitcast <16 x i8> [[TMP10]] to <4 x float>
-// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bitcast <16 x i8> [[TMP11]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bitcast <16 x i8> [[TMP12]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP5]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x float> [[LANE]] to <4 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <8 x bfloat> [[TMP7]] to <8 x i16>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <4 x i32> [[TMP8]] to <16 x b8>
+// CHECK-NEXT:    [[TMP12:%.*]] = bitcast <8 x i16> [[TMP9]] to <16 x b8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <8 x i16> [[TMP10]] to <16 x b8>
+// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bytecast exact <16 x b8> [[TMP11]] to <4 x float>
+// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bytecast exact <16 x b8> [[TMP12]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bytecast exact <16 x b8> [[TMP13]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFDOT3_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfdot.v4f32.v8bf16(<4 x float> [[VBFDOT_I]], <8 x bfloat> [[VBFDOT1_I]], <8 x bfloat> [[VBFDOT2_I]])
 // CHECK-NEXT:    ret <4 x float> [[VBFDOT3_I]]
 //
@@ -99,20 +101,21 @@ float32x4_t test_vbfdotq_laneq_f32(float32x4_t r, bfloat16x8_t a, bfloat16x8_t b
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x bfloat> [[B:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <4 x float>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP4]], <2 x i32> <i32 3, i32 3>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x float> [[LANE]] to <2 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i32> [[TMP5]] to <4 x bfloat>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x float> [[R:%.*]] to <2 x i32>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <4 x i16>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <4 x bfloat> [[TMP6]] to <4 x i16>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <2 x i32> [[TMP7]] to <8 x i8>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <4 x i16> [[TMP8]] to <8 x i8>
-// CHECK-NEXT:    [[TMP12:%.*]] = bitcast <4 x i16> [[TMP9]] to <8 x i8>
-// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bitcast <8 x i8> [[TMP10]] to <2 x float>
-// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bitcast <8 x i8> [[TMP11]] to <4 x bfloat>
-// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bitcast <8 x i8> [[TMP12]] to <4 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP5]], <2 x i32> <i32 3, i32 3>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x float> [[LANE]] to <2 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i32> [[TMP6]] to <4 x bfloat>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <2 x float> [[R:%.*]] to <2 x i32>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <4 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <4 x bfloat> [[TMP7]] to <4 x i16>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <2 x i32> [[TMP8]] to <8 x b8>
+// CHECK-NEXT:    [[TMP12:%.*]] = bitcast <4 x i16> [[TMP9]] to <8 x b8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <4 x i16> [[TMP10]] to <8 x b8>
+// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bytecast exact <8 x b8> [[TMP11]] to <2 x float>
+// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bytecast exact <8 x b8> [[TMP12]] to <4 x bfloat>
+// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bytecast exact <8 x b8> [[TMP13]] to <4 x bfloat>
 // CHECK-NEXT:    [[VBFDOT3_I:%.*]] = call <2 x float> @llvm.aarch64.neon.bfdot.v2f32.v4bf16(<2 x float> [[VBFDOT_I]], <4 x bfloat> [[VBFDOT1_I]], <4 x bfloat> [[VBFDOT2_I]])
 // CHECK-NEXT:    ret <2 x float> [[VBFDOT3_I]]
 //
@@ -125,20 +128,21 @@ float32x2_t test_vbfdot_laneq_f32(float32x2_t r, bfloat16x4_t a, bfloat16x8_t b)
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[B:%.*]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <2 x float>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x float> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP4]], <4 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x float> [[LANE]] to <4 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i32> [[TMP5]] to <8 x bfloat>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x bfloat> [[TMP6]] to <8 x i16>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <4 x i32> [[TMP7]] to <16 x i8>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i16> [[TMP8]] to <16 x i8>
-// CHECK-NEXT:    [[TMP12:%.*]] = bitcast <8 x i16> [[TMP9]] to <16 x i8>
-// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bitcast <16 x i8> [[TMP10]] to <4 x float>
-// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bitcast <16 x i8> [[TMP11]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bitcast <16 x i8> [[TMP12]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP5]], <4 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x float> [[LANE]] to <4 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <8 x bfloat> [[TMP7]] to <8 x i16>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <4 x i32> [[TMP8]] to <16 x b8>
+// CHECK-NEXT:    [[TMP12:%.*]] = bitcast <8 x i16> [[TMP9]] to <16 x b8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <8 x i16> [[TMP10]] to <16 x b8>
+// CHECK-NEXT:    [[VBFDOT_I:%.*]] = bytecast exact <16 x b8> [[TMP11]] to <4 x float>
+// CHECK-NEXT:    [[VBFDOT1_I:%.*]] = bytecast exact <16 x b8> [[TMP12]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFDOT2_I:%.*]] = bytecast exact <16 x b8> [[TMP13]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFDOT3_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfdot.v4f32.v8bf16(<4 x float> [[VBFDOT_I]], <8 x bfloat> [[VBFDOT1_I]], <8 x bfloat> [[VBFDOT2_I]])
 // CHECK-NEXT:    ret <4 x float> [[VBFDOT3_I]]
 //
@@ -151,15 +155,15 @@ float32x4_t test_vbfdotq_lane_f32(float32x4_t r, bfloat16x8_t a, bfloat16x4_t b)
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x bfloat> [[B:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[VBFMMLAQ_F32_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VBFMMLAQ_F321_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFMMLAQ_F322_I:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[VBFMMLAQ_F32_I:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[VBFMMLAQ_F321_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFMMLAQ_F322_I:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFMMLAQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfmmla(<4 x float> [[VBFMMLAQ_F32_I]], <8 x bfloat> [[VBFMMLAQ_F321_I]], <8 x bfloat> [[VBFMMLAQ_F322_I]])
-// CHECK-NEXT:    [[VBFMMLAQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMMLAQ_F323_I]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VBFMMLAQ_F324_I]] to <4 x i32>
+// CHECK-NEXT:    [[VBFMMLAQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMMLAQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[VBFMMLAQ_F324_I]] to <4 x i32>
 // CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <4 x float>
 // CHECK-NEXT:    ret <4 x float> [[TMP7]]
 //
@@ -172,15 +176,15 @@ float32x4_t test_vbfmmlaq_f32(float32x4_t r, bfloat16x8_t a, bfloat16x8_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x bfloat> [[B:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[VBFMLALBQ_F32_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VBFMLALBQ_F321_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFMLALBQ_F322_I:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[VBFMLALBQ_F32_I:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[VBFMLALBQ_F321_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFMLALBQ_F322_I:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFMLALBQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfmlalb(<4 x float> [[VBFMLALBQ_F32_I]], <8 x bfloat> [[VBFMLALBQ_F321_I]], <8 x bfloat> [[VBFMLALBQ_F322_I]])
-// CHECK-NEXT:    [[VBFMLALBQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALBQ_F323_I]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VBFMLALBQ_F324_I]] to <4 x i32>
+// CHECK-NEXT:    [[VBFMLALBQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALBQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[VBFMLALBQ_F324_I]] to <4 x i32>
 // CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <4 x float>
 // CHECK-NEXT:    ret <4 x float> [[TMP7]]
 //
@@ -193,15 +197,15 @@ float32x4_t test_vbfmlalbq_f32(float32x4_t r, bfloat16x8_t a, bfloat16x8_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x bfloat> [[B:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[VBFMLALTQ_F32_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VBFMLALTQ_F321_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFMLALTQ_F322_I:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[VBFMLALTQ_F32_I:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[VBFMLALTQ_F321_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFMLALTQ_F322_I:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFMLALTQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfmlalt(<4 x float> [[VBFMLALTQ_F32_I]], <8 x bfloat> [[VBFMLALTQ_F321_I]], <8 x bfloat> [[VBFMLALTQ_F322_I]])
-// CHECK-NEXT:    [[VBFMLALTQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALTQ_F323_I]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VBFMLALTQ_F324_I]] to <4 x i32>
+// CHECK-NEXT:    [[VBFMLALTQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALTQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[VBFMLALTQ_F324_I]] to <4 x i32>
 // CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <4 x float>
 // CHECK-NEXT:    ret <4 x float> [[TMP7]]
 //
@@ -230,15 +234,15 @@ float32x4_t test_vbfmlaltq_f32(float32x4_t r, bfloat16x8_t a, bfloat16x8_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x bfloat> [[VECINIT42]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[VBFMLALBQ_F32_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VBFMLALBQ_F321_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFMLALBQ_F322_I:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[VBFMLALBQ_F32_I:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[VBFMLALBQ_F321_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFMLALBQ_F322_I:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFMLALBQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfmlalb(<4 x float> [[VBFMLALBQ_F32_I]], <8 x bfloat> [[VBFMLALBQ_F321_I]], <8 x bfloat> [[VBFMLALBQ_F322_I]])
-// CHECK-NEXT:    [[VBFMLALBQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALBQ_F323_I]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VBFMLALBQ_F324_I]] to <4 x i32>
+// CHECK-NEXT:    [[VBFMLALBQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALBQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[VBFMLALBQ_F324_I]] to <4 x i32>
 // CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <4 x float>
 // CHECK-NEXT:    ret <4 x float> [[TMP7]]
 //
@@ -267,15 +271,15 @@ float32x4_t test_vbfmlalbq_lane_f32(float32x4_t r, bfloat16x8_t a, bfloat16x4_t 
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x bfloat> [[VECINIT42]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[VBFMLALBQ_F32_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VBFMLALBQ_F321_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFMLALBQ_F322_I:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[VBFMLALBQ_F32_I:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[VBFMLALBQ_F321_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFMLALBQ_F322_I:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFMLALBQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfmlalb(<4 x float> [[VBFMLALBQ_F32_I]], <8 x bfloat> [[VBFMLALBQ_F321_I]], <8 x bfloat> [[VBFMLALBQ_F322_I]])
-// CHECK-NEXT:    [[VBFMLALBQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALBQ_F323_I]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VBFMLALBQ_F324_I]] to <4 x i32>
+// CHECK-NEXT:    [[VBFMLALBQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALBQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[VBFMLALBQ_F324_I]] to <4 x i32>
 // CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <4 x float>
 // CHECK-NEXT:    ret <4 x float> [[TMP7]]
 //
@@ -304,15 +308,15 @@ float32x4_t test_vbfmlalbq_laneq_f32(float32x4_t r, bfloat16x8_t a, bfloat16x8_t
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x bfloat> [[VECINIT42]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[VBFMLALTQ_F32_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VBFMLALTQ_F321_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFMLALTQ_F322_I:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[VBFMLALTQ_F32_I:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[VBFMLALTQ_F321_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFMLALTQ_F322_I:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFMLALTQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfmlalt(<4 x float> [[VBFMLALTQ_F32_I]], <8 x bfloat> [[VBFMLALTQ_F321_I]], <8 x bfloat> [[VBFMLALTQ_F322_I]])
-// CHECK-NEXT:    [[VBFMLALTQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALTQ_F323_I]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VBFMLALTQ_F324_I]] to <4 x i32>
+// CHECK-NEXT:    [[VBFMLALTQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALTQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[VBFMLALTQ_F324_I]] to <4 x i32>
 // CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <4 x float>
 // CHECK-NEXT:    ret <4 x float> [[TMP7]]
 //
@@ -341,15 +345,15 @@ float32x4_t test_vbfmlaltq_lane_f32(float32x4_t r, bfloat16x8_t a, bfloat16x4_t 
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[R:%.*]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <8 x i16>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x bfloat> [[VECINIT42]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[VBFMLALTQ_F32_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VBFMLALTQ_F321_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x bfloat>
-// CHECK-NEXT:    [[VBFMLALTQ_F322_I:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x bfloat>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[VBFMLALTQ_F32_I:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[VBFMLALTQ_F321_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x bfloat>
+// CHECK-NEXT:    [[VBFMLALTQ_F322_I:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x bfloat>
 // CHECK-NEXT:    [[VBFMLALTQ_F323_I:%.*]] = call <4 x float> @llvm.aarch64.neon.bfmlalt(<4 x float> [[VBFMLALTQ_F32_I]], <8 x bfloat> [[VBFMLALTQ_F321_I]], <8 x bfloat> [[VBFMLALTQ_F322_I]])
-// CHECK-NEXT:    [[VBFMLALTQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALTQ_F323_I]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VBFMLALTQ_F324_I]] to <4 x i32>
+// CHECK-NEXT:    [[VBFMLALTQ_F324_I:%.*]] = bitcast <4 x float> [[VBFMLALTQ_F323_I]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[VBFMLALTQ_F324_I]] to <4 x i32>
 // CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP6]] to <4 x float>
 // CHECK-NEXT:    ret <4 x float> [[TMP7]]
 //

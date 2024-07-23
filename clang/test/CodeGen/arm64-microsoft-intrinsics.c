@@ -164,17 +164,17 @@ void check__writex18byte(unsigned LONG offset, unsigned char data) {
   __writex18byte(offset, data);
 }
 
-// CHECK-MSCOMPAT: %[[DATA_ADDR:.*]] = alloca i8, align 1
+// CHECK-MSCOMPAT: %[[DATA_ADDR:.*]] = alloca b8, align 1
 // CHECK-MSCOMPAT: %[[OFFSET_ADDR:.*]] = alloca i32, align 4
-// CHECK-MSCOMPAT: store i8 %data, ptr %[[DATA_ADDR]], align 1
+// CHECK-MSCOMPAT: store b8 %data, ptr %[[DATA_ADDR]], align 1
 // CHECK-MSCOMPAT: store i32 %offset, ptr %[[OFFSET_ADDR]], align 4
 // CHECK-MSCOMPAT: %[[OFFSET:.*]] = load i32, ptr %[[OFFSET_ADDR]], align 4
-// CHECK-MSCOMPAT: %[[DATA:.*]] = load i8, ptr %[[DATA_ADDR]], align 1
+// CHECK-MSCOMPAT: %[[DATA:.*]] = load b8, ptr %[[DATA_ADDR]], align 1
 // CHECK-MSCOMPAT: %[[X18:.*]] = call i64 @llvm.read_register.i64(metadata ![[MD2]])
 // CHECK-MSCOMPAT: %[[X18_AS_PTR:.*]] = inttoptr i64 %[[X18]] to ptr
 // CHECK-MSCOMPAT: %[[ZEXT_OFFSET:.*]] = zext i32 %[[OFFSET]] to i64
 // CHECK-MSCOMPAT: %[[PTR:.*]] = getelementptr i8, ptr %[[X18_AS_PTR]], i64 %[[ZEXT_OFFSET]]
-// CHECK-MSCOMPAT: store i8 %[[DATA]], ptr %[[PTR]], align 1
+// CHECK-MSCOMPAT: store b8 %[[DATA]], ptr %[[PTR]], align 1
 
 #ifdef __LP64__
 void check__writex18word(unsigned short data, unsigned LONG offset) {
@@ -247,8 +247,8 @@ unsigned char check__readx18byte(unsigned LONG offset) {
 // CHECK-MSCOMPAT: %[[X18_AS_PTR:.*]] = inttoptr i64 %[[X18]] to ptr
 // CHECK-MSCOMPAT: %[[ZEXT_OFFSET:.*]] = zext i32 %[[OFFSET]] to i64
 // CHECK-MSCOMPAT: %[[PTR:.*]] = getelementptr i8, ptr %[[X18_AS_PTR]], i64 %[[ZEXT_OFFSET]]
-// CHECK-MSCOMPAT: %[[RETVAL:.*]] = load i8, ptr %[[PTR]], align 1
-// CHECK-MSCOMPAT: ret i8 %[[RETVAL]]
+// CHECK-MSCOMPAT: %[[RETVAL:.*]] = load b8, ptr %[[PTR]], align 1
+// CHECK-MSCOMPAT: ret b8 %[[RETVAL]]
 
 unsigned short check__readx18word(unsigned LONG offset) {
   return __readx18word(offset);
@@ -300,18 +300,20 @@ void check__addx18byte(unsigned LONG offset, unsigned char data) {
   __addx18byte(offset, data);
 }
 
-// CHECK-MSCOMPAT: %[[DATA_ADDR:.*]] = alloca i8, align 1
+// CHECK-MSCOMPAT: %[[DATA_ADDR:.*]] = alloca b8, align 1
 // CHECK-MSCOMPAT: %[[OFFSET_ADDR:.*]] = alloca i32, align 4
-// CHECK-MSCOMPAT: store i8 %data, ptr %[[DATA_ADDR]], align 1
+// CHECK-MSCOMPAT: store b8 %data, ptr %[[DATA_ADDR]], align 1
 // CHECK-MSCOMPAT: store i32 %offset, ptr %[[OFFSET_ADDR]], align 4
 // CHECK-MSCOMPAT: %[[OFFSET:.*]] = load i32, ptr %[[OFFSET_ADDR]], align 4
-// CHECK-MSCOMPAT: %[[DATA:.*]] = load i8, ptr %[[DATA_ADDR]], align 1
+// CHECK-MSCOMPAT: %[[DATA:.*]] = load b8, ptr %[[DATA_ADDR]], align 1
 // CHECK-MSCOMPAT: %[[X18:.*]] = call i64 @llvm.read_register.i64(metadata ![[MD2]])
 // CHECK-MSCOMPAT: %[[X18_AS_PTR:.*]] = inttoptr i64 %[[X18]] to ptr
 // CHECK-MSCOMPAT: %[[ZEXT_OFFSET:.*]] = zext i32 %[[OFFSET]] to i64
 // CHECK-MSCOMPAT: %[[PTR:.*]] = getelementptr i8, ptr %[[X18_AS_PTR]], i64 %[[ZEXT_OFFSET]]
-// CHECK-MSCOMPAT: %[[ORIG_VAL:.*]] = load i8, ptr %[[PTR]], align 1
-// CHECK-MSCOMPAT: %[[SUM:.*]] = add i8 %[[ORIG_VAL]], %[[DATA]]
+// CHECK-MSCOMPAT: %[[ORIG_VAL:.*]] = load b8, ptr %[[PTR]], align 1
+// CHECK-MSCOMPAT: %[[CAST1:.*]] = bytecast exact b8 %[[ORIG_VAL]] to i8
+// CHECK-MSCOMPAT: %[[CAST2:.*]] = bytecast exact b8 %[[DATA]] to i8
+// CHECK-MSCOMPAT: %[[SUM:.*]] = add i8 %[[CAST1]], %[[CAST2]]
 // CHECK-MSCOMPAT: store i8 %[[SUM]], ptr %[[PTR]], align 1
 
 #ifdef __LP64__

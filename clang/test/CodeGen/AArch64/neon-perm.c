@@ -6,21 +6,21 @@
 
 #include <arm_neon.h>
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vuzp1_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vuzp1_s8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 int8x8_t test_vuzp1_s8(int8x8_t a, int8x8_t b) {
   return vuzp1_s8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vuzp1q_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vuzp1q_s8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 int8x16_t test_vuzp1q_s8(int8x16_t a, int8x16_t b) {
   return vuzp1q_s8(a, b);
@@ -76,21 +76,21 @@ int64x2_t test_vuzp1q_s64(int64x2_t a, int64x2_t b) {
   return vuzp1q_s64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vuzp1_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vuzp1_u8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 uint8x8_t test_vuzp1_u8(uint8x8_t a, uint8x8_t b) {
   return vuzp1_u8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vuzp1q_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vuzp1q_u8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 uint8x16_t test_vuzp1q_u8(uint8x16_t a, uint8x16_t b) {
   return vuzp1q_u8(a, b);
@@ -176,21 +176,21 @@ float64x2_t test_vuzp1q_f64(float64x2_t a, float64x2_t b) {
   return vuzp1q_f64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vuzp1_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vuzp1_p8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 poly8x8_t test_vuzp1_p8(poly8x8_t a, poly8x8_t b) {
   return vuzp1_p8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vuzp1q_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vuzp1q_p8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 poly8x16_t test_vuzp1q_p8(poly8x16_t a, poly8x16_t b) {
   return vuzp1q_p8(a, b);
@@ -216,21 +216,21 @@ poly16x8_t test_vuzp1q_p16(poly16x8_t a, poly16x8_t b) {
   return vuzp1q_p16(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vuzp2_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vuzp2_s8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 int8x8_t test_vuzp2_s8(int8x8_t a, int8x8_t b) {
   return vuzp2_s8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vuzp2q_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vuzp2q_s8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 int8x16_t test_vuzp2q_s8(int8x16_t a, int8x16_t b) {
   return vuzp2q_s8(a, b);
@@ -286,21 +286,21 @@ int64x2_t test_vuzp2q_s64(int64x2_t a, int64x2_t b) {
   return vuzp2q_s64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vuzp2_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vuzp2_u8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 uint8x8_t test_vuzp2_u8(uint8x8_t a, uint8x8_t b) {
   return vuzp2_u8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vuzp2q_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vuzp2q_u8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 uint8x16_t test_vuzp2q_u8(uint8x16_t a, uint8x16_t b) {
   return vuzp2q_u8(a, b);
@@ -386,21 +386,21 @@ float64x2_t test_vuzp2q_f64(float64x2_t a, float64x2_t b) {
   return vuzp2q_f64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vuzp2_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vuzp2_p8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 poly8x8_t test_vuzp2_p8(poly8x8_t a, poly8x8_t b) {
   return vuzp2_p8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vuzp2q_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vuzp2q_p8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 poly8x16_t test_vuzp2q_p8(poly8x16_t a, poly8x16_t b) {
   return vuzp2q_p8(a, b);
@@ -426,21 +426,21 @@ poly16x8_t test_vuzp2q_p16(poly16x8_t a, poly16x8_t b) {
   return vuzp2q_p16(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vzip1_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vzip1_s8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 int8x8_t test_vzip1_s8(int8x8_t a, int8x8_t b) {
   return vzip1_s8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vzip1q_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vzip1q_s8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 int8x16_t test_vzip1q_s8(int8x16_t a, int8x16_t b) {
   return vzip1q_s8(a, b);
@@ -496,21 +496,21 @@ int64x2_t test_vzip1q_s64(int64x2_t a, int64x2_t b) {
   return vzip1q_s64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vzip1_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vzip1_u8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 uint8x8_t test_vzip1_u8(uint8x8_t a, uint8x8_t b) {
   return vzip1_u8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vzip1q_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vzip1q_u8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 uint8x16_t test_vzip1q_u8(uint8x16_t a, uint8x16_t b) {
   return vzip1q_u8(a, b);
@@ -596,21 +596,21 @@ float64x2_t test_vzip1q_f64(float64x2_t a, float64x2_t b) {
   return vzip1q_f64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vzip1_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vzip1_p8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 poly8x8_t test_vzip1_p8(poly8x8_t a, poly8x8_t b) {
   return vzip1_p8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vzip1q_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vzip1q_p8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 poly8x16_t test_vzip1q_p8(poly8x16_t a, poly8x16_t b) {
   return vzip1q_p8(a, b);
@@ -636,21 +636,21 @@ poly16x8_t test_vzip1q_p16(poly16x8_t a, poly16x8_t b) {
   return vzip1q_p16(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vzip2_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vzip2_s8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 int8x8_t test_vzip2_s8(int8x8_t a, int8x8_t b) {
   return vzip2_s8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vzip2q_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vzip2q_s8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 int8x16_t test_vzip2q_s8(int8x16_t a, int8x16_t b) {
   return vzip2q_s8(a, b);
@@ -706,21 +706,21 @@ int64x2_t test_vzip2q_s64(int64x2_t a, int64x2_t b) {
   return vzip2q_s64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vzip2_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vzip2_u8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 uint8x8_t test_vzip2_u8(uint8x8_t a, uint8x8_t b) {
   return vzip2_u8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vzip2q_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vzip2q_u8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 uint8x16_t test_vzip2q_u8(uint8x16_t a, uint8x16_t b) {
   return vzip2q_u8(a, b);
@@ -806,21 +806,21 @@ float64x2_t test_vzip2q_f64(float64x2_t a, float64x2_t b) {
   return vzip2q_f64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vzip2_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vzip2_p8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 poly8x8_t test_vzip2_p8(poly8x8_t a, poly8x8_t b) {
   return vzip2_p8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vzip2q_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vzip2q_p8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 poly8x16_t test_vzip2q_p8(poly8x16_t a, poly8x16_t b) {
   return vzip2q_p8(a, b);
@@ -846,21 +846,21 @@ poly16x8_t test_vzip2q_p16(poly16x8_t a, poly16x8_t b) {
   return vzip2q_p16(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vtrn1_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vtrn1_s8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 int8x8_t test_vtrn1_s8(int8x8_t a, int8x8_t b) {
   return vtrn1_s8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vtrn1q_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vtrn1q_s8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 int8x16_t test_vtrn1q_s8(int8x16_t a, int8x16_t b) {
   return vtrn1q_s8(a, b);
@@ -916,21 +916,21 @@ int64x2_t test_vtrn1q_s64(int64x2_t a, int64x2_t b) {
   return vtrn1q_s64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vtrn1_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vtrn1_u8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 uint8x8_t test_vtrn1_u8(uint8x8_t a, uint8x8_t b) {
   return vtrn1_u8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vtrn1q_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vtrn1q_u8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 uint8x16_t test_vtrn1q_u8(uint8x16_t a, uint8x16_t b) {
   return vtrn1q_u8(a, b);
@@ -1016,21 +1016,21 @@ float64x2_t test_vtrn1q_f64(float64x2_t a, float64x2_t b) {
   return vtrn1q_f64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vtrn1_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vtrn1_p8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 poly8x8_t test_vtrn1_p8(poly8x8_t a, poly8x8_t b) {
   return vtrn1_p8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vtrn1q_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vtrn1q_p8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 poly8x16_t test_vtrn1q_p8(poly8x16_t a, poly8x16_t b) {
   return vtrn1q_p8(a, b);
@@ -1056,21 +1056,21 @@ poly16x8_t test_vtrn1q_p16(poly16x8_t a, poly16x8_t b) {
   return vtrn1q_p16(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vtrn2_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vtrn2_s8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 int8x8_t test_vtrn2_s8(int8x8_t a, int8x8_t b) {
   return vtrn2_s8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vtrn2q_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vtrn2q_s8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 int8x16_t test_vtrn2q_s8(int8x16_t a, int8x16_t b) {
   return vtrn2q_s8(a, b);
@@ -1126,21 +1126,21 @@ int64x2_t test_vtrn2q_s64(int64x2_t a, int64x2_t b) {
   return vtrn2q_s64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vtrn2_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vtrn2_u8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 uint8x8_t test_vtrn2_u8(uint8x8_t a, uint8x8_t b) {
   return vtrn2_u8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vtrn2q_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vtrn2q_u8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 uint8x16_t test_vtrn2q_u8(uint8x16_t a, uint8x16_t b) {
   return vtrn2q_u8(a, b);
@@ -1226,21 +1226,21 @@ float64x2_t test_vtrn2q_f64(float64x2_t a, float64x2_t b) {
   return vtrn2q_f64(a, b);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vtrn2_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vtrn2_p8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
-// CHECK-NEXT:    ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> [[A]], <8 x b8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    ret <8 x b8> [[SHUFFLE_I]]
 //
 poly8x8_t test_vtrn2_p8(poly8x8_t a, poly8x8_t b) {
   return vtrn2_p8(a, b);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vtrn2q_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vtrn2q_p8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
-// CHECK-NEXT:    ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> [[A]], <16 x b8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK-NEXT:    ret <16 x b8> [[SHUFFLE_I]]
 //
 poly8x16_t test_vtrn2q_p8(poly8x16_t a, poly8x16_t b) {
   return vtrn2q_p8(a, b);
@@ -1267,17 +1267,21 @@ poly16x8_t test_vtrn2q_p16(poly16x8_t a, poly16x8_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x8x2_t @test_vuzp_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X8X2_T:%.*]] poison, <8 x i8> [[VUZP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VUZP_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VUZP1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 int8x8x2_t test_vuzp_s8(int8x8_t a, int8x8_t b) {
@@ -1287,17 +1291,19 @@ int8x8x2_t test_vuzp_s8(int8x8_t a, int8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.int16x4x2_t @test_vuzp_s16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT16X4X2_T:%.*]] poison, <4 x i16> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1309,17 +1315,19 @@ int16x4x2_t test_vuzp_s16(int16x4_t a, int16x4_t b) {
 // CHECK-LABEL: define dso_local %struct.int32x2x2_t @test_vuzp_s32(
 // CHECK-SAME: <2 x i32> noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT32X2X2_T:%.*]] poison, <2 x i32> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_0_INSERT1]], <2 x i32> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] poison, <2 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1329,17 +1337,21 @@ int32x2x2_t test_vuzp_s32(int32x2_t a, int32x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x8x2_t @test_vuzp_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T:%.*]] poison, <8 x i8> [[VUZP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VUZP_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VUZP1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 uint8x8x2_t test_vuzp_u8(uint8x8_t a, uint8x8_t b) {
@@ -1349,17 +1361,19 @@ uint8x8x2_t test_vuzp_u8(uint8x8_t a, uint8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.uint16x4x2_t @test_vuzp_u16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T:%.*]] poison, <4 x i16> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1371,17 +1385,19 @@ uint16x4x2_t test_vuzp_u16(uint16x4_t a, uint16x4_t b) {
 // CHECK-LABEL: define dso_local %struct.uint32x2x2_t @test_vuzp_u32(
 // CHECK-SAME: <2 x i32> noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T:%.*]] poison, <2 x i32> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_0_INSERT1]], <2 x i32> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] poison, <2 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1395,17 +1411,19 @@ uint32x2x2_t test_vuzp_u32(uint32x2_t a, uint32x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[A]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP5]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP5]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP7]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP7]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT3:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T:%.*]] poison, <2 x float> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT4:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_0_INSERT3]], <2 x float> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT4]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP6]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP6]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT4]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP8]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP8]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] poison, <2 x float> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x float> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1415,17 +1433,21 @@ float32x2x2_t test_vuzp_f32(float32x2_t a, float32x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x8x2_t @test_vuzp_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T:%.*]] poison, <8 x i8> [[VUZP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VUZP_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VUZP1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 poly8x8x2_t test_vuzp_p8(poly8x8_t a, poly8x8_t b) {
@@ -1435,17 +1457,19 @@ poly8x8x2_t test_vuzp_p8(poly8x8_t a, poly8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.poly16x4x2_t @test_vuzp_p16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T:%.*]] poison, <4 x i16> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1455,17 +1479,21 @@ poly16x4x2_t test_vuzp_p16(poly16x4_t a, poly16x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x16x2_t @test_vuzpq_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X16X2_T:%.*]] poison, <16 x i8> [[VUZP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VUZP_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VUZP1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 int8x16x2_t test_vuzpq_s8(int8x16_t a, int8x16_t b) {
@@ -1475,17 +1503,19 @@ int8x16x2_t test_vuzpq_s8(int8x16_t a, int8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.int16x8x2_t @test_vuzpq_s16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT16X8X2_T:%.*]] poison, <8 x i16> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1497,17 +1527,19 @@ int16x8x2_t test_vuzpq_s16(int16x8_t a, int16x8_t b) {
 // CHECK-LABEL: define dso_local %struct.int32x4x2_t @test_vuzpq_s32(
 // CHECK-SAME: <4 x i32> noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT32X4X2_T:%.*]] poison, <4 x i32> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i32> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] poison, <4 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1517,17 +1549,21 @@ int32x4x2_t test_vuzpq_s32(int32x4_t a, int32x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x16x2_t @test_vuzpq_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T:%.*]] poison, <16 x i8> [[VUZP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VUZP_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VUZP1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 uint8x16x2_t test_vuzpq_u8(uint8x16_t a, uint8x16_t b) {
@@ -1537,17 +1573,19 @@ uint8x16x2_t test_vuzpq_u8(uint8x16_t a, uint8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.uint16x8x2_t @test_vuzpq_u16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T:%.*]] poison, <8 x i16> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1559,17 +1597,19 @@ uint16x8x2_t test_vuzpq_u16(uint16x8_t a, uint16x8_t b) {
 // CHECK-LABEL: define dso_local %struct.uint32x4x2_t @test_vuzpq_u32(
 // CHECK-SAME: <4 x i32> noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T:%.*]] poison, <4 x i32> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i32> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] poison, <4 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1583,17 +1623,19 @@ uint32x4x2_t test_vuzpq_u32(uint32x4_t a, uint32x4_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP5]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP5]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP7]], <4 x i32> <i32 0, i32 2, i32 4, i32 6>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP7]], <4 x i32> <i32 1, i32 3, i32 5, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT3:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T:%.*]] poison, <4 x float> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT4:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_0_INSERT3]], <4 x float> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT4]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP6]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP6]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT4]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP8]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP8]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] poison, <4 x float> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x float> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1603,17 +1645,21 @@ float32x4x2_t test_vuzpq_f32(float32x4_t a, float32x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x16x2_t @test_vuzpq_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T:%.*]] poison, <16 x i8> [[VUZP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VUZP_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VUZP1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 poly8x16x2_t test_vuzpq_p8(poly8x16_t a, poly8x16_t b) {
@@ -1623,17 +1669,19 @@ poly8x16x2_t test_vuzpq_p8(poly8x16_t a, poly8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.poly16x8x2_t @test_vuzpq_p16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VUZP_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK-NEXT:    [[VUZP1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T:%.*]] poison, <8 x i16> [[VUZP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VUZP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1643,17 +1691,21 @@ poly16x8x2_t test_vuzpq_p16(poly16x8_t a, poly16x8_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x8x2_t @test_vzip_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X8X2_T:%.*]] poison, <8 x i8> [[VZIP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VZIP_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VZIP1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 int8x8x2_t test_vzip_s8(int8x8_t a, int8x8_t b) {
@@ -1663,17 +1715,19 @@ int8x8x2_t test_vzip_s8(int8x8_t a, int8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.int16x4x2_t @test_vzip_s16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT16X4X2_T:%.*]] poison, <4 x i16> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1685,17 +1739,19 @@ int16x4x2_t test_vzip_s16(int16x4_t a, int16x4_t b) {
 // CHECK-LABEL: define dso_local %struct.int32x2x2_t @test_vzip_s32(
 // CHECK-SAME: <2 x i32> noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT32X2X2_T:%.*]] poison, <2 x i32> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_0_INSERT1]], <2 x i32> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] poison, <2 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1705,17 +1761,21 @@ int32x2x2_t test_vzip_s32(int32x2_t a, int32x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x8x2_t @test_vzip_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T:%.*]] poison, <8 x i8> [[VZIP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VZIP_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VZIP1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 uint8x8x2_t test_vzip_u8(uint8x8_t a, uint8x8_t b) {
@@ -1725,17 +1785,19 @@ uint8x8x2_t test_vzip_u8(uint8x8_t a, uint8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.uint16x4x2_t @test_vzip_u16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T:%.*]] poison, <4 x i16> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1747,17 +1809,19 @@ uint16x4x2_t test_vzip_u16(uint16x4_t a, uint16x4_t b) {
 // CHECK-LABEL: define dso_local %struct.uint32x2x2_t @test_vzip_u32(
 // CHECK-SAME: <2 x i32> noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T:%.*]] poison, <2 x i32> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_0_INSERT1]], <2 x i32> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] poison, <2 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1771,17 +1835,19 @@ uint32x2x2_t test_vzip_u32(uint32x2_t a, uint32x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[A]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP5]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP5]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP7]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP7]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT3:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T:%.*]] poison, <2 x float> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT4:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_0_INSERT3]], <2 x float> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT4]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP6]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP6]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT4]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP8]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP8]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] poison, <2 x float> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x float> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1791,17 +1857,21 @@ float32x2x2_t test_vzip_f32(float32x2_t a, float32x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x8x2_t @test_vzip_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T:%.*]] poison, <8 x i8> [[VZIP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VZIP_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VZIP1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 poly8x8x2_t test_vzip_p8(poly8x8_t a, poly8x8_t b) {
@@ -1811,17 +1881,19 @@ poly8x8x2_t test_vzip_p8(poly8x8_t a, poly8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.poly16x4x2_t @test_vzip_p16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T:%.*]] poison, <4 x i16> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1831,17 +1903,21 @@ poly16x4x2_t test_vzip_p16(poly16x4_t a, poly16x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x16x2_t @test_vzipq_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X16X2_T:%.*]] poison, <16 x i8> [[VZIP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VZIP_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VZIP1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 int8x16x2_t test_vzipq_s8(int8x16_t a, int8x16_t b) {
@@ -1851,17 +1927,19 @@ int8x16x2_t test_vzipq_s8(int8x16_t a, int8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.int16x8x2_t @test_vzipq_s16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT16X8X2_T:%.*]] poison, <8 x i16> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1873,17 +1951,19 @@ int16x8x2_t test_vzipq_s16(int16x8_t a, int16x8_t b) {
 // CHECK-LABEL: define dso_local %struct.int32x4x2_t @test_vzipq_s32(
 // CHECK-SAME: <4 x i32> noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT32X4X2_T:%.*]] poison, <4 x i32> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i32> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] poison, <4 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1893,17 +1973,21 @@ int32x4x2_t test_vzipq_s32(int32x4_t a, int32x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x16x2_t @test_vzipq_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T:%.*]] poison, <16 x i8> [[VZIP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VZIP_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VZIP1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 uint8x16x2_t test_vzipq_u8(uint8x16_t a, uint8x16_t b) {
@@ -1913,17 +1997,19 @@ uint8x16x2_t test_vzipq_u8(uint8x16_t a, uint8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.uint16x8x2_t @test_vzipq_u16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T:%.*]] poison, <8 x i16> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1935,17 +2021,19 @@ uint16x8x2_t test_vzipq_u16(uint16x8_t a, uint16x8_t b) {
 // CHECK-LABEL: define dso_local %struct.uint32x4x2_t @test_vzipq_u32(
 // CHECK-SAME: <4 x i32> noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T:%.*]] poison, <4 x i32> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i32> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] poison, <4 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1959,17 +2047,19 @@ uint32x4x2_t test_vzipq_u32(uint32x4_t a, uint32x4_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP5]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP7]], <4 x i32> <i32 0, i32 4, i32 1, i32 5>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP7]], <4 x i32> <i32 2, i32 6, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT3:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T:%.*]] poison, <4 x float> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT4:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_0_INSERT3]], <4 x float> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT4]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP6]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP6]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT4]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP8]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP8]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] poison, <4 x float> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x float> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -1979,17 +2069,21 @@ float32x4x2_t test_vzipq_f32(float32x4_t a, float32x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x16x2_t @test_vzipq_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T:%.*]] poison, <16 x i8> [[VZIP_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VZIP_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VZIP1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 poly8x16x2_t test_vzipq_p8(poly8x16_t a, poly8x16_t b) {
@@ -1999,17 +2093,19 @@ poly8x16x2_t test_vzipq_p8(poly8x16_t a, poly8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.poly16x8x2_t @test_vzipq_p16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VZIP_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK-NEXT:    [[VZIP1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T:%.*]] poison, <8 x i16> [[VZIP_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VZIP1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2019,17 +2115,21 @@ poly16x8x2_t test_vzipq_p16(poly16x8_t a, poly16x8_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x8x2_t @test_vtrn_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X8X2_T:%.*]] poison, <8 x i8> [[VTRN_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VTRN_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VTRN1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 int8x8x2_t test_vtrn_s8(int8x8_t a, int8x8_t b) {
@@ -2039,17 +2139,19 @@ int8x8x2_t test_vtrn_s8(int8x8_t a, int8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.int16x4x2_t @test_vtrn_s16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT16X4X2_T:%.*]] poison, <4 x i16> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2061,17 +2163,19 @@ int16x4x2_t test_vtrn_s16(int16x4_t a, int16x4_t b) {
 // CHECK-LABEL: define dso_local %struct.int32x2x2_t @test_vtrn_s32(
 // CHECK-SAME: <2 x i32> noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT32X2X2_T:%.*]] poison, <2 x i32> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_0_INSERT1]], <2 x i32> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] poison, <2 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2081,17 +2185,21 @@ int32x2x2_t test_vtrn_s32(int32x2_t a, int32x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x8x2_t @test_vtrn_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T:%.*]] poison, <8 x i8> [[VTRN_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VTRN_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VTRN1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 uint8x8x2_t test_vtrn_u8(uint8x8_t a, uint8x8_t b) {
@@ -2101,17 +2209,19 @@ uint8x8x2_t test_vtrn_u8(uint8x8_t a, uint8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.uint16x4x2_t @test_vtrn_u16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T:%.*]] poison, <4 x i16> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2123,17 +2233,19 @@ uint16x4x2_t test_vtrn_u16(uint16x4_t a, uint16x4_t b) {
 // CHECK-LABEL: define dso_local %struct.uint32x2x2_t @test_vtrn_u32(
 // CHECK-SAME: <2 x i32> noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T:%.*]] poison, <2 x i32> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_0_INSERT1]], <2 x i32> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] poison, <2 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2147,17 +2259,19 @@ uint32x2x2_t test_vtrn_u32(uint32x2_t a, uint32x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[A]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP5]], <2 x i32> <i32 0, i32 2>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP5]], <2 x i32> <i32 1, i32 3>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP7]], <2 x i32> <i32 0, i32 2>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP7]], <2 x i32> <i32 1, i32 3>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT3:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T:%.*]] poison, <2 x float> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT4:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_0_INSERT3]], <2 x float> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT4]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP6]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP6]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT4]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP8]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[TMP8]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] poison, <2 x float> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_0_INSERT]], <2 x float> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_FLOAT32X2X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2167,17 +2281,21 @@ float32x2x2_t test_vtrn_f32(float32x2_t a, float32x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x8x2_t @test_vtrn_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T:%.*]] poison, <8 x i8> [[VTRN_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i8> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] poison, <8 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VTRN_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VTRN1_I]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] poison, <8 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 poly8x8x2_t test_vtrn_p8(poly8x8_t a, poly8x8_t b) {
@@ -2187,17 +2305,19 @@ poly8x8x2_t test_vtrn_p8(poly8x8_t a, poly8x8_t b) {
 // CHECK-LABEL: define dso_local %struct.poly16x4x2_t @test_vtrn_p16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T:%.*]] poison, <4 x i16> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i16> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] poison, <4 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY16X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2207,17 +2327,21 @@ poly16x4x2_t test_vtrn_p16(poly16x4_t a, poly16x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x16x2_t @test_vtrnq_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X16X2_T:%.*]] poison, <16 x i8> [[VTRN_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VTRN_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VTRN1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 int8x16x2_t test_vtrnq_s8(int8x16_t a, int8x16_t b) {
@@ -2227,17 +2351,19 @@ int8x16x2_t test_vtrnq_s8(int8x16_t a, int8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.int16x8x2_t @test_vtrnq_s16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT16X8X2_T:%.*]] poison, <8 x i16> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT16X8X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2249,17 +2375,19 @@ int16x8x2_t test_vtrnq_s16(int16x8_t a, int16x8_t b) {
 // CHECK-LABEL: define dso_local %struct.int32x4x2_t @test_vtrnq_s32(
 // CHECK-SAME: <4 x i32> noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_INT32X4X2_T:%.*]] poison, <4 x i32> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i32> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] poison, <4 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2269,17 +2397,21 @@ int32x4x2_t test_vtrnq_s32(int32x4_t a, int32x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x16x2_t @test_vtrnq_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T:%.*]] poison, <16 x i8> [[VTRN_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VTRN_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VTRN1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 uint8x16x2_t test_vtrnq_u8(uint8x16_t a, uint8x16_t b) {
@@ -2289,17 +2421,19 @@ uint8x16x2_t test_vtrnq_u8(uint8x16_t a, uint8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.uint16x8x2_t @test_vtrnq_u16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T:%.*]] poison, <8 x i16> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT16X8X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2311,17 +2445,19 @@ uint16x8x2_t test_vtrnq_u16(uint16x8_t a, uint16x8_t b) {
 // CHECK-LABEL: define dso_local %struct.uint32x4x2_t @test_vtrnq_u32(
 // CHECK-SAME: <4 x i32> noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T:%.*]] poison, <4 x i32> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_0_INSERT1]], <4 x i32> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] poison, <4 x i32> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x i32> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2335,17 +2471,19 @@ uint32x4x2_t test_vtrnq_u32(uint32x4_t a, uint32x4_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP5]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP5]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP7]], <4 x i32> <i32 0, i32 4, i32 2, i32 6>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP7]], <4 x i32> <i32 1, i32 5, i32 3, i32 7>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT3:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T:%.*]] poison, <4 x float> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT4:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_0_INSERT3]], <4 x float> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT4]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP6]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP6]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT4]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP8]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[TMP8]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] poison, <4 x float> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_0_INSERT]], <4 x float> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_FLOAT32X4X2_T]] [[DOTFCA_0_1_INSERT]]
@@ -2355,17 +2493,21 @@ float32x4x2_t test_vtrnq_f32(float32x4_t a, float32x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x16x2_t @test_vtrnq_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T:%.*]] poison, <16 x i8> [[VTRN_I]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x i8> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP0:%.*]] = extractvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[TMP0]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] poison, <16 x i8> [[DOTFCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[DOTFCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VTRN_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VTRN1_I]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT1]], <16 x b8> [[TMP3]], 0, 1
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[TMP4]], 1
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] poison, <16 x b8> [[DOTFCA_0_EXTRACT]], 0, 0
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 poly8x16x2_t test_vtrnq_p8(poly8x16_t a, poly8x16_t b) {
@@ -2375,17 +2517,19 @@ poly8x16x2_t test_vtrnq_p8(poly8x16_t a, poly8x16_t b) {
 // CHECK-LABEL: define dso_local %struct.poly16x8x2_t @test_vtrnq_p16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VTRN_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK-NEXT:    [[VTRN1_I:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT1:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T:%.*]] poison, <8 x i16> [[VTRN_I]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT2:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_0_INSERT1]], <8 x i16> [[VTRN1_I]], 0, 1
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
-// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 0
-// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP4]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT2]], 0
+// CHECK-NEXT:    [[DOTFCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 0
+// CHECK-NEXT:    [[DOTFCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[TMP6]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] poison, <8 x i16> [[DOTFCA_0_EXTRACT]], 0, 0
 // CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i16> [[DOTFCA_1_EXTRACT]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY16X8X2_T]] [[DOTFCA_0_1_INSERT]]

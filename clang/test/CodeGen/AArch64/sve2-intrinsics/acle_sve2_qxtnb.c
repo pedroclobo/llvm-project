@@ -18,12 +18,14 @@
 // CHECK-LABEL: @test_svqxtnb_s16(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.sqxtnb.nxv8i16(<vscale x 8 x i16> [[OP1:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z16test_svqxtnb_s16u11__SVInt16_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.sqxtnb.nxv8i16(<vscale x 8 x i16> [[OP1:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svint8_t test_svqxtnb_s16(svint16_t op1)
 {
@@ -63,12 +65,14 @@ svint32_t test_svqxtnb_s64(svint64_t op1)
 // CHECK-LABEL: @test_svqxtnb_u16(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.uqxtnb.nxv8i16(<vscale x 8 x i16> [[OP1:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z16test_svqxtnb_u16u12__SVUint16_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.uqxtnb.nxv8i16(<vscale x 8 x i16> [[OP1:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svqxtnb_u16(svuint16_t op1)
 {

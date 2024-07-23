@@ -3,9 +3,9 @@
 struct S { char buf[32]; };
 template<S s> constexpr const char* f() { return s.buf; }
 const char* fbuf = f<S{"a"}>();
-// CHECK: @_ZTAXtl1StlA32_cLc97EEEE = linkonce_odr constant { <{ i8, [31 x i8] }> }
+// CHECK: @_ZTAXtl1StlA32_cLc97EEEE = linkonce_odr constant { <{ b8, [31 x b8] }> }
 
 struct __attribute__ ((visibility ("hidden"))) HN { char buf[64]; };
 template <HN hn> constexpr const char* g() { return hn.buf; }
 const char* gbuf = g<HN{"b"}>();
-// CHECK: @_ZTAXtl2HNtlA64_cLc98EEEE = linkonce_odr hidden constant { <{ i8, [63 x i8] }> }
+// CHECK: @_ZTAXtl2HNtlA64_cLc98EEEE = linkonce_odr hidden constant { <{ b8, [63 x b8] }> }

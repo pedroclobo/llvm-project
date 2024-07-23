@@ -100,9 +100,9 @@ struct C {
   char b : 7;
 } c;
 // CHECK-LABEL: LLVMType:%struct.C =
-// LAYOUT-FLEX-SAME: type <{ i32, i8, i16, i8 }>
-// LAYOUT-STRICT-SAME: type { i32, i8, i8, i8 }
-// LAYOUT-DWN32-SAME: type <{ i32, i8, i16, i8 }>
+// LAYOUT-FLEX-SAME: type <{ i32, b8, i16, i8 }>
+// LAYOUT-STRICT-SAME: type { i32, b8, i8, i8 }
+// LAYOUT-DWN32-SAME: type <{ i32, b8, i16, i8 }>
 // CHECK: BitFields:[
 // LAYOUT-FLEX-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:7 IsSigned:1 StorageSize:16 StorageOffset:5
 // LAYOUT-FLEX-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:7 IsSigned:1 StorageSize:16 StorageOffset:5
@@ -122,10 +122,10 @@ struct __attribute__((packed)) D {
   char _;
 } d;
 // CHECK-LABEL: LLVMType:%struct.D =
-// LAYOUT-FLEX-SAME: type <{ i32, i16, i8 }>
-// LAYOUT-STRICT-SAME: type <{ i32, i8, i8, i8 }>
-// LAYOUT-DWN32-FLEX-SAME: type <{ i32, i16, i8 }>
-// LAYOUT-DWN32-STRICT-SAME: type <{ i32, i8, i8, i8 }>
+// LAYOUT-FLEX-SAME: type <{ i32, i16, b8 }>
+// LAYOUT-STRICT-SAME: type <{ i32, i8, i8, b8 }>
+// LAYOUT-DWN32-FLEX-SAME: type <{ i32, i16, b8 }>
+// LAYOUT-DWN32-STRICT-SAME: type <{ i32, i8, i8, b8 }>
 // CHECK: BitFields:[
 // LAYOUT-FLEX-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:8 IsSigned:1 StorageSize:16 StorageOffset:4
 // LAYOUT-FLEX-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:8 IsSigned:1 StorageSize:16 StorageOffset:4
@@ -208,8 +208,8 @@ struct G {
   signed char e;
 } g;
 // CHECK-LABEL: LLVMType:%struct.G =
-// LAYOUT-SAME: type { i32, i16, i8, i8 }
-// LAYOUT-DWN32-SAME: type <{ i32, i8, i8 }>
+// LAYOUT-SAME: type { i32, i16, i8, b8 }
+// LAYOUT-DWN32-SAME: type <{ i32, i8, b8 }>
 // CHECK: BitFields:[
 // LAYOUT-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:7 IsSigned:1 StorageSize:32 StorageOffset:0
 // LAYOUT-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:13 IsSigned:1 StorageSize:32 StorageOffset:0
@@ -228,10 +228,10 @@ struct __attribute__((aligned(8))) H {
   unsigned c __attribute__((aligned(8))); // Think 'long long' or lp64 ptr
 } h;
 // CHECK-LABEL: LLVMType:%struct.H =
-// LAYOUT-FLEX-SAME: type <{ i8, i32, [3 x i8], i32, [4 x i8] }>
-// LAYOUT-STRICT-SAME: type { i8, [3 x i8], [4 x i8], i32, [4 x i8] }
-// LAYOUT-DWN32-FLEX-SAME: type <{ i8, i32, [3 x i8], i32, [4 x i8] }>
-// LAYOUT-DWN32-STRICT-SAME: type { i8, [3 x i8], [4 x i8], i32, [4 x i8] }
+// LAYOUT-FLEX-SAME: type <{ b8, i32, [3 x i8], i32, [4 x i8] }>
+// LAYOUT-STRICT-SAME: type { b8, [3 x i8], [4 x i8], i32, [4 x i8] }
+// LAYOUT-DWN32-FLEX-SAME: type <{ b8, i32, [3 x i8], i32, [4 x i8] }>
+// LAYOUT-DWN32-STRICT-SAME: type { b8, [3 x i8], [4 x i8], i32, [4 x i8] }
 // CHECK: BitFields:[
 // LAYOUT-FLEX-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:24 IsSigned:0 StorageSize:32 StorageOffset:1
 // LAYOUT-STRICT-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:24 IsSigned:0 StorageSize:24 StorageOffset:1
@@ -273,9 +273,9 @@ struct B64 {
   signed char e; // not a bitfield
 } b64;
 // CHECK-64-LABEL: LLVMType:%struct.B64 =
-// LAYOUT-64-FLEX-SAME: type <{ i16, i8, i32, i8 }>
-// LAYOUT-64-STRICT-SAME: type <{ i16, i8, i16, i16, i8 }>
-// LAYOUT-64-DWN-SAME: type <{ i16, i8, i32, i8 }>
+// LAYOUT-64-FLEX-SAME: type <{ i16, i8, i32, b8 }>
+// LAYOUT-64-STRICT-SAME: type <{ i16, i8, i16, i16, b8 }>
+// LAYOUT-64-DWN-SAME: type <{ i16, i8, i32, b8 }>
 // CHECK-64: BitFields:[
 // LAYOUT-64-FLEX-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:16 IsSigned:1 StorageSize:16 StorageOffset:0
 // LAYOUT-64-FLEX-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:8 IsSigned:1 StorageSize:8 StorageOffset:2

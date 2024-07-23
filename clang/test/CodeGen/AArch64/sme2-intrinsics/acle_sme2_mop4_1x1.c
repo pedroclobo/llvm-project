@@ -18,12 +18,16 @@
 
 // CHECK-LABEL: @test_svmop4a_1x1_za32_s8_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z27test_svmop4a_1x1_za32_s8_s8u10__SVInt8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmop4a_1x1_za32_s8_s8(svint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za") {
@@ -32,12 +36,16 @@ void test_svmop4a_1x1_za32_s8_s8(svint8_t zn, svint8_t zm) __arm_streaming __arm
 
 // CHECK-LABEL: @test_svmop4s_1x1_za32_s8_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z27test_svmop4s_1x1_za32_s8_s8u10__SVInt8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmop4s_1x1_za32_s8_s8(svint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za") {
@@ -46,12 +54,16 @@ void test_svmop4s_1x1_za32_s8_s8(svint8_t zn, svint8_t zm) __arm_streaming __arm
 
 // CHECK-LABEL: @test_svmop4a_1x1_za32_u8_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z27test_svmop4a_1x1_za32_u8_u8u11__SVUint8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmop4a_1x1_za32_u8_u8(svuint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za") {
@@ -60,12 +72,16 @@ void test_svmop4a_1x1_za32_u8_u8(svuint8_t zn, svuint8_t zm) __arm_streaming __a
 
 // CHECK-LABEL: @test_svmop4s_1x1_za32_u8_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z27test_svmop4s_1x1_za32_u8_u8u11__SVUint8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmop4s_1x1_za32_u8_u8(svuint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za") {
@@ -74,12 +90,16 @@ void test_svmop4s_1x1_za32_u8_u8(svuint8_t zn, svuint8_t zm) __arm_streaming __a
 
 // CHECK-LABEL: @test_svmop4a_1x1_za32_s8_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z27test_svmop4a_1x1_za32_s8_u8u10__SVInt8_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmop4a_1x1_za32_s8_u8(svint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za") {
@@ -88,12 +108,16 @@ void test_svmop4a_1x1_za32_s8_u8(svint8_t zn, svuint8_t zm) __arm_streaming __ar
 
 // CHECK-LABEL: @test_svmop4s_1x1_za32_s8_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z27test_svmop4s_1x1_za32_s8_u8u10__SVInt8_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmop4s_1x1_za32_s8_u8(svint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za") {
@@ -102,12 +126,16 @@ void test_svmop4s_1x1_za32_s8_u8(svint8_t zn, svuint8_t zm) __arm_streaming __ar
 
 // CHECK-LABEL: @test_svmop4a_1x1_za32_u8_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z27test_svmop4a_1x1_za32_u8_s8u11__SVUint8_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmop4a.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmop4a_1x1_za32_u8_s8(svuint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za") {
@@ -116,12 +144,16 @@ void test_svmop4a_1x1_za32_u8_s8(svuint8_t zn, svint8_t zm) __arm_streaming __ar
 
 // CHECK-LABEL: @test_svmop4s_1x1_za32_u8_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z27test_svmop4s_1x1_za32_u8_s8u11__SVUint8_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmop4s.wide.1x1.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmop4s_1x1_za32_u8_s8(svuint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za") {

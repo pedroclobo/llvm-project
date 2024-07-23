@@ -6,7 +6,7 @@
 // CHECK: @base_req ={{.*}} global [4 x i8] c"foo\00", align 1
 // CHECK: @base_req_uchar ={{.*}} global [4 x i8] c"bar\00", align 1
 
-// CHECK: @_ZZN5test31BC1EvE1u = internal global { i8, [3 x i8] } { i8 97, [3 x i8] undef }, align 4
+// CHECK: @_ZZN5test31BC1EvE1u = internal global { b8, [3 x i8] } { b8 97, [3 x i8] undef }, align 4
 
 // CHECK20: @_ZZN5test51fEvE1a = internal constant %"struct.test5::A" { i32 42 }
 

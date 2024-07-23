@@ -24,13 +24,17 @@
 
 // CHECK-LABEL: @test_svdot_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]])
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svdot_s32u11__SVInt32_tu10__SVInt8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svint32_t test_svdot_s32(svint32_t op1, svint8_t op2, svint8_t op3) MODE_ATTR
 {
@@ -54,13 +58,17 @@ svint64_t test_svdot_s64(svint64_t op1, svint16_t op2, svint16_t op3) MODE_ATTR
 
 // CHECK-LABEL: @test_svdot_u32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]])
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svdot_u32u12__SVUint32_tu11__SVUint8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svuint32_t test_svdot_u32(svuint32_t op1, svuint8_t op2, svuint8_t op3) MODE_ATTR
 {
@@ -84,17 +92,21 @@ svuint64_t test_svdot_u64(svuint64_t op1, svuint16_t op2, svuint16_t op3) MODE_A
 
 // CHECK-LABEL: @test_svdot_n_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[OP3:%.*]], i64 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[OP3:%.*]] to i8
+// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
 // CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z16test_svdot_n_s32u11__SVInt32_tu10__SVInt8_ta(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[OP3:%.*]], i64 0
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[OP3:%.*]] to i8
+// CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
 // CPP-CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svint32_t test_svdot_n_s32(svint32_t op1, svint8_t op2, int8_t op3) MODE_ATTR
 {
@@ -122,17 +134,21 @@ svint64_t test_svdot_n_s64(svint64_t op1, svint16_t op2, int16_t op3) MODE_ATTR
 
 // CHECK-LABEL: @test_svdot_n_u32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[OP3:%.*]], i64 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[OP3:%.*]] to i8
+// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
 // CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z16test_svdot_n_u32u12__SVUint32_tu11__SVUint8_th(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[OP3:%.*]], i64 0
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[OP3:%.*]] to i8
+// CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
 // CPP-CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svuint32_t test_svdot_n_u32(svuint32_t op1, svuint8_t op2, uint8_t op3) MODE_ATTR
 {
@@ -160,13 +176,17 @@ svuint64_t test_svdot_n_u64(svuint64_t op1, svuint16_t op2, uint16_t op3) MODE_A
 
 // CHECK-LABEL: @test_svdot_lane_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]], i32 0)
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 0)
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svdot_lane_s32u11__SVInt32_tu10__SVInt8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]], i32 0)
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 0)
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svint32_t test_svdot_lane_s32(svint32_t op1, svint8_t op2, svint8_t op3) MODE_ATTR
 {
@@ -175,13 +195,17 @@ svint32_t test_svdot_lane_s32(svint32_t op1, svint8_t op2, svint8_t op3) MODE_AT
 
 // CHECK-LABEL: @test_svdot_lane_s32_1(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]], i32 3)
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 3)
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z21test_svdot_lane_s32_1u11__SVInt32_tu10__SVInt8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]], i32 3)
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.sdot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 3)
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svint32_t test_svdot_lane_s32_1(svint32_t op1, svint8_t op2, svint8_t op3) MODE_ATTR
 {
@@ -220,13 +244,17 @@ svint64_t test_svdot_lane_s64_1(svint64_t op1, svint16_t op2, svint16_t op3) MOD
 
 // CHECK-LABEL: @test_svdot_lane_u32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]], i32 3)
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 3)
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svdot_lane_u32u12__SVUint32_tu11__SVUint8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i8> [[OP3:%.*]], i32 3)
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.udot.lane.nxv4i32(<vscale x 4 x i32> [[OP1:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 3)
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svuint32_t test_svdot_lane_u32(svuint32_t op1, svuint8_t op2, svuint8_t op3) MODE_ATTR
 {

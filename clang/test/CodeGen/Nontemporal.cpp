@@ -30,11 +30,11 @@ void test_all_sizes(void)                 // CHECK-LABEL: test_all_sizes
   __builtin_nontemporal_store(1.0, &f1);  // CHECK: store float{{.*}}align 4, !nontemporal
   __builtin_nontemporal_store(1.0, &d1);  // CHECK: store double{{.*}}align 8, !nontemporal
   __builtin_nontemporal_store(vf1, &vf2); // CHECK: store <4 x float>{{.*}}align 16, !nontemporal
-  __builtin_nontemporal_store(vc1, &vc2); // CHECK: store <8 x i8>{{.*}}align 8, !nontemporal
+  __builtin_nontemporal_store(vc1, &vc2); // CHECK: store <8 x b8>{{.*}}align 8, !nontemporal
 
   b1 = __builtin_nontemporal_load(&b2);   // CHECK: load i8{{.*}}align 1, !nontemporal
-  uc = __builtin_nontemporal_load(&sc);   // CHECK: load i8{{.*}}align 1, !nontemporal
-  sc = __builtin_nontemporal_load(&uc);   // CHECK: load i8{{.*}}align 1, !nontemporal
+  uc = __builtin_nontemporal_load(&sc);   // CHECK: load b8{{.*}}align 1, !nontemporal
+  sc = __builtin_nontemporal_load(&uc);   // CHECK: load b8{{.*}}align 1, !nontemporal
   us = __builtin_nontemporal_load(&ss);   // CHECK: load i16{{.*}}align 2, !nontemporal
   ss = __builtin_nontemporal_load(&us);   // CHECK: load i16{{.*}}align 2, !nontemporal
   ui = __builtin_nontemporal_load(&si);   // CHECK: load i32{{.*}}align 4, !nontemporal
@@ -44,7 +44,7 @@ void test_all_sizes(void)                 // CHECK-LABEL: test_all_sizes
   f1 = __builtin_nontemporal_load(&f2);   // CHECK: load float{{.*}}align 4, !nontemporal
   d1 = __builtin_nontemporal_load(&d2);   // CHECK: load double{{.*}}align 8, !nontemporal
   vf2 = __builtin_nontemporal_load(&vf1); // CHECK: load <4 x float>{{.*}}align 16, !nontemporal
-  vc2 = __builtin_nontemporal_load(&vc1); // CHECK: load <8 x i8>{{.*}}align 8, !nontemporal
+  vc2 = __builtin_nontemporal_load(&vc1); // CHECK: load <8 x b8>{{.*}}align 8, !nontemporal
 }
 
 struct S { char c[16]; };

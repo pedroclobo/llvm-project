@@ -16,8 +16,8 @@
 
 // CHECK-LABEL: @testvcipher(
 // CHECK:         [[TMP4:%.*]] = call <2 x i64> @llvm.ppc.altivec.crypto.vcipher
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP4]] to <16 x i8>
-// CHECK-NEXT:    ret <16 x i8> [[TMP5]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP4]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 vector unsigned char testvcipher(vector unsigned char state_array, vector unsigned char round_key) {
   return __vcipher(state_array, round_key);
@@ -25,8 +25,8 @@ vector unsigned char testvcipher(vector unsigned char state_array, vector unsign
 
 // CHECK-LABEL: @testvcipherlast(
 // CHECK:         [[TMP4:%.*]] = call <2 x i64> @llvm.ppc.altivec.crypto.vcipherlast
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP4]] to <16 x i8>
-// CHECK-NEXT:    ret <16 x i8> [[TMP5]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP4]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 vector unsigned char testvcipherlast(vector unsigned char state_array, vector unsigned char round_key) {
   return __vcipherlast(state_array, round_key);
@@ -34,8 +34,8 @@ vector unsigned char testvcipherlast(vector unsigned char state_array, vector un
 
 // CHECK-LABEL: @testvncipher(
 // CHECK:         [[TMP4:%.*]] = call <2 x i64> @llvm.ppc.altivec.crypto.vncipher
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP4]] to <16 x i8>
-// CHECK-NEXT:    ret <16 x i8> [[TMP5]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP4]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 vector unsigned char testvncipher(vector unsigned char state_array, vector unsigned char round_key) {
   return __vncipher(state_array, round_key);
@@ -43,8 +43,8 @@ vector unsigned char testvncipher(vector unsigned char state_array, vector unsig
 
 // CHECK-LABEL: @testvncipherlast(
 // CHECK:         [[TMP4:%.*]] = call <2 x i64> @llvm.ppc.altivec.crypto.vncipherlast
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP4]] to <16 x i8>
-// CHECK-NEXT:    ret <16 x i8> [[TMP5]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP4]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 vector unsigned char testvncipherlast(vector unsigned char state_array, vector unsigned char round_key) {
   return __vncipherlast(state_array, round_key);
@@ -52,7 +52,8 @@ vector unsigned char testvncipherlast(vector unsigned char state_array, vector u
 
 // CHECK-LABEL: @testvpermxor(
 // CHECK:         [[TMP3:%.*]] = call <16 x i8> @llvm.ppc.altivec.crypto.vpermxor
-// CHECK-NEXT:    ret <16 x i8> [[TMP3]]
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 vector unsigned char testvpermxor(vector unsigned char a, vector unsigned char b, vector unsigned char mask) {
   return __vpermxor(a, b, mask);
@@ -60,7 +61,8 @@ vector unsigned char testvpermxor(vector unsigned char a, vector unsigned char b
 
 // CHECK-LABEL: @testvpmsumb(
 // CHECK:         [[TMP2:%.*]] = call <16 x i8> @llvm.ppc.altivec.crypto.vpmsumb
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP3]]
 //
 vector unsigned char testvpmsumb(vector unsigned char a, vector unsigned char b) {
   return __vpmsumb(a, b);

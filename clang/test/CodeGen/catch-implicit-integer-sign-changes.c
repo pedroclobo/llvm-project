@@ -76,21 +76,23 @@ unsigned int signed_int_to_unsigned_int(signed int src) {
 // CHECK-SAME: i32 noundef %[[SRC:.*]])
 unsigned char signed_int_to_unsigned_char(signed int src) {
   // CHECK: %[[SRC_ADDR:.*]] = alloca i32
-  // CHECK-NEXT: store i32 %[[SRC]], ptr %[[SRC_ADDR]]
+  // CHECK: store i32 %[[SRC]], ptr %[[SRC_ADDR]]
   // CHECK-NEXT: %[[DST:.*]] = load i32, ptr %[[SRC_ADDR]]
   // CHECK-NEXT: %[[CONV:.*]] = trunc i32 %[[DST]] to i8
+  // CHECK-NEXT: %[[CONV1:.*]] = bitcast i8 %[[CONV]] to b8
   // CHECK-SANITIZE-NEXT: %[[SRC_NEGATIVITYCHECK:.*]] = icmp slt i32 %[[DST]], 0, !nosanitize
   // CHECK-SANITIZE-NEXT: %[[SIGNCHANGECHECK:.*]] = icmp eq i1 %[[SRC_NEGATIVITYCHECK]], false, !nosanitize
   // CHECK-SANITIZE-NEXT: br i1 %[[SIGNCHANGECHECK]], label %[[CONT:.*]], label %[[HANDLER_IMPLICIT_CONVERSION:[^,]+]],{{.*}} !nosanitize
   // CHECK-SANITIZE: [[HANDLER_IMPLICIT_CONVERSION]]:
   // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTSRC:.*]] = zext i32 %[[DST]] to i64, !nosanitize
-  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTCONV:.*]] = zext i8 %[[CONV]] to i64, !nosanitize
-  // CHECK-SANITIZE-NORECOVER-NEXT: call void @__ubsan_handle_implicit_conversion_abort(ptr @[[LINE_300]], i64 %[[EXTSRC]], i64 %[[EXTCONV]]){{.*}}, !nosanitize
-  // CHECK-SANITIZE-RECOVER-NEXT: call void @__ubsan_handle_implicit_conversion(ptr @[[LINE_300]], i64 %[[EXTSRC]], i64 %[[EXTCONV]]){{.*}}, !nosanitize
+  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTCONV1:.*]] = bytecast exact b8 %[[CONV1]] to i8, !nosanitize
+  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTCONV2:.*]] = zext i8 %[[EXTCONV1]] to i64, !nosanitize
+  // CHECK-SANITIZE-NORECOVER-NEXT: call void @__ubsan_handle_implicit_conversion_abort(ptr @[[LINE_300]], i64 %[[EXTSRC]], i64 %[[EXTCONV2]]){{.*}}, !nosanitize
+  // CHECK-SANITIZE-RECOVER-NEXT: call void @__ubsan_handle_implicit_conversion(ptr @[[LINE_300]], i64 %[[EXTSRC]], i64 %[[EXTCONV2]]){{.*}}, !nosanitize
   // CHECK-SANITIZE-TRAP-NEXT: call void @llvm.ubsantrap(i8 7){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT: unreachable, !nosanitize
   // CHECK-SANITIZE: [[CONT]]:
-  // CHECK-NEXT: ret i8 %[[CONV]]
+  // CHECK-NEXT: ret b8 %[[CONV1]]
   // CHECK-NEXT: }
 #line 300
   return src;
@@ -99,58 +101,61 @@ unsigned char signed_int_to_unsigned_char(signed int src) {
 // These 3 result (after optimizations) in simple 'icmp sge i8 %src, 0'
 
 // CHECK-LABEL: @signed_char_to_unsigned_char
-// CHECK-SAME: (i8 noundef signext %[[SRC:.*]])
+// CHECK-SAME: (b8 noundef signext %[[SRC:.*]])
 unsigned char signed_char_to_unsigned_char(signed char src) {
-  // CHECK: %[[SRC_ADDR:.*]] = alloca i8
-  // CHECK-NEXT: store i8 %[[SRC]], ptr %[[SRC_ADDR]]
-  // CHECK-NEXT: %[[DST:.*]] = load i8, ptr %[[SRC_ADDR]]
+  // CHECK: %[[SRC_ADDR:.*]] = alloca b8
+  // CHECK: store b8 %[[SRC]], ptr %[[SRC_ADDR]]
+  // CHECK-NEXT: %[[DST:.*]] = load b8, ptr %[[SRC_ADDR]]
   // CHECK-SANITIZE-NEXT: %[[SRC_NEGATIVITYCHECK:.*]] = icmp slt i8 %[[DST]], 0, !nosanitize
   // CHECK-SANITIZE-NEXT: %[[SIGNCHANGECHECK:.*]] = icmp eq i1 %[[SRC_NEGATIVITYCHECK]], false, !nosanitize
   // CHECK-SANITIZE-NEXT: br i1 %[[SIGNCHANGECHECK]], label %[[CONT:.*]], label %[[HANDLER_IMPLICIT_CONVERSION:[^,]+]],{{.*}} !nosanitize
   // CHECK-SANITIZE: [[HANDLER_IMPLICIT_CONVERSION]]:
   // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTSRC:.*]] = zext i8 %[[DST]] to i64, !nosanitize
-  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTDST:.*]] = zext i8 %[[DST]] to i64, !nosanitize
-  // CHECK-SANITIZE-NORECOVER-NEXT: call void @__ubsan_handle_implicit_conversion_abort(ptr @[[LINE_400]], i64 %[[EXTSRC]], i64 %[[EXTDST]]){{.*}}, !nosanitize
-  // CHECK-SANITIZE-RECOVER-NEXT: call void @__ubsan_handle_implicit_conversion(ptr @[[LINE_400]], i64 %[[EXTSRC]], i64 %[[EXTDST]]){{.*}}, !nosanitize
+  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTCONV1:.*]] = bytecast exact b8 %[[CONV]] to i8, !nosanitize
+  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTCONV2:.*]] = zext i8 %[[EXTCONV1]] to i64, !nosanitize
+  // CHECK-SANITIZE-NORECOVER-NEXT: call void @__ubsan_handle_implicit_conversion_abort(ptr @[[LINE_400]], i64 %[[EXTSRC]], i64 %[[EXTCONV2]]){{.*}}, !nosanitize
+  // CHECK-SANITIZE-RECOVER-NEXT: call void @__ubsan_handle_implicit_conversion(ptr @[[LINE_400]], i64 %[[EXTSRC]], i64 %[[EXTCONV2]]){{.*}}, !nosanitize
   // CHECK-SANITIZE-TRAP-NEXT: call void @llvm.ubsantrap(i8 7){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT: unreachable, !nosanitize
   // CHECK-SANITIZE: [[CONT]]:
-  // CHECK-NEXT: ret i8 %[[DST]]
+  // CHECK-NEXT: ret b8 %[[DST]]
   // CHECK-NEXT: }
 #line 400
   return src;
 }
 
 // CHECK-LABEL: @unsigned_char_to_signed_char
-// CHECK-SAME: (i8 noundef zeroext %[[SRC:.*]])
+// CHECK-SAME: (b8 noundef zeroext %[[SRC:.*]])
 signed char unsigned_char_to_signed_char(unsigned char src) {
-  // CHECK: %[[SRC_ADDR:.*]] = alloca i8
-  // CHECK-NEXT: store i8 %[[SRC]], ptr %[[SRC_ADDR]]
-  // CHECK-NEXT: %[[DST:.*]] = load i8, ptr %[[SRC_ADDR]]
-  // CHECK-SANITIZE-NEXT: %[[DST_NEGATIVITYCHECK:.*]] = icmp slt i8 %[[DST]], 0, !nosanitize
+  // CHECK: %[[SRC_ADDR:.*]] = alloca b8
+  // CHECK: store b8 %[[SRC]], ptr %[[SRC_ADDR]]
+  // CHECK-NEXT: %[[DST:.*]] = load b8, ptr %[[SRC_ADDR]]
+  // CHECK-SANITIZE-NEXT: %[[DST_NEGATIVITYCHECK:.*]] = icmp slt i8 %[[CONV]], 0, !nosanitize
   // CHECK-SANITIZE-NEXT: %[[SIGNCHANGECHECK:.*]] = icmp eq i1 false, %[[DST_NEGATIVITYCHECK]], !nosanitize
   // CHECK-SANITIZE-NEXT: br i1 %[[SIGNCHANGECHECK]], label %[[CONT:.*]], label %[[HANDLER_IMPLICIT_CONVERSION:[^,]+]],{{.*}} !nosanitize
   // CHECK-SANITIZE: [[HANDLER_IMPLICIT_CONVERSION]]:
-  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTSRC:.*]] = zext i8 %[[DST]] to i64, !nosanitize
-  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTDST:.*]] = zext i8 %[[DST]] to i64, !nosanitize
-  // CHECK-SANITIZE-NORECOVER-NEXT: call void @__ubsan_handle_implicit_conversion_abort(ptr @[[LINE_500]], i64 %[[EXTSRC]], i64 %[[EXTDST]]){{.*}}, !nosanitize
+  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTSRC1:.*]] = bytecast exact b8 %[[DST]] to i8, !nosanitize
+  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTSRC2:.*]] = zext i8 %[[EXTSRC1]] to i64, !nosanitize
+  // CHECK-SANITIZE-ANYRECOVER-NEXT: %[[EXTDST:.*]] = zext i8 %[[CONV]] to i64, !nosanitize
+  // CHECK-SANITIZE-NORECOVER-NEXT: call void @__ubsan_handle_implicit_conversion_abort(ptr @[[LINE_500]], i64 %[[EXTSRC2]], i64 %[[EXTDST]]){{.*}}, !nosanitize
   // CHECK-SANITIZE-RECOVER-NEXT: call void @__ubsan_handle_implicit_conversion(ptr @[[LINE_500]], i64 %[[EXTSRC]], i64 %[[EXTDST]]){{.*}}, !nosanitize
   // CHECK-SANITIZE-TRAP-NEXT: call void @llvm.ubsantrap(i8 7){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT: unreachable, !nosanitize
   // CHECK-SANITIZE: [[CONT]]:
-  // CHECK-NEXT: ret i8 %[[DST]]
+  // CHECK-NEXT: ret b8 %[[DST]]
   // CHECK-NEXT: }
 #line 500
   return src;
 }
 
 // CHECK-LABEL: @signed_char_to_unsigned_int
-// CHECK-SAME: (i8 noundef signext %[[SRC:.*]])
+// CHECK-SAME: (b8 noundef signext %[[SRC:.*]])
 unsigned int signed_char_to_unsigned_int(signed char src) {
-  // CHECK: %[[SRC_ADDR:.*]] = alloca i8
-  // CHECK-NEXT: store i8 %[[SRC]], ptr %[[SRC_ADDR]]
-  // CHECK-NEXT: %[[DST:.*]] = load i8, ptr %[[SRC_ADDR]]
-  // CHECK-NEXT: %[[CONV:.*]] = sext i8 %[[DST]] to i32
+  // CHECK: %[[SRC_ADDR:.*]] = alloca b8
+  // CHECK-NEXT: store b8 %[[SRC]], ptr %[[SRC_ADDR]]
+  // CHECK-NEXT: %[[DST:.*]] = load b8, ptr %[[SRC_ADDR]]
+  // CHECK-NEXT: %[[CONV:.*]] = bytecast exact b8 %[[DST]] to i8
+  // CHECK-NEXT: %[[CONV1:.*]] = sext i8 %[[CONV]] to i32
   // CHECK-SANITIZE-NEXT: %[[SRC_NEGATIVITYCHECK:.*]] = icmp slt i8 %[[DST]], 0, !nosanitize
   // CHECK-SANITIZE-NEXT: %[[SIGNCHANGECHECK:.*]] = icmp eq i1 %[[SRC_NEGATIVITYCHECK]], false, !nosanitize
   // CHECK-SANITIZE-NEXT: br i1 %[[SIGNCHANGECHECK]], label %[[CONT:.*]], label %[[HANDLER_IMPLICIT_CONVERSION:[^,]+]],{{.*}} !nosanitize
@@ -162,7 +167,7 @@ unsigned int signed_char_to_unsigned_int(signed char src) {
   // CHECK-SANITIZE-TRAP-NEXT: call void @llvm.ubsantrap(i8 7){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT: unreachable, !nosanitize
   // CHECK-SANITIZE: [[CONT]]:
-  // CHECK-NEXT: ret i32 %[[CONV]]
+  // CHECK-NEXT: ret i32 %[[CONV1]]
   // CHECK-NEXT: }
 #line 600
   return src;
@@ -177,6 +182,7 @@ signed char unsigned_int_to_signed_char(unsigned int src) {
   // CHECK-NEXT: store i32 %[[SRC]], ptr %[[SRC_ADDR]]
   // CHECK-NEXT: %[[DST:.*]] = load i32, ptr %[[SRC_ADDR]]
   // CHECK-NEXT: %[[CONV:.*]] = trunc i32 %[[DST]] to i8
+  // CHECK-NEXT: %[[CONV2:.*]] = bitcast i8 %[[CONV]] to b8
   // CHECK-SANITIZE-NEXT: %[[DST_NEGATIVITYCHECK:.*]] = icmp slt i8 %[[CONV]], 0, !nosanitize
   // CHECK-SANITIZE-NEXT: %[[SIGNCHANGECHECK:.*]] = icmp eq i1 false, %[[DST_NEGATIVITYCHECK]], !nosanitize
   // CHECK-SANITIZE-NEXT: br i1 %[[SIGNCHANGECHECK]], label %[[CONT:.*]], label %[[HANDLER_IMPLICIT_CONVERSION:[^,]+]],{{.*}} !nosanitize
@@ -188,7 +194,7 @@ signed char unsigned_int_to_signed_char(unsigned int src) {
   // CHECK-SANITIZE-TRAP-NEXT: call void @llvm.ubsantrap(i8 7){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT: unreachable, !nosanitize
   // CHECK-SANITIZE: [[CONT]]:
-  // CHECK-NEXT: ret i8 %[[CONV]]
+  // CHECK-NEXT: ret b8 %[[CONV2]]
   // CHECK-NEXT: }
 #line 700
   return src;
@@ -203,6 +209,7 @@ signed char signed_int_to_signed_char(signed int x) {
   // CHECK-NEXT: store i32 %[[SRC]], ptr %[[SRC_ADDR]]
   // CHECK-NEXT: %[[DST:.*]] = load i32, ptr %[[SRC_ADDR]]
   // CHECK-NEXT: %[[CONV:.*]] = trunc i32 %[[DST]] to i8
+  // CHECK-NEXT: %[[CONV2:.*]] = bitcast i8 %[[CONV]] to b8
   // CHECK-SANITIZE-NEXT: %[[SRC_NEGATIVITYCHECK:.*]] = icmp slt i32 %[[DST]], 0, !nosanitize
   // CHECK-SANITIZE-NEXT: %[[DST_NEGATIVITYCHECK:.*]] = icmp slt i8 %[[CONV]], 0, !nosanitize
   // CHECK-SANITIZE-NEXT: %[[SIGNCHANGECHECK:.*]] = icmp eq i1 %[[SRC_NEGATIVITYCHECK]], %[[DST_NEGATIVITYCHECK]], !nosanitize
@@ -215,7 +222,7 @@ signed char signed_int_to_signed_char(signed int x) {
   // CHECK-SANITIZE-TRAP-NEXT: call void @llvm.ubsantrap(i8 7){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT: unreachable, !nosanitize
   // CHECK-SANITIZE: [[CONT]]:
-  // CHECK-NEXT: ret i8 %[[CONV]]
+  // CHECK-NEXT: ret b8 %[[CONV2]]
   // CHECK-NEXT: }
 #line 800
   return x;

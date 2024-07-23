@@ -29,7 +29,7 @@ struct TT{
   ty Y;
 };
 
-// TCHECK: [[TT:%.+]] = type { i64, i8 }
+// TCHECK: [[TT:%.+]] = type { i64, b8 }
 // TCHECK: [[S1:%.+]] = type { double }
 
 int foo(int n) {
