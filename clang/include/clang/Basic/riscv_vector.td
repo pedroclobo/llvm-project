@@ -2446,8 +2446,10 @@ let HasMasked = false, HasVL = false, IRName = "" in {
             // Ex: <vscale x 8 x i8>
             //     --(bitcast)--------> <vscale x 64 x i1>
             //     --(vector_extract)-> <vscale x  8 x i1>
-            llvm::Value *BitCast = Builder.CreateBitCast(Ops[0], Boolean64Ty);
-            return Builder.CreateExtractVector(ResultType, BitCast,
+            llvm::Value *Cast = Ops[0]->getType()->isByteOrByteVectorTy() ?
+              Builder.CreateExactByteCast(Ops[0], Boolean64Ty) :
+              Builder.CreateBitCast(Ops[0], Boolean64Ty);
+            return Builder.CreateExtractVector(ResultType, Cast,
                                                ConstantInt::get(Int64Ty, 0));
           } else {
             // Casting from vector boolean -> m1 vector integer
@@ -2462,7 +2464,9 @@ let HasMasked = false, HasVL = false, IRName = "" in {
             return Builder.CreateBitCast(Boolean64Val, ResultType);
           }
         }
-        return Builder.CreateBitCast(Ops[0], ResultType);
+        return Ops[0]->getType()->isByteOrByteVectorTy() ?
+          Builder.CreateExactByteCast(Ops[0], ResultType) :
+          Builder.CreateBitCast(Ops[0], ResultType);
       }] in {
     // Reinterpret between different type under the same SEW and LMUL
     def vreinterpret_i_u : RVVBuiltin<"Uvv", "vUv", "csil", "v">;

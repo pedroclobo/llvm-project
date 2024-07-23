@@ -74,7 +74,7 @@ namespace BaseClass {
   struct Test : Ts... { constexpr Test() : Ts()..., n(5) {} int n; };
 
   using Test1 = Test<N, C, Cs<1,2>, D, X<C,1>>;
-  // CHECK: @_ZN9BaseClass2t1E ={{.*}} constant {{.*}} { i32 3, i8 1, i8 1, i8 1, double 4.000000e+00, i8 1, i32 5 }, align 8
+  // CHECK: @_ZN9BaseClass2t1E ={{.*}} constant {{.*}} { i32 3, b8 1, b8 1, b8 1, double 4.000000e+00, b8 1, i32 5 }, align 8
   extern constexpr Test1 t1 = Test1();
 
   struct DN : D, N {};
@@ -93,7 +93,7 @@ namespace BaseClass {
 
   struct __attribute((packed)) PackedD { double y = 2; };
   struct Test3 : C, PackedD { constexpr Test3() {} };
-  // CHECK: @_ZN9BaseClass2t3E ={{.*}} constant <{ i8, double }> <{ i8 1, double 2.000000e+00 }>
+  // CHECK: @_ZN9BaseClass2t3E ={{.*}} constant <{ b8, double }> <{ b8 1, double 2.000000e+00 }>
   extern constexpr Test3 t3 = Test3();
 }
 
@@ -101,7 +101,7 @@ namespace Array {
   // CHECK: @_ZN5Array3arrE ={{.*}} constant [2 x i32] [i32 4, i32 0]
   extern constexpr int arr[2] = { 4 };
 
-  // CHECK: @_ZN5Array1cE ={{.*}} constant [6 x [4 x i8]] [{{.*}} c"foo\00", [4 x i8] c"a\00\00\00", [4 x i8] c"bar\00", [4 x i8] c"xyz\00", [4 x i8] c"b\00\00\00", [4 x i8] c"123\00"]
+  // CHECK: @_ZN5Array1cE ={{.*}} constant <{ [4 x i8], [4 x i8], [4 x i8], [4 x b8], [4 x i8], [4 x b8] }> <{ [4 x i8] c"foo\00", [4 x i8] c"a\00\00\00", [4 x i8] c"bar\00", [4 x b8] c"xyz\00", [4 x i8] c"b\00\00\00", [4 x b8] c"123\00" }>
   extern constexpr char c[6][4] = { "foo", "a", { "bar" }, { 'x', 'y', 'z' }, { "b" }, '1', '2', '3' };
 
   // CHECK: @_ZN5Array2ucE ={{.*}} constant [4 x i8] c"foo\00"
@@ -120,7 +120,7 @@ namespace Array {
     char d[4];
     constexpr E() : c("foo"), d("x") {}
   };
-  // CHECK: @_ZN5Array1eE ={{.*}} constant {{.*}} { [4 x i8] c"foo\00", [4 x i8] c"x\00\00\00" }
+  // CHECK: @_ZN5Array1eE ={{.*}} constant {{.*}} { [4 x b8] c"foo\00", [4 x b8] c"x\00\00\00" }
   extern constexpr E e = E();
 
   // PR13290
@@ -344,7 +344,7 @@ namespace VirtualMembers {
     constexpr E() : B(3), c{'b','y','e'} {}
     char c[3];
   };
-  // CHECK: @_ZN14VirtualMembers1eE ={{.*}} global { ptr, double, i32, ptr, double, [5 x i8], i16, ptr, double, [5 x i8], [3 x i8] } { ptr getelementptr inbounds inrange(-16, 8) ({ [3 x ptr], [4 x ptr], [4 x ptr] }, ptr @_ZTVN14VirtualMembers1EE, i32 0, i32 0, i32 2), double 1.000000e+00, i32 64, ptr getelementptr inbounds inrange(-16, 16) ({ [3 x ptr], [4 x ptr], [4 x ptr] }, ptr @_ZTVN14VirtualMembers1EE, i32 0, i32 1, i32 2), double 2.000000e+00, [5 x i8] c"hello", i16 5, ptr getelementptr inbounds inrange(-16, 16) ({ [3 x ptr], [4 x ptr], [4 x ptr] }, ptr @_ZTVN14VirtualMembers1EE, i32 0, i32 2, i32 2), double 3.000000e+00, [5 x i8] c"world", [3 x i8] c"bye" }
+  // CHECK: @_ZN14VirtualMembers1eE ={{.*}} global { ptr, double, i32, ptr, double, [5 x b8], i16, ptr, double, [5 x b8], [3 x b8] } { ptr getelementptr inbounds inrange(-16, 8) ({ [3 x ptr], [4 x ptr], [4 x ptr] }, ptr @_ZTVN14VirtualMembers1EE, i32 0, i32 0, i32 2), double 1.000000e+00, i32 64, ptr getelementptr inbounds inrange(-16, 16) ({ [3 x ptr], [4 x ptr], [4 x ptr] }, ptr @_ZTVN14VirtualMembers1EE, i32 0, i32 1, i32 2), double 2.000000e+00, [5 x b8] c"hello", i16 5, ptr getelementptr inbounds inrange(-16, 16) ({ [3 x ptr], [4 x ptr], [4 x ptr] }, ptr @_ZTVN14VirtualMembers1EE, i32 0, i32 2, i32 2), double 3.000000e+00, [5 x b8] c"world", [3 x b8] c"bye" }
   E e;
 
   struct nsMemoryImpl {

@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
   // CHECK: [[GTID:%.+]] = call i32 @__kmpc_global_thread_num(ptr @{{.+}})
   // CHECK: call i32 @__kmpc_omp_taskyield(ptr @{{.+}}, i32 [[GTID]], i32 0)
   // CHECK: call {{.+}} [[TMAIN_INT:@.+]](i{{[0-9][0-9]}}
-  // CHECK: call {{.+}} [[TMAIN_CHAR:@.+]](i{{[0-9]}}
+  // CHECK: call {{.+}} [[TMAIN_CHAR:@.+]](b{{[0-9]}}
   return tmain(argc) + tmain(argv[0][0]) + a;
 }
 

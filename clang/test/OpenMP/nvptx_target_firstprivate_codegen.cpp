@@ -14,7 +14,7 @@ struct TT {
 };
 
 // TCHECK-DAG:  [[TTII:%.+]] = type { i32, i32 }
-// TCHECK-DAG:  [[TT:%.+]] = type { i64, i8 }
+// TCHECK-DAG:  [[TT:%.+]] = type { i64, b8 }
 // TCHECK-DAG:  [[S1:%.+]] = type { double }
 
 int foo(int n, double *ptr) {
@@ -141,7 +141,7 @@ void fconst(const tx t) {
 // TCHECK:  [[A_ADDR:%.+]] = alloca i{{[0-9]+}},
 // TCHECK:  [[A3_ADDR:%.+]] = alloca i{{[0-9]+}},
 // TCHECK:  [[B_ADDR:%.+]] = alloca ptr,
-// TCHECK-NOT:  alloca i{{[0-9]+}},
+// TCHECK-NOT:  alloca b{{[0-9]+}},
 // TCHECK:  [[B_PRIV:%.+]] = alloca [10 x i{{[0-9]+}}],
 // TCHECK:  store i{{[0-9]+}} [[A_IN]], ptr [[A_ADDR]],
 // TCHECK:  store i{{[0-9]+}} [[A3_IN]], ptr [[A3_ADDR]],

@@ -3430,6 +3430,7 @@ APFloat ConstantDataSequential::getElementAsAPFloat(uint64_t Elt) const {
 
   switch (getElementType()->getTypeID()) {
   default:
+    llvm::errs() << "Invalid type: " << *getElementType() << "\n";
     llvm_unreachable("Accessor can only be used when element is float/double!");
   case Type::HalfTyID: {
     auto EltVal = *reinterpret_cast<const uint16_t *>(EltPtr);

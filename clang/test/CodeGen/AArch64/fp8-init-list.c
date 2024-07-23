@@ -34,15 +34,17 @@ struct S s;
 // CHECK-LABEL: define dso_local void @f(
 // CHECK-SAME: <1 x i8> [[X:%.*]]) local_unnamed_addr #[[ATTR1:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <1 x i8> [[X]], i64 0
-// CHECK-NEXT:    store i8 [[TMP0]], ptr @s, align 1, !tbaa [[TBAA2:![0-9]+]]
+// CHECK-NEXT:    [[BC:%.*]] = bitcast <1 x i8> [[X]] to <1 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <1 x b8> [[BC]], i64 0
+// CHECK-NEXT:    store b8 [[TMP0]], ptr @s, align 1, !tbaa [[TBAA2:![0-9]+]]
 // CHECK-NEXT:    ret void
 //
 // CHECK-CXX-LABEL: define dso_local void @_Z1fu6__mfp8(
 // CHECK-CXX-SAME: <1 x i8> [[X:%.*]]) local_unnamed_addr #[[ATTR1:[0-9]+]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = extractelement <1 x i8> [[X]], i64 0
-// CHECK-CXX-NEXT:    store i8 [[TMP0]], ptr @s, align 1, !tbaa [[TBAA2:![0-9]+]]
+// CHECK-CXX-NEXT:    [[BC:%.*]] = bitcast <1 x i8> [[X]] to <1 x b8>
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = extractelement <1 x b8> [[BC]], i64 0
+// CHECK-CXX-NEXT:    store b8 [[TMP0]], ptr @s, align 1, !tbaa [[TBAA2:![0-9]+]]
 // CHECK-CXX-NEXT:    ret void
 //
 void f(__mfp8 x) {

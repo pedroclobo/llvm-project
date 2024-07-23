@@ -89,11 +89,11 @@ int main(void) {
 #pragma omp atomic read
   bv = bx;
 // CHECK: load atomic i8, ptr {{.*}} monotonic, align 1
-// CHECK: store i8
+// CHECK: store b8
 #pragma omp atomic read
   cv = cx;
 // CHECK: load atomic i8, ptr {{.*}} monotonic, align 1
-// CHECK: store i8
+// CHECK: store b8
 #pragma omp atomic read
   ucv = ucx;
 // CHECK: load atomic i16, ptr {{.*}} monotonic, align 2
@@ -163,12 +163,12 @@ int main(void) {
 #pragma omp atomic read
   bv = ulx;
 // CHECK: load atomic i8, ptr {{.*}} monotonic, align 1
-// CHECK: store i8
+// CHECK: store b8
 #pragma omp atomic read
   cv = bx;
 // CHECK: load atomic i8, ptr {{.*}} seq_cst, align 1
 // CHECK: call{{.*}} @__kmpc_flush(
-// CHECK: store i8
+// CHECK: store b8
 #pragma omp atomic read seq_cst
   ucv = cx;
 // CHECK: load atomic i64, ptr {{.*}} monotonic, align 8

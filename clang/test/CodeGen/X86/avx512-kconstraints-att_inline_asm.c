@@ -5,7 +5,7 @@
 #include <x86intrin.h>
 
 __m512i mask_Yk_i8(char msk, __m512i x, __m512i y){
-// CHECK: <8 x i64> asm "vpaddq\09$3, $2, $0 {$1}", "=x,^Yk,x,x,~{dirflag},~{fpsr},~{flags}"(i8 %{{.*}}, <8 x i64> %{{.*}}, <8 x i64> %{{.*}})
+// CHECK: <8 x i64> asm "vpaddq\09$3, $2, $0 {$1}", "=x,^Yk,x,x,~{dirflag},~{fpsr},~{flags}"(b8 %{{.*}}, <8 x i64> %{{.*}}, <8 x i64> %{{.*}})
   __m512i dst;
   asm ("vpaddq\t%3, %2, %0 %{%1%}"
        : "=x" (dst)      //output

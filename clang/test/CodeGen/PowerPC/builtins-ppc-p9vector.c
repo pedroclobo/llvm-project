@@ -507,23 +507,29 @@ unsigned test24(void) {
 }
 vector bool char test25(void) {
 // CHECK-BE: @llvm.ppc.altivec.vcmpneb(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-BE-NEXT: ret <16 x b8>
 // CHECK: @llvm.ppc.altivec.vcmpneb(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-NEXT: ret <16 x b8>
   return vec_cmpne (vbca, vbcb);
 }
 vector bool char test26(void) {
 // CHECK-BE: @llvm.ppc.altivec.vcmpneb(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-BE-NEXT: ret <16 x b8>
 // CHECK: @llvm.ppc.altivec.vcmpneb(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-NEXT: ret <16 x b8>
   return vec_cmpne (vsca, vscb);
 }
 vector bool char test27(void) {
 // CHECK-BE: @llvm.ppc.altivec.vcmpneb(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-BE-NEXT: ret <16 x b8>
 // CHECK: @llvm.ppc.altivec.vcmpneb(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-NEXT: ret <16 x b8>
   return vec_cmpne (vuca, vucb);
 }
 vector bool int test28(void) {
@@ -613,16 +619,20 @@ vector bool int test38(void) {
 }
 vector signed char test39(void) {
 // CHECK-BE: @llvm.cttz.v16i8(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-BE-NEXT: ret <16 x b8>
 // CHECK: @llvm.cttz.v16i8(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-NEXT: ret <16 x b8>
   return vec_cnttz (vsca);
 }
 vector unsigned char test40(void) {
 // CHECK-BE: @llvm.cttz.v16i8(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-BE-NEXT: ret <16 x b8>
 // CHECK: @llvm.cttz.v16i8(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-NEXT: ret <16 x b8>
   return vec_cnttz (vuca);
 }
 vector signed int test41(void) {
@@ -669,16 +679,18 @@ vector unsigned short test46(void) {
 }
 vector unsigned char test47(void) {
 // CHECK-BE: @llvm.ctpop.v16i8(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-BE-NEXT: ret <16 x b8>
 // CHECK: @llvm.ctpop.v16i8(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-NEXT: ret <16 x b8>
   return vec_popcnt (vsca);
 }
 vector unsigned char test48(void) {
 // CHECK-BE: @llvm.ctpop.v16i8(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE: ret <16 x b8>
 // CHECK: @llvm.ctpop.v16i8(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK: ret <16 x b8>
   return vec_popcnt (vuca);
 }
 vector unsigned int test49(void) {
@@ -838,16 +850,20 @@ vector unsigned int test71(void) {
 }
 vector unsigned char test72(void) {
 // CHECK-BE: @llvm.ppc.altivec.vslv(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-BE-NEXT: ret <16 x b8>
 // CHECK: @llvm.ppc.altivec.vslv(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-NEXT: ret <16 x b8>
   return vec_slv (vuca, vucb);
 }
 vector unsigned char test73(void) {
 // CHECK-BE: @llvm.ppc.altivec.vsrv(<16 x i8>
-// CHECK-BE-NEXT: ret <16 x i8>
+// CHECK-BE-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-BE-NEXT: ret <16 x b8>
 // CHECK: @llvm.ppc.altivec.vsrv(<16 x i8>
-// CHECK-NEXT: ret <16 x i8>
+// CHECK-NEXT: bitcast <16 x i8> {{.*}} to <16 x b8>
+// CHECK-NEXT: ret <16 x b8>
   return vec_srv (vuca, vucb);
 }
 vector unsigned short test74(void) {
@@ -1059,7 +1075,7 @@ vector unsigned long long test95(void) {
 // CHECK-NEXT-NEXT: ret <2 x i64>
   return vec_xl_len(ull,0);
 }
- 
+
 vector signed long long test96(void) {
 // CHECK-BE: @llvm.ppc.vsx.lxvl(ptr %{{.+}}, i64
 // CHECK-BE-NEXT-NEXT: ret <2 x i64>
@@ -1202,7 +1218,7 @@ vector float test115(void) {
 }
 vector unsigned char test116(void) {
 // CHECK-BE: [[T1:%.+]] = call <4 x i32> @llvm.ppc.vsx.xxinsertw(<4 x i32> {{.+}}, <2 x i64> {{.+}}, i32 7)
-// CHECK-BE-NEXT: bitcast <4 x i32> [[T1]] to <16 x i8>
+// CHECK-BE-NEXT: bitcast <4 x i32> [[T1]] to <16 x b8>
 // CHECK: [[T1:%.+]] = shufflevector <2 x i64> {{.+}}, <2 x i64> {{.+}}, <2 x i32> <i32 1, i32 0>
 // CHECK-NEXT: [[T2:%.+]] =  bitcast <2 x i64> [[T1]] to <4 x i32>
 // CHECK-NEXT: [[T3:%.+]] = call <4 x i32> @llvm.ppc.vsx.xxinsertw(<4 x i32> [[T2]], <2 x i64> {{.+}}, i32 5)
@@ -1210,7 +1226,7 @@ vector unsigned char test116(void) {
 }
 vector unsigned char test117(void) {
 // CHECK-BE: [[T1:%.+]] = call <4 x i32> @llvm.ppc.vsx.xxinsertw(<4 x i32> {{.+}}, <2 x i64> {{.+}}, i32 12)
-// CHECK-BE-NEXT: bitcast <4 x i32> [[T1]] to <16 x i8>
+// CHECK-BE-NEXT: bitcast <4 x i32> [[T1]] to <16 x b8>
 // CHECK: [[T1:%.+]] = shufflevector <2 x i64> {{.+}}, <2 x i64> {{.+}}, <2 x i32> <i32 1, i32 0>
 // CHECK-NEXT: [[T2:%.+]] =  bitcast <2 x i64> [[T1]] to <4 x i32>
 // CHECK-NEXT: [[T3:%.+]] = call <4 x i32> @llvm.ppc.vsx.xxinsertw(<4 x i32> [[T2]], <2 x i64> {{.+}}, i32 0)

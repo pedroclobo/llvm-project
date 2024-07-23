@@ -5,14 +5,14 @@
 typedef _Atomic(int) AtomicInt;
 AtomicInt PR22043 = AtomicInt();
 
-// CHECK-DAG: @_ZN7PR180978constant1aE ={{.*}} local_unnamed_addr global { i16, i8 } { i16 1, i8 6 }, align 4
-// CHECK-DAG: @_ZN7PR180978constant1bE ={{.*}} local_unnamed_addr global { i16, i8 } { i16 2, i8 6 }, align 4
-// CHECK-DAG: @_ZN7PR180978constant1cE ={{.*}} local_unnamed_addr global { i16, i8 } { i16 3, i8 6 }, align 4
-// CHECK-DAG: @_ZN7PR180978constant1yE ={{.*}} local_unnamed_addr global { { i16, i8 }, i32 } { { i16, i8 } { i16 4, i8 6 }, i32 5 }, align 4
+// CHECK-DAG: @_ZN7PR180978constant1aE ={{.*}} local_unnamed_addr global { i16, b8 } { i16 1, b8 6 }, align 4
+// CHECK-DAG: @_ZN7PR180978constant1bE ={{.*}} local_unnamed_addr global { i16, b8 } { i16 2, b8 6 }, align 4
+// CHECK-DAG: @_ZN7PR180978constant1cE ={{.*}} local_unnamed_addr global { i16, b8 } { i16 3, b8 6 }, align 4
+// CHECK-DAG: @_ZN7PR180978constant1yE ={{.*}} local_unnamed_addr global { { i16, b8 }, i32 } { { i16, b8 } { i16 4, b8 6 }, i32 5 }, align 4
 // CHECK-DAG: @_ZN7PR180978constant1zE ={{.*}} global i32 0, align 4
 // CHECK-DAG: @_ZN7PR180978constant2y2E ={{.*}} global %"struct.PR18097::constant::Y" zeroinitializer
 // CHECK-DAG: @_ZN7PR180978constant1gE ={{.*}} global %"struct.PR18097::constant::Struct0" zeroinitializer
-// CHECK-DAG: @_ZN7PR180978constantL1xE = internal {{.*}} constant { i16, i8 } { i16 1, i8 6 }
+// CHECK-DAG: @_ZN7PR180978constantL1xE = internal {{.*}} constant { i16, b8 } { i16 1, b8 6 }
 
 struct A {
   _Atomic(int) i;
@@ -23,7 +23,7 @@ struct A {
 // CHECK: store atomic i32 {{.*}} seq_cst, align 4
 void A::v(int j) { i = j; }
 // Initialising atomic values should not be atomic
-// CHECK-NOT: store atomic 
+// CHECK-NOT: store atomic
 A::A(int j) : i(j) {}
 
 struct B {

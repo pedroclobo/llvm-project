@@ -1778,34 +1778,34 @@ void test1() {
 // CHECK-LE: shufflevector <2 x double> %{{[0-9]+}}, <2 x double> %{{[0-9]+}}, <2 x i32> <i32 1, i32 0>
 
   res_vbll = vec_revb(vbll);
-// CHECK: store <16 x i8> <i8 7, i8 6, i8 5, i8 4, i8 3, i8 2, i8 1, i8 0, i8 15, i8 14, i8 13, i8 12, i8 11, i8 10, i8 9, i8 8>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 7, b8 6, b8 5, b8 4, b8 3, b8 2, b8 1, b8 0, b8 15, b8 14, b8 13, b8 12, b8 11, b8 10, b8 9, b8 8>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 7, i8 6, i8 5, i8 4, i8 3, i8 2, i8 1, i8 0, i8 15, i8 14, i8 13, i8 12, i8 11, i8 10, i8 9, i8 8>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 7, b8 6, b8 5, b8 4, b8 3, b8 2, b8 1, b8 0, b8 15, b8 14, b8 13, b8 12, b8 11, b8 10, b8 9, b8 8>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vsll = vec_revb(vsll);
-// CHECK: store <16 x i8> <i8 7, i8 6, i8 5, i8 4, i8 3, i8 2, i8 1, i8 0, i8 15, i8 14, i8 13, i8 12, i8 11, i8 10, i8 9, i8 8>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 7, b8 6, b8 5, b8 4, b8 3, b8 2, b8 1, b8 0, b8 15, b8 14, b8 13, b8 12, b8 11, b8 10, b8 9, b8 8>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 7, i8 6, i8 5, i8 4, i8 3, i8 2, i8 1, i8 0, i8 15, i8 14, i8 13, i8 12, i8 11, i8 10, i8 9, i8 8>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 7, b8 6, b8 5, b8 4, b8 3, b8 2, b8 1, b8 0, b8 15, b8 14, b8 13, b8 12, b8 11, b8 10, b8 9, b8 8>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vull = vec_revb(vull);
-// CHECK: store <16 x i8> <i8 7, i8 6, i8 5, i8 4, i8 3, i8 2, i8 1, i8 0, i8 15, i8 14, i8 13, i8 12, i8 11, i8 10, i8 9, i8 8>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 7, b8 6, b8 5, b8 4, b8 3, b8 2, b8 1, b8 0, b8 15, b8 14, b8 13, b8 12, b8 11, b8 10, b8 9, b8 8>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 7, i8 6, i8 5, i8 4, i8 3, i8 2, i8 1, i8 0, i8 15, i8 14, i8 13, i8 12, i8 11, i8 10, i8 9, i8 8>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 7, b8 6, b8 5, b8 4, b8 3, b8 2, b8 1, b8 0, b8 15, b8 14, b8 13, b8 12, b8 11, b8 10, b8 9, b8 8>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vd = vec_revb(vd);
-// CHECK: store <16 x i8> <i8 7, i8 6, i8 5, i8 4, i8 3, i8 2, i8 1, i8 0, i8 15, i8 14, i8 13, i8 12, i8 11, i8 10, i8 9, i8 8>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 7, b8 6, b8 5, b8 4, b8 3, b8 2, b8 1, b8 0, b8 15, b8 14, b8 13, b8 12, b8 11, b8 10, b8 9, b8 8>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 7, i8 6, i8 5, i8 4, i8 3, i8 2, i8 1, i8 0, i8 15, i8 14, i8 13, i8 12, i8 11, i8 10, i8 9, i8 8>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 7, b8 6, b8 5, b8 4, b8 3, b8 2, b8 1, b8 0, b8 15, b8 14, b8 13, b8 12, b8 11, b8 10, b8 9, b8 8>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
@@ -1978,14 +1978,14 @@ res_vd = vec_xl_be(sll, ad);
 // CHECK-LE: call <2 x double> @llvm.ppc.vsx.lxvd2x.be(ptr %{{[0-9]+}})
 
 res_vsc = vec_xl_be(sll, asc);
-// CHECK: load <16 x i8>, ptr %{{.+}}, align 1
+// CHECK: load <16 x b8>, ptr %{{.+}}, align 1
 // CHECK-LE: call <2 x double> @llvm.ppc.vsx.lxvd2x.be(ptr %{{[0-9]+}})
-// CHECK-LE: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
+// CHECK-LE: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
 
 res_vuc = vec_xl_be(sll, auc);
-// CHECK: load <16 x i8>, ptr %{{.+}}, align 1
+// CHECK: load <16 x b8>, ptr %{{.+}}, align 1
 // CHECK-LE: call <2 x double> @llvm.ppc.vsx.lxvd2x.be(ptr %{{[0-9]+}})
-// CHECK-LE: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
+// CHECK-LE: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
 
 res_vss = vec_xl_be(sll, ass);
 // CHECK: load <8 x i16>, ptr %{{.+}}, align 1
@@ -2094,13 +2094,13 @@ vec_xst_be(vd, sll, ad);
 // CHECK-LE: call void @llvm.ppc.vsx.stxvd2x.be(<2 x double> %{{[0-9]+}}, ptr %{{[0-9]+}})
 
 vec_xst_be(vsc, sll, asc);
-// CHECK: store <16 x i8> %{{[0-9]+}}, ptr %{{.+}}, align 1
-// CHECK-LE: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
+// CHECK: store <16 x b8> %{{[0-9]+}}, ptr %{{.+}}, align 1
+// CHECK-LE: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
 // CHECK-LE: call void @llvm.ppc.vsx.stxvd2x.be(<2 x double> %{{[0-9]+}}, ptr %{{[0-9]+}})
 
 vec_xst_be(vuc, sll, auc);
-// CHECK: store <16 x i8> %{{[0-9]+}}, ptr %{{.+}}, align 1
-// CHECK-LE: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
+// CHECK: store <16 x b8> %{{[0-9]+}}, ptr %{{.+}}, align 1
+// CHECK-LE: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
 // CHECK-LE: call void @llvm.ppc.vsx.stxvd2x.be(<2 x double> %{{[0-9]+}}, ptr %{{[0-9]+}})
 
 vec_xst_be(vss, sll, ass);
@@ -2255,24 +2255,24 @@ res_vull = vec_promote(ull, 0);
 // CHECK-LE: insertelement <2 x i64>
 
 res_vsc = vec_promote(asc[0], 8);
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: store <16 x i8> poison
 // CHECK: [[IDX:%.*]] = and i32 {{.*}}, 15
-// CHECK: insertelement <16 x i8> {{.*}}, i8 {{.*}}, i32 [[IDX]]
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK: insertelement <16 x b8> {{.*}}, b8 {{.*}}, i32 [[IDX]]
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: store <16 x i8> poison
 // CHECK-LE: [[IDX:%.*]] = and i32 {{.*}}, 15
-// CHECK-LE: insertelement <16 x i8> {{.*}}, i8 {{.*}}, i32 [[IDX]]
+// CHECK-LE: insertelement <16 x b8> {{.*}}, b8 {{.*}}, i32 [[IDX]]
 
 res_vuc = vec_promote(auc[0], 8);
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: store <16 x i8> poison
 // CHECK: [[IDX:%.*]] = and i32 {{.*}}, 15
-// CHECK: insertelement <16 x i8> {{.*}}, i8 {{.*}}, i32 [[IDX]]
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK: insertelement <16 x b8> {{.*}}, b8 {{.*}}, i32 [[IDX]]
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: store <16 x i8> poison
 // CHECK-LE: [[IDX:%.*]] = and i32 {{.*}}, 15
-// CHECK-LE: insertelement <16 x i8> {{.*}}, i8 {{.*}}, i32 [[IDX]]
+// CHECK-LE: insertelement <16 x b8> {{.*}}, b8 {{.*}}, i32 [[IDX]]
 }
 
 // The return type of the call expression may be different from the return type of the shufflevector.
@@ -2364,13 +2364,13 @@ void test_p8overloads_backwards_compat() {
   res_vsll = vec_add(vsll, vsll);
   // CHECK: add <4 x i32>
   // CHECK: call <4 x i32> @llvm.ppc.altivec.vaddcuw
-  // CHECK: shufflevector <16 x i8> {{%.*}}, <16 x i8> {{%.*}}, <16 x i32> <i32 0, i32 0, i32 0, i32 7, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 15, i32 0, i32 0, i32 0, i32 0>
+  // CHECK: shufflevector <16 x b8> {{%.*}}, <16 x b8> {{%.*}}, <16 x i32> <i32 0, i32 0, i32 0, i32 7, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 15, i32 0, i32 0, i32 0, i32 0>
   // CHECK: add <4 x i32>
   // CHECK-LE: add <2 x i64>
   res_vull = vec_add(vull, vull);
   // CHECK: add <4 x i32>
   // CHECK: call <4 x i32> @llvm.ppc.altivec.vaddcuw
-  // CHECK: shufflevector <16 x i8> {{%.*}}, <16 x i8> {{%.*}}, <16 x i32> <i32 0, i32 0, i32 0, i32 7, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 15, i32 0, i32 0, i32 0, i32 0>
+  // CHECK: shufflevector <16 x b8> {{%.*}}, <16 x b8> {{%.*}}, <16 x i32> <i32 0, i32 0, i32 0, i32 7, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 15, i32 0, i32 0, i32 0, i32 0>
   // CHECK: add <4 x i32>
   // CHECK-LE: add <2 x i64>
   dummy();

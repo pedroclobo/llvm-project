@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
   // CHECK: [[GTID:%.+]] = call i32 @__kmpc_global_thread_num(ptr [[LOC]])
   // CHECK: call void @__kmpc_barrier(ptr [[EXPLICIT_BARRIER_LOC]], i32 [[GTID]])
   // CHECK: call {{.+}} [[TMAIN_INT:@.+]](i{{[0-9][0-9]}}
-  // CHECK: call {{.+}} [[TMAIN_CHAR:@.+]](i{{[0-9]}}
+  // CHECK: call {{.+}} [[TMAIN_CHAR:@.+]](b{{[0-9]}}
   return tmain(argc) + tmain(argv[0][0]) + a;
 }
 

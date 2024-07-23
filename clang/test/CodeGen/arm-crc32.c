@@ -6,14 +6,15 @@ int crc32b(int a, char b)
 {
 // expected-error@+1 {{'__builtin_arm_crc32b' needs target feature crc}}
         return __builtin_arm_crc32b(a,b);
-// CHECK: [[T0:%[0-9]+]] = zext i8 %b to i32
+// CHECk:
+// CHECK: [[T0:%[0-9]+]] = zext i8 {{.*}} to i32
 // CHECK: call i32 @llvm.arm.crc32b(i32 %a, i32 [[T0]])
 }
 
 int crc32cb(int a, char b)
 {
         return __builtin_arm_crc32cb(a,b);
-// CHECK: [[T0:%[0-9]+]] = zext i8 %b to i32
+// CHECK: [[T0:%[0-9]+]] = zext i8 {{.*}} to i32
 // CHECK: call i32 @llvm.arm.crc32cb(i32 %a, i32 [[T0]])
 }
 

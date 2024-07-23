@@ -7,13 +7,13 @@ struct test {
 };
 
 char c;
-// CHECK-DAG: @c ={{.*}} global i8 0, align 2
+// CHECK-DAG: @c ={{.*}} global b8 0, align 2
 
 struct test s;
 // CHECK-DAG: @s ={{.*}} global %struct.test zeroinitializer, align 2
 
 extern char ec;
-// CHECK-DAG: @ec = external global i8, align 2
+// CHECK-DAG: @ec = external global b8, align 2
 
 extern struct test es;
 // CHECK-DAG: @es = external global %struct.test, align 2

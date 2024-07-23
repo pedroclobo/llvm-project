@@ -28,57 +28,65 @@
 #define STREAMING
 #endif
 
-// CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svreinterpret_s8_mf8(
+// CHECK-LABEL: define dso_local <vscale x 16 x b8> @test_svreinterpret_s8_mf8(
 // CHECK-SAME: <vscale x 16 x i8> [[OP:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[OP]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z25test_svreinterpret_s8_mf8u13__SVMfloat8_t(
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z25test_svreinterpret_s8_mf8u13__SVMfloat8_t(
 // CHECK-CXX-SAME: <vscale x 16 x i8> [[OP:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[OP]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 svint8_t test_svreinterpret_s8_mf8(svmfloat8_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_s8, _mf8)(op);
 }
 
-// CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svreinterpret_u8_mf8(
+// CHECK-LABEL: define dso_local <vscale x 16 x b8> @test_svreinterpret_u8_mf8(
 // CHECK-SAME: <vscale x 16 x i8> [[OP:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[OP]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z25test_svreinterpret_u8_mf8u13__SVMfloat8_t(
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z25test_svreinterpret_u8_mf8u13__SVMfloat8_t(
 // CHECK-CXX-SAME: <vscale x 16 x i8> [[OP:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[OP]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 svuint8_t test_svreinterpret_u8_mf8(svmfloat8_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_u8, _mf8)(op);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svreinterpret_mf8_s8(
-// CHECK-SAME: <vscale x 16 x i8> [[OP:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[OP:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[OP]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z25test_svreinterpret_mf8_s8u10__SVInt8_t(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[OP:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[OP:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[OP]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 svmfloat8_t test_svreinterpret_mf8_s8(svint8_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _s8)(op);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svreinterpret_mf8_u8(
-// CHECK-SAME: <vscale x 16 x i8> [[OP:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[OP:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[OP]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z25test_svreinterpret_mf8_u8u11__SVUint8_t(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[OP:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[OP:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[OP]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 svmfloat8_t test_svreinterpret_mf8_u8(svuint8_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _u8)(op);
@@ -178,6 +186,7 @@ svmfloat8_t test_svreinterpret_mf8_s64(svint64_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _s64)(op);
 }
 
+//
 // CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svreinterpret_mf8_u64(
 // CHECK-SAME: <vscale x 2 x i64> [[OP:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
@@ -418,105 +427,122 @@ svfloat64_t test_svreinterpret_f64_mf8(svmfloat8_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_f64, _mf8)(op);
 }
 
-// CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_s8_mf8_x2(
+// CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8> } @test_svreinterpret_s8_mf8_x2(
 // CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
 // CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
 // CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], <vscale x 16 x i8> [[TMP4]], 1
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP3]], 0
+// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP4]], <vscale x 16 x b8> [[TMP6]], 1
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP7]]
 //
-// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_s8_mf8_x213svmfloat8x2_t(
+// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8> } @_Z28test_svreinterpret_s8_mf8_x213svmfloat8x2_t(
 // CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
 // CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
 // CHECK-CXX-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP2]], 0
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], <vscale x 16 x i8> [[TMP4]], 1
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]]
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP3]], 0
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP4]], <vscale x 16 x b8> [[TMP6]], 1
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP7]]
 //
 svint8x2_t test_svreinterpret_s8_mf8_x2(svmfloat8x2_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_s8, _mf8_x2)(op);
 }
 
-// CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_u8_mf8_x2(
+// CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8> } @test_svreinterpret_u8_mf8_x2(
 // CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
 // CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
 // CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], <vscale x 16 x i8> [[TMP4]], 1
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP3]], 0
+// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP4]], <vscale x 16 x b8> [[TMP6]], 1
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP7]]
 //
-// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_u8_mf8_x213svmfloat8x2_t(
+// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8> } @_Z28test_svreinterpret_u8_mf8_x213svmfloat8x2_t(
 // CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
 // CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
 // CHECK-CXX-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP2]], 0
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], <vscale x 16 x i8> [[TMP4]], 1
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]]
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP3]], 0
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP4]], <vscale x 16 x b8> [[TMP6]], 1
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP7]]
 //
 svuint8x2_t test_svreinterpret_u8_mf8_x2(svmfloat8x2_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_u8, _mf8_x2)(op);
 }
 
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_s8_x2(
-// CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], <vscale x 16 x i8> [[TMP4]], 1
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP2]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
+// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP5]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP6]], 1
+// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]]
 //
 // CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_mf8_s8_x210svint8x2_t(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-CXX-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP2]], 0
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], <vscale x 16 x i8> [[TMP4]], 1
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 0
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP2]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 1
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP5]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP6]], 1
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]]
 //
 svmfloat8x2_t test_svreinterpret_mf8_s8_x2(svint8x2_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _s8_x2)(op);
 }
 
+//
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_u8_x2(
-// CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], <vscale x 16 x i8> [[TMP4]], 1
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP2]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
+// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP5]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP6]], 1
+// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]]
 //
 // CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_mf8_u8_x211svuint8x2_t(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-CXX-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP2]], 0
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], <vscale x 16 x i8> [[TMP4]], 1
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 0
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP2]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 1
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP5]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP6]], 1
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]]
 //
 svmfloat8x2_t test_svreinterpret_mf8_u8_x2(svuint8x2_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _u8_x2)(op);
@@ -548,7 +574,6 @@ svmfloat8x2_t test_svreinterpret_mf8_mf8_x2(svmfloat8x2_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _mf8_x2)(op);
 }
 
-//
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_s16_x2(
 // CHECK-SAME: <vscale x 8 x i16> [[OP_COERCE0:%.*]], <vscale x 8 x i16> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
@@ -1149,129 +1174,153 @@ svfloat64x2_t test_svreinterpret_f64_mf8_x2(svmfloat8x2_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_f64, _mf8_x2)(op);
 }
 
-// CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_s8_mf8_x3(
+// CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_svreinterpret_s8_mf8_x3(
 // CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
 // CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
 // CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
 // CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
-// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP5]], 1
-// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP7]], 2
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]]
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP4]], 0
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 16 x i8> [[TMP6]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP5]], <vscale x 16 x b8> [[TMP7]], 1
+// CHECK-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
+// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 16 x i8> [[TMP9]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP8]], <vscale x 16 x b8> [[TMP10]], 2
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP11]]
 //
-// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_s8_mf8_x313svmfloat8x3_t(
+// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @_Z28test_svreinterpret_s8_mf8_x313svmfloat8x3_t(
 // CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
 // CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
 // CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
 // CHECK-CXX-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CHECK-CXX-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP5]], 1
-// CHECK-CXX-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CHECK-CXX-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP7]], 2
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]]
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP4]], 0
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 16 x i8> [[TMP6]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP5]], <vscale x 16 x b8> [[TMP7]], 1
+// CHECK-CXX-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
+// CHECK-CXX-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 16 x i8> [[TMP9]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP8]], <vscale x 16 x b8> [[TMP10]], 2
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP11]]
 //
 svint8x3_t test_svreinterpret_s8_mf8_x3(svmfloat8x3_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_s8, _mf8_x3)(op);
 }
 
-// CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_u8_mf8_x3(
+// CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_svreinterpret_u8_mf8_x3(
 // CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
 // CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
 // CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
 // CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
-// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP5]], 1
-// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP7]], 2
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]]
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP4]], 0
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 16 x i8> [[TMP6]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP5]], <vscale x 16 x b8> [[TMP7]], 1
+// CHECK-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
+// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 16 x i8> [[TMP9]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP8]], <vscale x 16 x b8> [[TMP10]], 2
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP11]]
 //
-// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_u8_mf8_x313svmfloat8x3_t(
+// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @_Z28test_svreinterpret_u8_mf8_x313svmfloat8x3_t(
 // CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
 // CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
 // CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
 // CHECK-CXX-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CHECK-CXX-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP5]], 1
-// CHECK-CXX-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CHECK-CXX-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP7]], 2
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]]
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP4]], 0
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 16 x i8> [[TMP6]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP5]], <vscale x 16 x b8> [[TMP7]], 1
+// CHECK-CXX-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
+// CHECK-CXX-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 16 x i8> [[TMP9]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP8]], <vscale x 16 x b8> [[TMP10]], 2
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP11]]
 //
 svuint8x3_t test_svreinterpret_u8_mf8_x3(svmfloat8x3_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_u8, _mf8_x3)(op);
 }
 
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_s8_x3(
-// CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], <vscale x 16 x b8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
-// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
-// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP5]], 1
-// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP7]], 2
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2]], 2
+// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 0
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP3]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 1
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP6]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP7]], 1
+// CHECK-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 2
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP9]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]], <vscale x 16 x i8> [[TMP10]], 2
+// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
 //
 // CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_mf8_s8_x310svint8x3_t(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], <vscale x 16 x b8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CHECK-CXX-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP5]], 1
-// CHECK-CXX-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CHECK-CXX-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP7]], 2
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2]], 2
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 0
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP3]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 1
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP6]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP7]], 1
+// CHECK-CXX-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 2
+// CHECK-CXX-NEXT:    [[TMP10:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP9]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]], <vscale x 16 x i8> [[TMP10]], 2
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
 //
 svmfloat8x3_t test_svreinterpret_mf8_s8_x3(svint8x3_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _s8_x3)(op);
 }
 
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_u8_x3(
-// CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], <vscale x 16 x b8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
-// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
-// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP5]], 1
-// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP7]], 2
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2]], 2
+// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 0
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP3]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 1
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP6]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP7]], 1
+// CHECK-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 2
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP9]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]], <vscale x 16 x i8> [[TMP10]], 2
+// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
 //
 // CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_mf8_u8_x311svuint8x3_t(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], <vscale x 16 x b8> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CHECK-CXX-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP5]], 1
-// CHECK-CXX-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CHECK-CXX-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP7]], 2
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2]], 2
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 0
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP3]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 1
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP6]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP7]], 1
+// CHECK-CXX-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 2
+// CHECK-CXX-NEXT:    [[TMP10:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP9]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]], <vscale x 16 x i8> [[TMP10]], 2
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
 //
 svmfloat8x3_t test_svreinterpret_mf8_u8_x3(svuint8x3_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _u8_x3)(op);
@@ -1499,7 +1548,6 @@ svmfloat8x3_t test_svreinterpret_mf8_s64_x3(svint64x3_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _s64_x3)(op);
 }
 
-//
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_u64_x3(
 // CHECK-SAME: <vscale x 2 x i64> [[OP_COERCE0:%.*]], <vscale x 2 x i64> [[OP_COERCE1:%.*]], <vscale x 2 x i64> [[OP_COERCE2:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
@@ -2070,7 +2118,7 @@ svfloat64x3_t test_svreinterpret_f64_mf8_x3(svmfloat8x3_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_f64, _mf8_x3)(op);
 }
 
-// CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_s8_mf8_x4(
+// CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_svreinterpret_s8_mf8_x4(
 // CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], <vscale x 16 x i8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
@@ -2078,16 +2126,20 @@ svfloat64x3_t test_svreinterpret_f64_mf8_x3(svmfloat8x3_t op) STREAMING {
 // CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
 // CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3]], 3
 // CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CHECK-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP6]], 1
-// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]], <vscale x 16 x i8> [[TMP8]], 2
-// CHECK-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CHECK-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP10]], 3
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP5]], 0
+// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 16 x i8> [[TMP7]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP6]], <vscale x 16 x b8> [[TMP8]], 1
+// CHECK-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 16 x i8> [[TMP10]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[TMP11]], 2
+// CHECK-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
+// CHECK-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 16 x i8> [[TMP13]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[TMP14]], 3
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]]
 //
-// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_s8_mf8_x413svmfloat8x4_t(
+// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @_Z28test_svreinterpret_s8_mf8_x413svmfloat8x4_t(
 // CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], <vscale x 16 x i8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
@@ -2095,20 +2147,24 @@ svfloat64x3_t test_svreinterpret_f64_mf8_x3(svmfloat8x3_t op) STREAMING {
 // CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
 // CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3]], 3
 // CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
-// CHECK-CXX-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CHECK-CXX-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP6]], 1
-// CHECK-CXX-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CHECK-CXX-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]], <vscale x 16 x i8> [[TMP8]], 2
-// CHECK-CXX-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CHECK-CXX-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP10]], 3
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP5]], 0
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
+// CHECK-CXX-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 16 x i8> [[TMP7]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP6]], <vscale x 16 x b8> [[TMP8]], 1
+// CHECK-CXX-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
+// CHECK-CXX-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 16 x i8> [[TMP10]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[TMP11]], 2
+// CHECK-CXX-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
+// CHECK-CXX-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 16 x i8> [[TMP13]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[TMP14]], 3
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]]
 //
 svint8x4_t test_svreinterpret_s8_mf8_x4(svmfloat8x4_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_s8, _mf8_x4)(op);
 }
 
-// CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_u8_mf8_x4(
+// CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_svreinterpret_u8_mf8_x4(
 // CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], <vscale x 16 x i8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
@@ -2116,16 +2172,20 @@ svint8x4_t test_svreinterpret_s8_mf8_x4(svmfloat8x4_t op) STREAMING {
 // CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
 // CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3]], 3
 // CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CHECK-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP6]], 1
-// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]], <vscale x 16 x i8> [[TMP8]], 2
-// CHECK-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CHECK-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP10]], 3
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP5]], 0
+// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 16 x i8> [[TMP7]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP6]], <vscale x 16 x b8> [[TMP8]], 1
+// CHECK-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 16 x i8> [[TMP10]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[TMP11]], 2
+// CHECK-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
+// CHECK-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 16 x i8> [[TMP13]] to <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[TMP14]], 3
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]]
 //
-// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_u8_mf8_x413svmfloat8x4_t(
+// CHECK-CXX-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @_Z28test_svreinterpret_u8_mf8_x413svmfloat8x4_t(
 // CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], <vscale x 16 x i8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
@@ -2133,90 +2193,110 @@ svint8x4_t test_svreinterpret_s8_mf8_x4(svmfloat8x4_t op) STREAMING {
 // CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
 // CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3]], 3
 // CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
-// CHECK-CXX-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CHECK-CXX-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP6]], 1
-// CHECK-CXX-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CHECK-CXX-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]], <vscale x 16 x i8> [[TMP8]], 2
-// CHECK-CXX-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CHECK-CXX-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP10]], 3
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP5]], 0
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
+// CHECK-CXX-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 16 x i8> [[TMP7]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP6]], <vscale x 16 x b8> [[TMP8]], 1
+// CHECK-CXX-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
+// CHECK-CXX-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 16 x i8> [[TMP10]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[TMP11]], 2
+// CHECK-CXX-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
+// CHECK-CXX-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 16 x i8> [[TMP13]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[TMP14]], 3
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]]
 //
 svuint8x4_t test_svreinterpret_u8_mf8_x4(svmfloat8x4_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_u8, _mf8_x4)(op);
 }
 
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_s8_x4(
-// CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], <vscale x 16 x i8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], <vscale x 16 x b8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
-// CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3]], 3
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CHECK-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP6]], 1
-// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]], <vscale x 16 x i8> [[TMP8]], 2
-// CHECK-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CHECK-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP10]], 3
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2]], 2
+// CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[OP_COERCE3]], 3
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 0
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP4]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP5]], 0
+// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP7]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP8]], 1
+// CHECK-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 2
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP10]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP11]], 2
+// CHECK-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 3
+// CHECK-NEXT:    [[TMP14:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP13]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP12]], <vscale x 16 x i8> [[TMP14]], 3
+// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP15]]
 //
 // CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_mf8_s8_x410svint8x4_t(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], <vscale x 16 x i8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], <vscale x 16 x b8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3]], 3
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
-// CHECK-CXX-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CHECK-CXX-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP6]], 1
-// CHECK-CXX-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CHECK-CXX-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]], <vscale x 16 x i8> [[TMP8]], 2
-// CHECK-CXX-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CHECK-CXX-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP10]], 3
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2]], 2
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[OP_COERCE3]], 3
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 0
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP4]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP5]], 0
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 1
+// CHECK-CXX-NEXT:    [[TMP8:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP7]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP8]], 1
+// CHECK-CXX-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 2
+// CHECK-CXX-NEXT:    [[TMP11:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP10]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP11]], 2
+// CHECK-CXX-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 3
+// CHECK-CXX-NEXT:    [[TMP14:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP13]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP12]], <vscale x 16 x i8> [[TMP14]], 3
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP15]]
 //
 svmfloat8x4_t test_svreinterpret_mf8_s8_x4(svint8x4_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _s8_x4)(op);
 }
 
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_u8_x4(
-// CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], <vscale x 16 x i8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], <vscale x 16 x b8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
-// CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3]], 3
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CHECK-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
-// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CHECK-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP6]], 1
-// CHECK-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]], <vscale x 16 x i8> [[TMP8]], 2
-// CHECK-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CHECK-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP10]], 3
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2]], 2
+// CHECK-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[OP_COERCE3]], 3
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 0
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP4]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP5]], 0
+// CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 1
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP7]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP8]], 1
+// CHECK-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 2
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP10]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP11]], 2
+// CHECK-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 3
+// CHECK-NEXT:    [[TMP14:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP13]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP12]], <vscale x 16 x i8> [[TMP14]], 3
+// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP15]]
 //
 // CHECK-CXX-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z28test_svreinterpret_mf8_u8_x411svuint8x4_t(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], <vscale x 16 x i8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], <vscale x 16 x b8> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0]], 0
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1]], 1
-// CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2]], 2
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3]], 3
-// CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CHECK-CXX-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
-// CHECK-CXX-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CHECK-CXX-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP6]], 1
-// CHECK-CXX-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CHECK-CXX-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]], <vscale x 16 x i8> [[TMP8]], 2
-// CHECK-CXX-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CHECK-CXX-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP10]], 3
-// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0]], 0
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1]], 1
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2]], 2
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[OP_COERCE3]], 3
+// CHECK-CXX-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 0
+// CHECK-CXX-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP4]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP5]], 0
+// CHECK-CXX-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 1
+// CHECK-CXX-NEXT:    [[TMP8:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP7]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP8]], 1
+// CHECK-CXX-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 2
+// CHECK-CXX-NEXT:    [[TMP11:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP10]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP11]], 2
+// CHECK-CXX-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 3
+// CHECK-CXX-NEXT:    [[TMP14:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP13]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP12]], <vscale x 16 x i8> [[TMP14]], 3
+// CHECK-CXX-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP15]]
 //
 svmfloat8x4_t test_svreinterpret_mf8_u8_x4(svuint8x4_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _u8_x4)(op);
@@ -2536,7 +2616,6 @@ svmfloat8x4_t test_svreinterpret_mf8_u64_x4(svuint64x4_t op) STREAMING {
   return SVE_ACLE_FUNC(svreinterpret_mf8, _u64_x4)(op);
 }
 
-//
 // CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_svreinterpret_mf8_f16_x4(
 // CHECK-SAME: <vscale x 8 x half> [[OP_COERCE0:%.*]], <vscale x 8 x half> [[OP_COERCE1:%.*]], <vscale x 8 x half> [[OP_COERCE2:%.*]], <vscale x 8 x half> [[OP_COERCE3:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]

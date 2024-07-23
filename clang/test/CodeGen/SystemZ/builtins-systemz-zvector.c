@@ -95,13 +95,13 @@ void test_core(void) {
   // CHECK-ASM: lcbb
 
   sc = vec_extract(vsc, idx);
-  // CHECK: extractelement <16 x i8> %{{.*}}, i32 %{{.*}}
+  // CHECK: extractelement <16 x b8> %{{.*}}, i32 %{{.*}}
   // CHECK-ASM: vlgvb
   uc = vec_extract(vuc, idx);
-  // CHECK: extractelement <16 x i8> %{{.*}}, i32 %{{.*}}
+  // CHECK: extractelement <16 x b8> %{{.*}}, i32 %{{.*}}
   // CHECK-ASM: vlgvb
   uc = vec_extract(vbc, idx);
-  // CHECK: extractelement <16 x i8> %{{.*}}, i32 %{{.*}}
+  // CHECK: extractelement <16 x b8> %{{.*}}, i32 %{{.*}}
   // CHECK-ASM: vlgvb
   ss = vec_extract(vss, idx);
   // CHECK: extractelement <8 x i16> %{{.*}}, i32 %{{.*}}
@@ -135,13 +135,13 @@ void test_core(void) {
   // CHECK-ASM: vlgvg
 
   vsc = vec_insert(sc, vsc, idx);
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 %{{.*}}
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 %{{.*}}
   // CHECK-ASM: vlvgb
   vuc = vec_insert(uc, vuc, idx);
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 %{{.*}}
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 %{{.*}}
   // CHECK-ASM: vlvgb
   vuc = vec_insert(uc, vbc, idx);
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 %{{.*}}
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 %{{.*}}
   // CHECK-ASM: vlvgb
   vss = vec_insert(ss, vss, idx);
   // CHECK: insertelement <8 x i16> %{{.*}}, i16 %{{.*}}, i32 %{{.*}}
@@ -175,10 +175,10 @@ void test_core(void) {
   // CHECK-ASM: vlvgg
 
   vsc = vec_promote(sc, idx);
-  // CHECK: insertelement <16 x i8> poison, i8 %{{.*}}, i32 %{{.*}}
+  // CHECK: insertelement <16 x b8> poison, b8 %{{.*}}, i32 %{{.*}}
   // CHECK-ASM: vlvgb
   vuc = vec_promote(uc, idx);
-  // CHECK: insertelement <16 x i8> poison, i8 %{{.*}}, i32 %{{.*}}
+  // CHECK: insertelement <16 x b8> poison, b8 %{{.*}}, i32 %{{.*}}
   // CHECK-ASM: vlvgb
   vss = vec_promote(ss, idx);
   // CHECK: insertelement <8 x i16> poison, i16 %{{.*}}, i32 %{{.*}}
@@ -203,10 +203,10 @@ void test_core(void) {
   // CHECK-ASM: vlvgg
 
   vsc = vec_insert_and_zero(cptrsc);
-  // CHECK: insertelement <16 x i8> <i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 poison, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0>, i8 %{{.*}}, i64 7
+  // CHECK: insertelement <16 x b8> <b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 poison, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0>, b8 %{{.*}}, i64 7
   // CHECK-ASM: vllezb
   vuc = vec_insert_and_zero(cptruc);
-  // CHECK: insertelement <16 x i8> <i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 poison, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0>, i8 %{{.*}}, i64 7
+  // CHECK: insertelement <16 x b8> <b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 poison, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0>, b8 %{{.*}}, i64 7
   // CHECK-ASM: vllezb
   vss = vec_insert_and_zero(cptrss);
   // CHECK: insertelement <8 x i16> <i16 0, i16 0, i16 0, i16 poison, i16 0, i16 0, i16 0, i16 0>, i16 %{{.*}}, i64 3

@@ -24,13 +24,17 @@
 
 // CHECK-LABEL: @test_svcmpeq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z15test_svcmpeq_s8u10__SVBool_tu10__SVInt8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 svbool_t test_svcmpeq_s8(svbool_t pg, svint8_t op1, svint8_t op2) MODE_ATTR
 {
@@ -96,13 +100,17 @@ svbool_t test_svcmpeq_s64(svbool_t pg, svint64_t op1, svint64_t op2) MODE_ATTR
 
 // CHECK-LABEL: @test_svcmpeq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z15test_svcmpeq_u8u10__SVBool_tu11__SVUint8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 svbool_t test_svcmpeq_u8(svbool_t pg, svuint8_t op1, svuint8_t op2) MODE_ATTR
 {
@@ -214,13 +222,15 @@ svbool_t test_svcmpeq_n_u64(svbool_t pg, svuint64_t op1, uint64_t op2) MODE_ATTR
 
 // CHECK-LABEL: @test_svcmpeq_wide_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.wide.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 2 x i64> [[OP2:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.wide.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 2 x i64> [[OP2:%.*]])
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z20test_svcmpeq_wide_s8u10__SVBool_tu10__SVInt8_tu11__SVInt64_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.wide.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 2 x i64> [[OP2:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.wide.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 2 x i64> [[OP2:%.*]])
+// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP1]]
 //
 svbool_t test_svcmpeq_wide_s8(svbool_t pg, svint8_t op1, svint64_t op2) MODE_ATTR
 {
@@ -267,17 +277,21 @@ svbool_t test_svcmpeq_wide_s32(svbool_t pg, svint32_t op1, svint64_t op2) MODE_A
 
 // CHECK-LABEL: @test_svcmpeq_n_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[OP2:%.*]], i64 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[OP2:%.*]] to i8
+// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
 // CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z17test_svcmpeq_n_s8u10__SVBool_tu10__SVInt8_ta(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[OP2:%.*]], i64 0
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[OP2:%.*]] to i8
+// CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
 // CPP-CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 svbool_t test_svcmpeq_n_s8(svbool_t pg, svint8_t op1, int8_t op2) MODE_ATTR
 {
@@ -332,17 +346,21 @@ svbool_t test_svcmpeq_n_s32(svbool_t pg, svint32_t op1, int32_t op2) MODE_ATTR
 
 // CHECK-LABEL: @test_svcmpeq_n_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[OP2:%.*]], i64 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[OP2:%.*]] to i8
+// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
 // CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z17test_svcmpeq_n_u8u10__SVBool_tu11__SVUint8_th(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[OP2:%.*]], i64 0
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[OP2:%.*]] to i8
+// CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
 // CPP-CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 svbool_t test_svcmpeq_n_u8(svbool_t pg, svuint8_t op1, uint8_t op2) MODE_ATTR
 {
@@ -525,15 +543,17 @@ svbool_t test_svcmpeq_n_f64(svbool_t pg, svfloat64_t op1, float64_t op2) MODE_AT
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 2 x i64> poison, i64 [[OP2:%.*]], i64 0
 // CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 2 x i64> [[DOTSPLATINSERT]], <vscale x 2 x i64> poison, <vscale x 2 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.wide.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 2 x i64> [[DOTSPLAT]])
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.wide.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 2 x i64> [[DOTSPLAT]])
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z22test_svcmpeq_wide_n_s8u10__SVBool_tu10__SVInt8_tl(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 2 x i64> poison, i64 [[OP2:%.*]], i64 0
 // CPP-CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 2 x i64> [[DOTSPLATINSERT]], <vscale x 2 x i64> poison, <vscale x 2 x i32> zeroinitializer
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.wide.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 2 x i64> [[DOTSPLAT]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i1> @llvm.aarch64.sve.cmpeq.wide.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 2 x i64> [[DOTSPLAT]])
+// CPP-CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP1]]
 //
 svbool_t test_svcmpeq_wide_n_s8(svbool_t pg, svint8_t op1, int64_t op2) MODE_ATTR
 {

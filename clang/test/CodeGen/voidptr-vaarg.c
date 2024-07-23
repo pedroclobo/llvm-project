@@ -163,8 +163,8 @@ typedef struct {
 // CHECK-NEXT:    store ptr [[ARGP_NEXT]], ptr [[LIST_ADDR]], align 4
 // CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i32(ptr align 1 [[RETVAL]], ptr align 4 [[ARGP_CUR]], i32 1, i1 false)
 // CHECK-NEXT:    [[COERCE_DIVE:%.*]] = getelementptr inbounds nuw [[STRUCT_ONE_CHAR_T]], ptr [[RETVAL]], i32 0, i32 0
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[COERCE_DIVE]], align 1
-// CHECK-NEXT:    ret i8 [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[COERCE_DIVE]], align 1
+// CHECK-NEXT:    ret b8 [[TMP0]]
 //
 one_char_t one_char(__builtin_va_list list) {
   return __builtin_va_arg(list, one_char_t);

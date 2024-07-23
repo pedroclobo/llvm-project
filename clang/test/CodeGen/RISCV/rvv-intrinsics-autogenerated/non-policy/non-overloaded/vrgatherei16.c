@@ -157,61 +157,61 @@ vfloat64m8_t test_vrgatherei16_vv_f64m8(vfloat64m8_t op1, vuint16m2_t op2, size_
   return __riscv_vrgatherei16_vv_f64m8(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vrgatherei16_vv_i8mf8
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], <vscale x 1 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vrgatherei16_vv_i8mf8
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], <vscale x 1 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vrgatherei16.vv.nxv1i8.i64(<vscale x 1 x i8> poison, <vscale x 1 x i8> [[OP1]], <vscale x 1 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vrgatherei16.vv.nxv1b8.i64(<vscale x 1 x b8> poison, <vscale x 1 x b8> [[OP1]], <vscale x 1 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vint8mf8_t test_vrgatherei16_vv_i8mf8(vint8mf8_t op1, vuint16mf4_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8mf8(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vrgatherei16_vv_i8mf4
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], <vscale x 2 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vrgatherei16_vv_i8mf4
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], <vscale x 2 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vrgatherei16.vv.nxv2i8.i64(<vscale x 2 x i8> poison, <vscale x 2 x i8> [[OP1]], <vscale x 2 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vrgatherei16.vv.nxv2b8.i64(<vscale x 2 x b8> poison, <vscale x 2 x b8> [[OP1]], <vscale x 2 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vint8mf4_t test_vrgatherei16_vv_i8mf4(vint8mf4_t op1, vuint16mf2_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8mf4(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vrgatherei16_vv_i8mf2
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], <vscale x 4 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vrgatherei16_vv_i8mf2
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], <vscale x 4 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vrgatherei16.vv.nxv4i8.i64(<vscale x 4 x i8> poison, <vscale x 4 x i8> [[OP1]], <vscale x 4 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vrgatherei16.vv.nxv4b8.i64(<vscale x 4 x b8> poison, <vscale x 4 x b8> [[OP1]], <vscale x 4 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vint8mf2_t test_vrgatherei16_vv_i8mf2(vint8mf2_t op1, vuint16m1_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8mf2(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vrgatherei16_vv_i8m1
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], <vscale x 8 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vrgatherei16_vv_i8m1
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], <vscale x 8 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vrgatherei16.vv.nxv8i8.i64(<vscale x 8 x i8> poison, <vscale x 8 x i8> [[OP1]], <vscale x 8 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vrgatherei16.vv.nxv8b8.i64(<vscale x 8 x b8> poison, <vscale x 8 x b8> [[OP1]], <vscale x 8 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vrgatherei16_vv_i8m1(vint8m1_t op1, vuint16m2_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8m1(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vrgatherei16_vv_i8m2
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vrgatherei16_vv_i8m2
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vrgatherei16.vv.nxv16i8.i64(<vscale x 16 x i8> poison, <vscale x 16 x i8> [[OP1]], <vscale x 16 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vrgatherei16.vv.nxv16b8.i64(<vscale x 16 x b8> poison, <vscale x 16 x b8> [[OP1]], <vscale x 16 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vint8m2_t test_vrgatherei16_vv_i8m2(vint8m2_t op1, vuint16m4_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8m2(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vrgatherei16_vv_i8m4
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], <vscale x 32 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vrgatherei16_vv_i8m4
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], <vscale x 32 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vrgatherei16.vv.nxv32i8.i64(<vscale x 32 x i8> poison, <vscale x 32 x i8> [[OP1]], <vscale x 32 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vrgatherei16.vv.nxv32b8.i64(<vscale x 32 x b8> poison, <vscale x 32 x b8> [[OP1]], <vscale x 32 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vint8m4_t test_vrgatherei16_vv_i8m4(vint8m4_t op1, vuint16m8_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8m4(op1, op2, vl);
@@ -367,61 +367,61 @@ vint64m8_t test_vrgatherei16_vv_i64m8(vint64m8_t op1, vuint16m2_t op2, size_t vl
   return __riscv_vrgatherei16_vv_i64m8(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vrgatherei16_vv_u8mf8
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], <vscale x 1 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vrgatherei16_vv_u8mf8
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], <vscale x 1 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vrgatherei16.vv.nxv1i8.i64(<vscale x 1 x i8> poison, <vscale x 1 x i8> [[OP1]], <vscale x 1 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vrgatherei16.vv.nxv1b8.i64(<vscale x 1 x b8> poison, <vscale x 1 x b8> [[OP1]], <vscale x 1 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vrgatherei16_vv_u8mf8(vuint8mf8_t op1, vuint16mf4_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8mf8(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vrgatherei16_vv_u8mf4
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], <vscale x 2 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vrgatherei16_vv_u8mf4
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], <vscale x 2 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vrgatherei16.vv.nxv2i8.i64(<vscale x 2 x i8> poison, <vscale x 2 x i8> [[OP1]], <vscale x 2 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vrgatherei16.vv.nxv2b8.i64(<vscale x 2 x b8> poison, <vscale x 2 x b8> [[OP1]], <vscale x 2 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vrgatherei16_vv_u8mf4(vuint8mf4_t op1, vuint16mf2_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8mf4(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vrgatherei16_vv_u8mf2
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], <vscale x 4 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vrgatherei16_vv_u8mf2
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], <vscale x 4 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vrgatherei16.vv.nxv4i8.i64(<vscale x 4 x i8> poison, <vscale x 4 x i8> [[OP1]], <vscale x 4 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vrgatherei16.vv.nxv4b8.i64(<vscale x 4 x b8> poison, <vscale x 4 x b8> [[OP1]], <vscale x 4 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vrgatherei16_vv_u8mf2(vuint8mf2_t op1, vuint16m1_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8mf2(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vrgatherei16_vv_u8m1
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], <vscale x 8 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vrgatherei16_vv_u8m1
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], <vscale x 8 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vrgatherei16.vv.nxv8i8.i64(<vscale x 8 x i8> poison, <vscale x 8 x i8> [[OP1]], <vscale x 8 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vrgatherei16.vv.nxv8b8.i64(<vscale x 8 x b8> poison, <vscale x 8 x b8> [[OP1]], <vscale x 8 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vrgatherei16_vv_u8m1(vuint8m1_t op1, vuint16m2_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8m1(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vrgatherei16_vv_u8m2
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vrgatherei16_vv_u8m2
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vrgatherei16.vv.nxv16i8.i64(<vscale x 16 x i8> poison, <vscale x 16 x i8> [[OP1]], <vscale x 16 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vrgatherei16.vv.nxv16b8.i64(<vscale x 16 x b8> poison, <vscale x 16 x b8> [[OP1]], <vscale x 16 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vrgatherei16_vv_u8m2(vuint8m2_t op1, vuint16m4_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8m2(op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vrgatherei16_vv_u8m4
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], <vscale x 32 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vrgatherei16_vv_u8m4
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], <vscale x 32 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vrgatherei16.vv.nxv32i8.i64(<vscale x 32 x i8> poison, <vscale x 32 x i8> [[OP1]], <vscale x 32 x i16> [[OP2]], i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vrgatherei16.vv.nxv32b8.i64(<vscale x 32 x b8> poison, <vscale x 32 x b8> [[OP1]], <vscale x 32 x i16> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vrgatherei16_vv_u8m4(vuint8m4_t op1, vuint16m8_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8m4(op1, op2, vl);
@@ -727,61 +727,61 @@ vfloat64m8_t test_vrgatherei16_vv_f64m8_m(vbool8_t mask, vfloat64m8_t op1, vuint
   return __riscv_vrgatherei16_vv_f64m8_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vrgatherei16_vv_i8mf8_m
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x i8> [[OP1:%.*]], <vscale x 1 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vrgatherei16_vv_i8mf8_m
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x b8> [[OP1:%.*]], <vscale x 1 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv1i8.i64(<vscale x 1 x i8> poison, <vscale x 1 x i8> [[OP1]], <vscale x 1 x i16> [[OP2]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv1b8.i64(<vscale x 1 x b8> poison, <vscale x 1 x b8> [[OP1]], <vscale x 1 x i16> [[OP2]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vint8mf8_t test_vrgatherei16_vv_i8mf8_m(vbool64_t mask, vint8mf8_t op1, vuint16mf4_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8mf8_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vrgatherei16_vv_i8mf4_m
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x i8> [[OP1:%.*]], <vscale x 2 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vrgatherei16_vv_i8mf4_m
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x b8> [[OP1:%.*]], <vscale x 2 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv2i8.i64(<vscale x 2 x i8> poison, <vscale x 2 x i8> [[OP1]], <vscale x 2 x i16> [[OP2]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv2b8.i64(<vscale x 2 x b8> poison, <vscale x 2 x b8> [[OP1]], <vscale x 2 x i16> [[OP2]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vint8mf4_t test_vrgatherei16_vv_i8mf4_m(vbool32_t mask, vint8mf4_t op1, vuint16mf2_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8mf4_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vrgatherei16_vv_i8mf2_m
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x i8> [[OP1:%.*]], <vscale x 4 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vrgatherei16_vv_i8mf2_m
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x b8> [[OP1:%.*]], <vscale x 4 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv4i8.i64(<vscale x 4 x i8> poison, <vscale x 4 x i8> [[OP1]], <vscale x 4 x i16> [[OP2]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv4b8.i64(<vscale x 4 x b8> poison, <vscale x 4 x b8> [[OP1]], <vscale x 4 x i16> [[OP2]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vint8mf2_t test_vrgatherei16_vv_i8mf2_m(vbool16_t mask, vint8mf2_t op1, vuint16m1_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8mf2_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vrgatherei16_vv_i8m1_m
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x i8> [[OP1:%.*]], <vscale x 8 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vrgatherei16_vv_i8m1_m
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x b8> [[OP1:%.*]], <vscale x 8 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv8i8.i64(<vscale x 8 x i8> poison, <vscale x 8 x i8> [[OP1]], <vscale x 8 x i16> [[OP2]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv8b8.i64(<vscale x 8 x b8> poison, <vscale x 8 x b8> [[OP1]], <vscale x 8 x i16> [[OP2]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vrgatherei16_vv_i8m1_m(vbool8_t mask, vint8m1_t op1, vuint16m2_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8m1_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vrgatherei16_vv_i8m2_m
-// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vrgatherei16_vv_i8m2_m
+// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv16i8.i64(<vscale x 16 x i8> poison, <vscale x 16 x i8> [[OP1]], <vscale x 16 x i16> [[OP2]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv16b8.i64(<vscale x 16 x b8> poison, <vscale x 16 x b8> [[OP1]], <vscale x 16 x i16> [[OP2]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vint8m2_t test_vrgatherei16_vv_i8m2_m(vbool4_t mask, vint8m2_t op1, vuint16m4_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8m2_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vrgatherei16_vv_i8m4_m
-// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x i8> [[OP1:%.*]], <vscale x 32 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vrgatherei16_vv_i8m4_m
+// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x b8> [[OP1:%.*]], <vscale x 32 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv32i8.i64(<vscale x 32 x i8> poison, <vscale x 32 x i8> [[OP1]], <vscale x 32 x i16> [[OP2]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv32b8.i64(<vscale x 32 x b8> poison, <vscale x 32 x b8> [[OP1]], <vscale x 32 x i16> [[OP2]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vint8m4_t test_vrgatherei16_vv_i8m4_m(vbool2_t mask, vint8m4_t op1, vuint16m8_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_i8m4_m(mask, op1, op2, vl);
@@ -937,61 +937,61 @@ vint64m8_t test_vrgatherei16_vv_i64m8_m(vbool8_t mask, vint64m8_t op1, vuint16m2
   return __riscv_vrgatherei16_vv_i64m8_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vrgatherei16_vv_u8mf8_m
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x i8> [[OP1:%.*]], <vscale x 1 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vrgatherei16_vv_u8mf8_m
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x b8> [[OP1:%.*]], <vscale x 1 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv1i8.i64(<vscale x 1 x i8> poison, <vscale x 1 x i8> [[OP1]], <vscale x 1 x i16> [[OP2]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv1b8.i64(<vscale x 1 x b8> poison, <vscale x 1 x b8> [[OP1]], <vscale x 1 x i16> [[OP2]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vrgatherei16_vv_u8mf8_m(vbool64_t mask, vuint8mf8_t op1, vuint16mf4_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8mf8_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vrgatherei16_vv_u8mf4_m
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x i8> [[OP1:%.*]], <vscale x 2 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vrgatherei16_vv_u8mf4_m
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x b8> [[OP1:%.*]], <vscale x 2 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv2i8.i64(<vscale x 2 x i8> poison, <vscale x 2 x i8> [[OP1]], <vscale x 2 x i16> [[OP2]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv2b8.i64(<vscale x 2 x b8> poison, <vscale x 2 x b8> [[OP1]], <vscale x 2 x i16> [[OP2]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vrgatherei16_vv_u8mf4_m(vbool32_t mask, vuint8mf4_t op1, vuint16mf2_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8mf4_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vrgatherei16_vv_u8mf2_m
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x i8> [[OP1:%.*]], <vscale x 4 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vrgatherei16_vv_u8mf2_m
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x b8> [[OP1:%.*]], <vscale x 4 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv4i8.i64(<vscale x 4 x i8> poison, <vscale x 4 x i8> [[OP1]], <vscale x 4 x i16> [[OP2]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv4b8.i64(<vscale x 4 x b8> poison, <vscale x 4 x b8> [[OP1]], <vscale x 4 x i16> [[OP2]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vrgatherei16_vv_u8mf2_m(vbool16_t mask, vuint8mf2_t op1, vuint16m1_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8mf2_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vrgatherei16_vv_u8m1_m
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x i8> [[OP1:%.*]], <vscale x 8 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vrgatherei16_vv_u8m1_m
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x b8> [[OP1:%.*]], <vscale x 8 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv8i8.i64(<vscale x 8 x i8> poison, <vscale x 8 x i8> [[OP1]], <vscale x 8 x i16> [[OP2]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv8b8.i64(<vscale x 8 x b8> poison, <vscale x 8 x b8> [[OP1]], <vscale x 8 x i16> [[OP2]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vrgatherei16_vv_u8m1_m(vbool8_t mask, vuint8m1_t op1, vuint16m2_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8m1_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vrgatherei16_vv_u8m2_m
-// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vrgatherei16_vv_u8m2_m
+// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv16i8.i64(<vscale x 16 x i8> poison, <vscale x 16 x i8> [[OP1]], <vscale x 16 x i16> [[OP2]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv16b8.i64(<vscale x 16 x b8> poison, <vscale x 16 x b8> [[OP1]], <vscale x 16 x i16> [[OP2]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vrgatherei16_vv_u8m2_m(vbool4_t mask, vuint8m2_t op1, vuint16m4_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8m2_m(mask, op1, op2, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vrgatherei16_vv_u8m4_m
-// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x i8> [[OP1:%.*]], <vscale x 32 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vrgatherei16_vv_u8m4_m
+// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x b8> [[OP1:%.*]], <vscale x 32 x i16> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vrgatherei16.vv.mask.nxv32i8.i64(<vscale x 32 x i8> poison, <vscale x 32 x i8> [[OP1]], <vscale x 32 x i16> [[OP2]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vrgatherei16.vv.mask.nxv32b8.i64(<vscale x 32 x b8> poison, <vscale x 32 x b8> [[OP1]], <vscale x 32 x i16> [[OP2]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vrgatherei16_vv_u8m4_m(vbool2_t mask, vuint8m4_t op1, vuint16m8_t op2, size_t vl) {
   return __riscv_vrgatherei16_vv_u8m4_m(mask, op1, op2, vl);

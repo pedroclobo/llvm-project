@@ -16,7 +16,7 @@
 // expected-no-diagnostics
 // CK1: [[ST:%.+]] = type { i32, ptr }
 // CK1: %struct.kmp_depend_info = type { i[[sz:64|32]],
-// CK1-SAME: i[[sz]], i8 }
+// CK1-SAME: i[[sz]], b8 }
 #ifndef HEADER
 #define HEADER
 

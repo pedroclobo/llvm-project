@@ -11,7 +11,7 @@ typedef unsigned int v4u32 __attribute__((ext_vector_type(4)));
 
 // CHECK-LABEL: @test_amdgcn_raw_ptr_buffer_store_b8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.amdgcn.raw.ptr.buffer.store.i8(i8 [[VDATA:%.*]], ptr addrspace(8) [[RSRC:%.*]], i32 0, i32 0, i32 0)
+// CHECK-NEXT:    tail call void @llvm.amdgcn.raw.ptr.buffer.store.b8(b8 [[VDATA:%.*]], ptr addrspace(8) [[RSRC:%.*]], i32 0, i32 0, i32 0)
 // CHECK-NEXT:    ret void
 //
 void test_amdgcn_raw_ptr_buffer_store_b8(u8 vdata, __amdgpu_buffer_rsrc_t rsrc, int offset, int soffset) {
@@ -65,7 +65,7 @@ void test_amdgcn_raw_ptr_buffer_store_b128(v4u32 vdata, __amdgpu_buffer_rsrc_t r
 
 // CHECK-LABEL: @test_amdgcn_raw_ptr_buffer_store_b8_non_const_offset(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.amdgcn.raw.ptr.buffer.store.i8(i8 [[VDATA:%.*]], ptr addrspace(8) [[RSRC:%.*]], i32 [[OFFSET:%.*]], i32 0, i32 0)
+// CHECK-NEXT:    tail call void @llvm.amdgcn.raw.ptr.buffer.store.b8(b8 [[VDATA:%.*]], ptr addrspace(8) [[RSRC:%.*]], i32 [[OFFSET:%.*]], i32 0, i32 0)
 // CHECK-NEXT:    ret void
 //
 void test_amdgcn_raw_ptr_buffer_store_b8_non_const_offset(u8 vdata, __amdgpu_buffer_rsrc_t rsrc, int offset, int soffset) {
@@ -119,7 +119,7 @@ void test_amdgcn_raw_ptr_buffer_store_b128_non_const_offset(v4u32 vdata, __amdgp
 
 // CHECK-LABEL: @test_amdgcn_raw_ptr_buffer_store_b8_non_const_soffset(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.amdgcn.raw.ptr.buffer.store.i8(i8 [[VDATA:%.*]], ptr addrspace(8) [[RSRC:%.*]], i32 0, i32 [[SOFFSET:%.*]], i32 0)
+// CHECK-NEXT:    tail call void @llvm.amdgcn.raw.ptr.buffer.store.b8(b8 [[VDATA:%.*]], ptr addrspace(8) [[RSRC:%.*]], i32 0, i32 [[SOFFSET:%.*]], i32 0)
 // CHECK-NEXT:    ret void
 //
 void test_amdgcn_raw_ptr_buffer_store_b8_non_const_soffset(u8 vdata, __amdgpu_buffer_rsrc_t rsrc, int offset, int soffset) {

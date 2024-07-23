@@ -171,8 +171,8 @@ namespace test73 {
 // CHECK-HIDDEN: @_ZN6Test131C1aE = global
 // CHECK: @_ZN6Test143varE = external global
 // CHECK-HIDDEN: @_ZN6Test143varE = external global
-// CHECK: @_ZN6Test154TempINS_1AEE5Inner6bufferE = external global [0 x i8]
-// CHECK-HIDDEN: @_ZN6Test154TempINS_1AEE5Inner6bufferE = external global [0 x i8]
+// CHECK: @_ZN6Test154TempINS_1AEE5Inner6bufferE = external global [0 x b8]
+// CHECK-HIDDEN: @_ZN6Test154TempINS_1AEE5Inner6bufferE = external global [0 x b8]
 // CHECK: @_ZTVN6test701BE = external hidden unnamed_addr constant { [5 x ptr] }, align 8
 // CHECK: @_ZTTN6test701BE = external hidden unnamed_addr constant [2 x ptr], align 8
 
@@ -218,7 +218,7 @@ namespace test27 {
 namespace Test1 {
   // CHECK-LABEL: define hidden void @_ZN5Test11fEv
   void HIDDEN f() { }
-  
+
 }
 
 namespace Test2 {
@@ -230,7 +230,7 @@ namespace Test2 {
   // CHECK-LABEL: define hidden void @_ZN5Test21A1fEv
   void A::f() { }
 }
- 
+
 namespace Test3 {
   struct HIDDEN A {
     struct B {
@@ -240,7 +240,7 @@ namespace Test3 {
 
   // B is a nested class where its parent class is hidden.
   // CHECK-LABEL: define hidden void @_ZN5Test31A1B1fEv
-  void A::B::f() { }  
+  void A::B::f() { }
 }
 
 namespace Test4 HIDDEN {
@@ -248,15 +248,15 @@ namespace Test4 HIDDEN {
 
   // Test4::g is in a hidden namespace.
   // CHECK-LABEL: define hidden void @_ZN5Test41gEv
-  void g() { } 
-  
+  void g() { }
+
   struct DEFAULT A {
     void f();
   };
-  
+
   // A has default visibility.
   // CHECK-LABEL: define void @_ZN5Test41A1fEv
-  void A::f() { } 
+  void A::f() { }
 }
 
 namespace Test5 {
@@ -266,7 +266,7 @@ namespace Test5 {
     // CHECK-LABEL: define hidden void @_ZN5Test52NS1fEv()
     void f() { }
   }
-  
+
   namespace NS {
     // g is in NS, but this NS decl is not hidden.
     // CHECK-LABEL: define void @_ZN5Test52NS1gEv

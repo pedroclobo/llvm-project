@@ -14,124 +14,151 @@ volatile vector unsigned long long vul;
 // CHECK-LABEL: define dso_local void @test(
 // CHECK-SAME: ) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3:![0-9]+]]
-// CHECK-NEXT:    [[TMP1:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to i128
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to i128
-// CHECK-NEXT:    [[ADD_I:%.*]] = add nsw i128 [[TMP3]], [[TMP2]]
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast i128 [[ADD_I]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP4]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP5:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP6:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP5]] to i128
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP6]] to i128
-// CHECK-NEXT:    [[TMP9:%.*]] = tail call i128 @llvm.s390.vaccq(i128 [[TMP7]], i128 [[TMP8]])
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast i128 [[TMP9]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP10]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP11:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP12:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP13:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP14:%.*]] = bitcast <16 x i8> [[TMP11]] to i128
-// CHECK-NEXT:    [[TMP15:%.*]] = bitcast <16 x i8> [[TMP12]] to i128
-// CHECK-NEXT:    [[TMP16:%.*]] = bitcast <16 x i8> [[TMP13]] to i128
-// CHECK-NEXT:    [[TMP17:%.*]] = tail call i128 @llvm.s390.vacq(i128 [[TMP14]], i128 [[TMP15]], i128 [[TMP16]])
-// CHECK-NEXT:    [[TMP18:%.*]] = bitcast i128 [[TMP17]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP18]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP19:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP20:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP21:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP22:%.*]] = bitcast <16 x i8> [[TMP19]] to i128
-// CHECK-NEXT:    [[TMP23:%.*]] = bitcast <16 x i8> [[TMP20]] to i128
-// CHECK-NEXT:    [[TMP24:%.*]] = bitcast <16 x i8> [[TMP21]] to i128
-// CHECK-NEXT:    [[TMP25:%.*]] = tail call i128 @llvm.s390.vacccq(i128 [[TMP22]], i128 [[TMP23]], i128 [[TMP24]])
-// CHECK-NEXT:    [[TMP26:%.*]] = bitcast i128 [[TMP25]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP26]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP27:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP28:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP29:%.*]] = bitcast <16 x i8> [[TMP27]] to i128
-// CHECK-NEXT:    [[TMP30:%.*]] = bitcast <16 x i8> [[TMP28]] to i128
-// CHECK-NEXT:    [[SUB_I:%.*]] = sub nsw i128 [[TMP29]], [[TMP30]]
-// CHECK-NEXT:    [[TMP31:%.*]] = bitcast i128 [[SUB_I]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP31]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP32:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP33:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP34:%.*]] = bitcast <16 x i8> [[TMP32]] to i128
-// CHECK-NEXT:    [[TMP35:%.*]] = bitcast <16 x i8> [[TMP33]] to i128
-// CHECK-NEXT:    [[TMP36:%.*]] = tail call i128 @llvm.s390.vscbiq(i128 [[TMP34]], i128 [[TMP35]])
-// CHECK-NEXT:    [[TMP37:%.*]] = bitcast i128 [[TMP36]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP37]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP38:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP39:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP40:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP41:%.*]] = bitcast <16 x i8> [[TMP38]] to i128
-// CHECK-NEXT:    [[TMP42:%.*]] = bitcast <16 x i8> [[TMP39]] to i128
-// CHECK-NEXT:    [[TMP43:%.*]] = bitcast <16 x i8> [[TMP40]] to i128
-// CHECK-NEXT:    [[TMP44:%.*]] = tail call i128 @llvm.s390.vsbiq(i128 [[TMP41]], i128 [[TMP42]], i128 [[TMP43]])
-// CHECK-NEXT:    [[TMP45:%.*]] = bitcast i128 [[TMP44]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP45]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP46:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP47:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP48:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP49:%.*]] = bitcast <16 x i8> [[TMP46]] to i128
-// CHECK-NEXT:    [[TMP50:%.*]] = bitcast <16 x i8> [[TMP47]] to i128
-// CHECK-NEXT:    [[TMP51:%.*]] = bitcast <16 x i8> [[TMP48]] to i128
-// CHECK-NEXT:    [[TMP52:%.*]] = tail call i128 @llvm.s390.vsbcbiq(i128 [[TMP49]], i128 [[TMP50]], i128 [[TMP51]])
-// CHECK-NEXT:    [[TMP53:%.*]] = bitcast i128 [[TMP52]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP53]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP54:%.*]] = load volatile <4 x i32>, ptr @vui, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP55:%.*]] = load volatile <4 x i32>, ptr @vui, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP56:%.*]] = tail call i128 @llvm.s390.vsumqf(<4 x i32> [[TMP54]], <4 x i32> [[TMP55]])
-// CHECK-NEXT:    [[TMP57:%.*]] = bitcast i128 [[TMP56]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP57]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP58:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP59:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP60:%.*]] = tail call i128 @llvm.s390.vsumqg(<2 x i64> [[TMP58]], <2 x i64> [[TMP59]])
-// CHECK-NEXT:    [[TMP61:%.*]] = bitcast i128 [[TMP60]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP61]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP62:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP64:%.*]] = tail call i128 @llvm.s390.vgfmg(<2 x i64> [[TMP62]], <2 x i64> [[TMP63]])
-// CHECK-NEXT:    [[TMP65:%.*]] = bitcast i128 [[TMP64]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP65]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP66:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP67:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP68:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP69:%.*]] = bitcast <16 x i8> [[TMP68]] to i128
-// CHECK-NEXT:    [[TMP70:%.*]] = tail call i128 @llvm.s390.vgfmag(<2 x i64> [[TMP66]], <2 x i64> [[TMP67]], i128 [[TMP69]])
-// CHECK-NEXT:    [[TMP71:%.*]] = bitcast i128 [[TMP70]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP71]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP72:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP73:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP74:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP75:%.*]] = bitcast <16 x i8> [[TMP74]] to i128
-// CHECK-NEXT:    [[TMP76:%.*]] = tail call i128 @llvm.s390.vmslg(<2 x i64> [[TMP72]], <2 x i64> [[TMP73]], i128 [[TMP75]], i32 0)
-// CHECK-NEXT:    [[TMP77:%.*]] = bitcast i128 [[TMP76]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP77]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP0:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3:![0-9]+]]
+// CHECK-NEXT:    [[TMP1:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x b8> [[TMP0]] to b128
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact b128 [[TMP2]] to i128
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x b8> [[TMP1]] to b128
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact b128 [[TMP4]] to i128
+// CHECK-NEXT:    [[ADD_I:%.*]] = add nsw i128 [[TMP5]], [[TMP3]]
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast i128 [[ADD_I]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP6]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP7:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP8:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x b8> [[TMP7]] to b128
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact b128 [[TMP9]] to i128
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x b8> [[TMP8]] to b128
+// CHECK-NEXT:    [[TMP12:%.*]] = bytecast exact b128 [[TMP11]] to i128
+// CHECK-NEXT:    [[TMP13:%.*]] = tail call i128 @llvm.s390.vaccq(i128 [[TMP10]], i128 [[TMP12]])
+// CHECK-NEXT:    [[TMP14:%.*]] = bitcast i128 [[TMP13]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP14]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP15:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP16:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP17:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP18:%.*]] = bitcast <16 x b8> [[TMP15]] to b128
+// CHECK-NEXT:    [[TMP19:%.*]] = bytecast exact b128 [[TMP18]] to i128
+// CHECK-NEXT:    [[TMP20:%.*]] = bitcast <16 x b8> [[TMP16]] to b128
+// CHECK-NEXT:    [[TMP21:%.*]] = bytecast exact b128 [[TMP20]] to i128
+// CHECK-NEXT:    [[TMP22:%.*]] = bitcast <16 x b8> [[TMP17]] to b128
+// CHECK-NEXT:    [[TMP23:%.*]] = bytecast exact b128 [[TMP22]] to i128
+// CHECK-NEXT:    [[TMP24:%.*]] = tail call i128 @llvm.s390.vacq(i128 [[TMP19]], i128 [[TMP21]], i128 [[TMP23]])
+// CHECK-NEXT:    [[TMP25:%.*]] = bitcast i128 [[TMP24]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP25]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP26:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP27:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP28:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP29:%.*]] = bitcast <16 x b8> [[TMP26]] to b128
+// CHECK-NEXT:    [[TMP30:%.*]] = bytecast exact b128 [[TMP29]] to i128
+// CHECK-NEXT:    [[TMP31:%.*]] = bitcast <16 x b8> [[TMP27]] to b128
+// CHECK-NEXT:    [[TMP32:%.*]] = bytecast exact b128 [[TMP31]] to i128
+// CHECK-NEXT:    [[TMP33:%.*]] = bitcast <16 x b8> [[TMP28]] to b128
+// CHECK-NEXT:    [[TMP34:%.*]] = bytecast exact b128 [[TMP33]] to i128
+// CHECK-NEXT:    [[TMP35:%.*]] = tail call i128 @llvm.s390.vacccq(i128 [[TMP30]], i128 [[TMP32]], i128 [[TMP34]])
+// CHECK-NEXT:    [[TMP36:%.*]] = bitcast i128 [[TMP35]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP36]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP37:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP38:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP39:%.*]] = bitcast <16 x b8> [[TMP37]] to b128
+// CHECK-NEXT:    [[TMP40:%.*]] = bytecast exact b128 [[TMP39]] to i128
+// CHECK-NEXT:    [[TMP41:%.*]] = bitcast <16 x b8> [[TMP38]] to b128
+// CHECK-NEXT:    [[TMP42:%.*]] = bytecast exact b128 [[TMP41]] to i128
+// CHECK-NEXT:    [[SUB_I:%.*]] = sub nsw i128 [[TMP40]], [[TMP42]]
+// CHECK-NEXT:    [[TMP43:%.*]] = bitcast i128 [[SUB_I]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP43]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP44:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP45:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP46:%.*]] = bitcast <16 x b8> [[TMP44]] to b128
+// CHECK-NEXT:    [[TMP47:%.*]] = bytecast exact b128 [[TMP46]] to i128
+// CHECK-NEXT:    [[TMP48:%.*]] = bitcast <16 x b8> [[TMP45]] to b128
+// CHECK-NEXT:    [[TMP49:%.*]] = bytecast exact b128 [[TMP48]] to i128
+// CHECK-NEXT:    [[TMP50:%.*]] = tail call i128 @llvm.s390.vscbiq(i128 [[TMP47]], i128 [[TMP49]])
+// CHECK-NEXT:    [[TMP51:%.*]] = bitcast i128 [[TMP50]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP51]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP52:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP53:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP54:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP55:%.*]] = bitcast <16 x b8> [[TMP52]] to b128
+// CHECK-NEXT:    [[TMP56:%.*]] = bytecast exact b128 [[TMP55]] to i128
+// CHECK-NEXT:    [[TMP57:%.*]] = bitcast <16 x b8> [[TMP53]] to b128
+// CHECK-NEXT:    [[TMP58:%.*]] = bytecast exact b128 [[TMP57]] to i128
+// CHECK-NEXT:    [[TMP59:%.*]] = bitcast <16 x b8> [[TMP54]] to b128
+// CHECK-NEXT:    [[TMP60:%.*]] = bytecast exact b128 [[TMP59]] to i128
+// CHECK-NEXT:    [[TMP61:%.*]] = tail call i128 @llvm.s390.vsbiq(i128 [[TMP56]], i128 [[TMP58]], i128 [[TMP60]])
+// CHECK-NEXT:    [[TMP62:%.*]] = bitcast i128 [[TMP61]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP62]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP63:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP64:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP65:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP66:%.*]] = bitcast <16 x b8> [[TMP63]] to b128
+// CHECK-NEXT:    [[TMP67:%.*]] = bytecast exact b128 [[TMP66]] to i128
+// CHECK-NEXT:    [[TMP68:%.*]] = bitcast <16 x b8> [[TMP64]] to b128
+// CHECK-NEXT:    [[TMP69:%.*]] = bytecast exact b128 [[TMP68]] to i128
+// CHECK-NEXT:    [[TMP70:%.*]] = bitcast <16 x b8> [[TMP65]] to b128
+// CHECK-NEXT:    [[TMP71:%.*]] = bytecast exact b128 [[TMP70]] to i128
+// CHECK-NEXT:    [[TMP72:%.*]] = tail call i128 @llvm.s390.vsbcbiq(i128 [[TMP67]], i128 [[TMP69]], i128 [[TMP71]])
+// CHECK-NEXT:    [[TMP73:%.*]] = bitcast i128 [[TMP72]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP73]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP74:%.*]] = load volatile <4 x i32>, ptr @vui, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP75:%.*]] = load volatile <4 x i32>, ptr @vui, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP76:%.*]] = tail call i128 @llvm.s390.vsumqf(<4 x i32> [[TMP74]], <4 x i32> [[TMP75]])
+// CHECK-NEXT:    [[TMP77:%.*]] = bitcast i128 [[TMP76]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP77]], ptr @vuc, align 8, !tbaa [[TBAA3]]
 // CHECK-NEXT:    [[TMP78:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
 // CHECK-NEXT:    [[TMP79:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP80:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP81:%.*]] = bitcast <16 x i8> [[TMP80]] to i128
-// CHECK-NEXT:    [[TMP82:%.*]] = tail call i128 @llvm.s390.vmslg(<2 x i64> [[TMP78]], <2 x i64> [[TMP79]], i128 [[TMP81]], i32 4)
-// CHECK-NEXT:    [[TMP83:%.*]] = bitcast i128 [[TMP82]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP83]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP84:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP85:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP86:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP87:%.*]] = bitcast <16 x i8> [[TMP86]] to i128
-// CHECK-NEXT:    [[TMP88:%.*]] = tail call i128 @llvm.s390.vmslg(<2 x i64> [[TMP84]], <2 x i64> [[TMP85]], i128 [[TMP87]], i32 8)
-// CHECK-NEXT:    [[TMP89:%.*]] = bitcast i128 [[TMP88]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP89]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP90:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP91:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP92:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP93:%.*]] = bitcast <16 x i8> [[TMP92]] to i128
-// CHECK-NEXT:    [[TMP94:%.*]] = tail call i128 @llvm.s390.vmslg(<2 x i64> [[TMP90]], <2 x i64> [[TMP91]], i128 [[TMP93]], i32 12)
-// CHECK-NEXT:    [[TMP95:%.*]] = bitcast i128 [[TMP94]] to <16 x i8>
-// CHECK-NEXT:    store volatile <16 x i8> [[TMP95]], ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP96:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP97:%.*]] = load volatile <16 x i8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
-// CHECK-NEXT:    [[TMP98:%.*]] = tail call <2 x i64> @llvm.s390.vbperm(<16 x i8> [[TMP96]], <16 x i8> [[TMP97]])
-// CHECK-NEXT:    store volatile <2 x i64> [[TMP98]], ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP80:%.*]] = tail call i128 @llvm.s390.vsumqg(<2 x i64> [[TMP78]], <2 x i64> [[TMP79]])
+// CHECK-NEXT:    [[TMP81:%.*]] = bitcast i128 [[TMP80]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP81]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP82:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP83:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP84:%.*]] = tail call i128 @llvm.s390.vgfmg(<2 x i64> [[TMP82]], <2 x i64> [[TMP83]])
+// CHECK-NEXT:    [[TMP85:%.*]] = bitcast i128 [[TMP84]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP85]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP86:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP87:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP88:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP89:%.*]] = bitcast <16 x b8> [[TMP88]] to b128
+// CHECK-NEXT:    [[TMP90:%.*]] = bytecast exact b128 [[TMP89]] to i128
+// CHECK-NEXT:    [[TMP91:%.*]] = tail call i128 @llvm.s390.vgfmag(<2 x i64> [[TMP86]], <2 x i64> [[TMP87]], i128 [[TMP90]])
+// CHECK-NEXT:    [[TMP92:%.*]] = bitcast i128 [[TMP91]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP92]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP93:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP94:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP95:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP96:%.*]] = bitcast <16 x b8> [[TMP95]] to b128
+// CHECK-NEXT:    [[TMP97:%.*]] = bytecast exact b128 [[TMP96]] to i128
+// CHECK-NEXT:    [[TMP98:%.*]] = tail call i128 @llvm.s390.vmslg(<2 x i64> [[TMP93]], <2 x i64> [[TMP94]], i128 [[TMP97]], i32 0)
+// CHECK-NEXT:    [[TMP99:%.*]] = bitcast i128 [[TMP98]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP99]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP100:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP101:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP102:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP103:%.*]] = bitcast <16 x b8> [[TMP102]] to b128
+// CHECK-NEXT:    [[TMP104:%.*]] = bytecast exact b128 [[TMP103]] to i128
+// CHECK-NEXT:    [[TMP105:%.*]] = tail call i128 @llvm.s390.vmslg(<2 x i64> [[TMP100]], <2 x i64> [[TMP101]], i128 [[TMP104]], i32 4)
+// CHECK-NEXT:    [[TMP106:%.*]] = bitcast i128 [[TMP105]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP106]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP107:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP108:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP109:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP110:%.*]] = bitcast <16 x b8> [[TMP109]] to b128
+// CHECK-NEXT:    [[TMP111:%.*]] = bytecast exact b128 [[TMP110]] to i128
+// CHECK-NEXT:    [[TMP112:%.*]] = tail call i128 @llvm.s390.vmslg(<2 x i64> [[TMP107]], <2 x i64> [[TMP108]], i128 [[TMP111]], i32 8)
+// CHECK-NEXT:    [[TMP113:%.*]] = bitcast i128 [[TMP112]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP113]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP114:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP115:%.*]] = load volatile <2 x i64>, ptr @vul, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP116:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP117:%.*]] = bitcast <16 x b8> [[TMP116]] to b128
+// CHECK-NEXT:    [[TMP118:%.*]] = bytecast exact b128 [[TMP117]] to i128
+// CHECK-NEXT:    [[TMP119:%.*]] = tail call i128 @llvm.s390.vmslg(<2 x i64> [[TMP114]], <2 x i64> [[TMP115]], i128 [[TMP118]], i32 12)
+// CHECK-NEXT:    [[TMP120:%.*]] = bitcast i128 [[TMP119]] to <16 x b8>
+// CHECK-NEXT:    store volatile <16 x b8> [[TMP120]], ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP121:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP122:%.*]] = load volatile <16 x b8>, ptr @vuc, align 8, !tbaa [[TBAA3]]
+// CHECK-NEXT:    [[TMP123:%.*]] = bytecast exact <16 x b8> [[TMP121]] to <16 x i8>
+// CHECK-NEXT:    [[TMP124:%.*]] = bytecast exact <16 x b8> [[TMP122]] to <16 x i8>
+// CHECK-NEXT:    [[TMP125:%.*]] = tail call <2 x i64> @llvm.s390.vbperm(<16 x i8> [[TMP123]], <16 x i8> [[TMP124]])
+// CHECK-NEXT:    store volatile <2 x i64> [[TMP125]], ptr @vul, align 8, !tbaa [[TBAA3]]
 // CHECK-NEXT:    ret void
 //
 void test(void) {

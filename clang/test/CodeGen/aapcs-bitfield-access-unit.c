@@ -72,7 +72,7 @@ struct st6 {
   int c : 5;
 } st6;
 // LAYOUT-LABEL: LLVMType:%struct.st6 =
-// LAYOUT-SAME: type { i16, i8, i8 }
+// LAYOUT-SAME: type { i16, b8, i8 }
 // LAYOUT: BitFields:[
 // LAYOUT-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:12 IsSigned:1 StorageSize:16 StorageOffset:0
 // LAYOUT-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:5 IsSigned:1 StorageSize:8 StorageOffset:3
@@ -83,7 +83,7 @@ struct st7a {
   int b : 5;
 } st7a;
 // LAYOUT-LABEL: LLVMType:%struct.st7a =
-// LAYOUT-SAME: type { i8, i8, [2 x i8] }
+// LAYOUT-SAME: type { b8, i8, [2 x i8] }
 // LAYOUT: BitFields:[
 // LAYOUT-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:5 IsSigned:1 StorageSize:8 StorageOffset:1
 // LAYOUT-NEXT: ]>
@@ -93,7 +93,7 @@ struct st7b {
   volatile struct st7a y;
 } st7b;
 // LAYOUT-LABEL: LLVMType:%struct.st7b =
-// LAYOUT-SAME: type { i8, [3 x i8], %struct.st7a }
+// LAYOUT-SAME: type { b8, [3 x i8], %struct.st7a }
 // LAYOUT: BitFields:[
 // LAYOUT-NEXT: ]>
 
@@ -131,7 +131,7 @@ struct st11{
   int f : 16;
 } st11;
 // LAYOUT-LABEL: LLVMType:%struct.st11 =
-// LAYOUT-SAME: type <{ i8, i16, i8 }>
+// LAYOUT-SAME: type <{ b8, i16, i8 }>
 // LAYOUT: BitFields:[
 // LAYOUT-NEXT: <CGBitFieldInfo Offset:{{[0-9]+}} Size:16 IsSigned:1 StorageSize:16 StorageOffset:1
 // LAYOUT-NEXT: ]>
