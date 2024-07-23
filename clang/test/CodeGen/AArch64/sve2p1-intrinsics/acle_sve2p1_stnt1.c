@@ -24,12 +24,16 @@
 
 // CHECK-LABEL: @test_svstnt1_u8_x2(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z18test_svstnt1_u8_x2u11__SVCount_tPh11svuint8x2_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svstnt1_u8_x2(svcount_t pn, uint8_t *base, svuint8x2_t v) ATTR
@@ -88,12 +92,20 @@ void test_svstnt1_u64_x2(svcount_t pn, uint64_t *base, svuint64x2_t v) ATTR
 
 // CHECK-LABEL: @test_svstnt1_u8_x4(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], <vscale x 16 x i8> [[V_COERCE2:%.*]], <vscale x 16 x i8> [[V_COERCE3:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z18test_svstnt1_u8_x4u11__SVCount_tPh11svuint8x4_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], <vscale x 16 x i8> [[V_COERCE2:%.*]], <vscale x 16 x i8> [[V_COERCE3:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svstnt1_u8_x4(svcount_t pn, uint8_t *base, svuint8x4_t v) ATTR
@@ -152,12 +164,16 @@ void test_svstnt1_u64_x4(svcount_t pn, uint64_t *base, svuint64x4_t v) ATTR
 
 // CHECK-LABEL: @test_svstnt1_s8_x2(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z18test_svstnt1_s8_x2u11__SVCount_tPa10svint8x2_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svstnt1_s8_x2(svcount_t pn, int8_t *base, svint8x2_t v) ATTR
@@ -216,12 +232,20 @@ void test_svstnt1_s64_x2(svcount_t pn, int64_t *base, svint64x2_t v) ATTR
 
 // CHECK-LABEL: @test_svstnt1_s8_x4(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], <vscale x 16 x i8> [[V_COERCE2:%.*]], <vscale x 16 x i8> [[V_COERCE3:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z18test_svstnt1_s8_x4u11__SVCount_tPa10svint8x4_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], <vscale x 16 x i8> [[V_COERCE2:%.*]], <vscale x 16 x i8> [[V_COERCE3:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], target("aarch64.svcount") [[PN:%.*]], ptr [[BASE:%.*]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svstnt1_s8_x4(svcount_t pn, int8_t *base, svint8x4_t v) ATTR
@@ -412,7 +436,9 @@ void test_svstnt1_mf8_x4(svcount_t pn, mfloat8_t *base, svmfloat8x4_t v) ATTR
 // CHECK-NEXT:    [[TMP1:%.*]] = shl i64 [[VNUM:%.*]], 4
 // CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[TMP0]]
 // CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svstnt1_vnum_u8_x2u11__SVCount_tPhl11svuint8x2_t(
@@ -421,7 +447,9 @@ void test_svstnt1_mf8_x4(svcount_t pn, mfloat8_t *base, svmfloat8x4_t v) ATTR
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = shl i64 [[VNUM:%.*]], 4
 // CPP-CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[TMP0]]
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svstnt1_vnum_u8_x2(svcount_t pn, uint8_t *base, int64_t vnum, svuint8x2_t v) ATTR
@@ -508,7 +536,11 @@ void test_svstnt1_vnum_u64_x2(svcount_t pn, uint64_t *base, int64_t vnum, svuint
 // CHECK-NEXT:    [[TMP1:%.*]] = shl i64 [[VNUM:%.*]], 4
 // CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[TMP0]]
 // CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], <vscale x 16 x i8> [[V_COERCE2:%.*]], <vscale x 16 x i8> [[V_COERCE3:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svstnt1_vnum_u8_x4u11__SVCount_tPhl11svuint8x4_t(
@@ -517,7 +549,11 @@ void test_svstnt1_vnum_u64_x2(svcount_t pn, uint64_t *base, int64_t vnum, svuint
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = shl i64 [[VNUM:%.*]], 4
 // CPP-CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[TMP0]]
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], <vscale x 16 x i8> [[V_COERCE2:%.*]], <vscale x 16 x i8> [[V_COERCE3:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svstnt1_vnum_u8_x4(svcount_t pn, uint8_t *base, int64_t vnum, svuint8x4_t v) ATTR
@@ -604,7 +640,9 @@ void test_svstnt1_vnum_u64_x4(svcount_t pn, uint64_t *base, int64_t vnum, svuint
 // CHECK-NEXT:    [[TMP1:%.*]] = shl i64 [[VNUM:%.*]], 4
 // CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[TMP0]]
 // CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svstnt1_vnum_s8_x2u11__SVCount_tPal10svint8x2_t(
@@ -613,7 +651,9 @@ void test_svstnt1_vnum_u64_x4(svcount_t pn, uint64_t *base, int64_t vnum, svuint
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = shl i64 [[VNUM:%.*]], 4
 // CPP-CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[TMP0]]
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x2.nxv16i8(<vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svstnt1_vnum_s8_x2(svcount_t pn, int8_t *base, int64_t vnum, svint8x2_t v) ATTR
@@ -700,7 +740,11 @@ void test_svstnt1_vnum_s64_x2(svcount_t pn, int64_t *base, int64_t vnum, svint64
 // CHECK-NEXT:    [[TMP1:%.*]] = shl i64 [[VNUM:%.*]], 4
 // CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[TMP0]]
 // CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], <vscale x 16 x i8> [[V_COERCE2:%.*]], <vscale x 16 x i8> [[V_COERCE3:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svstnt1_vnum_s8_x4u11__SVCount_tPal10svint8x4_t(
@@ -709,7 +753,11 @@ void test_svstnt1_vnum_s64_x2(svcount_t pn, int64_t *base, int64_t vnum, svint64
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = shl i64 [[VNUM:%.*]], 4
 // CPP-CHECK-NEXT:    [[DOTIDX:%.*]] = mul i64 [[TMP1]], [[TMP0]]
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[BASE:%.*]], i64 [[DOTIDX]]
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[V_COERCE0:%.*]], <vscale x 16 x i8> [[V_COERCE1:%.*]], <vscale x 16 x i8> [[V_COERCE2:%.*]], <vscale x 16 x i8> [[V_COERCE3:%.*]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[V_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sve.stnt1.pn.x4.nxv16i8(<vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], target("aarch64.svcount") [[PN:%.*]], ptr [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svstnt1_vnum_s8_x4(svcount_t pn, int8_t *base, int64_t vnum, svint8x4_t v) ATTR

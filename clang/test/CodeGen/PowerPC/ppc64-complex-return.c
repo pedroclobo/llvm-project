@@ -56,7 +56,7 @@ _Complex signed char foo_char(_Complex signed char x) {
   return x;
 }
 
-// CHECK: define{{.*}} { i8, i8 } @foo_char(i8 noundef {{[%A-Za-z0-9.]+}}, i8 noundef {{[%A-Za-z0-9.]+}}) [[NUW]] {
+// CHECK: define{{.*}} { b8, b8 } @foo_char(b8 noundef {{[%A-Za-z0-9.]+}}, b8 noundef {{[%A-Za-z0-9.]+}}) [[NUW]] {
 
 _Complex long foo_long(_Complex long x) {
   return x;
@@ -139,10 +139,10 @@ signed char bar_char(void) {
   return __real__(foo_char(2 - 3i));
 }
 
-// CHECK: define{{.*}} signext i8 @bar_char() [[NUW]] {
-// CHECK: [[VAR6:[%A-Za-z0-9.]+]] = call { i8, i8 } @foo_char
-// CHECK: extractvalue { i8, i8 } [[VAR6]], 0
-// CHECK: extractvalue { i8, i8 } [[VAR6]], 1
+// CHECK: define{{.*}} signext b8 @bar_char() [[NUW]] {
+// CHECK: [[VAR6:[%A-Za-z0-9.]+]] = call { b8, b8 } @foo_char
+// CHECK: extractvalue { b8, b8 } [[VAR6]], 0
+// CHECK: extractvalue { b8, b8 } [[VAR6]], 1
 
 long bar_long(void) {
   return __real__(foo_long(2L - 3Li));

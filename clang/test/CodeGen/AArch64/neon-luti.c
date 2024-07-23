@@ -4,321 +4,377 @@
 // RUN: %clang_cc1 -triple aarch64-none-linux-gnu -target-feature +neon -target-feature +lut -target-feature +bf16 -O3 -emit-llvm -o - %s | FileCheck %s
 // RUN: %clang_cc1 -triple aarch64-none-linux-gnu -target-feature +neon -target-feature +lut -target-feature +bf16 -S -disable-O0-optnone -Werror -Wall -o /dev/null %s
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2_lane_u8(
-// CHECK-SAME: <8 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2_lane_u8(
+// CHECK-SAME: <8 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v8i8(<8 x i8> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANE]]
+// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = bytecast exact <8 x b8> [[VN]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v8i8(<8 x i8> [[VLUTI2_LANE]], <8 x i8> [[VLUTI2_LANE1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_vluti2_lane_u8(uint8x8_t vn, uint8x8_t vm) {
   return vluti2_lane_u8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2_laneq_u8(
-// CHECK-SAME: <8 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2_laneq_u8(
+// CHECK-SAME: <8 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v8i8(<8 x i8> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANEQ]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = bytecast exact <8 x b8> [[VN]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v8i8(<8 x i8> [[VLUTI2_LANEQ]], <16 x i8> [[VLUTI2_LANEQ1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_vluti2_laneq_u8(uint8x8_t vn, uint8x16_t vm) {
   return vluti2_laneq_u8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2q_lane_u8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2q_lane_u8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v16i8(<16 x i8> [[VN]], <8 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANE]]
+// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v16i8(<16 x i8> [[VLUTI2_LANE]], <8 x i8> [[VLUTI2_LANE1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_vluti2q_lane_u8(uint8x16_t vn, uint8x8_t vm) {
   return vluti2q_lane_u8(vn, vm, 1);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2q_laneq_u8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2q_laneq_u8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v16i8(<16 x i8> [[VN]], <16 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANEQ]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v16i8(<16 x i8> [[VLUTI2_LANEQ]], <16 x i8> [[VLUTI2_LANEQ1]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_vluti2q_laneq_u8(uint8x16_t vn, uint8x16_t vm) {
   return vluti2q_laneq_u8(vn, vm, 3);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2_lane_s8(
-// CHECK-SAME: <8 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2_lane_s8(
+// CHECK-SAME: <8 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v8i8(<8 x i8> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANE]]
+// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = bytecast exact <8 x b8> [[VN]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v8i8(<8 x i8> [[VLUTI2_LANE]], <8 x i8> [[VLUTI2_LANE1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 int8x16_t test_vluti2_lane_s8(int8x8_t vn, uint8x8_t vm) {
   return vluti2_lane_s8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2_laneq_s8(
-// CHECK-SAME: <8 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2_laneq_s8(
+// CHECK-SAME: <8 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v8i8(<8 x i8> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANEQ]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = bytecast exact <8 x b8> [[VN]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v8i8(<8 x i8> [[VLUTI2_LANEQ]], <16 x i8> [[VLUTI2_LANEQ1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 int8x16_t test_vluti2_laneq_s8(int8x8_t vn, uint8x16_t vm) {
   return vluti2_laneq_s8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2q_lane_s8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2q_lane_s8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v16i8(<16 x i8> [[VN]], <8 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANE]]
+// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v16i8(<16 x i8> [[VLUTI2_LANE]], <8 x i8> [[VLUTI2_LANE1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 int8x16_t test_vluti2q_lane_s8(int8x16_t vn, uint8x8_t vm) {
   return vluti2q_lane_s8(vn, vm, 1);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2q_laneq_s8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2q_laneq_s8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v16i8(<16 x i8> [[VN]], <16 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANEQ]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v16i8(<16 x i8> [[VLUTI2_LANEQ]], <16 x i8> [[VLUTI2_LANEQ1]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 int8x16_t test_vluti2q_laneq_s8(int8x16_t vn, uint8x16_t vm) {
   return vluti2q_laneq_s8(vn, vm, 3);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2_lane_p8(
-// CHECK-SAME: <8 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2_lane_p8(
+// CHECK-SAME: <8 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v8i8(<8 x i8> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANE]]
+// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = bytecast exact <8 x b8> [[VN]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v8i8(<8 x i8> [[VLUTI2_LANE]], <8 x i8> [[VLUTI2_LANE1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 poly8x16_t test_vluti2_lane_p8(poly8x8_t vn, uint8x8_t vm) {
   return vluti2_lane_p8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2_laneq_p8(
-// CHECK-SAME: <8 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2_laneq_p8(
+// CHECK-SAME: <8 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v8i8(<8 x i8> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANEQ]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = bytecast exact <8 x b8> [[VN]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v8i8(<8 x i8> [[VLUTI2_LANEQ]], <16 x i8> [[VLUTI2_LANEQ1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 poly8x16_t test_vluti2_laneq_p8(poly8x8_t vn, uint8x16_t vm) {
   return vluti2_laneq_p8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2q_lane_p8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2q_lane_p8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v16i8(<16 x i8> [[VN]], <8 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANE]]
+// CHECK-NEXT:    [[VLUTI2_LANE:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.lane.v16i8.v16i8(<16 x i8> [[VLUTI2_LANE]], <8 x i8> [[VLUTI2_LANE1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 poly8x16_t test_vluti2q_lane_p8(poly8x16_t vn, uint8x8_t vm) {
   return vluti2q_lane_p8(vn, vm, 1);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti2q_laneq_p8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti2q_laneq_p8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v16i8(<16 x i8> [[VN]], <16 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI2_LANEQ]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti2.laneq.v16i8.v16i8(<16 x i8> [[VLUTI2_LANEQ]], <16 x i8> [[VLUTI2_LANEQ1]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI2_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 poly8x16_t test_vluti2q_laneq_p8(poly8x16_t vn, uint8x16_t vm) {
   return vluti2q_laneq_p8(vn, vm, 3);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2_lane_u16(
-// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v4i16(<4 x i16> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v4i16(<4 x i16> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE2]]
 //
 uint16x8_t test_vluti2_lane_u16(uint16x4_t vn, uint8x8_t vm) {
   return vluti2_lane_u16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2_laneq_u16(
-// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v4i16(<4 x i16> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v4i16(<4 x i16> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ2]]
 //
 uint16x8_t test_vluti2_laneq_u16(uint16x4_t vn, uint8x16_t vm) {
   return vluti2_laneq_u16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2q_lane_u16(
-// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v8i16(<8 x i16> [[VN]], <8 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v8i16(<8 x i16> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 3)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE2]]
 //
 uint16x8_t test_vluti2q_lane_u16(uint16x8_t vn, uint8x8_t vm) {
   return vluti2q_lane_u16(vn, vm, 3);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2q_laneq_u16(
-// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v8i16(<8 x i16> [[VN]], <16 x i8> [[VM]], i32 7)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v8i16(<8 x i16> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 7)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ2]]
 //
 uint16x8_t test_vluti2q_laneq_u16(uint16x8_t vn, uint8x16_t vm) {
   return vluti2q_laneq_u16(vn, vm, 7);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2_lane_s16(
-// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v4i16(<4 x i16> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v4i16(<4 x i16> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE2]]
 //
 int16x8_t test_vluti2_lane_s16(int16x4_t vn, uint8x8_t vm) {
   return vluti2_lane_s16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2_laneq_s16(
-// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v4i16(<4 x i16> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v4i16(<4 x i16> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ2]]
 //
 int16x8_t test_vluti2_laneq_s16(int16x4_t vn, uint8x16_t vm) {
   return vluti2_laneq_s16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2q_lane_s16(
-// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v8i16(<8 x i16> [[VN]], <8 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v8i16(<8 x i16> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 3)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE2]]
 //
 int16x8_t test_vluti2q_lane_s16(int16x8_t vn, uint8x8_t vm) {
   return vluti2q_lane_s16(vn, vm, 3);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2q_laneq_s16(
-// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v8i16(<8 x i16> [[VN]], <16 x i8> [[VM]], i32 7)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v8i16(<8 x i16> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 7)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ2]]
 //
 int16x8_t test_vluti2q_laneq_s16(int16x8_t vn, uint8x16_t vm) {
   return vluti2q_laneq_s16(vn, vm, 7);
 }
 
 // CHECK-LABEL: define dso_local <8 x half> @test_vluti2_lane_f16(
-// CHECK-SAME: <4 x half> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x half> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti2.lane.v8f16.v4f16(<4 x half> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x half> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti2.lane.v8f16.v4f16(<4 x half> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 0)
+// CHECK-NEXT:    ret <8 x half> [[VLUTI2_LANE2]]
 //
 float16x8_t test_vluti2_lane_f16(float16x4_t vn, uint8x8_t vm) {
   return vluti2_lane_f16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x half> @test_vluti2_laneq_f16(
-// CHECK-SAME: <4 x half> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x half> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti2.laneq.v8f16.v4f16(<4 x half> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x half> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti2.laneq.v8f16.v4f16(<4 x half> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 0)
+// CHECK-NEXT:    ret <8 x half> [[VLUTI2_LANEQ2]]
 //
 float16x8_t test_vluti2_laneq_f16(float16x4_t vn, uint8x16_t vm) {
   return vluti2_laneq_f16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x half> @test_vluti2q_lane_f16(
-// CHECK-SAME: <8 x half> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x half> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti2.lane.v8f16.v8f16(<8 x half> [[VN]], <8 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <8 x half> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti2.lane.v8f16.v8f16(<8 x half> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 3)
+// CHECK-NEXT:    ret <8 x half> [[VLUTI2_LANE2]]
 //
 float16x8_t test_vluti2q_lane_f16(float16x8_t vn, uint8x8_t vm) {
   return vluti2q_lane_f16(vn, vm, 3);
 }
 
 // CHECK-LABEL: define dso_local <8 x half> @test_vluti2q_laneq_f16(
-// CHECK-SAME: <8 x half> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x half> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti2.laneq.v8f16.v8f16(<8 x half> [[VN]], <16 x i8> [[VM]], i32 7)
-// CHECK-NEXT:    ret <8 x half> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti2.laneq.v8f16.v8f16(<8 x half> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 7)
+// CHECK-NEXT:    ret <8 x half> [[VLUTI2_LANEQ2]]
 //
 float16x8_t test_vluti2q_laneq_f16(float16x8_t vn, uint8x16_t vm) {
   return vluti2q_laneq_f16(vn, vm, 7);
 }
 
 // CHECK-LABEL: define dso_local <8 x bfloat> @test_vluti2_lane_bf16(
-// CHECK-SAME: <4 x bfloat> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x bfloat> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti2.lane.v8bf16.v4bf16(<4 x bfloat> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti2.lane.v8bf16.v4bf16(<4 x bfloat> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 0)
+// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI2_LANE2]]
 //
 bfloat16x8_t test_vluti2_lane_bf16(bfloat16x4_t vn, uint8x8_t vm) {
   return vluti2_lane_bf16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x bfloat> @test_vluti2_laneq_bf16(
-// CHECK-SAME: <4 x bfloat> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x bfloat> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti2.laneq.v8bf16.v4bf16(<4 x bfloat> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti2.laneq.v8bf16.v4bf16(<4 x bfloat> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 0)
+// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI2_LANEQ2]]
 //
 bfloat16x8_t test_vluti2_laneq_bf16(bfloat16x4_t vn, uint8x16_t vm) {
   return vluti2_laneq_bf16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x bfloat> @test_vluti2q_lane_bf16(
-// CHECK-SAME: <8 x bfloat> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x bfloat> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti2.lane.v8bf16.v8bf16(<8 x bfloat> [[VN]], <8 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti2.lane.v8bf16.v8bf16(<8 x bfloat> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 3)
+// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI2_LANE2]]
 //
 bfloat16x8_t test_vluti2q_lane_bf16(bfloat16x8_t vn, uint8x8_t vm) {
   return vluti2q_lane_bf16(vn, vm, 3);
 }
 
 // CHECK-LABEL: define dso_local <8 x bfloat> @test_vluti2q_laneq_bf16(
-// CHECK-SAME: <8 x bfloat> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x bfloat> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti2.laneq.v8bf16.v8bf16(<8 x bfloat> [[VN]], <16 x i8> [[VM]], i32 7)
-// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti2.laneq.v8bf16.v8bf16(<8 x bfloat> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 7)
+// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI2_LANEQ2]]
 //
 bfloat16x8_t test_vluti2q_laneq_bf16(bfloat16x8_t vn, uint8x16_t vm) {
   return vluti2q_laneq_bf16(vn, vm, 7);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2_lane_p16(
-// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v4i16(<4 x i16> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v4i16(<4 x i16> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE2]]
 //
 poly16x8_t test_vluti2_lane_p16(poly16x4_t vn, uint8x8_t vm) {
   return vluti2_lane_p16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2_laneq_p16(
-// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <4 x i16> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v4i16(<4 x i16> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v4i16(<4 x i16> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ2]]
 //
 poly16x8_t test_vluti2_laneq_p16(poly16x4_t vn, uint8x16_t vm) {
   return vluti2_laneq_p16(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2q_lane_p16(
-// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v8i16(<8 x i16> [[VN]], <8 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE1]]
+// CHECK-NEXT:    [[VLUTI2_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANE2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.lane.v8i16.v8i16(<8 x i16> [[VN]], <8 x i8> [[VLUTI2_LANE1]], i32 3)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANE2]]
 //
 poly16x8_t test_vluti2q_lane_p16(poly16x8_t vn, uint8x8_t vm) {
   return vluti2q_lane_p16(vn, vm, 3);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti2q_laneq_p16(
-// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: <8 x i16> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v8i16(<8 x i16> [[VN]], <16 x i8> [[VM]], i32 7)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ1]]
+// CHECK-NEXT:    [[VLUTI2_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI2_LANEQ2:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti2.laneq.v8i16.v8i16(<8 x i16> [[VN]], <16 x i8> [[VLUTI2_LANEQ1]], i32 7)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI2_LANEQ2]]
 //
 poly16x8_t test_vluti2q_laneq_p16(poly16x8_t vn, uint8x16_t vm) {
   return vluti2q_laneq_p16(vn, vm, 7);
@@ -326,181 +382,209 @@ poly16x8_t test_vluti2q_laneq_p16(poly16x8_t vn, uint8x16_t vm) {
 
 //
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti4q_lane_u8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti4q_lane_u8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI4Q_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.lane.v16i8(<16 x i8> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI4Q_LANE]]
+// CHECK-NEXT:    [[VLUTI4Q_LANE:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.lane.v16i8(<16 x i8> [[VLUTI4Q_LANE]], <8 x i8> [[VLUTI4Q_LANE1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI4Q_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_vluti4q_lane_u8(uint8x16_t vn, uint8x8_t vm) {
   return vluti4q_lane_u8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti4q_laneq_u8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti4q_laneq_u8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI4Q_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.laneq.v16i8(<16 x i8> [[VN]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI4Q_LANEQ]]
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.laneq.v16i8(<16 x i8> [[VLUTI4Q_LANEQ]], <16 x i8> [[VLUTI4Q_LANEQ1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI4Q_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_vluti4q_laneq_u8(uint8x16_t vn, uint8x16_t vm) {
   return vluti4q_laneq_u8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti4q_lane_s8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti4q_lane_s8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI4Q_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.lane.v16i8(<16 x i8> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI4Q_LANE]]
+// CHECK-NEXT:    [[VLUTI4Q_LANE:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.lane.v16i8(<16 x i8> [[VLUTI4Q_LANE]], <8 x i8> [[VLUTI4Q_LANE1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI4Q_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 int8x16_t test_vluti4q_lane_s8(int8x16_t vn, uint8x8_t vm) {
   return vluti4q_lane_s8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti4q_laneq_s8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti4q_laneq_s8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI4Q_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.laneq.v16i8(<16 x i8> [[VN]], <16 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI4Q_LANEQ]]
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.laneq.v16i8(<16 x i8> [[VLUTI4Q_LANEQ]], <16 x i8> [[VLUTI4Q_LANEQ1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI4Q_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 int8x16_t test_vluti4q_laneq_s8(int8x16_t vn, uint8x16_t vm) {
   return vluti4q_laneq_s8(vn, vm, 1);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti4q_lane_p8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti4q_lane_p8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI4Q_LANE:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.lane.v16i8(<16 x i8> [[VN]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI4Q_LANE]]
+// CHECK-NEXT:    [[VLUTI4Q_LANE:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE1:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.lane.v16i8(<16 x i8> [[VLUTI4Q_LANE]], <8 x i8> [[VLUTI4Q_LANE1]], i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI4Q_LANE2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 poly8x16_t test_vluti4q_lane_p8(poly8x16_t vn, uint8x8_t vm) {
   return vluti4q_lane_p8(vn, vm, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vluti4q_laneq_p8(
-// CHECK-SAME: <16 x i8> noundef [[VN:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vluti4q_laneq_p8(
+// CHECK-SAME: <16 x b8> noundef [[VN:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[VLUTI4Q_LANEQ:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.laneq.v16i8(<16 x i8> [[VN]], <16 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[VLUTI4Q_LANEQ]]
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ:%.*]] = bytecast exact <16 x b8> [[VN]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ1:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ2:%.*]] = tail call <16 x i8> @llvm.aarch64.neon.vluti4q.laneq.v16i8(<16 x i8> [[VLUTI4Q_LANEQ]], <16 x i8> [[VLUTI4Q_LANEQ1]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[VLUTI4Q_LANEQ2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 poly8x16_t test_vluti4q_laneq_p8(poly8x16_t vn, uint8x16_t vm) {
   return vluti4q_laneq_p8(vn, vm, 1);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti4q_lane_u16_x2(
-// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANE_X24:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.lane.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANE_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X24:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X25:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.lane.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VLUTI4Q_LANE_X24]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANE_X25]]
 //
 uint16x8_t test_vluti4q_lane_u16_x2(uint16x8x2_t vn, uint8x8_t vm) {
   return vluti4q_lane_u16_x2(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti4q_laneq_u16_x2(
-// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X24:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.laneq.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANEQ_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X24:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X25:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.laneq.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VLUTI4Q_LANEQ_X24]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANEQ_X25]]
 //
 uint16x8_t test_vluti4q_laneq_u16_x2(uint16x8x2_t vn, uint8x16_t vm) {
   return vluti4q_laneq_u16_x2(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti4q_lane_s16_x2(
-// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANE_X24:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.lane.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANE_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X24:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X25:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.lane.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VLUTI4Q_LANE_X24]], i32 1)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANE_X25]]
 //
 int16x8_t test_vluti4q_lane_s16_x2(int16x8x2_t vn, uint8x8_t vm) {
   return vluti4q_lane_s16_x2(vn, vm, 1);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti4q_laneq_s16_x2(
-// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X24:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.laneq.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VM]], i32 3)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANEQ_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X24:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X25:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.laneq.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VLUTI4Q_LANEQ_X24]], i32 3)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANEQ_X25]]
 //
 int16x8_t test_vluti4q_laneq_s16_x2(int16x8x2_t vn, uint8x16_t vm) {
   return vluti4q_laneq_s16_x2(vn, vm, 3);
 }
 
 // CHECK-LABEL: define dso_local <8 x half> @test_vluti4q_lane_f16_x2(
-// CHECK-SAME: [2 x <8 x half>] alignstack(16) [[VN_COERCE:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x half>] alignstack(16) [[VN_COERCE:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x half>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x half>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANE_X24:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti4q.lane.x2.v8f16(<8 x half> [[VN_COERCE_FCA_0_EXTRACT]], <8 x half> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <8 x half> [[VLUTI4Q_LANE_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X25:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X26:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti4q.lane.x2.v8f16(<8 x half> [[VN_COERCE_FCA_0_EXTRACT]], <8 x half> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VLUTI4Q_LANE_X25]], i32 1)
+// CHECK-NEXT:    ret <8 x half> [[VLUTI4Q_LANE_X26]]
 //
 float16x8_t test_vluti4q_lane_f16_x2(float16x8x2_t vn, uint8x8_t vm) {
   return vluti4q_lane_f16_x2(vn, vm, 1);
 }
 
 // CHECK-LABEL: define dso_local <8 x half> @test_vluti4q_laneq_f16_x2(
-// CHECK-SAME: [2 x <8 x half>] alignstack(16) [[VN_COERCE:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x half>] alignstack(16) [[VN_COERCE:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x half>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x half>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X24:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti4q.laneq.x2.v8f16(<8 x half> [[VN_COERCE_FCA_0_EXTRACT]], <8 x half> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <8 x half> [[VLUTI4Q_LANEQ_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X25:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X26:%.*]] = tail call <8 x half> @llvm.aarch64.neon.vluti4q.laneq.x2.v8f16(<8 x half> [[VN_COERCE_FCA_0_EXTRACT]], <8 x half> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VLUTI4Q_LANEQ_X25]], i32 1)
+// CHECK-NEXT:    ret <8 x half> [[VLUTI4Q_LANEQ_X26]]
 //
 float16x8_t test_vluti4q_laneq_f16_x2(float16x8x2_t vn, uint8x16_t vm) {
   return vluti4q_laneq_f16_x2(vn, vm, 1);
 }
 
 // CHECK-LABEL: define dso_local <8 x bfloat> @test_vluti4q_lane_bf16_x2(
-// CHECK-SAME: [2 x <8 x bfloat>] alignstack(16) [[VN_COERCE:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x bfloat>] alignstack(16) [[VN_COERCE:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x bfloat>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x bfloat>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANE_X24:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti4q.lane.x2.v8bf16(<8 x bfloat> [[VN_COERCE_FCA_0_EXTRACT]], <8 x bfloat> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VM]], i32 1)
-// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI4Q_LANE_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X25:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X26:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti4q.lane.x2.v8bf16(<8 x bfloat> [[VN_COERCE_FCA_0_EXTRACT]], <8 x bfloat> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VLUTI4Q_LANE_X25]], i32 1)
+// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI4Q_LANE_X26]]
 //
 bfloat16x8_t test_vluti4q_lane_bf16_x2(bfloat16x8x2_t vn, uint8x8_t vm) {
   return vluti4q_lane_bf16_x2(vn, vm, 1);
 }
 
 // CHECK-LABEL: define dso_local <8 x bfloat> @test_vluti4q_laneq_bf16_x2(
-// CHECK-SAME: [2 x <8 x bfloat>] alignstack(16) [[VN_COERCE:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x bfloat>] alignstack(16) [[VN_COERCE:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x bfloat>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x bfloat>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X24:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti4q.laneq.x2.v8bf16(<8 x bfloat> [[VN_COERCE_FCA_0_EXTRACT]], <8 x bfloat> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VM]], i32 2)
-// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI4Q_LANEQ_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X25:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X26:%.*]] = tail call <8 x bfloat> @llvm.aarch64.neon.vluti4q.laneq.x2.v8bf16(<8 x bfloat> [[VN_COERCE_FCA_0_EXTRACT]], <8 x bfloat> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VLUTI4Q_LANEQ_X25]], i32 2)
+// CHECK-NEXT:    ret <8 x bfloat> [[VLUTI4Q_LANEQ_X26]]
 //
 bfloat16x8_t test_vluti4q_laneq_bf16_x2(bfloat16x8x2_t vn, uint8x16_t vm) {
   return vluti4q_laneq_bf16_x2(vn, vm, 2);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti4q_lane_p16_x2(
-// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <8 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <8 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANE_X24:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.lane.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANE_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X24:%.*]] = bytecast exact <8 x b8> [[VM]] to <8 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANE_X25:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.lane.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <8 x i8> [[VLUTI4Q_LANE_X24]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANE_X25]]
 //
 poly16x8_t test_vluti4q_lane_p16_x2(poly16x8x2_t vn, uint8x8_t vm) {
   return vluti4q_lane_p16_x2(vn, vm, 0);
 }
 
 // CHECK-LABEL: define dso_local <8 x i16> @test_vluti4q_laneq_p16_x2(
-// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <16 x i8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: [2 x <8 x i16>] alignstack(16) [[VN_COERCE:%.*]], <16 x b8> noundef [[VM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[VN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 0
 // CHECK-NEXT:    [[VN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[VN_COERCE]], 1
-// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X24:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.laneq.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VM]], i32 0)
-// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANEQ_X24]]
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X24:%.*]] = bytecast exact <16 x b8> [[VM]] to <16 x i8>
+// CHECK-NEXT:    [[VLUTI4Q_LANEQ_X25:%.*]] = tail call <8 x i16> @llvm.aarch64.neon.vluti4q.laneq.x2.v8i16(<8 x i16> [[VN_COERCE_FCA_0_EXTRACT]], <8 x i16> [[VN_COERCE_FCA_1_EXTRACT]], <16 x i8> [[VLUTI4Q_LANEQ_X24]], i32 0)
+// CHECK-NEXT:    ret <8 x i16> [[VLUTI4Q_LANEQ_X25]]
 //
 poly16x8_t test_vluti4q_laneq_p16_x2(poly16x8x2_t vn, uint8x16_t vm) {
   return vluti4q_laneq_p16_x2(vn, vm, 0);

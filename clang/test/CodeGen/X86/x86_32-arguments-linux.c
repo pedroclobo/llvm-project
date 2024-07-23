@@ -2,7 +2,7 @@
 // RUN: FileCheck < %t %s
 
 // CHECK-LABEL: define{{.*}} void @f56(
-// CHECK: i8 noundef signext %a0, ptr noundef byval(%struct.s56_0) align 4 %a1,
+// CHECK: b8 noundef signext %a0, ptr noundef byval(%struct.s56_0) align 4 %a1,
 // CHECK: i64 noundef %a2.coerce, ptr noundef byval(%struct.s56_1) align 4 %0,
 // CHECK: <1 x double> noundef %a4, ptr noundef byval(%struct.s56_2) align 4 %1,
 // CHECK: <4 x i32> noundef %a6, ptr noundef byval(%struct.s56_3) align 4 %2,
@@ -37,12 +37,12 @@ struct s56_4 { t56_v2d a; };
 struct s56_5 { t56_v8i a; };
 struct s56_6 { t56_v4d a; };
 
-void f56(char a0, struct s56_0 a1, 
-         t56_v2i a2, struct s56_1 a3, 
-         t56_v1d a4, struct s56_2 a5, 
-         t56_v4i a6, struct s56_3 a7, 
-         t56_v2d a8, struct s56_4 a9, 
-         t56_v8i a10, struct s56_5 a11, 
+void f56(char a0, struct s56_0 a1,
+         t56_v2i a2, struct s56_1 a3,
+         t56_v1d a4, struct s56_2 a5,
+         t56_v4i a6, struct s56_3 a7,
+         t56_v2d a8, struct s56_4 a9,
+         t56_v8i a10, struct s56_5 a11,
          t56_v4d a12, struct s56_6 a13) {
   extern void f56_0(int x, ...);
   f56_0(1, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9,

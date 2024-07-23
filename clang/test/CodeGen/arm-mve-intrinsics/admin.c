@@ -100,14 +100,16 @@ int64x2_t test_vcreateq_s64(uint64_t a, uint64_t b)
 // CHECK-LE-NEXT:    [[TMP0:%.*]] = insertelement <2 x i64> poison, i64 [[A:%.*]], i64 0
 // CHECK-LE-NEXT:    [[TMP1:%.*]] = insertelement <2 x i64> [[TMP0]], i64 [[B:%.*]], i64 1
 // CHECK-LE-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-LE-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-LE-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <16 x b8>
+// CHECK-LE-NEXT:    ret <16 x b8> [[TMP3]]
 //
 // CHECK-BE-LABEL: @test_vcreateq_s8(
 // CHECK-BE-NEXT:  entry:
 // CHECK-BE-NEXT:    [[TMP0:%.*]] = insertelement <2 x i64> poison, i64 [[A:%.*]], i64 0
 // CHECK-BE-NEXT:    [[TMP1:%.*]] = insertelement <2 x i64> [[TMP0]], i64 [[B:%.*]], i64 1
 // CHECK-BE-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v2i64(<2 x i64> [[TMP1]])
-// CHECK-BE-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-BE-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <16 x b8>
+// CHECK-BE-NEXT:    ret <16 x b8> [[TMP3]]
 //
 int8x16_t test_vcreateq_s8(uint64_t a, uint64_t b)
 {
@@ -168,14 +170,16 @@ uint64x2_t test_vcreateq_u64(uint64_t a, uint64_t b)
 // CHECK-LE-NEXT:    [[TMP0:%.*]] = insertelement <2 x i64> poison, i64 [[A:%.*]], i64 0
 // CHECK-LE-NEXT:    [[TMP1:%.*]] = insertelement <2 x i64> [[TMP0]], i64 [[B:%.*]], i64 1
 // CHECK-LE-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-LE-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-LE-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <16 x b8>
+// CHECK-LE-NEXT:    ret <16 x b8> [[TMP3]]
 //
 // CHECK-BE-LABEL: @test_vcreateq_u8(
 // CHECK-BE-NEXT:  entry:
 // CHECK-BE-NEXT:    [[TMP0:%.*]] = insertelement <2 x i64> poison, i64 [[A:%.*]], i64 0
 // CHECK-BE-NEXT:    [[TMP1:%.*]] = insertelement <2 x i64> [[TMP0]], i64 [[B:%.*]], i64 1
 // CHECK-BE-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v2i64(<2 x i64> [[TMP1]])
-// CHECK-BE-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-BE-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <16 x b8>
+// CHECK-BE-NEXT:    ret <16 x b8> [[TMP3]]
 //
 uint8x16_t test_vcreateq_u8(uint64_t a, uint64_t b)
 {
@@ -202,7 +206,7 @@ float32x4_t test_vuninitializedq_polymorphic_f32(float32x4_t (*funcptr)(void))
 
 // CHECK-LABEL: @test_vuninitializedq_polymorphic_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <16 x i8> undef
+// CHECK-NEXT:    ret <16 x b8> undef
 //
 int8x16_t test_vuninitializedq_polymorphic_s8(int8x16_t (*funcptr)(void))
 {
@@ -238,7 +242,7 @@ int64x2_t test_vuninitializedq_polymorphic_s64(int64x2_t (*funcptr)(void))
 
 // CHECK-LABEL: @test_vuninitializedq_polymorphic_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <16 x i8> undef
+// CHECK-NEXT:    ret <16 x b8> undef
 //
 uint8x16_t test_vuninitializedq_polymorphic_u8(uint8x16_t (*funcptr)(void))
 {
@@ -319,7 +323,7 @@ int64x2_t test_vuninitializedq_s64(void)
 
 // CHECK-LABEL: @test_vuninitializedq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <16 x i8> undef
+// CHECK-NEXT:    ret <16 x b8> undef
 //
 int8x16_t test_vuninitializedq_s8(void)
 {
@@ -355,7 +359,7 @@ uint64x2_t test_vuninitializedq_u64(void)
 
 // CHECK-LABEL: @test_vuninitializedq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <16 x i8> undef
+// CHECK-NEXT:    ret <16 x b8> undef
 //
 uint8x16_t test_vuninitializedq_u8(void)
 {

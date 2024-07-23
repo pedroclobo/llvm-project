@@ -19,13 +19,13 @@ DT func_int_##DT##KIND(DT in)\
 }
 
 SVINT_TEST(__SVUint8_t,b);
-// CHECK: call <vscale x 16 x i8> asm sideeffect "ptrue p0.b\0Amov $0.b, p0/m, $1.b\0A", "=w,w,~{p0}"(<vscale x 16 x i8> %in)
+// CHECK: call <vscale x 16 x b8> asm sideeffect "ptrue p0.b\0Amov $0.b, p0/m, $1.b\0A", "=w,w,~{p0}"(<vscale x 16 x b8> %in)
 SVINT_TEST(__SVUint8_t,h);
-// CHECK: call <vscale x 16 x i8> asm sideeffect "ptrue p0.b\0Amov $0.h, p0/m, $1.h\0A", "=w,w,~{p0}"(<vscale x 16 x i8> %in)
+// CHECK: call <vscale x 16 x b8> asm sideeffect "ptrue p0.b\0Amov $0.h, p0/m, $1.h\0A", "=w,w,~{p0}"(<vscale x 16 x b8> %in)
 SVINT_TEST(__SVUint8_t,s);
-// CHECK: call <vscale x 16 x i8> asm sideeffect "ptrue p0.b\0Amov $0.s, p0/m, $1.s\0A", "=w,w,~{p0}"(<vscale x 16 x i8> %in)
+// CHECK: call <vscale x 16 x b8> asm sideeffect "ptrue p0.b\0Amov $0.s, p0/m, $1.s\0A", "=w,w,~{p0}"(<vscale x 16 x b8> %in)
 SVINT_TEST(__SVUint8_t,d);
-// CHECK: call <vscale x 16 x i8> asm sideeffect "ptrue p0.b\0Amov $0.d, p0/m, $1.d\0A", "=w,w,~{p0}"(<vscale x 16 x i8> %in)
+// CHECK: call <vscale x 16 x b8> asm sideeffect "ptrue p0.b\0Amov $0.d, p0/m, $1.d\0A", "=w,w,~{p0}"(<vscale x 16 x b8> %in)
 
 SVINT_TEST(__SVUint16_t,b);
 // CHECK: call <vscale x 8 x i16> asm sideeffect "ptrue p0.b\0Amov $0.b, p0/m, $1.b\0A", "=w,w,~{p0}"(<vscale x 8 x i16> %in)
@@ -55,13 +55,13 @@ SVINT_TEST(__SVUint64_t,d);
 // CHECK: call <vscale x 2 x i64> asm sideeffect "ptrue p0.b\0Amov $0.d, p0/m, $1.d\0A", "=w,w,~{p0}"(<vscale x 2 x i64> %in)
 
 SVINT_TEST(__SVInt8_t,b);
-// CHECK: call <vscale x 16 x i8> asm sideeffect "ptrue p0.b\0Amov $0.b, p0/m, $1.b\0A", "=w,w,~{p0}"(<vscale x 16 x i8> %in)
+// CHECK: call <vscale x 16 x b8> asm sideeffect "ptrue p0.b\0Amov $0.b, p0/m, $1.b\0A", "=w,w,~{p0}"(<vscale x 16 x b8> %in)
 SVINT_TEST(__SVInt8_t,h);
-// CHECK: call <vscale x 16 x i8> asm sideeffect "ptrue p0.b\0Amov $0.h, p0/m, $1.h\0A", "=w,w,~{p0}"(<vscale x 16 x i8> %in)
+// CHECK: call <vscale x 16 x b8> asm sideeffect "ptrue p0.b\0Amov $0.h, p0/m, $1.h\0A", "=w,w,~{p0}"(<vscale x 16 x b8> %in)
 SVINT_TEST(__SVInt8_t,s);
-// CHECK: call <vscale x 16 x i8> asm sideeffect "ptrue p0.b\0Amov $0.s, p0/m, $1.s\0A", "=w,w,~{p0}"(<vscale x 16 x i8> %in)
+// CHECK: call <vscale x 16 x b8> asm sideeffect "ptrue p0.b\0Amov $0.s, p0/m, $1.s\0A", "=w,w,~{p0}"(<vscale x 16 x b8> %in)
 SVINT_TEST(__SVInt8_t,d);
-// CHECK: call <vscale x 16 x i8> asm sideeffect "ptrue p0.b\0Amov $0.d, p0/m, $1.d\0A", "=w,w,~{p0}"(<vscale x 16 x i8> %in)
+// CHECK: call <vscale x 16 x b8> asm sideeffect "ptrue p0.b\0Amov $0.d, p0/m, $1.d\0A", "=w,w,~{p0}"(<vscale x 16 x b8> %in)
 
 SVINT_TEST(__SVInt16_t,b);
 // CHECK: call <vscale x 8 x i16> asm sideeffect "ptrue p0.b\0Amov $0.b, p0/m, $1.b\0A", "=w,w,~{p0}"(<vscale x 8 x i16> %in)
@@ -160,7 +160,7 @@ __SVBool_t func_bool_upl_##KIND(__SVBool_t in1, DT in2, DT in3)\
 }
 
 SVBOOL_TEST_UPL(__SVInt8_t, b) ;
-// CHECK: call <vscale x 16 x i1> asm sideeffect "fadd $0.b, $1.b, $2.b, $3.b\0A", "=w,@3Upl,w,w"(<vscale x 16 x i1> %in1, <vscale x 16 x i8> %in2, <vscale x 16 x i8> %in3)
+// CHECK: call <vscale x 16 x i1> asm sideeffect "fadd $0.b, $1.b, $2.b, $3.b\0A", "=w,@3Upl,w,w"(<vscale x 16 x i1> %in1, <vscale x 16 x b8> %in2, <vscale x 16 x b8> %in3)
 SVBOOL_TEST_UPL(__SVInt16_t, h) ;
 // CHECK: call <vscale x 16 x i1> asm sideeffect "fadd $0.h, $1.h, $2.h, $3.h\0A", "=w,@3Upl,w,w"(<vscale x 16 x i1> %in1, <vscale x 8 x i16> %in2, <vscale x 8 x i16> %in3)
 SVBOOL_TEST_UPL(__SVInt32_t, s) ;
@@ -183,7 +183,7 @@ __SVBool_t func_bool_uph_##KIND(__SVBool_t in1, DT in2, DT in3)\
 }
 
 SVBOOL_TEST_UPH(__SVInt8_t, b) ;
-// CHECK: call <vscale x 16 x i1> asm sideeffect "fadd $0.b, $1.b, $2.b, $3.b\0A", "=w,@3Uph,w,w"(<vscale x 16 x i1> %in1, <vscale x 16 x i8> %in2, <vscale x 16 x i8> %in3)
+// CHECK: call <vscale x 16 x i1> asm sideeffect "fadd $0.b, $1.b, $2.b, $3.b\0A", "=w,@3Uph,w,w"(<vscale x 16 x i1> %in1, <vscale x 16 x b8> %in2, <vscale x 16 x b8> %in3)
 SVBOOL_TEST_UPH(__SVInt16_t, h) ;
 // CHECK: call <vscale x 16 x i1> asm sideeffect "fadd $0.h, $1.h, $2.h, $3.h\0A", "=w,@3Uph,w,w"(<vscale x 16 x i1> %in1, <vscale x 8 x i16> %in2, <vscale x 8 x i16> %in3)
 SVBOOL_TEST_UPH(__SVInt32_t, s) ;

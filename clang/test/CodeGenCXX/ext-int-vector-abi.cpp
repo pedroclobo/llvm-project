@@ -17,9 +17,9 @@ int8_t3 ManglingTestRetParam(int8_t3 Param) {
 using int8_t3c = char  __attribute__((ext_vector_type(3)));
 int8_t3c ManglingTestRetParam(int8_t3c Param) {
 // LIN64: define{{.*}} i32 @_Z20ManglingTestRetParamDv3_c(i32 %
-// LIN32: define{{.*}} <3 x i8> @_Z20ManglingTestRetParamDv3_c(<3 x i8> %
-// WIN64: define dso_local <3 x i8> @"?ManglingTestRetParam@@YAT?$__vector@D$02@__clang@@T12@@Z"(<3 x i8> %
-// WIN32: define dso_local <3 x i8> @"?ManglingTestRetParam@@YAT?$__vector@D$02@__clang@@T12@@Z"(<3 x i8> inreg %
+// LIN32: define{{.*}} <3 x b8> @_Z20ManglingTestRetParamDv3_c(<3 x b8> %
+// WIN64: define dso_local <3 x b8> @"?ManglingTestRetParam@@YAT?$__vector@D$02@__clang@@T12@@Z"(<3 x b8> %
+// WIN32: define dso_local <3 x b8> @"?ManglingTestRetParam@@YAT?$__vector@D$02@__clang@@T12@@Z"(<3 x b8> inreg %
   return Param;
 }
 

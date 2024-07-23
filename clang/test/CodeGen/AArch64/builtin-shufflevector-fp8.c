@@ -20,9 +20,10 @@ mfloat8x8_t test_8x8(mfloat8x8_t x) {
 }
 
 // CHECK-LABEL: define dso_local <8 x i8> @test_8x8_v(
-// CHECK-SAME: <8 x i8> [[X:%.*]], <8 x i8> noundef [[P:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x i8> [[X:%.*]], <8 x b8> noundef [[P:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[MASK:%.*]] = and <8 x i8> [[P]], splat (i8 7)
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact <8 x b8> [[P]] to <8 x i8>
+// CHECK-NEXT:    [[MASK:%.*]] = and <8 x i8> [[CONV]], splat (i8 7)
 // CHECK-NEXT:    [[SHUF_IDX:%.*]] = extractelement <8 x i8> [[MASK]], i64 0
 // CHECK-NEXT:    [[SHUF_ELT:%.*]] = extractelement <8 x i8> [[X]], i8 [[SHUF_IDX]]
 // CHECK-NEXT:    [[SHUF_INS:%.*]] = insertelement <8 x i8> poison, i8 [[SHUF_ELT]], i64 0
@@ -65,9 +66,10 @@ mfloat8x16_t test_8x16(mfloat8x16_t x) {
 }
 
 // CHECK-LABEL: define dso_local <16 x i8> @test_8x16_v(
-// CHECK-SAME: <16 x i8> [[X:%.*]], <16 x i8> noundef [[P:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x i8> [[X:%.*]], <16 x b8> noundef [[P:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[MASK:%.*]] = and <16 x i8> [[P]], splat (i8 15)
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact <16 x b8> [[P]] to <16 x i8>
+// CHECK-NEXT:    [[MASK:%.*]] = and <16 x i8> [[CONV]], splat (i8 15)
 // CHECK-NEXT:    [[SHUF_IDX:%.*]] = extractelement <16 x i8> [[MASK]], i64 0
 // CHECK-NEXT:    [[SHUF_ELT:%.*]] = extractelement <16 x i8> [[X]], i8 [[SHUF_IDX]]
 // CHECK-NEXT:    [[SHUF_INS:%.*]] = insertelement <16 x i8> poison, i8 [[SHUF_ELT]], i64 0

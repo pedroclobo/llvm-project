@@ -65,9 +65,10 @@ float32x2_t test_vmls_n_f32(float32x2_t a, float32x2_t b, float32_t c) {
 // CHECK-SAME: (<2 x float> noundef [[A:%.*]], <2 x float> noundef [[B:%.*]], <2 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[V]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP2]], <2 x float> [[TMP2]], <2 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP3]], <2 x float> [[TMP3]], <2 x i32> zeroinitializer
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <2 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[ADD:%.*]] = fadd <2 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <2 x float> [[ADD]]
@@ -80,9 +81,10 @@ float32x2_t test_vmla_lane_f32_0(float32x2_t a, float32x2_t b, float32x2_t v) {
 // CHECK-SAME: (<4 x float> noundef [[A:%.*]], <4 x float> noundef [[B:%.*]], <2 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[V]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP2]], <2 x float> [[TMP2]], <4 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP3]], <2 x float> [[TMP3]], <4 x i32> zeroinitializer
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <4 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[ADD:%.*]] = fadd <4 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <4 x float> [[ADD]]
@@ -95,9 +97,10 @@ float32x4_t test_vmlaq_lane_f32_0(float32x4_t a, float32x4_t b, float32x2_t v) {
 // CHECK-SAME: (<2 x float> noundef [[A:%.*]], <2 x float> noundef [[B:%.*]], <4 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[V]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP2]], <4 x float> [[TMP2]], <2 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP3]], <4 x float> [[TMP3]], <2 x i32> zeroinitializer
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <2 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[ADD:%.*]] = fadd <2 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <2 x float> [[ADD]]
@@ -110,9 +113,10 @@ float32x2_t test_vmla_laneq_f32_0(float32x2_t a, float32x2_t b, float32x4_t v) {
 // CHECK-SAME: (<4 x float> noundef [[A:%.*]], <4 x float> noundef [[B:%.*]], <4 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[V]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP2]], <4 x float> [[TMP2]], <4 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP3]], <4 x float> [[TMP3]], <4 x i32> zeroinitializer
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <4 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[ADD:%.*]] = fadd <4 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <4 x float> [[ADD]]
@@ -125,9 +129,10 @@ float32x4_t test_vmlaq_laneq_f32_0(float32x4_t a, float32x4_t b, float32x4_t v) 
 // CHECK-SAME: (<2 x float> noundef [[A:%.*]], <2 x float> noundef [[B:%.*]], <2 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[V]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP2]], <2 x float> [[TMP2]], <2 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP3]], <2 x float> [[TMP3]], <2 x i32> zeroinitializer
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <2 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[SUB:%.*]] = fsub <2 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <2 x float> [[SUB]]
@@ -140,9 +145,10 @@ float32x2_t test_vmls_lane_f32_0(float32x2_t a, float32x2_t b, float32x2_t v) {
 // CHECK-SAME: (<4 x float> noundef [[A:%.*]], <4 x float> noundef [[B:%.*]], <2 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[V]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP2]], <2 x float> [[TMP2]], <4 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP3]], <2 x float> [[TMP3]], <4 x i32> zeroinitializer
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <4 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[SUB:%.*]] = fsub <4 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <4 x float> [[SUB]]
@@ -155,9 +161,10 @@ float32x4_t test_vmlsq_lane_f32_0(float32x4_t a, float32x4_t b, float32x2_t v) {
 // CHECK-SAME: (<2 x float> noundef [[A:%.*]], <2 x float> noundef [[B:%.*]], <4 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[V]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP2]], <4 x float> [[TMP2]], <2 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP3]], <4 x float> [[TMP3]], <2 x i32> zeroinitializer
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <2 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[SUB:%.*]] = fsub <2 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <2 x float> [[SUB]]
@@ -170,9 +177,10 @@ float32x2_t test_vmls_laneq_f32_0(float32x2_t a, float32x2_t b, float32x4_t v) {
 // CHECK-SAME: (<4 x float> noundef [[A:%.*]], <4 x float> noundef [[B:%.*]], <4 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[V]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP2]], <4 x float> [[TMP2]], <4 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP3]], <4 x float> [[TMP3]], <4 x i32> zeroinitializer
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <4 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[SUB:%.*]] = fsub <4 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <4 x float> [[SUB]]
@@ -185,9 +193,10 @@ float32x4_t test_vmlsq_laneq_f32_0(float32x4_t a, float32x4_t b, float32x4_t v) 
 // CHECK-SAME: (<2 x float> noundef [[A:%.*]], <2 x float> noundef [[B:%.*]], <2 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[V]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP2]], <2 x float> [[TMP2]], <2 x i32> <i32 1, i32 1>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP3]], <2 x float> [[TMP3]], <2 x i32> <i32 1, i32 1>
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <2 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[ADD:%.*]] = fadd <2 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <2 x float> [[ADD]]
@@ -200,9 +209,10 @@ float32x2_t test_vmla_lane_f32(float32x2_t a, float32x2_t b, float32x2_t v) {
 // CHECK-SAME: (<4 x float> noundef [[A:%.*]], <4 x float> noundef [[B:%.*]], <2 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[V]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP2]], <2 x float> [[TMP2]], <4 x i32> <i32 1, i32 1, i32 1, i32 1>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP3]], <2 x float> [[TMP3]], <4 x i32> <i32 1, i32 1, i32 1, i32 1>
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <4 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[ADD:%.*]] = fadd <4 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <4 x float> [[ADD]]
@@ -215,9 +225,10 @@ float32x4_t test_vmlaq_lane_f32(float32x4_t a, float32x4_t b, float32x2_t v) {
 // CHECK-SAME: (<2 x float> noundef [[A:%.*]], <2 x float> noundef [[B:%.*]], <4 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[V]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP2]], <4 x float> [[TMP2]], <2 x i32> <i32 3, i32 3>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP3]], <4 x float> [[TMP3]], <2 x i32> <i32 3, i32 3>
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <2 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[ADD:%.*]] = fadd <2 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <2 x float> [[ADD]]
@@ -230,9 +241,10 @@ float32x2_t test_vmla_laneq_f32(float32x2_t a, float32x2_t b, float32x4_t v) {
 // CHECK-SAME: (<4 x float> noundef [[A:%.*]], <4 x float> noundef [[B:%.*]], <4 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[V]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP2]], <4 x float> [[TMP2]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP3]], <4 x float> [[TMP3]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <4 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[ADD:%.*]] = fadd <4 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <4 x float> [[ADD]]
@@ -245,9 +257,10 @@ float32x4_t test_vmlaq_laneq_f32(float32x4_t a, float32x4_t b, float32x4_t v) {
 // CHECK-SAME: (<2 x float> noundef [[A:%.*]], <2 x float> noundef [[B:%.*]], <2 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[V]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP2]], <2 x float> [[TMP2]], <2 x i32> <i32 1, i32 1>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP3]], <2 x float> [[TMP3]], <2 x i32> <i32 1, i32 1>
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <2 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[SUB:%.*]] = fsub <2 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <2 x float> [[SUB]]
@@ -260,9 +273,10 @@ float32x2_t test_vmls_lane_f32(float32x2_t a, float32x2_t b, float32x2_t v) {
 // CHECK-SAME: (<4 x float> noundef [[A:%.*]], <4 x float> noundef [[B:%.*]], <2 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[V]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP2]], <2 x float> [[TMP2]], <4 x i32> <i32 1, i32 1, i32 1, i32 1>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <2 x float> [[TMP3]], <2 x float> [[TMP3]], <4 x i32> <i32 1, i32 1, i32 1, i32 1>
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <4 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[SUB:%.*]] = fsub <4 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <4 x float> [[SUB]]
@@ -274,9 +288,10 @@ float32x4_t test_vmlsq_lane_f32(float32x4_t a, float32x4_t b, float32x2_t v) {
 // CHECK-SAME: (<2 x float> noundef [[A:%.*]], <2 x float> noundef [[B:%.*]], <4 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[V]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP2]], <4 x float> [[TMP2]], <2 x i32> <i32 3, i32 3>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP3]], <4 x float> [[TMP3]], <2 x i32> <i32 3, i32 3>
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <2 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[SUB:%.*]] = fsub <2 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <2 x float> [[SUB]]
@@ -289,9 +304,10 @@ float32x2_t test_vmls_laneq_f32(float32x2_t a, float32x2_t b, float32x4_t v) {
 // CHECK-SAME: (<4 x float> noundef [[A:%.*]], <4 x float> noundef [[B:%.*]], <4 x float> noundef [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[V]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP2]], <4 x float> [[TMP2]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x float> [[TMP3]], <4 x float> [[TMP3]], <4 x i32> <i32 3, i32 3, i32 3, i32 3>
 // CHECK-NEXT:    [[MUL:%.*]] = fmul <4 x float> [[B]], [[LANE]]
 // CHECK-NEXT:    [[SUB:%.*]] = fsub <4 x float> [[A]], [[MUL]]
 // CHECK-NEXT:    ret <4 x float> [[SUB]]
@@ -308,14 +324,17 @@ float32x4_t test_vmlsq_laneq_f32(float32x4_t a, float32x4_t b, float32x4_t v) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[A]] to <2 x i64>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x double> [[B]] to <2 x i64>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x double> [[VECINIT1_I]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x double>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x double>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x double>
-// CHECK-NEXT:    [[TMP9:%.*]] = call <2 x double> @llvm.fma.v2f64(<2 x double> [[TMP7]], <2 x double> [[TMP8]], <2 x double> [[TMP6]])
-// CHECK-NEXT:    ret <2 x double> [[TMP9]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x double>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <2 x double>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x double>
+// CHECK-NEXT:    [[TMP12:%.*]] = call <2 x double> @llvm.fma.v2f64(<2 x double> [[TMP9]], <2 x double> [[TMP11]], <2 x double> [[TMP7]])
+// CHECK-NEXT:    ret <2 x double> [[TMP12]]
 //
 float64x2_t test_vfmaq_n_f64(float64x2_t a, float64x2_t b, float64_t c) {
   return vfmaq_n_f64(a, b, c);
@@ -330,14 +349,17 @@ float64x2_t test_vfmaq_n_f64(float64x2_t a, float64x2_t b, float64_t c) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[A]] to <2 x i64>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x double> [[FNEG_I]] to <2 x i64>
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x double> [[VECINIT1_I]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x double>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x double>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x double>
-// CHECK-NEXT:    [[TMP9:%.*]] = call <2 x double> @llvm.fma.v2f64(<2 x double> [[TMP7]], <2 x double> [[TMP8]], <2 x double> [[TMP6]])
-// CHECK-NEXT:    ret <2 x double> [[TMP9]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x double>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <2 x double>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x double>
+// CHECK-NEXT:    [[TMP12:%.*]] = call <2 x double> @llvm.fma.v2f64(<2 x double> [[TMP9]], <2 x double> [[TMP11]], <2 x double> [[TMP7]])
+// CHECK-NEXT:    ret <2 x double> [[TMP12]]
 //
 float64x2_t test_vfmsq_n_f64(float64x2_t a, float64x2_t b, float64_t c) {
   return vfmsq_n_f64(a, b, c);

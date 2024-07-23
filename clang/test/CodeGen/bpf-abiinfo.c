@@ -13,7 +13,7 @@ int foo_bool(void) {
 int foo_char(void) {
         if (bar_char() != 10) return 0; else return 1;
 }
-// CHECK: %call = call i8 @bar_char()
+// CHECK: %call = call b8 @bar_char()
 int foo_short(void) {
         if (bar_short() != 10) return 0; else return 1;
 }

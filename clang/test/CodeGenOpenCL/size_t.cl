@@ -69,19 +69,19 @@ global char* test_inttoptr_global(size_t x) {
 }
 
 //SZ32: define{{.*}} ptr addrspace(3) @test_add_local(ptr addrspace(3) noundef %x, i32 noundef %y)
-//SZ32: getelementptr inbounds i8, ptr addrspace(3) %{{.*}}, i32
+//SZ32: getelementptr inbounds b8, ptr addrspace(3) %{{.*}}, i32
 //SZ64: define{{.*}} ptr addrspace(3) @test_add_local(ptr addrspace(3) noundef %x, i64 noundef %y)
 //AMDGCN: trunc i64 %{{.*}} to i32
-//AMDGCN: getelementptr inbounds i8, ptr addrspace(3) %{{.*}}, i32
-//SZ64ONLY: getelementptr inbounds i8, ptr addrspace(3) %{{.*}}, i64
+//AMDGCN: getelementptr inbounds b8, ptr addrspace(3) %{{.*}}, i32
+//SZ64ONLY: getelementptr inbounds b8, ptr addrspace(3) %{{.*}}, i64
 local char* test_add_local(local char* x, ptrdiff_t y) {
   return x + y;
 }
 
 //SZ32: define{{.*}} ptr addrspace(1) @test_add_global(ptr addrspace(1) noundef %x, i32 noundef %y)
-//SZ32: getelementptr inbounds i8, ptr addrspace(1) %{{.*}}, i32
+//SZ32: getelementptr inbounds b8, ptr addrspace(1) %{{.*}}, i32
 //SZ64: define{{.*}} ptr addrspace(1) @test_add_global(ptr addrspace(1) noundef %x, i64 noundef %y)
-//SZ64: getelementptr inbounds i8, ptr addrspace(1) %{{.*}}, i64
+//SZ64: getelementptr inbounds b8, ptr addrspace(1) %{{.*}}, i64
 global char* test_add_global(global char* x, ptrdiff_t y) {
   return x + y;
 }

@@ -190,8 +190,10 @@ void test() {
   i=c=k;
   // CHECK-NEXT: load volatile
   // CHECK-NEXT: trunc
+  // CHECK-NEXT: bitcast
   // CHECK-NEXT: store volatile
   // CHECK-NEXT: load volatile
+  // CHECK-NEXT: bytecast
   // CHECK-NEXT: sext
   // CHECK-NEXT: store volatile
 
@@ -248,7 +250,7 @@ void test() {
   // CHECK-NEXT: store volatile
 
   __imag i;
-  
+
   // ============================================================
   // FIXME: Test cases we get wrong.
 
@@ -264,7 +266,7 @@ void test() {
   // CHECK-NEXT: call {{.*}}void
   ((a=a),a);
 
-  // Not a use.  gcc gets this wrong, it doesn't emit the copy!  
+  // Not a use.  gcc gets this wrong, it doesn't emit the copy!
   // CHECK-NEXT: call {{.*}}void
   (void)(a=a);
 

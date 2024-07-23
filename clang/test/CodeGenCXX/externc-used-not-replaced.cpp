@@ -4,5 +4,5 @@ extern "C" {
   const char a __attribute__((used)){};
 }
 
-// CHECK: @a = internal constant i8 0
+// CHECK: @a = internal constant b8 0
 // CHECK: @llvm.used = appending global [1 x ptr] [ptr @a]

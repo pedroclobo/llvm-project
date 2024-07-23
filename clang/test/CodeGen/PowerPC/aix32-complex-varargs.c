@@ -40,12 +40,12 @@ void testva (int n, ...)
 // CHECK-NEXT:  store ptr %[[VAR61]], ptr %[[VAR100]], align 4
 // CHECK-NEXT:  %[[VAR21:[A-Za-z0-9.]+]] = getelementptr inbounds i8, ptr %[[VAR60]], i32 3
 // CHECK-NEXT:  %[[VAR22:[A-Za-z0-9.]+]] = getelementptr inbounds i8, ptr %[[VAR60]], i32 7
-// CHECK-NEXT:  %[[VAR23:[A-Za-z0-9.]+]] = load i8, ptr %[[VAR21]]
-// CHECK-NEXT:  %[[VAR24:[A-Za-z0-9.]+]] = load i8, ptr %[[VAR22]]
-// CHECK-NEXT:  %[[VAR25:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i8, i8 }, ptr %[[VAR26:[A-Za-z0-9.]+]], i32 0, i32 0
-// CHECK-NEXT:  %[[VAR27:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i8, i8 }, ptr %[[VAR26]], i32 0, i32 1
-// CHECK-NEXT:  store i8 %[[VAR23]], ptr %[[VAR25]]
-// CHECK-NEXT:  store i8 %[[VAR24]], ptr %[[VAR27]]
+// CHECK-NEXT:  %[[VAR23:[A-Za-z0-9.]+]] = load b8, ptr %[[VAR21]]
+// CHECK-NEXT:  %[[VAR24:[A-Za-z0-9.]+]] = load b8, ptr %[[VAR22]]
+// CHECK-NEXT:  %[[VAR25:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b8, b8 }, ptr %[[VAR26:[A-Za-z0-9.]+]], i32 0, i32 0
+// CHECK-NEXT:  %[[VAR27:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b8, b8 }, ptr %[[VAR26]], i32 0, i32 1
+// CHECK-NEXT:  store b8 %[[VAR23]], ptr %[[VAR25]]
+// CHECK-NEXT:  store b8 %[[VAR24]], ptr %[[VAR27]]
 
 
   _Complex float f = va_arg(ap, _Complex float);

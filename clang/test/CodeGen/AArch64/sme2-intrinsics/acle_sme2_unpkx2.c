@@ -19,13 +19,15 @@
 
 // CHECK-LABEL: @test_svunpk_s16_x2(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 8 x i16>, <vscale x 8 x i16> } @llvm.aarch64.sve.sunpk.x2.nxv8i16(<vscale x 16 x i8> [[ZN:%.*]])
-// CHECK-NEXT:    ret { <vscale x 8 x i16>, <vscale x 8 x i16> } [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call { <vscale x 8 x i16>, <vscale x 8 x i16> } @llvm.aarch64.sve.sunpk.x2.nxv8i16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret { <vscale x 8 x i16>, <vscale x 8 x i16> } [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z18test_svunpk_s16_x2u10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 8 x i16>, <vscale x 8 x i16> } @llvm.aarch64.sve.sunpk.x2.nxv8i16(<vscale x 16 x i8> [[ZN:%.*]])
-// CPP-CHECK-NEXT:    ret { <vscale x 8 x i16>, <vscale x 8 x i16> } [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call { <vscale x 8 x i16>, <vscale x 8 x i16> } @llvm.aarch64.sve.sunpk.x2.nxv8i16(<vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    ret { <vscale x 8 x i16>, <vscale x 8 x i16> } [[TMP1]]
 //
 svint16x2_t test_svunpk_s16_x2(svint8_t zn) __arm_streaming {
   return SVE_ACLE_FUNC(svunpk_s16,_s8_x2)(zn);
@@ -33,13 +35,15 @@ svint16x2_t test_svunpk_s16_x2(svint8_t zn) __arm_streaming {
 
 // CHECK-LABEL: @test_svunpk_u16_x2(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 8 x i16>, <vscale x 8 x i16> } @llvm.aarch64.sve.uunpk.x2.nxv8i16(<vscale x 16 x i8> [[ZN:%.*]])
-// CHECK-NEXT:    ret { <vscale x 8 x i16>, <vscale x 8 x i16> } [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call { <vscale x 8 x i16>, <vscale x 8 x i16> } @llvm.aarch64.sve.uunpk.x2.nxv8i16(<vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret { <vscale x 8 x i16>, <vscale x 8 x i16> } [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z18test_svunpk_u16_x2u11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 8 x i16>, <vscale x 8 x i16> } @llvm.aarch64.sve.uunpk.x2.nxv8i16(<vscale x 16 x i8> [[ZN:%.*]])
-// CPP-CHECK-NEXT:    ret { <vscale x 8 x i16>, <vscale x 8 x i16> } [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call { <vscale x 8 x i16>, <vscale x 8 x i16> } @llvm.aarch64.sve.uunpk.x2.nxv8i16(<vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    ret { <vscale x 8 x i16>, <vscale x 8 x i16> } [[TMP1]]
 //
 svuint16x2_t test_svunpk_u16_x2(svuint8_t zn) __arm_streaming {
   return SVE_ACLE_FUNC(svunpk_u16,_u8_x2)(zn);
