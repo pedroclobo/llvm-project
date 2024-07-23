@@ -56,9 +56,9 @@ fixed_bool32_t global_bool32;
 // CHECK-NEXT:    store <vscale x 64 x i1> [[M:%.*]], ptr [[M_ADDR]], align 1
 // CHECK-NEXT:    store <vscale x 64 x i8> [[VEC:%.*]], ptr [[VEC_ADDR]], align 1
 // CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 64 x i1>, ptr [[M_ADDR]], align 1
-// CHECK-NEXT:    [[TMP1:%.*]] = load <32 x i8>, ptr @global_bool1, align 8
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> undef, <32 x i8> [[TMP1]], i64 0)
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <vscale x 8 x i8> [[CAST_SCALABLE]] to <vscale x 64 x i1>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <32 x b8>, ptr @global_bool1, align 8
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> undef, <32 x b8> [[TMP1]], i64 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 8 x b8> [[CAST_SCALABLE]] to <vscale x 64 x i1>
 // CHECK-NEXT:    [[TMP3:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmand.nxv64i1.i64(<vscale x 64 x i1> [[TMP0]], <vscale x 64 x i1> [[TMP2]], i64 256)
 // CHECK-NEXT:    store <vscale x 64 x i1> [[TMP3]], ptr [[MASK]], align 1
 // CHECK-NEXT:    [[TMP4:%.*]] = load <vscale x 64 x i1>, ptr [[MASK]], align 1
@@ -86,9 +86,9 @@ fixed_int8m8_t test_bool1(vbool1_t m, vint8m8_t vec) {
 // CHECK-NEXT:    store <vscale x 16 x i1> [[M:%.*]], ptr [[M_ADDR]], align 1
 // CHECK-NEXT:    store <vscale x 16 x i16> [[VEC:%.*]], ptr [[VEC_ADDR]], align 2
 // CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i1>, ptr [[M_ADDR]], align 1
-// CHECK-NEXT:    [[TMP1:%.*]] = load <8 x i8>, ptr @global_bool4, align 8
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v8i8(<vscale x 2 x i8> undef, <8 x i8> [[TMP1]], i64 0)
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <vscale x 2 x i8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <8 x b8>, ptr @global_bool4, align 8
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v8b8(<vscale x 2 x b8> undef, <8 x b8> [[TMP1]], i64 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 2 x b8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
 // CHECK-NEXT:    [[TMP3:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmand.nxv16i1.i64(<vscale x 16 x i1> [[TMP0]], <vscale x 16 x i1> [[TMP2]], i64 64)
 // CHECK-NEXT:    store <vscale x 16 x i1> [[TMP3]], ptr [[MASK]], align 1
 // CHECK-NEXT:    [[TMP4:%.*]] = load <vscale x 16 x i1>, ptr [[MASK]], align 1
@@ -113,12 +113,12 @@ fixed_int16m4_t test_bool4(vbool4_t m, vint16m4_t vec) {
 // CHECK-NEXT:    [[M_ADDR:%.*]] = alloca <vscale x 2 x i1>, align 1
 // CHECK-NEXT:    [[VEC_ADDR:%.*]] = alloca <vscale x 2 x i32>, align 4
 // CHECK-NEXT:    [[MASK:%.*]] = alloca <vscale x 2 x i1>, align 1
-// CHECK-NEXT:    [[SAVED_VALUE:%.*]] = alloca <1 x i8>, align 1
+// CHECK-NEXT:    [[SAVED_VALUE:%.*]] = alloca <1 x b8>, align 1
 // CHECK-NEXT:    store <vscale x 2 x i1> [[M:%.*]], ptr [[M_ADDR]], align 1
 // CHECK-NEXT:    store <vscale x 2 x i32> [[VEC:%.*]], ptr [[VEC_ADDR]], align 4
 // CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 2 x i1>, ptr [[M_ADDR]], align 1
-// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i8>, ptr @global_bool32, align 1
-// CHECK-NEXT:    store <1 x i8> [[TMP1]], ptr [[SAVED_VALUE]], align 1
+// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x b8>, ptr @global_bool32, align 1
+// CHECK-NEXT:    store <1 x b8> [[TMP1]], ptr [[SAVED_VALUE]], align 1
 // CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 2 x i1>, ptr [[SAVED_VALUE]], align 1
 // CHECK-NEXT:    [[TMP3:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP0]], <vscale x 2 x i1> [[TMP2]], i64 8)
 // CHECK-NEXT:    store <vscale x 2 x i1> [[TMP3]], ptr [[MASK]], align 1
@@ -177,17 +177,17 @@ fixed_int32m1_t array_arg(fixed_int32m1_t arr[]) {
 
 // CHECK-LABEL: @address_of_array_idx_bool1(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <32 x i8>, align 8
-// CHECK-NEXT:    [[ARR:%.*]] = alloca [3 x <32 x i8>], align 8
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <32 x b8>, align 8
+// CHECK-NEXT:    [[ARR:%.*]] = alloca [3 x <32 x b8>], align 8
 // CHECK-NEXT:    [[PARR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [3 x <32 x i8>], ptr [[ARR]], i64 0, i64 0
+// CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [3 x <32 x b8>], ptr [[ARR]], i64 0, i64 0
 // CHECK-NEXT:    store ptr [[ARRAYIDX]], ptr [[PARR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PARR]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 8
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[RETVAL]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <32 x i8>, ptr [[RETVAL]], align 8
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x i8> @llvm.vector.insert.nxv8i8.v32i8(<vscale x 8 x i8> undef, <32 x i8> [[TMP2]], i64 0)
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x i8> [[CAST_SCALABLE]] to <vscale x 64 x i1>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 8
+// CHECK-NEXT:    store <32 x b8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <32 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 8 x b8> @llvm.vector.insert.nxv8b8.v32b8(<vscale x 8 x b8> undef, <32 x b8> [[TMP2]], i64 0)
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 8 x b8> [[CAST_SCALABLE]] to <vscale x 64 x i1>
 // CHECK-NEXT:    ret <vscale x 64 x i1> [[TMP3]]
 //
 fixed_bool1_t address_of_array_idx_bool1() {
@@ -199,17 +199,17 @@ fixed_bool1_t address_of_array_idx_bool1() {
 
 // CHECK-LABEL: @address_of_array_idx_bool4(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <8 x i8>, align 8
-// CHECK-NEXT:    [[ARR:%.*]] = alloca [3 x <8 x i8>], align 8
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <8 x b8>, align 8
+// CHECK-NEXT:    [[ARR:%.*]] = alloca [3 x <8 x b8>], align 8
 // CHECK-NEXT:    [[PARR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [3 x <8 x i8>], ptr [[ARR]], i64 0, i64 0
+// CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [3 x <8 x b8>], ptr [[ARR]], i64 0, i64 0
 // CHECK-NEXT:    store ptr [[ARRAYIDX]], ptr [[PARR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PARR]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <8 x i8>, ptr [[TMP0]], align 8
-// CHECK-NEXT:    store <8 x i8> [[TMP1]], ptr [[RETVAL]], align 8
-// CHECK-NEXT:    [[TMP2:%.*]] = load <8 x i8>, ptr [[RETVAL]], align 8
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v8i8(<vscale x 2 x i8> undef, <8 x i8> [[TMP2]], i64 0)
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 2 x i8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <8 x b8>, ptr [[TMP0]], align 8
+// CHECK-NEXT:    store <8 x b8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <8 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v8b8(<vscale x 2 x b8> undef, <8 x b8> [[TMP2]], i64 0)
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 2 x b8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
 // CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP3]]
 //
 fixed_bool4_t address_of_array_idx_bool4() {
@@ -221,15 +221,15 @@ fixed_bool4_t address_of_array_idx_bool4() {
 
 // CHECK-LABEL: @address_of_array_idx_bool32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <1 x i8>, align 1
-// CHECK-NEXT:    [[ARR:%.*]] = alloca [3 x <1 x i8>], align 1
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <1 x b8>, align 1
+// CHECK-NEXT:    [[ARR:%.*]] = alloca [3 x <1 x b8>], align 1
 // CHECK-NEXT:    [[PARR:%.*]] = alloca ptr, align 8
 // CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 2 x i1>, align 1
-// CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [3 x <1 x i8>], ptr [[ARR]], i64 0, i64 0
+// CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [3 x <1 x b8>], ptr [[ARR]], i64 0, i64 0
 // CHECK-NEXT:    store ptr [[ARRAYIDX]], ptr [[PARR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PARR]], align 8
-// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x i8>, ptr [[TMP0]], align 1
-// CHECK-NEXT:    store <1 x i8> [[TMP1]], ptr [[RETVAL]], align 1
+// CHECK-NEXT:    [[TMP1:%.*]] = load <1 x b8>, ptr [[TMP0]], align 1
+// CHECK-NEXT:    store <1 x b8> [[TMP1]], ptr [[RETVAL]], align 1
 // CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i64(ptr align 1 [[RETVAL_COERCE]], ptr align 1 [[RETVAL]], i64 1, i1 false)
 // CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 2 x i1>, ptr [[RETVAL_COERCE]], align 1
 // CHECK-NEXT:    ret <vscale x 2 x i1> [[TMP2]]

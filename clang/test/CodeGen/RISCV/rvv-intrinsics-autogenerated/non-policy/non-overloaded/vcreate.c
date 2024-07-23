@@ -573,43 +573,43 @@ vint64m8_t test_vcreate_v_i64m4_i64m8(vint64m4_t v0, vint64m4_t v1) {
   return __riscv_vcreate_v_i64m4_i64m8(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vcreate_v_u8m1_u8m2(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vcreate_v_u8m1_u8m2(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.nxv8i8(<vscale x 16 x i8> poison, <vscale x 8 x i8> [[V0]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.nxv8i8(<vscale x 16 x i8> [[TMP0]], <vscale x 8 x i8> [[V1]], i64 8)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.nxv8b8(<vscale x 16 x b8> poison, <vscale x 8 x b8> [[V0]], i64 0)
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.nxv8b8(<vscale x 16 x b8> [[TMP0]], <vscale x 8 x b8> [[V1]], i64 8)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 vuint8m2_t test_vcreate_v_u8m1_u8m2(vuint8m1_t v0, vuint8m1_t v1) {
   return __riscv_vcreate_v_u8m1_u8m2(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vcreate_v_u8m1_u8m4(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]], <vscale x 8 x i8> [[V2:%.*]], <vscale x 8 x i8> [[V3:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vcreate_v_u8m1_u8m4(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]], <vscale x 8 x b8> [[V2:%.*]], <vscale x 8 x b8> [[V3:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv8i8(<vscale x 32 x i8> poison, <vscale x 8 x i8> [[V0]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv8i8(<vscale x 32 x i8> [[TMP0]], <vscale x 8 x i8> [[V1]], i64 8)
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv8i8(<vscale x 32 x i8> [[TMP1]], <vscale x 8 x i8> [[V2]], i64 16)
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv8i8(<vscale x 32 x i8> [[TMP2]], <vscale x 8 x i8> [[V3]], i64 24)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP3]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv8b8(<vscale x 32 x b8> poison, <vscale x 8 x b8> [[V0]], i64 0)
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv8b8(<vscale x 32 x b8> [[TMP0]], <vscale x 8 x b8> [[V1]], i64 8)
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv8b8(<vscale x 32 x b8> [[TMP1]], <vscale x 8 x b8> [[V2]], i64 16)
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv8b8(<vscale x 32 x b8> [[TMP2]], <vscale x 8 x b8> [[V3]], i64 24)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP3]]
 //
 vuint8m4_t test_vcreate_v_u8m1_u8m4(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
                                     vuint8m1_t v3) {
   return __riscv_vcreate_v_u8m1_u8m4(v0, v1, v2, v3);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vcreate_v_u8m1_u8m8(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]], <vscale x 8 x i8> [[V2:%.*]], <vscale x 8 x i8> [[V3:%.*]], <vscale x 8 x i8> [[V4:%.*]], <vscale x 8 x i8> [[V5:%.*]], <vscale x 8 x i8> [[V6:%.*]], <vscale x 8 x i8> [[V7:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vcreate_v_u8m1_u8m8(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]], <vscale x 8 x b8> [[V2:%.*]], <vscale x 8 x b8> [[V3:%.*]], <vscale x 8 x b8> [[V4:%.*]], <vscale x 8 x b8> [[V5:%.*]], <vscale x 8 x b8> [[V6:%.*]], <vscale x 8 x b8> [[V7:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> poison, <vscale x 8 x i8> [[V0]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> [[TMP0]], <vscale x 8 x i8> [[V1]], i64 8)
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> [[TMP1]], <vscale x 8 x i8> [[V2]], i64 16)
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> [[TMP2]], <vscale x 8 x i8> [[V3]], i64 24)
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> [[TMP3]], <vscale x 8 x i8> [[V4]], i64 32)
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> [[TMP4]], <vscale x 8 x i8> [[V5]], i64 40)
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> [[TMP5]], <vscale x 8 x i8> [[V6]], i64 48)
-// CHECK-RV64-NEXT:    [[TMP7:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv8i8(<vscale x 64 x i8> [[TMP6]], <vscale x 8 x i8> [[V7]], i64 56)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP7]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> poison, <vscale x 8 x b8> [[V0]], i64 0)
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> [[TMP0]], <vscale x 8 x b8> [[V1]], i64 8)
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> [[TMP1]], <vscale x 8 x b8> [[V2]], i64 16)
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> [[TMP2]], <vscale x 8 x b8> [[V3]], i64 24)
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> [[TMP3]], <vscale x 8 x b8> [[V4]], i64 32)
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> [[TMP4]], <vscale x 8 x b8> [[V5]], i64 40)
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> [[TMP5]], <vscale x 8 x b8> [[V6]], i64 48)
+// CHECK-RV64-NEXT:    [[TMP7:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv8b8(<vscale x 64 x b8> [[TMP6]], <vscale x 8 x b8> [[V7]], i64 56)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP7]]
 //
 vuint8m8_t test_vcreate_v_u8m1_u8m8(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
                                     vuint8m1_t v3, vuint8m1_t v4, vuint8m1_t v5,
@@ -617,37 +617,37 @@ vuint8m8_t test_vcreate_v_u8m1_u8m8(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
   return __riscv_vcreate_v_u8m1_u8m8(v0, v1, v2, v3, v4, v5, v6, v7);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vcreate_v_u8m2_u8m4(
-// CHECK-RV64-SAME: <vscale x 16 x i8> [[V0:%.*]], <vscale x 16 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vcreate_v_u8m2_u8m4(
+// CHECK-RV64-SAME: <vscale x 16 x b8> [[V0:%.*]], <vscale x 16 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> poison, <vscale x 16 x i8> [[V0]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TMP0]], <vscale x 16 x i8> [[V1]], i64 16)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv16b8(<vscale x 32 x b8> poison, <vscale x 16 x b8> [[V0]], i64 0)
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv16b8(<vscale x 32 x b8> [[TMP0]], <vscale x 16 x b8> [[V1]], i64 16)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP1]]
 //
 vuint8m4_t test_vcreate_v_u8m2_u8m4(vuint8m2_t v0, vuint8m2_t v1) {
   return __riscv_vcreate_v_u8m2_u8m4(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vcreate_v_u8m2_u8m8(
-// CHECK-RV64-SAME: <vscale x 16 x i8> [[V0:%.*]], <vscale x 16 x i8> [[V1:%.*]], <vscale x 16 x i8> [[V2:%.*]], <vscale x 16 x i8> [[V3:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vcreate_v_u8m2_u8m8(
+// CHECK-RV64-SAME: <vscale x 16 x b8> [[V0:%.*]], <vscale x 16 x b8> [[V1:%.*]], <vscale x 16 x b8> [[V2:%.*]], <vscale x 16 x b8> [[V3:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> poison, <vscale x 16 x i8> [[V0]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP0]], <vscale x 16 x i8> [[V1]], i64 16)
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP1]], <vscale x 16 x i8> [[V2]], i64 32)
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP2]], <vscale x 16 x i8> [[V3]], i64 48)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP3]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> poison, <vscale x 16 x b8> [[V0]], i64 0)
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP0]], <vscale x 16 x b8> [[V1]], i64 16)
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP1]], <vscale x 16 x b8> [[V2]], i64 32)
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP2]], <vscale x 16 x b8> [[V3]], i64 48)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP3]]
 //
 vuint8m8_t test_vcreate_v_u8m2_u8m8(vuint8m2_t v0, vuint8m2_t v1, vuint8m2_t v2,
                                     vuint8m2_t v3) {
   return __riscv_vcreate_v_u8m2_u8m8(v0, v1, v2, v3);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vcreate_v_u8m4_u8m8(
-// CHECK-RV64-SAME: <vscale x 32 x i8> [[V0:%.*]], <vscale x 32 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vcreate_v_u8m4_u8m8(
+// CHECK-RV64-SAME: <vscale x 32 x b8> [[V0:%.*]], <vscale x 32 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv32i8(<vscale x 64 x i8> poison, <vscale x 32 x i8> [[V0]], i64 0)
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv32i8(<vscale x 64 x i8> [[TMP0]], <vscale x 32 x i8> [[V1]], i64 32)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv32b8(<vscale x 64 x b8> poison, <vscale x 32 x b8> [[V0]], i64 0)
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv32b8(<vscale x 64 x b8> [[TMP0]], <vscale x 32 x b8> [[V1]], i64 32)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP1]]
 //
 vuint8m8_t test_vcreate_v_u8m4_u8m8(vuint8m4_t v0, vuint8m4_t v1) {
   return __riscv_vcreate_v_u8m4_u8m8(v0, v1);
@@ -2975,53 +2975,53 @@ vint64m4x2_t test_vcreate_v_i64m4x2(vint64m4_t v0, vint64m4_t v1) {
   return __riscv_vcreate_v_i64m4x2(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vcreate_v_u8mf8x2(
-// CHECK-RV64-SAME: <vscale x 1 x i8> [[V0:%.*]], <vscale x 1 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vcreate_v_u8mf8x2(
+// CHECK-RV64-SAME: <vscale x 1 x b8> [[V0:%.*]], <vscale x 1 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8> } poison, <vscale x 1 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]], <vscale x 1 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8> } poison, <vscale x 1 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]], <vscale x 1 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP1]]
 //
 vuint8mf8x2_t test_vcreate_v_u8mf8x2(vuint8mf8_t v0, vuint8mf8_t v1) {
   return __riscv_vcreate_v_u8mf8x2(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vcreate_v_u8mf8x3(
-// CHECK-RV64-SAME: <vscale x 1 x i8> [[V0:%.*]], <vscale x 1 x i8> [[V1:%.*]], <vscale x 1 x i8> [[V2:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vcreate_v_u8mf8x3(
+// CHECK-RV64-SAME: <vscale x 1 x b8> [[V0:%.*]], <vscale x 1 x b8> [[V1:%.*]], <vscale x 1 x b8> [[V2:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } poison, <vscale x 1 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]], <vscale x 1 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP1]], <vscale x 1 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP2]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } poison, <vscale x 1 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]], <vscale x 1 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP1]], <vscale x 1 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP2]]
 //
 vuint8mf8x3_t test_vcreate_v_u8mf8x3(vuint8mf8_t v0, vuint8mf8_t v1,
                                      vuint8mf8_t v2) {
   return __riscv_vcreate_v_u8mf8x3(v0, v1, v2);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vcreate_v_u8mf8x4(
-// CHECK-RV64-SAME: <vscale x 1 x i8> [[V0:%.*]], <vscale x 1 x i8> [[V1:%.*]], <vscale x 1 x i8> [[V2:%.*]], <vscale x 1 x i8> [[V3:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vcreate_v_u8mf8x4(
+// CHECK-RV64-SAME: <vscale x 1 x b8> [[V0:%.*]], <vscale x 1 x b8> [[V1:%.*]], <vscale x 1 x b8> [[V2:%.*]], <vscale x 1 x b8> [[V3:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } poison, <vscale x 1 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]], <vscale x 1 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP1]], <vscale x 1 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP2]], <vscale x 1 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP3]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } poison, <vscale x 1 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]], <vscale x 1 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP1]], <vscale x 1 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP2]], <vscale x 1 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP3]]
 //
 vuint8mf8x4_t test_vcreate_v_u8mf8x4(vuint8mf8_t v0, vuint8mf8_t v1,
                                      vuint8mf8_t v2, vuint8mf8_t v3) {
   return __riscv_vcreate_v_u8mf8x4(v0, v1, v2, v3);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vcreate_v_u8mf8x5(
-// CHECK-RV64-SAME: <vscale x 1 x i8> [[V0:%.*]], <vscale x 1 x i8> [[V1:%.*]], <vscale x 1 x i8> [[V2:%.*]], <vscale x 1 x i8> [[V3:%.*]], <vscale x 1 x i8> [[V4:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vcreate_v_u8mf8x5(
+// CHECK-RV64-SAME: <vscale x 1 x b8> [[V0:%.*]], <vscale x 1 x b8> [[V1:%.*]], <vscale x 1 x b8> [[V2:%.*]], <vscale x 1 x b8> [[V3:%.*]], <vscale x 1 x b8> [[V4:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } poison, <vscale x 1 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]], <vscale x 1 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP1]], <vscale x 1 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP2]], <vscale x 1 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP3]], <vscale x 1 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } poison, <vscale x 1 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]], <vscale x 1 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP1]], <vscale x 1 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP2]], <vscale x 1 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP3]], <vscale x 1 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP4]]
 //
 vuint8mf8x5_t test_vcreate_v_u8mf8x5(vuint8mf8_t v0, vuint8mf8_t v1,
                                      vuint8mf8_t v2, vuint8mf8_t v3,
@@ -3029,16 +3029,16 @@ vuint8mf8x5_t test_vcreate_v_u8mf8x5(vuint8mf8_t v0, vuint8mf8_t v1,
   return __riscv_vcreate_v_u8mf8x5(v0, v1, v2, v3, v4);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vcreate_v_u8mf8x6(
-// CHECK-RV64-SAME: <vscale x 1 x i8> [[V0:%.*]], <vscale x 1 x i8> [[V1:%.*]], <vscale x 1 x i8> [[V2:%.*]], <vscale x 1 x i8> [[V3:%.*]], <vscale x 1 x i8> [[V4:%.*]], <vscale x 1 x i8> [[V5:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vcreate_v_u8mf8x6(
+// CHECK-RV64-SAME: <vscale x 1 x b8> [[V0:%.*]], <vscale x 1 x b8> [[V1:%.*]], <vscale x 1 x b8> [[V2:%.*]], <vscale x 1 x b8> [[V3:%.*]], <vscale x 1 x b8> [[V4:%.*]], <vscale x 1 x b8> [[V5:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } poison, <vscale x 1 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]], <vscale x 1 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP1]], <vscale x 1 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP2]], <vscale x 1 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP3]], <vscale x 1 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP4]], <vscale x 1 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP5]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } poison, <vscale x 1 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]], <vscale x 1 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP1]], <vscale x 1 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP2]], <vscale x 1 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP3]], <vscale x 1 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP4]], <vscale x 1 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP5]]
 //
 vuint8mf8x6_t test_vcreate_v_u8mf8x6(vuint8mf8_t v0, vuint8mf8_t v1,
                                      vuint8mf8_t v2, vuint8mf8_t v3,
@@ -3046,17 +3046,17 @@ vuint8mf8x6_t test_vcreate_v_u8mf8x6(vuint8mf8_t v0, vuint8mf8_t v1,
   return __riscv_vcreate_v_u8mf8x6(v0, v1, v2, v3, v4, v5);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vcreate_v_u8mf8x7(
-// CHECK-RV64-SAME: <vscale x 1 x i8> [[V0:%.*]], <vscale x 1 x i8> [[V1:%.*]], <vscale x 1 x i8> [[V2:%.*]], <vscale x 1 x i8> [[V3:%.*]], <vscale x 1 x i8> [[V4:%.*]], <vscale x 1 x i8> [[V5:%.*]], <vscale x 1 x i8> [[V6:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vcreate_v_u8mf8x7(
+// CHECK-RV64-SAME: <vscale x 1 x b8> [[V0:%.*]], <vscale x 1 x b8> [[V1:%.*]], <vscale x 1 x b8> [[V2:%.*]], <vscale x 1 x b8> [[V3:%.*]], <vscale x 1 x b8> [[V4:%.*]], <vscale x 1 x b8> [[V5:%.*]], <vscale x 1 x b8> [[V6:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } poison, <vscale x 1 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]], <vscale x 1 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP1]], <vscale x 1 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP2]], <vscale x 1 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP3]], <vscale x 1 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP4]], <vscale x 1 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP5]], <vscale x 1 x i8> [[V6]], 6
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP6]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } poison, <vscale x 1 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]], <vscale x 1 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP1]], <vscale x 1 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP2]], <vscale x 1 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP3]], <vscale x 1 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP4]], <vscale x 1 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP5]], <vscale x 1 x b8> [[V6]], 6
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP6]]
 //
 vuint8mf8x7_t test_vcreate_v_u8mf8x7(vuint8mf8_t v0, vuint8mf8_t v1,
                                      vuint8mf8_t v2, vuint8mf8_t v3,
@@ -3065,18 +3065,18 @@ vuint8mf8x7_t test_vcreate_v_u8mf8x7(vuint8mf8_t v0, vuint8mf8_t v1,
   return __riscv_vcreate_v_u8mf8x7(v0, v1, v2, v3, v4, v5, v6);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } @test_vcreate_v_u8mf8x8(
-// CHECK-RV64-SAME: <vscale x 1 x i8> [[V0:%.*]], <vscale x 1 x i8> [[V1:%.*]], <vscale x 1 x i8> [[V2:%.*]], <vscale x 1 x i8> [[V3:%.*]], <vscale x 1 x i8> [[V4:%.*]], <vscale x 1 x i8> [[V5:%.*]], <vscale x 1 x i8> [[V6:%.*]], <vscale x 1 x i8> [[V7:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } @test_vcreate_v_u8mf8x8(
+// CHECK-RV64-SAME: <vscale x 1 x b8> [[V0:%.*]], <vscale x 1 x b8> [[V1:%.*]], <vscale x 1 x b8> [[V2:%.*]], <vscale x 1 x b8> [[V3:%.*]], <vscale x 1 x b8> [[V4:%.*]], <vscale x 1 x b8> [[V5:%.*]], <vscale x 1 x b8> [[V6:%.*]], <vscale x 1 x b8> [[V7:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } poison, <vscale x 1 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP0]], <vscale x 1 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP1]], <vscale x 1 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP2]], <vscale x 1 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP3]], <vscale x 1 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP4]], <vscale x 1 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP5]], <vscale x 1 x i8> [[V6]], 6
-// CHECK-RV64-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP6]], <vscale x 1 x i8> [[V7]], 7
-// CHECK-RV64-NEXT:    ret { <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8>, <vscale x 1 x i8> } [[TMP7]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } poison, <vscale x 1 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP0]], <vscale x 1 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP1]], <vscale x 1 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP2]], <vscale x 1 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP3]], <vscale x 1 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP4]], <vscale x 1 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP5]], <vscale x 1 x b8> [[V6]], 6
+// CHECK-RV64-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP6]], <vscale x 1 x b8> [[V7]], 7
+// CHECK-RV64-NEXT:    ret { <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8>, <vscale x 1 x b8> } [[TMP7]]
 //
 vuint8mf8x8_t test_vcreate_v_u8mf8x8(vuint8mf8_t v0, vuint8mf8_t v1,
                                      vuint8mf8_t v2, vuint8mf8_t v3,
@@ -3085,53 +3085,53 @@ vuint8mf8x8_t test_vcreate_v_u8mf8x8(vuint8mf8_t v0, vuint8mf8_t v1,
   return __riscv_vcreate_v_u8mf8x8(v0, v1, v2, v3, v4, v5, v6, v7);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vcreate_v_u8mf4x2(
-// CHECK-RV64-SAME: <vscale x 2 x i8> [[V0:%.*]], <vscale x 2 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vcreate_v_u8mf4x2(
+// CHECK-RV64-SAME: <vscale x 2 x b8> [[V0:%.*]], <vscale x 2 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8> } poison, <vscale x 2 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]], <vscale x 2 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8> } poison, <vscale x 2 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]], <vscale x 2 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP1]]
 //
 vuint8mf4x2_t test_vcreate_v_u8mf4x2(vuint8mf4_t v0, vuint8mf4_t v1) {
   return __riscv_vcreate_v_u8mf4x2(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vcreate_v_u8mf4x3(
-// CHECK-RV64-SAME: <vscale x 2 x i8> [[V0:%.*]], <vscale x 2 x i8> [[V1:%.*]], <vscale x 2 x i8> [[V2:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vcreate_v_u8mf4x3(
+// CHECK-RV64-SAME: <vscale x 2 x b8> [[V0:%.*]], <vscale x 2 x b8> [[V1:%.*]], <vscale x 2 x b8> [[V2:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } poison, <vscale x 2 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]], <vscale x 2 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP1]], <vscale x 2 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP2]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } poison, <vscale x 2 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]], <vscale x 2 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP1]], <vscale x 2 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP2]]
 //
 vuint8mf4x3_t test_vcreate_v_u8mf4x3(vuint8mf4_t v0, vuint8mf4_t v1,
                                      vuint8mf4_t v2) {
   return __riscv_vcreate_v_u8mf4x3(v0, v1, v2);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vcreate_v_u8mf4x4(
-// CHECK-RV64-SAME: <vscale x 2 x i8> [[V0:%.*]], <vscale x 2 x i8> [[V1:%.*]], <vscale x 2 x i8> [[V2:%.*]], <vscale x 2 x i8> [[V3:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vcreate_v_u8mf4x4(
+// CHECK-RV64-SAME: <vscale x 2 x b8> [[V0:%.*]], <vscale x 2 x b8> [[V1:%.*]], <vscale x 2 x b8> [[V2:%.*]], <vscale x 2 x b8> [[V3:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } poison, <vscale x 2 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]], <vscale x 2 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP1]], <vscale x 2 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP2]], <vscale x 2 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP3]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } poison, <vscale x 2 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]], <vscale x 2 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP1]], <vscale x 2 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP2]], <vscale x 2 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP3]]
 //
 vuint8mf4x4_t test_vcreate_v_u8mf4x4(vuint8mf4_t v0, vuint8mf4_t v1,
                                      vuint8mf4_t v2, vuint8mf4_t v3) {
   return __riscv_vcreate_v_u8mf4x4(v0, v1, v2, v3);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vcreate_v_u8mf4x5(
-// CHECK-RV64-SAME: <vscale x 2 x i8> [[V0:%.*]], <vscale x 2 x i8> [[V1:%.*]], <vscale x 2 x i8> [[V2:%.*]], <vscale x 2 x i8> [[V3:%.*]], <vscale x 2 x i8> [[V4:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vcreate_v_u8mf4x5(
+// CHECK-RV64-SAME: <vscale x 2 x b8> [[V0:%.*]], <vscale x 2 x b8> [[V1:%.*]], <vscale x 2 x b8> [[V2:%.*]], <vscale x 2 x b8> [[V3:%.*]], <vscale x 2 x b8> [[V4:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } poison, <vscale x 2 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]], <vscale x 2 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP1]], <vscale x 2 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP2]], <vscale x 2 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP3]], <vscale x 2 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } poison, <vscale x 2 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]], <vscale x 2 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP1]], <vscale x 2 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP2]], <vscale x 2 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP3]], <vscale x 2 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP4]]
 //
 vuint8mf4x5_t test_vcreate_v_u8mf4x5(vuint8mf4_t v0, vuint8mf4_t v1,
                                      vuint8mf4_t v2, vuint8mf4_t v3,
@@ -3139,16 +3139,16 @@ vuint8mf4x5_t test_vcreate_v_u8mf4x5(vuint8mf4_t v0, vuint8mf4_t v1,
   return __riscv_vcreate_v_u8mf4x5(v0, v1, v2, v3, v4);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vcreate_v_u8mf4x6(
-// CHECK-RV64-SAME: <vscale x 2 x i8> [[V0:%.*]], <vscale x 2 x i8> [[V1:%.*]], <vscale x 2 x i8> [[V2:%.*]], <vscale x 2 x i8> [[V3:%.*]], <vscale x 2 x i8> [[V4:%.*]], <vscale x 2 x i8> [[V5:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vcreate_v_u8mf4x6(
+// CHECK-RV64-SAME: <vscale x 2 x b8> [[V0:%.*]], <vscale x 2 x b8> [[V1:%.*]], <vscale x 2 x b8> [[V2:%.*]], <vscale x 2 x b8> [[V3:%.*]], <vscale x 2 x b8> [[V4:%.*]], <vscale x 2 x b8> [[V5:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } poison, <vscale x 2 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]], <vscale x 2 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP1]], <vscale x 2 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP2]], <vscale x 2 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP3]], <vscale x 2 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP4]], <vscale x 2 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP5]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } poison, <vscale x 2 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]], <vscale x 2 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP1]], <vscale x 2 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP2]], <vscale x 2 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP3]], <vscale x 2 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP4]], <vscale x 2 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP5]]
 //
 vuint8mf4x6_t test_vcreate_v_u8mf4x6(vuint8mf4_t v0, vuint8mf4_t v1,
                                      vuint8mf4_t v2, vuint8mf4_t v3,
@@ -3156,17 +3156,17 @@ vuint8mf4x6_t test_vcreate_v_u8mf4x6(vuint8mf4_t v0, vuint8mf4_t v1,
   return __riscv_vcreate_v_u8mf4x6(v0, v1, v2, v3, v4, v5);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vcreate_v_u8mf4x7(
-// CHECK-RV64-SAME: <vscale x 2 x i8> [[V0:%.*]], <vscale x 2 x i8> [[V1:%.*]], <vscale x 2 x i8> [[V2:%.*]], <vscale x 2 x i8> [[V3:%.*]], <vscale x 2 x i8> [[V4:%.*]], <vscale x 2 x i8> [[V5:%.*]], <vscale x 2 x i8> [[V6:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vcreate_v_u8mf4x7(
+// CHECK-RV64-SAME: <vscale x 2 x b8> [[V0:%.*]], <vscale x 2 x b8> [[V1:%.*]], <vscale x 2 x b8> [[V2:%.*]], <vscale x 2 x b8> [[V3:%.*]], <vscale x 2 x b8> [[V4:%.*]], <vscale x 2 x b8> [[V5:%.*]], <vscale x 2 x b8> [[V6:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } poison, <vscale x 2 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]], <vscale x 2 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP1]], <vscale x 2 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP2]], <vscale x 2 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP3]], <vscale x 2 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP4]], <vscale x 2 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP5]], <vscale x 2 x i8> [[V6]], 6
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP6]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } poison, <vscale x 2 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]], <vscale x 2 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP1]], <vscale x 2 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP2]], <vscale x 2 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP3]], <vscale x 2 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP4]], <vscale x 2 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP5]], <vscale x 2 x b8> [[V6]], 6
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP6]]
 //
 vuint8mf4x7_t test_vcreate_v_u8mf4x7(vuint8mf4_t v0, vuint8mf4_t v1,
                                      vuint8mf4_t v2, vuint8mf4_t v3,
@@ -3175,18 +3175,18 @@ vuint8mf4x7_t test_vcreate_v_u8mf4x7(vuint8mf4_t v0, vuint8mf4_t v1,
   return __riscv_vcreate_v_u8mf4x7(v0, v1, v2, v3, v4, v5, v6);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } @test_vcreate_v_u8mf4x8(
-// CHECK-RV64-SAME: <vscale x 2 x i8> [[V0:%.*]], <vscale x 2 x i8> [[V1:%.*]], <vscale x 2 x i8> [[V2:%.*]], <vscale x 2 x i8> [[V3:%.*]], <vscale x 2 x i8> [[V4:%.*]], <vscale x 2 x i8> [[V5:%.*]], <vscale x 2 x i8> [[V6:%.*]], <vscale x 2 x i8> [[V7:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } @test_vcreate_v_u8mf4x8(
+// CHECK-RV64-SAME: <vscale x 2 x b8> [[V0:%.*]], <vscale x 2 x b8> [[V1:%.*]], <vscale x 2 x b8> [[V2:%.*]], <vscale x 2 x b8> [[V3:%.*]], <vscale x 2 x b8> [[V4:%.*]], <vscale x 2 x b8> [[V5:%.*]], <vscale x 2 x b8> [[V6:%.*]], <vscale x 2 x b8> [[V7:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } poison, <vscale x 2 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP0]], <vscale x 2 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP1]], <vscale x 2 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP2]], <vscale x 2 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP3]], <vscale x 2 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP4]], <vscale x 2 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP5]], <vscale x 2 x i8> [[V6]], 6
-// CHECK-RV64-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP6]], <vscale x 2 x i8> [[V7]], 7
-// CHECK-RV64-NEXT:    ret { <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8>, <vscale x 2 x i8> } [[TMP7]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } poison, <vscale x 2 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP0]], <vscale x 2 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP1]], <vscale x 2 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP2]], <vscale x 2 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP3]], <vscale x 2 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP4]], <vscale x 2 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP5]], <vscale x 2 x b8> [[V6]], 6
+// CHECK-RV64-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP6]], <vscale x 2 x b8> [[V7]], 7
+// CHECK-RV64-NEXT:    ret { <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8>, <vscale x 2 x b8> } [[TMP7]]
 //
 vuint8mf4x8_t test_vcreate_v_u8mf4x8(vuint8mf4_t v0, vuint8mf4_t v1,
                                      vuint8mf4_t v2, vuint8mf4_t v3,
@@ -3195,53 +3195,53 @@ vuint8mf4x8_t test_vcreate_v_u8mf4x8(vuint8mf4_t v0, vuint8mf4_t v1,
   return __riscv_vcreate_v_u8mf4x8(v0, v1, v2, v3, v4, v5, v6, v7);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vcreate_v_u8mf2x2(
-// CHECK-RV64-SAME: <vscale x 4 x i8> [[V0:%.*]], <vscale x 4 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vcreate_v_u8mf2x2(
+// CHECK-RV64-SAME: <vscale x 4 x b8> [[V0:%.*]], <vscale x 4 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8> } poison, <vscale x 4 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]], <vscale x 4 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8> } poison, <vscale x 4 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]], <vscale x 4 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP1]]
 //
 vuint8mf2x2_t test_vcreate_v_u8mf2x2(vuint8mf2_t v0, vuint8mf2_t v1) {
   return __riscv_vcreate_v_u8mf2x2(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vcreate_v_u8mf2x3(
-// CHECK-RV64-SAME: <vscale x 4 x i8> [[V0:%.*]], <vscale x 4 x i8> [[V1:%.*]], <vscale x 4 x i8> [[V2:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vcreate_v_u8mf2x3(
+// CHECK-RV64-SAME: <vscale x 4 x b8> [[V0:%.*]], <vscale x 4 x b8> [[V1:%.*]], <vscale x 4 x b8> [[V2:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } poison, <vscale x 4 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]], <vscale x 4 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP1]], <vscale x 4 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP2]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } poison, <vscale x 4 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]], <vscale x 4 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP1]], <vscale x 4 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP2]]
 //
 vuint8mf2x3_t test_vcreate_v_u8mf2x3(vuint8mf2_t v0, vuint8mf2_t v1,
                                      vuint8mf2_t v2) {
   return __riscv_vcreate_v_u8mf2x3(v0, v1, v2);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vcreate_v_u8mf2x4(
-// CHECK-RV64-SAME: <vscale x 4 x i8> [[V0:%.*]], <vscale x 4 x i8> [[V1:%.*]], <vscale x 4 x i8> [[V2:%.*]], <vscale x 4 x i8> [[V3:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vcreate_v_u8mf2x4(
+// CHECK-RV64-SAME: <vscale x 4 x b8> [[V0:%.*]], <vscale x 4 x b8> [[V1:%.*]], <vscale x 4 x b8> [[V2:%.*]], <vscale x 4 x b8> [[V3:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } poison, <vscale x 4 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]], <vscale x 4 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP1]], <vscale x 4 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP2]], <vscale x 4 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP3]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } poison, <vscale x 4 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]], <vscale x 4 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP1]], <vscale x 4 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP2]], <vscale x 4 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP3]]
 //
 vuint8mf2x4_t test_vcreate_v_u8mf2x4(vuint8mf2_t v0, vuint8mf2_t v1,
                                      vuint8mf2_t v2, vuint8mf2_t v3) {
   return __riscv_vcreate_v_u8mf2x4(v0, v1, v2, v3);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vcreate_v_u8mf2x5(
-// CHECK-RV64-SAME: <vscale x 4 x i8> [[V0:%.*]], <vscale x 4 x i8> [[V1:%.*]], <vscale x 4 x i8> [[V2:%.*]], <vscale x 4 x i8> [[V3:%.*]], <vscale x 4 x i8> [[V4:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vcreate_v_u8mf2x5(
+// CHECK-RV64-SAME: <vscale x 4 x b8> [[V0:%.*]], <vscale x 4 x b8> [[V1:%.*]], <vscale x 4 x b8> [[V2:%.*]], <vscale x 4 x b8> [[V3:%.*]], <vscale x 4 x b8> [[V4:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } poison, <vscale x 4 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]], <vscale x 4 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP1]], <vscale x 4 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP2]], <vscale x 4 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP3]], <vscale x 4 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } poison, <vscale x 4 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]], <vscale x 4 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP1]], <vscale x 4 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP2]], <vscale x 4 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP3]], <vscale x 4 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP4]]
 //
 vuint8mf2x5_t test_vcreate_v_u8mf2x5(vuint8mf2_t v0, vuint8mf2_t v1,
                                      vuint8mf2_t v2, vuint8mf2_t v3,
@@ -3249,16 +3249,16 @@ vuint8mf2x5_t test_vcreate_v_u8mf2x5(vuint8mf2_t v0, vuint8mf2_t v1,
   return __riscv_vcreate_v_u8mf2x5(v0, v1, v2, v3, v4);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vcreate_v_u8mf2x6(
-// CHECK-RV64-SAME: <vscale x 4 x i8> [[V0:%.*]], <vscale x 4 x i8> [[V1:%.*]], <vscale x 4 x i8> [[V2:%.*]], <vscale x 4 x i8> [[V3:%.*]], <vscale x 4 x i8> [[V4:%.*]], <vscale x 4 x i8> [[V5:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vcreate_v_u8mf2x6(
+// CHECK-RV64-SAME: <vscale x 4 x b8> [[V0:%.*]], <vscale x 4 x b8> [[V1:%.*]], <vscale x 4 x b8> [[V2:%.*]], <vscale x 4 x b8> [[V3:%.*]], <vscale x 4 x b8> [[V4:%.*]], <vscale x 4 x b8> [[V5:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } poison, <vscale x 4 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]], <vscale x 4 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP1]], <vscale x 4 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP2]], <vscale x 4 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP3]], <vscale x 4 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP4]], <vscale x 4 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP5]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } poison, <vscale x 4 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]], <vscale x 4 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP1]], <vscale x 4 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP2]], <vscale x 4 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP3]], <vscale x 4 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP4]], <vscale x 4 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP5]]
 //
 vuint8mf2x6_t test_vcreate_v_u8mf2x6(vuint8mf2_t v0, vuint8mf2_t v1,
                                      vuint8mf2_t v2, vuint8mf2_t v3,
@@ -3266,17 +3266,17 @@ vuint8mf2x6_t test_vcreate_v_u8mf2x6(vuint8mf2_t v0, vuint8mf2_t v1,
   return __riscv_vcreate_v_u8mf2x6(v0, v1, v2, v3, v4, v5);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vcreate_v_u8mf2x7(
-// CHECK-RV64-SAME: <vscale x 4 x i8> [[V0:%.*]], <vscale x 4 x i8> [[V1:%.*]], <vscale x 4 x i8> [[V2:%.*]], <vscale x 4 x i8> [[V3:%.*]], <vscale x 4 x i8> [[V4:%.*]], <vscale x 4 x i8> [[V5:%.*]], <vscale x 4 x i8> [[V6:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vcreate_v_u8mf2x7(
+// CHECK-RV64-SAME: <vscale x 4 x b8> [[V0:%.*]], <vscale x 4 x b8> [[V1:%.*]], <vscale x 4 x b8> [[V2:%.*]], <vscale x 4 x b8> [[V3:%.*]], <vscale x 4 x b8> [[V4:%.*]], <vscale x 4 x b8> [[V5:%.*]], <vscale x 4 x b8> [[V6:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } poison, <vscale x 4 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]], <vscale x 4 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP1]], <vscale x 4 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP2]], <vscale x 4 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP3]], <vscale x 4 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP4]], <vscale x 4 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP5]], <vscale x 4 x i8> [[V6]], 6
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP6]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } poison, <vscale x 4 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]], <vscale x 4 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP1]], <vscale x 4 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP2]], <vscale x 4 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP3]], <vscale x 4 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP4]], <vscale x 4 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP5]], <vscale x 4 x b8> [[V6]], 6
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP6]]
 //
 vuint8mf2x7_t test_vcreate_v_u8mf2x7(vuint8mf2_t v0, vuint8mf2_t v1,
                                      vuint8mf2_t v2, vuint8mf2_t v3,
@@ -3285,18 +3285,18 @@ vuint8mf2x7_t test_vcreate_v_u8mf2x7(vuint8mf2_t v0, vuint8mf2_t v1,
   return __riscv_vcreate_v_u8mf2x7(v0, v1, v2, v3, v4, v5, v6);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } @test_vcreate_v_u8mf2x8(
-// CHECK-RV64-SAME: <vscale x 4 x i8> [[V0:%.*]], <vscale x 4 x i8> [[V1:%.*]], <vscale x 4 x i8> [[V2:%.*]], <vscale x 4 x i8> [[V3:%.*]], <vscale x 4 x i8> [[V4:%.*]], <vscale x 4 x i8> [[V5:%.*]], <vscale x 4 x i8> [[V6:%.*]], <vscale x 4 x i8> [[V7:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } @test_vcreate_v_u8mf2x8(
+// CHECK-RV64-SAME: <vscale x 4 x b8> [[V0:%.*]], <vscale x 4 x b8> [[V1:%.*]], <vscale x 4 x b8> [[V2:%.*]], <vscale x 4 x b8> [[V3:%.*]], <vscale x 4 x b8> [[V4:%.*]], <vscale x 4 x b8> [[V5:%.*]], <vscale x 4 x b8> [[V6:%.*]], <vscale x 4 x b8> [[V7:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } poison, <vscale x 4 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP0]], <vscale x 4 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP1]], <vscale x 4 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP2]], <vscale x 4 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP3]], <vscale x 4 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP4]], <vscale x 4 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP5]], <vscale x 4 x i8> [[V6]], 6
-// CHECK-RV64-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP6]], <vscale x 4 x i8> [[V7]], 7
-// CHECK-RV64-NEXT:    ret { <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8>, <vscale x 4 x i8> } [[TMP7]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } poison, <vscale x 4 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP0]], <vscale x 4 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP1]], <vscale x 4 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP2]], <vscale x 4 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP3]], <vscale x 4 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP4]], <vscale x 4 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP5]], <vscale x 4 x b8> [[V6]], 6
+// CHECK-RV64-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP6]], <vscale x 4 x b8> [[V7]], 7
+// CHECK-RV64-NEXT:    ret { <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8>, <vscale x 4 x b8> } [[TMP7]]
 //
 vuint8mf2x8_t test_vcreate_v_u8mf2x8(vuint8mf2_t v0, vuint8mf2_t v1,
                                      vuint8mf2_t v2, vuint8mf2_t v3,
@@ -3305,69 +3305,69 @@ vuint8mf2x8_t test_vcreate_v_u8mf2x8(vuint8mf2_t v0, vuint8mf2_t v1,
   return __riscv_vcreate_v_u8mf2x8(v0, v1, v2, v3, v4, v5, v6, v7);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vcreate_v_u8m1x2(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vcreate_v_u8m1x2(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8> } poison, <vscale x 8 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]], <vscale x 8 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8> } poison, <vscale x 8 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]], <vscale x 8 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP1]]
 //
 vuint8m1x2_t test_vcreate_v_u8m1x2(vuint8m1_t v0, vuint8m1_t v1) {
   return __riscv_vcreate_v_u8m1x2(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vcreate_v_u8m1x3(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]], <vscale x 8 x i8> [[V2:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vcreate_v_u8m1x3(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]], <vscale x 8 x b8> [[V2:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } poison, <vscale x 8 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]], <vscale x 8 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP1]], <vscale x 8 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP2]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } poison, <vscale x 8 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]], <vscale x 8 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP1]], <vscale x 8 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP2]]
 //
 vuint8m1x3_t test_vcreate_v_u8m1x3(vuint8m1_t v0, vuint8m1_t v1,
                                    vuint8m1_t v2) {
   return __riscv_vcreate_v_u8m1x3(v0, v1, v2);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vcreate_v_u8m1x4(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]], <vscale x 8 x i8> [[V2:%.*]], <vscale x 8 x i8> [[V3:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vcreate_v_u8m1x4(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]], <vscale x 8 x b8> [[V2:%.*]], <vscale x 8 x b8> [[V3:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } poison, <vscale x 8 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]], <vscale x 8 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP1]], <vscale x 8 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP2]], <vscale x 8 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP3]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } poison, <vscale x 8 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]], <vscale x 8 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP1]], <vscale x 8 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP2]], <vscale x 8 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP3]]
 //
 vuint8m1x4_t test_vcreate_v_u8m1x4(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
                                    vuint8m1_t v3) {
   return __riscv_vcreate_v_u8m1x4(v0, v1, v2, v3);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vcreate_v_u8m1x5(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]], <vscale x 8 x i8> [[V2:%.*]], <vscale x 8 x i8> [[V3:%.*]], <vscale x 8 x i8> [[V4:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vcreate_v_u8m1x5(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]], <vscale x 8 x b8> [[V2:%.*]], <vscale x 8 x b8> [[V3:%.*]], <vscale x 8 x b8> [[V4:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } poison, <vscale x 8 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]], <vscale x 8 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP1]], <vscale x 8 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP2]], <vscale x 8 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP3]], <vscale x 8 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP4]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } poison, <vscale x 8 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]], <vscale x 8 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP1]], <vscale x 8 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP2]], <vscale x 8 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP3]], <vscale x 8 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP4]]
 //
 vuint8m1x5_t test_vcreate_v_u8m1x5(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
                                    vuint8m1_t v3, vuint8m1_t v4) {
   return __riscv_vcreate_v_u8m1x5(v0, v1, v2, v3, v4);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vcreate_v_u8m1x6(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]], <vscale x 8 x i8> [[V2:%.*]], <vscale x 8 x i8> [[V3:%.*]], <vscale x 8 x i8> [[V4:%.*]], <vscale x 8 x i8> [[V5:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vcreate_v_u8m1x6(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]], <vscale x 8 x b8> [[V2:%.*]], <vscale x 8 x b8> [[V3:%.*]], <vscale x 8 x b8> [[V4:%.*]], <vscale x 8 x b8> [[V5:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } poison, <vscale x 8 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]], <vscale x 8 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP1]], <vscale x 8 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP2]], <vscale x 8 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP3]], <vscale x 8 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP4]], <vscale x 8 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP5]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } poison, <vscale x 8 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]], <vscale x 8 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP1]], <vscale x 8 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP2]], <vscale x 8 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP3]], <vscale x 8 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP4]], <vscale x 8 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP5]]
 //
 vuint8m1x6_t test_vcreate_v_u8m1x6(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
                                    vuint8m1_t v3, vuint8m1_t v4,
@@ -3375,17 +3375,17 @@ vuint8m1x6_t test_vcreate_v_u8m1x6(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
   return __riscv_vcreate_v_u8m1x6(v0, v1, v2, v3, v4, v5);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vcreate_v_u8m1x7(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]], <vscale x 8 x i8> [[V2:%.*]], <vscale x 8 x i8> [[V3:%.*]], <vscale x 8 x i8> [[V4:%.*]], <vscale x 8 x i8> [[V5:%.*]], <vscale x 8 x i8> [[V6:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vcreate_v_u8m1x7(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]], <vscale x 8 x b8> [[V2:%.*]], <vscale x 8 x b8> [[V3:%.*]], <vscale x 8 x b8> [[V4:%.*]], <vscale x 8 x b8> [[V5:%.*]], <vscale x 8 x b8> [[V6:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } poison, <vscale x 8 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]], <vscale x 8 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP1]], <vscale x 8 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP2]], <vscale x 8 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP3]], <vscale x 8 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP4]], <vscale x 8 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP5]], <vscale x 8 x i8> [[V6]], 6
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP6]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } poison, <vscale x 8 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]], <vscale x 8 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP1]], <vscale x 8 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP2]], <vscale x 8 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP3]], <vscale x 8 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP4]], <vscale x 8 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP5]], <vscale x 8 x b8> [[V6]], 6
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP6]]
 //
 vuint8m1x7_t test_vcreate_v_u8m1x7(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
                                    vuint8m1_t v3, vuint8m1_t v4, vuint8m1_t v5,
@@ -3393,18 +3393,18 @@ vuint8m1x7_t test_vcreate_v_u8m1x7(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
   return __riscv_vcreate_v_u8m1x7(v0, v1, v2, v3, v4, v5, v6);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } @test_vcreate_v_u8m1x8(
-// CHECK-RV64-SAME: <vscale x 8 x i8> [[V0:%.*]], <vscale x 8 x i8> [[V1:%.*]], <vscale x 8 x i8> [[V2:%.*]], <vscale x 8 x i8> [[V3:%.*]], <vscale x 8 x i8> [[V4:%.*]], <vscale x 8 x i8> [[V5:%.*]], <vscale x 8 x i8> [[V6:%.*]], <vscale x 8 x i8> [[V7:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } @test_vcreate_v_u8m1x8(
+// CHECK-RV64-SAME: <vscale x 8 x b8> [[V0:%.*]], <vscale x 8 x b8> [[V1:%.*]], <vscale x 8 x b8> [[V2:%.*]], <vscale x 8 x b8> [[V3:%.*]], <vscale x 8 x b8> [[V4:%.*]], <vscale x 8 x b8> [[V5:%.*]], <vscale x 8 x b8> [[V6:%.*]], <vscale x 8 x b8> [[V7:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } poison, <vscale x 8 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP0]], <vscale x 8 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP1]], <vscale x 8 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP2]], <vscale x 8 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP3]], <vscale x 8 x i8> [[V4]], 4
-// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP4]], <vscale x 8 x i8> [[V5]], 5
-// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP5]], <vscale x 8 x i8> [[V6]], 6
-// CHECK-RV64-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP6]], <vscale x 8 x i8> [[V7]], 7
-// CHECK-RV64-NEXT:    ret { <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8>, <vscale x 8 x i8> } [[TMP7]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } poison, <vscale x 8 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP0]], <vscale x 8 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP1]], <vscale x 8 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP2]], <vscale x 8 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP3]], <vscale x 8 x b8> [[V4]], 4
+// CHECK-RV64-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP4]], <vscale x 8 x b8> [[V5]], 5
+// CHECK-RV64-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP5]], <vscale x 8 x b8> [[V6]], 6
+// CHECK-RV64-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP6]], <vscale x 8 x b8> [[V7]], 7
+// CHECK-RV64-NEXT:    ret { <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8>, <vscale x 8 x b8> } [[TMP7]]
 //
 vuint8m1x8_t test_vcreate_v_u8m1x8(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
                                    vuint8m1_t v3, vuint8m1_t v4, vuint8m1_t v5,
@@ -3412,50 +3412,50 @@ vuint8m1x8_t test_vcreate_v_u8m1x8(vuint8m1_t v0, vuint8m1_t v1, vuint8m1_t v2,
   return __riscv_vcreate_v_u8m1x8(v0, v1, v2, v3, v4, v5, v6, v7);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8> } @test_vcreate_v_u8m2x2(
-// CHECK-RV64-SAME: <vscale x 16 x i8> [[V0:%.*]], <vscale x 16 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8> } @test_vcreate_v_u8m2x2(
+// CHECK-RV64-SAME: <vscale x 16 x b8> [[V0:%.*]], <vscale x 16 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]]
 //
 vuint8m2x2_t test_vcreate_v_u8m2x2(vuint8m2_t v0, vuint8m2_t v1) {
   return __riscv_vcreate_v_u8m2x2(v0, v1);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_vcreate_v_u8m2x3(
-// CHECK-RV64-SAME: <vscale x 16 x i8> [[V0:%.*]], <vscale x 16 x i8> [[V1:%.*]], <vscale x 16 x i8> [[V2:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_vcreate_v_u8m2x3(
+// CHECK-RV64-SAME: <vscale x 16 x b8> [[V0:%.*]], <vscale x 16 x b8> [[V1:%.*]], <vscale x 16 x b8> [[V2:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]]
 //
 vuint8m2x3_t test_vcreate_v_u8m2x3(vuint8m2_t v0, vuint8m2_t v1,
                                    vuint8m2_t v2) {
   return __riscv_vcreate_v_u8m2x3(v0, v1, v2);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_vcreate_v_u8m2x4(
-// CHECK-RV64-SAME: <vscale x 16 x i8> [[V0:%.*]], <vscale x 16 x i8> [[V1:%.*]], <vscale x 16 x i8> [[V2:%.*]], <vscale x 16 x i8> [[V3:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_vcreate_v_u8m2x4(
+// CHECK-RV64-SAME: <vscale x 16 x b8> [[V0:%.*]], <vscale x 16 x b8> [[V1:%.*]], <vscale x 16 x b8> [[V2:%.*]], <vscale x 16 x b8> [[V3:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[V2]], 2
-// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[V3]], 3
-// CHECK-RV64-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[V2]], 2
+// CHECK-RV64-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[V3]], 3
+// CHECK-RV64-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]]
 //
 vuint8m2x4_t test_vcreate_v_u8m2x4(vuint8m2_t v0, vuint8m2_t v1, vuint8m2_t v2,
                                    vuint8m2_t v3) {
   return __riscv_vcreate_v_u8m2x4(v0, v1, v2, v3);
 }
 
-// CHECK-RV64-LABEL: define dso_local { <vscale x 32 x i8>, <vscale x 32 x i8> } @test_vcreate_v_u8m4x2(
-// CHECK-RV64-SAME: <vscale x 32 x i8> [[V0:%.*]], <vscale x 32 x i8> [[V1:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local { <vscale x 32 x b8>, <vscale x 32 x b8> } @test_vcreate_v_u8m4x2(
+// CHECK-RV64-SAME: <vscale x 32 x b8> [[V0:%.*]], <vscale x 32 x b8> [[V1:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 32 x i8>, <vscale x 32 x i8> } poison, <vscale x 32 x i8> [[V0]], 0
-// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 32 x i8>, <vscale x 32 x i8> } [[TMP0]], <vscale x 32 x i8> [[V1]], 1
-// CHECK-RV64-NEXT:    ret { <vscale x 32 x i8>, <vscale x 32 x i8> } [[TMP1]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 32 x b8>, <vscale x 32 x b8> } poison, <vscale x 32 x b8> [[V0]], 0
+// CHECK-RV64-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 32 x b8>, <vscale x 32 x b8> } [[TMP0]], <vscale x 32 x b8> [[V1]], 1
+// CHECK-RV64-NEXT:    ret { <vscale x 32 x b8>, <vscale x 32 x b8> } [[TMP1]]
 //
 vuint8m4x2_t test_vcreate_v_u8m4x2(vuint8m4_t v0, vuint8m4_t v1) {
   return __riscv_vcreate_v_u8m4x2(v0, v1);

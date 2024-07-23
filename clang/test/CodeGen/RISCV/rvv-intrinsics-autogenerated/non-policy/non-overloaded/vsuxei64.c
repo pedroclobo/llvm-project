@@ -288,9 +288,9 @@ void test_vsuxei64_v_i64m8(int64_t *base, vuint64m8_t bindex, vint64m8_t value, 
 }
 
 // CHECK-RV64-LABEL: define dso_local void @test_vsuxei64_v_u8mf8
-// CHECK-RV64-SAME: (ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], <vscale x 1 x i8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], <vscale x 1 x b8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.nxv1i8.nxv1i64.i64(<vscale x 1 x i8> [[VALUE]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], i64 [[VL]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.nxv1b8.nxv1i64.i64(<vscale x 1 x b8> [[VALUE]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_vsuxei64_v_u8mf8(uint8_t *base, vuint64m1_t bindex, vuint8mf8_t value, size_t vl) {
@@ -298,9 +298,9 @@ void test_vsuxei64_v_u8mf8(uint8_t *base, vuint64m1_t bindex, vuint8mf8_t value,
 }
 
 // CHECK-RV64-LABEL: define dso_local void @test_vsuxei64_v_u8mf4
-// CHECK-RV64-SAME: (ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], <vscale x 2 x i8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], <vscale x 2 x b8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.nxv2i8.nxv2i64.i64(<vscale x 2 x i8> [[VALUE]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], i64 [[VL]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.nxv2b8.nxv2i64.i64(<vscale x 2 x b8> [[VALUE]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_vsuxei64_v_u8mf4(uint8_t *base, vuint64m2_t bindex, vuint8mf4_t value, size_t vl) {
@@ -308,9 +308,9 @@ void test_vsuxei64_v_u8mf4(uint8_t *base, vuint64m2_t bindex, vuint8mf4_t value,
 }
 
 // CHECK-RV64-LABEL: define dso_local void @test_vsuxei64_v_u8mf2
-// CHECK-RV64-SAME: (ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], <vscale x 4 x i8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], <vscale x 4 x b8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.nxv4i8.nxv4i64.i64(<vscale x 4 x i8> [[VALUE]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], i64 [[VL]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.nxv4b8.nxv4i64.i64(<vscale x 4 x b8> [[VALUE]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_vsuxei64_v_u8mf2(uint8_t *base, vuint64m4_t bindex, vuint8mf2_t value, size_t vl) {
@@ -318,9 +318,9 @@ void test_vsuxei64_v_u8mf2(uint8_t *base, vuint64m4_t bindex, vuint8mf2_t value,
 }
 
 // CHECK-RV64-LABEL: define dso_local void @test_vsuxei64_v_u8m1
-// CHECK-RV64-SAME: (ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], <vscale x 8 x i8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], <vscale x 8 x b8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.nxv8i8.nxv8i64.i64(<vscale x 8 x i8> [[VALUE]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], i64 [[VL]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.nxv8b8.nxv8i64.i64(<vscale x 8 x b8> [[VALUE]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_vsuxei64_v_u8m1(uint8_t *base, vuint64m8_t bindex, vuint8m1_t value, size_t vl) {
@@ -728,9 +728,9 @@ void test_vsuxei64_v_i64m8_m(vbool8_t mask, int64_t *base, vuint64m8_t bindex, v
 }
 
 // CHECK-RV64-LABEL: define dso_local void @test_vsuxei64_v_u8mf8_m
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], <vscale x 1 x i8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], ptr noundef [[BASE:%.*]], <vscale x 1 x i64> [[BINDEX:%.*]], <vscale x 1 x b8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.mask.nxv1i8.nxv1i64.i64(<vscale x 1 x i8> [[VALUE]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], <vscale x 1 x i1> [[MASK]], i64 [[VL]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.mask.nxv1b8.nxv1i64.i64(<vscale x 1 x b8> [[VALUE]], ptr [[BASE]], <vscale x 1 x i64> [[BINDEX]], <vscale x 1 x i1> [[MASK]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_vsuxei64_v_u8mf8_m(vbool64_t mask, uint8_t *base, vuint64m1_t bindex, vuint8mf8_t value, size_t vl) {
@@ -738,9 +738,9 @@ void test_vsuxei64_v_u8mf8_m(vbool64_t mask, uint8_t *base, vuint64m1_t bindex, 
 }
 
 // CHECK-RV64-LABEL: define dso_local void @test_vsuxei64_v_u8mf4_m
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], <vscale x 2 x i8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], ptr noundef [[BASE:%.*]], <vscale x 2 x i64> [[BINDEX:%.*]], <vscale x 2 x b8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.mask.nxv2i8.nxv2i64.i64(<vscale x 2 x i8> [[VALUE]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], <vscale x 2 x i1> [[MASK]], i64 [[VL]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.mask.nxv2b8.nxv2i64.i64(<vscale x 2 x b8> [[VALUE]], ptr [[BASE]], <vscale x 2 x i64> [[BINDEX]], <vscale x 2 x i1> [[MASK]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_vsuxei64_v_u8mf4_m(vbool32_t mask, uint8_t *base, vuint64m2_t bindex, vuint8mf4_t value, size_t vl) {
@@ -748,9 +748,9 @@ void test_vsuxei64_v_u8mf4_m(vbool32_t mask, uint8_t *base, vuint64m2_t bindex, 
 }
 
 // CHECK-RV64-LABEL: define dso_local void @test_vsuxei64_v_u8mf2_m
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], <vscale x 4 x i8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], ptr noundef [[BASE:%.*]], <vscale x 4 x i64> [[BINDEX:%.*]], <vscale x 4 x b8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.mask.nxv4i8.nxv4i64.i64(<vscale x 4 x i8> [[VALUE]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], <vscale x 4 x i1> [[MASK]], i64 [[VL]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.mask.nxv4b8.nxv4i64.i64(<vscale x 4 x b8> [[VALUE]], ptr [[BASE]], <vscale x 4 x i64> [[BINDEX]], <vscale x 4 x i1> [[MASK]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_vsuxei64_v_u8mf2_m(vbool16_t mask, uint8_t *base, vuint64m4_t bindex, vuint8mf2_t value, size_t vl) {
@@ -758,9 +758,9 @@ void test_vsuxei64_v_u8mf2_m(vbool16_t mask, uint8_t *base, vuint64m4_t bindex, 
 }
 
 // CHECK-RV64-LABEL: define dso_local void @test_vsuxei64_v_u8m1_m
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], <vscale x 8 x i8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], ptr noundef [[BASE:%.*]], <vscale x 8 x i64> [[BINDEX:%.*]], <vscale x 8 x b8> [[VALUE:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.mask.nxv8i8.nxv8i64.i64(<vscale x 8 x i8> [[VALUE]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], <vscale x 8 x i1> [[MASK]], i64 [[VL]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.vsuxei.mask.nxv8b8.nxv8i64.i64(<vscale x 8 x b8> [[VALUE]], ptr [[BASE]], <vscale x 8 x i64> [[BINDEX]], <vscale x 8 x i1> [[MASK]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_vsuxei64_v_u8m1_m(vbool8_t mask, uint8_t *base, vuint64m8_t bindex, vuint8m1_t value, size_t vl) {

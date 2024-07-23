@@ -1667,7 +1667,8 @@ static bool matchIntrinsicType(
 
       switch (D.getArgumentKind()) {
         case IITDescriptor::AK_Any:        return false; // Success
-        case IITDescriptor::AK_AnyInteger: return !Ty->isIntOrIntVectorTy();
+        case IITDescriptor::AK_AnyInteger:
+          return !Ty->isIntOrIntVectorTy() && !Ty->isByteOrByteVectorTy();
         case IITDescriptor::AK_AnyFloat:   return !Ty->isFPOrFPVectorTy();
         case IITDescriptor::AK_AnyVector:  return !isa<VectorType>(Ty);
         case IITDescriptor::AK_AnyPointer: return !isa<PointerType>(Ty);

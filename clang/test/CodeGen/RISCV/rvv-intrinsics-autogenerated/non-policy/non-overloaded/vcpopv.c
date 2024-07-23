@@ -18,8 +18,8 @@
 
 // CHECK-LABEL: @test_vcpop_v_u8mf8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vcpopv.nxv1i8.i64(<vscale x 1 x i8> poison, <vscale x 1 x i8> [[VS2:%.*]], i64 [[VL:%.*]])
-// CHECK-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vcpopv.nxv1b8.i64(<vscale x 1 x b8> poison, <vscale x 1 x b8> [[VS2:%.*]], i64 [[VL:%.*]])
+// CHECK-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vcpop_v_u8mf8(vuint8mf8_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8mf8(vs2, vl);
@@ -27,8 +27,8 @@ vuint8mf8_t test_vcpop_v_u8mf8(vuint8mf8_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8mf4(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vcpopv.nxv2i8.i64(<vscale x 2 x i8> poison, <vscale x 2 x i8> [[VS2:%.*]], i64 [[VL:%.*]])
-// CHECK-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vcpopv.nxv2b8.i64(<vscale x 2 x b8> poison, <vscale x 2 x b8> [[VS2:%.*]], i64 [[VL:%.*]])
+// CHECK-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vcpop_v_u8mf4(vuint8mf4_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8mf4(vs2, vl);
@@ -36,8 +36,8 @@ vuint8mf4_t test_vcpop_v_u8mf4(vuint8mf4_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8mf2(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vcpopv.nxv4i8.i64(<vscale x 4 x i8> poison, <vscale x 4 x i8> [[VS2:%.*]], i64 [[VL:%.*]])
-// CHECK-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vcpopv.nxv4b8.i64(<vscale x 4 x b8> poison, <vscale x 4 x b8> [[VS2:%.*]], i64 [[VL:%.*]])
+// CHECK-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vcpop_v_u8mf2(vuint8mf2_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8mf2(vs2, vl);
@@ -45,8 +45,8 @@ vuint8mf2_t test_vcpop_v_u8mf2(vuint8mf2_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8m1(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vcpopv.nxv8i8.i64(<vscale x 8 x i8> poison, <vscale x 8 x i8> [[VS2:%.*]], i64 [[VL:%.*]])
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vcpopv.nxv8b8.i64(<vscale x 8 x b8> poison, <vscale x 8 x b8> [[VS2:%.*]], i64 [[VL:%.*]])
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vcpop_v_u8m1(vuint8m1_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8m1(vs2, vl);
@@ -54,8 +54,8 @@ vuint8m1_t test_vcpop_v_u8m1(vuint8m1_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8m2(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vcpopv.nxv16i8.i64(<vscale x 16 x i8> poison, <vscale x 16 x i8> [[VS2:%.*]], i64 [[VL:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vcpopv.nxv16b8.i64(<vscale x 16 x b8> poison, <vscale x 16 x b8> [[VS2:%.*]], i64 [[VL:%.*]])
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vcpop_v_u8m2(vuint8m2_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8m2(vs2, vl);
@@ -63,8 +63,8 @@ vuint8m2_t test_vcpop_v_u8m2(vuint8m2_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8m4(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vcpopv.nxv32i8.i64(<vscale x 32 x i8> poison, <vscale x 32 x i8> [[VS2:%.*]], i64 [[VL:%.*]])
-// CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vcpopv.nxv32b8.i64(<vscale x 32 x b8> poison, <vscale x 32 x b8> [[VS2:%.*]], i64 [[VL:%.*]])
+// CHECK-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vcpop_v_u8m4(vuint8m4_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8m4(vs2, vl);
@@ -72,8 +72,8 @@ vuint8m4_t test_vcpop_v_u8m4(vuint8m4_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8m8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vcpopv.nxv64i8.i64(<vscale x 64 x i8> poison, <vscale x 64 x i8> [[VS2:%.*]], i64 [[VL:%.*]])
-// CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vcpopv.nxv64b8.i64(<vscale x 64 x b8> poison, <vscale x 64 x b8> [[VS2:%.*]], i64 [[VL:%.*]])
+// CHECK-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vcpop_v_u8m8(vuint8m8_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8m8(vs2, vl);
@@ -216,8 +216,8 @@ vuint64m8_t test_vcpop_v_u64m8(vuint64m8_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8mf8_m(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vcpopv.mask.nxv1i8.i64(<vscale x 1 x i8> poison, <vscale x 1 x i8> [[VS2:%.*]], <vscale x 1 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
-// CHECK-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vcpopv.mask.nxv1b8.i64(<vscale x 1 x b8> poison, <vscale x 1 x b8> [[VS2:%.*]], <vscale x 1 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
+// CHECK-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vcpop_v_u8mf8_m(vbool64_t mask, vuint8mf8_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8mf8_m(mask, vs2, vl);
@@ -225,8 +225,8 @@ vuint8mf8_t test_vcpop_v_u8mf8_m(vbool64_t mask, vuint8mf8_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8mf4_m(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vcpopv.mask.nxv2i8.i64(<vscale x 2 x i8> poison, <vscale x 2 x i8> [[VS2:%.*]], <vscale x 2 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
-// CHECK-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vcpopv.mask.nxv2b8.i64(<vscale x 2 x b8> poison, <vscale x 2 x b8> [[VS2:%.*]], <vscale x 2 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
+// CHECK-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vcpop_v_u8mf4_m(vbool32_t mask, vuint8mf4_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8mf4_m(mask, vs2, vl);
@@ -234,8 +234,8 @@ vuint8mf4_t test_vcpop_v_u8mf4_m(vbool32_t mask, vuint8mf4_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8mf2_m(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vcpopv.mask.nxv4i8.i64(<vscale x 4 x i8> poison, <vscale x 4 x i8> [[VS2:%.*]], <vscale x 4 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
-// CHECK-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vcpopv.mask.nxv4b8.i64(<vscale x 4 x b8> poison, <vscale x 4 x b8> [[VS2:%.*]], <vscale x 4 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
+// CHECK-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vcpop_v_u8mf2_m(vbool16_t mask, vuint8mf2_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8mf2_m(mask, vs2, vl);
@@ -243,8 +243,8 @@ vuint8mf2_t test_vcpop_v_u8mf2_m(vbool16_t mask, vuint8mf2_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8m1_m(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vcpopv.mask.nxv8i8.i64(<vscale x 8 x i8> poison, <vscale x 8 x i8> [[VS2:%.*]], <vscale x 8 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
-// CHECK-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vcpopv.mask.nxv8b8.i64(<vscale x 8 x b8> poison, <vscale x 8 x b8> [[VS2:%.*]], <vscale x 8 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
+// CHECK-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vcpop_v_u8m1_m(vbool8_t mask, vuint8m1_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8m1_m(mask, vs2, vl);
@@ -252,8 +252,8 @@ vuint8m1_t test_vcpop_v_u8m1_m(vbool8_t mask, vuint8m1_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8m2_m(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vcpopv.mask.nxv16i8.i64(<vscale x 16 x i8> poison, <vscale x 16 x i8> [[VS2:%.*]], <vscale x 16 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vcpopv.mask.nxv16b8.i64(<vscale x 16 x b8> poison, <vscale x 16 x b8> [[VS2:%.*]], <vscale x 16 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vcpop_v_u8m2_m(vbool4_t mask, vuint8m2_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8m2_m(mask, vs2, vl);
@@ -261,8 +261,8 @@ vuint8m2_t test_vcpop_v_u8m2_m(vbool4_t mask, vuint8m2_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8m4_m(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vcpopv.mask.nxv32i8.i64(<vscale x 32 x i8> poison, <vscale x 32 x i8> [[VS2:%.*]], <vscale x 32 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
-// CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vcpopv.mask.nxv32b8.i64(<vscale x 32 x b8> poison, <vscale x 32 x b8> [[VS2:%.*]], <vscale x 32 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
+// CHECK-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vcpop_v_u8m4_m(vbool2_t mask, vuint8m4_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8m4_m(mask, vs2, vl);
@@ -270,8 +270,8 @@ vuint8m4_t test_vcpop_v_u8m4_m(vbool2_t mask, vuint8m4_t vs2, size_t vl) {
 
 // CHECK-LABEL: @test_vcpop_v_u8m8_m(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vcpopv.mask.nxv64i8.i64(<vscale x 64 x i8> poison, <vscale x 64 x i8> [[VS2:%.*]], <vscale x 64 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
-// CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vcpopv.mask.nxv64b8.i64(<vscale x 64 x b8> poison, <vscale x 64 x b8> [[VS2:%.*]], <vscale x 64 x i1> [[MASK:%.*]], i64 [[VL:%.*]], i64 3)
+// CHECK-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vcpop_v_u8m8_m(vbool1_t mask, vuint8m8_t vs2, size_t vl) {
   return __riscv_vcpop_v_u8m8_m(mask, vs2, vl);

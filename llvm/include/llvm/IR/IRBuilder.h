@@ -2190,6 +2190,18 @@ public:
     return CreateCast(Instruction::ByteCast, V, DestTy, Name);
   }
 
+  Value *CreateByteCastToIntVector(Value *V, bool Scalable,
+                                   const Twine &Name = "") {
+    assert(V->getType()->isVectorTy() && "Expected a vector type");
+    VectorType *VecTy = cast<VectorType>(V->getType());
+    unsigned NumEls = VecTy->getElementCount().getKnownMinValue();
+    unsigned BitWidth = VecTy->getElementType()->getPrimitiveSizeInBits();
+
+    Type *DstElTy = getIntNTy(BitWidth);
+    VectorType *DestTy = VectorType::get(DstElTy, NumEls, Scalable);
+    return CreateCast(Instruction::ByteCast, V, DestTy, Name);
+  }
+
   Value *CreateByteCastToPtr(Value *V, unsigned AddrSpace = 0, const Twine &Name = "") {
     Type *DestTy = getPtrTy(AddrSpace);
     return CreateCast(Instruction::ByteCast, V, DestTy, Name);
