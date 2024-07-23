@@ -7,8 +7,8 @@ struct foo {
   float y;
   char z;
 };
-// FREEBSD: %[[STRUCT_FOO:.*]] = type { i32, float, i8 }
-// WIN64: %[[STRUCT_FOO:.*]] = type { i32, float, i8 }
+// FREEBSD: %[[STRUCT_FOO:.*]] = type { i32, float, b8 }
+// WIN64: %[[STRUCT_FOO:.*]] = type { i32, float, b8 }
 
 void __attribute__((ms_abi)) f1(void);
 void __attribute__((sysv_abi)) f2(void);

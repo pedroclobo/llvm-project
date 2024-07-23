@@ -171,8 +171,8 @@ namespace test73 {
 // CHECK-HIDDEN: @_ZN6Test131C1aE = global
 // CHECK: @_ZN6Test143varE = external global
 // CHECK-HIDDEN: @_ZN6Test143varE = external global
-// CHECK: @_ZN6Test154TempINS_1AEE5Inner6bufferE = external global [0 x i8]
-// CHECK-HIDDEN: @_ZN6Test154TempINS_1AEE5Inner6bufferE = external global [0 x i8]
+// CHECK: @_ZN6Test154TempINS_1AEE5Inner6bufferE = external global [0 x b8]
+// CHECK-HIDDEN: @_ZN6Test154TempINS_1AEE5Inner6bufferE = external global [0 x b8]
 // CHECK: @_ZTVN6test701BE = external hidden unnamed_addr constant { [5 x ptr] }, align 8
 // CHECK: @_ZTTN6test701BE = external hidden unnamed_addr constant [2 x ptr], align 8
 

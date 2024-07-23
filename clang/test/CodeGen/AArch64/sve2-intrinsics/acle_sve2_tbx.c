@@ -17,13 +17,21 @@
 
 // CHECK-LABEL: @test_svtbx_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbx.nxv16i8(<vscale x 16 x i8> [[FALLBACK:%.*]], <vscale x 16 x i8> [[DATA:%.*]], <vscale x 16 x i8> [[INDICES:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[FALLBACK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[DATA:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[INDICES:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbx.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z13test_svtbx_s8u10__SVInt8_tS_u11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbx.nxv16i8(<vscale x 16 x i8> [[FALLBACK:%.*]], <vscale x 16 x i8> [[DATA:%.*]], <vscale x 16 x i8> [[INDICES:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[FALLBACK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[DATA:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[INDICES:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbx.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svint8_t test_svtbx_s8(svint8_t fallback, svint8_t data, svuint8_t indices)
 {
@@ -77,13 +85,21 @@ svint64_t test_svtbx_s64(svint64_t fallback, svint64_t data, svuint64_t indices)
 
 // CHECK-LABEL: @test_svtbx_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbx.nxv16i8(<vscale x 16 x i8> [[FALLBACK:%.*]], <vscale x 16 x i8> [[DATA:%.*]], <vscale x 16 x i8> [[INDICES:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[FALLBACK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[DATA:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[INDICES:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbx.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z13test_svtbx_u8u11__SVUint8_tS_S_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbx.nxv16i8(<vscale x 16 x i8> [[FALLBACK:%.*]], <vscale x 16 x i8> [[DATA:%.*]], <vscale x 16 x i8> [[INDICES:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[FALLBACK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[DATA:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[INDICES:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbx.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svtbx_u8(svuint8_t fallback, svuint8_t data, svuint8_t indices)
 {

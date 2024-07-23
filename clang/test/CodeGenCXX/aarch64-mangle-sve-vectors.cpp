@@ -66,12 +66,12 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // CHECK-LABEL: define dso_local void @_Z3foov(
 // CHECK-SAME: ) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[COERCE:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE1:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE2:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE3:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE4:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE5:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
+// CHECK-NEXT:    [[COERCE:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE1:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE2:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE3:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE4:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE5:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
 // CHECK-NEXT:    [[COERCE6:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
 // CHECK-NEXT:    [[COERCE7:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
 // CHECK-NEXT:    [[COERCE8:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
@@ -90,12 +90,12 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // CHECK-NEXT:    [[COERCE21:%.*]] = alloca { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> }, align 16
 // CHECK-NEXT:    [[COERCE22:%.*]] = alloca { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> }, align 16
 // CHECK-NEXT:    [[COERCE23:%.*]] = alloca { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> }, align 16
-// CHECK-NEXT:    [[COERCE24:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE25:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE26:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE27:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE28:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    [[COERCE29:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
+// CHECK-NEXT:    [[COERCE24:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE25:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE26:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE27:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE28:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[COERCE29:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
 // CHECK-NEXT:    [[COERCE30:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
 // CHECK-NEXT:    [[COERCE31:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
 // CHECK-NEXT:    [[COERCE32:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
@@ -148,12 +148,12 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // CHECK-NEXT:    [[COERCE78:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
 // CHECK-NEXT:    [[COERCE79:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
 // CHECK-NEXT:    [[COERCE80:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// CHECK-NEXT:    call void @_Z1fu10__SVInt8_tS_(<vscale x 16 x i8> zeroinitializer, <vscale x 16 x i8> zeroinitializer)
+// CHECK-NEXT:    call void @_Z1fu10__SVInt8_tS_(<vscale x 16 x b8> zeroinitializer, <vscale x 16 x b8> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu11__SVInt16_tS_(<vscale x 8 x i16> zeroinitializer, <vscale x 8 x i16> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu11__SVInt16_tS_(<vscale x 8 x i16> zeroinitializer, <vscale x 8 x i16> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu11__SVInt32_tS_(<vscale x 4 x i32> zeroinitializer, <vscale x 4 x i32> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu11__SVInt64_tS_(<vscale x 2 x i64> zeroinitializer, <vscale x 2 x i64> zeroinitializer)
-// CHECK-NEXT:    call void @_Z1fu11__SVUint8_tS_(<vscale x 16 x i8> zeroinitializer, <vscale x 16 x i8> zeroinitializer)
+// CHECK-NEXT:    call void @_Z1fu11__SVUint8_tS_(<vscale x 16 x b8> zeroinitializer, <vscale x 16 x b8> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu12__SVUint16_tS_(<vscale x 8 x i16> zeroinitializer, <vscale x 8 x i16> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu12__SVUint32_tS_(<vscale x 4 x i32> zeroinitializer, <vscale x 4 x i32> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu12__SVUint64_tS_(<vscale x 2 x i64> zeroinitializer, <vscale x 2 x i64> zeroinitializer)
@@ -164,39 +164,39 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // CHECK-NEXT:    call void @_Z1fu14__SVBfloat16_tS_(<vscale x 8 x bfloat> zeroinitializer, <vscale x 8 x bfloat> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu10__SVBool_tS_(<vscale x 16 x i1> zeroinitializer, <vscale x 16 x i1> zeroinitializer)
 // CHECK-NEXT:    call void @_Z1fu11__SVCount_tS_(target("aarch64.svcount") zeroinitializer, target("aarch64.svcount") zeroinitializer)
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE]], align 16
-// CHECK-NEXT:    [[COERCE_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE]], align 16
-// CHECK-NEXT:    [[COERCE_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE_TUPLE]], 1
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE1]], align 16
-// CHECK-NEXT:    [[COERCE1_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE1]], align 16
-// CHECK-NEXT:    [[COERCE1_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE1_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE1_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE1_TUPLE]], 1
-// CHECK-NEXT:    call void @_Z1f10svint8x2_tS_(<vscale x 16 x i8> [[COERCE_EXTRACT0]], <vscale x 16 x i8> [[COERCE_EXTRACT1]], <vscale x 16 x i8> [[COERCE1_EXTRACT0]], <vscale x 16 x i8> [[COERCE1_EXTRACT1]])
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE2]], align 16
-// CHECK-NEXT:    [[COERCE2_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE2]], align 16
-// CHECK-NEXT:    [[COERCE2_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE2_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE2_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE2_TUPLE]], 1
-// CHECK-NEXT:    [[COERCE2_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE2_TUPLE]], 2
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE3]], align 16
-// CHECK-NEXT:    [[COERCE3_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE3]], align 16
-// CHECK-NEXT:    [[COERCE3_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE3_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE3_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE3_TUPLE]], 1
-// CHECK-NEXT:    [[COERCE3_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE3_TUPLE]], 2
-// CHECK-NEXT:    call void @_Z1f10svint8x3_tS_(<vscale x 16 x i8> [[COERCE2_EXTRACT0]], <vscale x 16 x i8> [[COERCE2_EXTRACT1]], <vscale x 16 x i8> [[COERCE2_EXTRACT2]], <vscale x 16 x i8> [[COERCE3_EXTRACT0]], <vscale x 16 x i8> [[COERCE3_EXTRACT1]], <vscale x 16 x i8> [[COERCE3_EXTRACT2]])
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE4]], align 16
-// CHECK-NEXT:    [[COERCE4_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE4]], align 16
-// CHECK-NEXT:    [[COERCE4_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE4_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE4_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE4_TUPLE]], 1
-// CHECK-NEXT:    [[COERCE4_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE4_TUPLE]], 2
-// CHECK-NEXT:    [[COERCE4_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE4_TUPLE]], 3
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE5]], align 16
-// CHECK-NEXT:    [[COERCE5_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE5]], align 16
-// CHECK-NEXT:    [[COERCE5_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE5_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE5_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE5_TUPLE]], 1
-// CHECK-NEXT:    [[COERCE5_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE5_TUPLE]], 2
-// CHECK-NEXT:    [[COERCE5_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE5_TUPLE]], 3
-// CHECK-NEXT:    call void @_Z1f10svint8x4_tS_(<vscale x 16 x i8> [[COERCE4_EXTRACT0]], <vscale x 16 x i8> [[COERCE4_EXTRACT1]], <vscale x 16 x i8> [[COERCE4_EXTRACT2]], <vscale x 16 x i8> [[COERCE4_EXTRACT3]], <vscale x 16 x i8> [[COERCE5_EXTRACT0]], <vscale x 16 x i8> [[COERCE5_EXTRACT1]], <vscale x 16 x i8> [[COERCE5_EXTRACT2]], <vscale x 16 x i8> [[COERCE5_EXTRACT3]])
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE]], align 16
+// CHECK-NEXT:    [[COERCE_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE]], align 16
+// CHECK-NEXT:    [[COERCE_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE_TUPLE]], 1
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE1]], align 16
+// CHECK-NEXT:    [[COERCE1_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE1]], align 16
+// CHECK-NEXT:    [[COERCE1_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE1_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE1_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE1_TUPLE]], 1
+// CHECK-NEXT:    call void @_Z1f10svint8x2_tS_(<vscale x 16 x b8> [[COERCE_EXTRACT0]], <vscale x 16 x b8> [[COERCE_EXTRACT1]], <vscale x 16 x b8> [[COERCE1_EXTRACT0]], <vscale x 16 x b8> [[COERCE1_EXTRACT1]])
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE2]], align 16
+// CHECK-NEXT:    [[COERCE2_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE2]], align 16
+// CHECK-NEXT:    [[COERCE2_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE2_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE2_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE2_TUPLE]], 1
+// CHECK-NEXT:    [[COERCE2_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE2_TUPLE]], 2
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE3]], align 16
+// CHECK-NEXT:    [[COERCE3_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE3]], align 16
+// CHECK-NEXT:    [[COERCE3_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE3_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE3_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE3_TUPLE]], 1
+// CHECK-NEXT:    [[COERCE3_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE3_TUPLE]], 2
+// CHECK-NEXT:    call void @_Z1f10svint8x3_tS_(<vscale x 16 x b8> [[COERCE2_EXTRACT0]], <vscale x 16 x b8> [[COERCE2_EXTRACT1]], <vscale x 16 x b8> [[COERCE2_EXTRACT2]], <vscale x 16 x b8> [[COERCE3_EXTRACT0]], <vscale x 16 x b8> [[COERCE3_EXTRACT1]], <vscale x 16 x b8> [[COERCE3_EXTRACT2]])
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE4]], align 16
+// CHECK-NEXT:    [[COERCE4_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE4]], align 16
+// CHECK-NEXT:    [[COERCE4_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE4_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE4_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE4_TUPLE]], 1
+// CHECK-NEXT:    [[COERCE4_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE4_TUPLE]], 2
+// CHECK-NEXT:    [[COERCE4_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE4_TUPLE]], 3
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE5]], align 16
+// CHECK-NEXT:    [[COERCE5_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE5]], align 16
+// CHECK-NEXT:    [[COERCE5_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE5_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE5_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE5_TUPLE]], 1
+// CHECK-NEXT:    [[COERCE5_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE5_TUPLE]], 2
+// CHECK-NEXT:    [[COERCE5_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE5_TUPLE]], 3
+// CHECK-NEXT:    call void @_Z1f10svint8x4_tS_(<vscale x 16 x b8> [[COERCE4_EXTRACT0]], <vscale x 16 x b8> [[COERCE4_EXTRACT1]], <vscale x 16 x b8> [[COERCE4_EXTRACT2]], <vscale x 16 x b8> [[COERCE4_EXTRACT3]], <vscale x 16 x b8> [[COERCE5_EXTRACT0]], <vscale x 16 x b8> [[COERCE5_EXTRACT1]], <vscale x 16 x b8> [[COERCE5_EXTRACT2]], <vscale x 16 x b8> [[COERCE5_EXTRACT3]])
 // CHECK-NEXT:    store { <vscale x 8 x i16>, <vscale x 8 x i16> } zeroinitializer, ptr [[COERCE6]], align 16
 // CHECK-NEXT:    [[COERCE6_TUPLE:%.*]] = load { <vscale x 8 x i16>, <vscale x 8 x i16> }, ptr [[COERCE6]], align 16
 // CHECK-NEXT:    [[COERCE6_EXTRACT0:%.*]] = extractvalue { <vscale x 8 x i16>, <vscale x 8 x i16> } [[COERCE6_TUPLE]], 0
@@ -296,39 +296,39 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // CHECK-NEXT:    [[COERCE23_EXTRACT2:%.*]] = extractvalue { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> } [[COERCE23_TUPLE]], 2
 // CHECK-NEXT:    [[COERCE23_EXTRACT3:%.*]] = extractvalue { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> } [[COERCE23_TUPLE]], 3
 // CHECK-NEXT:    call void @_Z1f11svint64x4_tS_(<vscale x 2 x i64> [[COERCE22_EXTRACT0]], <vscale x 2 x i64> [[COERCE22_EXTRACT1]], <vscale x 2 x i64> [[COERCE22_EXTRACT2]], <vscale x 2 x i64> [[COERCE22_EXTRACT3]], <vscale x 2 x i64> [[COERCE23_EXTRACT0]], <vscale x 2 x i64> [[COERCE23_EXTRACT1]], <vscale x 2 x i64> [[COERCE23_EXTRACT2]], <vscale x 2 x i64> [[COERCE23_EXTRACT3]])
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE24]], align 16
-// CHECK-NEXT:    [[COERCE24_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE24]], align 16
-// CHECK-NEXT:    [[COERCE24_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE24_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE24_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE24_TUPLE]], 1
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE25]], align 16
-// CHECK-NEXT:    [[COERCE25_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE25]], align 16
-// CHECK-NEXT:    [[COERCE25_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE25_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE25_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE25_TUPLE]], 1
-// CHECK-NEXT:    call void @_Z1f11svuint8x2_tS_(<vscale x 16 x i8> [[COERCE24_EXTRACT0]], <vscale x 16 x i8> [[COERCE24_EXTRACT1]], <vscale x 16 x i8> [[COERCE25_EXTRACT0]], <vscale x 16 x i8> [[COERCE25_EXTRACT1]])
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE26]], align 16
-// CHECK-NEXT:    [[COERCE26_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE26]], align 16
-// CHECK-NEXT:    [[COERCE26_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE26_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE26_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE26_TUPLE]], 1
-// CHECK-NEXT:    [[COERCE26_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE26_TUPLE]], 2
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE27]], align 16
-// CHECK-NEXT:    [[COERCE27_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE27]], align 16
-// CHECK-NEXT:    [[COERCE27_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE27_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE27_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE27_TUPLE]], 1
-// CHECK-NEXT:    [[COERCE27_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE27_TUPLE]], 2
-// CHECK-NEXT:    call void @_Z1f11svuint8x3_tS_(<vscale x 16 x i8> [[COERCE26_EXTRACT0]], <vscale x 16 x i8> [[COERCE26_EXTRACT1]], <vscale x 16 x i8> [[COERCE26_EXTRACT2]], <vscale x 16 x i8> [[COERCE27_EXTRACT0]], <vscale x 16 x i8> [[COERCE27_EXTRACT1]], <vscale x 16 x i8> [[COERCE27_EXTRACT2]])
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE28]], align 16
-// CHECK-NEXT:    [[COERCE28_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE28]], align 16
-// CHECK-NEXT:    [[COERCE28_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE28_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE28_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE28_TUPLE]], 1
-// CHECK-NEXT:    [[COERCE28_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE28_TUPLE]], 2
-// CHECK-NEXT:    [[COERCE28_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE28_TUPLE]], 3
-// CHECK-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE29]], align 16
-// CHECK-NEXT:    [[COERCE29_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE29]], align 16
-// CHECK-NEXT:    [[COERCE29_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE29_TUPLE]], 0
-// CHECK-NEXT:    [[COERCE29_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE29_TUPLE]], 1
-// CHECK-NEXT:    [[COERCE29_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE29_TUPLE]], 2
-// CHECK-NEXT:    [[COERCE29_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE29_TUPLE]], 3
-// CHECK-NEXT:    call void @_Z1f11svuint8x4_tS_(<vscale x 16 x i8> [[COERCE28_EXTRACT0]], <vscale x 16 x i8> [[COERCE28_EXTRACT1]], <vscale x 16 x i8> [[COERCE28_EXTRACT2]], <vscale x 16 x i8> [[COERCE28_EXTRACT3]], <vscale x 16 x i8> [[COERCE29_EXTRACT0]], <vscale x 16 x i8> [[COERCE29_EXTRACT1]], <vscale x 16 x i8> [[COERCE29_EXTRACT2]], <vscale x 16 x i8> [[COERCE29_EXTRACT3]])
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE24]], align 16
+// CHECK-NEXT:    [[COERCE24_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE24]], align 16
+// CHECK-NEXT:    [[COERCE24_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE24_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE24_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE24_TUPLE]], 1
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE25]], align 16
+// CHECK-NEXT:    [[COERCE25_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE25]], align 16
+// CHECK-NEXT:    [[COERCE25_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE25_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE25_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE25_TUPLE]], 1
+// CHECK-NEXT:    call void @_Z1f11svuint8x2_tS_(<vscale x 16 x b8> [[COERCE24_EXTRACT0]], <vscale x 16 x b8> [[COERCE24_EXTRACT1]], <vscale x 16 x b8> [[COERCE25_EXTRACT0]], <vscale x 16 x b8> [[COERCE25_EXTRACT1]])
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE26]], align 16
+// CHECK-NEXT:    [[COERCE26_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE26]], align 16
+// CHECK-NEXT:    [[COERCE26_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE26_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE26_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE26_TUPLE]], 1
+// CHECK-NEXT:    [[COERCE26_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE26_TUPLE]], 2
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE27]], align 16
+// CHECK-NEXT:    [[COERCE27_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE27]], align 16
+// CHECK-NEXT:    [[COERCE27_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE27_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE27_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE27_TUPLE]], 1
+// CHECK-NEXT:    [[COERCE27_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE27_TUPLE]], 2
+// CHECK-NEXT:    call void @_Z1f11svuint8x3_tS_(<vscale x 16 x b8> [[COERCE26_EXTRACT0]], <vscale x 16 x b8> [[COERCE26_EXTRACT1]], <vscale x 16 x b8> [[COERCE26_EXTRACT2]], <vscale x 16 x b8> [[COERCE27_EXTRACT0]], <vscale x 16 x b8> [[COERCE27_EXTRACT1]], <vscale x 16 x b8> [[COERCE27_EXTRACT2]])
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE28]], align 16
+// CHECK-NEXT:    [[COERCE28_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE28]], align 16
+// CHECK-NEXT:    [[COERCE28_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE28_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE28_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE28_TUPLE]], 1
+// CHECK-NEXT:    [[COERCE28_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE28_TUPLE]], 2
+// CHECK-NEXT:    [[COERCE28_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE28_TUPLE]], 3
+// CHECK-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE29]], align 16
+// CHECK-NEXT:    [[COERCE29_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE29]], align 16
+// CHECK-NEXT:    [[COERCE29_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE29_TUPLE]], 0
+// CHECK-NEXT:    [[COERCE29_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE29_TUPLE]], 1
+// CHECK-NEXT:    [[COERCE29_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE29_TUPLE]], 2
+// CHECK-NEXT:    [[COERCE29_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE29_TUPLE]], 3
+// CHECK-NEXT:    call void @_Z1f11svuint8x4_tS_(<vscale x 16 x b8> [[COERCE28_EXTRACT0]], <vscale x 16 x b8> [[COERCE28_EXTRACT1]], <vscale x 16 x b8> [[COERCE28_EXTRACT2]], <vscale x 16 x b8> [[COERCE28_EXTRACT3]], <vscale x 16 x b8> [[COERCE29_EXTRACT0]], <vscale x 16 x b8> [[COERCE29_EXTRACT1]], <vscale x 16 x b8> [[COERCE29_EXTRACT2]], <vscale x 16 x b8> [[COERCE29_EXTRACT3]])
 // CHECK-NEXT:    store { <vscale x 8 x i16>, <vscale x 8 x i16> } zeroinitializer, ptr [[COERCE30]], align 16
 // CHECK-NEXT:    [[COERCE30_TUPLE:%.*]] = load { <vscale x 8 x i16>, <vscale x 8 x i16> }, ptr [[COERCE30]], align 16
 // CHECK-NEXT:    [[COERCE30_EXTRACT0:%.*]] = extractvalue { <vscale x 8 x i16>, <vscale x 8 x i16> } [[COERCE30_TUPLE]], 0
@@ -615,12 +615,12 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // COMPAT_17-LABEL: define dso_local void @_Z3foov(
 // COMPAT_17-SAME: ) #[[ATTR0:[0-9]+]] {
 // COMPAT_17-NEXT:  entry:
-// COMPAT_17-NEXT:    [[COERCE:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE1:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE2:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE3:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE4:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE5:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE1:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE2:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE3:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE4:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE5:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
 // COMPAT_17-NEXT:    [[COERCE6:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
 // COMPAT_17-NEXT:    [[COERCE7:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
 // COMPAT_17-NEXT:    [[COERCE8:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
@@ -639,12 +639,12 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // COMPAT_17-NEXT:    [[COERCE21:%.*]] = alloca { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> }, align 16
 // COMPAT_17-NEXT:    [[COERCE22:%.*]] = alloca { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> }, align 16
 // COMPAT_17-NEXT:    [[COERCE23:%.*]] = alloca { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> }, align 16
-// COMPAT_17-NEXT:    [[COERCE24:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE25:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE26:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE27:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE28:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    [[COERCE29:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE24:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE25:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE26:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE27:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE28:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// COMPAT_17-NEXT:    [[COERCE29:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
 // COMPAT_17-NEXT:    [[COERCE30:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
 // COMPAT_17-NEXT:    [[COERCE31:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
 // COMPAT_17-NEXT:    [[COERCE32:%.*]] = alloca { <vscale x 8 x i16>, <vscale x 8 x i16>, <vscale x 8 x i16> }, align 16
@@ -697,12 +697,12 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // COMPAT_17-NEXT:    [[COERCE78:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
 // COMPAT_17-NEXT:    [[COERCE79:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
 // COMPAT_17-NEXT:    [[COERCE80:%.*]] = alloca { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, align 16
-// COMPAT_17-NEXT:    call void @_Z1fu10__SVInt8_tu10__SVInt8_t(<vscale x 16 x i8> zeroinitializer, <vscale x 16 x i8> zeroinitializer)
+// COMPAT_17-NEXT:    call void @_Z1fu10__SVInt8_tu10__SVInt8_t(<vscale x 16 x b8> zeroinitializer, <vscale x 16 x b8> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu11__SVInt16_tu11__SVInt16_t(<vscale x 8 x i16> zeroinitializer, <vscale x 8 x i16> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu11__SVInt16_tu11__SVInt16_t(<vscale x 8 x i16> zeroinitializer, <vscale x 8 x i16> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu11__SVInt32_tu11__SVInt32_t(<vscale x 4 x i32> zeroinitializer, <vscale x 4 x i32> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu11__SVInt64_tu11__SVInt64_t(<vscale x 2 x i64> zeroinitializer, <vscale x 2 x i64> zeroinitializer)
-// COMPAT_17-NEXT:    call void @_Z1fu11__SVUint8_tu11__SVUint8_t(<vscale x 16 x i8> zeroinitializer, <vscale x 16 x i8> zeroinitializer)
+// COMPAT_17-NEXT:    call void @_Z1fu11__SVUint8_tu11__SVUint8_t(<vscale x 16 x b8> zeroinitializer, <vscale x 16 x b8> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu12__SVUint16_tu12__SVUint16_t(<vscale x 8 x i16> zeroinitializer, <vscale x 8 x i16> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu12__SVUint32_tu12__SVUint32_t(<vscale x 4 x i32> zeroinitializer, <vscale x 4 x i32> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu12__SVUint64_tu12__SVUint64_t(<vscale x 2 x i64> zeroinitializer, <vscale x 2 x i64> zeroinitializer)
@@ -713,39 +713,39 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // COMPAT_17-NEXT:    call void @_Z1fu14__SVBFloat16_tu14__SVBFloat16_t(<vscale x 8 x bfloat> zeroinitializer, <vscale x 8 x bfloat> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu10__SVBool_tu10__SVBool_t(<vscale x 16 x i1> zeroinitializer, <vscale x 16 x i1> zeroinitializer)
 // COMPAT_17-NEXT:    call void @_Z1fu11__SVCount_tu11__SVCount_t(target("aarch64.svcount") zeroinitializer, target("aarch64.svcount") zeroinitializer)
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE]], align 16
-// COMPAT_17-NEXT:    [[COERCE_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE]], align 16
-// COMPAT_17-NEXT:    [[COERCE_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE_TUPLE]], 1
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE1]], align 16
-// COMPAT_17-NEXT:    [[COERCE1_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE1]], align 16
-// COMPAT_17-NEXT:    [[COERCE1_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE1_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE1_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE1_TUPLE]], 1
-// COMPAT_17-NEXT:    call void @_Z1f10svint8x2_t10svint8x2_t(<vscale x 16 x i8> [[COERCE_EXTRACT0]], <vscale x 16 x i8> [[COERCE_EXTRACT1]], <vscale x 16 x i8> [[COERCE1_EXTRACT0]], <vscale x 16 x i8> [[COERCE1_EXTRACT1]])
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE2]], align 16
-// COMPAT_17-NEXT:    [[COERCE2_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE2]], align 16
-// COMPAT_17-NEXT:    [[COERCE2_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE2_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE2_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE2_TUPLE]], 1
-// COMPAT_17-NEXT:    [[COERCE2_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE2_TUPLE]], 2
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE3]], align 16
-// COMPAT_17-NEXT:    [[COERCE3_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE3]], align 16
-// COMPAT_17-NEXT:    [[COERCE3_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE3_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE3_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE3_TUPLE]], 1
-// COMPAT_17-NEXT:    [[COERCE3_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE3_TUPLE]], 2
-// COMPAT_17-NEXT:    call void @_Z1f10svint8x3_t10svint8x3_t(<vscale x 16 x i8> [[COERCE2_EXTRACT0]], <vscale x 16 x i8> [[COERCE2_EXTRACT1]], <vscale x 16 x i8> [[COERCE2_EXTRACT2]], <vscale x 16 x i8> [[COERCE3_EXTRACT0]], <vscale x 16 x i8> [[COERCE3_EXTRACT1]], <vscale x 16 x i8> [[COERCE3_EXTRACT2]])
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE4]], align 16
-// COMPAT_17-NEXT:    [[COERCE4_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE4]], align 16
-// COMPAT_17-NEXT:    [[COERCE4_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE4_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE4_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE4_TUPLE]], 1
-// COMPAT_17-NEXT:    [[COERCE4_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE4_TUPLE]], 2
-// COMPAT_17-NEXT:    [[COERCE4_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE4_TUPLE]], 3
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE5]], align 16
-// COMPAT_17-NEXT:    [[COERCE5_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE5]], align 16
-// COMPAT_17-NEXT:    [[COERCE5_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE5_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE5_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE5_TUPLE]], 1
-// COMPAT_17-NEXT:    [[COERCE5_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE5_TUPLE]], 2
-// COMPAT_17-NEXT:    [[COERCE5_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE5_TUPLE]], 3
-// COMPAT_17-NEXT:    call void @_Z1f10svint8x4_t10svint8x4_t(<vscale x 16 x i8> [[COERCE4_EXTRACT0]], <vscale x 16 x i8> [[COERCE4_EXTRACT1]], <vscale x 16 x i8> [[COERCE4_EXTRACT2]], <vscale x 16 x i8> [[COERCE4_EXTRACT3]], <vscale x 16 x i8> [[COERCE5_EXTRACT0]], <vscale x 16 x i8> [[COERCE5_EXTRACT1]], <vscale x 16 x i8> [[COERCE5_EXTRACT2]], <vscale x 16 x i8> [[COERCE5_EXTRACT3]])
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE]], align 16
+// COMPAT_17-NEXT:    [[COERCE_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE]], align 16
+// COMPAT_17-NEXT:    [[COERCE_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE_TUPLE]], 1
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE1]], align 16
+// COMPAT_17-NEXT:    [[COERCE1_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE1]], align 16
+// COMPAT_17-NEXT:    [[COERCE1_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE1_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE1_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE1_TUPLE]], 1
+// COMPAT_17-NEXT:    call void @_Z1f10svint8x2_t10svint8x2_t(<vscale x 16 x b8> [[COERCE_EXTRACT0]], <vscale x 16 x b8> [[COERCE_EXTRACT1]], <vscale x 16 x b8> [[COERCE1_EXTRACT0]], <vscale x 16 x b8> [[COERCE1_EXTRACT1]])
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE2]], align 16
+// COMPAT_17-NEXT:    [[COERCE2_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE2]], align 16
+// COMPAT_17-NEXT:    [[COERCE2_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE2_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE2_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE2_TUPLE]], 1
+// COMPAT_17-NEXT:    [[COERCE2_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE2_TUPLE]], 2
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE3]], align 16
+// COMPAT_17-NEXT:    [[COERCE3_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE3]], align 16
+// COMPAT_17-NEXT:    [[COERCE3_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE3_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE3_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE3_TUPLE]], 1
+// COMPAT_17-NEXT:    [[COERCE3_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE3_TUPLE]], 2
+// COMPAT_17-NEXT:    call void @_Z1f10svint8x3_t10svint8x3_t(<vscale x 16 x b8> [[COERCE2_EXTRACT0]], <vscale x 16 x b8> [[COERCE2_EXTRACT1]], <vscale x 16 x b8> [[COERCE2_EXTRACT2]], <vscale x 16 x b8> [[COERCE3_EXTRACT0]], <vscale x 16 x b8> [[COERCE3_EXTRACT1]], <vscale x 16 x b8> [[COERCE3_EXTRACT2]])
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE4]], align 16
+// COMPAT_17-NEXT:    [[COERCE4_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE4]], align 16
+// COMPAT_17-NEXT:    [[COERCE4_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE4_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE4_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE4_TUPLE]], 1
+// COMPAT_17-NEXT:    [[COERCE4_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE4_TUPLE]], 2
+// COMPAT_17-NEXT:    [[COERCE4_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE4_TUPLE]], 3
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE5]], align 16
+// COMPAT_17-NEXT:    [[COERCE5_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE5]], align 16
+// COMPAT_17-NEXT:    [[COERCE5_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE5_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE5_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE5_TUPLE]], 1
+// COMPAT_17-NEXT:    [[COERCE5_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE5_TUPLE]], 2
+// COMPAT_17-NEXT:    [[COERCE5_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE5_TUPLE]], 3
+// COMPAT_17-NEXT:    call void @_Z1f10svint8x4_t10svint8x4_t(<vscale x 16 x b8> [[COERCE4_EXTRACT0]], <vscale x 16 x b8> [[COERCE4_EXTRACT1]], <vscale x 16 x b8> [[COERCE4_EXTRACT2]], <vscale x 16 x b8> [[COERCE4_EXTRACT3]], <vscale x 16 x b8> [[COERCE5_EXTRACT0]], <vscale x 16 x b8> [[COERCE5_EXTRACT1]], <vscale x 16 x b8> [[COERCE5_EXTRACT2]], <vscale x 16 x b8> [[COERCE5_EXTRACT3]])
 // COMPAT_17-NEXT:    store { <vscale x 8 x i16>, <vscale x 8 x i16> } zeroinitializer, ptr [[COERCE6]], align 16
 // COMPAT_17-NEXT:    [[COERCE6_TUPLE:%.*]] = load { <vscale x 8 x i16>, <vscale x 8 x i16> }, ptr [[COERCE6]], align 16
 // COMPAT_17-NEXT:    [[COERCE6_EXTRACT0:%.*]] = extractvalue { <vscale x 8 x i16>, <vscale x 8 x i16> } [[COERCE6_TUPLE]], 0
@@ -845,39 +845,39 @@ void f(__clang_svmfloat8x4_t, __clang_svmfloat8x4_t);
 // COMPAT_17-NEXT:    [[COERCE23_EXTRACT2:%.*]] = extractvalue { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> } [[COERCE23_TUPLE]], 2
 // COMPAT_17-NEXT:    [[COERCE23_EXTRACT3:%.*]] = extractvalue { <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64>, <vscale x 2 x i64> } [[COERCE23_TUPLE]], 3
 // COMPAT_17-NEXT:    call void @_Z1f11svint64x4_t11svint64x4_t(<vscale x 2 x i64> [[COERCE22_EXTRACT0]], <vscale x 2 x i64> [[COERCE22_EXTRACT1]], <vscale x 2 x i64> [[COERCE22_EXTRACT2]], <vscale x 2 x i64> [[COERCE22_EXTRACT3]], <vscale x 2 x i64> [[COERCE23_EXTRACT0]], <vscale x 2 x i64> [[COERCE23_EXTRACT1]], <vscale x 2 x i64> [[COERCE23_EXTRACT2]], <vscale x 2 x i64> [[COERCE23_EXTRACT3]])
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE24]], align 16
-// COMPAT_17-NEXT:    [[COERCE24_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE24]], align 16
-// COMPAT_17-NEXT:    [[COERCE24_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE24_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE24_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE24_TUPLE]], 1
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE25]], align 16
-// COMPAT_17-NEXT:    [[COERCE25_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE25]], align 16
-// COMPAT_17-NEXT:    [[COERCE25_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE25_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE25_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE25_TUPLE]], 1
-// COMPAT_17-NEXT:    call void @_Z1f11svuint8x2_t11svuint8x2_t(<vscale x 16 x i8> [[COERCE24_EXTRACT0]], <vscale x 16 x i8> [[COERCE24_EXTRACT1]], <vscale x 16 x i8> [[COERCE25_EXTRACT0]], <vscale x 16 x i8> [[COERCE25_EXTRACT1]])
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE26]], align 16
-// COMPAT_17-NEXT:    [[COERCE26_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE26]], align 16
-// COMPAT_17-NEXT:    [[COERCE26_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE26_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE26_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE26_TUPLE]], 1
-// COMPAT_17-NEXT:    [[COERCE26_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE26_TUPLE]], 2
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE27]], align 16
-// COMPAT_17-NEXT:    [[COERCE27_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE27]], align 16
-// COMPAT_17-NEXT:    [[COERCE27_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE27_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE27_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE27_TUPLE]], 1
-// COMPAT_17-NEXT:    [[COERCE27_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE27_TUPLE]], 2
-// COMPAT_17-NEXT:    call void @_Z1f11svuint8x3_t11svuint8x3_t(<vscale x 16 x i8> [[COERCE26_EXTRACT0]], <vscale x 16 x i8> [[COERCE26_EXTRACT1]], <vscale x 16 x i8> [[COERCE26_EXTRACT2]], <vscale x 16 x i8> [[COERCE27_EXTRACT0]], <vscale x 16 x i8> [[COERCE27_EXTRACT1]], <vscale x 16 x i8> [[COERCE27_EXTRACT2]])
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE28]], align 16
-// COMPAT_17-NEXT:    [[COERCE28_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE28]], align 16
-// COMPAT_17-NEXT:    [[COERCE28_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE28_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE28_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE28_TUPLE]], 1
-// COMPAT_17-NEXT:    [[COERCE28_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE28_TUPLE]], 2
-// COMPAT_17-NEXT:    [[COERCE28_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE28_TUPLE]], 3
-// COMPAT_17-NEXT:    store { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } zeroinitializer, ptr [[COERCE29]], align 16
-// COMPAT_17-NEXT:    [[COERCE29_TUPLE:%.*]] = load { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> }, ptr [[COERCE29]], align 16
-// COMPAT_17-NEXT:    [[COERCE29_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE29_TUPLE]], 0
-// COMPAT_17-NEXT:    [[COERCE29_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE29_TUPLE]], 1
-// COMPAT_17-NEXT:    [[COERCE29_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE29_TUPLE]], 2
-// COMPAT_17-NEXT:    [[COERCE29_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[COERCE29_TUPLE]], 3
-// COMPAT_17-NEXT:    call void @_Z1f11svuint8x4_t11svuint8x4_t(<vscale x 16 x i8> [[COERCE28_EXTRACT0]], <vscale x 16 x i8> [[COERCE28_EXTRACT1]], <vscale x 16 x i8> [[COERCE28_EXTRACT2]], <vscale x 16 x i8> [[COERCE28_EXTRACT3]], <vscale x 16 x i8> [[COERCE29_EXTRACT0]], <vscale x 16 x i8> [[COERCE29_EXTRACT1]], <vscale x 16 x i8> [[COERCE29_EXTRACT2]], <vscale x 16 x i8> [[COERCE29_EXTRACT3]])
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE24]], align 16
+// COMPAT_17-NEXT:    [[COERCE24_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE24]], align 16
+// COMPAT_17-NEXT:    [[COERCE24_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE24_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE24_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE24_TUPLE]], 1
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE25]], align 16
+// COMPAT_17-NEXT:    [[COERCE25_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE25]], align 16
+// COMPAT_17-NEXT:    [[COERCE25_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE25_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE25_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE25_TUPLE]], 1
+// COMPAT_17-NEXT:    call void @_Z1f11svuint8x2_t11svuint8x2_t(<vscale x 16 x b8> [[COERCE24_EXTRACT0]], <vscale x 16 x b8> [[COERCE24_EXTRACT1]], <vscale x 16 x b8> [[COERCE25_EXTRACT0]], <vscale x 16 x b8> [[COERCE25_EXTRACT1]])
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE26]], align 16
+// COMPAT_17-NEXT:    [[COERCE26_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE26]], align 16
+// COMPAT_17-NEXT:    [[COERCE26_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE26_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE26_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE26_TUPLE]], 1
+// COMPAT_17-NEXT:    [[COERCE26_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE26_TUPLE]], 2
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE27]], align 16
+// COMPAT_17-NEXT:    [[COERCE27_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE27]], align 16
+// COMPAT_17-NEXT:    [[COERCE27_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE27_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE27_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE27_TUPLE]], 1
+// COMPAT_17-NEXT:    [[COERCE27_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE27_TUPLE]], 2
+// COMPAT_17-NEXT:    call void @_Z1f11svuint8x3_t11svuint8x3_t(<vscale x 16 x b8> [[COERCE26_EXTRACT0]], <vscale x 16 x b8> [[COERCE26_EXTRACT1]], <vscale x 16 x b8> [[COERCE26_EXTRACT2]], <vscale x 16 x b8> [[COERCE27_EXTRACT0]], <vscale x 16 x b8> [[COERCE27_EXTRACT1]], <vscale x 16 x b8> [[COERCE27_EXTRACT2]])
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE28]], align 16
+// COMPAT_17-NEXT:    [[COERCE28_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE28]], align 16
+// COMPAT_17-NEXT:    [[COERCE28_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE28_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE28_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE28_TUPLE]], 1
+// COMPAT_17-NEXT:    [[COERCE28_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE28_TUPLE]], 2
+// COMPAT_17-NEXT:    [[COERCE28_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE28_TUPLE]], 3
+// COMPAT_17-NEXT:    store { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } zeroinitializer, ptr [[COERCE29]], align 16
+// COMPAT_17-NEXT:    [[COERCE29_TUPLE:%.*]] = load { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, ptr [[COERCE29]], align 16
+// COMPAT_17-NEXT:    [[COERCE29_EXTRACT0:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE29_TUPLE]], 0
+// COMPAT_17-NEXT:    [[COERCE29_EXTRACT1:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE29_TUPLE]], 1
+// COMPAT_17-NEXT:    [[COERCE29_EXTRACT2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE29_TUPLE]], 2
+// COMPAT_17-NEXT:    [[COERCE29_EXTRACT3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[COERCE29_TUPLE]], 3
+// COMPAT_17-NEXT:    call void @_Z1f11svuint8x4_t11svuint8x4_t(<vscale x 16 x b8> [[COERCE28_EXTRACT0]], <vscale x 16 x b8> [[COERCE28_EXTRACT1]], <vscale x 16 x b8> [[COERCE28_EXTRACT2]], <vscale x 16 x b8> [[COERCE28_EXTRACT3]], <vscale x 16 x b8> [[COERCE29_EXTRACT0]], <vscale x 16 x b8> [[COERCE29_EXTRACT1]], <vscale x 16 x b8> [[COERCE29_EXTRACT2]], <vscale x 16 x b8> [[COERCE29_EXTRACT3]])
 // COMPAT_17-NEXT:    store { <vscale x 8 x i16>, <vscale x 8 x i16> } zeroinitializer, ptr [[COERCE30]], align 16
 // COMPAT_17-NEXT:    [[COERCE30_TUPLE:%.*]] = load { <vscale x 8 x i16>, <vscale x 8 x i16> }, ptr [[COERCE30]], align 16
 // COMPAT_17-NEXT:    [[COERCE30_EXTRACT0:%.*]] = extractvalue { <vscale x 8 x i16>, <vscale x 8 x i16> } [[COERCE30_TUPLE]], 0

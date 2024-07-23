@@ -78,14 +78,14 @@ uint16_t g2(Enum16 *E, uint16_t *val) {
 }
 
 uint8_t g3(Enum8 *E, uint8_t *val) {
-// CHECK-LABEL: define{{.*}} i8 @g3(
+// CHECK-LABEL: define{{.*}} b8 @g3(
 // CHECK: store i8 5, ptr %{{.*}}, align 1, !tbaa [[TAG_i8:!.*]]
 // CHECK: store i8 0, ptr %{{.*}}, align 1, !tbaa [[TAG_i8]]
-// CHECK: load i8, ptr %{{.*}}, align 1, !tbaa [[TAG_i8]]
-// PATH-LABEL: define{{.*}} i8 @g3(
+// CHECK: load b8, ptr %{{.*}}, align 1, !tbaa [[TAG_i8]]
+// PATH-LABEL: define{{.*}} b8 @g3(
 // PATH: store i8 5, ptr %{{.*}}, align 1, !tbaa [[TAG_i8:!.*]]
 // PATH: store i8 0, ptr %{{.*}}, align 1, !tbaa [[TAG_i8]]
-// PATH: load i8, ptr %{{.*}}, align 1, !tbaa [[TAG_i8]]
+// PATH: load b8, ptr %{{.*}}, align 1, !tbaa [[TAG_i8]]
   *val = 5;
   *E = RED_8;
   return *val;

@@ -81,21 +81,21 @@ __m128i test_mm_cmpeq_epi64(__m128i A, __m128i B) {
 
 __m128i test_mm_cvtepi8_epi16(__m128i a) {
   // CHECK-LABEL: test_mm_cvtepi8_epi16
-  // CHECK: shufflevector <16 x i8> {{.*}}, <16 x i8> {{.*}}, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
+  // CHECK: shufflevector <16 x b8> {{.*}}, <16 x b8> {{.*}}, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
   // CHECK: sext <8 x i8> {{.*}} to <8 x i16>
   return _mm_cvtepi8_epi16(a);
 }
 
 __m128i test_mm_cvtepi8_epi32(__m128i a) {
   // CHECK-LABEL: test_mm_cvtepi8_epi32
-  // CHECK: shufflevector <16 x i8> {{.*}}, <16 x i8> {{.*}}, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
+  // CHECK: shufflevector <16 x b8> {{.*}}, <16 x b8> {{.*}}, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
   // CHECK: sext <4 x i8> {{.*}} to <4 x i32>
   return _mm_cvtepi8_epi32(a);
 }
 
 __m128i test_mm_cvtepi8_epi64(__m128i a) {
   // CHECK-LABEL: test_mm_cvtepi8_epi64
-  // CHECK: shufflevector <16 x i8> {{.*}}, <16 x i8> {{.*}}, <2 x i32> <i32 0, i32 1>
+  // CHECK: shufflevector <16 x b8> {{.*}}, <16 x b8> {{.*}}, <2 x i32> <i32 0, i32 1>
   // CHECK: sext <2 x i8> {{.*}} to <2 x i64>
   return _mm_cvtepi8_epi64(a);
 }
@@ -123,21 +123,21 @@ __m128i test_mm_cvtepi32_epi64(__m128i a) {
 
 __m128i test_mm_cvtepu8_epi16(__m128i a) {
   // CHECK-LABEL: test_mm_cvtepu8_epi16
-  // CHECK: shufflevector <16 x i8> {{.*}}, <16 x i8> {{.*}}, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
+  // CHECK: shufflevector <16 x b8> {{.*}}, <16 x b8> {{.*}}, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
   // CHECK: zext <8 x i8> {{.*}} to <8 x i16>
   return _mm_cvtepu8_epi16(a);
 }
 
 __m128i test_mm_cvtepu8_epi32(__m128i a) {
   // CHECK-LABEL: test_mm_cvtepu8_epi32
-  // CHECK: shufflevector <16 x i8> {{.*}}, <16 x i8> {{.*}}, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
+  // CHECK: shufflevector <16 x b8> {{.*}}, <16 x b8> {{.*}}, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
   // CHECK: zext <4 x i8> {{.*}} to <4 x i32>
   return _mm_cvtepu8_epi32(a);
 }
 
 __m128i test_mm_cvtepu8_epi64(__m128i a) {
   // CHECK-LABEL: test_mm_cvtepu8_epi64
-  // CHECK: shufflevector <16 x i8> {{.*}}, <16 x i8> {{.*}}, <2 x i32> <i32 0, i32 1>
+  // CHECK: shufflevector <16 x b8> {{.*}}, <16 x b8> {{.*}}, <2 x i32> <i32 0, i32 1>
   // CHECK: zext <2 x i8> {{.*}} to <2 x i64>
   return _mm_cvtepu8_epi64(a);
 }
@@ -177,7 +177,7 @@ __m128 test_mm_dp_ps(__m128 x, __m128 y) {
 
 int test_mm_extract_epi8(__m128i x) {
   // CHECK-LABEL: test_mm_extract_epi8
-  // CHECK: extractelement <16 x i8> %{{.*}}, {{i32|i64}} 1
+  // CHECK: extractelement <16 x b8> %{{.*}}, {{i32|i64}} 1
   // CHECK: zext i8 %{{.*}} to i32
   return _mm_extract_epi8(x, 1);
 }
@@ -226,7 +226,7 @@ __m128 test_mm_floor_ss(__m128 x, __m128 y) {
 
 __m128i test_mm_insert_epi8(__m128i x, char b) {
   // CHECK-LABEL: test_mm_insert_epi8
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, {{i32|i64}} 1
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, {{i32|i64}} 1
   return _mm_insert_epi8(x, b, 1);
 }
 

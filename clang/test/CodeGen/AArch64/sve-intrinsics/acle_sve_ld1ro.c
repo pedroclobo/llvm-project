@@ -32,13 +32,19 @@ svmfloat8_t test_svld1ro_mf8(svbool_t pg, mfloat8_t const *base) {
 
 // CHECK-LABEL: @test_svld1ro_s8(
 // CHECK-NEXT:  entry:
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.ld1ro.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], ptr [[BASE:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[TMP0]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z15test_svld1ro_s8u10__SVBool_tPKa(
 // CPP-CHECK-NEXT:  entry:
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.ld1ro.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], ptr [[BASE:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[TMP0]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 svint8_t test_svld1ro_s8(svbool_t pg, const int8_t *base) {
   return SVE_ACLE_FUNC(svld1ro, _s8, , )(pg, base);
@@ -94,13 +100,19 @@ svint64_t test_svld1ro_s64(svbool_t pg, const int64_t *base) {
 
 // CHECK-LABEL: @test_svld1ro_u8(
 // CHECK-NEXT:  entry:
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.ld1ro.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], ptr [[BASE:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[TMP0]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z15test_svld1ro_u8u10__SVBool_tPKh(
 // CPP-CHECK-NEXT:  entry:
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.ld1ro.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], ptr [[BASE:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[TMP0]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 svuint8_t test_svld1ro_u8(svbool_t pg, const uint8_t *base) {
   return SVE_ACLE_FUNC(svld1ro, _u8, , )(pg, base);

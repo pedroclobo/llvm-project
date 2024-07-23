@@ -53,10 +53,10 @@ struct ReallyBig F6 (int P0, int P1, int P2, char P3, float P4, double P5) {
 
 // Complex and BitInt. Special cases for sret.
 // CHECK-NOT: alloca
-// CHECK-ARM: musttail call arm_aapcscc void @_Z2F4iiicfd(ptr dead_on_unwind writable sret(%struct.ReallyBig) align 4 %agg.result, i32 noundef %P0, i32 noundef %P1, i32 noundef %P2, i8 noundef signext %P3, float noundef %P4, double noundef %P5)
-// CHECK-ARM64: musttail call void @_Z2F4iiicfd(ptr dead_on_unwind writable sret(%struct.ReallyBig) align 4 %agg.result, i32 noundef %P0, i32 noundef %P1, i32 noundef %P2, i8 noundef %P3, float noundef %P4, double noundef %P5)
-// CHECK-X86: musttail call void @_Z2F4iiicfd(ptr dead_on_unwind writable sret(%struct.ReallyBig) align 4 %agg.result, i32 noundef %P0, i32 noundef %P1, i32 noundef %P2, i8 noundef signext %P3, float noundef %P4, double noundef %P5)
-// CHECK-X64: musttail call void @_Z2F4iiicfd(ptr dead_on_unwind writable sret(%struct.ReallyBig) align 4 %agg.result, i32 noundef %P0, i32 noundef %P1, i32 noundef %P2, i8 noundef signext %P3, float noundef %P4, double noundef %P5)
+// CHECK-ARM: musttail call arm_aapcscc void @_Z2F4iiicfd(ptr dead_on_unwind writable sret(%struct.ReallyBig) align 4 %agg.result, i32 noundef %P0, i32 noundef %P1, i32 noundef %P2, b8 noundef signext %P3, float noundef %P4, double noundef %P5)
+// CHECK-ARM64: musttail call void @_Z2F4iiicfd(ptr dead_on_unwind writable sret(%struct.ReallyBig) align 4 %agg.result, i32 noundef %P0, i32 noundef %P1, i32 noundef %P2, b8 noundef %P3, float noundef %P4, double noundef %P5)
+// CHECK-X86: musttail call void @_Z2F4iiicfd(ptr dead_on_unwind writable sret(%struct.ReallyBig) align 4 %agg.result, i32 noundef %P0, i32 noundef %P1, i32 noundef %P2, b8 noundef signext %P3, float noundef %P4, double noundef %P5)
+// CHECK-X64: musttail call void @_Z2F4iiicfd(ptr dead_on_unwind writable sret(%struct.ReallyBig) align 4 %agg.result, i32 noundef %P0, i32 noundef %P1, i32 noundef %P2, b8 noundef signext %P3, float noundef %P4, double noundef %P5)
 
 double _Complex F7(signed short P0);
 
@@ -68,7 +68,7 @@ double _Complex F8(signed short P0) {
 // CHECK-NOT: alloca
 // CHECK-ARM: musttail call arm_aapcscc void @_Z2F7s(ptr dead_on_unwind writable sret({ double, double }) align 8 %agg.result, i16 noundef signext 20391)
 // CHECK-ARM64: musttail call noundef { double, double } @_Z2F7s(i16 noundef 20391)
-// CHECK-X86: musttail call void @_Z2F7s(ptr dead_on_unwind writable sret({ double, double }) align 4 %agg.result, i16 noundef signext 20391) 
+// CHECK-X86: musttail call void @_Z2F7s(ptr dead_on_unwind writable sret({ double, double }) align 4 %agg.result, i16 noundef signext 20391)
 // CHECK-X64: musttail call noundef { double, double } @_Z2F7s(i16 noundef signext 20391)
 
 signed _BitInt(100) F9(float P0, float P1, double P2, char P3);
@@ -78,7 +78,7 @@ signed _BitInt(100) F10(float P0, float P1, double P2, char P3) {
 }
 
 // CHECK-NOT: alloca
-// CHECK-ARM: musttail call arm_aapcscc void @_Z2F9ffdc(ptr dead_on_unwind writable sret(i128) align 8 %agg.result, float noundef %P0, float noundef %P1, double noundef %P2, i8 noundef signext %P3)
-// CHECK-ARM64: musttail call noundef i100 @_Z2F9ffdc(float noundef %P0, float noundef %P1, double noundef %P2, i8 noundef %P3)
-// CHECK-X86: musttail call void @_Z2F9ffdc(ptr dead_on_unwind writable sret(i128) align 4 %agg.result, float noundef %P0, float noundef %P1, double noundef %P2, i8 noundef signext %P3)
-// CHECK-X64: musttail call noundef { i64, i64 } @_Z2F9ffdc(float noundef %P0, float noundef %P1, double noundef %P2, i8 noundef signext %P3)
+// CHECK-ARM: musttail call arm_aapcscc void @_Z2F9ffdc(ptr dead_on_unwind writable sret(i128) align 8 %agg.result, float noundef %P0, float noundef %P1, double noundef %P2, b8 noundef signext %P3)
+// CHECK-ARM64: musttail call noundef i100 @_Z2F9ffdc(float noundef %P0, float noundef %P1, double noundef %P2, b8 noundef %P3)
+// CHECK-X86: musttail call void @_Z2F9ffdc(ptr dead_on_unwind writable sret(i128) align 4 %agg.result, float noundef %P0, float noundef %P1, double noundef %P2, b8 noundef signext %P3)
+// CHECK-X64: musttail call noundef { i64, i64 } @_Z2F9ffdc(float noundef %P0, float noundef %P1, double noundef %P2, b8 noundef signext %P3)

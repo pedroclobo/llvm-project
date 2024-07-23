@@ -17,13 +17,17 @@
 
 // CHECK-LABEL: @test_svmmla_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.smmla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[Y:%.*]], <vscale x 16 x i8> [[Z:%.*]])
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[Y:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[Z:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.smmla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z15test_svmmla_s32u11__SVInt32_tu10__SVInt8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.smmla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[Y:%.*]], <vscale x 16 x i8> [[Z:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[Y:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[Z:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.smmla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svint32_t test_svmmla_s32(svint32_t x, svint8_t y, svint8_t z) {
   return SVE_ACLE_FUNC(svmmla,_s32,,)(x, y, z);
@@ -31,13 +35,17 @@ svint32_t test_svmmla_s32(svint32_t x, svint8_t y, svint8_t z) {
 
 // CHECK-LABEL: @test_svmmla_u32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.ummla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[Y:%.*]], <vscale x 16 x i8> [[Z:%.*]])
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[Y:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[Z:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.ummla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z15test_svmmla_u32u12__SVUint32_tu11__SVUint8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.ummla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[Y:%.*]], <vscale x 16 x i8> [[Z:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[Y:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[Z:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.ummla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svuint32_t test_svmmla_u32(svuint32_t x, svuint8_t y, svuint8_t z) {
   return SVE_ACLE_FUNC(svmmla,_u32,,)(x, y, z);
@@ -45,13 +53,17 @@ svuint32_t test_svmmla_u32(svuint32_t x, svuint8_t y, svuint8_t z) {
 
 // CHECK-LABEL: @test_svusmmla_s32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.usmmla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[Y:%.*]], <vscale x 16 x i8> [[Z:%.*]])
-// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[Y:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[Z:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.usmmla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z17test_svusmmla_s32u11__SVInt32_tu11__SVUint8_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.usmmla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[Y:%.*]], <vscale x 16 x i8> [[Z:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[Y:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[Z:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.aarch64.sve.usmmla.nxv4i32(<vscale x 4 x i32> [[X:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP2]]
 //
 svint32_t test_svusmmla_s32(svint32_t x, svuint8_t y, svint8_t z) {
   return SVE_ACLE_FUNC(svusmmla,_s32,,)(x, y, z);

@@ -34,11 +34,11 @@ vector short int foo4(vector short int x) { return x; }
 // CHECK:    ret <8 x i16> %0
 // CHECK:  }
 vector char foo5(vector char x) { return x; }
-// CHECK:  define <16 x i8> @foo5(<16 x i8> noundef %x) [[ATTR]] {
+// CHECK:  define <16 x b8> @foo5(<16 x b8> noundef %x) [[ATTR]] {
 // CHECK:  entry:
-// CHECK:    %x.addr = alloca <16 x i8>, align 16
-// CHECK:    store <16 x i8> %x, ptr %x.addr, align 16
-// CHECK:    %0 = load <16 x i8>, ptr %x.addr, align 16
-// CHECK:    ret <16 x i8> %0
+// CHECK:    %x.addr = alloca <16 x b8>, align 16
+// CHECK:    store <16 x b8> %x, ptr %x.addr, align 16
+// CHECK:    %0 = load <16 x b8>, ptr %x.addr, align 16
+// CHECK:    ret <16 x b8> %0
 // CHECK:  }
 

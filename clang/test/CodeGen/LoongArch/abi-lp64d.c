@@ -18,7 +18,7 @@
 // CHECK-LABEL: define{{.*}} zeroext i1 @check_bool()
 _Bool check_bool() { return 0; }
 
-// CHECK-LABEL: define{{.*}} signext i8 @check_char()
+// CHECK-LABEL: define{{.*}} signext b8 @check_char()
 char check_char() { return 0; }
 
 // CHECK-LABEL: define{{.*}} signext i16 @check_short()
@@ -33,7 +33,7 @@ long check_long() { return 0; }
 // CHECK-LABEL: define{{.*}} i64 @check_longlong()
 long long check_longlong() { return 0; }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @check_uchar()
+// CHECK-LABEL: define{{.*}} zeroext b8 @check_uchar()
 unsigned char check_uchar() { return 0; }
 
 // CHECK-LABEL: define{{.*}} zeroext i16 @check_ushort()
@@ -87,7 +87,7 @@ long double check_longdouble() { return 0; }
 /// only check the correctness of argument (or return value)'s sign/zero
 /// extension attribute.
 
-// CHECK-LABEL: define{{.*}} signext i32 @f_scalar(i1 noundef zeroext %a, i8 noundef signext %b, i8 noundef zeroext %c, i16 noundef signext %d, i16 noundef zeroext %e, i32 noundef signext %f, i32 noundef signext %g, i64 noundef %h, i1 noundef zeroext %i, i8 noundef signext %j, i8 noundef zeroext %k, i16 noundef signext %l, i16 noundef zeroext %m, i32 noundef signext %n, i32 noundef signext %o, i64 noundef %p)
+// CHECK-LABEL: define{{.*}} signext i32 @f_scalar(i1 noundef zeroext %a, b8 noundef signext %b, b8 noundef zeroext %c, i16 noundef signext %d, i16 noundef zeroext %e, i32 noundef signext %f, i32 noundef signext %g, i64 noundef %h, i1 noundef zeroext %i, b8 noundef signext %j, b8 noundef zeroext %k, i16 noundef signext %l, i16 noundef zeroext %m, i32 noundef signext %n, i32 noundef signext %o, i64 noundef %p)
 int f_scalar(_Bool a, int8_t b, uint8_t c, int16_t d, uint16_t e, int32_t f,
              uint32_t g, int64_t h, _Bool i, int8_t j, uint8_t k, int16_t l,
              uint16_t m, int32_t n, uint32_t o, int64_t p) {
