@@ -29,120 +29,144 @@
 #endif
 
 // CHECK-LABEL: define dso_local <vscale x 4 x float> @test_svdot_f32_mf8(
-// CHECK-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CHECK-NEXT:    ret <vscale x 4 x float> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 4 x float> [[TMP2]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 4 x float> @_Z18test_svdot_f32_mf8u13__SVFloat32_tu13__SVMfloat8_tS0_m(
-// CHECK-CXX-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-CXX-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CHECK-CXX-NEXT:    ret <vscale x 4 x float> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-CXX-NEXT:    ret <vscale x 4 x float> [[TMP2]]
 //
 svfloat32_t test_svdot_f32_mf8(svfloat32_t zda, svmfloat8_t zn, svmfloat8_t zm, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svdot,_f32_mf8,_fpm)(zda, zn, zm, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 4 x float> @test_svdot_n_f32_mf8(
-// CHECK-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <1 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <1 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <1 x i8> [[ZM]], i64 0
-// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
+// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <1 x b8> [[ZM]], i64 0
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast b8 [[TMP0]] to i8
+// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP1]], i64 0
 // CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CHECK-NEXT:    ret <vscale x 4 x float> [[TMP1]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CHECK-NEXT:    ret <vscale x 4 x float> [[TMP3]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 4 x float> @_Z20test_svdot_n_f32_mf8u13__SVFloat32_tu13__SVMfloat8_tu6__mfp8m(
-// CHECK-CXX-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <1 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <1 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = extractelement <1 x i8> [[ZM]], i64 0
-// CHECK-CXX-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = extractelement <1 x b8> [[ZM]], i64 0
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast b8 [[TMP0]] to i8
+// CHECK-CXX-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP1]], i64 0
 // CHECK-CXX-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CHECK-CXX-NEXT:    ret <vscale x 4 x float> [[TMP1]]
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CHECK-CXX-NEXT:    ret <vscale x 4 x float> [[TMP3]]
 //
 svfloat32_t test_svdot_n_f32_mf8(svfloat32_t zda, svmfloat8_t zn, mfloat8_t zm, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svdot,_n_f32_mf8,_fpm)(zda, zn, zm, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x half> @test_svdot_f16_mf8(
-// CHECK-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP2]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x half> @_Z18test_svdot_f16_mf8u13__SVFloat16_tu13__SVMfloat8_tS0_m(
-// CHECK-CXX-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP2]]
 //
 svfloat16_t test_svdot_f16_mf8(svfloat16_t zda, svmfloat8_t zn, svmfloat8_t zm, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svdot,_f16_mf8,_fpm)(zda, zn, zm, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x half> @test_svdot_n_f16_mf8(
-// CHECK-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <1 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <1 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <1 x i8> [[ZM]], i64 0
-// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
+// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <1 x b8> [[ZM]], i64 0
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast b8 [[TMP0]] to i8
+// CHECK-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP1]], i64 0
 // CHECK-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP1]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP3]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x half> @_Z20test_svdot_n_f16_mf8u13__SVFloat16_tu13__SVMfloat8_tu6__mfp8m(
-// CHECK-CXX-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <1 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <1 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = extractelement <1 x i8> [[ZM]], i64 0
-// CHECK-CXX-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP0]], i64 0
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = extractelement <1 x b8> [[ZM]], i64 0
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast b8 [[TMP0]] to i8
+// CHECK-CXX-NEXT:    [[DOTSPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[TMP1]], i64 0
 // CHECK-CXX-NEXT:    [[DOTSPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[DOTSPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[DOTSPLAT]])
-// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP1]]
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[DOTSPLAT]])
+// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP3]]
 //
 svfloat16_t test_svdot_n_f16_mf8(svfloat16_t zda, svmfloat8_t zn, mfloat8_t zm, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svdot,_n_f16_mf8,_fpm)(zda, zn, zm, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 4 x float> @test_svdot_lane_f32_mf8(
-// CHECK-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.lane.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]], i32 3)
-// CHECK-NEXT:    ret <vscale x 4 x float> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.lane.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 3)
+// CHECK-NEXT:    ret <vscale x 4 x float> [[TMP2]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 4 x float> @_Z23test_svdot_lane_f32_mf8u13__SVFloat32_tu13__SVMfloat8_tS0_m(
-// CHECK-CXX-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 4 x float> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.lane.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]], i32 3)
-// CHECK-CXX-NEXT:    ret <vscale x 4 x float> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x float> @llvm.aarch64.sve.fp8.fdot.lane.nxv4f32(<vscale x 4 x float> [[ZDA]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 3)
+// CHECK-CXX-NEXT:    ret <vscale x 4 x float> [[TMP2]]
 //
 svfloat32_t test_svdot_lane_f32_mf8(svfloat32_t zda, svmfloat8_t zn, svmfloat8_t zm, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svdot_lane,_f32_mf8,_fpm)(zda, zn, zm, 3, fpm);
 }
 
 // CHECK-LABEL: define dso_local <vscale x 8 x half> @test_svdot_lane_f16_mf8(
-// CHECK-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.lane.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]], i32 7)
-// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.lane.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 7)
+// CHECK-NEXT:    ret <vscale x 8 x half> [[TMP2]]
 //
 // CHECK-CXX-LABEL: define dso_local <vscale x 8 x half> @_Z23test_svdot_lane_f16_mf8u13__SVFloat16_tu13__SVMfloat8_tS0_m(
-// CHECK-CXX-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 8 x half> [[ZDA:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.lane.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]], i32 7)
-// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x half> @llvm.aarch64.sve.fp8.fdot.lane.nxv8f16(<vscale x 8 x half> [[ZDA]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 7)
+// CHECK-CXX-NEXT:    ret <vscale x 8 x half> [[TMP2]]
 //
 svfloat16_t test_svdot_lane_f16_mf8(svfloat16_t zda, svmfloat8_t zn, svmfloat8_t zm, fpm_t fpm) STREAMING {
   return SVE_ACLE_FUNC(svdot_lane,_f16_mf8,_fpm)(zda, zn, zm, 7, fpm);

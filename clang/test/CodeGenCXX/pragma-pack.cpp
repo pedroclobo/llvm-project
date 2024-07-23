@@ -10,7 +10,7 @@ struct Sub : virtual Base {
   char c;
 };
 
-// CHECK: %struct.Sub = type <{ ptr, i8, %struct.Base }>
+// CHECK: %struct.Sub = type <{ ptr, b8, %struct.Base }>
 Sub f(Sub x) {
   return x;
 }

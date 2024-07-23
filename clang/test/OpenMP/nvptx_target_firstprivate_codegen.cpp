@@ -14,7 +14,7 @@ struct TT {
 };
 
 // TCHECK-DAG:  [[TTII:%.+]] = type { i32, i32 }
-// TCHECK-DAG:  [[TT:%.+]] = type { i64, i8 }
+// TCHECK-DAG:  [[TT:%.+]] = type { i64, b8 }
 // TCHECK-DAG:  [[S1:%.+]] = type { double }
 
 int foo(int n, double *ptr) {

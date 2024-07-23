@@ -16,13 +16,13 @@
 
 // CHECK-LABEL: @test_svset_neonq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> [[S:%.*]], <16 x i8> [[N:%.*]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> [[S:%.*]], <16 x b8> [[N:%.*]], i64 0)
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svset_neonq_s8u10__SVInt8_t11__Int8x16_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> [[S:%.*]], <16 x i8> [[N:%.*]], i64 0)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> [[S:%.*]], <16 x b8> [[N:%.*]], i64 0)
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 svint8_t test_svset_neonq_s8(svint8_t s, int8x16_t n) {
   return SVE_ACLE_FUNC(svset_neonq, _s8, , )(s, n);
@@ -72,13 +72,13 @@ svint64_t test_svset_neonq_s64(svint64_t s, int64x2_t n) {
 
 // CHECK-LABEL: @test_svset_neonq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> [[S:%.*]], <16 x i8> [[N:%.*]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> [[S:%.*]], <16 x b8> [[N:%.*]], i64 0)
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svset_neonq_u8u11__SVUint8_t12__Uint8x16_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> [[S:%.*]], <16 x i8> [[N:%.*]], i64 0)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> [[S:%.*]], <16 x b8> [[N:%.*]], i64 0)
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 svuint8_t test_svset_neonq_u8(svuint8_t s, uint8x16_t n) {
   return SVE_ACLE_FUNC(svset_neonq, _u8, , )(s, n);

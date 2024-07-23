@@ -1080,69 +1080,70 @@ int main() {
 // CHECK5-NEXT:    store i32 1, ptr [[DOTOMP_SECTIONS_ST_]], align 4
 // CHECK5-NEXT:    store i32 0, ptr [[DOTOMP_SECTIONS_IL_]], align 4
 // CHECK5-NEXT:    [[TMP0:%.*]] = getelementptr inbounds nuw [[STRUCT_LASPRIVATE_CONDITIONAL]], ptr [[X]], i32 0, i32 1
-// CHECK5-NEXT:    store i8 0, ptr [[TMP0]], align 8
-// CHECK5-NEXT:    [[TMP1:%.*]] = getelementptr inbounds nuw [[STRUCT_LASPRIVATE_CONDITIONAL]], ptr [[X]], i32 0, i32 0
-// CHECK5-NEXT:    [[TMP2:%.*]] = load ptr, ptr [[DOTGLOBAL_TID__ADDR]], align 8
-// CHECK5-NEXT:    [[TMP3:%.*]] = load i32, ptr [[TMP2]], align 4
-// CHECK5-NEXT:    call void @__kmpc_for_static_init_4(ptr @[[GLOB1]], i32 [[TMP3]], i32 34, ptr [[DOTOMP_SECTIONS_IL_]], ptr [[DOTOMP_SECTIONS_LB_]], ptr [[DOTOMP_SECTIONS_UB_]], ptr [[DOTOMP_SECTIONS_ST_]], i32 1, i32 1)
-// CHECK5-NEXT:    [[TMP4:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_UB_]], align 4
-// CHECK5-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[TMP4]], 1
-// CHECK5-NEXT:    [[TMP6:%.*]] = select i1 [[TMP5]], i32 [[TMP4]], i32 1
-// CHECK5-NEXT:    store i32 [[TMP6]], ptr [[DOTOMP_SECTIONS_UB_]], align 4
-// CHECK5-NEXT:    [[TMP7:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_LB_]], align 4
-// CHECK5-NEXT:    store i32 [[TMP7]], ptr [[DOTOMP_SECTIONS_IV_]], align 4
+// CHECK5-NEXT:    [[TMP1:%.*]] = bytecast exact b8 0 to i8
+// CHECK5-NEXT:    store i8 [[TMP1]], ptr [[TMP0]], align 8
+// CHECK5-NEXT:    [[TMP2:%.*]] = getelementptr inbounds nuw [[STRUCT_LASPRIVATE_CONDITIONAL]], ptr [[X]], i32 0, i32 0
+// CHECK5-NEXT:    [[TMP3:%.*]] = load ptr, ptr [[DOTGLOBAL_TID__ADDR]], align 8
+// CHECK5-NEXT:    [[TMP4:%.*]] = load i32, ptr [[TMP3]], align 4
+// CHECK5-NEXT:    call void @__kmpc_for_static_init_4(ptr @[[GLOB1]], i32 [[TMP4]], i32 34, ptr [[DOTOMP_SECTIONS_IL_]], ptr [[DOTOMP_SECTIONS_LB_]], ptr [[DOTOMP_SECTIONS_UB_]], ptr [[DOTOMP_SECTIONS_ST_]], i32 1, i32 1)
+// CHECK5-NEXT:    [[TMP5:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_UB_]], align 4
+// CHECK5-NEXT:    [[TMP6:%.*]] = icmp slt i32 [[TMP5]], 1
+// CHECK5-NEXT:    [[TMP7:%.*]] = select i1 [[TMP6]], i32 [[TMP5]], i32 1
+// CHECK5-NEXT:    store i32 [[TMP7]], ptr [[DOTOMP_SECTIONS_UB_]], align 4
+// CHECK5-NEXT:    [[TMP8:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_LB_]], align 4
+// CHECK5-NEXT:    store i32 [[TMP8]], ptr [[DOTOMP_SECTIONS_IV_]], align 4
 // CHECK5-NEXT:    br label [[OMP_INNER_FOR_COND:%.*]]
 // CHECK5:       omp.inner.for.cond:
-// CHECK5-NEXT:    [[TMP8:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IV_]], align 4
-// CHECK5-NEXT:    [[TMP9:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_UB_]], align 4
-// CHECK5-NEXT:    [[CMP:%.*]] = icmp sle i32 [[TMP8]], [[TMP9]]
+// CHECK5-NEXT:    [[TMP9:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IV_]], align 4
+// CHECK5-NEXT:    [[TMP10:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_UB_]], align 4
+// CHECK5-NEXT:    [[CMP:%.*]] = icmp sle i32 [[TMP9]], [[TMP10]]
 // CHECK5-NEXT:    br i1 [[CMP]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
 // CHECK5:       omp.inner.for.body:
-// CHECK5-NEXT:    [[TMP10:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IV_]], align 4
-// CHECK5-NEXT:    switch i32 [[TMP10]], label [[DOTOMP_SECTIONS_EXIT:%.*]] [
+// CHECK5-NEXT:    [[TMP11:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IV_]], align 4
+// CHECK5-NEXT:    switch i32 [[TMP11]], label [[DOTOMP_SECTIONS_EXIT:%.*]] [
 // CHECK5-NEXT:      i32 0, label [[DOTOMP_SECTIONS_CASE:%.*]]
 // CHECK5-NEXT:      i32 1, label [[DOTOMP_SECTIONS_CASE1:%.*]]
 // CHECK5-NEXT:    ]
 // CHECK5:       .omp.sections.case:
-// CHECK5-NEXT:    [[TMP11:%.*]] = load double, ptr [[TMP1]], align 8
-// CHECK5-NEXT:    [[INC:%.*]] = fadd double [[TMP11]], 1.000000e+00
-// CHECK5-NEXT:    store double [[INC]], ptr [[TMP1]], align 8
-// CHECK5-NEXT:    [[TMP12:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IV_]], align 4
-// CHECK5-NEXT:    call void @__kmpc_critical(ptr @[[GLOB3]], i32 [[TMP3]], ptr @.gomp_critical_user_{{pl_cond[.].+[.|,]}}var)
-// CHECK5-NEXT:    [[TMP13:%.*]] = load i32, ptr @.{{pl_cond[.].+[.|,]}} align 4
-// CHECK5-NEXT:    [[TMP14:%.*]] = icmp sle i32 [[TMP13]], [[TMP12]]
-// CHECK5-NEXT:    br i1 [[TMP14]], label [[LP_COND_THEN:%.*]], label [[LP_COND_EXIT:%.*]]
+// CHECK5-NEXT:    [[TMP12:%.*]] = load double, ptr [[TMP2]], align 8
+// CHECK5-NEXT:    [[INC:%.*]] = fadd double [[TMP12]], 1.000000e+00
+// CHECK5-NEXT:    store double [[INC]], ptr [[TMP2]], align 8
+// CHECK5-NEXT:    [[TMP13:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IV_]], align 4
+// CHECK5-NEXT:    call void @__kmpc_critical(ptr @[[GLOB3]], i32 [[TMP4]], ptr @.gomp_critical_user_{{pl_cond[.].+[.|,]}}var)
+// CHECK5-NEXT:    [[TMP14:%.*]] = load i32, ptr @.{{pl_cond[.].+[.|,]}} align 4
+// CHECK5-NEXT:    [[TMP15:%.*]] = icmp sle i32 [[TMP14]], [[TMP13]]
+// CHECK5-NEXT:    br i1 [[TMP15]], label [[LP_COND_THEN:%.*]], label [[LP_COND_EXIT:%.*]]
 // CHECK5:       lp_cond_then:
-// CHECK5-NEXT:    store i32 [[TMP12]], ptr @.{{pl_cond[.].+[.|,]}} align 4
-// CHECK5-NEXT:    [[TMP15:%.*]] = load double, ptr [[TMP1]], align 8
-// CHECK5-NEXT:    store double [[TMP15]], ptr @{{pl_cond[.].+[.|,]}} align 8
+// CHECK5-NEXT:    store i32 [[TMP13]], ptr @.{{pl_cond[.].+[.|,]}} align 4
+// CHECK5-NEXT:    [[TMP16:%.*]] = load double, ptr [[TMP2]], align 8
+// CHECK5-NEXT:    store double [[TMP16]], ptr @{{pl_cond[.].+[.|,]}} align 8
 // CHECK5-NEXT:    br label [[LP_COND_EXIT]]
 // CHECK5:       lp_cond_exit:
-// CHECK5-NEXT:    call void @__kmpc_end_critical(ptr @[[GLOB3]], i32 [[TMP3]], ptr @.gomp_critical_user_{{pl_cond[.].+[.|,]}}var)
+// CHECK5-NEXT:    call void @__kmpc_end_critical(ptr @[[GLOB3]], i32 [[TMP4]], ptr @.gomp_critical_user_{{pl_cond[.].+[.|,]}}var)
 // CHECK5-NEXT:    br label [[DOTOMP_SECTIONS_EXIT]]
 // CHECK5:       .omp.sections.case1:
 // CHECK5-NEXT:    br label [[DOTOMP_SECTIONS_EXIT]]
 // CHECK5:       .omp.sections.exit:
 // CHECK5-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK5:       omp.inner.for.inc:
-// CHECK5-NEXT:    [[TMP16:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IV_]], align 4
-// CHECK5-NEXT:    [[INC2:%.*]] = add nsw i32 [[TMP16]], 1
+// CHECK5-NEXT:    [[TMP17:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IV_]], align 4
+// CHECK5-NEXT:    [[INC2:%.*]] = add nsw i32 [[TMP17]], 1
 // CHECK5-NEXT:    store i32 [[INC2]], ptr [[DOTOMP_SECTIONS_IV_]], align 4
 // CHECK5-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK5:       omp.inner.for.end:
-// CHECK5-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB1]], i32 [[TMP3]])
-// CHECK5-NEXT:    [[TMP17:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IL_]], align 4
-// CHECK5-NEXT:    [[TMP18:%.*]] = icmp ne i32 [[TMP17]], 0
-// CHECK5-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4:[0-9]+]], i32 [[TMP3]])
-// CHECK5-NEXT:    br i1 [[TMP18]], label [[DOTOMP_LASTPRIVATE_THEN:%.*]], label [[DOTOMP_LASTPRIVATE_DONE:%.*]]
+// CHECK5-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB1]], i32 [[TMP4]])
+// CHECK5-NEXT:    [[TMP18:%.*]] = load i32, ptr [[DOTOMP_SECTIONS_IL_]], align 4
+// CHECK5-NEXT:    [[TMP19:%.*]] = icmp ne i32 [[TMP18]], 0
+// CHECK5-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4:[0-9]+]], i32 [[TMP4]])
+// CHECK5-NEXT:    br i1 [[TMP19]], label [[DOTOMP_LASTPRIVATE_THEN:%.*]], label [[DOTOMP_LASTPRIVATE_DONE:%.*]]
 // CHECK5:       .omp.lastprivate.then:
-// CHECK5-NEXT:    [[TMP19:%.*]] = load double, ptr @{{pl_cond[.].+[.|,]}} align 8
-// CHECK5-NEXT:    store double [[TMP19]], ptr [[TMP1]], align 8
-// CHECK5-NEXT:    [[TMP20:%.*]] = load double, ptr [[TMP1]], align 8
-// CHECK5-NEXT:    store double [[TMP20]], ptr @_ZN1A1xE, align 8
+// CHECK5-NEXT:    [[TMP20:%.*]] = load double, ptr @{{pl_cond[.].+[.|,]}} align 8
+// CHECK5-NEXT:    store double [[TMP20]], ptr [[TMP2]], align 8
+// CHECK5-NEXT:    [[TMP21:%.*]] = load double, ptr [[TMP2]], align 8
+// CHECK5-NEXT:    store double [[TMP21]], ptr @_ZN1A1xE, align 8
 // CHECK5-NEXT:    br label [[DOTOMP_LASTPRIVATE_DONE]]
 // CHECK5:       .omp.lastprivate.done:
-// CHECK5-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2]], i32 [[TMP3]])
+// CHECK5-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2]], i32 [[TMP4]])
 // CHECK5-NEXT:    ret void
 //
 //
