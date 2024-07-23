@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
 // CHECK: call i16 @llvm.annotation.i16
 
     char chara = __builtin_annotation(charfoo, "annotation_a");
-// CHECK: call i8 @llvm.annotation.i8
+// CHECK: call b8 @llvm.annotation.b8
 
     char **arg = (char**) __builtin_annotation((int) argv, "annotation_a");
 // CHECK: ptrtoint ptr {{.*}} to

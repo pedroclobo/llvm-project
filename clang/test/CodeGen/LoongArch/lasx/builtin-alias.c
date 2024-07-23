@@ -41,8 +41,8 @@ v8i32 xvsll_w(v8i32 _1, v8i32 _2) { return __lasx_xvsll_w(_1, _2); }
 v4i64 xvsll_d(v4i64 _1, v4i64 _2) { return __lasx_xvsll_d(_1, _2); }
 // CHECK-LABEL: @xvslli_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslli.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslli.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -109,8 +109,8 @@ v8i32 xvsra_w(v8i32 _1, v8i32 _2) { return __lasx_xvsra_w(_1, _2); }
 v4i64 xvsra_d(v4i64 _1, v4i64 _2) { return __lasx_xvsra_d(_1, _2); }
 // CHECK-LABEL: @xvsrai_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrai.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrai.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -177,8 +177,8 @@ v8i32 xvsrar_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrar_w(_1, _2); }
 v4i64 xvsrar_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrar_d(_1, _2); }
 // CHECK-LABEL: @xvsrari_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrari.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrari.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -245,8 +245,8 @@ v8i32 xvsrl_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrl_w(_1, _2); }
 v4i64 xvsrl_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrl_d(_1, _2); }
 // CHECK-LABEL: @xvsrli_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrli.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrli.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -313,8 +313,8 @@ v8i32 xvsrlr_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrlr_w(_1, _2); }
 v4i64 xvsrlr_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrlr_d(_1, _2); }
 // CHECK-LABEL: @xvsrlri_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlri.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlri.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -381,8 +381,8 @@ v8u32 xvbitclr_w(v8u32 _1, v8u32 _2) { return __lasx_xvbitclr_w(_1, _2); }
 v4u64 xvbitclr_d(v4u64 _1, v4u64 _2) { return __lasx_xvbitclr_d(_1, _2); }
 // CHECK-LABEL: @xvbitclri_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitclri.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitclri.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -449,8 +449,8 @@ v8u32 xvbitset_w(v8u32 _1, v8u32 _2) { return __lasx_xvbitset_w(_1, _2); }
 v4u64 xvbitset_d(v4u64 _1, v4u64 _2) { return __lasx_xvbitset_d(_1, _2); }
 // CHECK-LABEL: @xvbitseti_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitseti.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitseti.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -517,8 +517,8 @@ v8u32 xvbitrev_w(v8u32 _1, v8u32 _2) { return __lasx_xvbitrev_w(_1, _2); }
 v4u64 xvbitrev_d(v4u64 _1, v4u64 _2) { return __lasx_xvbitrev_d(_1, _2); }
 // CHECK-LABEL: @xvbitrevi_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitrevi.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitrevi.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -585,8 +585,8 @@ v8i32 xvadd_w(v8i32 _1, v8i32 _2) { return __lasx_xvadd_w(_1, _2); }
 v4i64 xvadd_d(v4i64 _1, v4i64 _2) { return __lasx_xvadd_d(_1, _2); }
 // CHECK-LABEL: @xvaddi_bu(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvaddi.bu(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvaddi.bu(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -653,8 +653,8 @@ v8i32 xvsub_w(v8i32 _1, v8i32 _2) { return __lasx_xvsub_w(_1, _2); }
 v4i64 xvsub_d(v4i64 _1, v4i64 _2) { return __lasx_xvsub_d(_1, _2); }
 // CHECK-LABEL: @xvsubi_bu(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsubi.bu(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsubi.bu(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -721,8 +721,8 @@ v8i32 xvmax_w(v8i32 _1, v8i32 _2) { return __lasx_xvmax_w(_1, _2); }
 v4i64 xvmax_d(v4i64 _1, v4i64 _2) { return __lasx_xvmax_d(_1, _2); }
 // CHECK-LABEL: @xvmaxi_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmaxi.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmaxi.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -789,8 +789,8 @@ v8u32 xvmax_wu(v8u32 _1, v8u32 _2) { return __lasx_xvmax_wu(_1, _2); }
 v4u64 xvmax_du(v4u64 _1, v4u64 _2) { return __lasx_xvmax_du(_1, _2); }
 // CHECK-LABEL: @xvmaxi_bu(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmaxi.bu(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmaxi.bu(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -857,8 +857,8 @@ v8i32 xvmin_w(v8i32 _1, v8i32 _2) { return __lasx_xvmin_w(_1, _2); }
 v4i64 xvmin_d(v4i64 _1, v4i64 _2) { return __lasx_xvmin_d(_1, _2); }
 // CHECK-LABEL: @xvmini_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmini.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmini.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -925,8 +925,8 @@ v8u32 xvmin_wu(v8u32 _1, v8u32 _2) { return __lasx_xvmin_wu(_1, _2); }
 v4u64 xvmin_du(v4u64 _1, v4u64 _2) { return __lasx_xvmin_du(_1, _2); }
 // CHECK-LABEL: @xvmini_bu(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmini.bu(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmini.bu(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -993,8 +993,8 @@ v8i32 xvseq_w(v8i32 _1, v8i32 _2) { return __lasx_xvseq_w(_1, _2); }
 v4i64 xvseq_d(v4i64 _1, v4i64 _2) { return __lasx_xvseq_d(_1, _2); }
 // CHECK-LABEL: @xvseqi_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvseqi.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvseqi.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -1061,8 +1061,8 @@ v8i32 xvslt_w(v8i32 _1, v8i32 _2) { return __lasx_xvslt_w(_1, _2); }
 v4i64 xvslt_d(v4i64 _1, v4i64 _2) { return __lasx_xvslt_d(_1, _2); }
 // CHECK-LABEL: @xvslti_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslti.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslti.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -1129,8 +1129,8 @@ v8i32 xvslt_wu(v8u32 _1, v8u32 _2) { return __lasx_xvslt_wu(_1, _2); }
 v4i64 xvslt_du(v4u64 _1, v4u64 _2) { return __lasx_xvslt_du(_1, _2); }
 // CHECK-LABEL: @xvslti_bu(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslti.bu(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslti.bu(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -1197,8 +1197,8 @@ v8i32 xvsle_w(v8i32 _1, v8i32 _2) { return __lasx_xvsle_w(_1, _2); }
 v4i64 xvsle_d(v4i64 _1, v4i64 _2) { return __lasx_xvsle_d(_1, _2); }
 // CHECK-LABEL: @xvslei_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslei.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslei.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -1265,8 +1265,8 @@ v8i32 xvsle_wu(v8u32 _1, v8u32 _2) { return __lasx_xvsle_wu(_1, _2); }
 v4i64 xvsle_du(v4u64 _1, v4u64 _2) { return __lasx_xvsle_du(_1, _2); }
 // CHECK-LABEL: @xvslei_bu(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslei.bu(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslei.bu(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -1297,8 +1297,8 @@ v8i32 xvslei_wu(v8u32 _1) { return __lasx_xvslei_wu(_1, 1); }
 v4i64 xvslei_du(v4u64 _1) { return __lasx_xvslei_du(_1, 1); }
 // CHECK-LABEL: @xvsat_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsat.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsat.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -1329,8 +1329,8 @@ v8i32 xvsat_w(v8i32 _1) { return __lasx_xvsat_w(_1, 1); }
 v4i64 xvsat_d(v4i64 _1) { return __lasx_xvsat_d(_1, 1); }
 // CHECK-LABEL: @xvsat_bu(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsat.bu(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsat.bu(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -2125,8 +2125,8 @@ v8u32 xvmod_wu(v8u32 _1, v8u32 _2) { return __lasx_xvmod_wu(_1, _2); }
 v4u64 xvmod_du(v4u64 _1, v4u64 _2) { return __lasx_xvmod_du(_1, _2); }
 // CHECK-LABEL: @xvrepl128vei_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrepl128vei.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrepl128vei.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -2422,8 +2422,8 @@ v4i64 xvshuf_d(v4i64 _1, v4i64 _2, v4i64 _3) { return __lasx_xvshuf_d(_1, _2, _3
 v32u8 xvand_v(v32u8 _1, v32u8 _2) { return __lasx_xvand_v(_1, _2); }
 // CHECK-LABEL: @xvandi_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvandi.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvandi.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -2439,8 +2439,8 @@ v32u8 xvandi_b(v32u8 _1) { return __lasx_xvandi_b(_1, 1); }
 v32u8 xvor_v(v32u8 _1, v32u8 _2) { return __lasx_xvor_v(_1, _2); }
 // CHECK-LABEL: @xvori_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvori.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvori.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -2456,8 +2456,8 @@ v32u8 xvori_b(v32u8 _1) { return __lasx_xvori_b(_1, 1); }
 v32u8 xvnor_v(v32u8 _1, v32u8 _2) { return __lasx_xvnor_v(_1, _2); }
 // CHECK-LABEL: @xvnori_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvnori.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvnori.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -2473,8 +2473,8 @@ v32u8 xvnori_b(v32u8 _1) { return __lasx_xvnori_b(_1, 1); }
 v32u8 xvxor_v(v32u8 _1, v32u8 _2) { return __lasx_xvxor_v(_1, _2); }
 // CHECK-LABEL: @xvxori_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvxori.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvxori.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -2491,17 +2491,17 @@ v32u8 xvxori_b(v32u8 _1) { return __lasx_xvxori_b(_1, 1); }
 v32u8 xvbitsel_v(v32u8 _1, v32u8 _2, v32u8 _3) { return __lasx_xvbitsel_v(_1, _2, _3); }
 // CHECK-LABEL: @xvbitseli_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitseli.b(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitseli.b(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitseli_b(v32u8 _1, v32u8 _2) { return __lasx_xvbitseli_b(_1, _2, 1); }
 // CHECK-LABEL: @xvshuf4i_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvshuf4i.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvshuf4i.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -3189,8 +3189,8 @@ v8u32 xvmuh_wu(v8u32 _1, v8u32 _2) { return __lasx_xvmuh_wu(_1, _2); }
 v4u64 xvmuh_du(v4u64 _1, v4u64 _2) { return __lasx_xvmuh_du(_1, _2); }
 // CHECK-LABEL: @xvsllwil_h_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsllwil.h.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsllwil.h.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <16 x i16> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -3213,8 +3213,8 @@ v8i32 xvsllwil_w_h(v16i16 _1) { return __lasx_xvsllwil_w_h(_1, 1); }
 v4i64 xvsllwil_d_w(v8i32 _1) { return __lasx_xvsllwil_d_w(_1, 1); }
 // CHECK-LABEL: @xvsllwil_hu_bu(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsllwil.hu.bu(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsllwil.hu.bu(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <16 x i16> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -3507,9 +3507,9 @@ v16u16 xvssrlrn_hu_w(v8u32 _1, v8u32 _2) { return __lasx_xvssrlrn_hu_w(_1, _2); 
 v8u32 xvssrlrn_wu_d(v4u64 _1, v4u64 _2) { return __lasx_xvssrlrn_wu_d(_1, _2); }
 // CHECK-LABEL: @xvfrstpi_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvfrstpi.b(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvfrstpi.b(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -3554,25 +3554,25 @@ v16i16 xvfrstp_h(v16i16 _1, v16i16 _2, v16i16 _3) { return __lasx_xvfrstp_h(_1, 
 v4i64 xvshuf4i_d(v4i64 _1, v4i64 _2) { return __lasx_xvshuf4i_d(_1, _2, 1); }
 // CHECK-LABEL: @xvbsrl_v(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbsrl.v(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbsrl.v(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvbsrl_v(v32i8 _1) { return __lasx_xvbsrl_v(_1, 1); }
 // CHECK-LABEL: @xvbsll_v(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbsll.v(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbsll.v(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvbsll_v(v32i8 _1) { return __lasx_xvbsll_v(_1, 1); }
 // CHECK-LABEL: @xvextrins_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvextrins.b(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvextrins.b(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -4023,15 +4023,15 @@ v4i64 xvfrintrm_d(v4f64 _1) { return __lasx_xvfrintrm_d(_1); }
 v32i8 xvld(void * _1) { return __lasx_xvld(_1, 1); }
 // CHECK-LABEL: @xvst(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvst(<32 x i8> [[_1]], ptr [[_2:%.*]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvst(<32 x i8> [[_11]], ptr [[_2:%.*]], i32 1)
 // CHECK-NEXT:    ret void
 //
 void xvst(v32i8 _1, void * _2) { return __lasx_xvst(_1, _2, 1); }
 // CHECK-LABEL: @xvstelm_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvstelm.b(<32 x i8> [[_1]], ptr [[_2:%.*]], i32 1, i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvstelm.b(<32 x i8> [[_11]], ptr [[_2:%.*]], i32 1, i32 1)
 // CHECK-NEXT:    ret void
 //
 void xvstelm_b(v32i8 _1, void * _2) { return __lasx_xvstelm_b(_1, _2, 1, 1); }
@@ -4336,9 +4336,9 @@ v4i64 vext2xv_du_hu(v16i16 _1) { return __lasx_vext2xv_du_hu(_1); }
 v4i64 vext2xv_du_bu(v32i8 _1) { return __lasx_vext2xv_du_bu(_1); }
 // CHECK-LABEL: @xvpermi_q(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpermi.q(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpermi.q(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5404,8 +5404,8 @@ v4u64 xvexth_du_wu(v8u32 _1) { return __lasx_xvexth_du_wu(_1); }
 v4u64 xvexth_qu_du(v4u64 _1) { return __lasx_xvexth_qu_du(_1); }
 // CHECK-LABEL: @xvrotri_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrotri.b(<32 x i8> [[_1]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrotri.b(<32 x i8> [[_11]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5444,9 +5444,9 @@ v4i64 xvrotri_d(v4i64 _1) { return __lasx_xvrotri_d(_1, 1); }
 v4i64 xvextl_q_d(v4i64 _1) { return __lasx_xvextl_q_d(_1); }
 // CHECK-LABEL: @xvsrlni_b_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlni.b.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5480,9 +5480,9 @@ v8i32 xvsrlni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvsrlni_w_d(_1, _2, 1); }
 v4i64 xvsrlni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvsrlni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @xvsrlrni_b_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlrni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlrni.b.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5516,9 +5516,9 @@ v8i32 xvsrlrni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvsrlrni_w_d(_1, _2, 1); 
 v4i64 xvsrlrni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvsrlrni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @xvssrlni_b_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlni.b.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5552,9 +5552,9 @@ v8i32 xvssrlni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvssrlni_w_d(_1, _2, 1); 
 v4i64 xvssrlni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvssrlni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @xvssrlni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlni.bu.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlni.bu.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5588,9 +5588,9 @@ v8u32 xvssrlni_wu_d(v8u32 _1, v8i32 _2) { return __lasx_xvssrlni_wu_d(_1, _2, 1)
 v4u64 xvssrlni_du_q(v4u64 _1, v4i64 _2) { return __lasx_xvssrlni_du_q(_1, _2, 1); }
 // CHECK-LABEL: @xvssrlrni_b_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlrni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlrni.b.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5624,9 +5624,9 @@ v8i32 xvssrlrni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvssrlrni_w_d(_1, _2, 1)
 v4i64 xvssrlrni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvssrlrni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @xvssrlrni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlrni.bu.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlrni.bu.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5660,9 +5660,9 @@ v8u32 xvssrlrni_wu_d(v8u32 _1, v8i32 _2) { return __lasx_xvssrlrni_wu_d(_1, _2, 
 v4u64 xvssrlrni_du_q(v4u64 _1, v4i64 _2) { return __lasx_xvssrlrni_du_q(_1, _2, 1); }
 // CHECK-LABEL: @xvsrani_b_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrani.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrani.b.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5696,9 +5696,9 @@ v8i32 xvsrani_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvsrani_w_d(_1, _2, 1); }
 v4i64 xvsrani_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvsrani_d_q(_1, _2, 1); }
 // CHECK-LABEL: @xvsrarni_b_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrarni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrarni.b.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5732,9 +5732,9 @@ v8i32 xvsrarni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvsrarni_w_d(_1, _2, 1); 
 v4i64 xvsrarni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvsrarni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @xvssrani_b_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrani.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrani.b.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5768,9 +5768,9 @@ v8i32 xvssrani_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvssrani_w_d(_1, _2, 1); 
 v4i64 xvssrani_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvssrani_d_q(_1, _2, 1); }
 // CHECK-LABEL: @xvssrani_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrani.bu.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrani.bu.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5804,9 +5804,9 @@ v8u32 xvssrani_wu_d(v8u32 _1, v8i32 _2) { return __lasx_xvssrani_wu_d(_1, _2, 1)
 v4u64 xvssrani_du_q(v4u64 _1, v4i64 _2) { return __lasx_xvssrani_du_q(_1, _2, 1); }
 // CHECK-LABEL: @xvssrarni_b_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrarni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrarni.b.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5840,9 +5840,9 @@ v8i32 xvssrarni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvssrarni_w_d(_1, _2, 1)
 v4i64 xvssrarni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvssrarni_d_q(_1, _2, 1); }
 // CHECK-LABEL: @xvssrarni_bu_h(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrarni.bu.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[_22:%.*]] = load <32 x i8>, ptr [[TMP1:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrarni.bu.h(<32 x i8> [[_11]], <32 x i8> [[_22]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT:%.*]], align 32, !tbaa [[TBAA2]]
 // CHECK-NEXT:    ret void
 //
@@ -5876,8 +5876,8 @@ v8u32 xvssrarni_wu_d(v8u32 _1, v8i32 _2) { return __lasx_xvssrarni_wu_d(_1, _2, 
 v4u64 xvssrarni_du_q(v4u64 _1, v4i64 _2) { return __lasx_xvssrarni_du_q(_1, _2, 1); }
 // CHECK-LABEL: @xbnz_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbnz.b(<32 x i8> [[_1]])
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbnz.b(<32 x i8> [[_11]])
 // CHECK-NEXT:    ret i32 [[TMP1]]
 //
 int xbnz_b(v32u8 _1) { return __lasx_xbnz_b(_1); }
@@ -5897,8 +5897,8 @@ int xbnz_d(v4u64 _1) { return __lasx_xbnz_d(_1); }
 int xbnz_h(v16u16 _1) { return __lasx_xbnz_h(_1); }
 // CHECK-LABEL: @xbnz_v(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbnz.v(<32 x i8> [[_1]])
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbnz.v(<32 x i8> [[_11]])
 // CHECK-NEXT:    ret i32 [[TMP1]]
 //
 int xbnz_v(v32u8 _1) { return __lasx_xbnz_v(_1); }
@@ -5911,8 +5911,8 @@ int xbnz_v(v32u8 _1) { return __lasx_xbnz_v(_1); }
 int xbnz_w(v8u32 _1) { return __lasx_xbnz_w(_1); }
 // CHECK-LABEL: @xbz_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbz.b(<32 x i8> [[_1]])
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbz.b(<32 x i8> [[_11]])
 // CHECK-NEXT:    ret i32 [[TMP1]]
 //
 int xbz_b(v32u8 _1) { return __lasx_xbz_b(_1); }
@@ -5932,8 +5932,8 @@ int xbz_d(v4u64 _1) { return __lasx_xbz_d(_1); }
 int xbz_h(v16u16 _1) { return __lasx_xbz_h(_1); }
 // CHECK-LABEL: @xbz_v(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbz.v(<32 x i8> [[_1]])
+// CHECK-NEXT:    [[_11:%.*]] = load <32 x i8>, ptr [[TMP0:%.*]], align 32, !tbaa [[TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbz.v(<32 x i8> [[_11]])
 // CHECK-NEXT:    ret i32 [[TMP1]]
 //
 int xbz_v(v32u8 _1) { return __lasx_xbz_v(_1); }

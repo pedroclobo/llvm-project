@@ -2902,7 +2902,9 @@ void CodeGenFunction::EmitAsmStmt(const AsmStmt &S) {
       if (llvm::Type* AdjTy =
           getTargetHooks().adjustInlineAsmType(*this, OutputConstraint,
                                                Arg->getType()))
-        Arg = Builder.CreateBitCast(Arg, AdjTy);
+        Arg = Arg->getType()->isByteOrByteVectorTy()
+                  ? Builder.CreateByteCast(Arg, AdjTy, "", /*IsExact*/ true)
+                  : Builder.CreateBitCast(Arg, AdjTy);
 
       // Update largest vector width for any vector types.
       if (auto *VT = dyn_cast<llvm::VectorType>(Arg->getType()))
@@ -2976,10 +2978,16 @@ void CodeGenFunction::EmitAsmStmt(const AsmStmt &S) {
         if (isa<llvm::PointerType>(Arg->getType()))
           Arg = Builder.CreatePtrToInt(Arg, IntPtrTy);
         llvm::Type *OutputTy = ConvertType(OutputType);
-        if (isa<llvm::IntegerType>(OutputTy))
+        if (isa<llvm::IntegerType>(OutputTy)) {
+          if (isa<llvm::ByteType>(Arg->getType()))
+            Arg = Builder.CreateByteCastToInt(Arg, "", /*IsExact*/ true);
           Arg = Builder.CreateZExt(Arg, OutputTy);
-        else if (isa<llvm::PointerType>(OutputTy))
+        }
+        else if (isa<llvm::PointerType>(OutputTy)) {
+          if (isa<llvm::ByteType>(Arg->getType()))
+            Arg = Builder.CreateByteCastToInt(Arg, "", /*IsExact*/ true);
           Arg = Builder.CreateZExt(Arg, IntPtrTy);
+        }
         else if (OutputTy->isFloatingPointTy())
           Arg = Builder.CreateFPExt(Arg, OutputTy);
       }
@@ -2989,7 +2997,10 @@ void CodeGenFunction::EmitAsmStmt(const AsmStmt &S) {
     if (llvm::Type* AdjTy =
           getTargetHooks().adjustInlineAsmType(*this, ReplaceConstraint,
                                                    Arg->getType()))
-      Arg = Builder.CreateBitCast(Arg, AdjTy);
+      Arg = Arg->getType()->isByteOrByteVectorTy() &&
+            !AdjTy->isByteOrByteVectorTy()
+        ? Builder.CreateByteCast(Arg, AdjTy, "", /*IsExact*/ true)
+        : Builder.CreateBitCast(Arg, AdjTy);
     else
       CGM.getDiags().Report(S.getAsmLoc(), diag::err_asm_invalid_type_in_input)
           << InputExpr->getType() << InputConstraint;

@@ -126,7 +126,7 @@ int test4(unsigned n, char (*p)[n][n+1][6]) {
   // CHECK-NEXT: [[T8:%.*]] = sub i32 0, [[T7]]
   // CHECK-NEXT: [[T9:%.*]] = mul nuw i32 [[DIM0]], [[DIM1]]
   // CHECK-NEXT: [[T10:%.*]] = mul nsw i32 [[T8]], [[T9]]
-  // CHECK-NEXT: [[T11:%.*]] = getelementptr inbounds [6 x i8], ptr [[T5]], i32 [[T10]]
+  // CHECK-NEXT: [[T11:%.*]] = getelementptr inbounds [6 x b8], ptr [[T5]], i32 [[T10]]
   // CHECK-NEXT: store ptr [[T11]], ptr [[P2]], align 4
   __typeof(p) p2 = (p + n/2) - n/4;
 

@@ -16,11 +16,11 @@
 
 // CHECK-LABEL: @test_svundef4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } undef
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } undef
 //
 // CPP-CHECK-LABEL: @_Z16test_svundef4_s8v(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } undef
+// CPP-CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } undef
 //
 svint8x4_t test_svundef4_s8(void) MODE_ATTR
 {
@@ -68,11 +68,11 @@ svint64x4_t test_svundef4_s64(void) MODE_ATTR
 
 // CHECK-LABEL: @test_svundef4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } undef
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } undef
 //
 // CPP-CHECK-LABEL: @_Z16test_svundef4_u8v(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } undef
+// CPP-CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } undef
 //
 svuint8x4_t test_svundef4_u8(void) MODE_ATTR
 {

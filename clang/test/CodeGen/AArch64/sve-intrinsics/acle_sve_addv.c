@@ -24,13 +24,15 @@
 
 // CHECK-LABEL: @test_svaddv_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call i64 @llvm.aarch64.sve.saddv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP:%.*]])
-// CHECK-NEXT:    ret i64 [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i64 @llvm.aarch64.sve.saddv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret i64 [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svaddv_s8u10__SVBool_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call i64 @llvm.aarch64.sve.saddv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP:%.*]])
-// CPP-CHECK-NEXT:    ret i64 [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call i64 @llvm.aarch64.sve.saddv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    ret i64 [[TMP1]]
 //
 int64_t test_svaddv_s8(svbool_t pg, svint8_t op) MODE_ATTR
 {
@@ -90,13 +92,15 @@ int64_t test_svaddv_s64(svbool_t pg, svint64_t op) MODE_ATTR
 
 // CHECK-LABEL: @test_svaddv_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call i64 @llvm.aarch64.sve.uaddv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP:%.*]])
-// CHECK-NEXT:    ret i64 [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i64 @llvm.aarch64.sve.uaddv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret i64 [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svaddv_u8u10__SVBool_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call i64 @llvm.aarch64.sve.uaddv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP:%.*]])
-// CPP-CHECK-NEXT:    ret i64 [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call i64 @llvm.aarch64.sve.uaddv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    ret i64 [[TMP1]]
 //
 uint64_t test_svaddv_u8(svbool_t pg, svuint8_t op) MODE_ATTR
 {

@@ -20,9 +20,11 @@
 #include <arm_neon.h>
 
 // COMMON-LABEL: test_vrndaq_f64
-// COMMONIR:   [[TMP0:%.*]] = bitcast <2 x double> %a to <16 x i8>
-// UNCONSTRAINED: [[VRNDA1_I:%.*]] = call <2 x double> @llvm.round.v2f64(<2 x double> %a)
-// CONSTRAINED:   [[VRNDA1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.round.v2f64(<2 x double> %a, metadata !"fpexcept.strict")
+// COMMONIR:   [[TMP0:%.*]] = bitcast <2 x double> %a to <16 x b8>
+// COMMONIR:   [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// COMMONIR:   [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// UNCONSTRAINED: [[VRNDA1_I:%.*]] = call <2 x double> @llvm.round.v2f64(<2 x double> [[TMP2]])
+// CONSTRAINED:   [[VRNDA1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.round.v2f64(<2 x double> [[TMP2]], metadata !"fpexcept.strict")
 // CHECK-ASM:     frinta v{{[0-9]+}}.2d, v{{[0-9]+}}.2d
 // COMMONIR:      ret <2 x double> [[VRNDA1_I]]
 float64x2_t test_vrndaq_f64(float64x2_t a) {
@@ -30,9 +32,11 @@ float64x2_t test_vrndaq_f64(float64x2_t a) {
 }
 
 // COMMON-LABEL: test_vrndpq_f64
-// COMMONIR:   [[TMP0:%.*]] = bitcast <2 x double> %a to <16 x i8>
-// UNCONSTRAINED: [[VRNDP1_I:%.*]] = call <2 x double> @llvm.ceil.v2f64(<2 x double> %a)
-// CONSTRAINED:   [[VRNDP1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.ceil.v2f64(<2 x double> %a, metadata !"fpexcept.strict")
+// COMMONIR:   [[TMP0:%.*]] = bitcast <2 x double> %a to <16 x b8>
+// COMMONIR:   [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// COMMONIR:   [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// UNCONSTRAINED: [[VRNDP1_I:%.*]] = call <2 x double> @llvm.ceil.v2f64(<2 x double> [[TMP2]])
+// CONSTRAINED:   [[VRNDP1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.ceil.v2f64(<2 x double> [[TMP2]], metadata !"fpexcept.strict")
 // CHECK-ASM:     frintp v{{[0-9]+}}.2d, v{{[0-9]+}}.2d
 // COMMONIR:      ret <2 x double> [[VRNDP1_I]]
 float64x2_t test_vrndpq_f64(float64x2_t a) {
@@ -40,9 +44,11 @@ float64x2_t test_vrndpq_f64(float64x2_t a) {
 }
 
 // COMMON-LABEL: test_vsqrtq_f32
-// COMMONIR:   [[TMP0:%.*]] = bitcast <4 x float> %a to <16 x i8>
-// UNCONSTRAINED: [[VSQRT_I:%.*]] = call <4 x float> @llvm.sqrt.v4f32(<4 x float> %a)
-// CONSTRAINED:   [[VSQRT_I:%.*]] = call <4 x float> @llvm.experimental.constrained.sqrt.v4f32(<4 x float> %a, metadata !"round.tonearest", metadata !"fpexcept.strict")
+// COMMONIR:   [[TMP0:%.*]] = bitcast <4 x float> %a to <16 x b8>
+// COMMONIR:   [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// COMMONIR:   [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
+// UNCONSTRAINED: [[VSQRT_I:%.*]] = call <4 x float> @llvm.sqrt.v4f32(<4 x float> [[TMP2]])
+// CONSTRAINED:   [[VSQRT_I:%.*]] = call <4 x float> @llvm.experimental.constrained.sqrt.v4f32(<4 x float> [[TMP2]], metadata !"round.tonearest", metadata !"fpexcept.strict")
 // CHECK-ASM:     fsqrt v{{[0-9]+}}.4s, v{{[0-9]+}}.4s
 // COMMONIR:      ret <4 x float> [[VSQRT_I]]
 float32x4_t test_vsqrtq_f32(float32x4_t a) {
@@ -50,9 +56,11 @@ float32x4_t test_vsqrtq_f32(float32x4_t a) {
 }
 
 // COMMON-LABEL: test_vsqrtq_f64
-// COMMONIR:   [[TMP0:%.*]] = bitcast <2 x double> %a to <16 x i8>
-// UNCONSTRAINED: [[VSQRT_I:%.*]] = call <2 x double> @llvm.sqrt.v2f64(<2 x double> %a)
-// CONSTRAINED:   [[VSQRT_I:%.*]] = call <2 x double> @llvm.experimental.constrained.sqrt.v2f64(<2 x double> %a, metadata !"round.tonearest", metadata !"fpexcept.strict")
+// COMMONIR:   [[TMP0:%.*]] = bitcast <2 x double> %a to <16 x b8>
+// COMMONIR:   [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// COMMONIR:   [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// UNCONSTRAINED: [[VSQRT_I:%.*]] = call <2 x double> @llvm.sqrt.v2f64(<2 x double> [[TMP2]])
+// CONSTRAINED:   [[VSQRT_I:%.*]] = call <2 x double> @llvm.experimental.constrained.sqrt.v2f64(<2 x double> [[TMP2]], metadata !"round.tonearest", metadata !"fpexcept.strict")
 // CHECK-ASM:     fsqrt v{{[0-9]+}}.2d, v{{[0-9]+}}.2d
 // COMMONIR:      ret <2 x double> [[VSQRT_I]]
 float64x2_t test_vsqrtq_f64(float64x2_t a) {

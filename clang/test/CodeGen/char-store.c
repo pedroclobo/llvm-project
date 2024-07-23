@@ -7,7 +7,8 @@
 // CHECK-NEXT:    [[P_ADDR:%.*]] = alloca ptr, align 8
 // CHECK-NEXT:    store ptr [[P]], ptr [[P_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[P_ADDR]], align 8
-// CHECK-NEXT:    store i8 1, ptr [[TMP0]], align 1
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b8 1 to i8
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[TMP0]], align 1
 // CHECK-NEXT:    ret void
 //
 void t1(char *p) {
@@ -20,7 +21,8 @@ void t1(char *p) {
 // CHECK-NEXT:    [[P_ADDR:%.*]] = alloca ptr, align 8
 // CHECK-NEXT:    store ptr [[P]], ptr [[P_ADDR]], align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[P_ADDR]], align 8
-// CHECK-NEXT:    store i8 2, ptr [[TMP0]], align 1
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b8 2 to i8
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[TMP0]], align 1
 // CHECK-NEXT:    ret void
 //
 void t2(unsigned char *p) {

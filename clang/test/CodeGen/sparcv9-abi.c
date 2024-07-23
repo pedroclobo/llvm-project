@@ -15,7 +15,7 @@ unsigned f_int_2(unsigned x) { return x; }
 // CHECK-LABEL: define{{.*}} i64 @f_int_3(i64 noundef %x)
 long long f_int_3(long long x) { return x; }
 
-// CHECK-LABEL: define{{.*}} signext i8 @f_int_4(i8 noundef signext %x)
+// CHECK-LABEL: define{{.*}} signext b8 @f_int_4(b8 noundef signext %x)
 char f_int_4(char x) { return x; }
 
 // CHECK-LABEL: define{{.*}} fp128 @f_ld(fp128 noundef %x)

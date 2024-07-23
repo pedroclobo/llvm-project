@@ -21,7 +21,7 @@ namespace Test3 {
 namespace Test4 {
   // Test from PR5589.
   // CHECK: %"struct.Test4::B" = type { %"struct.Test4::A", i16, double }
-  // CHECK: %"struct.Test4::A" = type { i32, i8, float }
+  // CHECK: %"struct.Test4::A" = type { i32, b8, float }
   struct A {
     int a;
     char c;
@@ -39,7 +39,7 @@ namespace Test5 {
     char a;
   };
 
-  // CHECK: %"struct.Test5::B" = type {  %"struct.Test5::A.base", i8, i8, [5 x i8] }
+  // CHECK: %"struct.Test5::B" = type {  %"struct.Test5::A.base", i8, b8, [5 x i8] }
   struct B : A {
     char b : 1;
     char c;

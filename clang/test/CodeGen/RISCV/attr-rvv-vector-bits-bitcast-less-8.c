@@ -55,10 +55,10 @@ DEFINE_STRUCT(bool64)
 
 // CHECK-128-LABEL: @read_bool32(
 // CHECK-128-NEXT:  entry:
-// CHECK-128-NEXT:    [[SAVED_VALUE:%.*]] = alloca <1 x i8>, align 1
+// CHECK-128-NEXT:    [[SAVED_VALUE:%.*]] = alloca <1 x b8>, align 1
 // CHECK-128-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw i8, ptr [[S:%.*]], i64 1
-// CHECK-128-NEXT:    [[TMP0:%.*]] = load <1 x i8>, ptr [[Y]], align 1, !tbaa [[TBAA6:![0-9]+]]
-// CHECK-128-NEXT:    store <1 x i8> [[TMP0]], ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
+// CHECK-128-NEXT:    [[TMP0:%.*]] = load <1 x b8>, ptr [[Y]], align 1, !tbaa [[TBAA6:![0-9]+]]
+// CHECK-128-NEXT:    store <1 x b8> [[TMP0]], ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
 // CHECK-128-NEXT:    [[TMP1:%.*]] = load <vscale x 2 x i1>, ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
 // CHECK-128-NEXT:    ret <vscale x 2 x i1> [[TMP1]]
 //
@@ -70,9 +70,9 @@ vbool32_t read_bool32(struct struct_bool32 *s) {
 // CHECK-128-NEXT:  entry:
 // CHECK-128-NEXT:    [[SAVED_VALUE:%.*]] = alloca <vscale x 2 x i1>, align 1
 // CHECK-128-NEXT:    store <vscale x 2 x i1> [[X:%.*]], ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA9:![0-9]+]]
-// CHECK-128-NEXT:    [[TMP0:%.*]] = load <1 x i8>, ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
+// CHECK-128-NEXT:    [[TMP0:%.*]] = load <1 x b8>, ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
 // CHECK-128-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw i8, ptr [[S:%.*]], i64 1
-// CHECK-128-NEXT:    store <1 x i8> [[TMP0]], ptr [[Y]], align 1, !tbaa [[TBAA6]]
+// CHECK-128-NEXT:    store <1 x b8> [[TMP0]], ptr [[Y]], align 1, !tbaa [[TBAA6]]
 // CHECK-128-NEXT:    ret void
 //
 void write_bool32(struct struct_bool32 *s, vbool32_t x) {
@@ -81,10 +81,10 @@ void write_bool32(struct struct_bool32 *s, vbool32_t x) {
 
 // CHECK-128-LABEL: @read_bool64(
 // CHECK-128-NEXT:  entry:
-// CHECK-128-NEXT:    [[SAVED_VALUE:%.*]] = alloca <1 x i8>, align 1
+// CHECK-128-NEXT:    [[SAVED_VALUE:%.*]] = alloca <1 x b8>, align 1
 // CHECK-128-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw i8, ptr [[S:%.*]], i64 1
-// CHECK-128-NEXT:    [[TMP0:%.*]] = load <1 x i8>, ptr [[Y]], align 1, !tbaa [[TBAA6]]
-// CHECK-128-NEXT:    store <1 x i8> [[TMP0]], ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
+// CHECK-128-NEXT:    [[TMP0:%.*]] = load <1 x b8>, ptr [[Y]], align 1, !tbaa [[TBAA6]]
+// CHECK-128-NEXT:    store <1 x b8> [[TMP0]], ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
 // CHECK-128-NEXT:    [[TMP1:%.*]] = load <vscale x 1 x i1>, ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
 // CHECK-128-NEXT:    ret <vscale x 1 x i1> [[TMP1]]
 //
@@ -96,9 +96,9 @@ vbool64_t read_bool64(struct struct_bool64 *s) {
 // CHECK-128-NEXT:  entry:
 // CHECK-128-NEXT:    [[SAVED_VALUE:%.*]] = alloca <vscale x 1 x i1>, align 1
 // CHECK-128-NEXT:    store <vscale x 1 x i1> [[X:%.*]], ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA11:![0-9]+]]
-// CHECK-128-NEXT:    [[TMP0:%.*]] = load <1 x i8>, ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
+// CHECK-128-NEXT:    [[TMP0:%.*]] = load <1 x b8>, ptr [[SAVED_VALUE]], align 1, !tbaa [[TBAA6]]
 // CHECK-128-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw i8, ptr [[S:%.*]], i64 1
-// CHECK-128-NEXT:    store <1 x i8> [[TMP0]], ptr [[Y]], align 1, !tbaa [[TBAA6]]
+// CHECK-128-NEXT:    store <1 x b8> [[TMP0]], ptr [[Y]], align 1, !tbaa [[TBAA6]]
 // CHECK-128-NEXT:    ret void
 //
 void write_bool64(struct struct_bool64 *s, vbool64_t x) {

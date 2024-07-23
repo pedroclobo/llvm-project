@@ -27,7 +27,7 @@
 // RUN:       %s
 
 // CHECK-DIAG: @[[SRC:.*]] = private unnamed_addr constant {{.*}}cfi-icall-cross-dso.c\00
-// CHECK-DIAG: @[[TYPE:.*]] = private unnamed_addr constant { i16, i16, [{{.*}} x i8] } { i16 -1, i16 0, [{{.*}} x i8] c"'void ()'\00"
+// CHECK-DIAG: @[[TYPE:.*]] = private unnamed_addr constant { i16, i16, [{{.*}} x b8] } { i16 -1, i16 0, [{{.*}} x i8] c"'void ()'\00"
 // CHECK-DIAG: @[[DATA:.*]] = private unnamed_addr global {{.*}}@[[SRC]]{{.*}}@[[TYPE]]
 
 
