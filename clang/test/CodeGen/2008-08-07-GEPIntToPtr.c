@@ -10,6 +10,6 @@ struct B {
 };
 
 const struct A Foo = {
-  // CHECK: i8 1
+  // CHECK: b8 1
   (char *)(&( (struct B *)(16) )->b[0]) - (char *)(16)
 };

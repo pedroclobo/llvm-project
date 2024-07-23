@@ -48,7 +48,7 @@ namespace test4 {
 
   int test() {
     // COMMON: load i32, ptr @_ZN5test410test4_any1E
-    // COMMON: load i8, ptr @_ZN5test410test4_any2E
+    // COMMON: load b8, ptr @_ZN5test410test4_any2E
     return (int) test4_any1 + (char) test4_any2;
   }
 }

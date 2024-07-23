@@ -51,14 +51,14 @@ void test_vector_bool_pixel_init_no_parentheses(void) {
   vbi8_1 = (vector bool char)'a';
   // MIXED-ERR: error: invalid conversion between vector type '__vector __bool unsigned char'
   // GCC-ERR: error: invalid conversion between vector type '__vector __bool unsigned char' (vector of 16 'unsigned char' values) and integer type 'int' of different size
-  // XL: splat (i8 97)
+  // XL: splat (b8 97)
   char c = 'c';
   vbi8_2 = (vector bool char)c;
   // MIXED-ERR: error: invalid conversion between vector type '__vector __bool unsigned char'
   // GCC-ERR: error: invalid conversion between vector type '__vector __bool unsigned char' (vector of 16 'unsigned char' values) and integer type 'char' of different size
-  // XL: [[INS_ELT:%.*]] = insertelement <16 x i8>
-  // XL: [[SHUFF:%.*]] = shufflevector <16 x i8> [[INS_ELT]], <16 x i8> poison, <16 x i32> zeroinitializer
-  // XL: store <16 x i8> [[SHUFF]]
+  // XL: [[INS_ELT:%.*]] = insertelement <16 x b8>
+  // XL: [[SHUFF:%.*]] = shufflevector <16 x b8> [[INS_ELT]], <16 x b8> poison, <16 x i32> zeroinitializer
+  // XL: store <16 x b8> [[SHUFF]]
 
   // vector bool short initialization
   vbi16_1 = (vector bool short)5;

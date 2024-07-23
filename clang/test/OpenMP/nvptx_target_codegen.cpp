@@ -299,15 +299,17 @@ void unreachable_call() {
 // CHECK1-NEXT:    [[ADD17:%.*]] = add nsw i64 [[TMP15]], 1
 // CHECK1-NEXT:    store i64 [[ADD17]], ptr [[X]], align 8
 // CHECK1-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_TT]], ptr [[TMP7]], i32 0, i32 1
-// CHECK1-NEXT:    [[TMP16:%.*]] = load i8, ptr [[Y]], align 8
-// CHECK1-NEXT:    [[CONV18:%.*]] = sext i8 [[TMP16]] to i32
-// CHECK1-NEXT:    [[ADD19:%.*]] = add nsw i32 [[CONV18]], 1
-// CHECK1-NEXT:    [[CONV20:%.*]] = trunc i32 [[ADD19]] to i8
-// CHECK1-NEXT:    store i8 [[CONV20]], ptr [[Y]], align 8
+// CHECK1-NEXT:    [[TMP16:%.*]] = load b8, ptr [[Y]], align 8
+// CHECK1-NEXT:    [[CONV18:%.*]] = bytecast exact b8 [[TMP16]] to i8
+// CHECK1-NEXT:    [[CONV19:%.*]] = sext i8 [[CONV18]] to i32
+// CHECK1-NEXT:    [[ADD20:%.*]] = add nsw i32 [[CONV19]], 1
+// CHECK1-NEXT:    [[CONV21:%.*]] = trunc i32 [[ADD20]] to i8
+// CHECK1-NEXT:    [[TMP17:%.*]] = bitcast i8 [[CONV21]] to b8
+// CHECK1-NEXT:    store b8 [[TMP17]], ptr [[Y]], align 8
 // CHECK1-NEXT:    [[CALL:%.*]] = call nonnull align 8 dereferenceable(8) ptr @_ZN2TTIxcEixEi(ptr nonnull align 8 dereferenceable(16) [[TMP7]], i32 0) #[[ATTR10:[0-9]+]]
-// CHECK1-NEXT:    [[TMP17:%.*]] = load i64, ptr [[CALL]], align 8
-// CHECK1-NEXT:    [[ADD21:%.*]] = add nsw i64 [[TMP17]], 1
-// CHECK1-NEXT:    store i64 [[ADD21]], ptr [[CALL]], align 8
+// CHECK1-NEXT:    [[TMP18:%.*]] = load i64, ptr [[CALL]], align 8
+// CHECK1-NEXT:    [[ADD22:%.*]] = add nsw i64 [[TMP18]], 1
+// CHECK1-NEXT:    store i64 [[ADD22]], ptr [[CALL]], align 8
 // CHECK1-NEXT:    call void @__kmpc_target_deinit()
 // CHECK1-NEXT:    ret void
 // CHECK1:       worker.exit:
@@ -352,15 +354,17 @@ void unreachable_call() {
 // CHECK1-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
 // CHECK1-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i16
 // CHECK1-NEXT:    store i16 [[CONV2]], ptr [[AA_ADDR]], align 2
-// CHECK1-NEXT:    [[TMP4:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// CHECK1-NEXT:    [[CONV3:%.*]] = sext i8 [[TMP4]] to i32
-// CHECK1-NEXT:    [[ADD4:%.*]] = add nsw i32 [[CONV3]], 1
-// CHECK1-NEXT:    [[CONV5:%.*]] = trunc i32 [[ADD4]] to i8
-// CHECK1-NEXT:    store i8 [[CONV5]], ptr [[AAA_ADDR]], align 1
+// CHECK1-NEXT:    [[TMP4:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// CHECK1-NEXT:    [[CONV3:%.*]] = bytecast exact b8 [[TMP4]] to i8
+// CHECK1-NEXT:    [[CONV4:%.*]] = sext i8 [[CONV3]] to i32
+// CHECK1-NEXT:    [[ADD5:%.*]] = add nsw i32 [[CONV4]], 1
+// CHECK1-NEXT:    [[CONV6:%.*]] = trunc i32 [[ADD5]] to i8
+// CHECK1-NEXT:    [[TMP5:%.*]] = bitcast i8 [[CONV6]] to b8
+// CHECK1-NEXT:    store b8 [[TMP5]], ptr [[AAA_ADDR]], align 1
 // CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[TMP0]], i64 0, i64 2
-// CHECK1-NEXT:    [[TMP5:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// CHECK1-NEXT:    [[ADD6:%.*]] = add nsw i32 [[TMP5]], 1
-// CHECK1-NEXT:    store i32 [[ADD6]], ptr [[ARRAYIDX]], align 4
+// CHECK1-NEXT:    [[TMP6:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// CHECK1-NEXT:    [[ADD7:%.*]] = add nsw i32 [[TMP6]], 1
+// CHECK1-NEXT:    store i32 [[ADD7]], ptr [[ARRAYIDX]], align 4
 // CHECK1-NEXT:    call void @__kmpc_target_deinit()
 // CHECK1-NEXT:    ret void
 // CHECK1:       worker.exit:
@@ -685,15 +689,17 @@ void unreachable_call() {
 // CHECK2-NEXT:    [[ADD17:%.*]] = add nsw i64 [[TMP15]], 1
 // CHECK2-NEXT:    store i64 [[ADD17]], ptr [[X]], align 8
 // CHECK2-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_TT]], ptr [[TMP7]], i32 0, i32 1
-// CHECK2-NEXT:    [[TMP16:%.*]] = load i8, ptr [[Y]], align 8
-// CHECK2-NEXT:    [[CONV18:%.*]] = sext i8 [[TMP16]] to i32
-// CHECK2-NEXT:    [[ADD19:%.*]] = add nsw i32 [[CONV18]], 1
-// CHECK2-NEXT:    [[CONV20:%.*]] = trunc i32 [[ADD19]] to i8
-// CHECK2-NEXT:    store i8 [[CONV20]], ptr [[Y]], align 8
+// CHECK2-NEXT:    [[TMP16:%.*]] = load b8, ptr [[Y]], align 8
+// CHECK2-NEXT:    [[CONV18:%.*]] = bytecast exact b8 [[TMP16]] to i8
+// CHECK2-NEXT:    [[CONV19:%.*]] = sext i8 [[CONV18]] to i32
+// CHECK2-NEXT:    [[ADD20:%.*]] = add nsw i32 [[CONV19]], 1
+// CHECK2-NEXT:    [[CONV21:%.*]] = trunc i32 [[ADD20]] to i8
+// CHECK2-NEXT:    [[TMP17:%.*]] = bitcast i8 [[CONV21]] to b8
+// CHECK2-NEXT:    store b8 [[TMP17]], ptr [[Y]], align 8
 // CHECK2-NEXT:    [[CALL:%.*]] = call nonnull align 8 dereferenceable(8) ptr @_ZN2TTIxcEixEi(ptr nonnull align 8 dereferenceable(16) [[TMP7]], i32 0) #[[ATTR10:[0-9]+]]
-// CHECK2-NEXT:    [[TMP17:%.*]] = load i64, ptr [[CALL]], align 8
-// CHECK2-NEXT:    [[ADD21:%.*]] = add nsw i64 [[TMP17]], 1
-// CHECK2-NEXT:    store i64 [[ADD21]], ptr [[CALL]], align 8
+// CHECK2-NEXT:    [[TMP18:%.*]] = load i64, ptr [[CALL]], align 8
+// CHECK2-NEXT:    [[ADD22:%.*]] = add nsw i64 [[TMP18]], 1
+// CHECK2-NEXT:    store i64 [[ADD22]], ptr [[CALL]], align 8
 // CHECK2-NEXT:    call void @__kmpc_target_deinit()
 // CHECK2-NEXT:    ret void
 // CHECK2:       worker.exit:
@@ -738,15 +744,17 @@ void unreachable_call() {
 // CHECK2-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
 // CHECK2-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i16
 // CHECK2-NEXT:    store i16 [[CONV2]], ptr [[AA_ADDR]], align 2
-// CHECK2-NEXT:    [[TMP4:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// CHECK2-NEXT:    [[CONV3:%.*]] = sext i8 [[TMP4]] to i32
-// CHECK2-NEXT:    [[ADD4:%.*]] = add nsw i32 [[CONV3]], 1
-// CHECK2-NEXT:    [[CONV5:%.*]] = trunc i32 [[ADD4]] to i8
-// CHECK2-NEXT:    store i8 [[CONV5]], ptr [[AAA_ADDR]], align 1
+// CHECK2-NEXT:    [[TMP4:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// CHECK2-NEXT:    [[CONV3:%.*]] = bytecast exact b8 [[TMP4]] to i8
+// CHECK2-NEXT:    [[CONV4:%.*]] = sext i8 [[CONV3]] to i32
+// CHECK2-NEXT:    [[ADD5:%.*]] = add nsw i32 [[CONV4]], 1
+// CHECK2-NEXT:    [[CONV6:%.*]] = trunc i32 [[ADD5]] to i8
+// CHECK2-NEXT:    [[TMP5:%.*]] = bitcast i8 [[CONV6]] to b8
+// CHECK2-NEXT:    store b8 [[TMP5]], ptr [[AAA_ADDR]], align 1
 // CHECK2-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[TMP0]], i32 0, i32 2
-// CHECK2-NEXT:    [[TMP5:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// CHECK2-NEXT:    [[ADD6:%.*]] = add nsw i32 [[TMP5]], 1
-// CHECK2-NEXT:    store i32 [[ADD6]], ptr [[ARRAYIDX]], align 4
+// CHECK2-NEXT:    [[TMP6:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// CHECK2-NEXT:    [[ADD7:%.*]] = add nsw i32 [[TMP6]], 1
+// CHECK2-NEXT:    store i32 [[ADD7]], ptr [[ARRAYIDX]], align 4
 // CHECK2-NEXT:    call void @__kmpc_target_deinit()
 // CHECK2-NEXT:    ret void
 // CHECK2:       worker.exit:

@@ -63,12 +63,12 @@ s2 single_elem_ret(void) {
 void long_long_arg(long long i) {}
 
 // i8/i16 should be signext, i32 and higher should not.
-// WEBASSEMBLY32: define void @char_short_arg(i8 noundef signext %a, i16 noundef signext %b)
-// WEBASSEMBLY64: define void @char_short_arg(i8 noundef signext %a, i16 noundef signext %b)
+// WEBASSEMBLY32: define void @char_short_arg(b8 noundef signext %a, i16 noundef signext %b)
+// WEBASSEMBLY64: define void @char_short_arg(b8 noundef signext %a, i16 noundef signext %b)
 void char_short_arg(char a, short b) {}
 
-// WEBASSEMBLY32: define void @uchar_ushort_arg(i8 noundef zeroext %a, i16 noundef zeroext %b)
-// WEBASSEMBLY64: define void @uchar_ushort_arg(i8 noundef zeroext %a, i16 noundef zeroext %b)
+// WEBASSEMBLY32: define void @uchar_ushort_arg(b8 noundef zeroext %a, i16 noundef zeroext %b)
+// WEBASSEMBLY64: define void @uchar_ushort_arg(b8 noundef zeroext %a, i16 noundef zeroext %b)
 void uchar_ushort_arg(unsigned char a, unsigned short b) {}
 
 enum my_enum {

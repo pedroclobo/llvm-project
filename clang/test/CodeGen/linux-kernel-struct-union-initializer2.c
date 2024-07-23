@@ -74,16 +74,17 @@ void test2(long long y) {
 
 // Test non-const initializer for struct with padding and bit fields.
 // CHECK-LABEL: define dso_local void @test3(
-// CHECK-SAME: i8 noundef zeroext [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: b8 noundef zeroext [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[B_ADDR:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    [[S:%.*]] = alloca [[STRUCT_S2:%.*]], align 4
-// CHECK-NEXT:    store i8 [[B]], ptr [[B_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[B]], ptr [[B_ADDR]], align 1
 // CHECK-NEXT:    store i16 0, ptr [[S]], align 4
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[B_ADDR]], align 1
-// CHECK-NEXT:    [[TMP1:%.*]] = zext i8 [[TMP0]] to i16
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[B_ADDR]], align 1
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i8 [[TMP1]] to i16
 // CHECK-NEXT:    [[BF_LOAD:%.*]] = load i16, ptr [[S]], align 4
-// CHECK-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP1]], 7
+// CHECK-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP2]], 7
 // CHECK-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD]], -8
 // CHECK-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_VALUE]]
 // CHECK-NEXT:    store i16 [[BF_SET]], ptr [[S]], align 4
@@ -95,8 +96,8 @@ void test2(long long y) {
 // CHECK-NEXT:    [[BF_CLEAR5:%.*]] = and i16 [[BF_LOAD4]], 16383
 // CHECK-NEXT:    [[BF_SET6:%.*]] = or i16 [[BF_CLEAR5]], 0
 // CHECK-NEXT:    store i16 [[BF_SET6]], ptr [[S]], align 4
-// CHECK-NEXT:    [[TMP2:%.*]] = getelementptr i8, ptr [[S]], i64 2
-// CHECK-NEXT:    call void @llvm.memset.p0.i64(ptr align 2 [[TMP2]], i8 0, i64 2, i1 false)
+// CHECK-NEXT:    [[TMP3:%.*]] = getelementptr i8, ptr [[S]], i64 2
+// CHECK-NEXT:    call void @llvm.memset.p0.i64(ptr align 2 [[TMP3]], i8 0, i64 2, i1 false)
 // CHECK-NEXT:    [[I:%.*]] = getelementptr inbounds nuw [[STRUCT_S2]], ptr [[S]], i32 0, i32 1
 // CHECK-NEXT:    store i32 0, ptr [[I]], align 4
 // CHECK-NEXT:    ret void
@@ -147,14 +148,14 @@ void test5(int a, int b) {
 }
 
 // CHECK-LABEL: define dso_local void @test6(
-// CHECK-SAME: i8 noundef signext [[X:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: b8 noundef signext [[X:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[X_ADDR:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[X_ADDR:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    [[S:%.*]] = alloca [[STRUCT_S5:%.*]], align 1
-// CHECK-NEXT:    store i8 [[X]], ptr [[X_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[X]], ptr [[X_ADDR]], align 1
 // CHECK-NEXT:    [[X1:%.*]] = getelementptr inbounds nuw [[STRUCT_S5]], ptr [[S]], i32 0, i32 0
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X_ADDR]], align 1
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[X1]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[TMP0]], ptr [[X1]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = getelementptr i8, ptr [[S]], i64 1
 // CHECK-NEXT:    store i16 0, ptr [[TMP1]], align 1
 // CHECK-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_S5]], ptr [[S]], i32 0, i32 1

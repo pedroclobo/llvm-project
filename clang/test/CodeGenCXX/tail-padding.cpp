@@ -30,7 +30,7 @@ namespace InitWithinNVSize {
   // This copies over the 'C::x' member, but that's OK because we've not initialized it yet.
   // CHECK: call void @llvm.memcpy.p0.p0.i{{32|64}}(ptr {{.*}}, ptr {{.*}}, i{{32|64}} 8, i1 false)
   // CHECK: store ptr {{.*}} @_ZTVN16InitWithinNVSize1CE
-  // CHECK: store i8
+  // CHECK: store b8
 }
 
 namespace NoUniqueAddr {

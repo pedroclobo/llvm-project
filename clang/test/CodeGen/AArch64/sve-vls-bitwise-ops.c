@@ -29,13 +29,16 @@ typedef svbool_t fixed_bool_t __attribute__((arm_sve_vector_bits(N)));
 
 // CHECK-LABEL: @and_bool(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP0:%.*]] to <vscale x 2 x i8>
-// CHECK-NEXT:    [[A:%.*]] = call <8 x i8> @llvm.vector.extract.v8i8.nxv2i8(<vscale x 2 x i8> [[A_COERCE]], i64 0)
-// CHECK-NEXT:    [[B_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP1:%.*]] to <vscale x 2 x i8>
-// CHECK-NEXT:    [[B:%.*]] = call <8 x i8> @llvm.vector.extract.v8i8.nxv2i8(<vscale x 2 x i8> [[B_COERCE]], i64 0)
-// CHECK-NEXT:    [[AND:%.*]] = and <8 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v8i8(<vscale x 2 x i8> poison, <8 x i8> [[AND]], i64 0)
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <vscale x 2 x i8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
+// CHECK-NEXT:    [[A_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP0:%.*]] to <vscale x 2 x b8>
+// CHECK-NEXT:    [[A:%.*]] = call <8 x b8> @llvm.vector.extract.v8b8.nxv2b8(<vscale x 2 x b8> [[A_COERCE]], i64 0)
+// CHECK-NEXT:    [[B_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP1:%.*]] to <vscale x 2 x b8>
+// CHECK-NEXT:    [[B:%.*]] = call <8 x b8> @llvm.vector.extract.v8b8.nxv2b8(<vscale x 2 x b8> [[B_COERCE]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[EXT2:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[AND:%.*]] = and <8 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <8 x i8> [[AND]] to <8 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v8b8(<vscale x 2 x b8> poison, <8 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 2 x b8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
 // CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 fixed_bool_t and_bool(fixed_bool_t a, fixed_bool_t b) {
@@ -44,11 +47,20 @@ fixed_bool_t and_bool(fixed_bool_t a, fixed_bool_t b) {
 
 // CHECK-LABEL: @and_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[AND:%.*]] = and <64 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v64i8(<vscale x 16 x i8> poison, <64 x i8> [[AND]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[A_COERCE:%.*]], ptr [[A]], align 16
+// CHECK-NEXT:    [[A1:%.*]] = load <64 x b8>, ptr [[A]], align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[B_COERCE:%.*]], ptr [[B]], align 16
+// CHECK-NEXT:    [[B2:%.*]] = load <64 x b8>, ptr [[B]], align 16
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <64 x b8> [[A1]] to <64 x i8>
+// CHECK-NEXT:    [[EXT3:%.*]] = bytecast exact <64 x b8> [[B2]] to <64 x i8>
+// CHECK-NEXT:    [[AND:%.*]] = and <64 x i8> [[EXT]], [[EXT3]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <64 x i8> [[AND]] to <64 x b8>
+// CHECK-NEXT:    store <64 x b8> [[UNPROMOTION]], ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 fixed_int8_t and_i8(fixed_int8_t a, fixed_int8_t b) {
   return a & b;
@@ -92,11 +104,20 @@ fixed_int64_t and_i64(fixed_int64_t a, fixed_int64_t b) {
 
 // CHECK-LABEL: @and_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[AND:%.*]] = and <64 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v64i8(<vscale x 16 x i8> poison, <64 x i8> [[AND]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[A_COERCE:%.*]], ptr [[A]], align 16
+// CHECK-NEXT:    [[A1:%.*]] = load <64 x b8>, ptr [[A]], align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[B_COERCE:%.*]], ptr [[B]], align 16
+// CHECK-NEXT:    [[B2:%.*]] = load <64 x b8>, ptr [[B]], align 16
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <64 x b8> [[A1]] to <64 x i8>
+// CHECK-NEXT:    [[EXT3:%.*]] = bytecast exact <64 x b8> [[B2]] to <64 x i8>
+// CHECK-NEXT:    [[AND:%.*]] = and <64 x i8> [[EXT]], [[EXT3]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <64 x i8> [[AND]] to <64 x b8>
+// CHECK-NEXT:    store <64 x b8> [[UNPROMOTION]], ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 fixed_uint8_t and_u8(fixed_uint8_t a, fixed_uint8_t b) {
   return a & b;
@@ -142,13 +163,16 @@ fixed_uint64_t and_u64(fixed_uint64_t a, fixed_uint64_t b) {
 
 // CHECK-LABEL: @or_bool(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP0:%.*]] to <vscale x 2 x i8>
-// CHECK-NEXT:    [[A:%.*]] = call <8 x i8> @llvm.vector.extract.v8i8.nxv2i8(<vscale x 2 x i8> [[A_COERCE]], i64 0)
-// CHECK-NEXT:    [[B_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP1:%.*]] to <vscale x 2 x i8>
-// CHECK-NEXT:    [[B:%.*]] = call <8 x i8> @llvm.vector.extract.v8i8.nxv2i8(<vscale x 2 x i8> [[B_COERCE]], i64 0)
-// CHECK-NEXT:    [[OR:%.*]] = or <8 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v8i8(<vscale x 2 x i8> poison, <8 x i8> [[OR]], i64 0)
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <vscale x 2 x i8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
+// CHECK-NEXT:    [[A_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP0:%.*]] to <vscale x 2 x b8>
+// CHECK-NEXT:    [[A:%.*]] = call <8 x b8> @llvm.vector.extract.v8b8.nxv2b8(<vscale x 2 x b8> [[A_COERCE]], i64 0)
+// CHECK-NEXT:    [[B_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP1:%.*]] to <vscale x 2 x b8>
+// CHECK-NEXT:    [[B:%.*]] = call <8 x b8> @llvm.vector.extract.v8b8.nxv2b8(<vscale x 2 x b8> [[B_COERCE]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[EXT2:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[OR:%.*]] = or <8 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <8 x i8> [[OR]] to <8 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v8b8(<vscale x 2 x b8> poison, <8 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 2 x b8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
 // CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 fixed_bool_t or_bool(fixed_bool_t a, fixed_bool_t b) {
@@ -157,11 +181,20 @@ fixed_bool_t or_bool(fixed_bool_t a, fixed_bool_t b) {
 
 // CHECK-LABEL: @or_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[OR:%.*]] = or <64 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v64i8(<vscale x 16 x i8> poison, <64 x i8> [[OR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[A_COERCE:%.*]], ptr [[A]], align 16
+// CHECK-NEXT:    [[A1:%.*]] = load <64 x b8>, ptr [[A]], align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[B_COERCE:%.*]], ptr [[B]], align 16
+// CHECK-NEXT:    [[B2:%.*]] = load <64 x b8>, ptr [[B]], align 16
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <64 x b8> [[A1]] to <64 x i8>
+// CHECK-NEXT:    [[EXT3:%.*]] = bytecast exact <64 x b8> [[B2]] to <64 x i8>
+// CHECK-NEXT:    [[OR:%.*]] = or <64 x i8> [[EXT]], [[EXT3]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <64 x i8> [[OR]] to <64 x b8>
+// CHECK-NEXT:    store <64 x b8> [[UNPROMOTION]], ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 fixed_int8_t or_i8(fixed_int8_t a, fixed_int8_t b) {
   return a | b;
@@ -205,11 +238,20 @@ fixed_int64_t or_i64(fixed_int64_t a, fixed_int64_t b) {
 
 // CHECK-LABEL: @or_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[OR:%.*]] = or <64 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v64i8(<vscale x 16 x i8> poison, <64 x i8> [[OR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[A_COERCE:%.*]], ptr [[A]], align 16
+// CHECK-NEXT:    [[A1:%.*]] = load <64 x b8>, ptr [[A]], align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[B_COERCE:%.*]], ptr [[B]], align 16
+// CHECK-NEXT:    [[B2:%.*]] = load <64 x b8>, ptr [[B]], align 16
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <64 x b8> [[A1]] to <64 x i8>
+// CHECK-NEXT:    [[EXT3:%.*]] = bytecast exact <64 x b8> [[B2]] to <64 x i8>
+// CHECK-NEXT:    [[OR:%.*]] = or <64 x i8> [[EXT]], [[EXT3]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <64 x i8> [[OR]] to <64 x b8>
+// CHECK-NEXT:    store <64 x b8> [[UNPROMOTION]], ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 fixed_uint8_t or_u8(fixed_uint8_t a, fixed_uint8_t b) {
   return a | b;
@@ -255,13 +297,16 @@ fixed_uint64_t or_u64(fixed_uint64_t a, fixed_uint64_t b) {
 
 // CHECK-LABEL: @xor_bool(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP0:%.*]] to <vscale x 2 x i8>
-// CHECK-NEXT:    [[A:%.*]] = call <8 x i8> @llvm.vector.extract.v8i8.nxv2i8(<vscale x 2 x i8> [[A_COERCE]], i64 0)
-// CHECK-NEXT:    [[B_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP1:%.*]] to <vscale x 2 x i8>
-// CHECK-NEXT:    [[B:%.*]] = call <8 x i8> @llvm.vector.extract.v8i8.nxv2i8(<vscale x 2 x i8> [[B_COERCE]], i64 0)
-// CHECK-NEXT:    [[XOR:%.*]] = xor <8 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v8i8(<vscale x 2 x i8> poison, <8 x i8> [[XOR]], i64 0)
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <vscale x 2 x i8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
+// CHECK-NEXT:    [[A_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP0:%.*]] to <vscale x 2 x b8>
+// CHECK-NEXT:    [[A:%.*]] = call <8 x b8> @llvm.vector.extract.v8b8.nxv2b8(<vscale x 2 x b8> [[A_COERCE]], i64 0)
+// CHECK-NEXT:    [[B_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP1:%.*]] to <vscale x 2 x b8>
+// CHECK-NEXT:    [[B:%.*]] = call <8 x b8> @llvm.vector.extract.v8b8.nxv2b8(<vscale x 2 x b8> [[B_COERCE]], i64 0)
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[EXT2:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[XOR:%.*]] = xor <8 x i8> [[EXT]], [[EXT2]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <8 x i8> [[XOR]] to <8 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v8b8(<vscale x 2 x b8> poison, <8 x b8> [[UNPROMOTION]], i64 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 2 x b8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
 // CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 fixed_bool_t xor_bool(fixed_bool_t a, fixed_bool_t b) {
@@ -270,11 +315,20 @@ fixed_bool_t xor_bool(fixed_bool_t a, fixed_bool_t b) {
 
 // CHECK-LABEL: @xor_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[XOR:%.*]] = xor <64 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v64i8(<vscale x 16 x i8> poison, <64 x i8> [[XOR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[A_COERCE:%.*]], ptr [[A]], align 16
+// CHECK-NEXT:    [[A1:%.*]] = load <64 x b8>, ptr [[A]], align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[B_COERCE:%.*]], ptr [[B]], align 16
+// CHECK-NEXT:    [[B2:%.*]] = load <64 x b8>, ptr [[B]], align 16
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <64 x b8> [[A1]] to <64 x i8>
+// CHECK-NEXT:    [[EXT3:%.*]] = bytecast exact <64 x b8> [[B2]] to <64 x i8>
+// CHECK-NEXT:    [[XOR:%.*]] = xor <64 x i8> [[EXT]], [[EXT3]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <64 x i8> [[XOR]] to <64 x b8>
+// CHECK-NEXT:    store <64 x b8> [[UNPROMOTION]], ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 fixed_int8_t xor_i8(fixed_int8_t a, fixed_int8_t b) {
   return a ^ b;
@@ -318,11 +372,20 @@ fixed_int64_t xor_i64(fixed_int64_t a, fixed_int64_t b) {
 
 // CHECK-LABEL: @xor_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[B:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[B_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[XOR:%.*]] = xor <64 x i8> [[A]], [[B]]
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v64i8(<vscale x 16 x i8> poison, <64 x i8> [[XOR]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[B:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[A_COERCE:%.*]], ptr [[A]], align 16
+// CHECK-NEXT:    [[A1:%.*]] = load <64 x b8>, ptr [[A]], align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[B_COERCE:%.*]], ptr [[B]], align 16
+// CHECK-NEXT:    [[B2:%.*]] = load <64 x b8>, ptr [[B]], align 16
+// CHECK-NEXT:    [[EXT:%.*]] = bytecast exact <64 x b8> [[A1]] to <64 x i8>
+// CHECK-NEXT:    [[EXT3:%.*]] = bytecast exact <64 x b8> [[B2]] to <64 x i8>
+// CHECK-NEXT:    [[XOR:%.*]] = xor <64 x i8> [[EXT]], [[EXT3]]
+// CHECK-NEXT:    [[UNPROMOTION:%.*]] = bitcast <64 x i8> [[XOR]] to <64 x b8>
+// CHECK-NEXT:    store <64 x b8> [[UNPROMOTION]], ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 fixed_uint8_t xor_u8(fixed_uint8_t a, fixed_uint8_t b) {
   return a ^ b;
@@ -368,12 +431,14 @@ fixed_uint64_t xor_u64(fixed_uint64_t a, fixed_uint64_t b) {
 
 // CHECK-LABEL: @neg_bool(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP0:%.*]] to <vscale x 2 x i8>
-// CHECK-NEXT:    [[A:%.*]] = call <8 x i8> @llvm.vector.extract.v8i8.nxv2i8(<vscale x 2 x i8> [[A_COERCE]], i64 0)
-// CHECK-NEXT:    [[NOT:%.*]] = xor <8 x i8> [[A]], splat (i8 -1)
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v8i8(<vscale x 2 x i8> poison, <8 x i8> [[NOT]], i64 0)
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 2 x i8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP1]]
+// CHECK-NEXT:    [[A_COERCE:%.*]] = bitcast <vscale x 16 x i1> [[TMP0:%.*]] to <vscale x 2 x b8>
+// CHECK-NEXT:    [[A:%.*]] = call <8 x b8> @llvm.vector.extract.v8b8.nxv2b8(<vscale x 2 x b8> [[A_COERCE]], i64 0)
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[NOT:%.*]] = xor <8 x i8> [[CONV]], splat (i8 -1)
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[NOT]] to <8 x b8>
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v8b8(<vscale x 2 x b8> poison, <8 x b8> [[TMP1]], i64 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 2 x b8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP2]]
 //
 fixed_bool_t neg_bool(fixed_bool_t a) {
   return ~a;
@@ -381,10 +446,15 @@ fixed_bool_t neg_bool(fixed_bool_t a) {
 
 // CHECK-LABEL: @neg_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[NOT:%.*]] = xor <64 x i8> [[A]], splat (i8 -1)
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v64i8(<vscale x 16 x i8> poison, <64 x i8> [[NOT]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[A_COERCE:%.*]], ptr [[A]], align 16
+// CHECK-NEXT:    [[A1:%.*]] = load <64 x b8>, ptr [[A]], align 16
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact <64 x b8> [[A1]] to <64 x i8>
+// CHECK-NEXT:    [[NOT:%.*]] = xor <64 x i8> [[CONV]], splat (i8 -1)
+// CHECK-NEXT:    store <64 x i8> [[NOT]], ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 fixed_int8_t neg_i8(fixed_int8_t a) {
   return ~a;
@@ -425,10 +495,15 @@ fixed_int64_t neg_i64(fixed_int64_t a) {
 
 // CHECK-LABEL: @neg_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <64 x i8> @llvm.vector.extract.v64i8.nxv16i8(<vscale x 16 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[NOT:%.*]] = xor <64 x i8> [[A]], splat (i8 -1)
-// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v64i8(<vscale x 16 x i8> poison, <64 x i8> [[NOT]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CAST_SCALABLE]]
+// CHECK-NEXT:    [[A:%.*]] = alloca <64 x b8>, align 16
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[A_COERCE:%.*]], ptr [[A]], align 16
+// CHECK-NEXT:    [[A1:%.*]] = load <64 x b8>, ptr [[A]], align 16
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact <64 x b8> [[A1]] to <64 x i8>
+// CHECK-NEXT:    [[NOT:%.*]] = xor <64 x i8> [[CONV]], splat (i8 -1)
+// CHECK-NEXT:    store <64 x i8> [[NOT]], ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x i8>, ptr [[RETVAL_COERCE]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
 //
 fixed_uint8_t neg_u8(fixed_uint8_t a) {
   return ~a;

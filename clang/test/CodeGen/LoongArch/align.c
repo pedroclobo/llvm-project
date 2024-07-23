@@ -23,8 +23,8 @@ char *s4 = "123456789012345678901234567890123456789012345678901234567890abcdef";
 // LA64: @.str{{.*}} ={{.*}} constant [67 x i8] c"1234{{.*}}cdef\00", align 1
 
 int8_t a;
-// LA32: @a ={{.*}} global i8 0, align 1
-// LA64: @a ={{.*}} global i8 0, align 1
+// LA32: @a ={{.*}} global b8 0, align 1
+// LA64: @a ={{.*}} global b8 0, align 1
 
 int16_t b;
 // LA32: @b ={{.*}} global i16 0, align 2

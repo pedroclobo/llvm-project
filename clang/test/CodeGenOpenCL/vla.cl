@@ -18,8 +18,8 @@ kernel void testvla()
 // SPIR-NOT: %vla0 = alloca [5 x i32]{{.*}}addrspace
 // AMDGCN: %vla0 = alloca [5 x i32]{{.*}}addrspace(5)
   char vla1[sz1];
-// SPIR: %vla1 = alloca [16 x i8]
-// SPIR-NOT: %vla1 = alloca [16 x i8]{{.*}}addrspace
-// AMDGCN: %vla1 = alloca [16 x i8]{{.*}}addrspace(5)
+// SPIR: %vla1 = alloca [16 x b8]
+// SPIR-NOT: %vla1 = alloca [16 x b8]{{.*}}addrspace
+// AMDGCN: %vla1 = alloca [16 x b8]{{.*}}addrspace(5)
   local short vla2[sz2];
 }

@@ -48,8 +48,8 @@ test_extract() {
 
 // CHECK-LABEL: define available_externally signext i32 @_mm_extract_epi8(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, i32 noundef signext %{{[0-9a-zA-Z_.]+}})
 // CHECK: %[[AND:[0-9a-zA-Z_.]+]] = and i32 %{{[0-9a-zA-Z_.]+}}, 15
-// CHECK: %[[EXT:[0-9a-zA-Z_.]+]] = extractelement <16 x i8> %{{[0-9a-zA-Z_.]+}}, i32 %[[AND]]
-// CHECK: zext i8 %[[EXT]] to i32
+// CHECK: %[[EXT:[0-9a-zA-Z_.]+]] = extractelement <16 x b8> %{{[0-9a-zA-Z_.]+}}, i32 %[[AND]]
+// CHECK: zext i8 {{.*}} to i32
 
 // CHECK-LABEL: define available_externally signext i32 @_mm_extract_epi32(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, i32 noundef signext %{{[0-9a-zA-Z_.]+}})
 // CHECK: %[[AND:[0-9a-zA-Z_.]+]] = and i32 %{{[0-9a-zA-Z_.]+}}, 3
@@ -78,7 +78,8 @@ test_blend() {
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_blend_epi16(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, i32 noundef signext %{{[0-9a-zA-Z_.]+}})
 // CHECK: %[[TRUNC:[0-9a-zA-Z_.]+]] = trunc i32 %{{[0-9a-zA-Z_.]+}} to i8
-// CHECK: call <16 x i8> @vec_splats(unsigned char)(i8 noundef zeroext %[[TRUNC]])
+// CHECK: %[[CONV:[0-9a-zA-Z_.]+]] = bitcast i8 %[[TRUNC]] to b8
+// CHECK: call <16 x b8> @vec_splats(unsigned char)(b8 noundef zeroext %[[CONV]])
 // CHECK: call <16 x i8> @llvm.ppc.altivec.vgbbd(<16 x i8> %{{[0-9a-zA-Z_.]+}})
 // CHECK: %[[PACK:[0-9a-zA-Z_.]+]] = call <8 x i16> @vec_unpackh(signed char vector[16])
 // CHECK: store <8 x i16> %[[PACK]], ptr %{{[0-9a-zA-Z_.]+}}, align 16
@@ -87,12 +88,12 @@ test_blend() {
 // CHECK: call <8 x i16> @vec_sel(unsigned short vector[8], unsigned short vector[8], unsigned short vector[8])
 
 // P10-LABEL: define available_externally <2 x i64> @_mm_blendv_epi8(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
-// P10: call <16 x i8> @vec_blendv(signed char vector[16], signed char vector[16], unsigned char vector[16])(<16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef %{{[0-9a-zA-Z_.]+}})
+// P10: call <16 x b8> @vec_blendv(signed char vector[16], signed char vector[16], unsigned char vector[16])(<16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef %{{[0-9a-zA-Z_.]+}})
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_blendv_epi8(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: call <16 x i8> @vec_splats(unsigned char)(i8 noundef zeroext 7)
-// CHECK: call <16 x i8> @vec_sra(unsigned char vector[16], unsigned char vector[16])
-// CHECK: call <16 x i8> @vec_sel(signed char vector[16], signed char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_splats(unsigned char)(b8 noundef zeroext 7)
+// CHECK: call <16 x b8> @vec_sra(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_sel(signed char vector[16], signed char vector[16], unsigned char vector[16])
 
 void __attribute__((noinline))
 test_insert() {
@@ -106,7 +107,7 @@ test_insert() {
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_insert_epi8(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, i32 noundef signext %{{[0-9a-zA-Z_.]+}}, i32 noundef signext %{{[0-9a-zA-Z_.]+}})
 // CHECK: %[[TRUNC:[0-9a-zA-Z_.]+]] = trunc i32 %{{[0-9a-zA-Z_.]+}} to i8
 // CHECK: %[[AND:[0-9a-zA-Z_.]+]] = and i32 %{{[0-9a-zA-Z_.]+}}, 15
-// CHECK: insertelement <16 x i8> %{{[0-9a-zA-Z_.]+}}, i8 %[[TRUNC]], i32 %[[AND]]
+// CHECK: insertelement <16 x b8> %{{[0-9a-zA-Z_.]+}}, b8 %{{[0-9a-zA-Z_.]+}}, i32 %[[AND]]
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_insert_epi32(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, i32 noundef signext %{{[0-9a-zA-Z_.]+}}, i32 noundef signext %{{[0-9a-zA-Z_.]+}})
 // CHECK: %[[AND:[0-9a-zA-Z_.]+]] = and i32 %{{[0-9a-zA-Z_.]+}}, 3
@@ -181,7 +182,7 @@ test_convert() {
 // BE: call <8 x i16> @vec_mergeh(unsigned short vector[8], unsigned short vector[8])(<8 x i16> noundef zeroinitializer, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}})
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_cvtepu8_epi64(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: call <16 x i8> @vec_mergeh(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_mergeh(unsigned char vector[16], unsigned char vector[16])
 // CHECK: call <8 x i16> @vec_mergeh(unsigned short vector[8], unsigned short vector[8])
 // CHECK: call <4 x i32> @vec_mergeh(unsigned int vector[4], unsigned int vector[4])
 
@@ -204,7 +205,7 @@ test_minmax() {
 // CHECK: call <4 x i32> @vec_max(int vector[4], int vector[4])
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_max_epi8(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: call <16 x i8> @vec_max(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_max(signed char vector[16], signed char vector[16])
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_max_epu16(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
 // CHECK: call <8 x i16> @vec_max(unsigned short vector[8], unsigned short vector[8])
@@ -216,7 +217,7 @@ test_minmax() {
 // CHECK: call <4 x i32> @vec_min(int vector[4], int vector[4])
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_min_epi8(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: call <16 x i8> @vec_min(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_min(signed char vector[16], signed char vector[16])
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_min_epu16(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
 // CHECK: call <8 x i16> @vec_min(unsigned short vector[8], unsigned short vector[8])
@@ -302,9 +303,9 @@ test_testing() {
 // CHECK-LABEL: @test_testing
 
 // CHECK-LABEL: define available_externally signext i32 @_mm_testc_si128(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: call <16 x i8> @vec_nor(unsigned char vector[16], unsigned char vector[16])
-// CHECK: call <16 x i8> @vec_and(unsigned char vector[16], unsigned char vector[16])
-// CHECK: call signext i32 @vec_all_eq(unsigned char vector[16], unsigned char vector[16])(<16 x i8> noundef %call1, <16 x i8> noundef zeroinitializer)
+// CHECK: call <16 x b8> @vec_nor(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_and(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call signext i32 @vec_all_eq(unsigned char vector[16], unsigned char vector[16])(<16 x b8> noundef %call1, <16 x b8> noundef zeroinitializer)
 
 // CHECK-LABEL: define available_externally signext i32 @_mm_testnzc_si128(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
 // CHECK: call signext i32 @_mm_testz_si128(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
@@ -312,8 +313,8 @@ test_testing() {
 // CHECK: zext i1 %{{[0-9a-zA-Z_.]+}} to i32
 
 // CHECK-LABEL: define available_externally signext i32 @_mm_testz_si128(<2 x i64> noundef %{{[0-9a-zA-Z_.]+}}, <2 x i64> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: call <16 x i8> @vec_and(unsigned char vector[16], unsigned char vector[16])
-// CHECK: call signext i32 @vec_all_eq(unsigned char vector[16], unsigned char vector[16])(<16 x i8> noundef %call, <16 x i8> noundef zeroinitializer)
+// CHECK: call <16 x b8> @vec_and(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call signext i32 @vec_all_eq(unsigned char vector[16], unsigned char vector[16])(<16 x b8> noundef %call, <16 x b8> noundef zeroinitializer)
 
 void __attribute__((noinline))
 test_compare() {

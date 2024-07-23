@@ -75,7 +75,7 @@ struct { char a[]; } empty_struct = {};
 // CHECK: @empty_struct ={{.*}} global %struct.anon{{.*}} zeroinitializer, align 1
 
 struct { char a[]; } empty_struct0 = {0};
-// CHECK: @empty_struct0 = global { [1 x i8] } zeroinitializer, align 1
+// CHECK: @empty_struct0 = global { [1 x b8] } zeroinitializer, align 1
 
 union { struct { int a; char b[]; }; } struct_in_union = {};
 // CHECK: @struct_in_union = global %union.anon{{.*}} zeroinitializer, align 4
@@ -93,13 +93,13 @@ union { char a[]; } only_in_union = {};
 // CHECK: @only_in_union = global %union.anon{{.*}} zeroinitializer, align 1
 
 union { char a[]; } only_in_union0 = {0};
-// CHECK: @only_in_union0 = global { [1 x i8] } zeroinitializer, align 1
+// CHECK: @only_in_union0 = global { [1 x b8] } zeroinitializer, align 1
 
 union { char a[]; int b; } first_in_union = {};
-// CHECK: @first_in_union = global { [0 x i8], [4 x i8] } zeroinitializer, align 4
+// CHECK: @first_in_union = global { [0 x b8], [4 x i8] } zeroinitializer, align 4
 
 union { char a[]; int b; } first_in_union0 = {0};
-// CHECK: @first_in_union0 = global { [1 x i8], [3 x i8] } zeroinitializer, align 4
+// CHECK: @first_in_union0 = global { [1 x b8], [3 x i8] } zeroinitializer, align 4
 
 union { char a[]; int b; } first_in_union123 = { {1, 2, 3} };
 // CHECK: @first_in_union123 = global { [3 x i8], i8 } { [3 x i8] c"\01\02\03", i8 0 }, align 4

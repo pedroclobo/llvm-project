@@ -14,9 +14,9 @@ void __attribute__((regcall)) v1b(int a, int b) {}
 // X64: define dso_local x86_regcallcc void @__regcall3__v1b(i32 noundef %a, i32 noundef %b)
 
 void __regcall v2(char a, char b) {}
-// X86: define dso_local x86_regcallcc void @__regcall3__v2(i8 inreg noundef signext %a, i8 inreg noundef signext %b)
-// Win64: define dso_local x86_regcallcc void @__regcall3__v2(i8 noundef %a, i8 noundef %b)
-// Lin64: define dso_local x86_regcallcc void @__regcall3__v2(i8 noundef signext %a, i8 noundef signext %b)
+// X86: define dso_local x86_regcallcc void @__regcall3__v2(b8 inreg noundef signext %a, b8 inreg noundef signext %b)
+// Win64: define dso_local x86_regcallcc void @__regcall3__v2(b8 noundef %a, b8 noundef %b)
+// Lin64: define dso_local x86_regcallcc void @__regcall3__v2(b8 noundef signext %a, b8 noundef signext %b)
 
 struct Small { int x; };
 void __regcall v3(int a, struct Small b, int c) {}

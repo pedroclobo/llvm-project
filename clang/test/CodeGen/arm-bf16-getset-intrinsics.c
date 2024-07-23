@@ -48,9 +48,10 @@ bfloat16x8_t test_vdupq_n_bf16(bfloat16_t v) {
 // CHECK-LABEL: @test_vdup_lane_bf16(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[V:%.*]] to <4 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x bfloat>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x bfloat> [[TMP2]], <4 x bfloat> [[TMP2]], <4 x i32> <i32 1, i32 1, i32 1, i32 1>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x bfloat>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x bfloat> [[TMP3]], <4 x bfloat> [[TMP3]], <4 x i32> <i32 1, i32 1, i32 1, i32 1>
 // CHECK-NEXT:    ret <4 x bfloat> [[LANE]]
 //
 bfloat16x4_t test_vdup_lane_bf16(bfloat16x4_t v) {
@@ -60,9 +61,10 @@ bfloat16x4_t test_vdup_lane_bf16(bfloat16x4_t v) {
 // CHECK-LABEL: @test_vdupq_lane_bf16(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[V:%.*]] to <4 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x bfloat>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x bfloat> [[TMP2]], <4 x bfloat> [[TMP2]], <8 x i32> <i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x bfloat>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <4 x bfloat> [[TMP3]], <4 x bfloat> [[TMP3]], <8 x i32> <i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1>
 // CHECK-NEXT:    ret <8 x bfloat> [[LANE]]
 //
 bfloat16x8_t test_vdupq_lane_bf16(bfloat16x4_t v) {
@@ -72,9 +74,10 @@ bfloat16x8_t test_vdupq_lane_bf16(bfloat16x4_t v) {
 // CHECK-LABEL: @test_vdup_laneq_bf16(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x bfloat> [[V:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x bfloat>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x bfloat> [[TMP2]], <8 x bfloat> [[TMP2]], <4 x i32> <i32 7, i32 7, i32 7, i32 7>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x bfloat>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x bfloat> [[TMP3]], <8 x bfloat> [[TMP3]], <4 x i32> <i32 7, i32 7, i32 7, i32 7>
 // CHECK-NEXT:    ret <4 x bfloat> [[LANE]]
 //
 bfloat16x4_t test_vdup_laneq_bf16(bfloat16x8_t v) {
@@ -84,9 +87,10 @@ bfloat16x4_t test_vdup_laneq_bf16(bfloat16x8_t v) {
 // CHECK-LABEL: @test_vdupq_laneq_bf16(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x bfloat> [[V:%.*]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x bfloat>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x bfloat> [[TMP2]], <8 x bfloat> [[TMP2]], <8 x i32> <i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x bfloat>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x bfloat> [[TMP3]], <8 x bfloat> [[TMP3]], <8 x i32> <i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7, i32 7>
 // CHECK-NEXT:    ret <8 x bfloat> [[LANE]]
 //
 bfloat16x8_t test_vdupq_laneq_bf16(bfloat16x8_t v) {

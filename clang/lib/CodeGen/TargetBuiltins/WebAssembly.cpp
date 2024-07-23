@@ -214,8 +214,8 @@ Value *CodeGenFunction::EmitWebAssemblyBuiltinExpr(unsigned BuiltinID,
     return Builder.CreateCall(Callee);
   }
   case WebAssembly::BI__builtin_wasm_swizzle_i8x16: {
-    Value *Src = EmitScalarExpr(E->getArg(0));
-    Value *Indices = EmitScalarExpr(E->getArg(1));
+    Value *Src = Builder.CreateExactByteCastToInt(EmitScalarExpr(E->getArg(0)));
+    Value *Indices = Builder.CreateExactByteCastToInt(EmitScalarExpr(E->getArg(1)));
     Function *Callee = CGM.getIntrinsic(Intrinsic::wasm_swizzle);
     return Builder.CreateCall(Callee, {Src, Indices});
   }
@@ -224,6 +224,8 @@ Value *CodeGenFunction::EmitWebAssemblyBuiltinExpr(unsigned BuiltinID,
   case WebAssembly::BI__builtin_wasm_abs_i32x4:
   case WebAssembly::BI__builtin_wasm_abs_i64x2: {
     Value *Vec = EmitScalarExpr(E->getArg(0));
+    if (Vec->getType()->isByteOrByteVectorTy())
+      Vec = Builder.CreateExactByteCastToInt(Vec);
     Value *Neg = Builder.CreateNeg(Vec, "neg");
     Constant *Zero = llvm::Constant::getNullValue(Vec->getType());
     Value *ICmp = Builder.CreateICmpSLT(Vec, Zero, "abscond");
@@ -248,6 +250,8 @@ Value *CodeGenFunction::EmitWebAssemblyBuiltinExpr(unsigned BuiltinID,
   case WebAssembly::BI__builtin_wasm_extadd_pairwise_i16x8_s_i32x4:
   case WebAssembly::BI__builtin_wasm_extadd_pairwise_i16x8_u_i32x4: {
     Value *Vec = EmitScalarExpr(E->getArg(0));
+    if (Vec->getType()->isByteOrByteVectorTy())
+      Vec = Builder.CreateExactByteCastToInt(Vec);
     unsigned IntNo;
     switch (BuiltinID) {
     case WebAssembly::BI__builtin_wasm_extadd_pairwise_i8x16_s_i16x8:
@@ -372,8 +376,15 @@ Value *CodeGenFunction::EmitWebAssemblyBuiltinExpr(unsigned BuiltinID,
   case WebAssembly::BI__builtin_wasm_shuffle_i8x16: {
     Value *Ops[18];
     size_t OpIdx = 0;
-    Ops[OpIdx++] = EmitScalarExpr(E->getArg(0));
-    Ops[OpIdx++] = EmitScalarExpr(E->getArg(1));
+    Ops[OpIdx] = EmitScalarExpr(E->getArg(0));
+    if (Ops[OpIdx]->getType()->isByteOrByteVectorTy())
+      Ops[OpIdx] = Builder.CreateExactByteCastToInt(Ops[OpIdx]);
+    OpIdx++;
+
+    Ops[OpIdx] = EmitScalarExpr(E->getArg(1));
+    if (Ops[OpIdx]->getType()->isByteOrByteVectorTy())
+      Ops[OpIdx] = Builder.CreateExactByteCastToInt(Ops[OpIdx]);
+    OpIdx++;
     while (OpIdx < 18) {
       std::optional<llvm::APSInt> LaneConst =
           E->getArg(OpIdx)->getIntegerConstantExpr(getContext());

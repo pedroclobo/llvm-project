@@ -333,29 +333,32 @@ for (int i = 0; i < argc; ++i) {
 // CHECK1:       omp_if.end:
 // CHECK1-NEXT:    [[TMP10:%.*]] = load i32, ptr [[TMP1]], align 4
 // CHECK1-NEXT:    [[CONV:%.*]] = trunc i32 [[TMP10]] to i8
-// CHECK1-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[TMP0]], align 8
-// CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds ptr, ptr [[TMP11]], i64 0
-// CHECK1-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8
-// CHECK1-NEXT:    [[ARRAYIDX1:%.*]] = getelementptr inbounds i8, ptr [[TMP12]], i64 0
-// CHECK1-NEXT:    store i8 [[CONV]], ptr [[ARRAYIDX1]], align 1
-// CHECK1-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[DOTGLOBAL_TID__ADDR]], align 8
-// CHECK1-NEXT:    [[TMP14:%.*]] = load i32, ptr [[TMP13]], align 4
-// CHECK1-NEXT:    [[TMP15:%.*]] = call i32 @__kmpc_cancel_barrier(ptr @[[GLOB3:[0-9]+]], i32 [[TMP14]])
-// CHECK1-NEXT:    [[TMP16:%.*]] = icmp ne i32 [[TMP15]], 0
-// CHECK1-NEXT:    br i1 [[TMP16]], label [[DOTCANCEL_EXIT2:%.*]], label [[DOTCANCEL_CONTINUE3:%.*]]
+// CHECK1-NEXT:    [[TMP11:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK1-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[TMP0]], align 8
+// CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds ptr, ptr [[TMP12]], i64 0
+// CHECK1-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8
+// CHECK1-NEXT:    [[ARRAYIDX1:%.*]] = getelementptr inbounds b8, ptr [[TMP13]], i64 0
+// CHECK1-NEXT:    store b8 [[TMP11]], ptr [[ARRAYIDX1]], align 1
+// CHECK1-NEXT:    [[TMP14:%.*]] = load ptr, ptr [[DOTGLOBAL_TID__ADDR]], align 8
+// CHECK1-NEXT:    [[TMP15:%.*]] = load i32, ptr [[TMP14]], align 4
+// CHECK1-NEXT:    [[TMP16:%.*]] = call i32 @__kmpc_cancel_barrier(ptr @[[GLOB3:[0-9]+]], i32 [[TMP15]])
+// CHECK1-NEXT:    [[TMP17:%.*]] = icmp ne i32 [[TMP16]], 0
+// CHECK1-NEXT:    br i1 [[TMP17]], label [[DOTCANCEL_EXIT2:%.*]], label [[DOTCANCEL_CONTINUE3:%.*]]
 // CHECK1:       .cancel.exit2:
 // CHECK1-NEXT:    br label [[RETURN]]
 // CHECK1:       .cancel.continue3:
-// CHECK1-NEXT:    [[TMP17:%.*]] = load i32, ptr [[TMP1]], align 4
-// CHECK1-NEXT:    [[TMP18:%.*]] = load ptr, ptr [[TMP0]], align 8
-// CHECK1-NEXT:    [[ARRAYIDX4:%.*]] = getelementptr inbounds ptr, ptr [[TMP18]], i64 0
-// CHECK1-NEXT:    [[TMP19:%.*]] = load ptr, ptr [[ARRAYIDX4]], align 8
-// CHECK1-NEXT:    [[ARRAYIDX5:%.*]] = getelementptr inbounds i8, ptr [[TMP19]], i64 0
-// CHECK1-NEXT:    [[TMP20:%.*]] = load i8, ptr [[ARRAYIDX5]], align 1
-// CHECK1-NEXT:    [[CONV6:%.*]] = sext i8 [[TMP20]] to i32
-// CHECK1-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV6]], [[TMP17]]
-// CHECK1-NEXT:    [[CONV7:%.*]] = trunc i32 [[ADD]] to i8
-// CHECK1-NEXT:    store i8 [[CONV7]], ptr [[ARRAYIDX5]], align 1
+// CHECK1-NEXT:    [[TMP18:%.*]] = load i32, ptr [[TMP1]], align 4
+// CHECK1-NEXT:    [[TMP19:%.*]] = load ptr, ptr [[TMP0]], align 8
+// CHECK1-NEXT:    [[ARRAYIDX4:%.*]] = getelementptr inbounds ptr, ptr [[TMP19]], i64 0
+// CHECK1-NEXT:    [[TMP20:%.*]] = load ptr, ptr [[ARRAYIDX4]], align 8
+// CHECK1-NEXT:    [[ARRAYIDX5:%.*]] = getelementptr inbounds b8, ptr [[TMP20]], i64 0
+// CHECK1-NEXT:    [[TMP21:%.*]] = load b8, ptr [[ARRAYIDX5]], align 1
+// CHECK1-NEXT:    [[CONV6:%.*]] = bytecast exact b8 [[TMP21]] to i8
+// CHECK1-NEXT:    [[CONV7:%.*]] = sext i8 [[CONV6]] to i32
+// CHECK1-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV7]], [[TMP18]]
+// CHECK1-NEXT:    [[CONV8:%.*]] = trunc i32 [[ADD]] to i8
+// CHECK1-NEXT:    [[TMP22:%.*]] = bitcast i8 [[CONV8]] to b8
+// CHECK1-NEXT:    store b8 [[TMP22]], ptr [[ARRAYIDX5]], align 1
 // CHECK1-NEXT:    br label [[RETURN]]
 // CHECK1:       return:
 // CHECK1-NEXT:    ret void
@@ -700,20 +703,20 @@ for (int i = 0; i < argc; ++i) {
 // CHECK3-NEXT:    [[P_LOWERBOUND:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[P_UPPERBOUND:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[P_STRIDE:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[P_LASTITER28:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[P_LOWERBOUND29:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[P_UPPERBOUND30:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[P_STRIDE31:%.*]] = alloca i32, align 4
+// CHECK3-NEXT:    [[P_LASTITER29:%.*]] = alloca i32, align 4
+// CHECK3-NEXT:    [[P_LOWERBOUND30:%.*]] = alloca i32, align 4
+// CHECK3-NEXT:    [[P_UPPERBOUND31:%.*]] = alloca i32, align 4
+// CHECK3-NEXT:    [[P_STRIDE32:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_IV:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[TMP:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[DOTCAPTURE_EXPR_34:%.*]] = alloca i32, align 4
+// CHECK3-NEXT:    [[DOTCAPTURE_EXPR_35:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[I:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_LB:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_UB:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[I36:%.*]] = alloca i32, align 4
+// CHECK3-NEXT:    [[I37:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[AGG_CAPTURED:%.*]] = alloca [[STRUCT_ANON:%.*]], align 1
 // CHECK3-NEXT:    [[R:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    store i32 0, ptr [[RETVAL]], align 4
@@ -734,8 +737,8 @@ for (int i = 0; i < argc; ++i) {
 // CHECK3-NEXT:    store i32 0, ptr [[P_LOWERBOUND]], align 4
 // CHECK3-NEXT:    store i32 0, ptr [[P_UPPERBOUND]], align 4
 // CHECK3-NEXT:    store i32 1, ptr [[P_STRIDE]], align 4
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM11:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    call void @__kmpc_for_static_init_4u(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM11]], i32 34, ptr [[P_LASTITER]], ptr [[P_LOWERBOUND]], ptr [[P_UPPERBOUND]], ptr [[P_STRIDE]], i32 1, i32 0)
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM12:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-NEXT:    call void @__kmpc_for_static_init_4u(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM12]], i32 34, ptr [[P_LASTITER]], ptr [[P_LOWERBOUND]], ptr [[P_UPPERBOUND]], ptr [[P_STRIDE]], i32 1, i32 0)
 // CHECK3-NEXT:    [[TMP0:%.*]] = load i32, ptr [[P_LOWERBOUND]], align 4
 // CHECK3-NEXT:    [[TMP1:%.*]] = load i32, ptr [[P_UPPERBOUND]], align 4
 // CHECK3-NEXT:    [[TMP2:%.*]] = sub i32 [[TMP1]], [[TMP0]]
@@ -755,8 +758,8 @@ for (int i = 0; i < argc; ++i) {
 // CHECK3-NEXT:      i32 0, label [[OMP_SECTION_LOOP_BODY_CASE:%.*]]
 // CHECK3-NEXT:    ]
 // CHECK3:       omp_section_loop.body.case:
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM10:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM10]], i32 3)
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM11:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM11]], i32 3)
 // CHECK3-NEXT:    [[TMP8:%.*]] = icmp eq i32 [[TMP7]], 0
 // CHECK3-NEXT:    br i1 [[TMP8]], label [[OMP_SECTION_LOOP_BODY_CASE_SPLIT:%.*]], label [[OMP_SECTION_LOOP_BODY_CASE_CNCL:%.*]]
 // CHECK3:       omp_section_loop.body.case.split:
@@ -769,97 +772,97 @@ for (int i = 0; i < argc; ++i) {
 // CHECK3-NEXT:    [[OMP_SECTION_LOOP_NEXT]] = add nuw i32 [[OMP_SECTION_LOOP_IV]], 1
 // CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_HEADER]]
 // CHECK3:       omp_section_loop.exit:
-// CHECK3-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM11]])
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM12:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2:[0-9]+]], i32 [[OMP_GLOBAL_THREAD_NUM12]])
+// CHECK3-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM12]])
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM13:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2:[0-9]+]], i32 [[OMP_GLOBAL_THREAD_NUM13]])
 // CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_AFTER:%.*]]
 // CHECK3:       omp_section_loop.after:
 // CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_AFTERSECTIONS_FINI:%.*]]
 // CHECK3:       omp_section_loop.aftersections.fini:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_PREHEADER13:%.*]]
-// CHECK3:       omp_section_loop.preheader13:
-// CHECK3-NEXT:    store i32 0, ptr [[P_LOWERBOUND29]], align 4
-// CHECK3-NEXT:    store i32 1, ptr [[P_UPPERBOUND30]], align 4
-// CHECK3-NEXT:    store i32 1, ptr [[P_STRIDE31]], align 4
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM32:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    call void @__kmpc_for_static_init_4u(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM32]], i32 34, ptr [[P_LASTITER28]], ptr [[P_LOWERBOUND29]], ptr [[P_UPPERBOUND30]], ptr [[P_STRIDE31]], i32 1, i32 0)
-// CHECK3-NEXT:    [[TMP9:%.*]] = load i32, ptr [[P_LOWERBOUND29]], align 4
-// CHECK3-NEXT:    [[TMP10:%.*]] = load i32, ptr [[P_UPPERBOUND30]], align 4
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_PREHEADER14:%.*]]
+// CHECK3:       omp_section_loop.preheader14:
+// CHECK3-NEXT:    store i32 0, ptr [[P_LOWERBOUND30]], align 4
+// CHECK3-NEXT:    store i32 1, ptr [[P_UPPERBOUND31]], align 4
+// CHECK3-NEXT:    store i32 1, ptr [[P_STRIDE32]], align 4
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM33:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-NEXT:    call void @__kmpc_for_static_init_4u(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM33]], i32 34, ptr [[P_LASTITER29]], ptr [[P_LOWERBOUND30]], ptr [[P_UPPERBOUND31]], ptr [[P_STRIDE32]], i32 1, i32 0)
+// CHECK3-NEXT:    [[TMP9:%.*]] = load i32, ptr [[P_LOWERBOUND30]], align 4
+// CHECK3-NEXT:    [[TMP10:%.*]] = load i32, ptr [[P_UPPERBOUND31]], align 4
 // CHECK3-NEXT:    [[TMP11:%.*]] = sub i32 [[TMP10]], [[TMP9]]
 // CHECK3-NEXT:    [[TMP12:%.*]] = add i32 [[TMP11]], 1
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_HEADER14:%.*]]
-// CHECK3:       omp_section_loop.header14:
-// CHECK3-NEXT:    [[OMP_SECTION_LOOP_IV20:%.*]] = phi i32 [ 0, [[OMP_SECTION_LOOP_PREHEADER13]] ], [ [[OMP_SECTION_LOOP_NEXT22:%.*]], [[OMP_SECTION_LOOP_INC17:%.*]] ]
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_COND15:%.*]]
-// CHECK3:       omp_section_loop.cond15:
-// CHECK3-NEXT:    [[OMP_SECTION_LOOP_CMP21:%.*]] = icmp ult i32 [[OMP_SECTION_LOOP_IV20]], [[TMP12]]
-// CHECK3-NEXT:    br i1 [[OMP_SECTION_LOOP_CMP21]], label [[OMP_SECTION_LOOP_BODY16:%.*]], label [[OMP_SECTION_LOOP_EXIT18:%.*]]
-// CHECK3:       omp_section_loop.body16:
-// CHECK3-NEXT:    [[TMP13:%.*]] = add i32 [[OMP_SECTION_LOOP_IV20]], [[TMP9]]
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_HEADER15:%.*]]
+// CHECK3:       omp_section_loop.header15:
+// CHECK3-NEXT:    [[OMP_SECTION_LOOP_IV21:%.*]] = phi i32 [ 0, [[OMP_SECTION_LOOP_PREHEADER14]] ], [ [[OMP_SECTION_LOOP_NEXT23:%.*]], [[OMP_SECTION_LOOP_INC18:%.*]] ]
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_COND16:%.*]]
+// CHECK3:       omp_section_loop.cond16:
+// CHECK3-NEXT:    [[OMP_SECTION_LOOP_CMP22:%.*]] = icmp ult i32 [[OMP_SECTION_LOOP_IV21]], [[TMP12]]
+// CHECK3-NEXT:    br i1 [[OMP_SECTION_LOOP_CMP22]], label [[OMP_SECTION_LOOP_BODY17:%.*]], label [[OMP_SECTION_LOOP_EXIT19:%.*]]
+// CHECK3:       omp_section_loop.body17:
+// CHECK3-NEXT:    [[TMP13:%.*]] = add i32 [[OMP_SECTION_LOOP_IV21]], [[TMP9]]
 // CHECK3-NEXT:    [[TMP14:%.*]] = mul i32 [[TMP13]], 1
 // CHECK3-NEXT:    [[TMP15:%.*]] = add i32 [[TMP14]], 0
-// CHECK3-NEXT:    switch i32 [[TMP15]], label [[OMP_SECTION_LOOP_BODY16_SECTIONS_AFTER:%.*]] [
-// CHECK3-NEXT:      i32 0, label [[OMP_SECTION_LOOP_BODY_CASE23:%.*]]
-// CHECK3-NEXT:      i32 1, label [[OMP_SECTION_LOOP_BODY_CASE25:%.*]]
+// CHECK3-NEXT:    switch i32 [[TMP15]], label [[OMP_SECTION_LOOP_BODY17_SECTIONS_AFTER:%.*]] [
+// CHECK3-NEXT:      i32 0, label [[OMP_SECTION_LOOP_BODY_CASE24:%.*]]
+// CHECK3-NEXT:      i32 1, label [[OMP_SECTION_LOOP_BODY_CASE26:%.*]]
 // CHECK3-NEXT:    ]
-// CHECK3:       omp_section_loop.body.case23:
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM24:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    [[TMP16:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM24]], i32 3)
+// CHECK3:       omp_section_loop.body.case24:
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM25:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-NEXT:    [[TMP16:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM25]], i32 3)
 // CHECK3-NEXT:    [[TMP17:%.*]] = icmp eq i32 [[TMP16]], 0
-// CHECK3-NEXT:    br i1 [[TMP17]], label [[OMP_SECTION_LOOP_BODY_CASE23_SPLIT:%.*]], label [[OMP_SECTION_LOOP_BODY_CASE23_CNCL:%.*]]
-// CHECK3:       omp_section_loop.body.case23.split:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY_CASE23_SECTION_AFTER:%.*]]
-// CHECK3:       omp_section_loop.body.case23.section.after:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY16_SECTIONS_AFTER]]
-// CHECK3:       omp_section_loop.body.case25:
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM27:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    [[TMP18:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM27]], i32 3)
+// CHECK3-NEXT:    br i1 [[TMP17]], label [[OMP_SECTION_LOOP_BODY_CASE24_SPLIT:%.*]], label [[OMP_SECTION_LOOP_BODY_CASE24_CNCL:%.*]]
+// CHECK3:       omp_section_loop.body.case24.split:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY_CASE24_SECTION_AFTER:%.*]]
+// CHECK3:       omp_section_loop.body.case24.section.after:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY17_SECTIONS_AFTER]]
+// CHECK3:       omp_section_loop.body.case26:
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM28:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-NEXT:    [[TMP18:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM28]], i32 3)
 // CHECK3-NEXT:    [[TMP19:%.*]] = icmp eq i32 [[TMP18]], 0
-// CHECK3-NEXT:    br i1 [[TMP19]], label [[OMP_SECTION_LOOP_BODY_CASE25_SPLIT:%.*]], label [[OMP_SECTION_LOOP_BODY_CASE25_CNCL:%.*]]
-// CHECK3:       omp_section_loop.body.case25.split:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY_CASE25_SECTION_AFTER26:%.*]]
-// CHECK3:       omp_section_loop.body.case25.section.after26:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY_CASE25_SECTION_AFTER:%.*]]
-// CHECK3:       omp_section_loop.body.case25.section.after:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY16_SECTIONS_AFTER]]
-// CHECK3:       omp_section_loop.body16.sections.after:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_INC17]]
-// CHECK3:       omp_section_loop.inc17:
-// CHECK3-NEXT:    [[OMP_SECTION_LOOP_NEXT22]] = add nuw i32 [[OMP_SECTION_LOOP_IV20]], 1
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_HEADER14]]
-// CHECK3:       omp_section_loop.exit18:
-// CHECK3-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM32]])
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM33:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2]], i32 [[OMP_GLOBAL_THREAD_NUM33]])
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_AFTER19:%.*]]
-// CHECK3:       omp_section_loop.after19:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_AFTER19SECTIONS_FINI:%.*]]
-// CHECK3:       omp_section_loop.after19sections.fini:
+// CHECK3-NEXT:    br i1 [[TMP19]], label [[OMP_SECTION_LOOP_BODY_CASE26_SPLIT:%.*]], label [[OMP_SECTION_LOOP_BODY_CASE26_CNCL:%.*]]
+// CHECK3:       omp_section_loop.body.case26.split:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY_CASE26_SECTION_AFTER27:%.*]]
+// CHECK3:       omp_section_loop.body.case26.section.after27:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY_CASE26_SECTION_AFTER:%.*]]
+// CHECK3:       omp_section_loop.body.case26.section.after:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_BODY17_SECTIONS_AFTER]]
+// CHECK3:       omp_section_loop.body17.sections.after:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_INC18]]
+// CHECK3:       omp_section_loop.inc18:
+// CHECK3-NEXT:    [[OMP_SECTION_LOOP_NEXT23]] = add nuw i32 [[OMP_SECTION_LOOP_IV21]], 1
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_HEADER15]]
+// CHECK3:       omp_section_loop.exit19:
+// CHECK3-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM33]])
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM34:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2]], i32 [[OMP_GLOBAL_THREAD_NUM34]])
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_AFTER20:%.*]]
+// CHECK3:       omp_section_loop.after20:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_AFTER20SECTIONS_FINI:%.*]]
+// CHECK3:       omp_section_loop.after20sections.fini:
 // CHECK3-NEXT:    [[TMP20:%.*]] = load i32, ptr [[ARGC_ADDR]], align 4
 // CHECK3-NEXT:    store i32 [[TMP20]], ptr [[DOTCAPTURE_EXPR_]], align 4
 // CHECK3-NEXT:    [[TMP21:%.*]] = load i32, ptr [[DOTCAPTURE_EXPR_]], align 4
 // CHECK3-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP21]], 0
 // CHECK3-NEXT:    [[DIV:%.*]] = sdiv i32 [[SUB]], 1
-// CHECK3-NEXT:    [[SUB35:%.*]] = sub nsw i32 [[DIV]], 1
-// CHECK3-NEXT:    store i32 [[SUB35]], ptr [[DOTCAPTURE_EXPR_34]], align 4
+// CHECK3-NEXT:    [[SUB36:%.*]] = sub nsw i32 [[DIV]], 1
+// CHECK3-NEXT:    store i32 [[SUB36]], ptr [[DOTCAPTURE_EXPR_35]], align 4
 // CHECK3-NEXT:    store i32 0, ptr [[I]], align 4
 // CHECK3-NEXT:    [[TMP22:%.*]] = load i32, ptr [[DOTCAPTURE_EXPR_]], align 4
 // CHECK3-NEXT:    [[CMP:%.*]] = icmp slt i32 0, [[TMP22]]
 // CHECK3-NEXT:    br i1 [[CMP]], label [[OMP_PRECOND_THEN:%.*]], label [[OMP_PRECOND_END:%.*]]
 // CHECK3:       omp.precond.then:
 // CHECK3-NEXT:    store i32 0, ptr [[DOTOMP_LB]], align 4
-// CHECK3-NEXT:    [[TMP23:%.*]] = load i32, ptr [[DOTCAPTURE_EXPR_34]], align 4
+// CHECK3-NEXT:    [[TMP23:%.*]] = load i32, ptr [[DOTCAPTURE_EXPR_35]], align 4
 // CHECK3-NEXT:    store i32 [[TMP23]], ptr [[DOTOMP_UB]], align 4
 // CHECK3-NEXT:    store i32 1, ptr [[DOTOMP_STRIDE]], align 4
 // CHECK3-NEXT:    store i32 0, ptr [[DOTOMP_IS_LAST]], align 4
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM37:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB6:[0-9]+]])
-// CHECK3-NEXT:    call void @__kmpc_for_static_init_4(ptr @[[GLOB4:[0-9]+]], i32 [[OMP_GLOBAL_THREAD_NUM37]], i32 34, ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]], i32 1, i32 1)
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM38:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB6:[0-9]+]])
+// CHECK3-NEXT:    call void @__kmpc_for_static_init_4(ptr @[[GLOB4:[0-9]+]], i32 [[OMP_GLOBAL_THREAD_NUM38]], i32 34, ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]], i32 1, i32 1)
 // CHECK3-NEXT:    [[TMP24:%.*]] = load i32, ptr [[DOTOMP_UB]], align 4
-// CHECK3-NEXT:    [[TMP25:%.*]] = load i32, ptr [[DOTCAPTURE_EXPR_34]], align 4
-// CHECK3-NEXT:    [[CMP38:%.*]] = icmp sgt i32 [[TMP24]], [[TMP25]]
-// CHECK3-NEXT:    br i1 [[CMP38]], label [[COND_TRUE:%.*]], label [[COND_FALSE:%.*]]
+// CHECK3-NEXT:    [[TMP25:%.*]] = load i32, ptr [[DOTCAPTURE_EXPR_35]], align 4
+// CHECK3-NEXT:    [[CMP39:%.*]] = icmp sgt i32 [[TMP24]], [[TMP25]]
+// CHECK3-NEXT:    br i1 [[CMP39]], label [[COND_TRUE:%.*]], label [[COND_FALSE:%.*]]
 // CHECK3:       cond.true:
-// CHECK3-NEXT:    [[TMP26:%.*]] = load i32, ptr [[DOTCAPTURE_EXPR_34]], align 4
+// CHECK3-NEXT:    [[TMP26:%.*]] = load i32, ptr [[DOTCAPTURE_EXPR_35]], align 4
 // CHECK3-NEXT:    br label [[COND_END:%.*]]
 // CHECK3:       cond.false:
 // CHECK3-NEXT:    [[TMP27:%.*]] = load i32, ptr [[DOTOMP_UB]], align 4
@@ -873,29 +876,29 @@ for (int i = 0; i < argc; ++i) {
 // CHECK3:       omp.inner.for.cond:
 // CHECK3-NEXT:    [[TMP29:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
 // CHECK3-NEXT:    [[TMP30:%.*]] = load i32, ptr [[DOTOMP_UB]], align 4
-// CHECK3-NEXT:    [[CMP39:%.*]] = icmp sle i32 [[TMP29]], [[TMP30]]
-// CHECK3-NEXT:    br i1 [[CMP39]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
+// CHECK3-NEXT:    [[CMP40:%.*]] = icmp sle i32 [[TMP29]], [[TMP30]]
+// CHECK3-NEXT:    br i1 [[CMP40]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
 // CHECK3:       omp.inner.for.body:
 // CHECK3-NEXT:    [[TMP31:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
 // CHECK3-NEXT:    [[MUL:%.*]] = mul nsw i32 [[TMP31]], 1
-// CHECK3-NEXT:    [[ADD40:%.*]] = add nsw i32 0, [[MUL]]
-// CHECK3-NEXT:    store i32 [[ADD40]], ptr [[I36]], align 4
+// CHECK3-NEXT:    [[ADD41:%.*]] = add nsw i32 0, [[MUL]]
+// CHECK3-NEXT:    store i32 [[ADD41]], ptr [[I37]], align 4
 // CHECK3-NEXT:    [[TMP32:%.*]] = load float, ptr @flag, align 4
-// CHECK3-NEXT:    [[TOBOOL41:%.*]] = fcmp une float [[TMP32]], 0.000000e+00
-// CHECK3-NEXT:    br i1 [[TOBOOL41]], label [[OMP_IF_THEN:%.*]], label [[OMP_IF_ELSE:%.*]]
+// CHECK3-NEXT:    [[TOBOOL42:%.*]] = fcmp une float [[TMP32]], 0.000000e+00
+// CHECK3-NEXT:    br i1 [[TOBOOL42]], label [[OMP_IF_THEN:%.*]], label [[OMP_IF_ELSE:%.*]]
 // CHECK3:       omp_if.then:
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM42:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8:[0-9]+]])
-// CHECK3-NEXT:    [[TMP33:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM42]], i32 2)
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM43:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8:[0-9]+]])
+// CHECK3-NEXT:    [[TMP33:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM43]], i32 2)
 // CHECK3-NEXT:    [[TMP34:%.*]] = icmp ne i32 [[TMP33]], 0
 // CHECK3-NEXT:    br i1 [[TMP34]], label [[DOTCANCEL_EXIT:%.*]], label [[DOTCANCEL_CONTINUE:%.*]]
 // CHECK3:       .cancel.exit:
 // CHECK3-NEXT:    br label [[CANCEL_EXIT:%.*]]
 // CHECK3:       omp_section_loop.body.case.cncl:
 // CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_EXIT]]
-// CHECK3:       omp_section_loop.body.case23.cncl:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_EXIT18]]
-// CHECK3:       omp_section_loop.body.case25.cncl:
-// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_EXIT18]]
+// CHECK3:       omp_section_loop.body.case24.cncl:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_EXIT19]]
+// CHECK3:       omp_section_loop.body.case26.cncl:
+// CHECK3-NEXT:    br label [[OMP_SECTION_LOOP_EXIT19]]
 // CHECK3:       .cancel.continue:
 // CHECK3-NEXT:    br label [[OMP_IF_END:%.*]]
 // CHECK3:       omp_if.else:
@@ -906,29 +909,29 @@ for (int i = 0; i < argc; ++i) {
 // CHECK3-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK3:       omp.inner.for.inc:
 // CHECK3-NEXT:    [[TMP35:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK3-NEXT:    [[ADD43:%.*]] = add nsw i32 [[TMP35]], 1
-// CHECK3-NEXT:    store i32 [[ADD43]], ptr [[DOTOMP_IV]], align 4
+// CHECK3-NEXT:    [[ADD44:%.*]] = add nsw i32 [[TMP35]], 1
+// CHECK3-NEXT:    store i32 [[ADD44]], ptr [[DOTOMP_IV]], align 4
 // CHECK3-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK3:       omp.inner.for.end:
 // CHECK3-NEXT:    br label [[OMP_LOOP_EXIT:%.*]]
 // CHECK3:       omp.loop.exit:
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM45:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10:[0-9]+]])
-// CHECK3-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM45]])
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM46:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10:[0-9]+]])
+// CHECK3-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM46]])
 // CHECK3-NEXT:    br label [[OMP_PRECOND_END]]
 // CHECK3:       cancel.exit:
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM44:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
-// CHECK3-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM44]])
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM45:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
+// CHECK3-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM45]])
 // CHECK3-NEXT:    br label [[CANCEL_CONT:%.*]]
 // CHECK3:       omp.precond.end:
 // CHECK3-NEXT:    br label [[CANCEL_CONT]]
 // CHECK3:       cancel.cont:
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM46:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2]], i32 [[OMP_GLOBAL_THREAD_NUM46]])
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM47:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB14:[0-9]+]])
-// CHECK3-NEXT:    [[TMP36:%.*]] = call ptr @__kmpc_omp_task_alloc(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM47]], i32 1, i64 40, i64 1, ptr @.omp_task_entry.)
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM47:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB2]], i32 [[OMP_GLOBAL_THREAD_NUM47]])
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM48:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB14:[0-9]+]])
+// CHECK3-NEXT:    [[TMP36:%.*]] = call ptr @__kmpc_omp_task_alloc(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM48]], i32 1, i64 40, i64 1, ptr @.omp_task_entry.)
 // CHECK3-NEXT:    [[TMP37:%.*]] = getelementptr inbounds nuw [[STRUCT_KMP_TASK_T_WITH_PRIVATES:%.*]], ptr [[TMP36]], i32 0, i32 0
-// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM48:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB14]])
-// CHECK3-NEXT:    [[TMP38:%.*]] = call i32 @__kmpc_omp_task(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM48]], ptr [[TMP36]])
+// CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM49:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB14]])
+// CHECK3-NEXT:    [[TMP38:%.*]] = call i32 @__kmpc_omp_task(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM49]], ptr [[TMP36]])
 // CHECK3-NEXT:    call void (ptr, i32, ptr, ...) @__kmpc_fork_call(ptr @[[GLOB1]], i32 0, ptr @main.omp_outlined)
 // CHECK3-NEXT:    call void (ptr, i32, ptr, ...) @__kmpc_fork_call(ptr @[[GLOB1]], i32 0, ptr @main.omp_outlined.1)
 // CHECK3-NEXT:    store i32 0, ptr [[R]], align 4
@@ -952,47 +955,50 @@ for (int i = 0; i < argc; ++i) {
 // CHECK3:       omp.par.region:
 // CHECK3-NEXT:    [[TMP2:%.*]] = load float, ptr @flag, align 4
 // CHECK3-NEXT:    [[TOBOOL:%.*]] = fcmp une float [[TMP2]], 0.000000e+00
-// CHECK3-NEXT:    br i1 [[TOBOOL]], label [[TMP14:%.*]], label [[TMP3:%.*]]
+// CHECK3-NEXT:    br i1 [[TOBOOL]], label [[TMP16:%.*]], label [[TMP3:%.*]]
 // CHECK3:       3:
 // CHECK3-NEXT:    br label [[TMP4:%.*]]
 // CHECK3:       4:
 // CHECK3-NEXT:    [[TMP5:%.*]] = load i32, ptr [[LOADGEP_ARGC_ADDR]], align 4
 // CHECK3-NEXT:    [[CONV:%.*]] = trunc i32 [[TMP5]] to i8
-// CHECK3-NEXT:    [[TMP6:%.*]] = load ptr, ptr [[LOADGEP_ARGV_ADDR]], align 8
-// CHECK3-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds ptr, ptr [[TMP6]], i64 0
-// CHECK3-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8
-// CHECK3-NEXT:    [[ARRAYIDX3:%.*]] = getelementptr inbounds i8, ptr [[TMP7]], i64 0
-// CHECK3-NEXT:    store i8 [[CONV]], ptr [[ARRAYIDX3]], align 1
+// CHECK3-NEXT:    [[TMP6:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK3-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[LOADGEP_ARGV_ADDR]], align 8
+// CHECK3-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds ptr, ptr [[TMP7]], i64 0
+// CHECK3-NEXT:    [[TMP8:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8
+// CHECK3-NEXT:    [[ARRAYIDX3:%.*]] = getelementptr inbounds b8, ptr [[TMP8]], i64 0
+// CHECK3-NEXT:    store b8 [[TMP6]], ptr [[ARRAYIDX3]], align 1
 // CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM4:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    [[TMP8:%.*]] = call i32 @__kmpc_cancel_barrier(ptr @[[GLOB3:[0-9]+]], i32 [[OMP_GLOBAL_THREAD_NUM4]])
-// CHECK3-NEXT:    [[TMP9:%.*]] = icmp eq i32 [[TMP8]], 0
-// CHECK3-NEXT:    br i1 [[TMP9]], label [[DOTCONT:%.*]], label [[DOTCNCL5:%.*]]
+// CHECK3-NEXT:    [[TMP9:%.*]] = call i32 @__kmpc_cancel_barrier(ptr @[[GLOB3:[0-9]+]], i32 [[OMP_GLOBAL_THREAD_NUM4]])
+// CHECK3-NEXT:    [[TMP10:%.*]] = icmp eq i32 [[TMP9]], 0
+// CHECK3-NEXT:    br i1 [[TMP10]], label [[DOTCONT:%.*]], label [[DOTCNCL5:%.*]]
 // CHECK3:       .cncl5:
 // CHECK3-NEXT:    br label [[OMP_PAR_OUTLINED_EXIT_EXITSTUB:%.*]]
 // CHECK3:       .cont:
-// CHECK3-NEXT:    [[TMP10:%.*]] = load i32, ptr [[LOADGEP_ARGC_ADDR]], align 4
-// CHECK3-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[LOADGEP_ARGV_ADDR]], align 8
-// CHECK3-NEXT:    [[ARRAYIDX6:%.*]] = getelementptr inbounds ptr, ptr [[TMP11]], i64 0
-// CHECK3-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[ARRAYIDX6]], align 8
-// CHECK3-NEXT:    [[ARRAYIDX7:%.*]] = getelementptr inbounds i8, ptr [[TMP12]], i64 0
-// CHECK3-NEXT:    [[TMP13:%.*]] = load i8, ptr [[ARRAYIDX7]], align 1
-// CHECK3-NEXT:    [[CONV8:%.*]] = sext i8 [[TMP13]] to i32
-// CHECK3-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV8]], [[TMP10]]
-// CHECK3-NEXT:    [[CONV9:%.*]] = trunc i32 [[ADD]] to i8
-// CHECK3-NEXT:    store i8 [[CONV9]], ptr [[ARRAYIDX7]], align 1
+// CHECK3-NEXT:    [[TMP11:%.*]] = load i32, ptr [[LOADGEP_ARGC_ADDR]], align 4
+// CHECK3-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[LOADGEP_ARGV_ADDR]], align 8
+// CHECK3-NEXT:    [[ARRAYIDX6:%.*]] = getelementptr inbounds ptr, ptr [[TMP12]], i64 0
+// CHECK3-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[ARRAYIDX6]], align 8
+// CHECK3-NEXT:    [[ARRAYIDX7:%.*]] = getelementptr inbounds b8, ptr [[TMP13]], i64 0
+// CHECK3-NEXT:    [[TMP14:%.*]] = load b8, ptr [[ARRAYIDX7]], align 1
+// CHECK3-NEXT:    [[CONV8:%.*]] = bytecast exact b8 [[TMP14]] to i8
+// CHECK3-NEXT:    [[CONV9:%.*]] = sext i8 [[CONV8]] to i32
+// CHECK3-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV9]], [[TMP11]]
+// CHECK3-NEXT:    [[CONV10:%.*]] = trunc i32 [[ADD]] to i8
+// CHECK3-NEXT:    [[TMP15:%.*]] = bitcast i8 [[CONV10]] to b8
+// CHECK3-NEXT:    store b8 [[TMP15]], ptr [[ARRAYIDX7]], align 1
 // CHECK3-NEXT:    br label [[OMP_PAR_REGION_PARALLEL_AFTER:%.*]]
 // CHECK3:       omp.par.region.parallel.after:
 // CHECK3-NEXT:    br label [[OMP_PAR_PRE_FINALIZE:%.*]]
 // CHECK3:       omp.par.pre_finalize:
 // CHECK3-NEXT:    br label [[OMP_PAR_OUTLINED_EXIT_EXITSTUB]]
-// CHECK3:       14:
+// CHECK3:       16:
 // CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM1:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    [[TMP15:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM1]], i32 1)
-// CHECK3-NEXT:    [[TMP16:%.*]] = icmp eq i32 [[TMP15]], 0
-// CHECK3-NEXT:    br i1 [[TMP16]], label [[DOTSPLIT:%.*]], label [[DOTCNCL:%.*]]
+// CHECK3-NEXT:    [[TMP17:%.*]] = call i32 @__kmpc_cancel(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM1]], i32 1)
+// CHECK3-NEXT:    [[TMP18:%.*]] = icmp eq i32 [[TMP17]], 0
+// CHECK3-NEXT:    br i1 [[TMP18]], label [[DOTSPLIT:%.*]], label [[DOTCNCL:%.*]]
 // CHECK3:       .cncl:
 // CHECK3-NEXT:    [[OMP_GLOBAL_THREAD_NUM2:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-NEXT:    [[TMP17:%.*]] = call i32 @__kmpc_cancel_barrier(ptr @[[GLOB2]], i32 [[OMP_GLOBAL_THREAD_NUM2]])
+// CHECK3-NEXT:    [[TMP19:%.*]] = call i32 @__kmpc_cancel_barrier(ptr @[[GLOB2]], i32 [[OMP_GLOBAL_THREAD_NUM2]])
 // CHECK3-NEXT:    br label [[OMP_PAR_OUTLINED_EXIT_EXITSTUB]]
 // CHECK3:       .split:
 // CHECK3-NEXT:    br label [[TMP4]]

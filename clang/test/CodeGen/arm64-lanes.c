@@ -8,21 +8,26 @@
 int8_t test_vdupb_lane_s8(int8x8_t src) {
   return vdupb_lane_s8(src, 2);
   // CHECK-LABEL: @test_vdupb_lane_s8
-  // CHECK: extractelement <8 x i8> %src, i32 2
+  // CHECK: [[TMP0:%.*]] = bytecast exact <8 x b8> %src to <8 x i8>
+  // CHECK: extractelement <8 x i8> [[TMP0]], i32 2
 
   // CHECK-BE-LABEL: @test_vdupb_lane_s8
-  // CHECK-BE: [[REV:%.*]] = shufflevector <8 x i8> %src, <8 x i8> %src, <8 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
-  // CHECK-BE: extractelement <8 x i8> [[REV]], i32 2
+  // CHECK-BE: [[REV:%.*]] = shufflevector <8 x b8> %src, <8 x b8> %src, <8 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
+  // CHECK-BE: [[TMP0:%.*]] = bytecast exact <8 x b8> [[REV]] to <8 x i8>
+  // CHECK-BE: extractelement <8 x i8> [[TMP0]], i32 2
 }
 
 uint8_t test_vdupb_lane_u8(uint8x8_t src) {
   return vdupb_lane_u8(src, 2);
   // CHECK-LABEL: @test_vdupb_lane_u8
-  // CHECK: extractelement <8 x i8> %src, i32 2
+  // CHECK: [[TMP0:%.*]] = bytecast exact <8 x b8> %src to <8 x i8>
+  // CHECK: extractelement <8 x i8> [[TMP0]], i32 2
 
   // CHECK-BE-LABEL: @test_vdupb_lane_u8
-  // CHECK-BE: [[REV:%.*]] = shufflevector <8 x i8> %src, <8 x i8> %src, <8 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
-  // CHECK-BE: extractelement <8 x i8> [[REV]], i32 2
+  // CHECK-BE: [[RET:%.*]] = alloca b8, align 1
+  // CHECK-BE: [[REV:%.*]] = shufflevector <8 x b8> %src, <8 x b8> %src, <8 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
+  // CHECK-BE: [[TMP0:%.*]] = bytecast exact <8 x b8> [[REV]] to <8 x i8>
+  // CHECK-BE: extractelement <8 x i8> [[TMP0]], i32 2
 }
 
 int16_t test_vduph_lane_s16(int16x4_t src) {

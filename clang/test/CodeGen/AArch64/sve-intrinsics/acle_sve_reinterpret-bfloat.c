@@ -54,20 +54,20 @@
 
 // CHECK-LABEL: @test_svreinterpret_s8_bf16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // TUPLE2-LABEL: @test_svreinterpret_s8_bf16(
 // TUPLE2-NEXT:  entry:
 // TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[OP_COERCE0:%.*]], 0
 // TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP0]], <vscale x 8 x bfloat> [[OP_COERCE1:%.*]], 1
 // TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], 0
-// TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP2]] to <vscale x 16 x i8>
-// TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
+// TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP2]] to <vscale x 16 x b8>
+// TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP3]], 0
 // TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], 1
-// TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP5]] to <vscale x 16 x i8>
-// TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP6]], 1
-// TUPLE2-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]]
+// TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP5]] to <vscale x 16 x b8>
+// TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP4]], <vscale x 16 x b8> [[TMP6]], 1
+// TUPLE2-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP7]]
 //
 // TUPLE3-LABEL: @test_svreinterpret_s8_bf16(
 // TUPLE3-NEXT:  entry:
@@ -75,15 +75,15 @@
 // TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP0]], <vscale x 8 x bfloat> [[OP_COERCE1:%.*]], 1
 // TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], <vscale x 8 x bfloat> [[OP_COERCE2:%.*]], 2
 // TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 0
-// TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP3]] to <vscale x 16 x i8>
-// TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
+// TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP3]] to <vscale x 16 x b8>
+// TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP4]], 0
 // TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 1
-// TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP6]] to <vscale x 16 x i8>
-// TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP7]], 1
+// TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP6]] to <vscale x 16 x b8>
+// TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP5]], <vscale x 16 x b8> [[TMP7]], 1
 // TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 2
-// TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP9]] to <vscale x 16 x i8>
-// TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]], <vscale x 16 x i8> [[TMP10]], 2
-// TUPLE3-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP9]] to <vscale x 16 x b8>
+// TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP8]], <vscale x 16 x b8> [[TMP10]], 2
+// TUPLE3-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP11]]
 //
 // TUPLE4-LABEL: @test_svreinterpret_s8_bf16(
 // TUPLE4-NEXT:  entry:
@@ -92,35 +92,35 @@
 // TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], <vscale x 8 x bfloat> [[OP_COERCE2:%.*]], 2
 // TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], <vscale x 8 x bfloat> [[OP_COERCE3:%.*]], 3
 // TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 0
-// TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP4]] to <vscale x 16 x i8>
-// TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP5]], 0
+// TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP4]] to <vscale x 16 x b8>
+// TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP5]], 0
 // TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 1
-// TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP7]] to <vscale x 16 x i8>
-// TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP8]], 1
+// TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP7]] to <vscale x 16 x b8>
+// TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP6]], <vscale x 16 x b8> [[TMP8]], 1
 // TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 2
-// TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP10]] to <vscale x 16 x i8>
-// TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP11]], 2
+// TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP10]] to <vscale x 16 x b8>
+// TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[TMP11]], 2
 // TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 3
-// TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP13]] to <vscale x 16 x i8>
-// TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP12]], <vscale x 16 x i8> [[TMP14]], 3
-// TUPLE4-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP15]]
+// TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP13]] to <vscale x 16 x b8>
+// TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[TMP14]], 3
+// TUPLE4-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svreinterpret_s8_bf16u14__SVBfloat16_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x i8>
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CPP-TUPLE2-LABEL: @_Z26test_svreinterpret_s8_bf1614svbfloat16x2_t(
 // CPP-TUPLE2-NEXT:  entry:
 // CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[OP_COERCE0:%.*]], 0
 // CPP-TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP0]], <vscale x 8 x bfloat> [[OP_COERCE1:%.*]], 1
 // CPP-TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], 0
-// CPP-TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP2]] to <vscale x 16 x i8>
-// CPP-TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
+// CPP-TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP2]] to <vscale x 16 x b8>
+// CPP-TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP3]], 0
 // CPP-TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], 1
-// CPP-TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP5]] to <vscale x 16 x i8>
-// CPP-TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP6]], 1
-// CPP-TUPLE2-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]]
+// CPP-TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP5]] to <vscale x 16 x b8>
+// CPP-TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP4]], <vscale x 16 x b8> [[TMP6]], 1
+// CPP-TUPLE2-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP7]]
 //
 // CPP-TUPLE3-LABEL: @_Z26test_svreinterpret_s8_bf1614svbfloat16x3_t(
 // CPP-TUPLE3-NEXT:  entry:
@@ -128,15 +128,15 @@
 // CPP-TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP0]], <vscale x 8 x bfloat> [[OP_COERCE1:%.*]], 1
 // CPP-TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], <vscale x 8 x bfloat> [[OP_COERCE2:%.*]], 2
 // CPP-TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 0
-// CPP-TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP3]] to <vscale x 16 x i8>
-// CPP-TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
+// CPP-TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP3]] to <vscale x 16 x b8>
+// CPP-TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP4]], 0
 // CPP-TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 1
-// CPP-TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP6]] to <vscale x 16 x i8>
-// CPP-TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP7]], 1
+// CPP-TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP6]] to <vscale x 16 x b8>
+// CPP-TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP5]], <vscale x 16 x b8> [[TMP7]], 1
 // CPP-TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 2
-// CPP-TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP9]] to <vscale x 16 x i8>
-// CPP-TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]], <vscale x 16 x i8> [[TMP10]], 2
-// CPP-TUPLE3-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CPP-TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP9]] to <vscale x 16 x b8>
+// CPP-TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP8]], <vscale x 16 x b8> [[TMP10]], 2
+// CPP-TUPLE3-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP11]]
 //
 // CPP-TUPLE4-LABEL: @_Z26test_svreinterpret_s8_bf1614svbfloat16x4_t(
 // CPP-TUPLE4-NEXT:  entry:
@@ -145,18 +145,18 @@
 // CPP-TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], <vscale x 8 x bfloat> [[OP_COERCE2:%.*]], 2
 // CPP-TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], <vscale x 8 x bfloat> [[OP_COERCE3:%.*]], 3
 // CPP-TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 0
-// CPP-TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP4]] to <vscale x 16 x i8>
-// CPP-TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP5]], 0
+// CPP-TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP4]] to <vscale x 16 x b8>
+// CPP-TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP5]], 0
 // CPP-TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 1
-// CPP-TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP7]] to <vscale x 16 x i8>
-// CPP-TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP8]], 1
+// CPP-TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP7]] to <vscale x 16 x b8>
+// CPP-TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP6]], <vscale x 16 x b8> [[TMP8]], 1
 // CPP-TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 2
-// CPP-TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP10]] to <vscale x 16 x i8>
-// CPP-TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP11]], 2
+// CPP-TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP10]] to <vscale x 16 x b8>
+// CPP-TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[TMP11]], 2
 // CPP-TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 3
-// CPP-TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP13]] to <vscale x 16 x i8>
-// CPP-TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP12]], <vscale x 16 x i8> [[TMP14]], 3
-// CPP-TUPLE4-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP15]]
+// CPP-TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP13]] to <vscale x 16 x b8>
+// CPP-TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[TMP14]], 3
+// CPP-TUPLE4-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]]
 //
 TYPE(svint8) test_svreinterpret_s8_bf16(TYPE(svbfloat16) op) MODE_ATTR {
   return SVE_ACLE_FUNC(svreinterpret_s8, _bf16)(op);
@@ -493,20 +493,20 @@ TYPE(svint64) test_svreinterpret_s64_bf16(TYPE(svbfloat16) op) MODE_ATTR {
 
 // CHECK-LABEL: @test_svreinterpret_u8_bf16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // TUPLE2-LABEL: @test_svreinterpret_u8_bf16(
 // TUPLE2-NEXT:  entry:
 // TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[OP_COERCE0:%.*]], 0
 // TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP0]], <vscale x 8 x bfloat> [[OP_COERCE1:%.*]], 1
 // TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], 0
-// TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP2]] to <vscale x 16 x i8>
-// TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
+// TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP2]] to <vscale x 16 x b8>
+// TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP3]], 0
 // TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], 1
-// TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP5]] to <vscale x 16 x i8>
-// TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP6]], 1
-// TUPLE2-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]]
+// TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP5]] to <vscale x 16 x b8>
+// TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP4]], <vscale x 16 x b8> [[TMP6]], 1
+// TUPLE2-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP7]]
 //
 // TUPLE3-LABEL: @test_svreinterpret_u8_bf16(
 // TUPLE3-NEXT:  entry:
@@ -514,15 +514,15 @@ TYPE(svint64) test_svreinterpret_s64_bf16(TYPE(svbfloat16) op) MODE_ATTR {
 // TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP0]], <vscale x 8 x bfloat> [[OP_COERCE1:%.*]], 1
 // TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], <vscale x 8 x bfloat> [[OP_COERCE2:%.*]], 2
 // TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 0
-// TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP3]] to <vscale x 16 x i8>
-// TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
+// TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP3]] to <vscale x 16 x b8>
+// TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP4]], 0
 // TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 1
-// TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP6]] to <vscale x 16 x i8>
-// TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP7]], 1
+// TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP6]] to <vscale x 16 x b8>
+// TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP5]], <vscale x 16 x b8> [[TMP7]], 1
 // TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 2
-// TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP9]] to <vscale x 16 x i8>
-// TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]], <vscale x 16 x i8> [[TMP10]], 2
-// TUPLE3-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP9]] to <vscale x 16 x b8>
+// TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP8]], <vscale x 16 x b8> [[TMP10]], 2
+// TUPLE3-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP11]]
 //
 // TUPLE4-LABEL: @test_svreinterpret_u8_bf16(
 // TUPLE4-NEXT:  entry:
@@ -531,35 +531,35 @@ TYPE(svint64) test_svreinterpret_s64_bf16(TYPE(svbfloat16) op) MODE_ATTR {
 // TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], <vscale x 8 x bfloat> [[OP_COERCE2:%.*]], 2
 // TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], <vscale x 8 x bfloat> [[OP_COERCE3:%.*]], 3
 // TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 0
-// TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP4]] to <vscale x 16 x i8>
-// TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP5]], 0
+// TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP4]] to <vscale x 16 x b8>
+// TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP5]], 0
 // TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 1
-// TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP7]] to <vscale x 16 x i8>
-// TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP8]], 1
+// TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP7]] to <vscale x 16 x b8>
+// TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP6]], <vscale x 16 x b8> [[TMP8]], 1
 // TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 2
-// TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP10]] to <vscale x 16 x i8>
-// TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP11]], 2
+// TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP10]] to <vscale x 16 x b8>
+// TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[TMP11]], 2
 // TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 3
-// TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP13]] to <vscale x 16 x i8>
-// TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP12]], <vscale x 16 x i8> [[TMP14]], 3
-// TUPLE4-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP15]]
+// TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP13]] to <vscale x 16 x b8>
+// TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[TMP14]], 3
+// TUPLE4-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svreinterpret_u8_bf16u14__SVBfloat16_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x i8>
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CPP-TUPLE2-LABEL: @_Z26test_svreinterpret_u8_bf1614svbfloat16x2_t(
 // CPP-TUPLE2-NEXT:  entry:
 // CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[OP_COERCE0:%.*]], 0
 // CPP-TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP0]], <vscale x 8 x bfloat> [[OP_COERCE1:%.*]], 1
 // CPP-TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], 0
-// CPP-TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP2]] to <vscale x 16 x i8>
-// CPP-TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP3]], 0
+// CPP-TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP2]] to <vscale x 16 x b8>
+// CPP-TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP3]], 0
 // CPP-TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], 1
-// CPP-TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP5]] to <vscale x 16 x i8>
-// CPP-TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP4]], <vscale x 16 x i8> [[TMP6]], 1
-// CPP-TUPLE2-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP7]]
+// CPP-TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP5]] to <vscale x 16 x b8>
+// CPP-TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP4]], <vscale x 16 x b8> [[TMP6]], 1
+// CPP-TUPLE2-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP7]]
 //
 // CPP-TUPLE3-LABEL: @_Z26test_svreinterpret_u8_bf1614svbfloat16x3_t(
 // CPP-TUPLE3-NEXT:  entry:
@@ -567,15 +567,15 @@ TYPE(svint64) test_svreinterpret_s64_bf16(TYPE(svbfloat16) op) MODE_ATTR {
 // CPP-TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP0]], <vscale x 8 x bfloat> [[OP_COERCE1:%.*]], 1
 // CPP-TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], <vscale x 8 x bfloat> [[OP_COERCE2:%.*]], 2
 // CPP-TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 0
-// CPP-TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP3]] to <vscale x 16 x i8>
-// CPP-TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP4]], 0
+// CPP-TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP3]] to <vscale x 16 x b8>
+// CPP-TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP4]], 0
 // CPP-TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 1
-// CPP-TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP6]] to <vscale x 16 x i8>
-// CPP-TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP5]], <vscale x 16 x i8> [[TMP7]], 1
+// CPP-TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP6]] to <vscale x 16 x b8>
+// CPP-TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP5]], <vscale x 16 x b8> [[TMP7]], 1
 // CPP-TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], 2
-// CPP-TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP9]] to <vscale x 16 x i8>
-// CPP-TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP8]], <vscale x 16 x i8> [[TMP10]], 2
-// CPP-TUPLE3-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP11]]
+// CPP-TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP9]] to <vscale x 16 x b8>
+// CPP-TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP8]], <vscale x 16 x b8> [[TMP10]], 2
+// CPP-TUPLE3-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP11]]
 //
 // CPP-TUPLE4-LABEL: @_Z26test_svreinterpret_u8_bf1614svbfloat16x4_t(
 // CPP-TUPLE4-NEXT:  entry:
@@ -584,18 +584,18 @@ TYPE(svint64) test_svreinterpret_s64_bf16(TYPE(svbfloat16) op) MODE_ATTR {
 // CPP-TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP1]], <vscale x 8 x bfloat> [[OP_COERCE2:%.*]], 2
 // CPP-TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP2]], <vscale x 8 x bfloat> [[OP_COERCE3:%.*]], 3
 // CPP-TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 0
-// CPP-TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP4]] to <vscale x 16 x i8>
-// CPP-TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[TMP5]], 0
+// CPP-TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP4]] to <vscale x 16 x b8>
+// CPP-TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[TMP5]], 0
 // CPP-TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 1
-// CPP-TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP7]] to <vscale x 16 x i8>
-// CPP-TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP6]], <vscale x 16 x i8> [[TMP8]], 1
+// CPP-TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP7]] to <vscale x 16 x b8>
+// CPP-TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP6]], <vscale x 16 x b8> [[TMP8]], 1
 // CPP-TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 2
-// CPP-TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP10]] to <vscale x 16 x i8>
-// CPP-TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP9]], <vscale x 16 x i8> [[TMP11]], 2
+// CPP-TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP10]] to <vscale x 16 x b8>
+// CPP-TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[TMP11]], 2
 // CPP-TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP3]], 3
-// CPP-TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP13]] to <vscale x 16 x i8>
-// CPP-TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP12]], <vscale x 16 x i8> [[TMP14]], 3
-// CPP-TUPLE4-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP15]]
+// CPP-TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 8 x bfloat> [[TMP13]] to <vscale x 16 x b8>
+// CPP-TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[TMP14]], 3
+// CPP-TUPLE4-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]]
 //
 TYPE(svuint8) test_svreinterpret_u8_bf16(TYPE(svbfloat16) op) MODE_ATTR {
   return SVE_ACLE_FUNC(svreinterpret_u8, _bf16)(op);
@@ -933,107 +933,107 @@ TYPE(svuint64) test_svreinterpret_u64_bf16(TYPE(svbfloat16) op) MODE_ATTR {
 
 // CHECK-LABEL: @test_svreinterpret_bf16_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP:%.*]] to <vscale x 8 x bfloat>
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 8 x bfloat>
 // CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
 //
 // TUPLE2-LABEL: @test_svreinterpret_bf16_s8(
 // TUPLE2-NEXT:  entry:
-// TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 8 x bfloat>
+// TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 0
+// TUPLE2-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP2]] to <vscale x 8 x bfloat>
 // TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP3]], 0
-// TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 8 x bfloat>
+// TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 1
+// TUPLE2-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP5]] to <vscale x 8 x bfloat>
 // TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP4]], <vscale x 8 x bfloat> [[TMP6]], 1
 // TUPLE2-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP7]]
 //
 // TUPLE3-LABEL: @test_svreinterpret_bf16_s8(
 // TUPLE3-NEXT:  entry:
-// TUPLE3-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], 2
-// TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 8 x bfloat>
+// TUPLE3-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], 2
+// TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 0
+// TUPLE3-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP3]] to <vscale x 8 x bfloat>
 // TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP4]], 0
-// TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 16 x i8> [[TMP6]] to <vscale x 8 x bfloat>
+// TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 1
+// TUPLE3-NEXT:    [[TMP7:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP6]] to <vscale x 8 x bfloat>
 // TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP5]], <vscale x 8 x bfloat> [[TMP7]], 1
-// TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 16 x i8> [[TMP9]] to <vscale x 8 x bfloat>
+// TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 2
+// TUPLE3-NEXT:    [[TMP10:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP9]] to <vscale x 8 x bfloat>
 // TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP8]], <vscale x 8 x bfloat> [[TMP10]], 2
 // TUPLE3-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP11]]
 //
 // TUPLE4-LABEL: @test_svreinterpret_bf16_s8(
 // TUPLE4-NEXT:  entry:
-// TUPLE4-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// TUPLE4-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], 2
-// TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3:%.*]], 3
-// TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 8 x bfloat>
+// TUPLE4-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// TUPLE4-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], 2
+// TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[OP_COERCE3:%.*]], 3
+// TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 0
+// TUPLE4-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP4]] to <vscale x 8 x bfloat>
 // TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP5]], 0
-// TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 16 x i8> [[TMP7]] to <vscale x 8 x bfloat>
+// TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 1
+// TUPLE4-NEXT:    [[TMP8:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP7]] to <vscale x 8 x bfloat>
 // TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP6]], <vscale x 8 x bfloat> [[TMP8]], 1
-// TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 16 x i8> [[TMP10]] to <vscale x 8 x bfloat>
+// TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 2
+// TUPLE4-NEXT:    [[TMP11:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP10]] to <vscale x 8 x bfloat>
 // TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP9]], <vscale x 8 x bfloat> [[TMP11]], 2
-// TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 16 x i8> [[TMP13]] to <vscale x 8 x bfloat>
+// TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 3
+// TUPLE4-NEXT:    [[TMP14:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP13]] to <vscale x 8 x bfloat>
 // TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP12]], <vscale x 8 x bfloat> [[TMP14]], 3
 // TUPLE4-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP15]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svreinterpret_bf16_s8u10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP:%.*]] to <vscale x 8 x bfloat>
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 8 x bfloat>
 // CPP-CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
 //
 // CPP-TUPLE2-LABEL: @_Z26test_svreinterpret_bf16_s810svint8x2_t(
 // CPP-TUPLE2-NEXT:  entry:
-// CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// CPP-TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// CPP-TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CPP-TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 8 x bfloat>
+// CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// CPP-TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// CPP-TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 0
+// CPP-TUPLE2-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP2]] to <vscale x 8 x bfloat>
 // CPP-TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP3]], 0
-// CPP-TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CPP-TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 8 x bfloat>
+// CPP-TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 1
+// CPP-TUPLE2-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP5]] to <vscale x 8 x bfloat>
 // CPP-TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP4]], <vscale x 8 x bfloat> [[TMP6]], 1
 // CPP-TUPLE2-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP7]]
 //
 // CPP-TUPLE3-LABEL: @_Z26test_svreinterpret_bf16_s810svint8x3_t(
 // CPP-TUPLE3-NEXT:  entry:
-// CPP-TUPLE3-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// CPP-TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// CPP-TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], 2
-// CPP-TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CPP-TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 8 x bfloat>
+// CPP-TUPLE3-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// CPP-TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// CPP-TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], 2
+// CPP-TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 0
+// CPP-TUPLE3-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP3]] to <vscale x 8 x bfloat>
 // CPP-TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP4]], 0
-// CPP-TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CPP-TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 16 x i8> [[TMP6]] to <vscale x 8 x bfloat>
+// CPP-TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 1
+// CPP-TUPLE3-NEXT:    [[TMP7:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP6]] to <vscale x 8 x bfloat>
 // CPP-TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP5]], <vscale x 8 x bfloat> [[TMP7]], 1
-// CPP-TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CPP-TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 16 x i8> [[TMP9]] to <vscale x 8 x bfloat>
+// CPP-TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 2
+// CPP-TUPLE3-NEXT:    [[TMP10:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP9]] to <vscale x 8 x bfloat>
 // CPP-TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP8]], <vscale x 8 x bfloat> [[TMP10]], 2
 // CPP-TUPLE3-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP11]]
 //
 // CPP-TUPLE4-LABEL: @_Z26test_svreinterpret_bf16_s810svint8x4_t(
 // CPP-TUPLE4-NEXT:  entry:
-// CPP-TUPLE4-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// CPP-TUPLE4-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// CPP-TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], 2
-// CPP-TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3:%.*]], 3
-// CPP-TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CPP-TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 8 x bfloat>
+// CPP-TUPLE4-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// CPP-TUPLE4-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// CPP-TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], 2
+// CPP-TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[OP_COERCE3:%.*]], 3
+// CPP-TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 0
+// CPP-TUPLE4-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP4]] to <vscale x 8 x bfloat>
 // CPP-TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP5]], 0
-// CPP-TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CPP-TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 16 x i8> [[TMP7]] to <vscale x 8 x bfloat>
+// CPP-TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 1
+// CPP-TUPLE4-NEXT:    [[TMP8:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP7]] to <vscale x 8 x bfloat>
 // CPP-TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP6]], <vscale x 8 x bfloat> [[TMP8]], 1
-// CPP-TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CPP-TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 16 x i8> [[TMP10]] to <vscale x 8 x bfloat>
+// CPP-TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 2
+// CPP-TUPLE4-NEXT:    [[TMP11:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP10]] to <vscale x 8 x bfloat>
 // CPP-TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP9]], <vscale x 8 x bfloat> [[TMP11]], 2
-// CPP-TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CPP-TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 16 x i8> [[TMP13]] to <vscale x 8 x bfloat>
+// CPP-TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 3
+// CPP-TUPLE4-NEXT:    [[TMP14:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP13]] to <vscale x 8 x bfloat>
 // CPP-TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP12]], <vscale x 8 x bfloat> [[TMP14]], 3
 // CPP-TUPLE4-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP15]]
 //
@@ -1373,107 +1373,107 @@ TYPE(svbfloat16) test_svreinterpret_bf16_s64(TYPE(svint64) op) MODE_ATTR {
 
 // CHECK-LABEL: @test_svreinterpret_bf16_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP:%.*]] to <vscale x 8 x bfloat>
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 8 x bfloat>
 // CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
 //
 // TUPLE2-LABEL: @test_svreinterpret_bf16_u8(
 // TUPLE2-NEXT:  entry:
-// TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 8 x bfloat>
+// TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 0
+// TUPLE2-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP2]] to <vscale x 8 x bfloat>
 // TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP3]], 0
-// TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 8 x bfloat>
+// TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 1
+// TUPLE2-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP5]] to <vscale x 8 x bfloat>
 // TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP4]], <vscale x 8 x bfloat> [[TMP6]], 1
 // TUPLE2-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP7]]
 //
 // TUPLE3-LABEL: @test_svreinterpret_bf16_u8(
 // TUPLE3-NEXT:  entry:
-// TUPLE3-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], 2
-// TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 8 x bfloat>
+// TUPLE3-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], 2
+// TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 0
+// TUPLE3-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP3]] to <vscale x 8 x bfloat>
 // TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP4]], 0
-// TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 16 x i8> [[TMP6]] to <vscale x 8 x bfloat>
+// TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 1
+// TUPLE3-NEXT:    [[TMP7:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP6]] to <vscale x 8 x bfloat>
 // TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP5]], <vscale x 8 x bfloat> [[TMP7]], 1
-// TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 16 x i8> [[TMP9]] to <vscale x 8 x bfloat>
+// TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 2
+// TUPLE3-NEXT:    [[TMP10:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP9]] to <vscale x 8 x bfloat>
 // TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP8]], <vscale x 8 x bfloat> [[TMP10]], 2
 // TUPLE3-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP11]]
 //
 // TUPLE4-LABEL: @test_svreinterpret_bf16_u8(
 // TUPLE4-NEXT:  entry:
-// TUPLE4-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// TUPLE4-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], 2
-// TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3:%.*]], 3
-// TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 8 x bfloat>
+// TUPLE4-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// TUPLE4-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], 2
+// TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[OP_COERCE3:%.*]], 3
+// TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 0
+// TUPLE4-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP4]] to <vscale x 8 x bfloat>
 // TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP5]], 0
-// TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 16 x i8> [[TMP7]] to <vscale x 8 x bfloat>
+// TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 1
+// TUPLE4-NEXT:    [[TMP8:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP7]] to <vscale x 8 x bfloat>
 // TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP6]], <vscale x 8 x bfloat> [[TMP8]], 1
-// TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 16 x i8> [[TMP10]] to <vscale x 8 x bfloat>
+// TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 2
+// TUPLE4-NEXT:    [[TMP11:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP10]] to <vscale x 8 x bfloat>
 // TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP9]], <vscale x 8 x bfloat> [[TMP11]], 2
-// TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 16 x i8> [[TMP13]] to <vscale x 8 x bfloat>
+// TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 3
+// TUPLE4-NEXT:    [[TMP14:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP13]] to <vscale x 8 x bfloat>
 // TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP12]], <vscale x 8 x bfloat> [[TMP14]], 3
 // TUPLE4-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP15]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svreinterpret_bf16_u8u11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP:%.*]] to <vscale x 8 x bfloat>
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 8 x bfloat>
 // CPP-CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
 //
 // CPP-TUPLE2-LABEL: @_Z26test_svreinterpret_bf16_u811svuint8x2_t(
 // CPP-TUPLE2-NEXT:  entry:
-// CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// CPP-TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// CPP-TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
-// CPP-TUPLE2-NEXT:    [[TMP3:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 8 x bfloat>
+// CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// CPP-TUPLE2-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// CPP-TUPLE2-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 0
+// CPP-TUPLE2-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP2]] to <vscale x 8 x bfloat>
 // CPP-TUPLE2-NEXT:    [[TMP4:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP3]], 0
-// CPP-TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 1
-// CPP-TUPLE2-NEXT:    [[TMP6:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 8 x bfloat>
+// CPP-TUPLE2-NEXT:    [[TMP5:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], 1
+// CPP-TUPLE2-NEXT:    [[TMP6:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP5]] to <vscale x 8 x bfloat>
 // CPP-TUPLE2-NEXT:    [[TMP7:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP4]], <vscale x 8 x bfloat> [[TMP6]], 1
 // CPP-TUPLE2-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP7]]
 //
 // CPP-TUPLE3-LABEL: @_Z26test_svreinterpret_bf16_u811svuint8x3_t(
 // CPP-TUPLE3-NEXT:  entry:
-// CPP-TUPLE3-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// CPP-TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// CPP-TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], 2
-// CPP-TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
-// CPP-TUPLE3-NEXT:    [[TMP4:%.*]] = bitcast <vscale x 16 x i8> [[TMP3]] to <vscale x 8 x bfloat>
+// CPP-TUPLE3-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// CPP-TUPLE3-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// CPP-TUPLE3-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], 2
+// CPP-TUPLE3-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 0
+// CPP-TUPLE3-NEXT:    [[TMP4:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP3]] to <vscale x 8 x bfloat>
 // CPP-TUPLE3-NEXT:    [[TMP5:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP4]], 0
-// CPP-TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
-// CPP-TUPLE3-NEXT:    [[TMP7:%.*]] = bitcast <vscale x 16 x i8> [[TMP6]] to <vscale x 8 x bfloat>
+// CPP-TUPLE3-NEXT:    [[TMP6:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 1
+// CPP-TUPLE3-NEXT:    [[TMP7:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP6]] to <vscale x 8 x bfloat>
 // CPP-TUPLE3-NEXT:    [[TMP8:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP5]], <vscale x 8 x bfloat> [[TMP7]], 1
-// CPP-TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
-// CPP-TUPLE3-NEXT:    [[TMP10:%.*]] = bitcast <vscale x 16 x i8> [[TMP9]] to <vscale x 8 x bfloat>
+// CPP-TUPLE3-NEXT:    [[TMP9:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], 2
+// CPP-TUPLE3-NEXT:    [[TMP10:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP9]] to <vscale x 8 x bfloat>
 // CPP-TUPLE3-NEXT:    [[TMP11:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP8]], <vscale x 8 x bfloat> [[TMP10]], 2
 // CPP-TUPLE3-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP11]]
 //
 // CPP-TUPLE4-LABEL: @_Z26test_svreinterpret_bf16_u811svuint8x4_t(
 // CPP-TUPLE4-NEXT:  entry:
-// CPP-TUPLE4-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[OP_COERCE0:%.*]], 0
-// CPP-TUPLE4-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[OP_COERCE1:%.*]], 1
-// CPP-TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], <vscale x 16 x i8> [[OP_COERCE2:%.*]], 2
-// CPP-TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], <vscale x 16 x i8> [[OP_COERCE3:%.*]], 3
-// CPP-TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 0
-// CPP-TUPLE4-NEXT:    [[TMP5:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 8 x bfloat>
+// CPP-TUPLE4-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[OP_COERCE0:%.*]], 0
+// CPP-TUPLE4-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[OP_COERCE1:%.*]], 1
+// CPP-TUPLE4-NEXT:    [[TMP2:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]], <vscale x 16 x b8> [[OP_COERCE2:%.*]], 2
+// CPP-TUPLE4-NEXT:    [[TMP3:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP2]], <vscale x 16 x b8> [[OP_COERCE3:%.*]], 3
+// CPP-TUPLE4-NEXT:    [[TMP4:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 0
+// CPP-TUPLE4-NEXT:    [[TMP5:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP4]] to <vscale x 8 x bfloat>
 // CPP-TUPLE4-NEXT:    [[TMP6:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } poison, <vscale x 8 x bfloat> [[TMP5]], 0
-// CPP-TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 1
-// CPP-TUPLE4-NEXT:    [[TMP8:%.*]] = bitcast <vscale x 16 x i8> [[TMP7]] to <vscale x 8 x bfloat>
+// CPP-TUPLE4-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 1
+// CPP-TUPLE4-NEXT:    [[TMP8:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP7]] to <vscale x 8 x bfloat>
 // CPP-TUPLE4-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP6]], <vscale x 8 x bfloat> [[TMP8]], 1
-// CPP-TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 2
-// CPP-TUPLE4-NEXT:    [[TMP11:%.*]] = bitcast <vscale x 16 x i8> [[TMP10]] to <vscale x 8 x bfloat>
+// CPP-TUPLE4-NEXT:    [[TMP10:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 2
+// CPP-TUPLE4-NEXT:    [[TMP11:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP10]] to <vscale x 8 x bfloat>
 // CPP-TUPLE4-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP9]], <vscale x 8 x bfloat> [[TMP11]], 2
-// CPP-TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP3]], 3
-// CPP-TUPLE4-NEXT:    [[TMP14:%.*]] = bitcast <vscale x 16 x i8> [[TMP13]] to <vscale x 8 x bfloat>
+// CPP-TUPLE4-NEXT:    [[TMP13:%.*]] = extractvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP3]], 3
+// CPP-TUPLE4-NEXT:    [[TMP14:%.*]] = bytecast exact <vscale x 16 x b8> [[TMP13]] to <vscale x 8 x bfloat>
 // CPP-TUPLE4-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP12]], <vscale x 8 x bfloat> [[TMP14]], 3
 // CPP-TUPLE4-NEXT:    ret { <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat>, <vscale x 8 x bfloat> } [[TMP15]]
 //

@@ -72,10 +72,12 @@ char f_i8() {
     mov edx, 1
   }
 }
-// CHECK-LABEL: define dso_local signext i8 @f_i8()
+// CHECK-LABEL: define dso_local signext b8 @f_i8()
 // CHECK: %[[r:[^ ]*]] = call i32 asm sideeffect inteldialect "mov eax, $$1\0A\09mov edx, $$1", "=&{eax},~{edx},{{.*}}"
 // CHECK: %[[r_i8:[^ ]*]] = trunc i32 %[[r]] to i8
-// CHECK: ret i8 %[[r_i8]]
+// CHECK: store i8 %[[r_i8]], ptr %{{.*}}
+// CHECK: %[[ret:[^ ]*]] = load b8, ptr %{{.*}}
+// CHECK: ret b8 %[[ret]]
 
 bool f_i1() {
   __asm {

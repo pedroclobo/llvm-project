@@ -6,7 +6,7 @@ struct A
     char a;
     __unaligned int b;
 } a;
-// CHECK: %struct.A = type { i8, i32 }
+// CHECK: %struct.A = type { b8, i32 }
 
 struct A2
 {
@@ -14,4 +14,4 @@ struct A2
     char a;
     __unaligned int c;
 } a2;
-// CHECK: %struct.A2 = type { i32, i8, i32 }
+// CHECK: %struct.A2 = type { i32, b8, i32 }

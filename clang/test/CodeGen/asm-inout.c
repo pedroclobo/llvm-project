@@ -33,7 +33,7 @@ void test3(int *vout, int vin)
 // CHECK: @test4
 int test4(volatile int *addr) {
   unsigned char oldval;
-  // CHECK: call i8 asm "frob $0", "=r,0{{.*}}"(i8 -1)
+  // CHECK: call b8 asm "frob $0", "=r,0{{.*}}"(b8 -1)
   __asm__ ("frob %0" : "=r"(oldval) : "0"(0xff));
   return (int)oldval;
 }
@@ -51,7 +51,7 @@ __m64 test5(__m64 __A, __m64 __B) {
 int test6(void) {
   typedef unsigned char __attribute__((vector_size(8))) _m64u8;
   _m64u8 __attribute__((aligned(16))) Mu8_0, __attribute__((aligned(16))) Mu8_1;
-  // CHECK: call <8 x i8> asm "nop", "=y,0,~{dirflag},~{fpsr},~{flags}"(<8 x i8> %0)
+  // CHECK: call <8 x b8> asm "nop", "=y,0,~{dirflag},~{fpsr},~{flags}"(<8 x b8> %0)
   asm ("nop" : "=y"(Mu8_1 ) : "0"(Mu8_0 ));
   return 0;
 }

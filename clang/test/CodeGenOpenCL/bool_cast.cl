@@ -22,7 +22,7 @@ void kernel ker() {
 
   uchar4 vc;
   vc = (uchar4)true;
-// CHECK: store <4 x i8> splat (i8 -1), ptr %vc, align 4
+// CHECK: store <4 x b8> splat (b8 -1), ptr %vc, align 4
   unsigned char c;
   c = (unsigned char)true;
 // CHECK: store i8 1, ptr %c, align 1

@@ -58,7 +58,7 @@ void _REENTRANTundefined() {}
 
 // Check types
 
-// CHECK: signext i8 @check_char()
+// CHECK: signext b8 @check_char()
 char check_char() { return 0; }
 
 // CHECK: signext i16 @check_short()
@@ -73,7 +73,7 @@ long check_long() { return 0; }
 // CHECK: i64 @check_longlong()
 long long check_longlong() { return 0; }
 
-// CHECK: zeroext i8 @check_uchar()
+// CHECK: zeroext b8 @check_uchar()
 unsigned char check_uchar() { return 0; }
 
 // CHECK: zeroext i16 @check_ushort()

@@ -78,11 +78,12 @@ int test_alu_exthz(uint16_t a) {
 
 // CHECK-LABEL: @test_alu_extbs(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca i8, align 1
-// CHECK-NEXT:    store i8 [[A:%.*]], ptr [[A_ADDR]], align 1
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A_ADDR]], align 1
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = trunc i32 [[CONV]] to i8
+// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca b8, align 1
+// CHECK-NEXT:    store b8 [[A:%.*]], ptr [[A_ADDR]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[A_ADDR]], align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[TMP1:%.*]] = trunc i32 [[CONV1]] to i8
 // CHECK-NEXT:    [[EXTBS:%.*]] = sext i8 [[TMP1]] to i32
 // CHECK-NEXT:    ret i32 [[EXTBS]]
 //
@@ -92,11 +93,12 @@ int test_alu_extbs(int8_t a) {
 
 // CHECK-LABEL: @test_alu_extbz(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca i8, align 1
-// CHECK-NEXT:    store i8 [[A:%.*]], ptr [[A_ADDR]], align 1
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A_ADDR]], align 1
-// CHECK-NEXT:    [[CONV:%.*]] = zext i8 [[TMP0]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = trunc i32 [[CONV]] to i8
+// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca b8, align 1
+// CHECK-NEXT:    store b8 [[A:%.*]], ptr [[A_ADDR]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[A_ADDR]], align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = zext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[TMP1:%.*]] = trunc i32 [[CONV1]] to i8
 // CHECK-NEXT:    [[EXTBZ:%.*]] = zext i8 [[TMP1]] to i32
 // CHECK-NEXT:    ret i32 [[EXTBZ]]
 //

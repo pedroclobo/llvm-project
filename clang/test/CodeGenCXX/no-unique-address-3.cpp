@@ -25,8 +25,8 @@ class Second : Empty {
   short A : 1;
 };
 
-// CHECK-LABEL:   LLVMType:%class.Foo = type { [2 x i8], %class.Second.base, i8 }
-// CHECK-NEXT:    NonVirtualBaseLLVMType:%class.Foo = type { [2 x i8], %class.Second.base, i8 }
+// CHECK-LABEL:   LLVMType:%class.Foo = type { [2 x i8], %class.Second.base, b8 }
+// CHECK-NEXT:    NonVirtualBaseLLVMType:%class.Foo = type { [2 x i8], %class.Second.base, b8 }
 class Foo : Empty {
   [[no_unique_address]] Second NZNoUnique;
   char B;
@@ -48,8 +48,8 @@ class SecondEmpty: Empty {
 // CHECK-NEXT:             | [sizeof=2, dsize=1, align=1,
 // CHECK-NEXT:             |  nvsize=2, nvalign=1]
 
-// CHECK-LABEL:  LLVMType:%class.Bar = type { i8, i8 }
-// CHECK-NEXT:   NonVirtualBaseLLVMType:%class.Bar = type { i8, i8 }
+// CHECK-LABEL:  LLVMType:%class.Bar = type { b8, i8 }
+// CHECK-NEXT:   NonVirtualBaseLLVMType:%class.Bar = type { b8, i8 }
 class Bar : Empty {
   [[no_unique_address]] SecondEmpty ZNoUnique;
   char C;

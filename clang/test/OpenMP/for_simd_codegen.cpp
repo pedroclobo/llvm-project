@@ -254,7 +254,8 @@ void simple(float *a, float *b, float *c, float *d) {
 // CHECK-NEXT: [[IV5_1:%.+]] = mul nsw i32 [[IV5_0]], 1
 // CHECK-NEXT: [[LC_IT_1:%.+]] = sub nsw i32 122, [[IV5_1]]
 // CHECK-NEXT: [[LC_IT_2:%.+]] = trunc i32 [[LC_IT_1]] to i8
-// CHECK-NEXT: store i8 [[LC_IT_2]], ptr
+// CHECK-NEXT: [[CAST:%.+]] = bitcast i8 [[LC_IT_2]] to b8
+// CHECK-NEXT: store b8 [[CAST]], ptr
 
 // CHECK: [[IV5_2:%.+]] = load i32, ptr [[OMP_IV5]]
 // CHECK-NEXT: [[ADD5_2:%.+]] = add nsw i32 [[IV5_2]], 1

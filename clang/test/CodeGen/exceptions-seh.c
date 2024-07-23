@@ -198,17 +198,17 @@ int basic_finally(int g) {
 //
 // CHECK: [[cont]]
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@basic_finally@@"({{i8 noundef( zeroext)?}} 0, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@basic_finally@@"({{b8 noundef( zeroext)?}} 0, ptr noundef %[[fp]])
 // CHECK: load i32, ptr %[[g_addr]], align 4
 // CHECK: ret i32
 //
 // CHECK: [[cleanuppad]]
 // CHECK: %[[padtoken:[^ ]*]] = cleanuppad within none []
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@basic_finally@@"({{i8 noundef( zeroext)?}} 1, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@basic_finally@@"({{b8 noundef( zeroext)?}} 1, ptr noundef %[[fp]])
 // CHECK: cleanupret from %[[padtoken]] unwind to caller
 
-// CHECK: define internal void @"?fin$0@0@basic_finally@@"({{i8 noundef( zeroext)?}} %abnormal_termination, ptr noundef %frame_pointer)
+// CHECK: define internal void @"?fin$0@0@basic_finally@@"({{b8 noundef( zeroext)?}} %abnormal_termination, ptr noundef %frame_pointer)
 // CHECK:   call ptr @llvm.localrecover(ptr @basic_finally, ptr %frame_pointer, i32 0)
 // CHECK:   load i32, ptr %{{.*}}, align 4
 // CHECK:   add nsw i32 %{{.*}}, 1
@@ -257,13 +257,13 @@ void finally_capture_twice(int x) {
 // CHECK:         call void (...) @llvm.localescape(ptr [[X]])
 // CHECK-NEXT:    store i32 {{.*}}, ptr [[X]], align 4
 // CHECK-NEXT:    [[LOCAL:%.*]] = call ptr @llvm.localaddress()
-// CHECK-NEXT:    call void [[FINALLY:@.*]](i8 noundef{{ zeroext | }}0, ptr noundef [[LOCAL]])
+// CHECK-NEXT:    call void [[FINALLY:@.*]](b8 noundef{{ zeroext | }}0, ptr noundef [[LOCAL]])
 // CHECK:       define internal void [[FINALLY]](
 // CHECK:         [[LOCAL:%.*]] = call ptr @llvm.localrecover(
 // CHECK-NEXT:    [[Y:%.*]] = alloca i32, align 4
 // CHECK-NEXT:    [[Z:%.*]] = alloca i32, align 4
 // CHECK-NEXT:    store ptr
-// CHECK-NEXT:    store i8
+// CHECK-NEXT:    store b8
 // CHECK-NEXT:    [[T0:%.*]] = load i32, ptr [[LOCAL]], align 4
 // CHECK-NEXT:    store i32 [[T0]], ptr [[Y]], align 4
 // CHECK-NEXT:    [[T0:%.*]] = load i32, ptr [[LOCAL]], align 4

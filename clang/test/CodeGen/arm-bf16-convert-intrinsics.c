@@ -25,22 +25,24 @@
 // CHECK-A64-LABEL: @test_vcvt_f32_bf16(
 // CHECK-A64-NEXT:  entry:
 // CHECK-A64-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <4 x i16>
-// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-A64-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-A64-NEXT:    [[TMP3:%.*]] = zext <4 x i16> [[TMP2]] to <4 x i32>
-// CHECK-A64-NEXT:    [[VSHLL_N_I:%.*]] = shl <4 x i32> [[TMP3]], splat (i32 16)
-// CHECK-A64-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[VSHLL_N_I]] to <4 x float>
-// CHECK-A64-NEXT:    ret <4 x float> [[TMP4]]
+// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-A64-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-A64-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-A64-NEXT:    [[TMP4:%.*]] = zext <4 x i16> [[TMP3]] to <4 x i32>
+// CHECK-A64-NEXT:    [[VSHLL_N_I:%.*]] = shl <4 x i32> [[TMP4]], splat (i32 16)
+// CHECK-A64-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[VSHLL_N_I]] to <4 x float>
+// CHECK-A64-NEXT:    ret <4 x float> [[TMP5]]
 //
 // CHECK-A32-HARDFP-LABEL: @test_vcvt_f32_bf16(
 // CHECK-A32-HARDFP-NEXT:  entry:
 // CHECK-A32-HARDFP-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <4 x i16>
-// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-A32-HARDFP-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-A32-HARDFP-NEXT:    [[TMP3:%.*]] = zext <4 x i16> [[TMP2]] to <4 x i32>
-// CHECK-A32-HARDFP-NEXT:    [[VSHLL_N_I:%.*]] = shl <4 x i32> [[TMP3]], splat (i32 16)
-// CHECK-A32-HARDFP-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[VSHLL_N_I]] to <4 x float>
-// CHECK-A32-HARDFP-NEXT:    ret <4 x float> [[TMP4]]
+// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-A32-HARDFP-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-A32-HARDFP-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-A32-HARDFP-NEXT:    [[TMP4:%.*]] = zext <4 x i16> [[TMP3]] to <4 x i32>
+// CHECK-A32-HARDFP-NEXT:    [[VSHLL_N_I:%.*]] = shl <4 x i32> [[TMP4]], splat (i32 16)
+// CHECK-A32-HARDFP-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[VSHLL_N_I]] to <4 x float>
+// CHECK-A32-HARDFP-NEXT:    ret <4 x float> [[TMP5]]
 //
 // CHECK-A32-SOFTFP-LABEL: @test_vcvt_f32_bf16(
 // CHECK-A32-SOFTFP-NEXT:  entry:
@@ -48,12 +50,13 @@
 // CHECK-A32-SOFTFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x bfloat> [[TMP0]] to <2 x i32>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP1]] to <4 x bfloat>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP3:%.*]] = bitcast <4 x bfloat> [[TMP2]] to <4 x i16>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP3]] to <8 x i8>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP6:%.*]] = zext <4 x i16> [[TMP5]] to <4 x i32>
-// CHECK-A32-SOFTFP-NEXT:    [[VSHLL_N_I:%.*]] = shl <4 x i32> [[TMP6]], splat (i32 16)
-// CHECK-A32-SOFTFP-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[VSHLL_N_I]] to <4 x float>
-// CHECK-A32-SOFTFP-NEXT:    ret <4 x float> [[TMP7]]
+// CHECK-A32-SOFTFP-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP3]] to <8 x b8>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x i16>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP7:%.*]] = zext <4 x i16> [[TMP6]] to <4 x i32>
+// CHECK-A32-SOFTFP-NEXT:    [[VSHLL_N_I:%.*]] = shl <4 x i32> [[TMP7]], splat (i32 16)
+// CHECK-A32-SOFTFP-NEXT:    [[TMP8:%.*]] = bitcast <4 x i32> [[VSHLL_N_I]] to <4 x float>
+// CHECK-A32-SOFTFP-NEXT:    ret <4 x float> [[TMP8]]
 //
 float32x4_t test_vcvt_f32_bf16(bfloat16x4_t a) {
   return vcvt_f32_bf16(a);
@@ -63,23 +66,25 @@ float32x4_t test_vcvt_f32_bf16(bfloat16x4_t a) {
 // CHECK-A64-NEXT:  entry:
 // CHECK-A64-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x bfloat> [[A:%.*]], <8 x bfloat> [[A]], <4 x i32> <i32 0, i32 1, i32 2, i32 3>
 // CHECK-A64-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[SHUFFLE_I]] to <4 x i16>
-// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-A64-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-A64-NEXT:    [[TMP3:%.*]] = zext <4 x i16> [[TMP2]] to <4 x i32>
-// CHECK-A64-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP3]], splat (i32 16)
-// CHECK-A64-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
-// CHECK-A64-NEXT:    ret <4 x float> [[TMP4]]
+// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-A64-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-A64-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-A64-NEXT:    [[TMP4:%.*]] = zext <4 x i16> [[TMP3]] to <4 x i32>
+// CHECK-A64-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP4]], splat (i32 16)
+// CHECK-A64-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
+// CHECK-A64-NEXT:    ret <4 x float> [[TMP5]]
 //
 // CHECK-A32-HARDFP-LABEL: @test_vcvtq_low_f32_bf16(
 // CHECK-A32-HARDFP-NEXT:  entry:
 // CHECK-A32-HARDFP-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x bfloat> [[A:%.*]], <8 x bfloat> [[A]], <4 x i32> <i32 0, i32 1, i32 2, i32 3>
 // CHECK-A32-HARDFP-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[SHUFFLE_I]] to <4 x i16>
-// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-A32-HARDFP-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-A32-HARDFP-NEXT:    [[TMP3:%.*]] = zext <4 x i16> [[TMP2]] to <4 x i32>
-// CHECK-A32-HARDFP-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP3]], splat (i32 16)
-// CHECK-A32-HARDFP-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
-// CHECK-A32-HARDFP-NEXT:    ret <4 x float> [[TMP4]]
+// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-A32-HARDFP-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-A32-HARDFP-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-A32-HARDFP-NEXT:    [[TMP4:%.*]] = zext <4 x i16> [[TMP3]] to <4 x i32>
+// CHECK-A32-HARDFP-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP4]], splat (i32 16)
+// CHECK-A32-HARDFP-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
+// CHECK-A32-HARDFP-NEXT:    ret <4 x float> [[TMP5]]
 //
 // CHECK-A32-SOFTFP-LABEL: @test_vcvtq_low_f32_bf16(
 // CHECK-A32-SOFTFP-NEXT:  entry:
@@ -94,12 +99,13 @@ float32x4_t test_vcvt_f32_bf16(bfloat16x4_t a) {
 // CHECK-A32-SOFTFP-NEXT:    [[TMP7:%.*]] = bitcast <4 x bfloat> [[TMP6]] to <2 x i32>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP8:%.*]] = bitcast <2 x i32> [[TMP7]] to <4 x bfloat>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP9:%.*]] = bitcast <4 x bfloat> [[TMP8]] to <4 x i16>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP10:%.*]] = bitcast <4 x i16> [[TMP9]] to <8 x i8>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <4 x i16>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP12:%.*]] = zext <4 x i16> [[TMP11]] to <4 x i32>
-// CHECK-A32-SOFTFP-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP12]], splat (i32 16)
-// CHECK-A32-SOFTFP-NEXT:    [[TMP13:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
-// CHECK-A32-SOFTFP-NEXT:    ret <4 x float> [[TMP13]]
+// CHECK-A32-SOFTFP-NEXT:    [[TMP10:%.*]] = bitcast <4 x i16> [[TMP9]] to <8 x b8>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP11:%.*]] = bytecast exact <8 x b8> [[TMP10]] to <8 x i8>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP12:%.*]] = bitcast <8 x i8> [[TMP11]] to <4 x i16>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP13:%.*]] = zext <4 x i16> [[TMP12]] to <4 x i32>
+// CHECK-A32-SOFTFP-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP13]], splat (i32 16)
+// CHECK-A32-SOFTFP-NEXT:    [[TMP14:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
+// CHECK-A32-SOFTFP-NEXT:    ret <4 x float> [[TMP14]]
 //
 float32x4_t test_vcvtq_low_f32_bf16(bfloat16x8_t a) {
   return vcvtq_low_f32_bf16(a);
@@ -109,23 +115,25 @@ float32x4_t test_vcvtq_low_f32_bf16(bfloat16x8_t a) {
 // CHECK-A64-NEXT:  entry:
 // CHECK-A64-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x bfloat> [[A:%.*]], <8 x bfloat> [[A]], <4 x i32> <i32 4, i32 5, i32 6, i32 7>
 // CHECK-A64-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[SHUFFLE_I]] to <4 x i16>
-// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-A64-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-A64-NEXT:    [[TMP3:%.*]] = zext <4 x i16> [[TMP2]] to <4 x i32>
-// CHECK-A64-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP3]], splat (i32 16)
-// CHECK-A64-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
-// CHECK-A64-NEXT:    ret <4 x float> [[TMP4]]
+// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-A64-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-A64-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-A64-NEXT:    [[TMP4:%.*]] = zext <4 x i16> [[TMP3]] to <4 x i32>
+// CHECK-A64-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP4]], splat (i32 16)
+// CHECK-A64-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
+// CHECK-A64-NEXT:    ret <4 x float> [[TMP5]]
 //
 // CHECK-A32-HARDFP-LABEL: @test_vcvtq_high_f32_bf16(
 // CHECK-A32-HARDFP-NEXT:  entry:
 // CHECK-A32-HARDFP-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x bfloat> [[A:%.*]], <8 x bfloat> [[A]], <4 x i32> <i32 4, i32 5, i32 6, i32 7>
 // CHECK-A32-HARDFP-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[SHUFFLE_I]] to <4 x i16>
-// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-A32-HARDFP-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-A32-HARDFP-NEXT:    [[TMP3:%.*]] = zext <4 x i16> [[TMP2]] to <4 x i32>
-// CHECK-A32-HARDFP-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP3]], splat (i32 16)
-// CHECK-A32-HARDFP-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
-// CHECK-A32-HARDFP-NEXT:    ret <4 x float> [[TMP4]]
+// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-A32-HARDFP-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-A32-HARDFP-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-A32-HARDFP-NEXT:    [[TMP4:%.*]] = zext <4 x i16> [[TMP3]] to <4 x i32>
+// CHECK-A32-HARDFP-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP4]], splat (i32 16)
+// CHECK-A32-HARDFP-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
+// CHECK-A32-HARDFP-NEXT:    ret <4 x float> [[TMP5]]
 //
 // CHECK-A32-SOFTFP-LABEL: @test_vcvtq_high_f32_bf16(
 // CHECK-A32-SOFTFP-NEXT:  entry:
@@ -140,12 +148,13 @@ float32x4_t test_vcvtq_low_f32_bf16(bfloat16x8_t a) {
 // CHECK-A32-SOFTFP-NEXT:    [[TMP7:%.*]] = bitcast <4 x bfloat> [[TMP6]] to <2 x i32>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP8:%.*]] = bitcast <2 x i32> [[TMP7]] to <4 x bfloat>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP9:%.*]] = bitcast <4 x bfloat> [[TMP8]] to <4 x i16>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP10:%.*]] = bitcast <4 x i16> [[TMP9]] to <8 x i8>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <4 x i16>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP12:%.*]] = zext <4 x i16> [[TMP11]] to <4 x i32>
-// CHECK-A32-SOFTFP-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP12]], splat (i32 16)
-// CHECK-A32-SOFTFP-NEXT:    [[TMP13:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
-// CHECK-A32-SOFTFP-NEXT:    ret <4 x float> [[TMP13]]
+// CHECK-A32-SOFTFP-NEXT:    [[TMP10:%.*]] = bitcast <4 x i16> [[TMP9]] to <8 x b8>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP11:%.*]] = bytecast exact <8 x b8> [[TMP10]] to <8 x i8>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP12:%.*]] = bitcast <8 x i8> [[TMP11]] to <4 x i16>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP13:%.*]] = zext <4 x i16> [[TMP12]] to <4 x i32>
+// CHECK-A32-SOFTFP-NEXT:    [[VSHLL_N_I_I:%.*]] = shl <4 x i32> [[TMP13]], splat (i32 16)
+// CHECK-A32-SOFTFP-NEXT:    [[TMP14:%.*]] = bitcast <4 x i32> [[VSHLL_N_I_I]] to <4 x float>
+// CHECK-A32-SOFTFP-NEXT:    ret <4 x float> [[TMP14]]
 //
 float32x4_t test_vcvtq_high_f32_bf16(bfloat16x8_t a) {
   return vcvtq_high_f32_bf16(a);
@@ -154,24 +163,24 @@ float32x4_t test_vcvtq_high_f32_bf16(bfloat16x8_t a) {
 // CHECK-A64-LABEL: @test_vcvt_bf16_f32(
 // CHECK-A64-NEXT:  entry:
 // CHECK-A64-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-A64-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
+// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-A64-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x float>
 // CHECK-A64-NEXT:    [[TMP3:%.*]] = fptrunc <4 x float> [[TMP2]] to <4 x bfloat>
 // CHECK-A64-NEXT:    ret <4 x bfloat> [[TMP3]]
 //
 // CHECK-A32-HARDFP-LABEL: @test_vcvt_bf16_f32(
 // CHECK-A32-HARDFP-NEXT:  entry:
 // CHECK-A32-HARDFP-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
+// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x float>
 // CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF1_I:%.*]] = call <4 x bfloat> @llvm.arm.neon.vcvtfp2bf.v4bf16(<4 x float> [[VCVTFP2BF_I]])
 // CHECK-A32-HARDFP-NEXT:    ret <4 x bfloat> [[VCVTFP2BF1_I]]
 //
 // CHECK-A32-SOFTFP-LABEL: @test_vcvt_bf16_f32(
 // CHECK-A32-SOFTFP-NEXT:  entry:
 // CHECK-A32-SOFTFP-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x float>
 // CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF1_I:%.*]] = call <4 x i16> @llvm.arm.neon.vcvtfp2bf.v4i16(<4 x float> [[VCVTFP2BF_I]])
 // CHECK-A32-SOFTFP-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[VCVTFP2BF1_I]] to <4 x bfloat>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP3:%.*]] = bitcast <4 x bfloat> [[TMP2]] to <2 x i32>
@@ -188,8 +197,8 @@ bfloat16x4_t test_vcvt_bf16_f32(float32x4_t a) {
 // CHECK-A64-LABEL: @test_vcvtq_low_bf16_f32(
 // CHECK-A64-NEXT:  entry:
 // CHECK-A64-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-A64-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
+// CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-A64-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x float>
 // CHECK-A64-NEXT:    [[TMP3:%.*]] = fptrunc <4 x float> [[TMP2]] to <4 x bfloat>
 // CHECK-A64-NEXT:    [[TMP4:%.*]] = shufflevector <4 x bfloat> [[TMP3]], <4 x bfloat> zeroinitializer, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
 // CHECK-A64-NEXT:    ret <8 x bfloat> [[TMP4]]
@@ -198,8 +207,8 @@ bfloat16x4_t test_vcvt_bf16_f32(float32x4_t a) {
 // CHECK-A32-HARDFP-NEXT:  entry:
 // CHECK-A32-HARDFP-NEXT:    [[TMP0:%.*]] = bitcast i64 0 to <4 x bfloat>
 // CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A32-HARDFP-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-A32-HARDFP-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <4 x float>
 // CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF1_I:%.*]] = call <4 x bfloat> @llvm.arm.neon.vcvtfp2bf.v4bf16(<4 x float> [[VCVTFP2BF_I]])
 // CHECK-A32-HARDFP-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <4 x bfloat> [[TMP0]], <4 x bfloat> [[VCVTFP2BF1_I]], <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
 // CHECK-A32-HARDFP-NEXT:    ret <8 x bfloat> [[SHUFFLE_I]]
@@ -208,8 +217,8 @@ bfloat16x4_t test_vcvt_bf16_f32(float32x4_t a) {
 // CHECK-A32-SOFTFP-NEXT:  entry:
 // CHECK-A32-SOFTFP-NEXT:    [[TMP0:%.*]] = bitcast i64 0 to <4 x bfloat>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <4 x float>
 // CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF1_I:%.*]] = call <4 x i16> @llvm.arm.neon.vcvtfp2bf.v4i16(<4 x float> [[VCVTFP2BF_I]])
 // CHECK-A32-SOFTFP-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[VCVTFP2BF1_I]] to <4 x bfloat>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP4:%.*]] = bitcast <4 x bfloat> [[TMP3]] to <2 x i32>
@@ -234,11 +243,11 @@ bfloat16x8_t test_vcvtq_low_bf16_f32(float32x4_t a) {
 // CHECK-A64-NEXT:  entry:
 // CHECK-A64-NEXT:    [[TMP0:%.*]] = bitcast <8 x bfloat> [[INACTIVE:%.*]] to <8 x i16>
 // CHECK-A64-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A64-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-A64-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-A64-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x bfloat>
+// CHECK-A64-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-A64-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-A64-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <8 x bfloat>
 // CHECK-A64-NEXT:    [[TMP5:%.*]] = shufflevector <8 x bfloat> [[TMP4]], <8 x bfloat> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
-// CHECK-A64-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
+// CHECK-A64-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
 // CHECK-A64-NEXT:    [[TMP7:%.*]] = fptrunc <4 x float> [[TMP6]] to <4 x bfloat>
 // CHECK-A64-NEXT:    [[TMP8:%.*]] = shufflevector <4 x bfloat> [[TMP5]], <4 x bfloat> [[TMP7]], <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
 // CHECK-A64-NEXT:    ret <8 x bfloat> [[TMP8]]
@@ -246,8 +255,8 @@ bfloat16x8_t test_vcvtq_low_bf16_f32(float32x4_t a) {
 // CHECK-A32-HARDFP-LABEL: @test_vcvtq_high_bf16_f32(
 // CHECK-A32-HARDFP-NEXT:  entry:
 // CHECK-A32-HARDFP-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
+// CHECK-A32-HARDFP-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x float>
 // CHECK-A32-HARDFP-NEXT:    [[VCVTFP2BF1_I:%.*]] = call <4 x bfloat> @llvm.arm.neon.vcvtfp2bf.v4bf16(<4 x float> [[VCVTFP2BF_I]])
 // CHECK-A32-HARDFP-NEXT:    [[SHUFFLE_I:%.*]] = shufflevector <8 x bfloat> [[INACTIVE:%.*]], <8 x bfloat> [[INACTIVE]], <4 x i32> <i32 0, i32 1, i32 2, i32 3>
 // CHECK-A32-HARDFP-NEXT:    [[SHUFFLE_I8:%.*]] = shufflevector <4 x bfloat> [[VCVTFP2BF1_I]], <4 x bfloat> [[SHUFFLE_I]], <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
@@ -259,8 +268,8 @@ bfloat16x8_t test_vcvtq_low_bf16_f32(float32x4_t a) {
 // CHECK-A32-SOFTFP-NEXT:    [[TMP1:%.*]] = bitcast <8 x bfloat> [[TMP0]] to <4 x i32>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP1]] to <8 x bfloat>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP3:%.*]] = bitcast <4 x float> [[A:%.*]] to <4 x i32>
-// CHECK-A32-SOFTFP-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP3]] to <16 x i8>
-// CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
+// CHECK-A32-SOFTFP-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP3]] to <16 x b8>
+// CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF_I:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <4 x float>
 // CHECK-A32-SOFTFP-NEXT:    [[VCVTFP2BF1_I:%.*]] = call <4 x i16> @llvm.arm.neon.vcvtfp2bf.v4i16(<4 x float> [[VCVTFP2BF_I]])
 // CHECK-A32-SOFTFP-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[VCVTFP2BF1_I]] to <4 x bfloat>
 // CHECK-A32-SOFTFP-NEXT:    [[TMP6:%.*]] = bitcast <4 x bfloat> [[TMP5]] to <2 x i32>

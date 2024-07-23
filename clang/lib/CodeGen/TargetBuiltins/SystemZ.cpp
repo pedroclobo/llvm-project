@@ -26,8 +26,11 @@ static Value *EmitSystemZIntrinsicWithCC(CodeGenFunction &CGF,
                                          const CallExpr *E) {
   unsigned NumArgs = E->getNumArgs() - 1;
   SmallVector<Value *, 8> Args(NumArgs);
-  for (unsigned I = 0; I < NumArgs; ++I)
+  for (unsigned I = 0; I < NumArgs; ++I) {
     Args[I] = CGF.EmitScalarExpr(E->getArg(I));
+    if (Args[I]->getType()->isByteOrByteVectorTy())
+      Args[I] = CGF.Builder.CreateExactByteCastToInt(Args[I]);
+  }
   Address CCPtr = CGF.EmitPointerWithAlignment(E->getArg(NumArgs));
   Function *F = CGF.CGM.getIntrinsic(IntrinsicID);
   Value *Call = CGF.Builder.CreateCall(F, Args);
@@ -80,7 +83,11 @@ Value *CodeGenFunction::EmitSystemZBuiltinExpr(unsigned BuiltinID,
   case SystemZ::BI__builtin_s390_vclzg:
   case SystemZ::BI__builtin_s390_vclzq: {
     llvm::Type *ResultType = ConvertType(E->getType());
+    if (ResultType->isByteOrByteVectorTy())
+      ResultType = CGM.getDataLayout().getIntByteType(ResultType);
     Value *X = EmitScalarExpr(E->getArg(0));
+    if (X->getType()->isByteOrByteVectorTy())
+      X = Builder.CreateExactByteCastToInt(X);
     Value *Undef = ConstantInt::get(Builder.getInt1Ty(), false);
     Function *F = CGM.getIntrinsic(Intrinsic::ctlz, ResultType);
     return Builder.CreateCall(F, {X, Undef});
@@ -92,7 +99,11 @@ Value *CodeGenFunction::EmitSystemZBuiltinExpr(unsigned BuiltinID,
   case SystemZ::BI__builtin_s390_vctzg:
   case SystemZ::BI__builtin_s390_vctzq: {
     llvm::Type *ResultType = ConvertType(E->getType());
+    if (ResultType->isByteOrByteVectorTy())
+      ResultType = CGM.getDataLayout().getIntByteType(ResultType);
     Value *X = EmitScalarExpr(E->getArg(0));
+    if (X->getType()->isByteOrByteVectorTy())
+      X = Builder.CreateExactByteCastToInt(X);
     Value *Undef = ConstantInt::get(Builder.getInt1Ty(), false);
     Function *F = CGM.getIntrinsic(Intrinsic::cttz, ResultType);
     return Builder.CreateCall(F, {X, Undef});
@@ -103,8 +114,14 @@ Value *CodeGenFunction::EmitSystemZBuiltinExpr(unsigned BuiltinID,
   case SystemZ::BI__builtin_s390_verllf:
   case SystemZ::BI__builtin_s390_verllg: {
     llvm::Type *ResultType = ConvertType(E->getType());
+    if (ResultType->isByteOrByteVectorTy())
+      ResultType = CGM.getDataLayout().getIntByteType(ResultType);
     llvm::Value *Src = EmitScalarExpr(E->getArg(0));
+    if (Src->getType()->isByteOrByteVectorTy())
+      Src = Builder.CreateExactByteCastToInt(Src);
     llvm::Value *Amt = EmitScalarExpr(E->getArg(1));
+    if (Amt->getType()->isByteOrByteVectorTy())
+      Amt = Builder.CreateExactByteCastToInt(Amt);
     // Splat scalar rotate amount to vector type.
     unsigned NumElts = cast<llvm::FixedVectorType>(ResultType)->getNumElements();
     Amt = Builder.CreateIntCast(Amt, ResultType->getScalarType(), false);
@@ -118,8 +135,14 @@ Value *CodeGenFunction::EmitSystemZBuiltinExpr(unsigned BuiltinID,
   case SystemZ::BI__builtin_s390_verllvf:
   case SystemZ::BI__builtin_s390_verllvg: {
     llvm::Type *ResultType = ConvertType(E->getType());
+    if (ResultType->isByteOrByteVectorTy())
+      ResultType = CGM.getDataLayout().getIntByteType(ResultType);
     llvm::Value *Src = EmitScalarExpr(E->getArg(0));
+    if (Src->getType()->isByteOrByteVectorTy())
+      Src = Builder.CreateExactByteCastToInt(Src);
     llvm::Value *Amt = EmitScalarExpr(E->getArg(1));
+    if (Amt->getType()->isByteOrByteVectorTy())
+      Amt = Builder.CreateExactByteCastToInt(Amt);
     Function *F = CGM.getIntrinsic(Intrinsic::fshl, ResultType);
     return Builder.CreateCall(F, { Src, Src, Amt });
   }

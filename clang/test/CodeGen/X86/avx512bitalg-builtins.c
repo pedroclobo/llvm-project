@@ -23,20 +23,20 @@ __m512i test_mm512_maskz_popcnt_epi16(__mmask32 __U, __m512i __B) {
 
 __m512i test_mm512_popcnt_epi8(__m512i __A) {
   // CHECK-LABEL: @test_mm512_popcnt_epi8
-  // CHECK: @llvm.ctpop.v64i8
+  // CHECK: @llvm.ctpop.v64b8
   return _mm512_popcnt_epi8(__A);
 }
 
 __m512i test_mm512_mask_popcnt_epi8(__m512i __A, __mmask64 __U, __m512i __B) {
   // CHECK-LABEL: @test_mm512_mask_popcnt_epi8
-  // CHECK: @llvm.ctpop.v64i8
-  // CHECK: select <64 x i1> %{{[0-9]+}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: @llvm.ctpop.v64b8
+  // CHECK: select <64 x i1> %{{[0-9]+}}, <64 x b8> %{{[0-9]+}}, <64 x b8> {{.*}}
   return _mm512_mask_popcnt_epi8(__A, __U, __B);
 }
 __m512i test_mm512_maskz_popcnt_epi8(__mmask64 __U, __m512i __B) {
   // CHECK-LABEL: @test_mm512_maskz_popcnt_epi8
-  // CHECK: @llvm.ctpop.v64i8
-  // CHECK: select <64 x i1> %{{[0-9]+}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: @llvm.ctpop.v64b8
+  // CHECK: select <64 x i1> %{{[0-9]+}}, <64 x b8> %{{[0-9]+}}, <64 x b8> {{.*}}
   return _mm512_maskz_popcnt_epi8(__U, __B);
 }
 

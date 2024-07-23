@@ -15,7 +15,7 @@ unsigned f_int_2(unsigned x) { return x; }
 // CHECK-LABEL: define{{.*}} i64 @f_int_3(i64 noundef %x)
 long long f_int_3(long long x) { return x; }
 
-// CHECK-LABEL: define{{.*}} signext i8 @f_int_4(i8 noundef signext %x)
+// CHECK-LABEL: define{{.*}} signext b8 @f_int_4(b8 noundef signext %x)
 char f_int_4(char x) { return x; }
 
 // CHECK-LABEL: define{{.*}} fp128 @f_ld(fp128 noundef %x)
@@ -153,9 +153,11 @@ struct tiny f_tiny(struct tiny x) {
 }
 
 // CHECK-LABEL: define{{.*}} void @call_tiny()
-// CHECK: %[[XV:[^ ]+]] = zext i8 %{{[^ ]+}} to i64
-// CHECK: %[[HB:[^ ]+]] = shl i64 %[[XV]], 56
-// CHECK: = call i64 @f_tiny(i64 %[[HB]])
+// CHECK: %[[COERCE_DIVE:[^ ]+]] = getelementptr inbounds nuw %struct.tiny, ptr %x, i32 0, i32 0
+// CHECK: %[[CALL:[^ ]+]] = call i64 @f_tiny(i64 %{{[^ ]+}})
+// CHECK: %[[HIGHBITS:[^ ]+]] = lshr i64 %[[CALL]], 56
+// CHECK: %[[TRUNC:[^ ]+]] = trunc i64 %[[HIGHBITS]] to i8
+// CHECK: store i8 %[[TRUNC]], ptr %{{[^ ]+}}, align 1
 void call_tiny(void) {
   struct tiny x = { 1 };
   f_tiny(x);

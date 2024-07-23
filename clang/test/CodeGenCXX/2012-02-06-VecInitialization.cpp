@@ -3,6 +3,6 @@
 
 typedef char vec_t __attribute__ ((__ext_vector_type__ (8)));
 void h() {
-// CHECK: store <8 x i8>
+// CHECK: store <8 x b8>
   vec_t v(0);
 }

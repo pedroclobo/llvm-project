@@ -11,15 +11,17 @@ uint32_t crc32b(uint32_t a, uint8_t b)
 {
 // expected-error@+1 {{'__builtin_arm_crc32b' needs target feature crc}}
         return __builtin_arm_crc32b(a,b);
-// CHECK: [[T0:%[0-9]+]] = zext i8 %b to i32
-// CHECK: call i32 @llvm.aarch64.crc32b(i32 %a, i32 [[T0]])
+// CHECK: [[T0:%[0-9]+]] = bytecast exact b8 %b to i8
+// CHECK: [[T1:%[0-9]+]] = zext i8 [[T0]] to i32
+// CHECK: call i32 @llvm.aarch64.crc32b(i32 %a, i32 [[T1]])
 }
 
 uint32_t crc32cb(uint32_t a, uint8_t b)
 {
         return __builtin_arm_crc32cb(a,b);
-// CHECK: [[T0:%[0-9]+]] = zext i8 %b to i32
-// CHECK: call i32 @llvm.aarch64.crc32cb(i32 %a, i32 [[T0]])
+// CHECK: [[T0:%[0-9]+]] = bytecast exact b8 %b to i8
+// CHECK: [[T1:%[0-9]+]] = zext i8 [[T0]] to i32
+// CHECK: call i32 @llvm.aarch64.crc32cb(i32 %a, i32 [[T1]])
 }
 
 uint32_t crc32h(uint32_t a, uint16_t b)

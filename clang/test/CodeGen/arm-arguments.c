@@ -2,8 +2,8 @@
 // RUN: %clang_cc1 -triple armv7-apple-darwin9 -target-feature +neon -target-abi apcs-gnu -emit-llvm -w -o - %s | FileCheck -check-prefix=APCS-GNU %s
 // RUN: %clang_cc1 -triple armv7-apple-darwin9 -target-feature +neon -target-abi aapcs -emit-llvm -w -o - %s | FileCheck -check-prefix=AAPCS %s
 
-// APCS-GNU-LABEL: define{{.*}} signext i8 @f0()
-// AAPCS-LABEL: define{{.*}} arm_aapcscc signext i8 @f0()
+// APCS-GNU-LABEL: define{{.*}} signext b8 @f0()
+// AAPCS-LABEL: define{{.*}} arm_aapcscc signext b8 @f0()
 char f0(void) {
   return 0;
 }

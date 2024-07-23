@@ -8,9 +8,9 @@ typedef float __attribute__((mode(SF))) __attribute__((vector_size(128))) vec_t5
 typedef float __attribute__((mode(DF))) __attribute__((vector_size(256))) vec_t6;
 
 void check(void) {
-  // CHECK: alloca <4 x i8>
+  // CHECK: alloca <4 x b8>
   vec_t1 v1;
-  // CHECK: alloca <8 x i8>
+  // CHECK: alloca <8 x b8>
   vec_t2 v2;
   // CHECK: alloca <4 x i32>
   vec_t3 v3;
