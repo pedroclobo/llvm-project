@@ -144,19 +144,20 @@ int main() {
 // CHECK1-NEXT:    call void @__kmpc_push_num_threads(ptr @[[GLOB2]], i32 [[TMP4]], i32 10)
 // CHECK1-NEXT:    call void (ptr, i32, ptr, ...) @__kmpc_fork_call(ptr @[[GLOB2]], i32 2, ptr @main.omp_outlined.omp_outlined.1, ptr [[TMP2]], ptr [[I]])
 // CHECK1-NEXT:    [[TMP26:%.*]] = getelementptr inbounds nuw [[STRUCT_LASPRIVATE_CONDITIONAL]], ptr [[A1]], i32 0, i32 1
-// CHECK1-NEXT:    [[TMP27:%.*]] = load i8, ptr [[TMP26]], align 4
-// CHECK1-NEXT:    [[TMP28:%.*]] = icmp ne i8 [[TMP27]], 0
-// CHECK1-NEXT:    br i1 [[TMP28]], label [[LPC_THEN:%.*]], label [[LPC_DONE:%.*]]
+// CHECK1-NEXT:    [[TMP27:%.*]] = load b8, ptr [[TMP26]], align 4
+// CHECK1-NEXT:    [[TMP28:%.*]] = bytecast exact b8 [[TMP27]] to i8
+// CHECK1-NEXT:    [[TMP29:%.*]] = icmp ne i8 [[TMP28]], 0
+// CHECK1-NEXT:    br i1 [[TMP29]], label [[LPC_THEN:%.*]], label [[LPC_DONE:%.*]]
 // CHECK1:       lpc.then:
-// CHECK1-NEXT:    [[TMP29:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK1-NEXT:    [[TMP30:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
 // CHECK1-NEXT:    call void @__kmpc_critical(ptr @[[GLOB2]], i32 [[TMP4]], ptr @.gomp_critical_user_{{pl_cond[.].+[.|,]}}var)
-// CHECK1-NEXT:    [[TMP30:%.*]] = load i32, ptr @.{{pl_cond[.].+[.|,]}} align 4
-// CHECK1-NEXT:    [[TMP31:%.*]] = icmp sle i32 [[TMP30]], [[TMP29]]
-// CHECK1-NEXT:    br i1 [[TMP31]], label [[LP_COND_THEN8:%.*]], label [[LP_COND_EXIT9:%.*]]
+// CHECK1-NEXT:    [[TMP31:%.*]] = load i32, ptr @.{{pl_cond[.].+[.|,]}} align 4
+// CHECK1-NEXT:    [[TMP32:%.*]] = icmp sle i32 [[TMP31]], [[TMP30]]
+// CHECK1-NEXT:    br i1 [[TMP32]], label [[LP_COND_THEN8:%.*]], label [[LP_COND_EXIT9:%.*]]
 // CHECK1:       lp_cond_then8:
-// CHECK1-NEXT:    store i32 [[TMP29]], ptr @.{{pl_cond[.].+[.|,]}} align 4
-// CHECK1-NEXT:    [[TMP32:%.*]] = load i32, ptr [[TMP2]], align 4
-// CHECK1-NEXT:    store i32 [[TMP32]], ptr @{{pl_cond[.].+[.|,]}} align 4
+// CHECK1-NEXT:    store i32 [[TMP30]], ptr @.{{pl_cond[.].+[.|,]}} align 4
+// CHECK1-NEXT:    [[TMP33:%.*]] = load i32, ptr [[TMP2]], align 4
+// CHECK1-NEXT:    store i32 [[TMP33]], ptr @{{pl_cond[.].+[.|,]}} align 4
 // CHECK1-NEXT:    br label [[LP_COND_EXIT9]]
 // CHECK1:       lp_cond_exit9:
 // CHECK1-NEXT:    call void @__kmpc_end_critical(ptr @[[GLOB2]], i32 [[TMP4]], ptr @.gomp_critical_user_{{pl_cond[.].+[.|,]}}var)
@@ -168,23 +169,23 @@ int main() {
 // CHECK1:       omp.body.continue:
 // CHECK1-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK1:       omp.inner.for.inc:
-// CHECK1-NEXT:    [[TMP33:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK1-NEXT:    [[ADD10:%.*]] = add nsw i32 [[TMP33]], 1
+// CHECK1-NEXT:    [[TMP34:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK1-NEXT:    [[ADD10:%.*]] = add nsw i32 [[TMP34]], 1
 // CHECK1-NEXT:    store i32 [[ADD10]], ptr [[DOTOMP_IV]], align 4
 // CHECK1-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK1:       omp.inner.for.end:
 // CHECK1-NEXT:    br label [[OMP_LOOP_EXIT:%.*]]
 // CHECK1:       omp.loop.exit:
 // CHECK1-NEXT:    call void @__kmpc_for_static_fini(ptr @[[GLOB1]], i32 [[TMP4]])
-// CHECK1-NEXT:    [[TMP34:%.*]] = load i32, ptr [[DOTOMP_IS_LAST]], align 4
-// CHECK1-NEXT:    [[TMP35:%.*]] = icmp ne i32 [[TMP34]], 0
+// CHECK1-NEXT:    [[TMP35:%.*]] = load i32, ptr [[DOTOMP_IS_LAST]], align 4
+// CHECK1-NEXT:    [[TMP36:%.*]] = icmp ne i32 [[TMP35]], 0
 // CHECK1-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4:[0-9]+]], i32 [[TMP4]])
-// CHECK1-NEXT:    br i1 [[TMP35]], label [[DOTOMP_LASTPRIVATE_THEN:%.*]], label [[DOTOMP_LASTPRIVATE_DONE:%.*]]
+// CHECK1-NEXT:    br i1 [[TMP36]], label [[DOTOMP_LASTPRIVATE_THEN:%.*]], label [[DOTOMP_LASTPRIVATE_DONE:%.*]]
 // CHECK1:       .omp.lastprivate.then:
-// CHECK1-NEXT:    [[TMP36:%.*]] = load i32, ptr @{{pl_cond[.].+[.|,]}} align 4
-// CHECK1-NEXT:    store i32 [[TMP36]], ptr [[TMP2]], align 4
-// CHECK1-NEXT:    [[TMP37:%.*]] = load i32, ptr [[TMP2]], align 4
-// CHECK1-NEXT:    store i32 [[TMP37]], ptr [[TMP0]], align 4
+// CHECK1-NEXT:    [[TMP37:%.*]] = load i32, ptr @{{pl_cond[.].+[.|,]}} align 4
+// CHECK1-NEXT:    store i32 [[TMP37]], ptr [[TMP2]], align 4
+// CHECK1-NEXT:    [[TMP38:%.*]] = load i32, ptr [[TMP2]], align 4
+// CHECK1-NEXT:    store i32 [[TMP38]], ptr [[TMP0]], align 4
 // CHECK1-NEXT:    br label [[DOTOMP_LASTPRIVATE_DONE]]
 // CHECK1:       .omp.lastprivate.done:
 // CHECK1-NEXT:    ret void
@@ -261,6 +262,7 @@ int main() {
 // CHECK1-NEXT:    [[DOTBOUND_TID__ADDR:%.*]] = alloca ptr, align 8
 // CHECK1-NEXT:    [[A_ADDR:%.*]] = alloca ptr, align 8
 // CHECK1-NEXT:    [[I_ADDR:%.*]] = alloca ptr, align 8
+// CHECK1-NEXT:    [[ATOMIC_TEMP:%.*]] = alloca b8, align 1
 // CHECK1-NEXT:    store ptr [[DOTGLOBAL_TID_]], ptr [[DOTGLOBAL_TID__ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[DOTBOUND_TID_]], ptr [[DOTBOUND_TID__ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
@@ -270,6 +272,8 @@ int main() {
 // CHECK1-NEXT:    [[TMP2:%.*]] = load i32, ptr [[TMP1]], align 4
 // CHECK1-NEXT:    [[TMP3:%.*]] = atomicrmw add ptr [[TMP0]], i32 [[TMP2]] monotonic, align 4
 // CHECK1-NEXT:    [[TMP4:%.*]] = getelementptr inbounds nuw [[STRUCT_LASPRIVATE_CONDITIONAL:%.*]], ptr [[TMP0]], i32 0, i32 1
-// CHECK1-NEXT:    store atomic volatile i8 1, ptr [[TMP4]] unordered, align 1
+// CHECK1-NEXT:    store i8 1, ptr [[ATOMIC_TEMP]], align 1
+// CHECK1-NEXT:    [[TMP5:%.*]] = load i8, ptr [[ATOMIC_TEMP]], align 1
+// CHECK1-NEXT:    store atomic volatile i8 [[TMP5]], ptr [[TMP4]] unordered, align 1
 // CHECK1-NEXT:    ret void
 //

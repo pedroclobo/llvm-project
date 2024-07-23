@@ -36,8 +36,12 @@ int32x4_t test_vldrbq_gather_offset_s32(const int8_t *base, uint32x4_t offset)
 
 // CHECK-LABEL: @test_vldrbq_gather_offset_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vldr.gather.offset.v16i8.p0.v16i8(ptr [[BASE:%.*]], <16 x i8> [[OFFSET:%.*]], i32 8, i32 0, i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[OFFSET:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vldr.gather.offset.v16i8.p0.v16i8(ptr [[BASE:%.*]], <16 x i8> [[TMP0]], i32 8, i32 0, i32 0)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 int8x16_t test_vldrbq_gather_offset_s8(const int8_t *base, uint8x16_t offset)
 {
@@ -78,8 +82,12 @@ uint32x4_t test_vldrbq_gather_offset_u32(const uint8_t *base, uint32x4_t offset)
 
 // CHECK-LABEL: @test_vldrbq_gather_offset_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vldr.gather.offset.v16i8.p0.v16i8(ptr [[BASE:%.*]], <16 x i8> [[OFFSET:%.*]], i32 8, i32 0, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[OFFSET:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vldr.gather.offset.v16i8.p0.v16i8(ptr [[BASE:%.*]], <16 x i8> [[TMP0]], i32 8, i32 0, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vldrbq_gather_offset_u8(const uint8_t *base, uint8x16_t offset)
 {
@@ -124,10 +132,14 @@ int32x4_t test_vldrbq_gather_offset_z_s32(const int8_t *base, uint32x4_t offset,
 
 // CHECK-LABEL: @test_vldrbq_gather_offset_z_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vldr.gather.offset.predicated.v16i8.p0.v16i8.v16i1(ptr [[BASE:%.*]], <16 x i8> [[OFFSET:%.*]], i32 8, i32 0, i32 0, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[OFFSET:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vldr.gather.offset.predicated.v16i8.p0.v16i8.v16i1(ptr [[BASE:%.*]], <16 x i8> [[TMP0]], i32 8, i32 0, i32 0, <16 x i1> [[TMP2]])
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 int8x16_t test_vldrbq_gather_offset_z_s8(const int8_t *base, uint8x16_t offset, mve_pred16_t p)
 {
@@ -172,10 +184,14 @@ uint32x4_t test_vldrbq_gather_offset_z_u32(const uint8_t *base, uint32x4_t offse
 
 // CHECK-LABEL: @test_vldrbq_gather_offset_z_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vldr.gather.offset.predicated.v16i8.p0.v16i8.v16i1(ptr [[BASE:%.*]], <16 x i8> [[OFFSET:%.*]], i32 8, i32 0, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[OFFSET:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vldr.gather.offset.predicated.v16i8.p0.v16i8.v16i1(ptr [[BASE:%.*]], <16 x i8> [[TMP0]], i32 8, i32 0, i32 1, <16 x i1> [[TMP2]])
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 uint8x16_t test_vldrbq_gather_offset_z_u8(const uint8_t *base, uint8x16_t offset, mve_pred16_t p)
 {
@@ -1080,9 +1096,11 @@ void test_vstrbq_scatter_offset_p_s32(int8_t *base, uint32x4_t offset, int32x4_t
 
 // CHECK-LABEL: @test_vstrbq_scatter_offset_p_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    call void @llvm.arm.mve.vstr.scatter.offset.predicated.p0.v16i8.v16i8.v16i1(ptr [[BASE:%.*]], <16 x i8> [[OFFSET:%.*]], <16 x i8> [[VALUE:%.*]], i32 8, i32 0, <16 x i1> [[TMP1]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[OFFSET:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[VALUE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    call void @llvm.arm.mve.vstr.scatter.offset.predicated.p0.v16i8.v16i8.v16i1(ptr [[BASE:%.*]], <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 8, i32 0, <16 x i1> [[TMP3]])
 // CHECK-NEXT:    ret void
 //
 void test_vstrbq_scatter_offset_p_s8(int8_t *base, uint8x16_t offset, int8x16_t value, mve_pred16_t p)
@@ -1128,9 +1146,11 @@ void test_vstrbq_scatter_offset_p_u32(uint8_t *base, uint32x4_t offset, uint32x4
 
 // CHECK-LABEL: @test_vstrbq_scatter_offset_p_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    call void @llvm.arm.mve.vstr.scatter.offset.predicated.p0.v16i8.v16i8.v16i1(ptr [[BASE:%.*]], <16 x i8> [[OFFSET:%.*]], <16 x i8> [[VALUE:%.*]], i32 8, i32 0, <16 x i1> [[TMP1]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[OFFSET:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[VALUE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    call void @llvm.arm.mve.vstr.scatter.offset.predicated.p0.v16i8.v16i8.v16i1(ptr [[BASE:%.*]], <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 8, i32 0, <16 x i1> [[TMP3]])
 // CHECK-NEXT:    ret void
 //
 void test_vstrbq_scatter_offset_p_u8(uint8_t *base, uint8x16_t offset, uint8x16_t value, mve_pred16_t p)
@@ -1172,7 +1192,9 @@ void test_vstrbq_scatter_offset_s32(int8_t *base, uint32x4_t offset, int32x4_t v
 
 // CHECK-LABEL: @test_vstrbq_scatter_offset_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    call void @llvm.arm.mve.vstr.scatter.offset.p0.v16i8.v16i8(ptr [[BASE:%.*]], <16 x i8> [[OFFSET:%.*]], <16 x i8> [[VALUE:%.*]], i32 8, i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[OFFSET:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[VALUE:%.*]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.arm.mve.vstr.scatter.offset.p0.v16i8.v16i8(ptr [[BASE:%.*]], <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 8, i32 0)
 // CHECK-NEXT:    ret void
 //
 void test_vstrbq_scatter_offset_s8(int8_t *base, uint8x16_t offset, int8x16_t value)
@@ -1214,7 +1236,9 @@ void test_vstrbq_scatter_offset_u32(uint8_t *base, uint32x4_t offset, uint32x4_t
 
 // CHECK-LABEL: @test_vstrbq_scatter_offset_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    call void @llvm.arm.mve.vstr.scatter.offset.p0.v16i8.v16i8(ptr [[BASE:%.*]], <16 x i8> [[OFFSET:%.*]], <16 x i8> [[VALUE:%.*]], i32 8, i32 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[OFFSET:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[VALUE:%.*]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.arm.mve.vstr.scatter.offset.p0.v16i8.v16i8(ptr [[BASE:%.*]], <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 8, i32 0)
 // CHECK-NEXT:    ret void
 //
 void test_vstrbq_scatter_offset_u8(uint8_t *base, uint8x16_t offset, uint8x16_t value)

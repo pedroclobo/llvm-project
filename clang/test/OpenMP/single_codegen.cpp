@@ -326,8 +326,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK1-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 {
 // CHECK1-NEXT:  entry:
 // CHECK1-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK1-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK1-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK1-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK1-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK1-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK1-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK1-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
@@ -381,9 +381,10 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK1-NEXT:    store ptr [[TMP13]], ptr [[TMP12]], align 8
 // CHECK1-NEXT:    [[TMP14:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
 // CHECK1-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP14]])
-// CHECK1-NEXT:    [[TMP15:%.*]] = load i8, ptr [[A]], align 1
-// CHECK1-NEXT:    [[CONV:%.*]] = sext i8 [[TMP15]] to i32
-// CHECK1-NEXT:    ret i32 [[CONV]]
+// CHECK1-NEXT:    [[TMP15:%.*]] = load b8, ptr [[A]], align 1
+// CHECK1-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP15]] to i8
+// CHECK1-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32
+// CHECK1-NEXT:    ret i32 [[CONV5]]
 // CHECK1:       terminate.lpad:
 // CHECK1-NEXT:    [[TMP16:%.*]] = landingpad { ptr, i32 }
 // CHECK1-NEXT:            catch ptr null
@@ -435,8 +436,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK1-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[TMP4]], align 8
 // CHECK1-NEXT:    [[TMP6:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 0
 // CHECK1-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP6]], align 8
-// CHECK1-NEXT:    [[TMP8:%.*]] = load i8, ptr [[TMP7]], align 1
-// CHECK1-NEXT:    store i8 [[TMP8]], ptr [[TMP5]], align 1
+// CHECK1-NEXT:    [[TMP8:%.*]] = load b8, ptr [[TMP7]], align 1
+// CHECK1-NEXT:    store b8 [[TMP8]], ptr [[TMP5]], align 1
 // CHECK1-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP2]], i64 0, i64 1
 // CHECK1-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8
 // CHECK1-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 1
@@ -1210,8 +1211,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK2-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 {
 // CHECK2-NEXT:  entry:
 // CHECK2-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK2-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK2-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK2-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK2-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK2-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK2-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK2-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
@@ -1265,9 +1266,10 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK2-NEXT:    store ptr [[TMP13]], ptr [[TMP12]], align 8
 // CHECK2-NEXT:    [[TMP14:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
 // CHECK2-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP14]])
-// CHECK2-NEXT:    [[TMP15:%.*]] = load i8, ptr [[A]], align 1
-// CHECK2-NEXT:    [[CONV:%.*]] = sext i8 [[TMP15]] to i32
-// CHECK2-NEXT:    ret i32 [[CONV]]
+// CHECK2-NEXT:    [[TMP15:%.*]] = load b8, ptr [[A]], align 1
+// CHECK2-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP15]] to i8
+// CHECK2-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32
+// CHECK2-NEXT:    ret i32 [[CONV5]]
 // CHECK2:       terminate.lpad:
 // CHECK2-NEXT:    [[TMP16:%.*]] = landingpad { ptr, i32 }
 // CHECK2-NEXT:            catch ptr null
@@ -1319,8 +1321,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK2-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[TMP4]], align 8
 // CHECK2-NEXT:    [[TMP6:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 0
 // CHECK2-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP6]], align 8
-// CHECK2-NEXT:    [[TMP8:%.*]] = load i8, ptr [[TMP7]], align 1
-// CHECK2-NEXT:    store i8 [[TMP8]], ptr [[TMP5]], align 1
+// CHECK2-NEXT:    [[TMP8:%.*]] = load b8, ptr [[TMP7]], align 1
+// CHECK2-NEXT:    store b8 [[TMP8]], ptr [[TMP5]], align 1
 // CHECK2-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP2]], i64 0, i64 1
 // CHECK2-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8
 // CHECK2-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 1
@@ -2102,8 +2104,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK4-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 {
 // CHECK4-NEXT:  entry:
 // CHECK4-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK4-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK4-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK4-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK4-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK4-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK4-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK4-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
@@ -2157,9 +2159,10 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK4-NEXT:    store ptr [[TMP13]], ptr [[TMP12]], align 8
 // CHECK4-NEXT:    [[TMP14:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4
 // CHECK4-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB1]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP14]])
-// CHECK4-NEXT:    [[TMP15:%.*]] = load i8, ptr [[A]], align 1
-// CHECK4-NEXT:    [[CONV:%.*]] = sext i8 [[TMP15]] to i32
-// CHECK4-NEXT:    ret i32 [[CONV]]
+// CHECK4-NEXT:    [[TMP15:%.*]] = load b8, ptr [[A]], align 1
+// CHECK4-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP15]] to i8
+// CHECK4-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32
+// CHECK4-NEXT:    ret i32 [[CONV5]]
 // CHECK4:       terminate.lpad:
 // CHECK4-NEXT:    [[TMP16:%.*]] = landingpad { ptr, i32 }
 // CHECK4-NEXT:            catch ptr null
@@ -2211,8 +2214,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK4-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[TMP4]], align 8
 // CHECK4-NEXT:    [[TMP6:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 0
 // CHECK4-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP6]], align 8
-// CHECK4-NEXT:    [[TMP8:%.*]] = load i8, ptr [[TMP7]], align 1
-// CHECK4-NEXT:    store i8 [[TMP8]], ptr [[TMP5]], align 1
+// CHECK4-NEXT:    [[TMP8:%.*]] = load b8, ptr [[TMP7]], align 1
+// CHECK4-NEXT:    store b8 [[TMP8]], ptr [[TMP5]], align 1
 // CHECK4-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP2]], i64 0, i64 1
 // CHECK4-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8
 // CHECK4-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 1
@@ -3024,8 +3027,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK5-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 !dbg [[DBG51:![0-9]+]] {
 // CHECK5-NEXT:  entry:
 // CHECK5-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK5-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK5-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK5-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK5-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK5-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK5-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK5-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
@@ -3079,9 +3082,10 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK5-NEXT:    store ptr [[TMP13]], ptr [[TMP12]], align 8, !dbg [[DBG63]]
 // CHECK5-NEXT:    [[TMP14:%.*]] = load i32, ptr [[DOTOMP_COPYPRIVATE_DID_IT]], align 4, !dbg [[DBG63]]
 // CHECK5-NEXT:    call void @__kmpc_copyprivate(ptr @[[GLOB10]], i32 [[TMP0]], i64 40, ptr [[DOTOMP_COPYPRIVATE_CPR_LIST]], ptr @.omp.copyprivate.copy_func, i32 [[TMP14]]), !dbg [[DBG63]]
-// CHECK5-NEXT:    [[TMP15:%.*]] = load i8, ptr [[A]], align 1, !dbg [[DBG66:![0-9]+]]
-// CHECK5-NEXT:    [[CONV:%.*]] = sext i8 [[TMP15]] to i32, !dbg [[DBG66]]
-// CHECK5-NEXT:    ret i32 [[CONV]], !dbg [[DBG67:![0-9]+]]
+// CHECK5-NEXT:    [[TMP15:%.*]] = load b8, ptr [[A]], align 1, !dbg [[DBG66:![0-9]+]]
+// CHECK5-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP15]] to i8, !dbg [[DBG66]]
+// CHECK5-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32, !dbg [[DBG66]]
+// CHECK5-NEXT:    ret i32 [[CONV5]], !dbg [[DBG67:![0-9]+]]
 // CHECK5:       terminate.lpad:
 // CHECK5-NEXT:    [[TMP16:%.*]] = landingpad { ptr, i32 }
 // CHECK5-NEXT:            catch ptr null, !dbg [[DBG63]]
@@ -3133,8 +3137,8 @@ void array_func(int n, int a[n], St s[2]) {
 // CHECK5-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[TMP4]], align 8, !dbg [[DBG75]]
 // CHECK5-NEXT:    [[TMP6:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 0, !dbg [[DBG75]]
 // CHECK5-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP6]], align 8, !dbg [[DBG75]]
-// CHECK5-NEXT:    [[TMP8:%.*]] = load i8, ptr [[TMP7]], align 1, !dbg [[DBG76:![0-9]+]]
-// CHECK5-NEXT:    store i8 [[TMP8]], ptr [[TMP5]], align 1, !dbg [[DBG76]]
+// CHECK5-NEXT:    [[TMP8:%.*]] = load b8, ptr [[TMP7]], align 1, !dbg [[DBG76:![0-9]+]]
+// CHECK5-NEXT:    store b8 [[TMP8]], ptr [[TMP5]], align 1, !dbg [[DBG76]]
 // CHECK5-NEXT:    [[TMP9:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP2]], i64 0, i64 1, !dbg [[DBG75]]
 // CHECK5-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8, !dbg [[DBG75]]
 // CHECK5-NEXT:    [[TMP11:%.*]] = getelementptr inbounds [5 x ptr], ptr [[TMP3]], i64 0, i64 1, !dbg [[DBG75]]

@@ -592,8 +592,10 @@ struct st4 {
 // LE-NEXT:    [[BF_SHL:%.*]] = shl i16 [[BF_LOAD]], 2
 // LE-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_SHL]], 11
 // LE-NEXT:    [[BF_CAST:%.*]] = trunc i16 [[BF_ASHR]] to i8
-// LE-NEXT:    [[CONV:%.*]] = sext i8 [[BF_CAST]] to i32
-// LE-NEXT:    ret i32 [[CONV]]
+// LE-NEXT:    [[BF_CAST1:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// LE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST1]] to i8
+// LE-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// LE-NEXT:    ret i32 [[CONV2]]
 //
 // BE-LABEL: @st4_check_load(
 // BE-NEXT:  entry:
@@ -601,8 +603,10 @@ struct st4 {
 // BE-NEXT:    [[BF_SHL:%.*]] = shl i16 [[BF_LOAD]], 9
 // BE-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_SHL]], 11
 // BE-NEXT:    [[BF_CAST:%.*]] = trunc i16 [[BF_ASHR]] to i8
-// BE-NEXT:    [[CONV:%.*]] = sext i8 [[BF_CAST]] to i32
-// BE-NEXT:    ret i32 [[CONV]]
+// BE-NEXT:    [[BF_CAST1:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// BE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST1]] to i8
+// BE-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// BE-NEXT:    ret i32 [[CONV2]]
 //
 // LENUMLOADS-LABEL: @st4_check_load(
 // LENUMLOADS-NEXT:  entry:
@@ -610,8 +614,10 @@ struct st4 {
 // LENUMLOADS-NEXT:    [[BF_SHL:%.*]] = shl i16 [[BF_LOAD]], 2
 // LENUMLOADS-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_SHL]], 11
 // LENUMLOADS-NEXT:    [[BF_CAST:%.*]] = trunc i16 [[BF_ASHR]] to i8
-// LENUMLOADS-NEXT:    [[CONV:%.*]] = sext i8 [[BF_CAST]] to i32
-// LENUMLOADS-NEXT:    ret i32 [[CONV]]
+// LENUMLOADS-NEXT:    [[BF_CAST1:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// LENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST1]] to i8
+// LENUMLOADS-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// LENUMLOADS-NEXT:    ret i32 [[CONV2]]
 //
 // BENUMLOADS-LABEL: @st4_check_load(
 // BENUMLOADS-NEXT:  entry:
@@ -619,8 +625,10 @@ struct st4 {
 // BENUMLOADS-NEXT:    [[BF_SHL:%.*]] = shl i16 [[BF_LOAD]], 9
 // BENUMLOADS-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_SHL]], 11
 // BENUMLOADS-NEXT:    [[BF_CAST:%.*]] = trunc i16 [[BF_ASHR]] to i8
-// BENUMLOADS-NEXT:    [[CONV:%.*]] = sext i8 [[BF_CAST]] to i32
-// BENUMLOADS-NEXT:    ret i32 [[CONV]]
+// BENUMLOADS-NEXT:    [[BF_CAST1:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// BENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST1]] to i8
+// BENUMLOADS-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// BENUMLOADS-NEXT:    ret i32 [[CONV2]]
 //
 // LEWIDTH-LABEL: @st4_check_load(
 // LEWIDTH-NEXT:  entry:
@@ -628,8 +636,10 @@ struct st4 {
 // LEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[TMP0]], align 1
 // LEWIDTH-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 2
 // LEWIDTH-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
-// LEWIDTH-NEXT:    [[CONV:%.*]] = sext i8 [[BF_ASHR]] to i32
-// LEWIDTH-NEXT:    ret i32 [[CONV]]
+// LEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_ASHR]] to b8
+// LEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// LEWIDTH-NEXT:    ret i32 [[CONV1]]
 //
 // BEWIDTH-LABEL: @st4_check_load(
 // BEWIDTH-NEXT:  entry:
@@ -637,8 +647,10 @@ struct st4 {
 // BEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[TMP0]], align 1
 // BEWIDTH-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 1
 // BEWIDTH-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
-// BEWIDTH-NEXT:    [[CONV:%.*]] = sext i8 [[BF_ASHR]] to i32
-// BEWIDTH-NEXT:    ret i32 [[CONV]]
+// BEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_ASHR]] to b8
+// BEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// BEWIDTH-NEXT:    ret i32 [[CONV1]]
 //
 // LEWIDTHNUM-LABEL: @st4_check_load(
 // LEWIDTHNUM-NEXT:  entry:
@@ -646,8 +658,10 @@ struct st4 {
 // LEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[TMP0]], align 1
 // LEWIDTHNUM-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 2
 // LEWIDTHNUM-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
-// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i8 [[BF_ASHR]] to i32
-// LEWIDTHNUM-NEXT:    ret i32 [[CONV]]
+// LEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_ASHR]] to b8
+// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// LEWIDTHNUM-NEXT:    ret i32 [[CONV1]]
 //
 // BEWIDTHNUM-LABEL: @st4_check_load(
 // BEWIDTHNUM-NEXT:  entry:
@@ -655,8 +669,10 @@ struct st4 {
 // BEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[TMP0]], align 1
 // BEWIDTHNUM-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 1
 // BEWIDTHNUM-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
-// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i8 [[BF_ASHR]] to i32
-// BEWIDTHNUM-NEXT:    ret i32 [[CONV]]
+// BEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_ASHR]] to b8
+// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// BEWIDTHNUM-NEXT:    ret i32 [[CONV1]]
 //
 int st4_check_load(struct st4 *m) {
   return m->c;
@@ -813,8 +829,10 @@ struct st5 {
 // LE-NEXT:    [[BF_SHL:%.*]] = shl i32 [[BF_LOAD]], 11
 // LE-NEXT:    [[BF_ASHR:%.*]] = ashr i32 [[BF_SHL]], 27
 // LE-NEXT:    [[BF_CAST:%.*]] = trunc i32 [[BF_ASHR]] to i8
-// LE-NEXT:    [[CONV:%.*]] = sext i8 [[BF_CAST]] to i32
-// LE-NEXT:    ret i32 [[CONV]]
+// LE-NEXT:    [[BF_CAST1:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// LE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST1]] to i8
+// LE-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// LE-NEXT:    ret i32 [[CONV2]]
 //
 // BE-LABEL: @st5_check_load(
 // BE-NEXT:  entry:
@@ -822,8 +840,10 @@ struct st5 {
 // BE-NEXT:    [[BF_SHL:%.*]] = shl i32 [[BF_LOAD]], 16
 // BE-NEXT:    [[BF_ASHR:%.*]] = ashr i32 [[BF_SHL]], 27
 // BE-NEXT:    [[BF_CAST:%.*]] = trunc i32 [[BF_ASHR]] to i8
-// BE-NEXT:    [[CONV:%.*]] = sext i8 [[BF_CAST]] to i32
-// BE-NEXT:    ret i32 [[CONV]]
+// BE-NEXT:    [[BF_CAST1:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// BE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST1]] to i8
+// BE-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// BE-NEXT:    ret i32 [[CONV2]]
 //
 // LENUMLOADS-LABEL: @st5_check_load(
 // LENUMLOADS-NEXT:  entry:
@@ -831,8 +851,10 @@ struct st5 {
 // LENUMLOADS-NEXT:    [[BF_SHL:%.*]] = shl i32 [[BF_LOAD]], 11
 // LENUMLOADS-NEXT:    [[BF_ASHR:%.*]] = ashr i32 [[BF_SHL]], 27
 // LENUMLOADS-NEXT:    [[BF_CAST:%.*]] = trunc i32 [[BF_ASHR]] to i8
-// LENUMLOADS-NEXT:    [[CONV:%.*]] = sext i8 [[BF_CAST]] to i32
-// LENUMLOADS-NEXT:    ret i32 [[CONV]]
+// LENUMLOADS-NEXT:    [[BF_CAST1:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// LENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST1]] to i8
+// LENUMLOADS-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// LENUMLOADS-NEXT:    ret i32 [[CONV2]]
 //
 // BENUMLOADS-LABEL: @st5_check_load(
 // BENUMLOADS-NEXT:  entry:
@@ -840,8 +862,10 @@ struct st5 {
 // BENUMLOADS-NEXT:    [[BF_SHL:%.*]] = shl i32 [[BF_LOAD]], 16
 // BENUMLOADS-NEXT:    [[BF_ASHR:%.*]] = ashr i32 [[BF_SHL]], 27
 // BENUMLOADS-NEXT:    [[BF_CAST:%.*]] = trunc i32 [[BF_ASHR]] to i8
-// BENUMLOADS-NEXT:    [[CONV:%.*]] = sext i8 [[BF_CAST]] to i32
-// BENUMLOADS-NEXT:    ret i32 [[CONV]]
+// BENUMLOADS-NEXT:    [[BF_CAST1:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// BENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST1]] to i8
+// BENUMLOADS-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// BENUMLOADS-NEXT:    ret i32 [[CONV2]]
 //
 // LEWIDTH-LABEL: @st5_check_load(
 // LEWIDTH-NEXT:  entry:
@@ -849,16 +873,20 @@ struct st5 {
 // LEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[TMP0]], align 2
 // LEWIDTH-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 3
 // LEWIDTH-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
-// LEWIDTH-NEXT:    [[CONV:%.*]] = sext i8 [[BF_ASHR]] to i32
-// LEWIDTH-NEXT:    ret i32 [[CONV]]
+// LEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_ASHR]] to b8
+// LEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// LEWIDTH-NEXT:    ret i32 [[CONV1]]
 //
 // BEWIDTH-LABEL: @st5_check_load(
 // BEWIDTH-NEXT:  entry:
 // BEWIDTH-NEXT:    [[TMP0:%.*]] = getelementptr inbounds i8, ptr [[M:%.*]], i32 2
 // BEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[TMP0]], align 2
 // BEWIDTH-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_LOAD]], 3
-// BEWIDTH-NEXT:    [[CONV:%.*]] = sext i8 [[BF_ASHR]] to i32
-// BEWIDTH-NEXT:    ret i32 [[CONV]]
+// BEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_ASHR]] to b8
+// BEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// BEWIDTH-NEXT:    ret i32 [[CONV1]]
 //
 // LEWIDTHNUM-LABEL: @st5_check_load(
 // LEWIDTHNUM-NEXT:  entry:
@@ -866,16 +894,20 @@ struct st5 {
 // LEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[TMP0]], align 2
 // LEWIDTHNUM-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 3
 // LEWIDTHNUM-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
-// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i8 [[BF_ASHR]] to i32
-// LEWIDTHNUM-NEXT:    ret i32 [[CONV]]
+// LEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_ASHR]] to b8
+// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// LEWIDTHNUM-NEXT:    ret i32 [[CONV1]]
 //
 // BEWIDTHNUM-LABEL: @st5_check_load(
 // BEWIDTHNUM-NEXT:  entry:
 // BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = getelementptr inbounds i8, ptr [[M:%.*]], i32 2
 // BEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[TMP0]], align 2
 // BEWIDTHNUM-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_LOAD]], 3
-// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i8 [[BF_ASHR]] to i32
-// BEWIDTHNUM-NEXT:    ret i32 [[CONV]]
+// BEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_ASHR]] to b8
+// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// BEWIDTHNUM-NEXT:    ret i32 [[CONV1]]
 //
 int st5_check_load(struct st5 *m) {
   return m->c;
@@ -966,16 +998,17 @@ struct st6 {
 // LE-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_SHL]], 4
 // LE-NEXT:    [[BF_CAST:%.*]] = sext i16 [[BF_ASHR]] to i32
 // LE-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6:%.*]], ptr [[M]], i32 0, i32 1
-// LE-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[B]], align 2
-// LE-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// LE-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV]]
+// LE-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[B]], align 2
+// LE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LE-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// LE-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV1]]
 // LE-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6]], ptr [[M]], i32 0, i32 2
-// LE-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// LE-NEXT:    [[BF_SHL2:%.*]] = shl i8 [[BF_LOAD1]], 3
-// LE-NEXT:    [[BF_ASHR3:%.*]] = ashr i8 [[BF_SHL2]], 3
-// LE-NEXT:    [[BF_CAST4:%.*]] = sext i8 [[BF_ASHR3]] to i32
-// LE-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST4]]
-// LE-NEXT:    ret i32 [[ADD5]]
+// LE-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// LE-NEXT:    [[BF_SHL3:%.*]] = shl i8 [[BF_LOAD2]], 3
+// LE-NEXT:    [[BF_ASHR4:%.*]] = ashr i8 [[BF_SHL3]], 3
+// LE-NEXT:    [[BF_CAST5:%.*]] = sext i8 [[BF_ASHR4]] to i32
+// LE-NEXT:    [[ADD6:%.*]] = add nsw i32 [[ADD]], [[BF_CAST5]]
+// LE-NEXT:    ret i32 [[ADD6]]
 //
 // BE-LABEL: @st6_check_load(
 // BE-NEXT:  entry:
@@ -983,15 +1016,16 @@ struct st6 {
 // BE-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_LOAD]], 4
 // BE-NEXT:    [[BF_CAST:%.*]] = sext i16 [[BF_ASHR]] to i32
 // BE-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6:%.*]], ptr [[M]], i32 0, i32 1
-// BE-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[B]], align 2
-// BE-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// BE-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV]]
+// BE-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[B]], align 2
+// BE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BE-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// BE-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV1]]
 // BE-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6]], ptr [[M]], i32 0, i32 2
-// BE-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// BE-NEXT:    [[BF_ASHR2:%.*]] = ashr i8 [[BF_LOAD1]], 3
-// BE-NEXT:    [[BF_CAST3:%.*]] = sext i8 [[BF_ASHR2]] to i32
-// BE-NEXT:    [[ADD4:%.*]] = add nsw i32 [[ADD]], [[BF_CAST3]]
-// BE-NEXT:    ret i32 [[ADD4]]
+// BE-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// BE-NEXT:    [[BF_ASHR3:%.*]] = ashr i8 [[BF_LOAD2]], 3
+// BE-NEXT:    [[BF_CAST4:%.*]] = sext i8 [[BF_ASHR3]] to i32
+// BE-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST4]]
+// BE-NEXT:    ret i32 [[ADD5]]
 //
 // LENUMLOADS-LABEL: @st6_check_load(
 // LENUMLOADS-NEXT:  entry:
@@ -1000,16 +1034,17 @@ struct st6 {
 // LENUMLOADS-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_SHL]], 4
 // LENUMLOADS-NEXT:    [[BF_CAST:%.*]] = sext i16 [[BF_ASHR]] to i32
 // LENUMLOADS-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6:%.*]], ptr [[M]], i32 0, i32 1
-// LENUMLOADS-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[B]], align 2
-// LENUMLOADS-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// LENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV]]
+// LENUMLOADS-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[B]], align 2
+// LENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LENUMLOADS-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// LENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV1]]
 // LENUMLOADS-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6]], ptr [[M]], i32 0, i32 2
-// LENUMLOADS-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// LENUMLOADS-NEXT:    [[BF_SHL2:%.*]] = shl i8 [[BF_LOAD1]], 3
-// LENUMLOADS-NEXT:    [[BF_ASHR3:%.*]] = ashr i8 [[BF_SHL2]], 3
-// LENUMLOADS-NEXT:    [[BF_CAST4:%.*]] = sext i8 [[BF_ASHR3]] to i32
-// LENUMLOADS-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST4]]
-// LENUMLOADS-NEXT:    ret i32 [[ADD5]]
+// LENUMLOADS-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// LENUMLOADS-NEXT:    [[BF_SHL3:%.*]] = shl i8 [[BF_LOAD2]], 3
+// LENUMLOADS-NEXT:    [[BF_ASHR4:%.*]] = ashr i8 [[BF_SHL3]], 3
+// LENUMLOADS-NEXT:    [[BF_CAST5:%.*]] = sext i8 [[BF_ASHR4]] to i32
+// LENUMLOADS-NEXT:    [[ADD6:%.*]] = add nsw i32 [[ADD]], [[BF_CAST5]]
+// LENUMLOADS-NEXT:    ret i32 [[ADD6]]
 //
 // BENUMLOADS-LABEL: @st6_check_load(
 // BENUMLOADS-NEXT:  entry:
@@ -1017,15 +1052,16 @@ struct st6 {
 // BENUMLOADS-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_LOAD]], 4
 // BENUMLOADS-NEXT:    [[BF_CAST:%.*]] = sext i16 [[BF_ASHR]] to i32
 // BENUMLOADS-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6:%.*]], ptr [[M]], i32 0, i32 1
-// BENUMLOADS-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[B]], align 2
-// BENUMLOADS-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// BENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV]]
+// BENUMLOADS-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[B]], align 2
+// BENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BENUMLOADS-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// BENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV1]]
 // BENUMLOADS-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6]], ptr [[M]], i32 0, i32 2
-// BENUMLOADS-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// BENUMLOADS-NEXT:    [[BF_ASHR2:%.*]] = ashr i8 [[BF_LOAD1]], 3
-// BENUMLOADS-NEXT:    [[BF_CAST3:%.*]] = sext i8 [[BF_ASHR2]] to i32
-// BENUMLOADS-NEXT:    [[ADD4:%.*]] = add nsw i32 [[ADD]], [[BF_CAST3]]
-// BENUMLOADS-NEXT:    ret i32 [[ADD4]]
+// BENUMLOADS-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// BENUMLOADS-NEXT:    [[BF_ASHR3:%.*]] = ashr i8 [[BF_LOAD2]], 3
+// BENUMLOADS-NEXT:    [[BF_CAST4:%.*]] = sext i8 [[BF_ASHR3]] to i32
+// BENUMLOADS-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST4]]
+// BENUMLOADS-NEXT:    ret i32 [[ADD5]]
 //
 // LEWIDTH-LABEL: @st6_check_load(
 // LEWIDTH-NEXT:  entry:
@@ -1034,16 +1070,17 @@ struct st6 {
 // LEWIDTH-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_SHL]], 4
 // LEWIDTH-NEXT:    [[BF_CAST:%.*]] = sext i16 [[BF_ASHR]] to i32
 // LEWIDTH-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6:%.*]], ptr [[M]], i32 0, i32 1
-// LEWIDTH-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[B]], align 2
-// LEWIDTH-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// LEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV]]
+// LEWIDTH-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[B]], align 2
+// LEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// LEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV1]]
 // LEWIDTH-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6]], ptr [[M]], i32 0, i32 2
-// LEWIDTH-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// LEWIDTH-NEXT:    [[BF_SHL2:%.*]] = shl i8 [[BF_LOAD1]], 3
-// LEWIDTH-NEXT:    [[BF_ASHR3:%.*]] = ashr i8 [[BF_SHL2]], 3
-// LEWIDTH-NEXT:    [[BF_CAST4:%.*]] = sext i8 [[BF_ASHR3]] to i32
-// LEWIDTH-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST4]]
-// LEWIDTH-NEXT:    ret i32 [[ADD5]]
+// LEWIDTH-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// LEWIDTH-NEXT:    [[BF_SHL3:%.*]] = shl i8 [[BF_LOAD2]], 3
+// LEWIDTH-NEXT:    [[BF_ASHR4:%.*]] = ashr i8 [[BF_SHL3]], 3
+// LEWIDTH-NEXT:    [[BF_CAST5:%.*]] = sext i8 [[BF_ASHR4]] to i32
+// LEWIDTH-NEXT:    [[ADD6:%.*]] = add nsw i32 [[ADD]], [[BF_CAST5]]
+// LEWIDTH-NEXT:    ret i32 [[ADD6]]
 //
 // BEWIDTH-LABEL: @st6_check_load(
 // BEWIDTH-NEXT:  entry:
@@ -1051,15 +1088,16 @@ struct st6 {
 // BEWIDTH-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_LOAD]], 4
 // BEWIDTH-NEXT:    [[BF_CAST:%.*]] = sext i16 [[BF_ASHR]] to i32
 // BEWIDTH-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6:%.*]], ptr [[M]], i32 0, i32 1
-// BEWIDTH-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[B]], align 2
-// BEWIDTH-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// BEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV]]
+// BEWIDTH-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[B]], align 2
+// BEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// BEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV1]]
 // BEWIDTH-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6]], ptr [[M]], i32 0, i32 2
-// BEWIDTH-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// BEWIDTH-NEXT:    [[BF_ASHR2:%.*]] = ashr i8 [[BF_LOAD1]], 3
-// BEWIDTH-NEXT:    [[BF_CAST3:%.*]] = sext i8 [[BF_ASHR2]] to i32
-// BEWIDTH-NEXT:    [[ADD4:%.*]] = add nsw i32 [[ADD]], [[BF_CAST3]]
-// BEWIDTH-NEXT:    ret i32 [[ADD4]]
+// BEWIDTH-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// BEWIDTH-NEXT:    [[BF_ASHR3:%.*]] = ashr i8 [[BF_LOAD2]], 3
+// BEWIDTH-NEXT:    [[BF_CAST4:%.*]] = sext i8 [[BF_ASHR3]] to i32
+// BEWIDTH-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST4]]
+// BEWIDTH-NEXT:    ret i32 [[ADD5]]
 //
 // LEWIDTHNUM-LABEL: @st6_check_load(
 // LEWIDTHNUM-NEXT:  entry:
@@ -1068,16 +1106,17 @@ struct st6 {
 // LEWIDTHNUM-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_SHL]], 4
 // LEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = sext i16 [[BF_ASHR]] to i32
 // LEWIDTHNUM-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6:%.*]], ptr [[M]], i32 0, i32 1
-// LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[B]], align 2
-// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// LEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV]]
+// LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[B]], align 2
+// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// LEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV1]]
 // LEWIDTHNUM-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6]], ptr [[M]], i32 0, i32 2
-// LEWIDTHNUM-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// LEWIDTHNUM-NEXT:    [[BF_SHL2:%.*]] = shl i8 [[BF_LOAD1]], 3
-// LEWIDTHNUM-NEXT:    [[BF_ASHR3:%.*]] = ashr i8 [[BF_SHL2]], 3
-// LEWIDTHNUM-NEXT:    [[BF_CAST4:%.*]] = sext i8 [[BF_ASHR3]] to i32
-// LEWIDTHNUM-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST4]]
-// LEWIDTHNUM-NEXT:    ret i32 [[ADD5]]
+// LEWIDTHNUM-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// LEWIDTHNUM-NEXT:    [[BF_SHL3:%.*]] = shl i8 [[BF_LOAD2]], 3
+// LEWIDTHNUM-NEXT:    [[BF_ASHR4:%.*]] = ashr i8 [[BF_SHL3]], 3
+// LEWIDTHNUM-NEXT:    [[BF_CAST5:%.*]] = sext i8 [[BF_ASHR4]] to i32
+// LEWIDTHNUM-NEXT:    [[ADD6:%.*]] = add nsw i32 [[ADD]], [[BF_CAST5]]
+// LEWIDTHNUM-NEXT:    ret i32 [[ADD6]]
 //
 // BEWIDTHNUM-LABEL: @st6_check_load(
 // BEWIDTHNUM-NEXT:  entry:
@@ -1085,15 +1124,16 @@ struct st6 {
 // BEWIDTHNUM-NEXT:    [[BF_ASHR:%.*]] = ashr i16 [[BF_LOAD]], 4
 // BEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = sext i16 [[BF_ASHR]] to i32
 // BEWIDTHNUM-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6:%.*]], ptr [[M]], i32 0, i32 1
-// BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[B]], align 2
-// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
-// BEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV]]
+// BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[B]], align 2
+// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// BEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[BF_CAST]], [[CONV1]]
 // BEWIDTHNUM-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST6]], ptr [[M]], i32 0, i32 2
-// BEWIDTHNUM-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// BEWIDTHNUM-NEXT:    [[BF_ASHR2:%.*]] = ashr i8 [[BF_LOAD1]], 3
-// BEWIDTHNUM-NEXT:    [[BF_CAST3:%.*]] = sext i8 [[BF_ASHR2]] to i32
-// BEWIDTHNUM-NEXT:    [[ADD4:%.*]] = add nsw i32 [[ADD]], [[BF_CAST3]]
-// BEWIDTHNUM-NEXT:    ret i32 [[ADD4]]
+// BEWIDTHNUM-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// BEWIDTHNUM-NEXT:    [[BF_ASHR3:%.*]] = ashr i8 [[BF_LOAD2]], 3
+// BEWIDTHNUM-NEXT:    [[BF_CAST4:%.*]] = sext i8 [[BF_ASHR3]] to i32
+// BEWIDTHNUM-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST4]]
+// BEWIDTHNUM-NEXT:    ret i32 [[ADD5]]
 //
 int st6_check_load(volatile struct st6 *m) {
   int x = m->a;
@@ -1242,150 +1282,166 @@ struct st7b {
 // LE-LABEL: @st7_check_load(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// LE-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 4
-// LE-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// LE-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 4
+// LE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LE-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // LE-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
 // LE-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A:%.*]], ptr [[Y]], i32 0, i32 0
-// LE-NEXT:    [[TMP1:%.*]] = load volatile i8, ptr [[A]], align 4
-// LE-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// LE-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV]], [[CONV1]]
-// LE-NEXT:    [[Y2:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
-// LE-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y2]], i32 0, i32 1
+// LE-NEXT:    [[TMP1:%.*]] = load volatile b8, ptr [[A]], align 4
+// LE-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// LE-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// LE-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV1]], [[CONV3]]
+// LE-NEXT:    [[Y4:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
+// LE-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y4]], i32 0, i32 1
 // LE-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[B]], align 1
 // LE-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 3
 // LE-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
 // LE-NEXT:    [[BF_CAST:%.*]] = sext i8 [[BF_ASHR]] to i32
-// LE-NEXT:    [[ADD3:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
-// LE-NEXT:    ret i32 [[ADD3]]
+// LE-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
+// LE-NEXT:    ret i32 [[ADD5]]
 //
 // BE-LABEL: @st7_check_load(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// BE-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 4
-// BE-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// BE-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 4
+// BE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BE-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // BE-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
 // BE-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A:%.*]], ptr [[Y]], i32 0, i32 0
-// BE-NEXT:    [[TMP1:%.*]] = load volatile i8, ptr [[A]], align 4
-// BE-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// BE-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV]], [[CONV1]]
-// BE-NEXT:    [[Y2:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
-// BE-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y2]], i32 0, i32 1
+// BE-NEXT:    [[TMP1:%.*]] = load volatile b8, ptr [[A]], align 4
+// BE-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// BE-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// BE-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV1]], [[CONV3]]
+// BE-NEXT:    [[Y4:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
+// BE-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y4]], i32 0, i32 1
 // BE-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[B]], align 1
 // BE-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_LOAD]], 3
 // BE-NEXT:    [[BF_CAST:%.*]] = sext i8 [[BF_ASHR]] to i32
-// BE-NEXT:    [[ADD3:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
-// BE-NEXT:    ret i32 [[ADD3]]
+// BE-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
+// BE-NEXT:    ret i32 [[ADD5]]
 //
 // LENUMLOADS-LABEL: @st7_check_load(
 // LENUMLOADS-NEXT:  entry:
 // LENUMLOADS-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// LENUMLOADS-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 4
-// LENUMLOADS-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// LENUMLOADS-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 4
+// LENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LENUMLOADS-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // LENUMLOADS-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
 // LENUMLOADS-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A:%.*]], ptr [[Y]], i32 0, i32 0
-// LENUMLOADS-NEXT:    [[TMP1:%.*]] = load volatile i8, ptr [[A]], align 4
-// LENUMLOADS-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// LENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV]], [[CONV1]]
-// LENUMLOADS-NEXT:    [[Y2:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
-// LENUMLOADS-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y2]], i32 0, i32 1
+// LENUMLOADS-NEXT:    [[TMP1:%.*]] = load volatile b8, ptr [[A]], align 4
+// LENUMLOADS-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// LENUMLOADS-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// LENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV1]], [[CONV3]]
+// LENUMLOADS-NEXT:    [[Y4:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
+// LENUMLOADS-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y4]], i32 0, i32 1
 // LENUMLOADS-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[B]], align 1
 // LENUMLOADS-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 3
 // LENUMLOADS-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
 // LENUMLOADS-NEXT:    [[BF_CAST:%.*]] = sext i8 [[BF_ASHR]] to i32
-// LENUMLOADS-NEXT:    [[ADD3:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
-// LENUMLOADS-NEXT:    ret i32 [[ADD3]]
+// LENUMLOADS-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
+// LENUMLOADS-NEXT:    ret i32 [[ADD5]]
 //
 // BENUMLOADS-LABEL: @st7_check_load(
 // BENUMLOADS-NEXT:  entry:
 // BENUMLOADS-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// BENUMLOADS-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 4
-// BENUMLOADS-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// BENUMLOADS-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 4
+// BENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BENUMLOADS-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // BENUMLOADS-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
 // BENUMLOADS-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A:%.*]], ptr [[Y]], i32 0, i32 0
-// BENUMLOADS-NEXT:    [[TMP1:%.*]] = load volatile i8, ptr [[A]], align 4
-// BENUMLOADS-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// BENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV]], [[CONV1]]
-// BENUMLOADS-NEXT:    [[Y2:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
-// BENUMLOADS-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y2]], i32 0, i32 1
+// BENUMLOADS-NEXT:    [[TMP1:%.*]] = load volatile b8, ptr [[A]], align 4
+// BENUMLOADS-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// BENUMLOADS-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// BENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV1]], [[CONV3]]
+// BENUMLOADS-NEXT:    [[Y4:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
+// BENUMLOADS-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y4]], i32 0, i32 1
 // BENUMLOADS-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[B]], align 1
 // BENUMLOADS-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_LOAD]], 3
 // BENUMLOADS-NEXT:    [[BF_CAST:%.*]] = sext i8 [[BF_ASHR]] to i32
-// BENUMLOADS-NEXT:    [[ADD3:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
-// BENUMLOADS-NEXT:    ret i32 [[ADD3]]
+// BENUMLOADS-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
+// BENUMLOADS-NEXT:    ret i32 [[ADD5]]
 //
 // LEWIDTH-LABEL: @st7_check_load(
 // LEWIDTH-NEXT:  entry:
 // LEWIDTH-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// LEWIDTH-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 4
-// LEWIDTH-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// LEWIDTH-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 4
+// LEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // LEWIDTH-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
 // LEWIDTH-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A:%.*]], ptr [[Y]], i32 0, i32 0
-// LEWIDTH-NEXT:    [[TMP1:%.*]] = load volatile i8, ptr [[A]], align 4
-// LEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// LEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV]], [[CONV1]]
-// LEWIDTH-NEXT:    [[Y2:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
-// LEWIDTH-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y2]], i32 0, i32 1
+// LEWIDTH-NEXT:    [[TMP1:%.*]] = load volatile b8, ptr [[A]], align 4
+// LEWIDTH-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// LEWIDTH-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// LEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV1]], [[CONV3]]
+// LEWIDTH-NEXT:    [[Y4:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
+// LEWIDTH-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y4]], i32 0, i32 1
 // LEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[B]], align 1
 // LEWIDTH-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 3
 // LEWIDTH-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
 // LEWIDTH-NEXT:    [[BF_CAST:%.*]] = sext i8 [[BF_ASHR]] to i32
-// LEWIDTH-NEXT:    [[ADD3:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
-// LEWIDTH-NEXT:    ret i32 [[ADD3]]
+// LEWIDTH-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
+// LEWIDTH-NEXT:    ret i32 [[ADD5]]
 //
 // BEWIDTH-LABEL: @st7_check_load(
 // BEWIDTH-NEXT:  entry:
 // BEWIDTH-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// BEWIDTH-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 4
-// BEWIDTH-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// BEWIDTH-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 4
+// BEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // BEWIDTH-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
 // BEWIDTH-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A:%.*]], ptr [[Y]], i32 0, i32 0
-// BEWIDTH-NEXT:    [[TMP1:%.*]] = load volatile i8, ptr [[A]], align 4
-// BEWIDTH-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// BEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV]], [[CONV1]]
-// BEWIDTH-NEXT:    [[Y2:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
-// BEWIDTH-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y2]], i32 0, i32 1
+// BEWIDTH-NEXT:    [[TMP1:%.*]] = load volatile b8, ptr [[A]], align 4
+// BEWIDTH-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// BEWIDTH-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// BEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV1]], [[CONV3]]
+// BEWIDTH-NEXT:    [[Y4:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
+// BEWIDTH-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y4]], i32 0, i32 1
 // BEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[B]], align 1
 // BEWIDTH-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_LOAD]], 3
 // BEWIDTH-NEXT:    [[BF_CAST:%.*]] = sext i8 [[BF_ASHR]] to i32
-// BEWIDTH-NEXT:    [[ADD3:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
-// BEWIDTH-NEXT:    ret i32 [[ADD3]]
+// BEWIDTH-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
+// BEWIDTH-NEXT:    ret i32 [[ADD5]]
 //
 // LEWIDTHNUM-LABEL: @st7_check_load(
 // LEWIDTHNUM-NEXT:  entry:
 // LEWIDTHNUM-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 4
-// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 4
+// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // LEWIDTHNUM-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
 // LEWIDTHNUM-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A:%.*]], ptr [[Y]], i32 0, i32 0
-// LEWIDTHNUM-NEXT:    [[TMP1:%.*]] = load volatile i8, ptr [[A]], align 4
-// LEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// LEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV]], [[CONV1]]
-// LEWIDTHNUM-NEXT:    [[Y2:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
-// LEWIDTHNUM-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y2]], i32 0, i32 1
+// LEWIDTHNUM-NEXT:    [[TMP1:%.*]] = load volatile b8, ptr [[A]], align 4
+// LEWIDTHNUM-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// LEWIDTHNUM-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// LEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV1]], [[CONV3]]
+// LEWIDTHNUM-NEXT:    [[Y4:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
+// LEWIDTHNUM-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y4]], i32 0, i32 1
 // LEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[B]], align 1
 // LEWIDTHNUM-NEXT:    [[BF_SHL:%.*]] = shl i8 [[BF_LOAD]], 3
 // LEWIDTHNUM-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_SHL]], 3
 // LEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = sext i8 [[BF_ASHR]] to i32
-// LEWIDTHNUM-NEXT:    [[ADD3:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
-// LEWIDTHNUM-NEXT:    ret i32 [[ADD3]]
+// LEWIDTHNUM-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
+// LEWIDTHNUM-NEXT:    ret i32 [[ADD5]]
 //
 // BEWIDTHNUM-LABEL: @st7_check_load(
 // BEWIDTHNUM-NEXT:  entry:
 // BEWIDTHNUM-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 4
-// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 4
+// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // BEWIDTHNUM-NEXT:    [[Y:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
 // BEWIDTHNUM-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A:%.*]], ptr [[Y]], i32 0, i32 0
-// BEWIDTHNUM-NEXT:    [[TMP1:%.*]] = load volatile i8, ptr [[A]], align 4
-// BEWIDTHNUM-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// BEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV]], [[CONV1]]
-// BEWIDTHNUM-NEXT:    [[Y2:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
-// BEWIDTHNUM-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y2]], i32 0, i32 1
+// BEWIDTHNUM-NEXT:    [[TMP1:%.*]] = load volatile b8, ptr [[A]], align 4
+// BEWIDTHNUM-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// BEWIDTHNUM-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// BEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV1]], [[CONV3]]
+// BEWIDTHNUM-NEXT:    [[Y4:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7B]], ptr [[M]], i32 0, i32 2
+// BEWIDTHNUM-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_ST7A]], ptr [[Y4]], i32 0, i32 1
 // BEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[B]], align 1
 // BEWIDTHNUM-NEXT:    [[BF_ASHR:%.*]] = ashr i8 [[BF_LOAD]], 3
 // BEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = sext i8 [[BF_ASHR]] to i32
-// BEWIDTHNUM-NEXT:    [[ADD3:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
-// BEWIDTHNUM-NEXT:    ret i32 [[ADD3]]
+// BEWIDTHNUM-NEXT:    [[ADD5:%.*]] = add nsw i32 [[ADD]], [[BF_CAST]]
+// BEWIDTHNUM-NEXT:    ret i32 [[ADD5]]
 //
 int st7_check_load(struct st7b *m) {
   int r = m->x;
@@ -2292,65 +2348,81 @@ void increment_st11(volatile struct st11 *m) {
 // LE-LABEL: @increment_e_st11(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[E:%.*]] = getelementptr inbounds nuw [[STRUCT_ST11:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// LE-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[E]], align 4
-// LE-NEXT:    [[INC:%.*]] = add i8 [[TMP0]], 1
-// LE-NEXT:    store volatile i8 [[INC]], ptr [[E]], align 4
+// LE-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[E]], align 4
+// LE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LE-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LE-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LE-NEXT:    store volatile b8 [[CONV1]], ptr [[E]], align 4
 // LE-NEXT:    ret void
 //
 // BE-LABEL: @increment_e_st11(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[E:%.*]] = getelementptr inbounds nuw [[STRUCT_ST11:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// BE-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[E]], align 4
-// BE-NEXT:    [[INC:%.*]] = add i8 [[TMP0]], 1
-// BE-NEXT:    store volatile i8 [[INC]], ptr [[E]], align 4
+// BE-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[E]], align 4
+// BE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BE-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BE-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BE-NEXT:    store volatile b8 [[CONV1]], ptr [[E]], align 4
 // BE-NEXT:    ret void
 //
 // LENUMLOADS-LABEL: @increment_e_st11(
 // LENUMLOADS-NEXT:  entry:
 // LENUMLOADS-NEXT:    [[E:%.*]] = getelementptr inbounds nuw [[STRUCT_ST11:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// LENUMLOADS-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[E]], align 4
-// LENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[TMP0]], 1
-// LENUMLOADS-NEXT:    store volatile i8 [[INC]], ptr [[E]], align 4
+// LENUMLOADS-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[E]], align 4
+// LENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LENUMLOADS-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LENUMLOADS-NEXT:    store volatile b8 [[CONV1]], ptr [[E]], align 4
 // LENUMLOADS-NEXT:    ret void
 //
 // BENUMLOADS-LABEL: @increment_e_st11(
 // BENUMLOADS-NEXT:  entry:
 // BENUMLOADS-NEXT:    [[E:%.*]] = getelementptr inbounds nuw [[STRUCT_ST11:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// BENUMLOADS-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[E]], align 4
-// BENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[TMP0]], 1
-// BENUMLOADS-NEXT:    store volatile i8 [[INC]], ptr [[E]], align 4
+// BENUMLOADS-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[E]], align 4
+// BENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BENUMLOADS-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BENUMLOADS-NEXT:    store volatile b8 [[CONV1]], ptr [[E]], align 4
 // BENUMLOADS-NEXT:    ret void
 //
 // LEWIDTH-LABEL: @increment_e_st11(
 // LEWIDTH-NEXT:  entry:
 // LEWIDTH-NEXT:    [[E:%.*]] = getelementptr inbounds nuw [[STRUCT_ST11:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// LEWIDTH-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[E]], align 4
-// LEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[TMP0]], 1
-// LEWIDTH-NEXT:    store volatile i8 [[INC]], ptr [[E]], align 4
+// LEWIDTH-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[E]], align 4
+// LEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LEWIDTH-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LEWIDTH-NEXT:    store volatile b8 [[CONV1]], ptr [[E]], align 4
 // LEWIDTH-NEXT:    ret void
 //
 // BEWIDTH-LABEL: @increment_e_st11(
 // BEWIDTH-NEXT:  entry:
 // BEWIDTH-NEXT:    [[E:%.*]] = getelementptr inbounds nuw [[STRUCT_ST11:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// BEWIDTH-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[E]], align 4
-// BEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[TMP0]], 1
-// BEWIDTH-NEXT:    store volatile i8 [[INC]], ptr [[E]], align 4
+// BEWIDTH-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[E]], align 4
+// BEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BEWIDTH-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BEWIDTH-NEXT:    store volatile b8 [[CONV1]], ptr [[E]], align 4
 // BEWIDTH-NEXT:    ret void
 //
 // LEWIDTHNUM-LABEL: @increment_e_st11(
 // LEWIDTHNUM-NEXT:  entry:
 // LEWIDTHNUM-NEXT:    [[E:%.*]] = getelementptr inbounds nuw [[STRUCT_ST11:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[E]], align 4
-// LEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[TMP0]], 1
-// LEWIDTHNUM-NEXT:    store volatile i8 [[INC]], ptr [[E]], align 4
+// LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[E]], align 4
+// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LEWIDTHNUM-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LEWIDTHNUM-NEXT:    store volatile b8 [[CONV1]], ptr [[E]], align 4
 // LEWIDTHNUM-NEXT:    ret void
 //
 // BEWIDTHNUM-LABEL: @increment_e_st11(
 // BEWIDTHNUM-NEXT:  entry:
 // BEWIDTHNUM-NEXT:    [[E:%.*]] = getelementptr inbounds nuw [[STRUCT_ST11:%.*]], ptr [[M:%.*]], i32 0, i32 0
-// BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load volatile i8, ptr [[E]], align 4
-// BEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[TMP0]], 1
-// BEWIDTHNUM-NEXT:    store volatile i8 [[INC]], ptr [[E]], align 4
+// BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = load volatile b8, ptr [[E]], align 4
+// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BEWIDTHNUM-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BEWIDTHNUM-NEXT:    store volatile b8 [[CONV1]], ptr [[E]], align 4
 // BEWIDTHNUM-NEXT:    ret void
 //
 void increment_e_st11(volatile struct st11 *m) {
@@ -2830,61 +2902,101 @@ struct st14 {
 // LE-LABEL: @increment_a_st14(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[S:%.*]], align 1
-// LE-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// LE-NEXT:    store volatile i8 [[INC]], ptr [[S]], align 1
+// LE-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// LE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LE-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LE-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LE-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// LE-NEXT:    store volatile i8 [[TMP0]], ptr [[S]], align 1
+// LE-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // LE-NEXT:    ret void
 //
 // BE-LABEL: @increment_a_st14(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[S:%.*]], align 1
-// BE-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// BE-NEXT:    store volatile i8 [[INC]], ptr [[S]], align 1
+// BE-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// BE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BE-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BE-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BE-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// BE-NEXT:    store volatile i8 [[TMP0]], ptr [[S]], align 1
+// BE-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // BE-NEXT:    ret void
 //
 // LENUMLOADS-LABEL: @increment_a_st14(
 // LENUMLOADS-NEXT:  entry:
 // LENUMLOADS-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[S:%.*]], align 1
-// LENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// LENUMLOADS-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[S]], align 1
-// LENUMLOADS-NEXT:    store volatile i8 [[INC]], ptr [[S]], align 1
+// LENUMLOADS-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// LENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LENUMLOADS-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LENUMLOADS-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// LENUMLOADS-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[S]], align 1
+// LENUMLOADS-NEXT:    store volatile i8 [[TMP0]], ptr [[S]], align 1
+// LENUMLOADS-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // LENUMLOADS-NEXT:    ret void
 //
 // BENUMLOADS-LABEL: @increment_a_st14(
 // BENUMLOADS-NEXT:  entry:
 // BENUMLOADS-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[S:%.*]], align 1
-// BENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// BENUMLOADS-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[S]], align 1
-// BENUMLOADS-NEXT:    store volatile i8 [[INC]], ptr [[S]], align 1
+// BENUMLOADS-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// BENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BENUMLOADS-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BENUMLOADS-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// BENUMLOADS-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[S]], align 1
+// BENUMLOADS-NEXT:    store volatile i8 [[TMP0]], ptr [[S]], align 1
+// BENUMLOADS-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // BENUMLOADS-NEXT:    ret void
 //
 // LEWIDTH-LABEL: @increment_a_st14(
 // LEWIDTH-NEXT:  entry:
 // LEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[S:%.*]], align 1
-// LEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// LEWIDTH-NEXT:    store volatile i8 [[INC]], ptr [[S]], align 1
+// LEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// LEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LEWIDTH-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LEWIDTH-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// LEWIDTH-NEXT:    store volatile i8 [[TMP0]], ptr [[S]], align 1
+// LEWIDTH-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // LEWIDTH-NEXT:    ret void
 //
 // BEWIDTH-LABEL: @increment_a_st14(
 // BEWIDTH-NEXT:  entry:
 // BEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[S:%.*]], align 1
-// BEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// BEWIDTH-NEXT:    store volatile i8 [[INC]], ptr [[S]], align 1
+// BEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// BEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BEWIDTH-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BEWIDTH-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// BEWIDTH-NEXT:    store volatile i8 [[TMP0]], ptr [[S]], align 1
+// BEWIDTH-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // BEWIDTH-NEXT:    ret void
 //
 // LEWIDTHNUM-LABEL: @increment_a_st14(
 // LEWIDTHNUM-NEXT:  entry:
 // LEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[S:%.*]], align 1
-// LEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// LEWIDTHNUM-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[S]], align 1
-// LEWIDTHNUM-NEXT:    store volatile i8 [[INC]], ptr [[S]], align 1
+// LEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LEWIDTHNUM-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// LEWIDTHNUM-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[S]], align 1
+// LEWIDTHNUM-NEXT:    store volatile i8 [[TMP0]], ptr [[S]], align 1
+// LEWIDTHNUM-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // LEWIDTHNUM-NEXT:    ret void
 //
 // BEWIDTHNUM-LABEL: @increment_a_st14(
 // BEWIDTHNUM-NEXT:  entry:
 // BEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[S:%.*]], align 1
-// BEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// BEWIDTHNUM-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[S]], align 1
-// BEWIDTHNUM-NEXT:    store volatile i8 [[INC]], ptr [[S]], align 1
+// BEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BEWIDTHNUM-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// BEWIDTHNUM-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[S]], align 1
+// BEWIDTHNUM-NEXT:    store volatile i8 [[TMP0]], ptr [[S]], align 1
+// BEWIDTHNUM-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // BEWIDTHNUM-NEXT:    ret void
 //
 void increment_a_st14(volatile struct st14 *s) {
@@ -3740,68 +3852,108 @@ void increment_v_b_st17(volatile struct st17 *s) {
 // LE-NEXT:  entry:
 // LE-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST17:%.*]], ptr [[S:%.*]], i32 0, i32 1
 // LE-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[C]], align 1
-// LE-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// LE-NEXT:    store volatile i8 [[INC]], ptr [[C]], align 1
+// LE-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// LE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LE-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LE-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LE-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// LE-NEXT:    store volatile i8 [[TMP0]], ptr [[C]], align 1
+// LE-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // LE-NEXT:    ret void
 //
 // BE-LABEL: @increment_v_c_st17(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST17:%.*]], ptr [[S:%.*]], i32 0, i32 1
 // BE-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[C]], align 1
-// BE-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// BE-NEXT:    store volatile i8 [[INC]], ptr [[C]], align 1
+// BE-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// BE-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BE-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BE-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BE-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// BE-NEXT:    store volatile i8 [[TMP0]], ptr [[C]], align 1
+// BE-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // BE-NEXT:    ret void
 //
 // LENUMLOADS-LABEL: @increment_v_c_st17(
 // LENUMLOADS-NEXT:  entry:
 // LENUMLOADS-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST17:%.*]], ptr [[S:%.*]], i32 0, i32 1
 // LENUMLOADS-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[C]], align 1
-// LENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// LENUMLOADS-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// LENUMLOADS-NEXT:    store volatile i8 [[INC]], ptr [[C]], align 1
+// LENUMLOADS-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// LENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LENUMLOADS-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LENUMLOADS-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// LENUMLOADS-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// LENUMLOADS-NEXT:    store volatile i8 [[TMP0]], ptr [[C]], align 1
+// LENUMLOADS-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // LENUMLOADS-NEXT:    ret void
 //
 // BENUMLOADS-LABEL: @increment_v_c_st17(
 // BENUMLOADS-NEXT:  entry:
 // BENUMLOADS-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST17:%.*]], ptr [[S:%.*]], i32 0, i32 1
 // BENUMLOADS-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[C]], align 1
-// BENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// BENUMLOADS-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// BENUMLOADS-NEXT:    store volatile i8 [[INC]], ptr [[C]], align 1
+// BENUMLOADS-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// BENUMLOADS-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BENUMLOADS-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BENUMLOADS-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BENUMLOADS-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// BENUMLOADS-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// BENUMLOADS-NEXT:    store volatile i8 [[TMP0]], ptr [[C]], align 1
+// BENUMLOADS-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // BENUMLOADS-NEXT:    ret void
 //
 // LEWIDTH-LABEL: @increment_v_c_st17(
 // LEWIDTH-NEXT:  entry:
 // LEWIDTH-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST17:%.*]], ptr [[S:%.*]], i32 0, i32 1
 // LEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[C]], align 1
-// LEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// LEWIDTH-NEXT:    store volatile i8 [[INC]], ptr [[C]], align 1
+// LEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// LEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LEWIDTH-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LEWIDTH-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// LEWIDTH-NEXT:    store volatile i8 [[TMP0]], ptr [[C]], align 1
+// LEWIDTH-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // LEWIDTH-NEXT:    ret void
 //
 // BEWIDTH-LABEL: @increment_v_c_st17(
 // BEWIDTH-NEXT:  entry:
 // BEWIDTH-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST17:%.*]], ptr [[S:%.*]], i32 0, i32 1
 // BEWIDTH-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[C]], align 1
-// BEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// BEWIDTH-NEXT:    store volatile i8 [[INC]], ptr [[C]], align 1
+// BEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// BEWIDTH-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTH-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BEWIDTH-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BEWIDTH-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// BEWIDTH-NEXT:    store volatile i8 [[TMP0]], ptr [[C]], align 1
+// BEWIDTH-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // BEWIDTH-NEXT:    ret void
 //
 // LEWIDTHNUM-LABEL: @increment_v_c_st17(
 // LEWIDTHNUM-NEXT:  entry:
 // LEWIDTHNUM-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST17:%.*]], ptr [[S:%.*]], i32 0, i32 1
 // LEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[C]], align 1
-// LEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// LEWIDTHNUM-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// LEWIDTHNUM-NEXT:    store volatile i8 [[INC]], ptr [[C]], align 1
+// LEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// LEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// LEWIDTHNUM-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// LEWIDTHNUM-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// LEWIDTHNUM-NEXT:    store volatile i8 [[TMP0]], ptr [[C]], align 1
+// LEWIDTHNUM-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // LEWIDTHNUM-NEXT:    ret void
 //
 // BEWIDTHNUM-LABEL: @increment_v_c_st17(
 // BEWIDTHNUM-NEXT:  entry:
 // BEWIDTHNUM-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_ST17:%.*]], ptr [[S:%.*]], i32 0, i32 1
 // BEWIDTHNUM-NEXT:    [[BF_LOAD:%.*]] = load volatile i8, ptr [[C]], align 1
-// BEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[BF_LOAD]], 1
-// BEWIDTHNUM-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[C]], align 1
-// BEWIDTHNUM-NEXT:    store volatile i8 [[INC]], ptr [[C]], align 1
+// BEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD]] to b8
+// BEWIDTHNUM-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTHNUM-NEXT:    [[INC:%.*]] = add i8 [[CONV]], 1
+// BEWIDTHNUM-NEXT:    [[CONV1:%.*]] = bitcast i8 [[INC]] to b8
+// BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = bytecast exact b8 [[CONV1]] to i8
+// BEWIDTHNUM-NEXT:    [[BF_LOAD2:%.*]] = load volatile i8, ptr [[C]], align 1
+// BEWIDTHNUM-NEXT:    store volatile i8 [[TMP0]], ptr [[C]], align 1
+// BEWIDTHNUM-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP0]] to b8
 // BEWIDTHNUM-NEXT:    ret void
 //
 void increment_v_c_st17(volatile struct st17 *s) {
@@ -4017,19 +4169,24 @@ struct zero_bitfield_ok {
 // LE-NEXT:    [[BF_LOAD1:%.*]] = load volatile i16, ptr [[S]], align 4
 // LE-NEXT:    [[BF_ASHR2:%.*]] = ashr i16 [[BF_LOAD1]], 8
 // LE-NEXT:    [[BF_CAST:%.*]] = trunc i16 [[BF_ASHR2]] to i8
-// LE-NEXT:    [[CONV3:%.*]] = sext i8 [[BF_CAST]] to i32
-// LE-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV3]], [[CONV]]
-// LE-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD]] to i8
-// LE-NEXT:    [[TMP0:%.*]] = zext i8 [[CONV4]] to i16
-// LE-NEXT:    [[BF_LOAD5:%.*]] = load volatile i16, ptr [[S]], align 4
-// LE-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP0]], 255
-// LE-NEXT:    [[BF_SHL6:%.*]] = shl i16 [[BF_VALUE]], 8
-// LE-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD5]], 255
-// LE-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_SHL6]]
+// LE-NEXT:    [[BF_CAST3:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// LE-NEXT:    [[CONV4:%.*]] = bytecast exact b8 [[BF_CAST3]] to i8
+// LE-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV4]] to i32
+// LE-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV5]], [[CONV]]
+// LE-NEXT:    [[CONV6:%.*]] = trunc i32 [[ADD]] to i8
+// LE-NEXT:    [[TMP0:%.*]] = bitcast i8 [[CONV6]] to b8
+// LE-NEXT:    [[TMP1:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LE-NEXT:    [[TMP2:%.*]] = zext i8 [[TMP1]] to i16
+// LE-NEXT:    [[BF_LOAD7:%.*]] = load volatile i16, ptr [[S]], align 4
+// LE-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP2]], 255
+// LE-NEXT:    [[BF_SHL8:%.*]] = shl i16 [[BF_VALUE]], 8
+// LE-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD7]], 255
+// LE-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_SHL8]]
 // LE-NEXT:    store volatile i16 [[BF_SET]], ptr [[S]], align 4
 // LE-NEXT:    [[BF_RESULT_SHL:%.*]] = shl i16 [[BF_VALUE]], 8
 // LE-NEXT:    [[BF_RESULT_ASHR:%.*]] = ashr i16 [[BF_RESULT_SHL]], 8
 // LE-NEXT:    [[BF_RESULT_CAST:%.*]] = trunc i16 [[BF_RESULT_ASHR]] to i8
+// LE-NEXT:    [[BF_RESULT_CAST9:%.*]] = bitcast i8 [[BF_RESULT_CAST]] to b8
 // LE-NEXT:    ret void
 //
 // BE-LABEL: @increment_a_zero_bitfield_ok(
@@ -4041,18 +4198,23 @@ struct zero_bitfield_ok {
 // BE-NEXT:    [[BF_SHL:%.*]] = shl i16 [[BF_LOAD1]], 8
 // BE-NEXT:    [[BF_ASHR2:%.*]] = ashr i16 [[BF_SHL]], 8
 // BE-NEXT:    [[BF_CAST:%.*]] = trunc i16 [[BF_ASHR2]] to i8
-// BE-NEXT:    [[CONV3:%.*]] = sext i8 [[BF_CAST]] to i32
-// BE-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV3]], [[CONV]]
-// BE-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD]] to i8
-// BE-NEXT:    [[TMP0:%.*]] = zext i8 [[CONV4]] to i16
-// BE-NEXT:    [[BF_LOAD5:%.*]] = load volatile i16, ptr [[S]], align 4
-// BE-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP0]], 255
-// BE-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD5]], -256
+// BE-NEXT:    [[BF_CAST3:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// BE-NEXT:    [[CONV4:%.*]] = bytecast exact b8 [[BF_CAST3]] to i8
+// BE-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV4]] to i32
+// BE-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV5]], [[CONV]]
+// BE-NEXT:    [[CONV6:%.*]] = trunc i32 [[ADD]] to i8
+// BE-NEXT:    [[TMP0:%.*]] = bitcast i8 [[CONV6]] to b8
+// BE-NEXT:    [[TMP1:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BE-NEXT:    [[TMP2:%.*]] = zext i8 [[TMP1]] to i16
+// BE-NEXT:    [[BF_LOAD7:%.*]] = load volatile i16, ptr [[S]], align 4
+// BE-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP2]], 255
+// BE-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD7]], -256
 // BE-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_VALUE]]
 // BE-NEXT:    store volatile i16 [[BF_SET]], ptr [[S]], align 4
 // BE-NEXT:    [[BF_RESULT_SHL:%.*]] = shl i16 [[BF_VALUE]], 8
 // BE-NEXT:    [[BF_RESULT_ASHR:%.*]] = ashr i16 [[BF_RESULT_SHL]], 8
 // BE-NEXT:    [[BF_RESULT_CAST:%.*]] = trunc i16 [[BF_RESULT_ASHR]] to i8
+// BE-NEXT:    [[BF_RESULT_CAST8:%.*]] = bitcast i8 [[BF_RESULT_CAST]] to b8
 // BE-NEXT:    ret void
 //
 // LENUMLOADS-LABEL: @increment_a_zero_bitfield_ok(
@@ -4064,19 +4226,24 @@ struct zero_bitfield_ok {
 // LENUMLOADS-NEXT:    [[BF_LOAD1:%.*]] = load volatile i16, ptr [[S]], align 4
 // LENUMLOADS-NEXT:    [[BF_ASHR2:%.*]] = ashr i16 [[BF_LOAD1]], 8
 // LENUMLOADS-NEXT:    [[BF_CAST:%.*]] = trunc i16 [[BF_ASHR2]] to i8
-// LENUMLOADS-NEXT:    [[CONV3:%.*]] = sext i8 [[BF_CAST]] to i32
-// LENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV3]], [[CONV]]
-// LENUMLOADS-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD]] to i8
-// LENUMLOADS-NEXT:    [[TMP0:%.*]] = zext i8 [[CONV4]] to i16
-// LENUMLOADS-NEXT:    [[BF_LOAD5:%.*]] = load volatile i16, ptr [[S]], align 4
-// LENUMLOADS-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP0]], 255
-// LENUMLOADS-NEXT:    [[BF_SHL6:%.*]] = shl i16 [[BF_VALUE]], 8
-// LENUMLOADS-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD5]], 255
-// LENUMLOADS-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_SHL6]]
+// LENUMLOADS-NEXT:    [[BF_CAST3:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// LENUMLOADS-NEXT:    [[CONV4:%.*]] = bytecast exact b8 [[BF_CAST3]] to i8
+// LENUMLOADS-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV4]] to i32
+// LENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV5]], [[CONV]]
+// LENUMLOADS-NEXT:    [[CONV6:%.*]] = trunc i32 [[ADD]] to i8
+// LENUMLOADS-NEXT:    [[TMP0:%.*]] = bitcast i8 [[CONV6]] to b8
+// LENUMLOADS-NEXT:    [[TMP1:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// LENUMLOADS-NEXT:    [[TMP2:%.*]] = zext i8 [[TMP1]] to i16
+// LENUMLOADS-NEXT:    [[BF_LOAD7:%.*]] = load volatile i16, ptr [[S]], align 4
+// LENUMLOADS-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP2]], 255
+// LENUMLOADS-NEXT:    [[BF_SHL8:%.*]] = shl i16 [[BF_VALUE]], 8
+// LENUMLOADS-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD7]], 255
+// LENUMLOADS-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_SHL8]]
 // LENUMLOADS-NEXT:    store volatile i16 [[BF_SET]], ptr [[S]], align 4
 // LENUMLOADS-NEXT:    [[BF_RESULT_SHL:%.*]] = shl i16 [[BF_VALUE]], 8
 // LENUMLOADS-NEXT:    [[BF_RESULT_ASHR:%.*]] = ashr i16 [[BF_RESULT_SHL]], 8
 // LENUMLOADS-NEXT:    [[BF_RESULT_CAST:%.*]] = trunc i16 [[BF_RESULT_ASHR]] to i8
+// LENUMLOADS-NEXT:    [[BF_RESULT_CAST9:%.*]] = bitcast i8 [[BF_RESULT_CAST]] to b8
 // LENUMLOADS-NEXT:    ret void
 //
 // BENUMLOADS-LABEL: @increment_a_zero_bitfield_ok(
@@ -4088,18 +4255,23 @@ struct zero_bitfield_ok {
 // BENUMLOADS-NEXT:    [[BF_SHL:%.*]] = shl i16 [[BF_LOAD1]], 8
 // BENUMLOADS-NEXT:    [[BF_ASHR2:%.*]] = ashr i16 [[BF_SHL]], 8
 // BENUMLOADS-NEXT:    [[BF_CAST:%.*]] = trunc i16 [[BF_ASHR2]] to i8
-// BENUMLOADS-NEXT:    [[CONV3:%.*]] = sext i8 [[BF_CAST]] to i32
-// BENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV3]], [[CONV]]
-// BENUMLOADS-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD]] to i8
-// BENUMLOADS-NEXT:    [[TMP0:%.*]] = zext i8 [[CONV4]] to i16
-// BENUMLOADS-NEXT:    [[BF_LOAD5:%.*]] = load volatile i16, ptr [[S]], align 4
-// BENUMLOADS-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP0]], 255
-// BENUMLOADS-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD5]], -256
+// BENUMLOADS-NEXT:    [[BF_CAST3:%.*]] = bitcast i8 [[BF_CAST]] to b8
+// BENUMLOADS-NEXT:    [[CONV4:%.*]] = bytecast exact b8 [[BF_CAST3]] to i8
+// BENUMLOADS-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV4]] to i32
+// BENUMLOADS-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV5]], [[CONV]]
+// BENUMLOADS-NEXT:    [[CONV6:%.*]] = trunc i32 [[ADD]] to i8
+// BENUMLOADS-NEXT:    [[TMP0:%.*]] = bitcast i8 [[CONV6]] to b8
+// BENUMLOADS-NEXT:    [[TMP1:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// BENUMLOADS-NEXT:    [[TMP2:%.*]] = zext i8 [[TMP1]] to i16
+// BENUMLOADS-NEXT:    [[BF_LOAD7:%.*]] = load volatile i16, ptr [[S]], align 4
+// BENUMLOADS-NEXT:    [[BF_VALUE:%.*]] = and i16 [[TMP2]], 255
+// BENUMLOADS-NEXT:    [[BF_CLEAR:%.*]] = and i16 [[BF_LOAD7]], -256
 // BENUMLOADS-NEXT:    [[BF_SET:%.*]] = or i16 [[BF_CLEAR]], [[BF_VALUE]]
 // BENUMLOADS-NEXT:    store volatile i16 [[BF_SET]], ptr [[S]], align 4
 // BENUMLOADS-NEXT:    [[BF_RESULT_SHL:%.*]] = shl i16 [[BF_VALUE]], 8
 // BENUMLOADS-NEXT:    [[BF_RESULT_ASHR:%.*]] = ashr i16 [[BF_RESULT_SHL]], 8
 // BENUMLOADS-NEXT:    [[BF_RESULT_CAST:%.*]] = trunc i16 [[BF_RESULT_ASHR]] to i8
+// BENUMLOADS-NEXT:    [[BF_RESULT_CAST8:%.*]] = bitcast i8 [[BF_RESULT_CAST]] to b8
 // BENUMLOADS-NEXT:    ret void
 //
 // LEWIDTH-LABEL: @increment_a_zero_bitfield_ok(
@@ -4110,10 +4282,15 @@ struct zero_bitfield_ok {
 // LEWIDTH-NEXT:    [[CONV:%.*]] = sext i16 [[BF_ASHR]] to i32
 // LEWIDTH-NEXT:    [[TMP0:%.*]] = getelementptr inbounds i8, ptr [[S]], i32 1
 // LEWIDTH-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[TMP0]], align 1
-// LEWIDTH-NEXT:    [[CONV2:%.*]] = sext i8 [[BF_LOAD1]] to i32
-// LEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV2]], [[CONV]]
-// LEWIDTH-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD]] to i8
-// LEWIDTH-NEXT:    store volatile i8 [[CONV3]], ptr [[TMP0]], align 1
+// LEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD1]] to b8
+// LEWIDTH-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTH-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// LEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV3]], [[CONV]]
+// LEWIDTH-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD]] to i8
+// LEWIDTH-NEXT:    [[TMP1:%.*]] = bitcast i8 [[CONV4]] to b8
+// LEWIDTH-NEXT:    [[TMP2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// LEWIDTH-NEXT:    store volatile i8 [[TMP2]], ptr [[TMP0]], align 1
+// LEWIDTH-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP2]] to b8
 // LEWIDTH-NEXT:    ret void
 //
 // BEWIDTH-LABEL: @increment_a_zero_bitfield_ok(
@@ -4123,10 +4300,15 @@ struct zero_bitfield_ok {
 // BEWIDTH-NEXT:    [[CONV:%.*]] = sext i16 [[BF_ASHR]] to i32
 // BEWIDTH-NEXT:    [[TMP0:%.*]] = getelementptr inbounds i8, ptr [[S]], i32 1
 // BEWIDTH-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[TMP0]], align 1
-// BEWIDTH-NEXT:    [[CONV2:%.*]] = sext i8 [[BF_LOAD1]] to i32
-// BEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV2]], [[CONV]]
-// BEWIDTH-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD]] to i8
-// BEWIDTH-NEXT:    store volatile i8 [[CONV3]], ptr [[TMP0]], align 1
+// BEWIDTH-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD1]] to b8
+// BEWIDTH-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTH-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// BEWIDTH-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV3]], [[CONV]]
+// BEWIDTH-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD]] to i8
+// BEWIDTH-NEXT:    [[TMP1:%.*]] = bitcast i8 [[CONV4]] to b8
+// BEWIDTH-NEXT:    [[TMP2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// BEWIDTH-NEXT:    store volatile i8 [[TMP2]], ptr [[TMP0]], align 1
+// BEWIDTH-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP2]] to b8
 // BEWIDTH-NEXT:    ret void
 //
 // LEWIDTHNUM-LABEL: @increment_a_zero_bitfield_ok(
@@ -4137,11 +4319,16 @@ struct zero_bitfield_ok {
 // LEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i16 [[BF_ASHR]] to i32
 // LEWIDTHNUM-NEXT:    [[TMP0:%.*]] = getelementptr inbounds i8, ptr [[S]], i32 1
 // LEWIDTHNUM-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[TMP0]], align 1
-// LEWIDTHNUM-NEXT:    [[CONV2:%.*]] = sext i8 [[BF_LOAD1]] to i32
-// LEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV2]], [[CONV]]
-// LEWIDTHNUM-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD]] to i8
-// LEWIDTHNUM-NEXT:    [[BF_LOAD4:%.*]] = load volatile i8, ptr [[TMP0]], align 1
-// LEWIDTHNUM-NEXT:    store volatile i8 [[CONV3]], ptr [[TMP0]], align 1
+// LEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD1]] to b8
+// LEWIDTHNUM-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// LEWIDTHNUM-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// LEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV3]], [[CONV]]
+// LEWIDTHNUM-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD]] to i8
+// LEWIDTHNUM-NEXT:    [[TMP1:%.*]] = bitcast i8 [[CONV4]] to b8
+// LEWIDTHNUM-NEXT:    [[TMP2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// LEWIDTHNUM-NEXT:    [[BF_LOAD5:%.*]] = load volatile i8, ptr [[TMP0]], align 1
+// LEWIDTHNUM-NEXT:    store volatile i8 [[TMP2]], ptr [[TMP0]], align 1
+// LEWIDTHNUM-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP2]] to b8
 // LEWIDTHNUM-NEXT:    ret void
 //
 // BEWIDTHNUM-LABEL: @increment_a_zero_bitfield_ok(
@@ -4151,11 +4338,16 @@ struct zero_bitfield_ok {
 // BEWIDTHNUM-NEXT:    [[CONV:%.*]] = sext i16 [[BF_ASHR]] to i32
 // BEWIDTHNUM-NEXT:    [[TMP0:%.*]] = getelementptr inbounds i8, ptr [[S]], i32 1
 // BEWIDTHNUM-NEXT:    [[BF_LOAD1:%.*]] = load volatile i8, ptr [[TMP0]], align 1
-// BEWIDTHNUM-NEXT:    [[CONV2:%.*]] = sext i8 [[BF_LOAD1]] to i32
-// BEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV2]], [[CONV]]
-// BEWIDTHNUM-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD]] to i8
-// BEWIDTHNUM-NEXT:    [[BF_LOAD4:%.*]] = load volatile i8, ptr [[TMP0]], align 1
-// BEWIDTHNUM-NEXT:    store volatile i8 [[CONV3]], ptr [[TMP0]], align 1
+// BEWIDTHNUM-NEXT:    [[BF_CAST:%.*]] = bitcast i8 [[BF_LOAD1]] to b8
+// BEWIDTHNUM-NEXT:    [[CONV2:%.*]] = bytecast exact b8 [[BF_CAST]] to i8
+// BEWIDTHNUM-NEXT:    [[CONV3:%.*]] = sext i8 [[CONV2]] to i32
+// BEWIDTHNUM-NEXT:    [[ADD:%.*]] = add nsw i32 [[CONV3]], [[CONV]]
+// BEWIDTHNUM-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD]] to i8
+// BEWIDTHNUM-NEXT:    [[TMP1:%.*]] = bitcast i8 [[CONV4]] to b8
+// BEWIDTHNUM-NEXT:    [[TMP2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+// BEWIDTHNUM-NEXT:    [[BF_LOAD5:%.*]] = load volatile i8, ptr [[TMP0]], align 1
+// BEWIDTHNUM-NEXT:    store volatile i8 [[TMP2]], ptr [[TMP0]], align 1
+// BEWIDTHNUM-NEXT:    [[BF_RESULT_CAST:%.*]] = bitcast i8 [[TMP2]] to b8
 // BEWIDTHNUM-NEXT:    ret void
 //
 void increment_a_zero_bitfield_ok(volatile struct zero_bitfield_ok *s) {

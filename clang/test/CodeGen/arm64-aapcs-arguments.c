@@ -28,7 +28,7 @@ void test3(HFA s0_s3, float s4, HFA sp, HFA sp16) {
 // fp128] or something, but leaving them as-is retains more information for
 // users to debug.
 
-//  CHECK: void @test4([3 x <16 x i8>] alignstack(16) %v0_v2.coerce, [3 x <16 x i8>] alignstack(16) %v3_v5.coerce, [3 x <16 x i8>] alignstack(16) %sp.coerce, double noundef %sp48, [3 x <16 x i8>] alignstack(16) %sp64.coerce)
+//  CHECK: void @test4([3 x <16 x b8>] alignstack(16) %v0_v2.coerce, [3 x <16 x b8>] alignstack(16) %v3_v5.coerce, [3 x <16 x b8>] alignstack(16) %sp.coerce, double noundef %sp48, [3 x <16 x b8>] alignstack(16) %sp64.coerce)
 typedef __attribute__((neon_vector_type(16))) signed char int8x16_t;
 typedef struct { int8x16_t arr[3]; } BigHFA;
 void test4(BigHFA v0_v2, BigHFA v3_v5, BigHFA sp, double sp48, BigHFA sp64) {
@@ -37,7 +37,7 @@ void test4(BigHFA v0_v2, BigHFA v3_v5, BigHFA sp, double sp48, BigHFA sp64) {
 // It's the job of the argument *consumer* to perform the required sign & zero
 // extensions under AAPCS. There shouldn't be
 
-// CHECK: define{{.*}} i8 @test5(i8 noundef %a, i16 noundef %b)
+// CHECK: define{{.*}} b8 @test5(b8 noundef %a, i16 noundef %b)
 unsigned char test5(unsigned char a, signed short b) {
 }
 

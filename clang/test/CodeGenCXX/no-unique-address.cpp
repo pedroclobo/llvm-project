@@ -9,7 +9,7 @@ B b = {1, 2, 3, 4, 5};
 struct C : A {};
 struct D : C {};
 struct E { int e; [[no_unique_address]] D d; char k; };
-// CHECK-DAG: @e ={{.*}} global { i32, i32, [3 x i8], i8 } { i32 1, i32 2, [3 x i8] c"\03\04\05", i8 6 }
+// CHECK-DAG: @e ={{.*}} global { i32, i32, [3 x b8], b8 } { i32 1, i32 2, [3 x b8] c"\03\04\05", b8 6 }
 E e = {1, 2, 3, 4, 5, 6};
 
 struct Empty1 {};

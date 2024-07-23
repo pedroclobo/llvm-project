@@ -53,13 +53,13 @@ double test_2i(__int2 *in) {
 
 double varargs_vec_3c(int fixed, ...) {
 // CHECK: varargs_vec_3c
-// CHECK: alloca <3 x i8>, align 4
+// CHECK: alloca <3 x b8>, align 4
 // CHECK: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP:%.*]], i32 4
 // APCS-GNU: varargs_vec_3c
-// APCS-GNU: alloca <3 x i8>, align 4
+// APCS-GNU: alloca <3 x b8>, align 4
 // APCS-GNU: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP:%.*]], i32 4
 // ANDROID: varargs_vec_3c
-// ANDROID: alloca <3 x i8>, align 4
+// ANDROID: alloca <3 x b8>, align 4
 // ANDROID: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP:%.*]], i32 4
   va_list ap;
   double sum = fixed;
@@ -76,29 +76,29 @@ double test_3c(__char3 *in) {
 // APCS-GNU: test_3c
 // APCS-GNU: call double (i32, ...) @varargs_vec_3c(i32 noundef 3, i32 {{%.*}})
 // ANDROID: test_3c
-// ANDROID: call double (i32, ...) @varargs_vec_3c(i32 noundef 3, <3 x i8> noundef {{%.*}})
+// ANDROID: call double (i32, ...) @varargs_vec_3c(i32 noundef 3, <3 x b8> noundef {{%.*}})
   return varargs_vec_3c(3, *in);
 }
 
 double varargs_vec_5c(int fixed, ...) {
 // CHECK: varargs_vec_5c
-// CHECK: [[VAR:%.*]] = alloca <5 x i8>, align 8
+// CHECK: [[VAR:%.*]] = alloca <5 x b8>, align 8
 // CHECK: [[AP_ALIGN:%.*]] = call ptr @llvm.ptrmask.p0.i32(ptr {{%.*}}, i32 -8)
 // CHECK: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP_ALIGN]], i32 8
-// CHECK: [[VEC:%.*]] = load <5 x i8>, ptr [[AP_ALIGN]], align 8
-// CHECK: store <5 x i8> [[VEC]], ptr [[VAR]], align 8
+// CHECK: [[VEC:%.*]] = load <5 x b8>, ptr [[AP_ALIGN]], align 8
+// CHECK: store <5 x b8> [[VEC]], ptr [[VAR]], align 8
 // APCS-GNU: varargs_vec_5c
-// APCS-GNU: [[VAR:%.*]] = alloca <5 x i8>, align 8
+// APCS-GNU: [[VAR:%.*]] = alloca <5 x b8>, align 8
 // APCS-GNU: [[AP:%.*]] = load ptr,
 // APCS-GNU: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP]], i32 8
-// APCS-GNU: [[VEC:%.*]] = load <5 x i8>, ptr [[AP]], align 4
-// APCS-GNU: store <5 x i8> [[VEC]], ptr [[VAR]], align 8
+// APCS-GNU: [[VEC:%.*]] = load <5 x b8>, ptr [[AP]], align 4
+// APCS-GNU: store <5 x b8> [[VEC]], ptr [[VAR]], align 8
 // ANDROID: varargs_vec_5c
-// ANDROID: [[VAR:%.*]] = alloca <5 x i8>, align 8
+// ANDROID: [[VAR:%.*]] = alloca <5 x b8>, align 8
 // ANDROID: [[AP_ALIGN:%.*]] = call ptr @llvm.ptrmask.p0.i32(ptr {{%.*}}, i32 -8)
 // ANDROID: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP_ALIGN]], i32 8
-// ANDROID: [[VEC:%.*]] = load <5 x i8>, ptr [[AP_ALIGN]], align 8
-// ANDROID: store <5 x i8> [[VEC]], ptr [[VAR]], align 8
+// ANDROID: [[VEC:%.*]] = load <5 x b8>, ptr [[AP_ALIGN]], align 8
+// ANDROID: store <5 x b8> [[VEC]], ptr [[VAR]], align 8
   va_list ap;
   double sum = fixed;
   va_start(ap, fixed);
@@ -120,23 +120,23 @@ double test_5c(__char5 *in) {
 
 double varargs_vec_9c(int fixed, ...) {
 // CHECK: varargs_vec_9c
-// CHECK: [[VAR:%.*]] = alloca <9 x i8>, align 16
+// CHECK: [[VAR:%.*]] = alloca <9 x b8>, align 16
 // CHECK: [[AP_ALIGN:%.*]] = call ptr @llvm.ptrmask.p0.i32(ptr {{%.*}}, i32 -8)
 // CHECK: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP_ALIGN]], i32 16
-// CHECK: [[T0:%.*]] = load <9 x i8>, ptr [[AP_ALIGN]], align 8
-// CHECK: store <9 x i8> [[T0]], ptr [[VAR]], align 16
+// CHECK: [[T0:%.*]] = load <9 x b8>, ptr [[AP_ALIGN]], align 8
+// CHECK: store <9 x b8> [[T0]], ptr [[VAR]], align 16
 // APCS-GNU: varargs_vec_9c
-// APCS-GNU: [[VAR:%.*]] = alloca <9 x i8>, align 16
+// APCS-GNU: [[VAR:%.*]] = alloca <9 x b8>, align 16
 // APCS-GNU: [[AP:%.*]] = load ptr,
 // APCS-GNU: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP]], i32 16
-// APCS-GNU: [[VEC:%.*]] = load <9 x i8>, ptr [[AP]], align 4
-// APCS-GNU: store <9 x i8> [[VEC]], ptr [[VAR]], align 16
+// APCS-GNU: [[VEC:%.*]] = load <9 x b8>, ptr [[AP]], align 4
+// APCS-GNU: store <9 x b8> [[VEC]], ptr [[VAR]], align 16
 // ANDROID: varargs_vec_9c
-// ANDROID: [[VAR:%.*]] = alloca <9 x i8>, align 16
+// ANDROID: [[VAR:%.*]] = alloca <9 x b8>, align 16
 // ANDROID: [[AP_ALIGN:%.*]] = call ptr @llvm.ptrmask.p0.i32(ptr {{%.*}}, i32 -8)
 // ANDROID: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP_ALIGN]], i32 16
-// ANDROID: [[T0:%.*]] = load <9 x i8>, ptr [[AP_ALIGN]], align 8
-// ANDROID: store <9 x i8> [[T0]], ptr [[VAR]], align 16
+// ANDROID: [[T0:%.*]] = load <9 x b8>, ptr [[AP_ALIGN]], align 8
+// ANDROID: store <9 x b8> [[T0]], ptr [[VAR]], align 16
   va_list ap;
   double sum = fixed;
   va_start(ap, fixed);

@@ -130,14 +130,14 @@ void test_svmla_lane_za32_vg4x4(uint32_t slice, svmfloat8x4_t zn, svmfloat8_t zm
 // FMLAL (single)
 
 // CHECK-LABEL: define dso_local void @test_svmla_single_za16_vg2x1(
-// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
 // CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fmlal.single.za16.vg2x1(i32 [[SLICE]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z28test_svmla_single_za16_vg2x1ju13__SVMfloat8_tS_m(
-// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  [[ENTRY:.*:]]
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fmlal.single.za16.vg2x1(i32 [[SLICE]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
@@ -242,14 +242,14 @@ void test_svmla_single_za32_vg4x4(uint32_t slice, svmfloat8x4_t zn, svmfloat8_t 
 // FMLAL (multi)
 
 // CHECK-LABEL: define dso_local void @test_svmla_multi_za16_vg2x2(
-// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
 // CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fmlal.multi.za16.vg2x2(i32 [[SLICE]], <vscale x 16 x i8> [[ZN_COERCE0]], <vscale x 16 x i8> [[ZN_COERCE1]], <vscale x 16 x i8> [[ZM_COERCE0]], <vscale x 16 x i8> [[ZM_COERCE1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z27test_svmla_multi_za16_vg2x2j13svmfloat8x2_tS_m(
-// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CPP-CHECK-SAME: i32 noundef [[SLICE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], i64 noundef [[FPM:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  [[ENTRY:.*:]]
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.fp8.fmlal.multi.za16.vg2x2(i32 [[SLICE]], <vscale x 16 x i8> [[ZN_COERCE0]], <vscale x 16 x i8> [[ZN_COERCE1]], <vscale x 16 x i8> [[ZM_COERCE0]], <vscale x 16 x i8> [[ZM_COERCE1]])
