@@ -794,6 +794,16 @@ public:
         !CanElideOverflowCheck(CGF.getContext(), Ops))
       return EmitOverflowCheckedBinOp(Ops);
 
+    // Bytecast vector of bytes to vector of integers
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy()) {
+      bool ScalableLHS = Ops.LHS->getType()->isScalableTy();
+      bool ScalableRHS = Ops.RHS->getType()->isScalableTy();
+      return Builder.CreateAdd(
+          Builder.CreateByteCastToIntVector(Ops.LHS, ScalableLHS),
+          Builder.CreateByteCastToIntVector(Ops.RHS, ScalableRHS), "add");
+    }
+
     if (Ops.LHS->getType()->isFPOrFPVectorTy()) {
       //  Preserve the old values
       CodeGenFunction::CGFPOptionsRAII FPOptsRAII(CGF, Ops.FPFeatures);
@@ -824,12 +834,36 @@ public:
   Value *EmitShl(const BinOpInfo &Ops);
   Value *EmitShr(const BinOpInfo &Ops);
   Value *EmitAnd(const BinOpInfo &Ops) {
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy()) {
+      bool ScalableLHS = Ops.LHS->getType()->isScalableTy();
+      bool ScalableRHS = Ops.RHS->getType()->isScalableTy();
+      Value *LHS = Builder.CreateByteCastToIntVector(Ops.LHS, ScalableLHS);
+      Value *RHS = Builder.CreateByteCastToIntVector(Ops.RHS, ScalableRHS);
+      return Builder.CreateAnd(LHS, RHS, "and");
+    }
     return Builder.CreateAnd(Ops.LHS, Ops.RHS, "and");
   }
   Value *EmitXor(const BinOpInfo &Ops) {
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy()) {
+      bool ScalableLHS = Ops.LHS->getType()->isScalableTy();
+      bool ScalableRHS = Ops.RHS->getType()->isScalableTy();
+      Value *LHS = Builder.CreateByteCastToIntVector(Ops.LHS, ScalableLHS);
+      Value *RHS = Builder.CreateByteCastToIntVector(Ops.RHS, ScalableRHS);
+      return Builder.CreateXor(LHS, RHS, "xor");
+    }
     return Builder.CreateXor(Ops.LHS, Ops.RHS, "xor");
   }
   Value *EmitOr (const BinOpInfo &Ops) {
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy()) {
+      bool ScalableLHS = Ops.LHS->getType()->isScalableTy();
+      bool ScalableRHS = Ops.RHS->getType()->isScalableTy();
+      Value *LHS = Builder.CreateByteCastToIntVector(Ops.LHS, ScalableLHS);
+      Value *RHS = Builder.CreateByteCastToIntVector(Ops.RHS, ScalableRHS);
+      return Builder.CreateOr(LHS, RHS, "Or");
+    }
     return Builder.CreateOr(Ops.LHS, Ops.RHS, "or");
   }
 
@@ -2441,10 +2475,21 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
       return EmitLoadOfLValue(DestLV, CE->getExprLoc());
     }
 
-    llvm::Value *Result =
-        SrcTy->isByteOrByteVectorTy() && !DstTy->isByteOrByteVectorTy()
-            ? Builder.CreateByteCast(Src, DstTy)
-            : Builder.CreateBitCast(Src, DstTy);
+    llvm::Value *Result;
+    if (SrcTy->isByteOrByteVectorTy() && !DstTy->isByteOrByteVectorTy())
+      if (DstTy->isIntOrIntVectorTy() || DstTy->isPtrOrPtrVectorTy())
+        Result = Builder.CreateByteCast(Src, DstTy);
+      // Bytecasts to types other than integer or pointer types are not allowed.
+      // First bytecast to the corresponding integer type and then bitcast.
+      else if (DstTy->isVectorTy())
+        Result = Builder.CreateBitCast(
+            Builder.CreateByteCastToIntVector(Src, DstTy->isScalableTy()),
+            DstTy);
+      else
+        Result = Builder.CreateBitCast(Builder.CreateByteCastToInt(Src), DstTy);
+    else
+      Result = Builder.CreateBitCast(Src, DstTy);
+
     return CGF.authPointerToPointerCast(Result, E->getType(), DestTy);
   }
   case CK_AddressSpaceConversion: {
@@ -3879,6 +3924,16 @@ Value *ScalarExprEmitter::EmitDiv(const BinOpInfo &Ops) {
                               Ops.Ty->hasUnsignedIntegerRepresentation());
   }
 
+  // Bytecast vector of bytes to vector of integers
+  if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+      Ops.RHS->getType()->isByteOrByteVectorTy()) {
+    bool ScalableLHS = Ops.LHS->getType()->isScalableTy();
+    bool ScalableRHS = Ops.RHS->getType()->isScalableTy();
+    return Builder.CreateAdd(
+        Builder.CreateByteCastToIntVector(Ops.LHS, ScalableLHS),
+        Builder.CreateByteCastToIntVector(Ops.RHS, ScalableRHS), "add");
+  }
+
   if (Ops.LHS->getType()->isFPOrFPVectorTy()) {
     llvm::Value *Val;
     CodeGenFunction::CGFPOptionsRAII FPOptsRAII(CGF, Ops.FPFeatures);
@@ -3903,6 +3958,16 @@ Value *ScalarExprEmitter::EmitRem(const BinOpInfo &Ops) {
     CodeGenFunction::SanitizerScope SanScope(&CGF);
     llvm::Value *Zero = llvm::Constant::getNullValue(ConvertType(Ops.Ty));
     EmitUndefinedBehaviorIntegerDivAndRemCheck(Ops, Zero, false);
+  }
+
+  // Bytecast vector of bytes to vector of integers
+  if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+      Ops.RHS->getType()->isByteOrByteVectorTy()) {
+    bool ScalableLHS = Ops.LHS->getType()->isScalableTy();
+    bool ScalableRHS = Ops.RHS->getType()->isScalableTy();
+    return Builder.CreateAdd(
+        Builder.CreateByteCastToIntVector(Ops.LHS, ScalableLHS),
+        Builder.CreateByteCastToIntVector(Ops.RHS, ScalableRHS), "add");
   }
 
   if (Ops.Ty->hasUnsignedIntegerRepresentation())
@@ -4281,6 +4346,16 @@ Value *ScalarExprEmitter::EmitAdd(const BinOpInfo &op) {
     }
   }
 
+  // Bytecast vector of bytes to vector of integers
+  if (op.LHS->getType()->isByteOrByteVectorTy() &&
+      op.RHS->getType()->isByteOrByteVectorTy()) {
+    bool ScalableLHS = op.LHS->getType()->isScalableTy();
+    bool ScalableRHS = op.RHS->getType()->isScalableTy();
+    return Builder.CreateAdd(
+        Builder.CreateByteCastToIntVector(op.LHS, ScalableLHS),
+        Builder.CreateByteCastToIntVector(op.RHS, ScalableRHS), "add");
+  }
+
   // For vector and matrix adds, try to fold into a fmuladd.
   if (op.LHS->getType()->isFPOrFPVectorTy()) {
     CodeGenFunction::CGFPOptionsRAII FPOptsRAII(CGF, op.FPFeatures);
@@ -4435,6 +4510,16 @@ Value *ScalarExprEmitter::EmitSub(const BinOpInfo &op) {
           return Builder.CreateNSWSub(op.LHS, op.RHS, "sub");
         return EmitOverflowCheckedBinOp(op);
       }
+    }
+
+    // Bytecast vector of bytes to vector of integers
+    if (op.LHS->getType()->isByteOrByteVectorTy() &&
+        op.RHS->getType()->isByteOrByteVectorTy()) {
+      bool ScalableLHS = op.LHS->getType()->isScalableTy();
+      bool ScalableRHS = op.RHS->getType()->isScalableTy();
+      return Builder.CreateAdd(
+          Builder.CreateByteCastToIntVector(op.LHS, ScalableLHS),
+          Builder.CreateByteCastToIntVector(op.RHS, ScalableRHS), "add");
     }
 
     // For vector and matrix subs, try to fold into a fmuladd.
@@ -4636,6 +4721,15 @@ Value *ScalarExprEmitter::EmitShl(const BinOpInfo &Ops) {
     EmitBinOpCheck(Checks, Ops);
   }
 
+  if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+      Ops.RHS->getType()->isByteOrByteVectorTy()) {
+    bool ScalableLHS = Ops.LHS->getType()->isScalableTy();
+    bool ScalableRHS = Ops.RHS->getType()->isScalableTy();
+    Value *LHS = Builder.CreateByteCastToIntVector(Ops.LHS, ScalableLHS);
+    Value *RHS = Builder.CreateByteCastToIntVector(Ops.RHS, ScalableRHS);
+    return Builder.CreateShl(LHS, RHS, "shl");
+  }
+
   return Builder.CreateShl(Ops.LHS, RHS, "shl");
 }
 
@@ -4662,8 +4756,17 @@ Value *ScalarExprEmitter::EmitShr(const BinOpInfo &Ops) {
     EmitBinOpCheck(std::make_pair(Valid, SanitizerKind::ShiftExponent), Ops);
   }
 
-  if (Ops.Ty->hasUnsignedIntegerRepresentation())
+  if (Ops.Ty->hasUnsignedIntegerRepresentation()) {
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy()) {
+      bool ScalableLHS = Ops.LHS->getType()->isScalableTy();
+      bool ScalableRHS = Ops.RHS->getType()->isScalableTy();
+      Value *LHS = Builder.CreateByteCastToIntVector(Ops.LHS, ScalableLHS);
+      Value *RHS = Builder.CreateByteCastToIntVector(Ops.RHS, ScalableRHS);
+      return Builder.CreateLShr(LHS, RHS, "shr");
+    }
     return Builder.CreateLShr(Ops.LHS, RHS, "shr");
+  }
   return Builder.CreateAShr(Ops.LHS, RHS, "shr");
 }
 

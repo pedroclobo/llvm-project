@@ -67,11 +67,11 @@ svint64_t test_svundef_s64(void) MODE_ATTR
 
 // CHECK-LABEL: @test_svundef_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <vscale x 16 x i8> undef
+// CHECK-NEXT:    ret <vscale x 16 x b8> undef
 //
 // CPP-CHECK-LABEL: @_Z15test_svundef_u8v(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> undef
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> undef
 //
 svuint8_t test_svundef_u8(void) MODE_ATTR
 {

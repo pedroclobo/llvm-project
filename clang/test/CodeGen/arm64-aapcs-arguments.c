@@ -37,7 +37,7 @@ void test4(BigHFA v0_v2, BigHFA v3_v5, BigHFA sp, double sp48, BigHFA sp64) {
 // It's the job of the argument *consumer* to perform the required sign & zero
 // extensions under AAPCS. There shouldn't be
 
-// CHECK: define{{.*}} i8 @test5(i8 noundef %a, i16 noundef %b)
+// CHECK: define{{.*}} b8 @test5(b8 noundef %a, i16 noundef %b)
 unsigned char test5(unsigned char a, signed short b) {
 }
 

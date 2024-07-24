@@ -18,7 +18,7 @@ int8x8_t low_s8(int8x16_t a) {
 }
 
 uint8x8_t low_u8 (uint8x16_t a) {
-// CHECK: shufflevector <16 x i8> %a, <16 x i8> %a, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
+// CHECK: shufflevector <16 x b8> %a, <16 x b8> %a, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
   return vget_low_u8(a);
 }
 
@@ -74,7 +74,7 @@ int8x8_t high_s8(int8x16_t a) {
 }
 
 uint8x8_t high_u8 (uint8x16_t a) {
-// CHECK: shufflevector <16 x i8> %a, <16 x i8> %a, <8 x i32> <i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
+// CHECK: shufflevector <16 x b8> %a, <16 x b8> %a, <8 x i32> <i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
   return vget_high_u8(a);
 }
 

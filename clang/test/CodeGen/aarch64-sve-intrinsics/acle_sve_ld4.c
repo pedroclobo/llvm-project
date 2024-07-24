@@ -154,6 +154,7 @@ svint64x4_t test_svld4_s64(svbool_t pg, const int64_t *base) MODE_ATTR
 
 // CHECK-LABEL: @test_svld4_u8(
 // CHECK-NEXT:  entry:
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 64 x b8>, align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sve.ld4.sret.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], ptr [[BASE:%.*]])
 // CHECK-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 0
 // CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> poison, <vscale x 16 x i8> [[TMP1]], i64 0)
@@ -163,10 +164,13 @@ svint64x4_t test_svld4_s64(svbool_t pg, const int64_t *base) MODE_ATTR
 // CHECK-NEXT:    [[TMP6:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], i64 32)
 // CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 3
 // CHECK-NEXT:    [[TMP8:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]], i64 48)
-// CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP8]]
+// CHECK-NEXT:    store <vscale x 64 x i8> [[TMP8]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP9:%.*]] = load <vscale x 64 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 64 x b8> [[TMP9]]
 //
 // CPP-CHECK-LABEL: @_Z13test_svld4_u8u10__SVBool_tPKh(
 // CPP-CHECK-NEXT:  entry:
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 64 x b8>, align 16
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sve.ld4.sret.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], ptr [[BASE:%.*]])
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 0
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> poison, <vscale x 16 x i8> [[TMP1]], i64 0)
@@ -176,7 +180,9 @@ svint64x4_t test_svld4_s64(svbool_t pg, const int64_t *base) MODE_ATTR
 // CPP-CHECK-NEXT:    [[TMP6:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], i64 32)
 // CPP-CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 3
 // CPP-CHECK-NEXT:    [[TMP8:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]], i64 48)
-// CPP-CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP8]]
+// CPP-CHECK-NEXT:    store <vscale x 64 x i8> [[TMP8]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP9:%.*]] = load <vscale x 64 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 64 x b8> [[TMP9]]
 //
 svuint8x4_t test_svld4_u8(svbool_t pg, const uint8_t *base) MODE_ATTR
 {
@@ -521,6 +527,7 @@ svint64x4_t test_svld4_vnum_s64(svbool_t pg, const int64_t *base, int64_t vnum) 
 
 // CHECK-LABEL: @test_svld4_vnum_u8(
 // CHECK-NEXT:  entry:
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 64 x b8>, align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = getelementptr <vscale x 16 x i8>, ptr [[BASE:%.*]], i64 [[VNUM:%.*]]
 // CHECK-NEXT:    [[TMP1:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sve.ld4.sret.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], ptr [[TMP0]])
 // CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
@@ -531,10 +538,13 @@ svint64x4_t test_svld4_vnum_s64(svbool_t pg, const int64_t *base, int64_t vnum) 
 // CHECK-NEXT:    [[TMP7:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], i64 32)
 // CHECK-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 3
 // CHECK-NEXT:    [[TMP9:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP7]], <vscale x 16 x i8> [[TMP8]], i64 48)
-// CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP9]]
+// CHECK-NEXT:    store <vscale x 64 x i8> [[TMP9]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP10:%.*]] = load <vscale x 64 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 64 x b8> [[TMP10]]
 //
 // CPP-CHECK-LABEL: @_Z18test_svld4_vnum_u8u10__SVBool_tPKhl(
 // CPP-CHECK-NEXT:  entry:
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 64 x b8>, align 16
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = getelementptr <vscale x 16 x i8>, ptr [[BASE:%.*]], i64 [[VNUM:%.*]]
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sve.ld4.sret.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], ptr [[TMP0]])
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 0
@@ -545,7 +555,9 @@ svint64x4_t test_svld4_vnum_s64(svbool_t pg, const int64_t *base, int64_t vnum) 
 // CPP-CHECK-NEXT:    [[TMP7:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], i64 32)
 // CPP-CHECK-NEXT:    [[TMP8:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]], 3
 // CPP-CHECK-NEXT:    [[TMP9:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP7]], <vscale x 16 x i8> [[TMP8]], i64 48)
-// CPP-CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP9]]
+// CPP-CHECK-NEXT:    store <vscale x 64 x i8> [[TMP9]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP10:%.*]] = load <vscale x 64 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 64 x b8> [[TMP10]]
 //
 svuint8x4_t test_svld4_vnum_u8(svbool_t pg, const uint8_t *base, int64_t vnum) MODE_ATTR
 {

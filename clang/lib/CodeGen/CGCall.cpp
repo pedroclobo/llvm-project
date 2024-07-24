@@ -1303,11 +1303,12 @@ static llvm::Value *CreateCoercedLoad(Address Src, llvm::Type *Ty,
   // conversion.
   if (auto *ScalableDstTy = dyn_cast<llvm::ScalableVectorType>(Ty)) {
     if (auto *FixedSrcTy = dyn_cast<llvm::FixedVectorType>(SrcTy)) {
-      // If we are casting a fixed i8 vector to a scalable i1 predicate
+      // If we are casting a fixed i8/b8 vector to a scalable i1 predicate
       // vector, use a vector insert and bitcast the result.
       if (ScalableDstTy->getElementType()->isIntegerTy(1) &&
           ScalableDstTy->getElementCount().isKnownMultipleOf(8) &&
-          FixedSrcTy->getElementType()->isIntegerTy(8)) {
+          (FixedSrcTy->getElementType()->isIntegerTy(8) ||
+           FixedSrcTy->getElementType()->isByteTy(8))) {
         ScalableDstTy = llvm::ScalableVectorType::get(
             FixedSrcTy->getElementType(),
             ScalableDstTy->getElementCount().getKnownMinValue() / 8);
@@ -1319,7 +1320,9 @@ static llvm::Value *CreateCoercedLoad(Address Src, llvm::Type *Ty,
         llvm::Value *Result = CGF.Builder.CreateInsertVector(
             ScalableDstTy, UndefVec, Load, Zero, "cast.scalable");
         if (ScalableDstTy != Ty)
-          Result = CGF.Builder.CreateBitCast(Result, Ty);
+          ScalableDstTy->isByteOrByteVectorTy()
+              ? Result = CGF.Builder.CreateByteCast(Result, Ty)
+              : Result = CGF.Builder.CreateBitCast(Result, Ty);
         return Result;
       }
     }
@@ -3199,11 +3202,12 @@ void CodeGenFunction::EmitFunctionProlog(const CGFunctionInfo &FI,
         llvm::Value *Coerced = Fn->getArg(FirstIRArg);
         if (auto *VecTyFrom =
                 dyn_cast<llvm::ScalableVectorType>(Coerced->getType())) {
-          // If we are casting a scalable i1 predicate vector to a fixed i8
+          // If we are casting a scalable i1 predicate vector to a fixed i8/b8
           // vector, bitcast the source and use a vector extract.
           if (VecTyFrom->getElementType()->isIntegerTy(1) &&
               VecTyFrom->getElementCount().isKnownMultipleOf(8) &&
-              VecTyTo->getElementType() == Builder.getInt8Ty()) {
+              (VecTyTo->getElementType() == Builder.getInt8Ty() ||
+               VecTyTo->getElementType() == Builder.getByte8Ty())) {
             VecTyFrom = llvm::ScalableVectorType::get(
                 VecTyTo->getElementType(),
                 VecTyFrom->getElementCount().getKnownMinValue() / 8);

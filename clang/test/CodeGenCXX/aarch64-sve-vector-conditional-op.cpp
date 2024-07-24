@@ -32,11 +32,13 @@ svint8_t cond_i8(svint8_t a, svint8_t b) {
 
 // CHECK-LABEL: @_Z7cond_u8u11__SVUint8_tS_(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ult <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    [[VECTOR_COND:%.*]] = icmp ne <vscale x 16 x i8> [[CONV]], zeroinitializer
-// CHECK-NEXT:    [[VECTOR_SELECT:%.*]] = select <vscale x 16 x i1> [[VECTOR_COND]], <vscale x 16 x i8> [[A]], <vscale x 16 x i8> [[B]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[VECTOR_SELECT]]
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CONV1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ult <vscale x 16 x i8> [[CONV]], [[CONV1]]
+// CHECK-NEXT:    [[CONV2:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[VECTOR_COND:%.*]] = icmp ne <vscale x 16 x i8> [[CONV2]], zeroinitializer
+// CHECK-NEXT:    [[VECTOR_SELECT:%.*]] = select <vscale x 16 x i1> [[VECTOR_COND]], <vscale x 16 x b8> [[A]], <vscale x 16 x b8> [[B]]
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[VECTOR_SELECT]]
 //
 svuint8_t cond_u8(svuint8_t a, svuint8_t b) {
     return a < b ? a : b;

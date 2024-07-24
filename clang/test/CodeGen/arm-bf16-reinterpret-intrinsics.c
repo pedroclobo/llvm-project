@@ -33,8 +33,9 @@ bfloat16x4_t test_vreinterpret_bf16_s32(int32x2_t a)    { return vreinterpret_bf
 bfloat16x4_t test_vreinterpret_bf16_f32(float32x2_t a)  { return vreinterpret_bf16_f32(a);   }
 // CHECK-LABEL: @test_vreinterpret_bf16_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[A:%.*]] to <4 x bfloat>
-// CHECK-NEXT:    ret <4 x bfloat> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x bfloat>
+// CHECK-NEXT:    ret <4 x bfloat> [[TMP1]]
 //
 bfloat16x4_t test_vreinterpret_bf16_u8(uint8x8_t a)     { return vreinterpret_bf16_u8(a);    }
 // CHECK-LABEL: @test_vreinterpret_bf16_u16(
@@ -99,8 +100,9 @@ bfloat16x8_t test_vreinterpretq_bf16_s32(int32x4_t a)   { return vreinterpretq_b
 bfloat16x8_t test_vreinterpretq_bf16_f32(float32x4_t a) { return vreinterpretq_bf16_f32(a);  }
 // CHECK-LABEL: @test_vreinterpretq_bf16_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <8 x bfloat>
-// CHECK-NEXT:    ret <8 x bfloat> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x bfloat>
+// CHECK-NEXT:    ret <8 x bfloat> [[TMP1]]
 //
 bfloat16x8_t test_vreinterpretq_bf16_u8(uint8x16_t a)   { return vreinterpretq_bf16_u8(a);   }
 // CHECK-LABEL: @test_vreinterpretq_bf16_u16(
@@ -186,8 +188,8 @@ int32x2_t   test_vreinterpret_s32_bf16(bfloat16x4_t a)   { return vreinterpret_s
 float32x2_t test_vreinterpret_f32_bf16(bfloat16x4_t a)   { return vreinterpret_f32_bf16(a);   }
 // CHECK-LABEL: @test_vreinterpret_u8_bf16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <8 x i8>
-// CHECK-NEXT:    ret <8 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x bfloat> [[A:%.*]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP0]]
 //
 uint8x8_t   test_vreinterpret_u8_bf16(bfloat16x4_t a)    { return vreinterpret_u8_bf16(a);    }
 // CHECK-LABEL: @test_vreinterpret_u16_bf16(
@@ -258,8 +260,8 @@ int32x4_t   test_vreinterpretq_s32_bf16(bfloat16x8_t a)  { return vreinterpretq_
 float32x4_t test_vreinterpretq_f32_bf16(bfloat16x8_t a)  { return vreinterpretq_f32_bf16(a);  }
 // CHECK-LABEL: @test_vreinterpretq_u8_bf16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <16 x i8>
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x bfloat> [[A:%.*]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t  test_vreinterpretq_u8_bf16(bfloat16x8_t a)   { return vreinterpretq_u8_bf16(a);   }
 // CHECK-LABEL: @test_vreinterpretq_u16_bf16(

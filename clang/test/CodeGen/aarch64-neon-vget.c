@@ -6,9 +6,13 @@
 
 #include <arm_neon.h>
 
-// CHECK-LABEL: define{{.*}} i8 @test_vget_lane_u8(<8 x i8> noundef %a) #0 {
-// CHECK:   [[VGET_LANE:%.*]] = extractelement <8 x i8> %a, i32 7
-// CHECK:   ret i8 [[VGET_LANE]]
+// CHECK-LABEL: define{{.*}} b8 @test_vget_lane_u8(<8 x b8> noundef %a) #0 {
+// CHECK:   [[RET:%.*]] = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = extractelement <8 x i8> [[TMP0]], i32 7
+// CHECK:   store i8 [[VGET_LANE]], ptr [[RET]], align 1
+// CHECK:   [[TMP1:%.*]] = load b8, ptr [[RET]], align 1
+// CHECK:   ret b8 [[TMP1]]
 uint8_t test_vget_lane_u8(uint8x8_t a) {
   return vget_lane_u8(a, 7);
 }
@@ -48,9 +52,13 @@ int32_t test_vget_lane_s32(int32x2_t a) {
   return vget_lane_s32(a, 1);
 }
 
-// CHECK-LABEL: define{{.*}} i8 @test_vget_lane_p8(<8 x i8> noundef %a) #0 {
-// CHECK:   [[VGET_LANE:%.*]] = extractelement <8 x i8> %a, i32 7
-// CHECK:   ret i8 [[VGET_LANE]]
+// CHECK-LABEL: define{{.*}} b8 @test_vget_lane_p8(<8 x b8> noundef %a) #0 {
+// CHECK:   [[RET:%.*]] = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = extractelement <8 x i8> [[TMP0]], i32 7
+// CHECK:   store i8 [[VGET_LANE]], ptr [[RET]], align 1
+// CHECK:   [[TMP1:%.*]] = load b8, ptr [[RET]], align 1
+// CHECK:   ret b8 [[TMP1]]
 poly8_t test_vget_lane_p8(poly8x8_t a) {
   return vget_lane_p8(a, 7);
 }
@@ -83,9 +91,13 @@ float32_t test_vget_lane_f16(float16x4_t a) {
   return vget_lane_f16(a, 1);
 }
 
-// CHECK-LABEL: define{{.*}} i8 @test_vgetq_lane_u8(<16 x i8> noundef %a) #0 {
-// CHECK:   [[VGETQ_LANE:%.*]] = extractelement <16 x i8> %a, i32 15
-// CHECK:   ret i8 [[VGETQ_LANE]]
+// CHECK-LABEL: define{{.*}} b8 @test_vgetq_lane_u8(<16 x b8> noundef %a) #0 {
+// CHECK:   [[RET:%.*]] = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = extractelement <16 x i8> [[TMP0]], i32 15
+// CHECK:   store i8 [[VGET_LANE]], ptr [[RET]], align 1
+// CHECK:   [[TMP1:%.*]] = load b8, ptr [[RET]], align 1
+// CHECK:   ret b8 [[TMP1]]
 uint8_t test_vgetq_lane_u8(uint8x16_t a) {
   return vgetq_lane_u8(a, 15);
 }
@@ -125,9 +137,13 @@ int32_t test_vgetq_lane_s32(int32x4_t a) {
   return vgetq_lane_s32(a, 3);
 }
 
-// CHECK-LABEL: define{{.*}} i8 @test_vgetq_lane_p8(<16 x i8> noundef %a) #0 {
-// CHECK:   [[VGETQ_LANE:%.*]] = extractelement <16 x i8> %a, i32 15
-// CHECK:   ret i8 [[VGETQ_LANE]]
+// CHECK-LABEL: define{{.*}} b8 @test_vgetq_lane_p8(<16 x b8> noundef %a) #0 {
+// CHECK:   [[RET:%.*]] = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = extractelement <16 x i8> [[TMP0]], i32 15
+// CHECK:   store i8 [[VGET_LANE]], ptr [[RET]], align 1
+// CHECK:   [[TMP1:%.*]] = load b8, ptr [[RET]], align 1
+// CHECK:   ret b8 [[TMP1]]
 poly8_t test_vgetq_lane_p8(poly8x16_t a) {
   return vgetq_lane_p8(a, 15);
 }
@@ -189,9 +205,12 @@ uint64_t test_vgetq_lane_u64(uint64x2_t a) {
 }
 
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vset_lane_u8(i8 noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[VSET_LANE:%.*]] = insertelement <8 x i8> %b, i8 %a, i32 7
-// CHECK:   ret <8 x i8> [[VSET_LANE]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vset_lane_u8(b8 noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[CONV:%.*]] = bytecast b8 %a to i8
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = insertelement <8 x i8> [[TMP0]], i8 [[CONV]], i32 7
+// CHECK:   [[TMP1:%.*]] = bitcast <8 x i8> [[VGET_LANE]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[TMP1]]
 uint8x8_t test_vset_lane_u8(uint8_t a, uint8x8_t b) {
   return vset_lane_u8(a, b, 7);
 }
@@ -231,9 +250,12 @@ int32x2_t test_vset_lane_s32(int32_t a, int32x2_t b) {
   return vset_lane_s32(a, b, 1);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vset_lane_p8(i8 noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[VSET_LANE:%.*]] = insertelement <8 x i8> %b, i8 %a, i32 7
-// CHECK:   ret <8 x i8> [[VSET_LANE]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vset_lane_p8(b8 noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[CONV:%.*]] = bytecast b8 %a to i8
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = insertelement <8 x i8> [[TMP0]], i8 [[CONV]], i32 7
+// CHECK:   [[TMP1:%.*]] = bitcast <8 x i8> [[VGET_LANE]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[TMP1]]
 poly8x8_t test_vset_lane_p8(poly8_t a, poly8x8_t b) {
   return vset_lane_p8(a, b, 7);
 }
@@ -269,9 +291,12 @@ float16x4_t test_vset_lane_f16(float16_t *a, float16x4_t b) {
   return vset_lane_f16(*a, b, 3);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vsetq_lane_u8(i8 noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[VSET_LANE:%.*]] = insertelement <16 x i8> %b, i8 %a, i32 15
-// CHECK:   ret <16 x i8> [[VSET_LANE]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vsetq_lane_u8(b8 noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[CONV:%.*]] = bytecast b8 %a to i8
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[CONV]], i32 15
+// CHECK:   [[TMP1:%.*]] = bitcast <16 x i8> [[VGET_LANE]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[TMP1]]
 uint8x16_t test_vsetq_lane_u8(uint8_t a, uint8x16_t b) {
   return vsetq_lane_u8(a, b, 15);
 }
@@ -311,9 +336,12 @@ int32x4_t test_vsetq_lane_s32(int32_t a, int32x4_t b) {
   return vsetq_lane_s32(a, b, 3);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vsetq_lane_p8(i8 noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[VSET_LANE:%.*]] = insertelement <16 x i8> %b, i8 %a, i32 15
-// CHECK:   ret <16 x i8> [[VSET_LANE]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vsetq_lane_p8(b8 noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[CONV:%.*]] = bytecast b8 %a to i8
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[CONV]], i32 15
+// CHECK:   [[TMP1:%.*]] = bitcast <16 x i8> [[VGET_LANE]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[TMP1]]
 poly8x16_t test_vsetq_lane_p8(poly8_t a, poly8x16_t b) {
   return vsetq_lane_p8(a, b, 15);
 }

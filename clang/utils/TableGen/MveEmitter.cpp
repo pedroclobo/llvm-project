@@ -297,6 +297,9 @@ public:
   unsigned lanes() const { return Lanes; }
   bool requiresFloat() const override { return Element->requiresFloat(); }
   bool requiresMVE() const override { return true; }
+  ScalarType *getElementType() const {
+    return const_cast<ScalarType *>(Element);
+  }
   std::string cNameBase() const override {
     return Element->cNameBase() + "x" + utostr(Lanes);
   }
@@ -479,6 +482,9 @@ public:
   virtual std::string getIntegerValue(const std::string &) {
     llvm_unreachable("non-working Result::getIntegerValue called");
   }
+  virtual std::string getIntVectorByteCast(const std::string &) {
+    llvm_unreachable("non-working Result::getIntVectorByteCast called");
+  }
   virtual std::string typeName() const { return "Value *"; }
 
   // Mostly, when a code-generation operation has a dependency on prior
@@ -583,6 +589,10 @@ public:
     return "GetIntegerConstantValue<" + IntType + ">(E->getArg(" +
            utostr(ArgNum) + "), getContext())";
   }
+  virtual std::string getIntVectorByteCast(const std::string &) override {
+    return "Builder.CreateByteCastToIntVector(E->getArg(" + utostr(ArgNum) +
+           ", false))";
+  }
 };
 
 // Result subclass for an integer literal appearing in Tablegen. This may need
@@ -625,6 +635,22 @@ public:
                                     ? "true"
                                     : "false")
        << ")";
+  }
+  void morePrerequisites(std::vector<Ptr> &output) const override {
+    output.push_back(V);
+  }
+};
+
+// Result subclass representing a bytecast.
+class ByteCastResult : public Result {
+public:
+  const Type *DstType;
+  Ptr V;
+  ByteCastResult(const Type *DstType, Ptr V) : DstType(DstType), V(V) {}
+  void genCode(raw_ostream &OS,
+               CodeGenParamAllocator &ParamAlloc) const override {
+    OS << "Builder.CreateByteCast(" << V->varname() << ", "
+       << ParamAlloc.allocParam("llvm::Type *", DstType->llvmName()) << ")";
   }
   void morePrerequisites(std::vector<Ptr> &output) const override {
     output.push_back(V);
@@ -1322,6 +1348,11 @@ Result::Ptr EmitterBase::getCodeForArg(unsigned ArgNum, const Type *ArgType,
       V = std::make_shared<IRIntrinsicResult>("arm_mve_pred_i2v",
                                               std::vector<const Type *>{PT},
                                               std::vector<Result::Ptr>{V});
+    } else if (const auto *VT = dyn_cast<VectorType>(ArgType)) {
+      const ScalarType *ST = VT->getElementType();
+      if (ST->isInteger() && ST->sizeInBits() == 8)
+        V = std::make_shared<ByteCastResult>(
+            getVectorType(getScalarType("u8"), VT->lanes()), V);
     }
   }
 

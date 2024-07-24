@@ -14,7 +14,8 @@
 // CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> poison, <vscale x 16 x i8> [[TMP1]], i64 0)
 // CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 1
 // CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i64 16)
-// CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP4]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 32 x i8> [[TMP4]] to <vscale x 32 x b8>
+// CHECK-NEXT:    ret <vscale x 32 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svread_ver_za8_u8_vg2j(
 // CPP-CHECK-NEXT:  entry:
@@ -23,7 +24,8 @@
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> poison, <vscale x 16 x i8> [[TMP1]], i64 0)
 // CPP-CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 1
 // CPP-CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i64 16)
-// CPP-CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP4]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 32 x i8> [[TMP4]] to <vscale x 32 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 32 x b8> [[DOTCAST]]
 //
 svuint8x2_t test_svread_ver_za8_u8_vg2(uint32_t base) __arm_streaming __arm_in("za") {
   return svread_ver_za8_u8_vg2(0, base);
@@ -58,7 +60,8 @@ svint8x2_t test_svread_ver_za8_s8_vg2(uint32_t base) __arm_streaming __arm_in("z
 // CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> poison, <vscale x 16 x i8> [[TMP1]], i64 0)
 // CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 1
 // CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i64 16)
-// CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP4]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 32 x i8> [[TMP4]] to <vscale x 32 x b8>
+// CHECK-NEXT:    ret <vscale x 32 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svread_hor_za8_u8_vg2j(
 // CPP-CHECK-NEXT:  entry:
@@ -67,7 +70,8 @@ svint8x2_t test_svread_ver_za8_s8_vg2(uint32_t base) __arm_streaming __arm_in("z
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> poison, <vscale x 16 x i8> [[TMP1]], i64 0)
 // CPP-CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 1
 // CPP-CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i64 16)
-// CPP-CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP4]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 32 x i8> [[TMP4]] to <vscale x 32 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 32 x b8> [[DOTCAST]]
 //
 svuint8x2_t test_svread_hor_za8_u8_vg2(uint32_t base) __arm_streaming __arm_in("za") {
   return svread_hor_za8_u8_vg2(0, base);
@@ -106,7 +110,8 @@ svint8x2_t test_svread_hor_za8_s8_vg2(uint32_t base) __arm_streaming __arm_in("z
 // CHECK-NEXT:    [[TMP6:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], i64 32)
 // CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 3
 // CHECK-NEXT:    [[TMP8:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]], i64 48)
-// CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP8]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 64 x i8> [[TMP8]] to <vscale x 64 x b8>
+// CHECK-NEXT:    ret <vscale x 64 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svread_hor_za8_u8_vg4j(
 // CPP-CHECK-NEXT:  entry:
@@ -119,7 +124,8 @@ svint8x2_t test_svread_hor_za8_s8_vg2(uint32_t base) __arm_streaming __arm_in("z
 // CPP-CHECK-NEXT:    [[TMP6:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], i64 32)
 // CPP-CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 3
 // CPP-CHECK-NEXT:    [[TMP8:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]], i64 48)
-// CPP-CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP8]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 64 x i8> [[TMP8]] to <vscale x 64 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 64 x b8> [[DOTCAST]]
 //
 svuint8x4_t test_svread_hor_za8_u8_vg4(uint32_t base) __arm_streaming __arm_in("za") {
   return svread_hor_za8_u8_vg4(0, base);
@@ -166,7 +172,8 @@ svint8x4_t test_svread_hor_za8_s8_vg4(uint32_t base) __arm_streaming __arm_in("z
 // CHECK-NEXT:    [[TMP6:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], i64 32)
 // CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 3
 // CHECK-NEXT:    [[TMP8:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]], i64 48)
-// CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP8]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 64 x i8> [[TMP8]] to <vscale x 64 x b8>
+// CHECK-NEXT:    ret <vscale x 64 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svread_ver_za8_u8_vg4j(
 // CPP-CHECK-NEXT:  entry:
@@ -179,7 +186,8 @@ svint8x4_t test_svread_hor_za8_s8_vg4(uint32_t base) __arm_streaming __arm_in("z
 // CPP-CHECK-NEXT:    [[TMP6:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], i64 32)
 // CPP-CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 3
 // CPP-CHECK-NEXT:    [[TMP8:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]], i64 48)
-// CPP-CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP8]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 64 x i8> [[TMP8]] to <vscale x 64 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 64 x b8> [[DOTCAST]]
 //
 svuint8x4_t test_svread_ver_za8_u8_vg4(uint32_t base) __arm_streaming __arm_in("za") {
   return svread_ver_za8_u8_vg4(0, base);
@@ -1284,7 +1292,8 @@ svint8x2_t test_svread_za8_s8_vg1x2(uint32_t base) __arm_streaming __arm_in("za"
 // CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> poison, <vscale x 16 x i8> [[TMP1]], i64 0)
 // CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 1
 // CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i64 16)
-// CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP4]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 32 x i8> [[TMP4]] to <vscale x 32 x b8>
+// CHECK-NEXT:    ret <vscale x 32 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z24test_svread_za8_u8_vg1x2j(
 // CPP-CHECK-NEXT:  entry:
@@ -1293,7 +1302,8 @@ svint8x2_t test_svread_za8_s8_vg1x2(uint32_t base) __arm_streaming __arm_in("za"
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> poison, <vscale x 16 x i8> [[TMP1]], i64 0)
 // CPP-CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 1
 // CPP-CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i64 16)
-// CPP-CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP4]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 32 x i8> [[TMP4]] to <vscale x 32 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 32 x b8> [[DOTCAST]]
 //
 svuint8x2_t test_svread_za8_u8_vg1x2(uint32_t base) __arm_streaming __arm_in("za") {
   return svread_za8_u8_vg1x2(base);
@@ -1560,7 +1570,8 @@ svint8x4_t test_svread_za8_s8_vg1x4(uint32_t base) __arm_streaming __arm_in("za"
 // CHECK-NEXT:    [[TMP6:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], i64 32)
 // CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 3
 // CHECK-NEXT:    [[TMP8:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]], i64 48)
-// CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP8]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 64 x i8> [[TMP8]] to <vscale x 64 x b8>
+// CHECK-NEXT:    ret <vscale x 64 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z24test_svread_za8_u8_vg1x4j(
 // CPP-CHECK-NEXT:  entry:
@@ -1573,7 +1584,8 @@ svint8x4_t test_svread_za8_s8_vg1x4(uint32_t base) __arm_streaming __arm_in("za"
 // CPP-CHECK-NEXT:    [[TMP6:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], i64 32)
 // CPP-CHECK-NEXT:    [[TMP7:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], 3
 // CPP-CHECK-NEXT:    [[TMP8:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]], i64 48)
-// CPP-CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP8]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 64 x i8> [[TMP8]] to <vscale x 64 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 64 x b8> [[DOTCAST]]
 //
 svuint8x4_t test_svread_za8_u8_vg1x4(uint32_t base) __arm_streaming __arm_in("za") {
   return svread_za8_u8_vg1x4(base);

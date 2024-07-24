@@ -85,9 +85,12 @@ int64x2_t test_vextq_s64(int64x2_t a, int64x2_t b) {
   return vextq_s64(a, b, 1);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vext_u8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[VEXT:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
-// CHECK:   ret <8 x i8> [[VEXT]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vext_u8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VEXT:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
+// CHECK:   [[TMP2:%.*]] = bitcast <8 x i8> [[VEXT]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[TMP2]]
 uint8x8_t test_vext_u8(uint8x8_t a, uint8x8_t b) {
   return vext_u8(a, b, 2);
 }
@@ -125,9 +128,12 @@ uint64x1_t test_vext_u64(uint64x1_t a, uint64x1_t b) {
   return vext_u64(a, b, 0);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vextq_u8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[VEXT:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
-// CHECK:   ret <16 x i8> [[VEXT]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vextq_u8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VEXT:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
+// CHECK:   [[TMP2:%.*]] = bitcast <16 x i8> [[VEXT]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[TMP2]]
 uint8x16_t test_vextq_u8(uint8x16_t a, uint8x16_t b) {
   return vextq_u8(a, b, 2);
 }
@@ -209,9 +215,12 @@ float64x2_t test_vextq_f64(float64x2_t a, float64x2_t b) {
   return vextq_f64(a, b, 1);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vext_p8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[VEXT:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
-// CHECK:   ret <8 x i8> [[VEXT]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vext_p8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VEXT:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
+// CHECK:   [[TMP2:%.*]] = bitcast <8 x i8> [[VEXT]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[TMP2]]
 poly8x8_t test_vext_p8(poly8x8_t a, poly8x8_t b) {
   return vext_p8(a, b, 2);
 }
@@ -227,9 +236,12 @@ poly16x4_t test_vext_p16(poly16x4_t a, poly16x4_t b) {
   return vext_p16(a, b, 3);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vextq_p8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[VEXT:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
-// CHECK:   ret <16 x i8> [[VEXT]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vextq_p8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VEXT:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
+// CHECK:   [[TMP2:%.*]] = bitcast <16 x i8> [[VEXT]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[TMP2]]
 poly8x16_t test_vextq_p8(poly8x16_t a, poly8x16_t b) {
   return vextq_p8(a, b, 2);
 }

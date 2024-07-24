@@ -229,43 +229,43 @@ TYPE(svint64) test_svreinterpret_s64_bf16(TYPE(svbfloat16) op) MODE_ATTR {
 
 // CHECK-LABEL: @test_svreinterpret_u8_bf16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // TUPLE2-LABEL: @test_svreinterpret_u8_bf16(
 // TUPLE2-NEXT:  entry:
-// TUPLE2-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x bfloat> [[OP:%.*]] to <vscale x 32 x i8>
-// TUPLE2-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// TUPLE2-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x bfloat> [[OP:%.*]] to <vscale x 32 x b8>
+// TUPLE2-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // TUPLE3-LABEL: @test_svreinterpret_u8_bf16(
 // TUPLE3-NEXT:  entry:
-// TUPLE3-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 24 x bfloat> [[OP:%.*]] to <vscale x 48 x i8>
-// TUPLE3-NEXT:    ret <vscale x 48 x i8> [[TMP0]]
+// TUPLE3-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 24 x bfloat> [[OP:%.*]] to <vscale x 48 x b8>
+// TUPLE3-NEXT:    ret <vscale x 48 x b8> [[TMP0]]
 //
 // TUPLE4-LABEL: @test_svreinterpret_u8_bf16(
 // TUPLE4-NEXT:  entry:
-// TUPLE4-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x bfloat> [[OP:%.*]] to <vscale x 64 x i8>
-// TUPLE4-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// TUPLE4-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x bfloat> [[OP:%.*]] to <vscale x 64 x b8>
+// TUPLE4-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svreinterpret_u8_bf16u14__SVBfloat16_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x i8>
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 8 x bfloat> [[OP:%.*]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CPP-TUPLE2-LABEL: @_Z26test_svreinterpret_u8_bf1614svbfloat16x2_t(
 // CPP-TUPLE2-NEXT:  entry:
-// CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x bfloat> [[OP:%.*]] to <vscale x 32 x i8>
-// CPP-TUPLE2-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x bfloat> [[OP:%.*]] to <vscale x 32 x b8>
+// CPP-TUPLE2-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // CPP-TUPLE3-LABEL: @_Z26test_svreinterpret_u8_bf1614svbfloat16x3_t(
 // CPP-TUPLE3-NEXT:  entry:
-// CPP-TUPLE3-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 24 x bfloat> [[OP:%.*]] to <vscale x 48 x i8>
-// CPP-TUPLE3-NEXT:    ret <vscale x 48 x i8> [[TMP0]]
+// CPP-TUPLE3-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 24 x bfloat> [[OP:%.*]] to <vscale x 48 x b8>
+// CPP-TUPLE3-NEXT:    ret <vscale x 48 x b8> [[TMP0]]
 //
 // CPP-TUPLE4-LABEL: @_Z26test_svreinterpret_u8_bf1614svbfloat16x4_t(
 // CPP-TUPLE4-NEXT:  entry:
-// CPP-TUPLE4-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x bfloat> [[OP:%.*]] to <vscale x 64 x i8>
-// CPP-TUPLE4-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CPP-TUPLE4-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x bfloat> [[OP:%.*]] to <vscale x 64 x b8>
+// CPP-TUPLE4-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 TYPE(svuint8) test_svreinterpret_u8_bf16(TYPE(svbfloat16) op) MODE_ATTR {
   return SVE_ACLE_FUNC(svreinterpret_u8, _bf16)(op);
@@ -581,43 +581,51 @@ TYPE(svbfloat16) test_svreinterpret_bf16_s64(TYPE(svint64) op) MODE_ATTR {
 
 // CHECK-LABEL: @test_svreinterpret_bf16_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP:%.*]] to <vscale x 8 x bfloat>
-// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 8 x bfloat>
+// CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 // TUPLE2-LABEL: @test_svreinterpret_bf16_u8(
 // TUPLE2-NEXT:  entry:
-// TUPLE2-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x i8> [[OP:%.*]] to <vscale x 16 x bfloat>
-// TUPLE2-NEXT:    ret <vscale x 16 x bfloat> [[TMP0]]
+// TUPLE2-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 32 x b8> [[OP:%.*]] to <vscale x 32 x i8>
+// TUPLE2-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 32 x i8> [[TMP0]] to <vscale x 16 x bfloat>
+// TUPLE2-NEXT:    ret <vscale x 16 x bfloat> [[TMP1]]
 //
 // TUPLE3-LABEL: @test_svreinterpret_bf16_u8(
 // TUPLE3-NEXT:  entry:
-// TUPLE3-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 48 x i8> [[OP:%.*]] to <vscale x 24 x bfloat>
-// TUPLE3-NEXT:    ret <vscale x 24 x bfloat> [[TMP0]]
+// TUPLE3-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 48 x b8> [[OP:%.*]] to <vscale x 48 x i8>
+// TUPLE3-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 48 x i8> [[TMP0]] to <vscale x 24 x bfloat>
+// TUPLE3-NEXT:    ret <vscale x 24 x bfloat> [[TMP1]]
 //
 // TUPLE4-LABEL: @test_svreinterpret_bf16_u8(
 // TUPLE4-NEXT:  entry:
-// TUPLE4-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 64 x i8> [[OP:%.*]] to <vscale x 32 x bfloat>
-// TUPLE4-NEXT:    ret <vscale x 32 x bfloat> [[TMP0]]
+// TUPLE4-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 64 x b8> [[OP:%.*]] to <vscale x 64 x i8>
+// TUPLE4-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i8> [[TMP0]] to <vscale x 32 x bfloat>
+// TUPLE4-NEXT:    ret <vscale x 32 x bfloat> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z26test_svreinterpret_bf16_u8u11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i8> [[OP:%.*]] to <vscale x 8 x bfloat>
-// CPP-CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 8 x bfloat>
+// CPP-CHECK-NEXT:    ret <vscale x 8 x bfloat> [[TMP1]]
 //
 // CPP-TUPLE2-LABEL: @_Z26test_svreinterpret_bf16_u811svuint8x2_t(
 // CPP-TUPLE2-NEXT:  entry:
-// CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 32 x i8> [[OP:%.*]] to <vscale x 16 x bfloat>
-// CPP-TUPLE2-NEXT:    ret <vscale x 16 x bfloat> [[TMP0]]
+// CPP-TUPLE2-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 32 x b8> [[OP:%.*]] to <vscale x 32 x i8>
+// CPP-TUPLE2-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 32 x i8> [[TMP0]] to <vscale x 16 x bfloat>
+// CPP-TUPLE2-NEXT:    ret <vscale x 16 x bfloat> [[TMP1]]
 //
 // CPP-TUPLE3-LABEL: @_Z26test_svreinterpret_bf16_u811svuint8x3_t(
 // CPP-TUPLE3-NEXT:  entry:
-// CPP-TUPLE3-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 48 x i8> [[OP:%.*]] to <vscale x 24 x bfloat>
-// CPP-TUPLE3-NEXT:    ret <vscale x 24 x bfloat> [[TMP0]]
+// CPP-TUPLE3-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 48 x b8> [[OP:%.*]] to <vscale x 48 x i8>
+// CPP-TUPLE3-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 48 x i8> [[TMP0]] to <vscale x 24 x bfloat>
+// CPP-TUPLE3-NEXT:    ret <vscale x 24 x bfloat> [[TMP1]]
 //
 // CPP-TUPLE4-LABEL: @_Z26test_svreinterpret_bf16_u811svuint8x4_t(
 // CPP-TUPLE4-NEXT:  entry:
-// CPP-TUPLE4-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 64 x i8> [[OP:%.*]] to <vscale x 32 x bfloat>
-// CPP-TUPLE4-NEXT:    ret <vscale x 32 x bfloat> [[TMP0]]
+// CPP-TUPLE4-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 64 x b8> [[OP:%.*]] to <vscale x 64 x i8>
+// CPP-TUPLE4-NEXT:    [[TMP1:%.*]] = bitcast <vscale x 64 x i8> [[TMP0]] to <vscale x 32 x bfloat>
+// CPP-TUPLE4-NEXT:    ret <vscale x 32 x bfloat> [[TMP1]]
 //
 TYPE(svbfloat16) test_svreinterpret_bf16_u8(TYPE(svuint8) op) MODE_ATTR {
   return SVE_ACLE_FUNC(svreinterpret_bf16, _u8)(op);

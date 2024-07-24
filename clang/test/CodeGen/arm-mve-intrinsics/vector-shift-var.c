@@ -50,8 +50,12 @@ int32x4_t test_vshlq_s32(int32x4_t a, int32x4_t b)
 
 // CHECK-LABEL: @test_vshlq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.v16i8.v16i8(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.v16i8.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vshlq_u8(uint8x16_t a, int8x16_t b)
 {
@@ -134,8 +138,12 @@ int32x4_t test_vshlq_r_s32(int32x4_t a, int32_t b)
 
 // CHECK-LABEL: @test_vshlq_r_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.v16i8(<16 x i8> [[A:%.*]], i32 [[B:%.*]], i32 0, i32 0, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.v16i8(<16 x i8> [[TMP0]], i32 [[B:%.*]], i32 0, i32 0, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vshlq_r_u8(uint8x16_t a, int32_t b)
 {
@@ -218,8 +226,12 @@ int32x4_t test_vqshlq_s32(int32x4_t a, int32x4_t b)
 
 // CHECK-LABEL: @test_vqshlq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.v16i8.v16i8(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 0, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.v16i8.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 1, i32 0, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vqshlq_u8(uint8x16_t a, int8x16_t b)
 {
@@ -302,8 +314,12 @@ int32x4_t test_vqshlq_r_s32(int32x4_t a, int32_t b)
 
 // CHECK-LABEL: @test_vqshlq_r_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.v16i8(<16 x i8> [[A:%.*]], i32 [[B:%.*]], i32 1, i32 0, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.v16i8(<16 x i8> [[TMP0]], i32 [[B:%.*]], i32 1, i32 0, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vqshlq_r_u8(uint8x16_t a, int32_t b)
 {
@@ -386,8 +402,12 @@ int32x4_t test_vrshlq_s32(int32x4_t a, int32x4_t b)
 
 // CHECK-LABEL: @test_vrshlq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.v16i8.v16i8(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.v16i8.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vrshlq_u8(uint8x16_t a, int8x16_t b)
 {
@@ -470,8 +490,12 @@ int32x4_t test_vrshlq_n_s32(int32x4_t a, int32_t b)
 
 // CHECK-LABEL: @test_vrshlq_n_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.v16i8(<16 x i8> [[A:%.*]], i32 [[B:%.*]], i32 0, i32 1, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.v16i8(<16 x i8> [[TMP0]], i32 [[B:%.*]], i32 0, i32 1, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vrshlq_n_u8(uint8x16_t a, int32_t b)
 {
@@ -554,8 +578,12 @@ int32x4_t test_vqrshlq_s32(int32x4_t a, int32x4_t b)
 
 // CHECK-LABEL: @test_vqrshlq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.v16i8.v16i8(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 1, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.v16i8.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 1, i32 1, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vqrshlq_u8(uint8x16_t a, int8x16_t b)
 {
@@ -638,8 +666,12 @@ int32x4_t test_vqrshlq_n_s32(int32x4_t a, int32_t b)
 
 // CHECK-LABEL: @test_vqrshlq_n_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.v16i8(<16 x i8> [[A:%.*]], i32 [[B:%.*]], i32 1, i32 1, i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.v16i8(<16 x i8> [[TMP0]], i32 [[B:%.*]], i32 1, i32 1, i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP1]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP2:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vqrshlq_n_u8(uint8x16_t a, int32_t b)
 {
@@ -728,10 +760,15 @@ int32x4_t test_vshlq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mve_pre
 
 // CHECK-LABEL: @test_vshlq_m_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 1, <16 x i1> [[TMP1]], <16 x i8> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 1, <16 x i1> [[TMP2]], <16 x i8> [[TMP3]])
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vshlq_m_u8(uint8x16_t inactive, uint8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -824,10 +861,14 @@ int32x4_t test_vshlq_x_s32(int32x4_t a, int32x4_t b, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vshlq_x_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 1, <16 x i1> [[TMP1]], <16 x i8> undef)
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 0, i32 0, i32 1, <16 x i1> [[TMP2]], <16 x i8> undef)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 uint8x16_t test_vshlq_x_u8(uint8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -920,10 +961,14 @@ int32x4_t test_vshlq_m_r_s32(int32x4_t a, int32_t b, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vshlq_m_r_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 [[B:%.*]], i32 0, i32 0, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], i32 [[B:%.*]], i32 0, i32 0, i32 1, <16 x i1> [[TMP2]])
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 uint8x16_t test_vshlq_m_r_u8(uint8x16_t a, int32_t b, mve_pred16_t p)
 {
@@ -1016,10 +1061,15 @@ int32x4_t test_vqshlq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mve_pr
 
 // CHECK-LABEL: @test_vqshlq_m_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 0, i32 1, <16 x i1> [[TMP1]], <16 x i8> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 1, i32 0, i32 1, <16 x i1> [[TMP2]], <16 x i8> [[TMP3]])
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vqshlq_m_u8(uint8x16_t inactive, uint8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -1112,10 +1162,14 @@ int32x4_t test_vqshlq_m_r_s32(int32x4_t a, int32_t b, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vqshlq_m_r_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 [[B:%.*]], i32 1, i32 0, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], i32 [[B:%.*]], i32 1, i32 0, i32 1, <16 x i1> [[TMP2]])
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 uint8x16_t test_vqshlq_m_r_u8(uint8x16_t a, int32_t b, mve_pred16_t p)
 {
@@ -1208,10 +1262,15 @@ int32x4_t test_vrshlq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mve_pr
 
 // CHECK-LABEL: @test_vrshlq_m_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 1, <16 x i1> [[TMP1]], <16 x i8> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 1, <16 x i1> [[TMP2]], <16 x i8> [[TMP3]])
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vrshlq_m_u8(uint8x16_t inactive, uint8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -1304,10 +1363,14 @@ int32x4_t test_vrshlq_x_s32(int32x4_t a, int32x4_t b, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vrshlq_x_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 1, <16 x i1> [[TMP1]], <16 x i8> undef)
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 0, i32 1, i32 1, <16 x i1> [[TMP2]], <16 x i8> undef)
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 uint8x16_t test_vrshlq_x_u8(uint8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -1400,10 +1463,14 @@ int32x4_t test_vrshlq_m_n_s32(int32x4_t a, int32_t b, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vrshlq_m_n_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 [[B:%.*]], i32 0, i32 1, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], i32 [[B:%.*]], i32 0, i32 1, i32 1, <16 x i1> [[TMP2]])
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 uint8x16_t test_vrshlq_m_n_u8(uint8x16_t a, int32_t b, mve_pred16_t p)
 {
@@ -1496,10 +1563,15 @@ int32x4_t test_vqrshlq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mve_p
 
 // CHECK-LABEL: @test_vqrshlq_m_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, i32 1, i32 1, <16 x i1> [[TMP1]], <16 x i8> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.vector.predicated.v16i8.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[B:%.*]], i32 1, i32 1, i32 1, <16 x i1> [[TMP2]], <16 x i8> [[TMP3]])
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vqrshlq_m_u8(uint8x16_t inactive, uint8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -1592,10 +1664,14 @@ int32x4_t test_vqrshlq_m_n_s32(int32x4_t a, int32_t b, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vqrshlq_m_n_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 [[B:%.*]], i32 1, i32 1, i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i8> @llvm.arm.mve.vshl.scalar.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], i32 [[B:%.*]], i32 1, i32 1, i32 1, <16 x i1> [[TMP2]])
+// CHECK-NEXT:    store <16 x i8> [[TMP3]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP4]]
 //
 uint8x16_t test_vqrshlq_m_n_u8(uint8x16_t a, int32_t b, mve_pred16_t p)
 {

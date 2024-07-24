@@ -55,15 +55,15 @@ int64x2_t test_vuzp1q_s64(int64x2_t a, int64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vuzp1_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 uint8x8_t test_vuzp1_u8(uint8x8_t a, uint8x8_t b) {
   return vuzp1_u8(a, b);
 }
 
 // CHECK-LABEL: @test_vuzp1q_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 uint8x16_t test_vuzp1q_u8(uint8x16_t a, uint8x16_t b) {
   return vuzp1q_u8(a, b);
 }
@@ -125,15 +125,15 @@ float64x2_t test_vuzp1q_f64(float64x2_t a, float64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vuzp1_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 poly8x8_t test_vuzp1_p8(poly8x8_t a, poly8x8_t b) {
   return vuzp1_p8(a, b);
 }
 
 // CHECK-LABEL: @test_vuzp1q_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 poly8x16_t test_vuzp1q_p8(poly8x16_t a, poly8x16_t b) {
   return vuzp1q_p8(a, b);
 }
@@ -202,15 +202,15 @@ int64x2_t test_vuzp2q_s64(int64x2_t a, int64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vuzp2_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 uint8x8_t test_vuzp2_u8(uint8x8_t a, uint8x8_t b) {
   return vuzp2_u8(a, b);
 }
 
 // CHECK-LABEL: @test_vuzp2q_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 uint8x16_t test_vuzp2q_u8(uint8x16_t a, uint8x16_t b) {
   return vuzp2q_u8(a, b);
 }
@@ -272,15 +272,15 @@ float64x2_t test_vuzp2q_f64(float64x2_t a, float64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vuzp2_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 poly8x8_t test_vuzp2_p8(poly8x8_t a, poly8x8_t b) {
   return vuzp2_p8(a, b);
 }
 
 // CHECK-LABEL: @test_vuzp2q_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 poly8x16_t test_vuzp2q_p8(poly8x16_t a, poly8x16_t b) {
   return vuzp2q_p8(a, b);
 }
@@ -349,15 +349,15 @@ int64x2_t test_vzip1q_s64(int64x2_t a, int64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vzip1_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 uint8x8_t test_vzip1_u8(uint8x8_t a, uint8x8_t b) {
   return vzip1_u8(a, b);
 }
 
 // CHECK-LABEL: @test_vzip1q_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 uint8x16_t test_vzip1q_u8(uint8x16_t a, uint8x16_t b) {
   return vzip1q_u8(a, b);
 }
@@ -419,15 +419,15 @@ float64x2_t test_vzip1q_f64(float64x2_t a, float64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vzip1_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 poly8x8_t test_vzip1_p8(poly8x8_t a, poly8x8_t b) {
   return vzip1_p8(a, b);
 }
 
 // CHECK-LABEL: @test_vzip1q_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 poly8x16_t test_vzip1q_p8(poly8x16_t a, poly8x16_t b) {
   return vzip1q_p8(a, b);
 }
@@ -496,15 +496,15 @@ int64x2_t test_vzip2q_s64(int64x2_t a, int64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vzip2_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 uint8x8_t test_vzip2_u8(uint8x8_t a, uint8x8_t b) {
   return vzip2_u8(a, b);
 }
 
 // CHECK-LABEL: @test_vzip2q_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 uint8x16_t test_vzip2q_u8(uint8x16_t a, uint8x16_t b) {
   return vzip2q_u8(a, b);
 }
@@ -566,15 +566,15 @@ float64x2_t test_vzip2q_f64(float64x2_t a, float64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vzip2_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 poly8x8_t test_vzip2_p8(poly8x8_t a, poly8x8_t b) {
   return vzip2_p8(a, b);
 }
 
 // CHECK-LABEL: @test_vzip2q_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 poly8x16_t test_vzip2q_p8(poly8x16_t a, poly8x16_t b) {
   return vzip2q_p8(a, b);
 }
@@ -643,15 +643,15 @@ int64x2_t test_vtrn1q_s64(int64x2_t a, int64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vtrn1_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 uint8x8_t test_vtrn1_u8(uint8x8_t a, uint8x8_t b) {
   return vtrn1_u8(a, b);
 }
 
 // CHECK-LABEL: @test_vtrn1q_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 uint8x16_t test_vtrn1q_u8(uint8x16_t a, uint8x16_t b) {
   return vtrn1q_u8(a, b);
 }
@@ -713,15 +713,15 @@ float64x2_t test_vtrn1q_f64(float64x2_t a, float64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vtrn1_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 poly8x8_t test_vtrn1_p8(poly8x8_t a, poly8x8_t b) {
   return vtrn1_p8(a, b);
 }
 
 // CHECK-LABEL: @test_vtrn1q_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 poly8x16_t test_vtrn1q_p8(poly8x16_t a, poly8x16_t b) {
   return vtrn1q_p8(a, b);
 }
@@ -790,15 +790,15 @@ int64x2_t test_vtrn2q_s64(int64x2_t a, int64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vtrn2_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 uint8x8_t test_vtrn2_u8(uint8x8_t a, uint8x8_t b) {
   return vtrn2_u8(a, b);
 }
 
 // CHECK-LABEL: @test_vtrn2q_u8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 uint8x16_t test_vtrn2q_u8(uint8x16_t a, uint8x16_t b) {
   return vtrn2q_u8(a, b);
 }
@@ -860,15 +860,15 @@ float64x2_t test_vtrn2q_f64(float64x2_t a, float64x2_t b) {
 }
 
 // CHECK-LABEL: @test_vtrn2_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %a, <8 x b8> %b, <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 poly8x8_t test_vtrn2_p8(poly8x8_t a, poly8x8_t b) {
   return vtrn2_p8(a, b);
 }
 
 // CHECK-LABEL: @test_vtrn2q_p8(
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %b, <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 poly8x16_t test_vtrn2q_p8(poly8x16_t a, poly8x16_t b) {
   return vtrn2q_p8(a, b);
 }
@@ -948,15 +948,17 @@ int32x2x2_t test_vuzp_s32(int32x2_t a, int32x2_t b) {
 // CHECK-LABEL: @test_vuzp_u8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.uint8x8x2_t, align 8
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.uint8x8x2_t, align 8
-// CHECK:   [[VUZP_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VUZP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
 // CHECK:   store <8 x i8> [[VUZP_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <8 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VUZP1_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK:   [[VUZP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
 // CHECK:   store <8 x i8> [[VUZP1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.uint8x8x2_t, ptr [[RETVAL_I]], align 8
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.uint8x8x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.uint8x8x2_t [[TMP5]], 0
-// CHECK:   store [2 x <8 x i8>] [[TMP7]], ptr [[TMP6]], align 8
+// CHECK:   store [2 x <8 x b8>] [[TMP7]], ptr [[TMP6]], align 8
 // CHECK:   [[TMP8:%.*]] = load %struct.uint8x8x2_t, ptr [[RETVAL]], align 8
 // CHECK:   ret %struct.uint8x8x2_t [[TMP8]]
 uint8x8x2_t test_vuzp_u8(uint8x8_t a, uint8x8_t b) {
@@ -1026,15 +1028,17 @@ float32x2x2_t test_vuzp_f32(float32x2_t a, float32x2_t b) {
 // CHECK-LABEL: @test_vuzp_p8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.poly8x8x2_t, align 8
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.poly8x8x2_t, align 8
-// CHECK:   [[VUZP_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VUZP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
 // CHECK:   store <8 x i8> [[VUZP_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <8 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VUZP1_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+// CHECK:   [[VUZP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
 // CHECK:   store <8 x i8> [[VUZP1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.poly8x8x2_t, ptr [[RETVAL_I]], align 8
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.poly8x8x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.poly8x8x2_t [[TMP5]], 0
-// CHECK:   store [2 x <8 x i8>] [[TMP7]], ptr [[TMP6]], align 8
+// CHECK:   store [2 x <8 x b8>] [[TMP7]], ptr [[TMP6]], align 8
 // CHECK:   [[TMP8:%.*]] = load %struct.poly8x8x2_t, ptr [[RETVAL]], align 8
 // CHECK:   ret %struct.poly8x8x2_t [[TMP8]]
 poly8x8x2_t test_vuzp_p8(poly8x8_t a, poly8x8_t b) {
@@ -1122,15 +1126,17 @@ int32x4x2_t test_vuzpq_s32(int32x4_t a, int32x4_t b) {
 // CHECK-LABEL: @test_vuzpq_u8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.uint8x16x2_t, align 16
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.uint8x16x2_t, align 16
-// CHECK:   [[VUZP_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VUZP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
 // CHECK:   store <16 x i8> [[VUZP_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <16 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VUZP1_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK:   [[VUZP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
 // CHECK:   store <16 x i8> [[VUZP1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.uint8x16x2_t, ptr [[RETVAL_I]], align 16
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.uint8x16x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.uint8x16x2_t [[TMP5]], 0
-// CHECK:   store [2 x <16 x i8>] [[TMP7]], ptr [[TMP6]], align 16
+// CHECK:   store [2 x <16 x b8>] [[TMP7]], ptr [[TMP6]], align 16
 // CHECK:   [[TMP8:%.*]] = load %struct.uint8x16x2_t, ptr [[RETVAL]], align 16
 // CHECK:   ret %struct.uint8x16x2_t [[TMP8]]
 uint8x16x2_t test_vuzpq_u8(uint8x16_t a, uint8x16_t b) {
@@ -1200,15 +1206,17 @@ float32x4x2_t test_vuzpq_f32(float32x4_t a, float32x4_t b) {
 // CHECK-LABEL: @test_vuzpq_p8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.poly8x16x2_t, align 16
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.poly8x16x2_t, align 16
-// CHECK:   [[VUZP_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VUZP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
 // CHECK:   store <16 x i8> [[VUZP_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <16 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VUZP1_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+// CHECK:   [[VUZP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
 // CHECK:   store <16 x i8> [[VUZP1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.poly8x16x2_t, ptr [[RETVAL_I]], align 16
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.poly8x16x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.poly8x16x2_t [[TMP5]], 0
-// CHECK:   store [2 x <16 x i8>] [[TMP7]], ptr [[TMP6]], align 16
+// CHECK:   store [2 x <16 x b8>] [[TMP7]], ptr [[TMP6]], align 16
 // CHECK:   [[TMP8:%.*]] = load %struct.poly8x16x2_t, ptr [[RETVAL]], align 16
 // CHECK:   ret %struct.poly8x16x2_t [[TMP8]]
 poly8x16x2_t test_vuzpq_p8(poly8x16_t a, poly8x16_t b) {
@@ -1296,15 +1304,17 @@ int32x2x2_t test_vzip_s32(int32x2_t a, int32x2_t b) {
 // CHECK-LABEL: @test_vzip_u8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.uint8x8x2_t, align 8
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.uint8x8x2_t, align 8
-// CHECK:   [[VZIP_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VZIP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
 // CHECK:   store <8 x i8> [[VZIP_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <8 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VZIP1_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK:   [[VZIP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
 // CHECK:   store <8 x i8> [[VZIP1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.uint8x8x2_t, ptr [[RETVAL_I]], align 8
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.uint8x8x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.uint8x8x2_t [[TMP5]], 0
-// CHECK:   store [2 x <8 x i8>] [[TMP7]], ptr [[TMP6]], align 8
+// CHECK:   store [2 x <8 x b8>] [[TMP7]], ptr [[TMP6]], align 8
 // CHECK:   [[TMP8:%.*]] = load %struct.uint8x8x2_t, ptr [[RETVAL]], align 8
 // CHECK:   ret %struct.uint8x8x2_t [[TMP8]]
 uint8x8x2_t test_vzip_u8(uint8x8_t a, uint8x8_t b) {
@@ -1374,15 +1384,17 @@ float32x2x2_t test_vzip_f32(float32x2_t a, float32x2_t b) {
 // CHECK-LABEL: @test_vzip_p8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.poly8x8x2_t, align 8
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.poly8x8x2_t, align 8
-// CHECK:   [[VZIP_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VZIP_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
 // CHECK:   store <8 x i8> [[VZIP_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <8 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VZIP1_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+// CHECK:   [[VZIP1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
 // CHECK:   store <8 x i8> [[VZIP1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.poly8x8x2_t, ptr [[RETVAL_I]], align 8
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.poly8x8x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.poly8x8x2_t [[TMP5]], 0
-// CHECK:   store [2 x <8 x i8>] [[TMP7]], ptr [[TMP6]], align 8
+// CHECK:   store [2 x <8 x b8>] [[TMP7]], ptr [[TMP6]], align 8
 // CHECK:   [[TMP8:%.*]] = load %struct.poly8x8x2_t, ptr [[RETVAL]], align 8
 // CHECK:   ret %struct.poly8x8x2_t [[TMP8]]
 poly8x8x2_t test_vzip_p8(poly8x8_t a, poly8x8_t b) {
@@ -1470,15 +1482,17 @@ int32x4x2_t test_vzipq_s32(int32x4_t a, int32x4_t b) {
 // CHECK-LABEL: @test_vzipq_u8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.uint8x16x2_t, align 16
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.uint8x16x2_t, align 16
-// CHECK:   [[VZIP_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VZIP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
 // CHECK:   store <16 x i8> [[VZIP_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <16 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VZIP1_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK:   [[VZIP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
 // CHECK:   store <16 x i8> [[VZIP1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.uint8x16x2_t, ptr [[RETVAL_I]], align 16
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.uint8x16x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.uint8x16x2_t [[TMP5]], 0
-// CHECK:   store [2 x <16 x i8>] [[TMP7]], ptr [[TMP6]], align 16
+// CHECK:   store [2 x <16 x b8>] [[TMP7]], ptr [[TMP6]], align 16
 // CHECK:   [[TMP8:%.*]] = load %struct.uint8x16x2_t, ptr [[RETVAL]], align 16
 // CHECK:   ret %struct.uint8x16x2_t [[TMP8]]
 uint8x16x2_t test_vzipq_u8(uint8x16_t a, uint8x16_t b) {
@@ -1548,15 +1562,17 @@ float32x4x2_t test_vzipq_f32(float32x4_t a, float32x4_t b) {
 // CHECK-LABEL: @test_vzipq_p8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.poly8x16x2_t, align 16
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.poly8x16x2_t, align 16
-// CHECK:   [[VZIP_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VZIP_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
 // CHECK:   store <16 x i8> [[VZIP_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <16 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VZIP1_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+// CHECK:   [[VZIP1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
 // CHECK:   store <16 x i8> [[VZIP1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.poly8x16x2_t, ptr [[RETVAL_I]], align 16
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.poly8x16x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.poly8x16x2_t [[TMP5]], 0
-// CHECK:   store [2 x <16 x i8>] [[TMP7]], ptr [[TMP6]], align 16
+// CHECK:   store [2 x <16 x b8>] [[TMP7]], ptr [[TMP6]], align 16
 // CHECK:   [[TMP8:%.*]] = load %struct.poly8x16x2_t, ptr [[RETVAL]], align 16
 // CHECK:   ret %struct.poly8x16x2_t [[TMP8]]
 poly8x16x2_t test_vzipq_p8(poly8x16_t a, poly8x16_t b) {
@@ -1644,15 +1660,17 @@ int32x2x2_t test_vtrn_s32(int32x2_t a, int32x2_t b) {
 // CHECK-LABEL: @test_vtrn_u8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.uint8x8x2_t, align 8
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.uint8x8x2_t, align 8
-// CHECK:   [[VTRN_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VTRN_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
 // CHECK:   store <8 x i8> [[VTRN_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <8 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VTRN1_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK:   [[VTRN1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
 // CHECK:   store <8 x i8> [[VTRN1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.uint8x8x2_t, ptr [[RETVAL_I]], align 8
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.uint8x8x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.uint8x8x2_t [[TMP5]], 0
-// CHECK:   store [2 x <8 x i8>] [[TMP7]], ptr [[TMP6]], align 8
+// CHECK:   store [2 x <8 x b8>] [[TMP7]], ptr [[TMP6]], align 8
 // CHECK:   [[TMP8:%.*]] = load %struct.uint8x8x2_t, ptr [[RETVAL]], align 8
 // CHECK:   ret %struct.uint8x8x2_t [[TMP8]]
 uint8x8x2_t test_vtrn_u8(uint8x8_t a, uint8x8_t b) {
@@ -1722,15 +1740,17 @@ float32x2x2_t test_vtrn_f32(float32x2_t a, float32x2_t b) {
 // CHECK-LABEL: @test_vtrn_p8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.poly8x8x2_t, align 8
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.poly8x8x2_t, align 8
-// CHECK:   [[VTRN_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[VTRN_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 0, i32 8, i32 2, i32 10, i32 4, i32 12, i32 6, i32 14>
 // CHECK:   store <8 x i8> [[VTRN_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <8 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VTRN1_I:%.*]] = shufflevector <8 x i8> %a, <8 x i8> %b, <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
+// CHECK:   [[VTRN1_I:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 1, i32 9, i32 3, i32 11, i32 5, i32 13, i32 7, i32 15>
 // CHECK:   store <8 x i8> [[VTRN1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.poly8x8x2_t, ptr [[RETVAL_I]], align 8
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.poly8x8x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.poly8x8x2_t [[TMP5]], 0
-// CHECK:   store [2 x <8 x i8>] [[TMP7]], ptr [[TMP6]], align 8
+// CHECK:   store [2 x <8 x b8>] [[TMP7]], ptr [[TMP6]], align 8
 // CHECK:   [[TMP8:%.*]] = load %struct.poly8x8x2_t, ptr [[RETVAL]], align 8
 // CHECK:   ret %struct.poly8x8x2_t [[TMP8]]
 poly8x8x2_t test_vtrn_p8(poly8x8_t a, poly8x8_t b) {
@@ -1818,15 +1838,17 @@ int32x4x2_t test_vtrnq_s32(int32x4_t a, int32x4_t b) {
 // CHECK-LABEL: @test_vtrnq_u8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.uint8x16x2_t, align 16
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.uint8x16x2_t, align 16
-// CHECK:   [[VTRN_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VTRN_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
 // CHECK:   store <16 x i8> [[VTRN_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <16 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VTRN1_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK:   [[VTRN1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
 // CHECK:   store <16 x i8> [[VTRN1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.uint8x16x2_t, ptr [[RETVAL_I]], align 16
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.uint8x16x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.uint8x16x2_t [[TMP5]], 0
-// CHECK:   store [2 x <16 x i8>] [[TMP7]], ptr [[TMP6]], align 16
+// CHECK:   store [2 x <16 x b8>] [[TMP7]], ptr [[TMP6]], align 16
 // CHECK:   [[TMP8:%.*]] = load %struct.uint8x16x2_t, ptr [[RETVAL]], align 16
 // CHECK:   ret %struct.uint8x16x2_t [[TMP8]]
 uint8x16x2_t test_vtrnq_u8(uint8x16_t a, uint8x16_t b) {
@@ -1896,15 +1918,17 @@ float32x4x2_t test_vtrnq_f32(float32x4_t a, float32x4_t b) {
 // CHECK-LABEL: @test_vtrnq_p8(
 // CHECK:   [[RETVAL_I:%.*]] = alloca %struct.poly8x16x2_t, align 16
 // CHECK:   [[RETVAL:%.*]] = alloca %struct.poly8x16x2_t, align 16
-// CHECK:   [[VTRN_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[VTRN_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 0, i32 16, i32 2, i32 18, i32 4, i32 20, i32 6, i32 22, i32 8, i32 24, i32 10, i32 26, i32 12, i32 28, i32 14, i32 30>
 // CHECK:   store <16 x i8> [[VTRN_I]], ptr [[RETVAL_I]]
 // CHECK:   [[TMP2:%.*]] = getelementptr inbounds <16 x i8>, ptr [[RETVAL_I]], i32 1
-// CHECK:   [[VTRN1_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %b, <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
+// CHECK:   [[VTRN1_I:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 1, i32 17, i32 3, i32 19, i32 5, i32 21, i32 7, i32 23, i32 9, i32 25, i32 11, i32 27, i32 13, i32 29, i32 15, i32 31>
 // CHECK:   store <16 x i8> [[VTRN1_I]], ptr [[TMP2]]
 // CHECK:   [[TMP5:%.*]] = load %struct.poly8x16x2_t, ptr [[RETVAL_I]], align 16
 // CHECK:   [[TMP6:%.*]] = getelementptr inbounds nuw %struct.poly8x16x2_t, ptr [[RETVAL]], i32 0, i32 0
 // CHECK:   [[TMP7:%.*]] = extractvalue %struct.poly8x16x2_t [[TMP5]], 0
-// CHECK:   store [2 x <16 x i8>] [[TMP7]], ptr [[TMP6]], align 16
+// CHECK:   store [2 x <16 x b8>] [[TMP7]], ptr [[TMP6]], align 16
 // CHECK:   [[TMP8:%.*]] = load %struct.poly8x16x2_t, ptr [[RETVAL]], align 16
 // CHECK:   ret %struct.poly8x16x2_t [[TMP8]]
 poly8x16x2_t test_vtrnq_p8(poly8x16_t a, poly8x16_t b) {

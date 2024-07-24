@@ -6,7 +6,7 @@
 // CHECK: %s16 = alloca <vscale x 8 x i16>, align 16
 // CHECK: %s32 = alloca <vscale x 4 x i32>, align 16
 // CHECK: %s64 = alloca <vscale x 2 x i64>, align 16
-// CHECK: %u8 = alloca <vscale x 16 x i8>, align 16
+// CHECK: %u8 = alloca <vscale x 16 x b8>, align 16
 // CHECK: %u16 = alloca <vscale x 8 x i16>, align 16
 // CHECK: %u32 = alloca <vscale x 4 x i32>, align 16
 // CHECK: %u64 = alloca <vscale x 2 x i64>, align 16
