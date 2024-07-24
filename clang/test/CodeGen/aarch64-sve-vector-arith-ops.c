@@ -47,8 +47,13 @@ svint64_t add_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @add_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[ADD]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t add_u8(svuint8_t a, svuint8_t b) {
   return a + b;
@@ -146,8 +151,17 @@ svint64_t add_inplace_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @add_inplace_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[ADD]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    store <vscale x 16 x b8> [[A:%.*]], ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x b8>, ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[TMP0]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP2]], [[TMP1]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[A_ADDR]], align 16
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP3]]
 //
 svuint8_t add_inplace_u8(svuint8_t a, svuint8_t b) {
   return a += b;
@@ -253,10 +267,15 @@ svint64_t add_scalar_i64(svint64_t a, int64_t b) {
 
 // CHECK-LABEL: @add_scalar_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[ADD]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t add_scalar_u8(svuint8_t a, uint8_t b) {
   return a + b;
@@ -494,8 +513,13 @@ svint64_t sub_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @sub_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SUB:%.*]] = sub <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SUB]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t sub_u8(svuint8_t a, svuint8_t b) {
   return a - b;
@@ -593,8 +617,13 @@ svint64_t sub_inplace_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @sub_inplace_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SUB:%.*]] = sub <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SUB]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t sub_inplace_u8(svuint8_t a, svuint8_t b) {
   return a - b;
@@ -700,10 +729,15 @@ svint64_t sub_scalar_i64(svint64_t a, int64_t b) {
 
 // CHECK-LABEL: @sub_scalar_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SUB:%.*]] = sub <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SUB]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t sub_scalar_u8(svuint8_t a, uint8_t b) {
   return a - b;
@@ -815,8 +849,13 @@ svint64_t mul_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @mul_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[MUL:%.*]] = mul <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[MUL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t mul_u8(svuint8_t a, svuint8_t b) {
   return a * b;
@@ -914,8 +953,13 @@ svint64_t mul_inplace_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @mul_inplace_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[MUL:%.*]] = mul <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[MUL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t mul_inplace_u8(svuint8_t a, svuint8_t b) {
   return a * b;
@@ -1021,10 +1065,15 @@ svint64_t mul_scalar_i64(svint64_t a, int64_t b) {
 
 // CHECK-LABEL: @mul_scalar_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[MUL:%.*]] = mul <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[MUL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t mul_scalar_u8(svuint8_t a, uint8_t b) {
   return a * b;
@@ -1136,8 +1185,13 @@ svint64_t div_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @div_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[DIV:%.*]] = udiv <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[DIV]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t div_u8(svuint8_t a, svuint8_t b) {
   return a / b;
@@ -1235,8 +1289,13 @@ svint64_t div_inplace_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @div_inplace_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[DIV:%.*]] = udiv <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[DIV]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t div_inplace_u8(svuint8_t a, svuint8_t b) {
   return a / b;
@@ -1342,10 +1401,15 @@ svint64_t div_scalar_i64(svint64_t a, int64_t b) {
 
 // CHECK-LABEL: @div_scalar_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[DIV:%.*]] = udiv <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[DIV]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t div_scalar_u8(svuint8_t a, uint8_t b) {
   return a / b;
@@ -1457,8 +1521,13 @@ svint64_t rem_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @rem_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[REM:%.*]] = urem <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[REM]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t rem_u8(svuint8_t a, svuint8_t b) {
   return a % b;
@@ -1529,8 +1598,13 @@ svint64_t rem_inplace_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @rem_inplace_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[REM:%.*]] = urem <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[REM]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t rem_inplace_u8(svuint8_t a, svuint8_t b) {
   return a % b;
@@ -1609,10 +1683,15 @@ svint64_t rem_scalar_i64(svint64_t a, int64_t b) {
 
 // CHECK-LABEL: @rem_scalar_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[REM:%.*]] = urem <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[REM]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t rem_scalar_u8(svuint8_t a, uint8_t b) {
   return a % b;
@@ -1687,7 +1766,7 @@ svint64_t prom_i64(svint64_t a) {
 
 // CHECK-LABEL: @prom_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[A:%.*]]
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[A:%.*]]
 //
 svuint8_t prom_u8(svuint8_t a) {
   return +a;
@@ -1757,8 +1836,12 @@ svint64_t neg_i64(svint64_t a) {
 
 // CHECK-LABEL: @neg_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SUB:%.*]] = sub <vscale x 16 x i8> zeroinitializer, [[A:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SUB]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[ADD:%.*]] = add <vscale x 16 x i8> zeroinitializer, [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[ADD]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP1:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 svuint8_t neg_u8(svuint8_t a) {
   return -a;

@@ -60,7 +60,8 @@ svbfloat16_t test_cvtn_bf16_x2(svfloat32x2_t zn) __arm_streaming {
 // CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.vector.extract.nxv4i32.nxv16i32(<vscale x 16 x i32> [[ZN]], i64 8)
 // CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 4 x i32> @llvm.vector.extract.nxv4i32.nxv16i32(<vscale x 16 x i32> [[ZN]], i64 12)
 // CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.uqcvtn.x4.nxv4i32(<vscale x 4 x i32> [[TMP0]], <vscale x 4 x i32> [[TMP1]], <vscale x 4 x i32> [[TMP2]], <vscale x 4 x i32> [[TMP3]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP4]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z20test_qcvtn_u8_u32_x412svuint32x4_t(
 // CPP-CHECK-NEXT:  entry:
@@ -69,7 +70,8 @@ svbfloat16_t test_cvtn_bf16_x2(svfloat32x2_t zn) __arm_streaming {
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.vector.extract.nxv4i32.nxv16i32(<vscale x 16 x i32> [[ZN]], i64 8)
 // CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 4 x i32> @llvm.vector.extract.nxv4i32.nxv16i32(<vscale x 16 x i32> [[ZN]], i64 12)
 // CPP-CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.uqcvtn.x4.nxv4i32(<vscale x 4 x i32> [[TMP0]], <vscale x 4 x i32> [[TMP1]], <vscale x 4 x i32> [[TMP2]], <vscale x 4 x i32> [[TMP3]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP4]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_qcvtn_u8_u32_x4(svuint32x4_t zn) __arm_streaming {
   return SVE_ACLE_FUNC(svqcvtn_u8,_u32_x4,,)(zn);
@@ -148,7 +150,8 @@ svint16_t test_qcvtn_s16_s64_x4(svint64x4_t zn) __arm_streaming {
 // CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.vector.extract.nxv4i32.nxv16i32(<vscale x 16 x i32> [[ZN]], i64 8)
 // CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 4 x i32> @llvm.vector.extract.nxv4i32.nxv16i32(<vscale x 16 x i32> [[ZN]], i64 12)
 // CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.sqcvtun.x4.nxv4i32(<vscale x 4 x i32> [[TMP0]], <vscale x 4 x i32> [[TMP1]], <vscale x 4 x i32> [[TMP2]], <vscale x 4 x i32> [[TMP3]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP4]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z19test_qcvtn_u8_32_x411svint32x4_t(
 // CPP-CHECK-NEXT:  entry:
@@ -157,7 +160,8 @@ svint16_t test_qcvtn_s16_s64_x4(svint64x4_t zn) __arm_streaming {
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 4 x i32> @llvm.vector.extract.nxv4i32.nxv16i32(<vscale x 16 x i32> [[ZN]], i64 8)
 // CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 4 x i32> @llvm.vector.extract.nxv4i32.nxv16i32(<vscale x 16 x i32> [[ZN]], i64 12)
 // CPP-CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.sqcvtun.x4.nxv4i32(<vscale x 4 x i32> [[TMP0]], <vscale x 4 x i32> [[TMP1]], <vscale x 4 x i32> [[TMP2]], <vscale x 4 x i32> [[TMP3]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP4]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP4]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_qcvtn_u8_32_x4(svint32x4_t zn) __arm_streaming {
   return SVE_ACLE_FUNC(svqcvtn_u8,_s32_x4,,)(zn);

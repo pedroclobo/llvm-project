@@ -47,8 +47,9 @@ int32_t test_vaddvq_s32(int32x4_t a) {
 
 // CHECK-LABEL: @test_vaddvq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.arm.mve.addv.v16i8(<16 x i8> [[A:%.*]], i32 1)
-// CHECK-NEXT:    ret i32 [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call i32 @llvm.arm.mve.addv.v16i8(<16 x i8> [[TMP0]], i32 1)
+// CHECK-NEXT:    ret i32 [[TMP1]]
 //
 uint32_t test_vaddvq_u8(uint8x16_t a) {
 #ifdef POLYMORPHIC
@@ -128,9 +129,10 @@ int32_t test_vaddvaq_s32(int32_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vaddvaq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.arm.mve.addv.v16i8(<16 x i8> [[B:%.*]], i32 1)
-// CHECK-NEXT:    [[TMP1:%.*]] = add i32 [[TMP0]], [[A:%.*]]
-// CHECK-NEXT:    ret i32 [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = call i32 @llvm.arm.mve.addv.v16i8(<16 x i8> [[TMP0]], i32 1)
+// CHECK-NEXT:    [[TMP2:%.*]] = add i32 [[TMP1]], [[A:%.*]]
+// CHECK-NEXT:    ret i32 [[TMP2]]
 //
 uint32_t test_vaddvaq_u8(uint32_t a, uint8x16_t b) {
 #ifdef POLYMORPHIC
@@ -215,10 +217,11 @@ int32_t test_vaddvq_p_s32(int32x4_t a, mve_pred16_t p) {
 
 // CHECK-LABEL: @test_vaddvq_p_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call i32 @llvm.arm.mve.addv.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret i32 [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call i32 @llvm.arm.mve.addv.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], i32 1, <16 x i1> [[TMP2]])
+// CHECK-NEXT:    ret i32 [[TMP3]]
 //
 uint32_t test_vaddvq_p_u8(uint8x16_t a, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -308,11 +311,12 @@ int32_t test_vaddvaq_p_s32(int32_t a, int32x4_t b, mve_pred16_t p) {
 
 // CHECK-LABEL: @test_vaddvaq_p_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call i32 @llvm.arm.mve.addv.predicated.v16i8.v16i1(<16 x i8> [[B:%.*]], i32 1, <16 x i1> [[TMP1]])
-// CHECK-NEXT:    [[TMP3:%.*]] = add i32 [[TMP2]], [[A:%.*]]
-// CHECK-NEXT:    ret i32 [[TMP3]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
+// CHECK-NEXT:    [[TMP3:%.*]] = call i32 @llvm.arm.mve.addv.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], i32 1, <16 x i1> [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = add i32 [[TMP3]], [[A:%.*]]
+// CHECK-NEXT:    ret i32 [[TMP4]]
 //
 uint32_t test_vaddvaq_p_u8(uint32_t a, uint8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC

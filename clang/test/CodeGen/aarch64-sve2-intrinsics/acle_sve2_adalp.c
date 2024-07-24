@@ -76,15 +76,17 @@ svint64_t test_svadalp_s64_z(svbool_t pg, svint64_t op1, svint32_t op2)
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i1> @llvm.aarch64.sve.convert.from.svbool.nxv8i1(<vscale x 16 x i1> [[PG:%.*]])
 // CHECK-NEXT:    [[TMP1:%.*]] = select <vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 8 x i16> zeroinitializer
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[TMP1]], <vscale x 16 x i8> [[OP2:%.*]])
-// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
+// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP3]]
 //
 // CPP-CHECK-LABEL: @_Z18test_svadalp_u16_zu10__SVBool_tu12__SVUint16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i1> @llvm.aarch64.sve.convert.from.svbool.nxv8i1(<vscale x 16 x i1> [[PG:%.*]])
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = select <vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 8 x i16> zeroinitializer
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[TMP1]], <vscale x 16 x i8> [[OP2:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP2]]
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
+// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP3]]
 //
 svuint16_t test_svadalp_u16_z(svbool_t pg, svuint16_t op1, svuint8_t op2)
 {
@@ -183,14 +185,16 @@ svint64_t test_svadalp_s64_m(svbool_t pg, svint64_t op1, svint32_t op2)
 // CHECK-LABEL: @test_svadalp_u16_m(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i1> @llvm.aarch64.sve.convert.from.svbool.nxv8i1(<vscale x 16 x i1> [[PG:%.*]])
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]])
-// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP1]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z18test_svadalp_u16_mu10__SVBool_tu12__SVUint16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i1> @llvm.aarch64.sve.convert.from.svbool.nxv8i1(<vscale x 16 x i1> [[PG:%.*]])
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP1]]
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP2]]
 //
 svuint16_t test_svadalp_u16_m(svbool_t pg, svuint16_t op1, svuint8_t op2)
 {
@@ -285,14 +289,16 @@ svint64_t test_svadalp_s64_x(svbool_t pg, svint64_t op1, svint32_t op2)
 // CHECK-LABEL: @test_svadalp_u16_x(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i1> @llvm.aarch64.sve.convert.from.svbool.nxv8i1(<vscale x 16 x i1> [[PG:%.*]])
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]])
-// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP1]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z18test_svadalp_u16_xu10__SVBool_tu12__SVUint16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 8 x i1> @llvm.aarch64.sve.convert.from.svbool.nxv8i1(<vscale x 16 x i1> [[PG:%.*]])
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP1]]
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 8 x i16> @llvm.aarch64.sve.uadalp.nxv8i16(<vscale x 8 x i1> [[TMP0]], <vscale x 8 x i16> [[OP1:%.*]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    ret <vscale x 8 x i16> [[TMP2]]
 //
 svuint16_t test_svadalp_u16_x(svbool_t pg, svuint16_t op1, svuint8_t op2)
 {

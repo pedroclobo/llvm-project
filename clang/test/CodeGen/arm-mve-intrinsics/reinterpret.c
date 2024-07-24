@@ -152,13 +152,15 @@ float16x8_t test_vreinterpretq_f16_u64(uint64x2_t a)
 
 // LE-LABEL: @test_vreinterpretq_f16_u8(
 // LE-NEXT:  entry:
-// LE-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <8 x half>
-// LE-NEXT:    ret <8 x half> [[TMP0]]
+// LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x half>
+// LE-NEXT:    ret <8 x half> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_f16_u8(
 // BE-NEXT:  entry:
-// BE-NEXT:    [[TMP0:%.*]] = call <8 x half> @llvm.arm.mve.vreinterpretq.v8f16.v16i8(<16 x i8> [[A:%.*]])
-// BE-NEXT:    ret <8 x half> [[TMP0]]
+// BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BE-NEXT:    [[TMP1:%.*]] = call <8 x half> @llvm.arm.mve.vreinterpretq.v8f16.v16i8(<16 x i8> [[TMP0]])
+// BE-NEXT:    ret <8 x half> [[TMP1]]
 //
 float16x8_t test_vreinterpretq_f16_u8(uint8x16_t a)
 {
@@ -313,13 +315,15 @@ float32x4_t test_vreinterpretq_f32_u64(uint64x2_t a)
 
 // LE-LABEL: @test_vreinterpretq_f32_u8(
 // LE-NEXT:  entry:
-// LE-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <4 x float>
-// LE-NEXT:    ret <4 x float> [[TMP0]]
+// LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x float>
+// LE-NEXT:    ret <4 x float> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_f32_u8(
 // BE-NEXT:  entry:
-// BE-NEXT:    [[TMP0:%.*]] = call <4 x float> @llvm.arm.mve.vreinterpretq.v4f32.v16i8(<16 x i8> [[A:%.*]])
-// BE-NEXT:    ret <4 x float> [[TMP0]]
+// BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BE-NEXT:    [[TMP1:%.*]] = call <4 x float> @llvm.arm.mve.vreinterpretq.v4f32.v16i8(<16 x i8> [[TMP0]])
+// BE-NEXT:    ret <4 x float> [[TMP1]]
 //
 float32x4_t test_vreinterpretq_f32_u8(uint8x16_t a)
 {
@@ -473,13 +477,15 @@ int16x8_t test_vreinterpretq_s16_u64(uint64x2_t a)
 
 // LE-LABEL: @test_vreinterpretq_s16_u8(
 // LE-NEXT:  entry:
-// LE-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <8 x i16>
-// LE-NEXT:    ret <8 x i16> [[TMP0]]
+// LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
+// LE-NEXT:    ret <8 x i16> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_s16_u8(
 // BE-NEXT:  entry:
-// BE-NEXT:    [[TMP0:%.*]] = call <8 x i16> @llvm.arm.mve.vreinterpretq.v8i16.v16i8(<16 x i8> [[A:%.*]])
-// BE-NEXT:    ret <8 x i16> [[TMP0]]
+// BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BE-NEXT:    [[TMP1:%.*]] = call <8 x i16> @llvm.arm.mve.vreinterpretq.v8i16.v16i8(<16 x i8> [[TMP0]])
+// BE-NEXT:    ret <8 x i16> [[TMP1]]
 //
 int16x8_t test_vreinterpretq_s16_u8(uint8x16_t a)
 {
@@ -633,13 +639,15 @@ int32x4_t test_vreinterpretq_s32_u64(uint64x2_t a)
 
 // LE-LABEL: @test_vreinterpretq_s32_u8(
 // LE-NEXT:  entry:
-// LE-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <4 x i32>
-// LE-NEXT:    ret <4 x i32> [[TMP0]]
+// LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
+// LE-NEXT:    ret <4 x i32> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_s32_u8(
 // BE-NEXT:  entry:
-// BE-NEXT:    [[TMP0:%.*]] = call <4 x i32> @llvm.arm.mve.vreinterpretq.v4i32.v16i8(<16 x i8> [[A:%.*]])
-// BE-NEXT:    ret <4 x i32> [[TMP0]]
+// BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BE-NEXT:    [[TMP1:%.*]] = call <4 x i32> @llvm.arm.mve.vreinterpretq.v4i32.v16i8(<16 x i8> [[TMP0]])
+// BE-NEXT:    ret <4 x i32> [[TMP1]]
 //
 int32x4_t test_vreinterpretq_s32_u8(uint8x16_t a)
 {
@@ -798,13 +806,15 @@ int64x2_t test_vreinterpretq_s64_u64(uint64x2_t a)
 
 // LE-LABEL: @test_vreinterpretq_s64_u8(
 // LE-NEXT:  entry:
-// LE-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <2 x i64>
-// LE-NEXT:    ret <2 x i64> [[TMP0]]
+// LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
+// LE-NEXT:    ret <2 x i64> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_s64_u8(
 // BE-NEXT:  entry:
-// BE-NEXT:    [[TMP0:%.*]] = call <2 x i64> @llvm.arm.mve.vreinterpretq.v2i64.v16i8(<16 x i8> [[A:%.*]])
-// BE-NEXT:    ret <2 x i64> [[TMP0]]
+// BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BE-NEXT:    [[TMP1:%.*]] = call <2 x i64> @llvm.arm.mve.vreinterpretq.v2i64.v16i8(<16 x i8> [[TMP0]])
+// BE-NEXT:    ret <2 x i64> [[TMP1]]
 //
 int64x2_t test_vreinterpretq_s64_u8(uint8x16_t a)
 {
@@ -969,7 +979,8 @@ int8x16_t test_vreinterpretq_s8_u64(uint64x2_t a)
 
 // BOTH-LABEL: @test_vreinterpretq_s8_u8(
 // BOTH-NEXT:  entry:
-// BOTH-NEXT:    ret <16 x i8> [[A:%.*]]
+// BOTH-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BOTH-NEXT:    ret <16 x i8> [[TMP0]]
 //
 int8x16_t test_vreinterpretq_s8_u8(uint8x16_t a)
 {
@@ -1123,13 +1134,15 @@ uint16x8_t test_vreinterpretq_u16_u64(uint64x2_t a)
 
 // LE-LABEL: @test_vreinterpretq_u16_u8(
 // LE-NEXT:  entry:
-// LE-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <8 x i16>
-// LE-NEXT:    ret <8 x i16> [[TMP0]]
+// LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
+// LE-NEXT:    ret <8 x i16> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u16_u8(
 // BE-NEXT:  entry:
-// BE-NEXT:    [[TMP0:%.*]] = call <8 x i16> @llvm.arm.mve.vreinterpretq.v8i16.v16i8(<16 x i8> [[A:%.*]])
-// BE-NEXT:    ret <8 x i16> [[TMP0]]
+// BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BE-NEXT:    [[TMP1:%.*]] = call <8 x i16> @llvm.arm.mve.vreinterpretq.v8i16.v16i8(<16 x i8> [[TMP0]])
+// BE-NEXT:    ret <8 x i16> [[TMP1]]
 //
 uint16x8_t test_vreinterpretq_u16_u8(uint8x16_t a)
 {
@@ -1283,13 +1296,15 @@ uint32x4_t test_vreinterpretq_u32_u64(uint64x2_t a)
 
 // LE-LABEL: @test_vreinterpretq_u32_u8(
 // LE-NEXT:  entry:
-// LE-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <4 x i32>
-// LE-NEXT:    ret <4 x i32> [[TMP0]]
+// LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
+// LE-NEXT:    ret <4 x i32> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u32_u8(
 // BE-NEXT:  entry:
-// BE-NEXT:    [[TMP0:%.*]] = call <4 x i32> @llvm.arm.mve.vreinterpretq.v4i32.v16i8(<16 x i8> [[A:%.*]])
-// BE-NEXT:    ret <4 x i32> [[TMP0]]
+// BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BE-NEXT:    [[TMP1:%.*]] = call <4 x i32> @llvm.arm.mve.vreinterpretq.v4i32.v16i8(<16 x i8> [[TMP0]])
+// BE-NEXT:    ret <4 x i32> [[TMP1]]
 //
 uint32x4_t test_vreinterpretq_u32_u8(uint8x16_t a)
 {
@@ -1448,13 +1463,15 @@ uint64x2_t test_vreinterpretq_u64_u32(uint32x4_t a)
 
 // LE-LABEL: @test_vreinterpretq_u64_u8(
 // LE-NEXT:  entry:
-// LE-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <2 x i64>
-// LE-NEXT:    ret <2 x i64> [[TMP0]]
+// LE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
+// LE-NEXT:    ret <2 x i64> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u64_u8(
 // BE-NEXT:  entry:
-// BE-NEXT:    [[TMP0:%.*]] = call <2 x i64> @llvm.arm.mve.vreinterpretq.v2i64.v16i8(<16 x i8> [[A:%.*]])
-// BE-NEXT:    ret <2 x i64> [[TMP0]]
+// BE-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// BE-NEXT:    [[TMP1:%.*]] = call <2 x i64> @llvm.arm.mve.vreinterpretq.v2i64.v16i8(<16 x i8> [[TMP0]])
+// BE-NEXT:    ret <2 x i64> [[TMP1]]
 //
 uint64x2_t test_vreinterpretq_u64_u8(uint8x16_t a)
 {
@@ -1468,12 +1485,14 @@ uint64x2_t test_vreinterpretq_u64_u8(uint8x16_t a)
 // LE-LABEL: @test_vreinterpretq_u8_f16(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[A:%.*]] to <16 x i8>
-// LE-NEXT:    ret <16 x i8> [[TMP0]]
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// LE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u8_f16(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v8f16(<8 x half> [[A:%.*]])
-// BE-NEXT:    ret <16 x i8> [[TMP0]]
+// BE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// BE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 uint8x16_t test_vreinterpretq_u8_f16(float16x8_t a)
 {
@@ -1487,12 +1506,14 @@ uint8x16_t test_vreinterpretq_u8_f16(float16x8_t a)
 // LE-LABEL: @test_vreinterpretq_u8_f32(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A:%.*]] to <16 x i8>
-// LE-NEXT:    ret <16 x i8> [[TMP0]]
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// LE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u8_f32(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v4f32(<4 x float> [[A:%.*]])
-// BE-NEXT:    ret <16 x i8> [[TMP0]]
+// BE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// BE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 uint8x16_t test_vreinterpretq_u8_f32(float32x4_t a)
 {
@@ -1506,12 +1527,14 @@ uint8x16_t test_vreinterpretq_u8_f32(float32x4_t a)
 // LE-LABEL: @test_vreinterpretq_u8_s16(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A:%.*]] to <16 x i8>
-// LE-NEXT:    ret <16 x i8> [[TMP0]]
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// LE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u8_s16(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v8i16(<8 x i16> [[A:%.*]])
-// BE-NEXT:    ret <16 x i8> [[TMP0]]
+// BE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// BE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 uint8x16_t test_vreinterpretq_u8_s16(int16x8_t a)
 {
@@ -1525,12 +1548,14 @@ uint8x16_t test_vreinterpretq_u8_s16(int16x8_t a)
 // LE-LABEL: @test_vreinterpretq_u8_s32(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A:%.*]] to <16 x i8>
-// LE-NEXT:    ret <16 x i8> [[TMP0]]
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// LE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u8_s32(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v4i32(<4 x i32> [[A:%.*]])
-// BE-NEXT:    ret <16 x i8> [[TMP0]]
+// BE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// BE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 uint8x16_t test_vreinterpretq_u8_s32(int32x4_t a)
 {
@@ -1544,12 +1569,14 @@ uint8x16_t test_vreinterpretq_u8_s32(int32x4_t a)
 // LE-LABEL: @test_vreinterpretq_u8_s64(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[A:%.*]] to <16 x i8>
-// LE-NEXT:    ret <16 x i8> [[TMP0]]
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// LE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u8_s64(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v2i64(<2 x i64> [[A:%.*]])
-// BE-NEXT:    ret <16 x i8> [[TMP0]]
+// BE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// BE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 uint8x16_t test_vreinterpretq_u8_s64(int64x2_t a)
 {
@@ -1562,7 +1589,8 @@ uint8x16_t test_vreinterpretq_u8_s64(int64x2_t a)
 
 // BOTH-LABEL: @test_vreinterpretq_u8_s8(
 // BOTH-NEXT:  entry:
-// BOTH-NEXT:    ret <16 x i8> [[A:%.*]]
+// BOTH-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[A:%.*]] to <16 x b8>
+// BOTH-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_vreinterpretq_u8_s8(int8x16_t a)
 {
@@ -1576,12 +1604,14 @@ uint8x16_t test_vreinterpretq_u8_s8(int8x16_t a)
 // LE-LABEL: @test_vreinterpretq_u8_u16(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A:%.*]] to <16 x i8>
-// LE-NEXT:    ret <16 x i8> [[TMP0]]
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// LE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u8_u16(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v8i16(<8 x i16> [[A:%.*]])
-// BE-NEXT:    ret <16 x i8> [[TMP0]]
+// BE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// BE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 uint8x16_t test_vreinterpretq_u8_u16(uint16x8_t a)
 {
@@ -1595,12 +1625,14 @@ uint8x16_t test_vreinterpretq_u8_u16(uint16x8_t a)
 // LE-LABEL: @test_vreinterpretq_u8_u32(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A:%.*]] to <16 x i8>
-// LE-NEXT:    ret <16 x i8> [[TMP0]]
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// LE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u8_u32(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v4i32(<4 x i32> [[A:%.*]])
-// BE-NEXT:    ret <16 x i8> [[TMP0]]
+// BE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// BE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 uint8x16_t test_vreinterpretq_u8_u32(uint32x4_t a)
 {
@@ -1614,12 +1646,14 @@ uint8x16_t test_vreinterpretq_u8_u32(uint32x4_t a)
 // LE-LABEL: @test_vreinterpretq_u8_u64(
 // LE-NEXT:  entry:
 // LE-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[A:%.*]] to <16 x i8>
-// LE-NEXT:    ret <16 x i8> [[TMP0]]
+// LE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// LE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 // BE-LABEL: @test_vreinterpretq_u8_u64(
 // BE-NEXT:  entry:
 // BE-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vreinterpretq.v16i8.v2i64(<2 x i64> [[A:%.*]])
-// BE-NEXT:    ret <16 x i8> [[TMP0]]
+// BE-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <16 x b8>
+// BE-NEXT:    ret <16 x b8> [[TMP1]]
 //
 uint8x16_t test_vreinterpretq_u8_u64(uint64x2_t a)
 {

@@ -166,35 +166,43 @@ svint64_t test_svread_hor_za64_s64_1(svint64_t zd, svbool_t pg, uint32_t slice_b
     return SME_ACLE_FUNC(svread_hor_za64, _s64, _m)(zd, pg, 7, slice);
 }
 
-// CHECK-C-LABEL: define dso_local <vscale x 16 x i8> @test_svread_hor_za8_u8(
-// CHECK-C-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-LABEL: define dso_local <vscale x 16 x b8> @test_svread_hor_za8_u8(
+// CHECK-C-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.horiz.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
-// CHECK-C-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.horiz.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
+// CHECK-C-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-C-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z22test_svread_hor_za8_u8u11__SVUint8_tu10__SVBool_tj(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z22test_svread_hor_za8_u8u11__SVUint8_tu10__SVBool_tj(
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.horiz.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.horiz.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
+// CHECK-CXX-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svread_hor_za8_u8(svuint8_t zd, svbool_t pg, uint32_t slice_base) __arm_streaming __arm_in("za") {
     return SME_ACLE_FUNC(svread_hor_za8, _u8, _m)(zd, pg, 0, slice_base);
 }
 
-// CHECK-C-LABEL: define dso_local <vscale x 16 x i8> @test_svread_hor_za8_u8_1(
-// CHECK-C-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-LABEL: define dso_local <vscale x 16 x b8> @test_svread_hor_za8_u8_1(
+// CHECK-C-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
 // CHECK-C-NEXT:    [[ADD:%.*]] = add i32 [[SLICE_BASE]], 15
-// CHECK-C-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.horiz.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[ADD]])
-// CHECK-C-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.horiz.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[ADD]])
+// CHECK-C-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-C-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z24test_svread_hor_za8_u8_1u11__SVUint8_tu10__SVBool_tj(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z24test_svread_hor_za8_u8_1u11__SVUint8_tu10__SVBool_tj(
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
 // CHECK-CXX-NEXT:    [[ADD:%.*]] = add i32 [[SLICE_BASE]], 15
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.horiz.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[ADD]])
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.horiz.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[ADD]])
+// CHECK-CXX-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svread_hor_za8_u8_1(svuint8_t zd, svbool_t pg, uint32_t slice_base) __arm_streaming __arm_in("za") {
     uint32_t slice = slice_base + 15;
@@ -614,33 +622,41 @@ svint64_t test_svread_hor_za128_s64_1(svint64_t zd, svbool_t pg, uint32_t slice_
     return SME_ACLE_FUNC(svread_hor_za128, _s64, _m)(zd, pg, 15, slice_base);
 }
 
-// CHECK-C-LABEL: define dso_local <vscale x 16 x i8> @test_svread_hor_za128_u8(
-// CHECK-C-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-LABEL: define dso_local <vscale x 16 x b8> @test_svread_hor_za128_u8(
+// CHECK-C-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.horiz.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
-// CHECK-C-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.horiz.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
+// CHECK-C-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-C-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z24test_svread_hor_za128_u8u11__SVUint8_tu10__SVBool_tj(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z24test_svread_hor_za128_u8u11__SVUint8_tu10__SVBool_tj(
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.horiz.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.horiz.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
+// CHECK-CXX-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svread_hor_za128_u8(svuint8_t zd, svbool_t pg, uint32_t slice_base) __arm_streaming __arm_in("za") {
     return SME_ACLE_FUNC(svread_hor_za128, _u8, _m)(zd, pg, 0, slice_base);
 }
 
-// CHECK-C-LABEL: define dso_local <vscale x 16 x i8> @test_svread_hor_za128_u8_1(
-// CHECK-C-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-LABEL: define dso_local <vscale x 16 x b8> @test_svread_hor_za128_u8_1(
+// CHECK-C-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.horiz.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 15, i32 [[SLICE_BASE]])
-// CHECK-C-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.horiz.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 15, i32 [[SLICE_BASE]])
+// CHECK-C-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-C-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z26test_svread_hor_za128_u8_1u11__SVUint8_tu10__SVBool_tj(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z26test_svread_hor_za128_u8_1u11__SVUint8_tu10__SVBool_tj(
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.horiz.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 15, i32 [[SLICE_BASE]])
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.horiz.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 15, i32 [[SLICE_BASE]])
+// CHECK-CXX-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svread_hor_za128_u8_1(svuint8_t zd, svbool_t pg, uint32_t slice_base) __arm_streaming __arm_in("za") {
     return SME_ACLE_FUNC(svread_hor_za128, _u8, _m)(zd, pg, 15, slice_base);
@@ -1050,35 +1066,43 @@ svint64_t test_svread_ver_za64_s64_1(svint64_t zd, svbool_t pg, uint32_t slice_b
     return SME_ACLE_FUNC(svread_ver_za64, _s64, _m)(zd, pg, 7, slice);
 }
 
-// CHECK-C-LABEL: define dso_local <vscale x 16 x i8> @test_svread_ver_za8_u8(
-// CHECK-C-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-LABEL: define dso_local <vscale x 16 x b8> @test_svread_ver_za8_u8(
+// CHECK-C-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.vert.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
-// CHECK-C-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.vert.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
+// CHECK-C-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-C-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z22test_svread_ver_za8_u8u11__SVUint8_tu10__SVBool_tj(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z22test_svread_ver_za8_u8u11__SVUint8_tu10__SVBool_tj(
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.vert.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.vert.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
+// CHECK-CXX-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svread_ver_za8_u8(svuint8_t zd, svbool_t pg, uint32_t slice_base) __arm_streaming __arm_in("za") {
     return SME_ACLE_FUNC(svread_ver_za8, _u8, _m)(zd, pg, 0, slice_base);
 }
 
-// CHECK-C-LABEL: define dso_local <vscale x 16 x i8> @test_svread_ver_za8_u8_1(
-// CHECK-C-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-LABEL: define dso_local <vscale x 16 x b8> @test_svread_ver_za8_u8_1(
+// CHECK-C-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
 // CHECK-C-NEXT:    [[ADD:%.*]] = add i32 [[SLICE_BASE]], 15
-// CHECK-C-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.vert.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[ADD]])
-// CHECK-C-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.vert.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[ADD]])
+// CHECK-C-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-C-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z24test_svread_ver_za8_u8_1u11__SVUint8_tu10__SVBool_tj(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z24test_svread_ver_za8_u8_1u11__SVUint8_tu10__SVBool_tj(
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
 // CHECK-CXX-NEXT:    [[ADD:%.*]] = add i32 [[SLICE_BASE]], 15
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.vert.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[ADD]])
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.read.vert.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[ADD]])
+// CHECK-CXX-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svread_ver_za8_u8_1(svuint8_t zd, svbool_t pg, uint32_t slice_base) __arm_streaming __arm_in("za") {
     uint32_t slice = slice_base + 15;
@@ -1498,33 +1522,41 @@ svint64_t test_svread_ver_za128_s64_1(svint64_t zd, svbool_t pg, uint32_t slice_
     return SME_ACLE_FUNC(svread_ver_za128, _s64, _m)(zd, pg, 15, slice_base);
 }
 
-// CHECK-C-LABEL: define dso_local <vscale x 16 x i8> @test_svread_ver_za128_u8(
-// CHECK-C-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-LABEL: define dso_local <vscale x 16 x b8> @test_svread_ver_za128_u8(
+// CHECK-C-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.vert.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
-// CHECK-C-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.vert.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
+// CHECK-C-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-C-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z24test_svread_ver_za128_u8u11__SVUint8_tu10__SVBool_tj(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z24test_svread_ver_za128_u8u11__SVUint8_tu10__SVBool_tj(
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.vert.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.vert.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 0, i32 [[SLICE_BASE]])
+// CHECK-CXX-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svread_ver_za128_u8(svuint8_t zd, svbool_t pg, uint32_t slice_base) __arm_streaming __arm_in("za") {
     return SME_ACLE_FUNC(svread_ver_za128, _u8, _m)(zd, pg, 0, slice_base);
 }
 
-// CHECK-C-LABEL: define dso_local <vscale x 16 x i8> @test_svread_ver_za128_u8_1(
-// CHECK-C-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-LABEL: define dso_local <vscale x 16 x b8> @test_svread_ver_za128_u8_1(
+// CHECK-C-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.vert.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 15, i32 [[SLICE_BASE]])
-// CHECK-C-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.vert.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 15, i32 [[SLICE_BASE]])
+// CHECK-C-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-C-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CHECK-CXX-LABEL: define dso_local <vscale x 16 x i8> @_Z26test_svread_ver_za128_u8_1u11__SVUint8_tu10__SVBool_tj(
-// CHECK-CXX-SAME: <vscale x 16 x i8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-LABEL: define dso_local <vscale x 16 x b8> @_Z26test_svread_ver_za128_u8_1u11__SVUint8_tu10__SVBool_tj(
+// CHECK-CXX-SAME: <vscale x 16 x b8> [[ZD:%.*]], <vscale x 16 x i1> [[PG:%.*]], i32 noundef [[SLICE_BASE:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.vert.nxv16i8(<vscale x 16 x i8> [[ZD]], <vscale x 16 x i1> [[PG]], i32 15, i32 [[SLICE_BASE]])
-// CHECK-CXX-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZD]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sme.readq.vert.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i1> [[PG]], i32 15, i32 [[SLICE_BASE]])
+// CHECK-CXX-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-CXX-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svread_ver_za128_u8_1(svuint8_t zd, svbool_t pg, uint32_t slice_base) __arm_streaming __arm_in("za") {
     return SME_ACLE_FUNC(svread_ver_za128, _u8, _m)(zd, pg, 15, slice_base);

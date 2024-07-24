@@ -69,9 +69,13 @@ int64_t test_vdupd_lane_s64(int64x1_t a) {
 }
 
 
-// CHECK-LABEL: define{{.*}} i8 @test_vdupb_lane_u8(<8 x i8> noundef %a) #0 {
-// CHECK:   [[VGET_LANE:%.*]] = extractelement <8 x i8> %a, i32 7
-// CHECK:   ret i8 [[VGET_LANE]]
+// CHECK-LABEL: define{{.*}} b8 @test_vdupb_lane_u8(<8 x b8> noundef %a) #0 {
+// CHECK:   [[RETVAL:%.*]]    = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]]      = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = extractelement <8 x i8> [[TMP0]], i32 7
+// CHECK:   store i8 [[VGET_LANE]], ptr [[RETVAL]], align 1
+// CHECK:   [[TMP1:%.*]]      = load b8, ptr [[RETVAL]], align 1
+// CHECK:   ret b8 [[TMP1]]
 uint8_t test_vdupb_lane_u8(uint8x8_t a) {
   return vdupb_lane_u8(a, 7);
 }
@@ -132,9 +136,13 @@ int64_t test_vdupd_laneq_s64(int64x2_t a) {
 }
 
 
-// CHECK-LABEL: define{{.*}} i8 @test_vdupb_laneq_u8(<16 x i8> noundef %a) #0 {
-// CHECK:   [[VGETQ_LANE:%.*]] = extractelement <16 x i8> %a, i32 15
-// CHECK:   ret i8 [[VGETQ_LANE]]
+// CHECK-LABEL: define{{.*}} b8 @test_vdupb_laneq_u8(<16 x b8> noundef %a) #0 {
+// CHECK:   [[RETVAL:%.*]]    = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]]      = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = extractelement <16 x i8> [[TMP0]], i32 15
+// CHECK:   store i8 [[VGET_LANE]], ptr [[RETVAL]], align 1
+// CHECK:   [[TMP1:%.*]]      = load b8, ptr [[RETVAL]], align 1
+// CHECK:   ret b8 [[TMP1]]
 uint8_t test_vdupb_laneq_u8(uint8x16_t a) {
   return vdupb_laneq_u8(a, 15);
 }
@@ -163,9 +171,13 @@ uint64_t test_vdupd_laneq_u64(uint64x2_t a) {
   return vdupd_laneq_u64(a, 1);
 }
 
-// CHECK-LABEL: define{{.*}} i8 @test_vdupb_lane_p8(<8 x i8> noundef %a) #0 {
-// CHECK:   [[VGET_LANE:%.*]] = extractelement <8 x i8> %a, i32 7
-// CHECK:   ret i8 [[VGET_LANE]]
+// CHECK-LABEL: define{{.*}} b8 @test_vdupb_lane_p8(<8 x b8> noundef %a) #0 {
+// CHECK:   [[RETVAL:%.*]]    = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]]      = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = extractelement <8 x i8> [[TMP0]], i32 7
+// CHECK:   store i8 [[VGET_LANE]], ptr [[RETVAL]], align 1
+// CHECK:   [[TMP1:%.*]]      = load b8, ptr [[RETVAL]], align 1
+// CHECK:   ret b8 [[TMP1]]
 poly8_t test_vdupb_lane_p8(poly8x8_t a) {
   return vdupb_lane_p8(a, 7);
 }
@@ -177,9 +189,13 @@ poly16_t test_vduph_lane_p16(poly16x4_t a) {
   return vduph_lane_p16(a, 3);
 }
 
-// CHECK-LABEL: define{{.*}} i8 @test_vdupb_laneq_p8(<16 x i8> noundef %a) #0 {
-// CHECK:   [[VGETQ_LANE:%.*]] = extractelement <16 x i8> %a, i32 15
-// CHECK:   ret i8 [[VGETQ_LANE]]
+// CHECK-LABEL: define{{.*}} b8 @test_vdupb_laneq_p8(<16 x b8> noundef %a) #0 {
+// CHECK:   [[RETVAL:%.*]]    = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]]      = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[VGET_LANE:%.*]] = extractelement <16 x i8> [[TMP0]], i32 15
+// CHECK:   store i8 [[VGET_LANE]], ptr [[RETVAL]], align 1
+// CHECK:   [[TMP1:%.*]]      = load b8, ptr [[RETVAL]], align 1
+// CHECK:   ret b8 [[TMP1]]
 poly8_t test_vdupb_laneq_p8(poly8x16_t a) {
   return vdupb_laneq_p8(a, 15);
 }

@@ -47,8 +47,10 @@ int32_t test_vmladavaq_s32(int32_t a, int32x4_t b, int32x4_t c) {
 
 // CHECK-LABEL: @test_vmladavaq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.arm.mve.vmldava.v16i8(i32 1, i32 0, i32 0, i32 [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i8> [[C:%.*]])
-// CHECK-NEXT:    ret i32 [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[C:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call i32 @llvm.arm.mve.vmldava.v16i8(i32 1, i32 0, i32 0, i32 [[A:%.*]], <16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret i32 [[TMP2]]
 //
 uint32_t test_vmladavaq_u8(uint32_t a, uint8x16_t b, uint8x16_t c) {
 #ifdef POLYMORPHIC
@@ -248,10 +250,12 @@ int32_t test_vmladavaq_p_s32(int32_t a, int32x4_t b, int32x4_t c, mve_pred16_t p
 
 // CHECK-LABEL: @test_vmladavaq_p_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call i32 @llvm.arm.mve.vmldava.predicated.v16i8.v16i1(i32 1, i32 0, i32 0, i32 [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i8> [[C:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret i32 [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[C:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call i32 @llvm.arm.mve.vmldava.predicated.v16i8.v16i1(i32 1, i32 0, i32 0, i32 [[A:%.*]], <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i1> [[TMP3]])
+// CHECK-NEXT:    ret i32 [[TMP4]]
 //
 uint32_t test_vmladavaq_p_u8(uint32_t a, uint8x16_t b, uint8x16_t c, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -467,8 +471,10 @@ int32_t test_vmladavq_s32(int32x4_t a, int32x4_t b) {
 
 // CHECK-LABEL: @test_vmladavq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.arm.mve.vmldava.v16i8(i32 1, i32 0, i32 0, i32 0, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]])
-// CHECK-NEXT:    ret i32 [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call i32 @llvm.arm.mve.vmldava.v16i8(i32 1, i32 0, i32 0, i32 0, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    ret i32 [[TMP2]]
 //
 uint32_t test_vmladavq_u8(uint8x16_t a, uint8x16_t b) {
 #ifdef POLYMORPHIC
@@ -668,10 +674,12 @@ int32_t test_vmladavq_p_s32(int32x4_t a, int32x4_t b, mve_pred16_t p) {
 
 // CHECK-LABEL: @test_vmladavq_p_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call i32 @llvm.arm.mve.vmldava.predicated.v16i8.v16i1(i32 1, i32 0, i32 0, i32 0, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret i32 [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call i32 @llvm.arm.mve.vmldava.predicated.v16i8.v16i1(i32 1, i32 0, i32 0, i32 0, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i1> [[TMP3]])
+// CHECK-NEXT:    ret i32 [[TMP4]]
 //
 uint32_t test_vmladavq_p_u8(uint8x16_t a, uint8x16_t b, mve_pred16_t p) {
 #ifdef POLYMORPHIC

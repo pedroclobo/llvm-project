@@ -46,7 +46,12 @@ fixed_float64_t from_svfloat64_t(svfloat64_t type) {
 
 // CHECK-LABEL: @to_svbool_t(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0:%.*]]
+// CHECK-NEXT:    [[TYPE:%.*]] = alloca <8 x b8>, align 8
+// CHECK-NEXT:    store <vscale x 16 x i1> [[TYPE_COERCE:%.*]], ptr [[TYPE]], align 8
+// CHECK-NEXT:    [[TYPE1:%.*]] = load <8 x b8>, ptr [[TYPE]], align 8, !tbaa [[TBAA2:![0-9]+]]
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v8b8(<vscale x 2 x b8> undef, <8 x b8> [[TYPE1]], i64 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 2 x b8> [[CAST_SCALABLE]] to <vscale x 16 x i1>
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 svbool_t to_svbool_t(fixed_bool_t type) {
   return type;
@@ -54,7 +59,12 @@ svbool_t to_svbool_t(fixed_bool_t type) {
 
 // CHECK-LABEL: @from_svbool_t(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <vscale x 16 x i1> [[TYPE:%.*]]
+// CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 16 x i1>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <vscale x 16 x i1> [[TYPE:%.*]] to <vscale x 2 x b8>
+// CHECK-NEXT:    [[CAST_FIXED:%.*]] = tail call <8 x b8> @llvm.vector.extract.v8b8.nxv2b8(<vscale x 2 x b8> [[TMP0]], i64 0)
+// CHECK-NEXT:    store <8 x b8> [[CAST_FIXED]], ptr [[RETVAL_COERCE]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = load <vscale x 16 x i1>, ptr [[RETVAL_COERCE]], align 8
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP1]]
 //
 fixed_bool_t from_svbool_t(svbool_t type) {
   return type;

@@ -32,9 +32,9 @@ int64x2_t test_vcombine_s64(int64x1_t low, int64x1_t high) {
   return vcombine_s64(low, high);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vcombine_u8(<8 x i8> noundef %low, <8 x i8> noundef %high) #0 {
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %low, <8 x i8> %high, <16 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vcombine_u8(<8 x b8> noundef %low, <8 x b8> noundef %high) #0 {
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %low, <8 x b8> %high, <16 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 uint8x16_t test_vcombine_u8(uint8x8_t low, uint8x8_t high) {
   return vcombine_u8(low, high);
 }
@@ -81,9 +81,9 @@ float32x4_t test_vcombine_f32(float32x2_t low, float32x2_t high) {
   return vcombine_f32(low, high);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vcombine_p8(<8 x i8> noundef %low, <8 x i8> noundef %high) #0 {
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x i8> %low, <8 x i8> %high, <16 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
-// CHECK:   ret <16 x i8> [[SHUFFLE_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vcombine_p8(<8 x b8> noundef %low, <8 x b8> noundef %high) #0 {
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <8 x b8> %low, <8 x b8> %high, <16 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
+// CHECK:   ret <16 x b8> [[SHUFFLE_I]]
 poly8x16_t test_vcombine_p8(poly8x8_t low, poly8x8_t high) {
   return vcombine_p8(low, high);
 }

@@ -108,19 +108,19 @@ svint64x4_t test_svcreate4_s64(svint64_t x0, svint64_t x1, svint64_t x2, svint64
 
 // CHECK-LABEL: @test_svcreate4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> poison, <vscale x 16 x i8> [[X0:%.*]], i64 0)
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP0]], <vscale x 16 x i8> [[X1:%.*]], i64 16)
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP1]], <vscale x 16 x i8> [[X2:%.*]], i64 32)
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP2]], <vscale x 16 x i8> [[X4:%.*]], i64 48)
-// CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP3]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> poison, <vscale x 16 x b8> [[X0:%.*]], i64 0)
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP0]], <vscale x 16 x b8> [[X1:%.*]], i64 16)
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP1]], <vscale x 16 x b8> [[X2:%.*]], i64 32)
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP2]], <vscale x 16 x b8> [[X4:%.*]], i64 48)
+// CHECK-NEXT:    ret <vscale x 64 x b8> [[TMP3]]
 //
 // CPP-CHECK-LABEL: @_Z17test_svcreate4_u8u11__SVUint8_tS_S_S_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> poison, <vscale x 16 x i8> [[X0:%.*]], i64 0)
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP0]], <vscale x 16 x i8> [[X1:%.*]], i64 16)
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP1]], <vscale x 16 x i8> [[X2:%.*]], i64 32)
-// CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 64 x i8> @llvm.vector.insert.nxv64i8.nxv16i8(<vscale x 64 x i8> [[TMP2]], <vscale x 16 x i8> [[X4:%.*]], i64 48)
-// CPP-CHECK-NEXT:    ret <vscale x 64 x i8> [[TMP3]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> poison, <vscale x 16 x b8> [[X0:%.*]], i64 0)
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP0]], <vscale x 16 x b8> [[X1:%.*]], i64 16)
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP1]], <vscale x 16 x b8> [[X2:%.*]], i64 32)
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 64 x b8> @llvm.vector.insert.nxv64b8.nxv16b8(<vscale x 64 x b8> [[TMP2]], <vscale x 16 x b8> [[X4:%.*]], i64 48)
+// CPP-CHECK-NEXT:    ret <vscale x 64 x b8> [[TMP3]]
 //
 svuint8x4_t test_svcreate4_u8(svuint8_t x0, svuint8_t x1, svuint8_t x2, svuint8_t x4) ATTR
 {

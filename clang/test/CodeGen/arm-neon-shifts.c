@@ -9,7 +9,8 @@
 
 uint8x8_t test_shift_vshr(uint8x8_t a) {
   // CHECK-LABEL: test_shift_vshr
-  // CHECK: %{{.*}} = lshr <8 x i8> %a, <i8 5, i8 5, i8 5, i8 5, i8 5, i8 5, i8 5, i8 5>
+  // CHECK: [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+  // CHECK: %{{.*}} = lshr <8 x i8> [[TMP0]], <i8 5, i8 5, i8 5, i8 5, i8 5, i8 5, i8 5, i8 5>
   return vshr_n_u8(a, 5);
 }
 
@@ -21,14 +22,16 @@ int8x8_t test_shift_vshr_smax(int8x8_t a) {
 
 uint8x8_t test_shift_vshr_umax(uint8x8_t a) {
   // CHECK-LABEL: test_shift_vshr_umax
-  // CHECK: ret <8 x i8> zeroinitializer
+  // CHECK: ret <8 x b8> zeroinitializer
   return vshr_n_u8(a, 8);
 }
 
 uint8x8_t test_shift_vsra(uint8x8_t a, uint8x8_t b) {
   // CHECK-LABEL: test_shift_vsra
-  // CHECK: %[[SHR:.*]] = lshr <8 x i8> %b, <i8 5, i8 5, i8 5, i8 5, i8 5, i8 5, i8 5, i8 5>
-  // CHECK: %{{.*}} = add <8 x i8> %a, %[[SHR]]
+  // CHECK: [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+  // CHECK: [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+  // CHECK: %[[SHR:.*]] = lshr <8 x i8> [[TMP1]], <i8 5, i8 5, i8 5, i8 5, i8 5, i8 5, i8 5, i8 5>
+  // CHECK: %{{.*}} = add <8 x i8> [[TMP0]], %[[SHR]]
   return vsra_n_u8(a, b, 5);
 }
 
@@ -41,7 +44,10 @@ int8x8_t test_shift_vsra_smax(int8x8_t a, int8x8_t b) {
 
 uint8x8_t test_shift_vsra_umax(uint8x8_t a, uint8x8_t b) {
   // CHECK-LABEL: test_shift_vsra_umax
-  // CHECK: [[RES:%.*]] = add <8 x i8> %a, zeroinitializer
-  // CHECK: ret <8 x i8> [[RES]]
+  // CHECK: [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+  // CHECK: [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+  // CHECK: [[RES:%.*]] = add <8 x i8> [[TMP0]], zeroinitializer
+  // CHECK: [[TMP2:%.*]] = bitcast <8 x i8> [[RES]] to <8 x b8>
+  // CHECK: ret <8 x b8> [[TMP2]]
   return vsra_n_u8(a, b, 8);
 }

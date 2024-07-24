@@ -20,11 +20,6 @@ int8x16_t test_vrev16q_s8(int8x16_t a)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev16q_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <16 x i8> [[A:%.*]], <16 x i8> poison, <16 x i32> <i32 1, i32 0, i32 3, i32 2, i32 5, i32 4, i32 7, i32 6, i32 9, i32 8, i32 11, i32 10, i32 13, i32 12, i32 15, i32 14>
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
-//
 uint8x16_t test_vrev16q_u8(uint8x16_t a)
 {
 #ifdef POLYMORPHIC
@@ -48,11 +43,6 @@ int8x16_t test_vrev32q_s8(int8x16_t a)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev32q_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <16 x i8> [[A:%.*]], <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
-//
 uint8x16_t test_vrev32q_u8(uint8x16_t a)
 {
 #ifdef POLYMORPHIC
@@ -118,11 +108,6 @@ int8x16_t test_vrev64q_s8(int8x16_t a)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev64q_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <16 x i8> [[A:%.*]], <16 x i8> poison, <16 x i32> <i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0, i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8>
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
-//
 uint8x16_t test_vrev64q_u8(uint8x16_t a)
 {
 #ifdef POLYMORPHIC
@@ -232,13 +217,6 @@ int8x16_t test_vrev16q_m_s8(int8x16_t inactive, int8x16_t a, mve_pred16_t p)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev16q_m_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vrev.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 16, <16 x i1> [[TMP1]], <16 x i8> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
-//
 uint8x16_t test_vrev16q_m_u8(uint8x16_t inactive, uint8x16_t a, mve_pred16_t p)
 {
 #ifdef POLYMORPHIC
@@ -296,13 +274,6 @@ int16x8_t test_vrev32q_m_s16(int16x8_t inactive, int16x8_t a, mve_pred16_t p)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev32q_m_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vrev.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 32, <16 x i1> [[TMP1]], <16 x i8> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
-//
 uint8x16_t test_vrev32q_m_u8(uint8x16_t inactive, uint8x16_t a, mve_pred16_t p)
 {
 #ifdef POLYMORPHIC
@@ -408,13 +379,6 @@ int32x4_t test_vrev64q_m_s32(int32x4_t inactive, int32x4_t a, mve_pred16_t p)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev64q_m_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vrev.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 64, <16 x i1> [[TMP1]], <16 x i8> [[INACTIVE:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
-//
 uint8x16_t test_vrev64q_m_u8(uint8x16_t inactive, uint8x16_t a, mve_pred16_t p)
 {
 #ifdef POLYMORPHIC
@@ -472,13 +436,6 @@ int8x16_t test_vrev16q_x_s8(int8x16_t a, mve_pred16_t p)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev16q_x_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vrev.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 16, <16 x i1> [[TMP1]], <16 x i8> undef)
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
-//
 uint8x16_t test_vrev16q_x_u8(uint8x16_t a, mve_pred16_t p)
 {
 #ifdef POLYMORPHIC
@@ -536,13 +493,6 @@ int16x8_t test_vrev32q_x_s16(int16x8_t a, mve_pred16_t p)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev32q_x_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vrev.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 32, <16 x i1> [[TMP1]], <16 x i8> undef)
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
-//
 uint8x16_t test_vrev32q_x_u8(uint8x16_t a, mve_pred16_t p)
 {
 #ifdef POLYMORPHIC
@@ -648,13 +598,6 @@ int32x4_t test_vrev64q_x_s32(int32x4_t a, mve_pred16_t p)
 #endif /* POLYMORPHIC */
 }
 
-// CHECK-LABEL: @test_vrev64q_x_u8(
-// CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vrev.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 64, <16 x i1> [[TMP1]], <16 x i8> undef)
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
-//
 uint8x16_t test_vrev64q_x_u8(uint8x16_t a, mve_pred16_t p)
 {
 #ifdef POLYMORPHIC

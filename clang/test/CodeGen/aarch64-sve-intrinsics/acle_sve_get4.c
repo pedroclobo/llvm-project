@@ -87,13 +87,13 @@ svint64_t test_svget4_s64(svint64x4_t tuple) ATTR
 
 // CHECK-LABEL: @test_svget4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv64i8(<vscale x 64 x i8> [[TUPLE:%.*]], i64 32)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv64b8(<vscale x 64 x b8> [[TUPLE:%.*]], i64 32)
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svget4_u811svuint8x4_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv64i8(<vscale x 64 x i8> [[TUPLE:%.*]], i64 32)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv64b8(<vscale x 64 x b8> [[TUPLE:%.*]], i64 32)
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 svuint8_t test_svget4_u8(svuint8x4_t tuple) ATTR
 {

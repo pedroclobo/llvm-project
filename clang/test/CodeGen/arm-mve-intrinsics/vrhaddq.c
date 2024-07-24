@@ -8,8 +8,13 @@
 
 // CHECK-LABEL: @test_vrhaddq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vrhadd.v16i8(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vrhadd.v16i8(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <16 x i8> [[TMP2]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP3]]
 //
 uint8x16_t test_vrhaddq_u8(uint8x16_t a, uint8x16_t b)
 {
@@ -98,10 +103,15 @@ int32x4_t test_vrhaddq_m_s32(int32x4_t inactive, int32x4_t a, int32x4_t b, mve_p
 
 // CHECK-LABEL: @test_vrhaddq_x_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.rhadd.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], i32 1, <16 x i1> [[TMP1]], <16 x i8> undef)
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.rhadd.predicated.v16i8.v16i1(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 1, <16 x i1> [[TMP3]], <16 x i8> undef)
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vrhaddq_x_u8(uint8x16_t a, uint8x16_t b, mve_pred16_t p)
 {

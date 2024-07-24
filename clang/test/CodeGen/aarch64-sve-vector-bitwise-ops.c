@@ -56,8 +56,13 @@ svint64_t and_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @and_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[AND:%.*]] = and <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[AND]]
+// CHECK-NEXT:    [[RET:%.*]] = alloca <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[AND:%.*]] = and <vscale x 16 x i8> [[TMP0]], [[TMP1]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[AND]], ptr [[RET]]
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RET]]
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t and_u8(svuint8_t a, svuint8_t b) {
   return a & b;
@@ -139,8 +144,13 @@ svint64_t or_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @or_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[OR:%.*]] = or <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[OR]]
+// CHECK-NEXT:    [[RET:%.*]] = alloca <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[OR:%.*]] = or <vscale x 16 x i8> [[TMP0]], [[TMP1]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[OR]], ptr [[RET]]
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RET]]
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t or_u8(svuint8_t a, svuint8_t b) {
   return a | b;
@@ -222,8 +232,13 @@ svint64_t xor_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @xor_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[XOR:%.*]] = xor <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[XOR]]
+// CHECK-NEXT:    [[RET:%.*]] = alloca <vscale x 16 x b8>
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[XOR:%.*]] = xor <vscale x 16 x i8> [[TMP0]], [[TMP1]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[XOR]], ptr [[RET]]
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RET]]
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t xor_u8(svuint8_t a, svuint8_t b) {
   return a ^ b;
@@ -305,8 +320,12 @@ svint64_t neg_i64(svint64_t a) {
 
 // CHECK-LABEL: @neg_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[NEG:%.*]] = xor <vscale x 16 x i8> [[A:%.*]], shufflevector (<vscale x 16 x i8> insertelement (<vscale x 16 x i8> poison, i8 -1, i64 0), <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[NEG]]
+// CHECK-NEXT:    [[RET:%.*]] = alloca <vscale x 16 x b8>
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[NEG:%.*]] = xor <vscale x 16 x i8> [[CONV]], shufflevector (<vscale x 16 x i8> insertelement (<vscale x 16 x i8> poison, i8 -1, i64 0), <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer)
+// CHECK-NEXT:    store <vscale x 16 x i8> [[NEG]], ptr [[RET]]
+// CHECK-NEXT:    [[TMP0:%.*]] = load <vscale x 16 x b8>, ptr [[RET]]
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 svuint8_t neg_u8(svuint8_t a) {
   return ~a;

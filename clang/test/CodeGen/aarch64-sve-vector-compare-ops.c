@@ -60,9 +60,11 @@ svint64_t eq_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @eq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CONV1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <vscale x 16 x i8> [[CONV]], [[CONV1]]
+// CHECK-NEXT:    [[CONV2:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV2]]
 //
 svint8_t eq_u8(svuint8_t a, svuint8_t b) {
   return a == b;
@@ -181,9 +183,11 @@ svint64_t neq_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @neq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ne <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CONV1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ne <vscale x 16 x i8> [[CONV]], [[CONV1]]
+// CHECK-NEXT:    [[CONV2:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV2]]
 //
 svint8_t neq_u8(svuint8_t a, svuint8_t b) {
   return a != b;
@@ -302,9 +306,11 @@ svint64_t lt_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @lt_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ult <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CONV1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ult <vscale x 16 x i8> [[CONV]], [[CONV1]]
+// CHECK-NEXT:    [[CONV2:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV2]]
 //
 svint8_t lt_u8(svuint8_t a, svuint8_t b) {
   return a < b;
@@ -423,9 +429,11 @@ svint64_t leq_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @leq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ule <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CONV1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ule <vscale x 16 x i8> [[CONV]], [[CONV1]]
+// CHECK-NEXT:    [[CONV2:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV2]]
 //
 svint8_t leq_u8(svuint8_t a, svuint8_t b) {
   return a <= b;
@@ -544,9 +552,11 @@ svint64_t gt_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @gt_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ugt <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CONV1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ugt <vscale x 16 x i8> [[CONV]], [[CONV1]]
+// CHECK-NEXT:    [[CONV2:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV2]]
 //
 svint8_t gt_u8(svuint8_t a, svuint8_t b) {
   return a > b;
@@ -665,9 +675,11 @@ svint64_t geq_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @geq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp uge <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CONV1:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp uge <vscale x 16 x i8> [[CONV]], [[CONV1]]
+// CHECK-NEXT:    [[CONV2:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV2]]
 //
 svint8_t geq_u8(svuint8_t a, svuint8_t b) {
   return a >= b;

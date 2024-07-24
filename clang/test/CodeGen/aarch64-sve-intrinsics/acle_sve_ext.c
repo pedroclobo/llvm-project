@@ -144,13 +144,23 @@ svint64_t test_svext_s64_1(svint64_t op1, svint64_t op2) MODE_ATTR
 
 // CHECK-LABEL: @test_svext_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.ext.nxv16i8(<vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], i32 255)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.ext.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 255)
+// CHECK-NEXT:    store <vscale x 16 x i8> [[TMP2]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP3]]
 //
 // CPP-CHECK-LABEL: @_Z13test_svext_u8u11__SVUint8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.ext.nxv16i8(<vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], i32 255)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[OP1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.ext.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 255)
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[TMP2]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP3]]
 //
 svuint8_t test_svext_u8(svuint8_t op1, svuint8_t op2) MODE_ATTR
 {

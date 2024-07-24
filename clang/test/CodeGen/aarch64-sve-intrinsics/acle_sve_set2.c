@@ -84,13 +84,13 @@ svint64x2_t test_svset2_s64(svint64x2_t tuple, svint64_t x) ATTR
 
 // CHECK-LABEL: @test_svset2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TUPLE:%.*]], <vscale x 16 x i8> [[X:%.*]], i64 16)
-// CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv16b8(<vscale x 32 x b8> [[TUPLE:%.*]], <vscale x 16 x b8> [[X:%.*]], i64 16)
+// CHECK-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svset2_u811svuint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 32 x i8> @llvm.vector.insert.nxv32i8.nxv16i8(<vscale x 32 x i8> [[TUPLE:%.*]], <vscale x 16 x i8> [[X:%.*]], i64 16)
-// CPP-CHECK-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 32 x b8> @llvm.vector.insert.nxv32b8.nxv16b8(<vscale x 32 x b8> [[TUPLE:%.*]], <vscale x 16 x b8> [[X:%.*]], i64 16)
+// CPP-CHECK-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 svuint8x2_t test_svset2_u8(svuint8x2_t tuple, svuint8_t x) ATTR
 {

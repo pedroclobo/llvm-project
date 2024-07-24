@@ -34,9 +34,9 @@ int64x1_t test_vget_high_s64(int64x2_t a) {
   return vget_high_s64(a);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vget_high_u8(<16 x i8> noundef %a) #0 {
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %a, <8 x i32> <i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vget_high_u8(<16 x b8> noundef %a) #0 {
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %a, <8 x i32> <i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 uint8x8_t test_vget_high_u8(uint8x16_t a) {
   return vget_high_u8(a);
 }
@@ -83,9 +83,9 @@ float32x2_t test_vget_high_f32(float32x4_t a) {
   return vget_high_f32(a);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vget_high_p8(<16 x i8> noundef %a) #0 {
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %a, <8 x i32> <i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vget_high_p8(<16 x b8> noundef %a) #0 {
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %a, <8 x i32> <i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 poly8x8_t test_vget_high_p8(poly8x16_t a) {
   return vget_high_p8(a);
 }
@@ -132,9 +132,9 @@ int64x1_t test_vget_low_s64(int64x2_t a) {
   return vget_low_s64(a);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vget_low_u8(<16 x i8> noundef %a) #0 {
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %a, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vget_low_u8(<16 x b8> noundef %a) #0 {
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %a, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 uint8x8_t test_vget_low_u8(uint8x16_t a) {
   return vget_low_u8(a);
 }
@@ -181,9 +181,9 @@ float32x2_t test_vget_low_f32(float32x4_t a) {
   return vget_low_f32(a);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vget_low_p8(<16 x i8> noundef %a) #0 {
-// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x i8> %a, <16 x i8> %a, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
-// CHECK:   ret <8 x i8> [[SHUFFLE_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vget_low_p8(<16 x b8> noundef %a) #0 {
+// CHECK:   [[SHUFFLE_I:%.*]] = shufflevector <16 x b8> %a, <16 x b8> %a, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
+// CHECK:   ret <8 x b8> [[SHUFFLE_I]]
 poly8x8_t test_vget_low_p8(poly8x16_t a) {
   return vget_low_p8(a);
 }

@@ -19,15 +19,17 @@
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[DATA:%.*]], i64 0)
 // CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[DATA]], i64 16)
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbl2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[INDICES:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[INDICES:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbl2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP3]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svtbl2_s810svint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[DATA:%.*]], i64 0)
 // CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[DATA]], i64 16)
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbl2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[INDICES:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP2]]
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[INDICES:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbl2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
+// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP3]]
 //
 svint8_t test_svtbl2_s8(svint8x2_t data, svuint8_t indices)
 {
@@ -93,17 +95,25 @@ svint64_t test_svtbl2_s64(svint64x2_t data, svuint64_t indices)
 
 // CHECK-LABEL: @test_svtbl2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[DATA:%.*]], i64 0)
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[DATA]], i64 16)
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbl2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[INDICES:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv32b8(<vscale x 32 x b8> [[DATA:%.*]], i64 0)
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv32b8(<vscale x 32 x b8> [[DATA]], i64 16)
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[TMP0]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[TMP1]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[INDICES:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbl2.nxv16i8(<vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svtbl2_u811svuint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[DATA:%.*]], i64 0)
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[DATA]], i64 16)
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbl2.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[INDICES:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP2]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv32b8(<vscale x 32 x b8> [[DATA:%.*]], i64 0)
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv32b8(<vscale x 32 x b8> [[DATA]], i64 16)
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[TMP0]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[TMP1]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[INDICES:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tbl2.nxv16i8(<vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP5]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svtbl2_u8(svuint8x2_t data, svuint8_t indices)
 {

@@ -90,13 +90,13 @@ svint64_t test_svsel_s64(svbool_t pg, svint64_t op1, svint64_t op2) MODE_ATTR
 
 // CHECK-LABEL: @test_svsel_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = select <vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[DOTV:%.*]] = select <vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x b8> [[OP2:%.*]]
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTV]]
 //
 // CPP-CHECK-LABEL: @_Z13test_svsel_u8u10__SVBool_tu11__SVUint8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = select <vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]]
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[DOTV:%.*]] = select <vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x b8> [[OP2:%.*]]
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTV]]
 //
 svuint8_t test_svsel_u8(svbool_t pg, svuint8_t op1, svuint8_t op2) MODE_ATTR
 {
