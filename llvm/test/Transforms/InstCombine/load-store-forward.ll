@@ -473,4 +473,15 @@ define <vscale x 1 x i32> @load_after_memset_0_scalable(ptr %a) {
   ret <vscale x 1 x i32> %v
 }
 
+define <2 x i32> @byte_vec_store_load(<8 x b8> %a) {
+; CHECK-LABEL: @byte_vec_store_load(
+; CHECK-NEXT:    [[RES_CAST:%.*]] = bytecast <8 x b8> [[A:%.*]] to <2 x i32>
+; CHECK-NEXT:    ret <2 x i32> [[RES_CAST]]
+;
+  %p = alloca <8 x b8>
+  store <8 x b8> %a, ptr %p
+  %res = load <2 x i32>, ptr %p
+  ret <2 x i32> %res
+}
+
 declare void @llvm.memset.p0.i64(ptr, i8, i64, i1)

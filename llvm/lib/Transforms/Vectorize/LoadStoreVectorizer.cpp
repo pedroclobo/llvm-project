@@ -918,7 +918,7 @@ bool Vectorizer::vectorizeChain(Chain &C) {
         ++VecIdx;
       }
       if (V->getType() != I->getType())
-        V = Builder.CreateBitOrPointerCast(V, I->getType());
+        V = Builder.CreateBitOrByteOrPointerCast(V, I->getType());
       I->replaceAllUsesWith(V);
     }
 
@@ -953,7 +953,7 @@ bool Vectorizer::vectorizeChain(Chain &C) {
     unsigned VecIdx = 0;
     auto InsertElem = [&](Value *V) {
       if (V->getType() != VecElemTy)
-        V = Builder.CreateBitOrPointerCast(V, VecElemTy);
+        V = Builder.CreateBitOrByteOrPointerCast(V, VecElemTy);
       Vec = Builder.CreateInsertElement(Vec, V, Builder.getInt32(VecIdx++));
     };
     for (const ChainElem &E : C) {

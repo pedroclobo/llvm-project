@@ -627,6 +627,12 @@ public:
     Type *DestTy ///< The Type to which the value should be cast.
   );
 
+  /// Check whether a bytecast between these types is valid
+  static bool isByteCastable(
+    Type *SrcTy, ///< The Type from which the value should be cast.
+    Type *DestTy ///< The Type to which the value should be cast.
+  );
+
   /// Check whether a bitcast, inttoptr, or ptrtoint cast between these
   /// types is valid and a no-op.
   ///

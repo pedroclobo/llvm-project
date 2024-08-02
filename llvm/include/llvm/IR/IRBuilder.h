@@ -2232,14 +2232,17 @@ public:
     return CreateCast(CastOp, V, DestTy, Name);
   }
 
-  Value *CreateBitOrPointerCast(Value *V, Type *DestTy,
-                                const Twine &Name = "") {
+  Value *CreateBitOrByteOrPointerCast(Value *V, Type *DestTy,
+                                      const Twine &Name = "") {
     if (V->getType() == DestTy)
       return V;
     if (V->getType()->isPtrOrPtrVectorTy() && DestTy->isIntOrIntVectorTy())
       return CreatePtrToInt(V, DestTy, Name);
     if (V->getType()->isIntOrIntVectorTy() && DestTy->isPtrOrPtrVectorTy())
       return CreateIntToPtr(V, DestTy, Name);
+    if (V->getType()->isByteOrByteVectorTy() &&
+        (DestTy->isPtrOrPtrVectorTy() || DestTy->isIntOrIntVectorTy()))
+      return CreateByteCast(V, DestTy, Name);
 
     return CreateBitCast(V, DestTy, Name);
   }

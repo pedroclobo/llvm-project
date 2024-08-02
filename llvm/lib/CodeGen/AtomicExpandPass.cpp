@@ -1953,7 +1953,7 @@ bool AtomicExpandImpl::expandAtomicOpToLibcall(
   if (ValueOperand) {
     if (UseSizedLibcall) {
       Value *IntValue =
-          Builder.CreateBitOrPointerCast(ValueOperand, SizedIntTy);
+          Builder.CreateBitOrByteOrPointerCast(ValueOperand, SizedIntTy);
       Args.push_back(IntValue);
     } else {
       AllocaValue = AllocaBuilder.CreateAlloca(ValueOperand->getType());
@@ -2017,7 +2017,7 @@ bool AtomicExpandImpl::expandAtomicOpToLibcall(
   } else if (HasResult) {
     Value *V;
     if (UseSizedLibcall)
-      V = Builder.CreateBitOrPointerCast(Result, I->getType());
+      V = Builder.CreateBitOrByteOrPointerCast(Result, I->getType());
     else {
       V = Builder.CreateAlignedLoad(I->getType(), AllocaResult,
                                     AllocaAlignment);

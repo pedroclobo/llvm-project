@@ -837,7 +837,7 @@ void CodeGenFunction::EmitTypeCheck(TypeCheckKind TCK, SourceLocation Loc,
       llvm::Value *VPtrVal = GetVTablePtr(VPtrAddr, VPtrTy,
                                           Ty->getAsCXXRecordDecl(),
                                           VTableAuthMode::UnsafeUbsanStrip);
-      VPtrVal = Builder.CreateBitOrPointerCast(VPtrVal, IntPtrTy);
+      VPtrVal = Builder.CreateBitOrByteOrPointerCast(VPtrVal, IntPtrTy);
 
       llvm::Value *Hash =
           emitHashMix(Builder, TypeHash, Builder.CreateZExt(VPtrVal, Int64Ty));

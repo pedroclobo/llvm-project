@@ -3130,6 +3130,36 @@ bool CastInst::isBitCastable(Type *SrcTy, Type *DestTy) {
   return true;
 }
 
+bool CastInst::isByteCastable(Type *SrcTy, Type *DestTy) {
+  if (!SrcTy->isByteOrByteVectorTy() ||
+      (!DestTy->isIntOrIntVectorTy() && !DestTy->isPtrOrPtrVectorTy()))
+    return false;
+
+  if (SrcTy == DestTy)
+    return true;
+
+  if (VectorType *SrcVecTy = dyn_cast<VectorType>(SrcTy)) {
+    if (VectorType *DestVecTy = dyn_cast<VectorType>(DestTy)) {
+      if (SrcVecTy->getElementCount() == DestVecTy->getElementCount()) {
+        // An element by element cast. Valid if casting the elements is valid.
+        SrcTy = SrcVecTy->getElementType();
+        DestTy = DestVecTy->getElementType();
+      }
+    }
+  }
+
+  TypeSize SrcBits = SrcTy->getPrimitiveSizeInBits();
+  TypeSize DestBits = DestTy->getPrimitiveSizeInBits();
+
+  if (SrcBits != DestBits)
+    return false;
+
+  if (DestTy->isX86_MMXTy() || SrcTy->isX86_MMXTy())
+    return false;
+
+  return true;
+}
+
 bool CastInst::isBitOrNoopPointerCastable(Type *SrcTy, Type *DestTy,
                                           const DataLayout &DL) {
   // ptrtoint and inttoptr are not allowed on non-integral pointers
@@ -3142,7 +3172,7 @@ bool CastInst::isBitOrNoopPointerCastable(Type *SrcTy, Type *DestTy,
       return (IntTy->getBitWidth() == DL.getPointerTypeSizeInBits(PtrTy) &&
               !DL.isNonIntegralPointerType(PtrTy));
 
-  return isBitCastable(SrcTy, DestTy);
+  return isBitCastable(SrcTy, DestTy) || isByteCastable(SrcTy, DestTy);
 }
 
 // Provide a way to get a "cast" where the cast opcode is inferred from the

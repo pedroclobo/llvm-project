@@ -723,7 +723,7 @@ bool ThreadSanitizer::instrumentAtomic(Instruction *I, const DataLayout &DL) {
     Value *Args[] = {Addr,
                      createOrdering(&IRB, LI->getOrdering())};
     Value *C = IRB.CreateCall(TsanAtomicLoad[Idx], Args);
-    Value *Cast = IRB.CreateBitOrPointerCast(C, OrigTy);
+    Value *Cast = IRB.CreateBitOrByteOrPointerCast(C, OrigTy);
     I->replaceAllUsesWith(Cast);
   } else if (StoreInst *SI = dyn_cast<StoreInst>(I)) {
     Value *Addr = SI->getPointerOperand();
@@ -734,9 +734,9 @@ bool ThreadSanitizer::instrumentAtomic(Instruction *I, const DataLayout &DL) {
     const unsigned ByteSize = 1U << Idx;
     const unsigned BitSize = ByteSize * 8;
     Type *Ty = Type::getIntNTy(IRB.getContext(), BitSize);
-    Value *Args[] = {Addr,
-                     IRB.CreateBitOrPointerCast(SI->getValueOperand(), Ty),
-                     createOrdering(&IRB, SI->getOrdering())};
+    Value *Args[] = {
+        Addr, IRB.CreateBitOrByteOrPointerCast(SI->getValueOperand(), Ty),
+        createOrdering(&IRB, SI->getOrdering())};
     IRB.CreateCall(TsanAtomicStore[Idx], Args);
     SI->eraseFromParent();
   } else if (AtomicRMWInst *RMWI = dyn_cast<AtomicRMWInst>(I)) {
@@ -752,10 +752,10 @@ bool ThreadSanitizer::instrumentAtomic(Instruction *I, const DataLayout &DL) {
     const unsigned BitSize = ByteSize * 8;
     Type *Ty = Type::getIntNTy(IRB.getContext(), BitSize);
     Value *Val = RMWI->getValOperand();
-    Value *Args[] = {Addr, IRB.CreateBitOrPointerCast(Val, Ty),
+    Value *Args[] = {Addr, IRB.CreateBitOrByteOrPointerCast(Val, Ty),
                      createOrdering(&IRB, RMWI->getOrdering())};
     Value *C = IRB.CreateCall(F, Args);
-    I->replaceAllUsesWith(IRB.CreateBitOrPointerCast(C, Val->getType()));
+    I->replaceAllUsesWith(IRB.CreateBitOrByteOrPointerCast(C, Val->getType()));
     I->eraseFromParent();
   } else if (AtomicCmpXchgInst *CASI = dyn_cast<AtomicCmpXchgInst>(I)) {
     Value *Addr = CASI->getPointerOperand();
@@ -767,9 +767,9 @@ bool ThreadSanitizer::instrumentAtomic(Instruction *I, const DataLayout &DL) {
     const unsigned BitSize = ByteSize * 8;
     Type *Ty = Type::getIntNTy(IRB.getContext(), BitSize);
     Value *CmpOperand =
-      IRB.CreateBitOrPointerCast(CASI->getCompareOperand(), Ty);
+        IRB.CreateBitOrByteOrPointerCast(CASI->getCompareOperand(), Ty);
     Value *NewOperand =
-      IRB.CreateBitOrPointerCast(CASI->getNewValOperand(), Ty);
+        IRB.CreateBitOrByteOrPointerCast(CASI->getNewValOperand(), Ty);
     Value *Args[] = {Addr,
                      CmpOperand,
                      NewOperand,
