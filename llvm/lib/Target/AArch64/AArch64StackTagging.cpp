@@ -303,7 +303,7 @@ public:
         V = IRB.CreatePointerCast(V, NewTy);
       }
     }
-    return IRB.CreateBitOrPointerCast(
+    return IRB.CreateBitOrByteOrPointerCast(
         V, IRB.getIntNTy(DL->getTypeStoreSize(V->getType()) * 8));
   }
 };

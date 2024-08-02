@@ -475,13 +475,13 @@ static Value *promoteAllocaUserToVector(
     assert(DL.getTypeStoreSize(Val->getType()) == DL.getTypeStoreSize(PtrTy));
     const unsigned Size = DL.getTypeStoreSizeInBits(PtrTy);
     if (!PtrTy->isVectorTy())
-      return Builder.CreateBitOrPointerCast(Val, Builder.getIntNTy(Size));
+      return Builder.CreateBitOrByteOrPointerCast(Val, Builder.getIntNTy(Size));
     const unsigned NumPtrElts = cast<FixedVectorType>(PtrTy)->getNumElements();
     // If we want to cast to cast, e.g. a <2 x ptr> into a <4 x i32>, we need to
     // first cast the ptr vector to <2 x i64>.
     assert((Size % NumPtrElts == 0) && "Vector size not divisble");
     Type *EltTy = Builder.getIntNTy(Size / NumPtrElts);
-    return Builder.CreateBitOrPointerCast(
+    return Builder.CreateBitOrByteOrPointerCast(
         Val, FixedVectorType::get(EltTy, NumPtrElts));
   };
 
@@ -507,7 +507,7 @@ static Value *promoteAllocaUserToVector(
           CurVal = CreateTempPtrIntCast(CurVal, AccessTy);
         else if (CurVal->getType()->isPtrOrPtrVectorTy())
           CurVal = CreateTempPtrIntCast(CurVal, CurVal->getType());
-        Value *NewVal = Builder.CreateBitOrPointerCast(CurVal, AccessTy);
+        Value *NewVal = Builder.CreateBitOrByteOrPointerCast(CurVal, AccessTy);
         Inst->replaceAllUsesWith(NewVal);
         return nullptr;
       }
@@ -533,7 +533,7 @@ static Value *promoteAllocaUserToVector(
       else if (SubVecTy->isPtrOrPtrVectorTy())
         SubVec = CreateTempPtrIntCast(SubVec, SubVecTy);
 
-      SubVec = Builder.CreateBitOrPointerCast(SubVec, AccessTy);
+      SubVec = Builder.CreateBitOrByteOrPointerCast(SubVec, AccessTy);
       Inst->replaceAllUsesWith(SubVec);
       return nullptr;
     }
@@ -541,7 +541,8 @@ static Value *promoteAllocaUserToVector(
     // We're loading one element.
     Value *ExtractElement = Builder.CreateExtractElement(CurVal, Index);
     if (AccessTy != VecEltTy)
-      ExtractElement = Builder.CreateBitOrPointerCast(ExtractElement, AccessTy);
+      ExtractElement =
+          Builder.CreateBitOrByteOrPointerCast(ExtractElement, AccessTy);
 
     Inst->replaceAllUsesWith(ExtractElement);
     return nullptr;
@@ -564,7 +565,7 @@ static Value *promoteAllocaUserToVector(
           Val = CreateTempPtrIntCast(Val, AccessTy);
         else if (VectorTy->isPtrOrPtrVectorTy())
           Val = CreateTempPtrIntCast(Val, VectorTy);
-        return Builder.CreateBitOrPointerCast(Val, VectorTy);
+        return Builder.CreateBitOrByteOrPointerCast(Val, VectorTy);
       }
     }
 
@@ -582,7 +583,7 @@ static Value *promoteAllocaUserToVector(
       else if (AccessTy->isPtrOrPtrVectorTy())
         Val = CreateTempPtrIntCast(Val, AccessTy);
 
-      Val = Builder.CreateBitOrPointerCast(Val, SubVecTy);
+      Val = Builder.CreateBitOrByteOrPointerCast(Val, SubVecTy);
 
       Value *CurVec = GetOrLoadCurrentVectorValue();
       for (unsigned K = 0, NumElts = std::min(NumWrittenElts, NumVecElts);
@@ -596,7 +597,7 @@ static Value *promoteAllocaUserToVector(
     }
 
     if (Val->getType() != VecEltTy)
-      Val = Builder.CreateBitOrPointerCast(Val, VecEltTy);
+      Val = Builder.CreateBitOrByteOrPointerCast(Val, VecEltTy);
     return Builder.CreateInsertElement(GetOrLoadCurrentVectorValue(), Val,
                                        Index);
   }

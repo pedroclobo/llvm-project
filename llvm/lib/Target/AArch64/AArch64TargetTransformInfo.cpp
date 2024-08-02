@@ -2048,12 +2048,12 @@ static std::optional<Instruction *> instCombineSVEDupqLane(InstCombiner &IC,
   auto InsertSubvector = IC.Builder.CreateInsertVector(
       II.getType(), PoisonValue::get(II.getType()), InsertEltChain, ZeroIdx);
   auto WideBitcast =
-      IC.Builder.CreateBitOrPointerCast(InsertSubvector, WideScalableTy);
+      IC.Builder.CreateBitOrByteOrPointerCast(InsertSubvector, WideScalableTy);
   auto WideShuffleMask = ConstantAggregateZero::get(WideShuffleMaskTy);
   auto WideShuffle = IC.Builder.CreateShuffleVector(
       WideBitcast, PoisonValue::get(WideScalableTy), WideShuffleMask);
   auto NarrowBitcast =
-      IC.Builder.CreateBitOrPointerCast(WideShuffle, II.getType());
+      IC.Builder.CreateBitOrByteOrPointerCast(WideShuffle, II.getType());
 
   return IC.replaceInstUsesWith(II, NarrowBitcast);
 }

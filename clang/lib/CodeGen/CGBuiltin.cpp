@@ -1418,7 +1418,7 @@ static RValue EmitMSVCRTSetJmp(CodeGenFunction &CGF, MSVCSetJmpKind SJKind,
       llvm::FunctionType::get(CGF.IntTy, ArgTypes, IsVarArg), Name,
       ReturnsTwiceAttr, /*Local=*/true);
 
-  llvm::Value *Buf = CGF.Builder.CreateBitOrPointerCast(
+  llvm::Value *Buf = CGF.Builder.CreateBitOrByteOrPointerCast(
       CGF.EmitScalarExpr(E->getArg(0)), CGF.Int8PtrTy);
   llvm::Value *Args[] = {Buf, Arg1};
   llvm::CallBase *CB = CGF.EmitRuntimeCallOrInvoke(SetJmpFn, Args);
@@ -2232,7 +2232,7 @@ RValue CodeGenFunction::emitBuiltinOSLogFormat(const CallExpr &E) {
         CGM.getDataLayout().getTypeSizeInBits(ArgVal->getType());
     llvm::IntegerType *IntTy = llvm::Type::getIntNTy(getLLVMContext(),
                                                      ArgValSize);
-    ArgVal = Builder.CreateBitOrPointerCast(ArgVal, IntTy);
+    ArgVal = Builder.CreateBitOrByteOrPointerCast(ArgVal, IntTy);
     CanQualType ArgTy = getOSLogArgType(Ctx, Size);
     // If ArgVal has type x86_fp80, zero-extend ArgVal.
     ArgVal = Builder.CreateZExtOrBitCast(ArgVal, ConvertType(ArgTy));
@@ -5700,12 +5700,12 @@ RValue CodeGenFunction::EmitBuiltinExpr(const GlobalDecl GD, unsigned BuiltinID,
         NewArgT->getPointerAddressSpace())
       NewArg = Builder.CreateAddrSpaceCast(Arg0, NewArgT);
     else
-      NewArg = Builder.CreateBitOrPointerCast(Arg0, NewArgT);
+      NewArg = Builder.CreateBitOrByteOrPointerCast(Arg0, NewArgT);
     auto NewName = std::string("__") + E->getDirectCallee()->getName().str();
     auto NewCall =
         EmitRuntimeCall(CGM.CreateRuntimeFunction(FTy, NewName), {NewArg});
-    return RValue::get(Builder.CreateBitOrPointerCast(NewCall,
-      ConvertType(E->getType())));
+    return RValue::get(Builder.CreateBitOrByteOrPointerCast(
+        NewCall, ConvertType(E->getType())));
   }
 
   // OpenCL v2.0, s6.13.17 - Enqueue kernel function.
@@ -21077,8 +21077,8 @@ RValue CodeGenFunction::EmitBuiltinIsAligned(const CallExpr *E) {
   BuiltinAlignArgs Args(E, *this);
   llvm::Value *SrcAddress = Args.Src;
   if (Args.SrcType->isPointerTy())
-    SrcAddress =
-        Builder.CreateBitOrPointerCast(Args.Src, Args.IntType, "src_addr");
+    SrcAddress = Builder.CreateBitOrByteOrPointerCast(Args.Src, Args.IntType,
+                                                      "src_addr");
   return RValue::get(Builder.CreateICmpEQ(
       Builder.CreateAnd(SrcAddress, Args.Mask, "set_bits"),
       llvm::Constant::getNullValue(Args.IntType), "is_aligned"));

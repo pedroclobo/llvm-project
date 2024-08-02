@@ -2304,7 +2304,7 @@ static Value *createBitOrPointerCast(IRBuilderBase &Builder, Value *V,
 
   // Do a direct cast if element types are castable.
   if (CastInst::isBitOrNoopPointerCastable(SrcElemTy, DstElemTy, DL)) {
-    return Builder.CreateBitOrPointerCast(V, DstVTy);
+    return Builder.CreateBitOrByteOrPointerCast(V, DstVTy);
   }
   // V cannot be directly casted to desired vector type.
   // May happen when V is a floating point vector but DstVTy is a vector of
@@ -2317,8 +2317,8 @@ static Value *createBitOrPointerCast(IRBuilderBase &Builder, Value *V,
   Type *IntTy =
       IntegerType::getIntNTy(V->getContext(), DL.getTypeSizeInBits(SrcElemTy));
   auto *VecIntTy = VectorType::get(IntTy, VF);
-  Value *CastVal = Builder.CreateBitOrPointerCast(V, VecIntTy);
-  return Builder.CreateBitOrPointerCast(CastVal, DstVTy);
+  Value *CastVal = Builder.CreateBitOrByteOrPointerCast(V, VecIntTy);
+  return Builder.CreateBitOrByteOrPointerCast(CastVal, DstVTy);
 }
 
 /// Return a vector containing interleaved elements from multiple

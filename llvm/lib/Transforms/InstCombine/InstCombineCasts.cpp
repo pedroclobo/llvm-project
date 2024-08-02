@@ -151,7 +151,7 @@ InstCombinerImpl::isEliminableCastPair(const CastInst *CI1,
   // integer nor a pointer scalar/vector. We allow bytecasts to bytes as they
   // are eliminated later.
   if (Res == Instruction::ByteCast && !DstTy->isIntOrIntVectorTy() &&
-     !DstTy->isPtrOrPtrVectorTy() && !DstTy->isByteOrByteVectorTy())
+      !DstTy->isPtrOrPtrVectorTy() && !DstTy->isByteOrByteVectorTy())
     Res = 0;
 
   return Instruction::CastOps(Res);

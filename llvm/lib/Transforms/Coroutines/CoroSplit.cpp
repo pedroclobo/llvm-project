@@ -1632,7 +1632,7 @@ static void replaceAsyncResumeFunction(CoroSuspendAsyncInst *Suspend,
   auto *Int8PtrTy = PointerType::getUnqual(Context);
 
   IRBuilder<> Builder(ResumeIntrinsic);
-  auto *Val = Builder.CreateBitOrPointerCast(Continuation, Int8PtrTy);
+  auto *Val = Builder.CreateBitOrByteOrPointerCast(Continuation, Int8PtrTy);
   ResumeIntrinsic->replaceAllUsesWith(Val);
   ResumeIntrinsic->eraseFromParent();
   Suspend->setOperand(CoroSuspendAsyncInst::ResumeFunctionArg,
@@ -1648,7 +1648,7 @@ static void coerceArguments(IRBuilder<> &Builder, FunctionType *FnTy,
     assert(ArgIdx < FnArgs.size());
     if (paramTy != FnArgs[ArgIdx]->getType())
       CallArgs.push_back(
-          Builder.CreateBitOrPointerCast(FnArgs[ArgIdx], paramTy));
+          Builder.CreateBitOrByteOrPointerCast(FnArgs[ArgIdx], paramTy));
     else
       CallArgs.push_back(FnArgs[ArgIdx]);
     ++ArgIdx;
@@ -1693,7 +1693,7 @@ static void splitAsyncCoroutine(Function &F, coro::Shape &Shape,
   IRBuilder<> Builder(Id);
 
   auto *FramePtr = Id->getStorage();
-  FramePtr = Builder.CreateBitOrPointerCast(FramePtr, Int8PtrTy);
+  FramePtr = Builder.CreateBitOrByteOrPointerCast(FramePtr, Int8PtrTy);
   FramePtr = Builder.CreateConstInBoundsGEP1_32(
       Type::getInt8Ty(Context), FramePtr, Shape.AsyncLowering.FrameOffset,
       "async.ctx.frameptr");

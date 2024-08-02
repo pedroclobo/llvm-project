@@ -1035,8 +1035,8 @@ Instruction *InstCombinerImpl::visitLoadInst(LoadInst &LI) {
       combineMetadataForCSE(cast<LoadInst>(AvailableVal), &LI, false);
 
     return replaceInstUsesWith(
-        LI, Builder.CreateBitOrPointerCast(AvailableVal, LI.getType(),
-                                           LI.getName() + ".cast"));
+        LI, Builder.CreateBitOrByteOrPointerCast(AvailableVal, LI.getType(),
+                                                 LI.getName() + ".cast"));
   }
 
   // None of the following transforms are legal for volatile/ordered atomic
@@ -1579,8 +1579,9 @@ bool InstCombinerImpl::mergeStoreIntoSuccessor(StoreInst &SI) {
         PHINode::Create(SI.getValueOperand()->getType(), 2, "storemerge");
     PN->addIncoming(SI.getValueOperand(), SI.getParent());
     Builder.SetInsertPoint(OtherStore);
-    PN->addIncoming(Builder.CreateBitOrPointerCast(MergedVal, PN->getType()),
-                    OtherBB);
+    PN->addIncoming(
+        Builder.CreateBitOrByteOrPointerCast(MergedVal, PN->getType()),
+        OtherBB);
     MergedVal = InsertNewInstBefore(PN, DestBB->begin());
     PN->setDebugLoc(MergedLoc);
   }

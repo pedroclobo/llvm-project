@@ -3970,7 +3970,7 @@ Instruction *InstCombinerImpl::visitCallBase(CallBase &Call) {
       Type *RetArgTy = ReturnedArg->getType();
       if (RetArgTy->canLosslesslyBitCastTo(CallTy))
         return replaceInstUsesWith(
-            Call, Builder.CreateBitOrPointerCast(ReturnedArg, CallTy));
+            Call, Builder.CreateBitOrByteOrPointerCast(ReturnedArg, CallTy));
     }
 
   // Drop unnecessary kcfi operand bundles from calls that were converted
@@ -4254,7 +4254,7 @@ bool InstCombinerImpl::transformConstExprCastCall(CallBase &Call) {
 
     Value *NewArg = *AI;
     if ((*AI)->getType() != ParamTy)
-      NewArg = Builder.CreateBitOrPointerCast(*AI, ParamTy);
+      NewArg = Builder.CreateBitOrByteOrPointerCast(*AI, ParamTy);
     Args.push_back(NewArg);
 
     // Add any parameter attributes except the ones incompatible with the new

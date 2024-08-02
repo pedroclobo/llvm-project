@@ -5500,7 +5500,7 @@ static Value *createCastsForTypeOfSameSize(CGBuilderTy &Builder,
     if (!DstTy->isIntegerTy())
       Src = Builder.CreatePtrToInt(Src, DL.getIntPtrType(SrcTy));
     // Cases 3a and 3b.
-    return Builder.CreateBitOrPointerCast(Src, DstTy, Name);
+    return Builder.CreateBitOrByteOrPointerCast(Src, DstTy, Name);
   }
 
   // Case 4b.
