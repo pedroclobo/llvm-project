@@ -43,6 +43,7 @@
 #include "llvm/Transforms/IPO/Annotation2Metadata.h"
 #include "llvm/Transforms/IPO/ArgumentPromotion.h"
 #include "llvm/Transforms/IPO/Attributor.h"
+#include "llvm/Transforms/IPO/ByteReplacer.h"
 #include "llvm/Transforms/IPO/CalledValuePropagation.h"
 #include "llvm/Transforms/IPO/ConstantMerge.h"
 #include "llvm/Transforms/IPO/CrossDSOCFI.h"
@@ -1139,6 +1140,7 @@ PassBuilder::buildModuleSimplificationPipeline(OptimizationLevel Level,
   // and prior to optimizing globals.
   // FIXME: This position in the pipeline hasn't been carefully considered in
   // years, it should be re-analyzed.
+  // MPM.addPass(ByteReplacerPass());
   MPM.addPass(IPSCCPPass(
               IPSCCPOptions(/*AllowFuncSpec=*/
                             Level != OptimizationLevel::Os &&
@@ -1831,6 +1833,7 @@ PassBuilder::buildLTODefaultPipeline(OptimizationLevel Level,
     // Propagate constants at call sites into the functions they call.  This
     // opens opportunities for globalopt (and inlining) by substituting function
     // pointers passed as arguments to direct uses of functions.
+    // MPM.addPass(ByteReplacerPass());
     MPM.addPass(IPSCCPPass(IPSCCPOptions(/*AllowFuncSpec=*/
                                          Level != OptimizationLevel::Os &&
                                          Level != OptimizationLevel::Oz)));
