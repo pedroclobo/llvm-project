@@ -1798,6 +1798,9 @@ SDValue SelectionDAGBuilder::getValueImpl(const Value *V) {
     if (const ConstantInt *CI = dyn_cast<ConstantInt>(C))
       return DAG.getConstant(*CI, getCurSDLoc(), VT);
 
+    if (const ConstantByte *CB = dyn_cast<ConstantByte>(C))
+      return DAG.getConstant(CB->getValue(), getCurSDLoc(), VT);
+
     if (const GlobalValue *GV = dyn_cast<GlobalValue>(C))
       return DAG.getGlobalAddress(GV, getCurSDLoc(), VT);
 

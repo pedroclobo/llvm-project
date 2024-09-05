@@ -3134,6 +3134,9 @@ const MCExpr *AsmPrinter::lowerConstant(const Constant *CV) {
   if (const ConstantInt *CI = dyn_cast<ConstantInt>(CV))
     return MCConstantExpr::create(CI->getZExtValue(), Ctx);
 
+  if (const ConstantByte *CB = dyn_cast<ConstantByte>(CV))
+    return MCConstantExpr::create(CB->getZExtValue(), Ctx);
+
   if (const ConstantPtrAuth *CPA = dyn_cast<ConstantPtrAuth>(CV))
     return lowerConstantPtrAuth(*CPA);
 
