@@ -589,7 +589,7 @@ public:
   /// creates a PtrToInt cast. If the value is an integer type and the
   /// destination a pointer type, creates an IntToPtr cast. Otherwise, creates
   /// a bitcast.
-  static CastInst *CreateBitOrPointerCast(
+  static CastInst *CreateBitOrByteOrPointerCast(
       Value *S,               ///< The pointer value to be casted (operand 0)
       Type *Ty,               ///< The type to which cast should be made
       const Twine &Name = "", ///< Name for the instruction

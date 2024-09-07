@@ -148,10 +148,9 @@ InstCombinerImpl::isEliminableCastPair(const CastInst *CI1,
     Res = 0;
 
   // We don't want to form a bytecast to a destination type that is neither an
-  // integer nor a pointer scalar/vector. We allow bytecasts to bytes as they
-  // are eliminated later.
-  if (Res == Instruction::ByteCast && !DstTy->isIntOrIntVectorTy() &&
-      !DstTy->isPtrOrPtrVectorTy() && !DstTy->isByteOrByteVectorTy())
+  // integer nor a pointer scalar/vector.
+  if (Res == Instruction::ByteCast &&
+      !DstTy->isIntOrIntVectorTy() && !DstTy->isPtrOrPtrVectorTy())
     Res = 0;
 
   return Instruction::CastOps(Res);
@@ -2406,14 +2405,14 @@ static Instruction *foldBitCastBitwiseLogic(BitCastInst &BitCast,
         Value *CastedOp =
             Builder.CreateBitCast(BO->getOperand(0), Y->getType());
         Value *NewBO = Builder.CreateBinOp(BO->getOpcode(), CastedOp, Y);
-        return CastInst::CreateBitOrPointerCast(NewBO, DestTy);
+        return CastInst::CreateBitOrByteOrPointerCast(NewBO, DestTy);
       }
       if (X->getType()->isIntOrIntVectorTy() &&
           Y->getType()->isFPOrFPVectorTy()) {
         Value *CastedOp =
             Builder.CreateBitCast(BO->getOperand(1), X->getType());
         Value *NewBO = Builder.CreateBinOp(BO->getOpcode(), CastedOp, X);
-        return CastInst::CreateBitOrPointerCast(NewBO, DestTy);
+        return CastInst::CreateBitOrByteOrPointerCast(NewBO, DestTy);
       }
     }
     return nullptr;
@@ -2653,8 +2652,11 @@ Instruction *InstCombinerImpl::optimizeBitCastFromPhi(CastInst &CI,
       if (auto *SI = dyn_cast<StoreInst>(V)) {
         assert(SI->isSimple() && SI->getOperand(0) == OldPN);
         Builder.SetInsertPoint(SI);
-        auto *NewBC =
-          cast<BitCastInst>(Builder.CreateBitCast(NewPN, SrcTy));
+        CastInst *NewBC = nullptr;
+        if (NewPN->getType()->isByteOrByteVectorTy())
+          NewBC = cast<ByteCastInst>(Builder.CreateByteCast(NewPN, SrcTy));
+        else
+          NewBC = cast<BitCastInst>(Builder.CreateBitCast(NewPN, SrcTy));
         SI->setOperand(0, NewBC);
         Worklist.push(SI);
         assert(hasStoreUsersOnly(*NewBC));

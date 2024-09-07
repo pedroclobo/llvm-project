@@ -1266,7 +1266,7 @@ bool JumpThreadingPass::simplifyPartiallyRedundantLoad(LoadInst *LoadI) {
     if (AvailableVal == LoadI)
       AvailableVal = PoisonValue::get(LoadI->getType());
     if (AvailableVal->getType() != LoadI->getType()) {
-      AvailableVal = CastInst::CreateBitOrPointerCast(
+      AvailableVal = CastInst::CreateBitOrByteOrPointerCast(
           AvailableVal, LoadI->getType(), "", LoadI->getIterator());
       cast<Instruction>(AvailableVal)->setDebugLoc(LoadI->getDebugLoc());
     }
@@ -1443,7 +1443,7 @@ bool JumpThreadingPass::simplifyPartiallyRedundantLoad(LoadInst *LoadI) {
     // predecessor use the same bitcast.
     Value *&PredV = I->second;
     if (PredV->getType() != LoadI->getType())
-      PredV = CastInst::CreateBitOrPointerCast(
+      PredV = CastInst::CreateBitOrByteOrPointerCast(
           PredV, LoadI->getType(), "", P->getTerminator()->getIterator());
 
     PN->addIncoming(PredV, I->first);

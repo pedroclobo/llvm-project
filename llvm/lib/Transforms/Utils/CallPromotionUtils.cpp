@@ -179,7 +179,7 @@ static void createRetBitCast(CallBase &CB, Type *RetTy, CastInst **RetBitCast) {
     InsertBefore = std::next(CB.getIterator());
 
   // Bitcast the return value to the correct type.
-  auto *Cast = CastInst::CreateBitOrPointerCast(&CB, RetTy, "", InsertBefore);
+  auto *Cast = CastInst::CreateBitOrByteOrPointerCast(&CB, RetTy, "", InsertBefore);
   if (RetBitCast)
     *RetBitCast = Cast;
 
@@ -522,7 +522,7 @@ CallBase &llvm::promoteCall(CallBase &CB, Function *Callee,
     Type *ActualTy = Arg->getType();
     if (FormalTy != ActualTy) {
       auto *Cast =
-          CastInst::CreateBitOrPointerCast(Arg, FormalTy, "", CB.getIterator());
+          CastInst::CreateBitOrByteOrPointerCast(Arg, FormalTy, "", CB.getIterator());
       CB.setArgOperand(ArgNo, Cast);
 
       // Remove any incompatible attributes for the argument.

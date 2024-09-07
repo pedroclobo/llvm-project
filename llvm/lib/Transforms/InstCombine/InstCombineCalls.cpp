@@ -4328,7 +4328,7 @@ bool InstCombinerImpl::transformConstExprCastCall(CallBase &Call) {
   Value *NV = NC;
   if (OldRetTy != NV->getType() && !Caller->use_empty()) {
     assert(!NV->getType()->isVoidTy());
-    NV = NC = CastInst::CreateBitOrPointerCast(NC, OldRetTy);
+    NV = NC = CastInst::CreateBitOrByteOrPointerCast(NC, OldRetTy);
     NC->setDebugLoc(Caller->getDebugLoc());
 
     auto OptInsertPt = NewCall->getInsertionPointAfterDef();

@@ -2020,8 +2020,11 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
     }
   }
 
-  if (OldTy->isByteOrByteVectorTy())
-    return IRB.CreateByteCast(V, NewTy);
+  if (OldTy->isByteOrByteVectorTy()) {
+    if (NewTy->isIntOrIntVectorTy() || NewTy->isPtrOrPtrVectorTy())
+      return IRB.CreateByteCast(V, NewTy);
+    return IRB.CreateBitCast(IRB.CreateByteCastToInt(V), NewTy);
+  }
 
   return IRB.CreateBitCast(V, NewTy);
 }

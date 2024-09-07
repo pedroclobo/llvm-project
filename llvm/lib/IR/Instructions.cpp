@@ -3050,13 +3050,15 @@ CastInst *CastInst::CreatePointerBitCastOrAddrSpaceCast(
   return Create(Instruction::BitCast, S, Ty, Name, InsertBefore);
 }
 
-CastInst *CastInst::CreateBitOrPointerCast(Value *S, Type *Ty,
+CastInst *CastInst::CreateBitOrByteOrPointerCast(Value *S, Type *Ty,
                                            const Twine &Name,
                                            InsertPosition InsertBefore) {
   if (S->getType()->isPointerTy() && Ty->isIntegerTy())
     return Create(Instruction::PtrToInt, S, Ty, Name, InsertBefore);
   if (S->getType()->isIntegerTy() && Ty->isPointerTy())
     return Create(Instruction::IntToPtr, S, Ty, Name, InsertBefore);
+  if (S->getType()->isByteTy() && (Ty->isIntegerTy() || Ty->isPointerTy()))
+    return Create(Instruction::ByteCast, S, Ty, Name, InsertBefore);
 
   return Create(Instruction::BitCast, S, Ty, Name, InsertBefore);
 }
@@ -3203,13 +3205,13 @@ CastInst::getCastOpcode(
 
   // Run through the possibilities ...
   if (DestTy->isByteTy()) {                         // Casting to byte
-    if (SrcTy->isIntegerTy()) {                     // Casting from integral
+    if (SrcTy->isIntegerTy() || SrcTy->isByteTy()) {// Casting from integral
       assert(DestBits == SrcBits && "Illegal cast from byte type");
       return BitCast;
     }
     llvm_unreachable("Illegal cast to byte type");
-  } else if (DestTy->isIntegerTy()) {               // Casting from byte
-    if (SrcTy->isByteTy()) {
+  } else if (DestTy->isIntegerTy()) {
+    if (SrcTy->isByteTy()) {                        // Casting from byte
       return ByteCast;
     } else if (SrcTy->isIntegerTy()) {              // Casting from integral
       if (DestBits < SrcBits)
@@ -3388,6 +3390,10 @@ CastInst::castIsValid(Instruction::CastOps op, Type *SrcTy, Type *DstTy) {
     // ByteCast is applied to bytes only.
     ByteType *SrcByteTy = dyn_cast<ByteType>(SrcTy->getScalarType());
     if (!SrcByteTy)
+      return false;
+
+    ByteType *DstByteTy = dyn_cast<ByteType>(DstTy->getScalarType());
+    if (DstByteTy)
       return false;
 
     // ByteCast to floating point types can be constructed as a ByteCast to an

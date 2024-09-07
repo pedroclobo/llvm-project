@@ -3985,7 +3985,24 @@ void SelectionDAGBuilder::visitAddrSpaceCast(const User &I) {
 
 void SelectionDAGBuilder::visitByteCast(const User &I) {
   SDValue N = getValue(I.getOperand(0));
-  setValue(&I, N); // noop cast.
+  SDLoc dl = getCurSDLoc();
+  EVT DestVT = DAG.getTargetLoweringInfo().getValueType(DAG.getDataLayout(),
+                                                        I.getType());
+
+  // BitCast assures us that source and destination are the same size so this is
+  // either a BITCAST or a no-op.
+  if (DestVT != N.getValueType())
+    setValue(&I, DAG.getNode(ISD::BITCAST, dl,
+                             DestVT, N)); // convert types.
+  // Check if the original LLVM IR Operand was a ConstantInt, because getValue()
+  // might fold any kind of constant expression to an integer constant and that
+  // is not what we are looking for. Only recognize a bitcast of a genuine
+  // constant integer as an opaque constant.
+  else if (ConstantByte *C = dyn_cast<ConstantByte>(I.getOperand(0)))
+    setValue(&I, DAG.getConstant(C->getValue(), dl, DestVT, /*isTarget=*/false,
+                                 /*isOpaque*/true));
+  else
+    setValue(&I, N);            // noop cast.
 }
 
 void SelectionDAGBuilder::visitInsertElement(const User &I) {

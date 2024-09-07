@@ -467,7 +467,7 @@ public:
 
     Value *StoreValue = Cand.Store->getValueOperand();
     if (LoadType != StoreType) {
-      StoreValue = CastInst::CreateBitOrPointerCast(StoreValue, LoadType,
+      StoreValue = CastInst::CreateBitOrByteOrPointerCast(StoreValue, LoadType,
                                                     "store_forward_cast",
                                                     Cand.Store->getIterator());
       // Because it casts the old `load` value and is used by the new `phi`

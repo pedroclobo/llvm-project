@@ -280,7 +280,7 @@ bool InstCombinerImpl::foldIntegerTypedPHI(PHINode &PN) {
     // %v.cast = load float *, float ** %v.ptrp, align 8
     Instruction *&CI = Casts[IncomingVal];
     if (!CI) {
-      CI = CastInst::CreateBitOrPointerCast(IncomingVal, IntToPtr->getType(),
+      CI = CastInst::CreateBitOrByteOrPointerCast(IncomingVal, IntToPtr->getType(),
                                             IncomingVal->getName() + ".ptr");
       if (auto *IncomingI = dyn_cast<Instruction>(IncomingVal)) {
         BasicBlock::iterator InsertPos(IncomingI);

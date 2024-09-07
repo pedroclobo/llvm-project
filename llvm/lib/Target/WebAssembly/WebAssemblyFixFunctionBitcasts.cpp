@@ -140,7 +140,7 @@ static Function *createWrapper(Function *F, FunctionType *Ty) {
     } else {
       if (CastInst::isBitOrNoopPointerCastable(ArgType, ParamType, DL)) {
         Instruction *PtrCast =
-            CastInst::CreateBitOrPointerCast(AI, ParamType, "cast");
+            CastInst::CreateBitOrByteOrPointerCast(AI, ParamType, "cast");
         PtrCast->insertInto(BB, BB->end());
         Args.push_back(PtrCast);
       } else if (ArgType->isStructTy() || ParamType->isStructTy()) {
@@ -180,7 +180,7 @@ static Function *createWrapper(Function *F, FunctionType *Ty) {
     } else if (CastInst::isBitOrNoopPointerCastable(ExpectedRtnType, RtnType,
                                                     DL)) {
       Instruction *Cast =
-          CastInst::CreateBitOrPointerCast(Call, RtnType, "cast");
+          CastInst::CreateBitOrByteOrPointerCast(Call, RtnType, "cast");
       Cast->insertInto(BB, BB->end());
       ReturnInst::Create(M->getContext(), Cast, BB);
     } else if (RtnType->isStructTy() || ExpectedRtnType->isStructTy()) {
