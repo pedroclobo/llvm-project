@@ -750,8 +750,12 @@ bool X86InterleavedAccessGroup::lowerIntoOptimizedSequence() {
 
     // Now replace the unoptimized-interleaved-vectors with the
     // transposed-interleaved vectors.
-    for (unsigned i = 0, e = Shuffles.size(); i < e; ++i)
+    for (unsigned i = 0, e = Shuffles.size(); i < e; ++i) {
+      if (Shuffles[i]->getType()->isByteOrByteVectorTy() &&
+         !TransposedVectors[Indices[i]]->getType()->isByteOrByteVectorTy())
+        TransposedVectors[Indices[i]] = Builder.CreateBitCast(TransposedVectors[Indices[i]], Shuffles[i]->getType());
       Shuffles[i]->replaceAllUsesWith(TransposedVectors[Indices[i]]);
+    }
 
     return true;
   }
