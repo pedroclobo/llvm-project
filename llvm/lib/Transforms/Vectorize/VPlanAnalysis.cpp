@@ -195,6 +195,7 @@ Type *VPTypeAnalysis::inferScalarTypeForRecipe(const VPReplicateRecipe *R) {
   case Instruction::AddrSpaceCast:
   case Instruction::Alloca:
   case Instruction::BitCast:
+  case Instruction::ByteCast:
   case Instruction::Trunc:
   case Instruction::SExt:
   case Instruction::ZExt:
