@@ -2025,7 +2025,10 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
       return IRB.CreateByteCast(V, NewTy);
     if (NewTy->isByteOrByteVectorTy())
       return IRB.CreateBitCast(V, NewTy);
-    return IRB.CreateBitCast(IRB.CreateByteCastToInt(V), NewTy);
+    V = V->getType()->isVectorTy() ?
+      IRB.CreateByteCastToIntVector(V, V->getType()->isScalableTy()) :
+      IRB.CreateByteCastToInt(V);
+    return IRB.CreateBitCast(V, NewTy);
   }
 
   return IRB.CreateBitCast(V, NewTy);

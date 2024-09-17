@@ -476,6 +476,8 @@ Instruction *MemCpyOptPass::tryMergingIntoMemset(Instruction *StartInst,
     // Get the starting pointer of the block.
     StartPtr = Range.StartPtr;
 
+    if (ByteVal->getType()->isByteTy())
+      ByteVal = Builder.CreateByteCastToInt(ByteVal);
     AMemSet = Builder.CreateMemSet(StartPtr, ByteVal, Range.End - Range.Start,
                                    Range.Alignment);
     AMemSet->mergeDIAssignID(Range.TheStores);
@@ -1751,6 +1753,8 @@ bool MemCpyOptPass::processMemCpy(MemCpyInst *M, BasicBlock::iterator &BBI) {
       if (Value *ByteVal = isBytewiseValue(GV->getInitializer(),
                                            M->getDataLayout())) {
         IRBuilder<> Builder(M);
+        if (ByteVal->getType()->isByteTy())
+          ByteVal = Builder.CreateByteCastToInt(ByteVal);
         Instruction *NewM = Builder.CreateMemSet(
             M->getRawDest(), ByteVal, M->getLength(), M->getDestAlign(), false);
         auto *LastDef = cast<MemoryDef>(MA);

@@ -2039,6 +2039,25 @@ Value *ScalarExprEmitter::VisitConvertVectorExpr(ConvertVectorExpr *E) {
       Res = Builder.CreateIntCast(
           Res, DstTy, SrcEltType->isSignedIntegerOrEnumerationType(), "conv");
     }
+  } else if (isa<llvm::ByteType>(SrcEltTy)) {
+    if (DstEltTy->isIntegerTy()) {
+      if (SrcEltTy->getScalarSizeInBits() == DstEltTy->getScalarSizeInBits()) {
+        Res = Src->getType()->isVectorTy() ?
+          Builder.CreateByteCastToIntVector(Src, Src->getType()->isScalableTy()) :
+          Builder.CreateByteCastToInt(Src);
+      } else {
+        Res = Src->getType()->isVectorTy() ?
+          Builder.CreateByteCastToIntVector(Src, Src->getType()->isScalableTy()) :
+          Builder.CreateByteCastToInt(Src);
+        Res = Builder.CreateIntCast(Res, DstTy, false, "conv");
+      }
+    } else {
+      assert(DstEltTy->isFloatingPointTy() && "Unknown byte conversion");
+      Res = Src->getType()->isVectorTy() ?
+        Builder.CreateByteCastToIntVector(Src, Src->getType()->isScalableTy()) :
+        Builder.CreateByteCastToInt(Src);
+      Res = Builder.CreateUIToFP(Res, DstTy, "conv");
+    }
   } else {
     assert(SrcEltTy->isFloatingPointTy() && DstEltTy->isFloatingPointTy() &&
            "Unknown real conversion");
