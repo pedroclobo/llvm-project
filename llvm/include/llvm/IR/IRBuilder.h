@@ -2210,12 +2210,33 @@ public:
 
   Value *CreateByteCastToInt(Value *V, const Twine &Name = "",
                              bool IsExact = false) {
+    if (auto *VTy = dyn_cast<VectorType>(V->getType())) {
+      unsigned NumEls = VTy->getElementCount().getKnownMinValue();
+      unsigned BitWidth = VTy->getElementType()->getPrimitiveSizeInBits();
+
+      Type *DestElTy = getIntNTy(BitWidth);
+      VectorType *DestTy = VectorType::get(DestElTy, NumEls,
+                                           VTy->isScalableTy());
+
+      return CreateByteCast(V, DestTy, Name, IsExact);
+    }
+
     Type *DestTy = getIntNTy(V->getType()->getByteBitWidth());
     return CreateByteCast(V, DestTy, Name, IsExact);
   }
 
   Value *CreateByteCastToPtr(Value *V, unsigned AddrSpace = 0,
                              const Twine &Name = "", bool IsExact = false) {
+    if (auto *VTy = dyn_cast<VectorType>(V->getType())) {
+      unsigned NumEls = VTy->getElementCount().getKnownMinValue();
+
+      Type *DestElTy = getPtrTy(AddrSpace);
+      VectorType *DestTy = VectorType::get(DestElTy, NumEls,
+                                           VTy->isScalableTy());
+
+      return CreateByteCast(V, DestTy, Name, IsExact);
+    }
+
     Type *DestTy = getPtrTy(AddrSpace);
     return CreateByteCast(V, DestTy, Name, IsExact);
   }
