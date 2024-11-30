@@ -561,6 +561,10 @@ public:
   /// a pointer of the given pointer (vector of pointer) type.
   Type *getBytePtrType(Type *) const;
 
+  /// Returns a byte (vector of byte) type with size at least as big as that of
+  /// an integer of the given integer (vector of integer) type.
+  Type *getByteIntType(Type *) const;
+
   /// Returns the smallest integer type with size at least as big as
   /// Width bits.
   LLVM_ABI Type *getSmallestLegalIntType(LLVMContext &C,
