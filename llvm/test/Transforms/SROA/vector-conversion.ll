@@ -99,6 +99,79 @@ define <16 x i8> @vector_ptrtointbitcast_vector({<2 x ptr>, <2 x ptr>} %x) {
 
   ret <16 x i8> %vec
 }
+
+define <4 x i8> @vector_bytetoint({<2 x b8>, <2 x b8>} %x) {
+; CHECK-LABEL: @vector_bytetoint(
+; CHECK-NEXT:    [[X_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x b8>, <2 x b8> } [[X:%.*]], 0
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b8> [[X_FCA_0_EXTRACT]] to <2 x i8>
+; CHECK-NEXT:    [[A_SROA_0_0_VEC_EXPAND:%.*]] = shufflevector <2 x i8> [[TMP1]], <2 x i8> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
+; CHECK-NEXT:    [[A_SROA_0_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x i8> [[A_SROA_0_0_VEC_EXPAND]], <4 x i8> undef
+; CHECK-NEXT:    [[X_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x b8>, <2 x b8> } [[X]], 1
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <2 x b8> [[X_FCA_1_EXTRACT]] to <2 x i8>
+; CHECK-NEXT:    [[A_SROA_0_2_VEC_EXPAND:%.*]] = shufflevector <2 x i8> [[TMP2]], <2 x i8> poison, <4 x i32> <i32 poison, i32 poison, i32 0, i32 1>
+; CHECK-NEXT:    [[A_SROA_0_2_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x i8> [[A_SROA_0_2_VEC_EXPAND]], <4 x i8> [[A_SROA_0_0_VECBLEND]]
+; CHECK-NEXT:    ret <4 x i8> [[A_SROA_0_2_VECBLEND]]
+;
+  %a = alloca {<2 x b8>, <2 x b8>}
+  store {<2 x b8>, <2 x b8>} %x, ptr %a
+  %vec = load <4 x i8>, ptr %a
+  ret <4 x i8> %vec
+}
+
+define <4 x ptr> @vector_bytetoptr({<2 x b64>, <2 x b64>} %x) {
+; CHECK-LABEL: @vector_bytetoptr(
+; CHECK-NEXT:    [[X_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x b64>, <2 x b64> } [[X:%.*]], 0
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <2 x b64> [[X_FCA_0_EXTRACT]] to <2 x ptr>
+; CHECK-NEXT:    [[A_SROA_0_0_VEC_EXPAND:%.*]] = shufflevector <2 x ptr> [[TMP1]], <2 x ptr> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
+; CHECK-NEXT:    [[A_SROA_0_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x ptr> [[A_SROA_0_0_VEC_EXPAND]], <4 x ptr> undef
+; CHECK-NEXT:    [[X_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x b64>, <2 x b64> } [[X]], 1
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <2 x b64> [[X_FCA_1_EXTRACT]] to <2 x ptr>
+; CHECK-NEXT:    [[A_SROA_0_16_VEC_EXPAND:%.*]] = shufflevector <2 x ptr> [[TMP2]], <2 x ptr> poison, <4 x i32> <i32 poison, i32 poison, i32 0, i32 1>
+; CHECK-NEXT:    [[A_SROA_0_16_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x ptr> [[A_SROA_0_16_VEC_EXPAND]], <4 x ptr> [[A_SROA_0_0_VECBLEND]]
+; CHECK-NEXT:    ret <4 x ptr> [[A_SROA_0_16_VECBLEND]]
+;
+  %a = alloca {<2 x b64>, <2 x b64>}
+  store {<2 x b64>, <2 x b64>} %x, ptr %a
+  %vec = load <4 x ptr>, ptr %a
+  ret <4 x ptr> %vec
+}
+
+define <4 x b8> @vector_inttobyte({<2 x i8>, <2 x i8>} %x) {
+; CHECK-LABEL: @vector_inttobyte(
+; CHECK-NEXT:    [[X_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i8>, <2 x i8> } [[X:%.*]], 0
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i8> [[X_FCA_0_EXTRACT]] to <2 x b8>
+; CHECK-NEXT:    [[A_SROA_0_0_VEC_EXPAND:%.*]] = shufflevector <2 x b8> [[TMP1]], <2 x b8> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
+; CHECK-NEXT:    [[A_SROA_0_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x b8> [[A_SROA_0_0_VEC_EXPAND]], <4 x b8> undef
+; CHECK-NEXT:    [[X_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i8>, <2 x i8> } [[X]], 1
+; CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i8> [[X_FCA_1_EXTRACT]] to <2 x b8>
+; CHECK-NEXT:    [[A_SROA_0_2_VEC_EXPAND:%.*]] = shufflevector <2 x b8> [[TMP2]], <2 x b8> poison, <4 x i32> <i32 poison, i32 poison, i32 0, i32 1>
+; CHECK-NEXT:    [[A_SROA_0_2_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x b8> [[A_SROA_0_2_VEC_EXPAND]], <4 x b8> [[A_SROA_0_0_VECBLEND]]
+; CHECK-NEXT:    ret <4 x b8> [[A_SROA_0_2_VECBLEND]]
+;
+  %a = alloca {<2 x i8>, <2 x i8>}
+  store {<2 x i8>, <2 x i8>} %x, ptr %a
+  %vec = load <4 x b8>, ptr %a
+  ret <4 x b8> %vec
+}
+
+define <4 x b64> @vector_ptrtobyte({<2 x ptr>, <2 x ptr>} %x) {
+; CHECK-LABEL: @vector_ptrtobyte(
+; CHECK-NEXT:    [[X_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x ptr>, <2 x ptr> } [[X:%.*]], 0
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x ptr> [[X_FCA_0_EXTRACT]] to <2 x b64>
+; CHECK-NEXT:    [[A_SROA_0_0_VEC_EXPAND:%.*]] = shufflevector <2 x b64> [[TMP1]], <2 x b64> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
+; CHECK-NEXT:    [[A_SROA_0_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x b64> [[A_SROA_0_0_VEC_EXPAND]], <4 x b64> undef
+; CHECK-NEXT:    [[X_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x ptr>, <2 x ptr> } [[X]], 1
+; CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x ptr> [[X_FCA_1_EXTRACT]] to <2 x b64>
+; CHECK-NEXT:    [[A_SROA_0_16_VEC_EXPAND:%.*]] = shufflevector <2 x b64> [[TMP2]], <2 x b64> poison, <4 x i32> <i32 poison, i32 poison, i32 0, i32 1>
+; CHECK-NEXT:    [[A_SROA_0_16_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x b64> [[A_SROA_0_16_VEC_EXPAND]], <4 x b64> [[A_SROA_0_0_VECBLEND]]
+; CHECK-NEXT:    ret <4 x b64> [[A_SROA_0_16_VECBLEND]]
+;
+  %a = alloca {<2 x ptr>, <2 x ptr>}
+  store {<2 x ptr>, <2 x ptr>} %x, ptr %a
+  %vec = load <4 x b64>, ptr %a
+  ret <4 x b64> %vec
+}
+
 ;; NOTE: These prefixes are unused and the list is autogenerated. Do not add tests below this line:
 ; CHECK-MODIFY-CFG: {{.*}}
 ; CHECK-PRESERVE-CFG: {{.*}}

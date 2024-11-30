@@ -1941,6 +1941,13 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy) {
     return false;
   }
 
+  if (isa<ByteType>(OldTy) && isa<ByteType>(NewTy)) {
+    assert(cast<ByteType>(OldTy)->getBitWidth() !=
+               cast<ByteType>(NewTy)->getBitWidth() &&
+           "We can't have the same bitwidth for different byte types");
+    return false;
+  }
+
   if (DL.getTypeSizeInBits(NewTy).getFixedValue() !=
       DL.getTypeSizeInBits(OldTy).getFixedValue())
     return false;
@@ -1948,7 +1955,7 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy) {
     return false;
 
   // We can convert pointers to integers and vice-versa. Same for vectors
-  // of pointers and integers.
+  // of pointers and integers. We can also convert bytes to pointers.
   OldTy = OldTy->getScalarType();
   NewTy = NewTy->getScalarType();
   if (NewTy->isPointerTy() || OldTy->isPointerTy()) {
@@ -1966,13 +1973,13 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy) {
 
     // We can convert integers to integral pointers, but not to non-integral
     // pointers.
-    if (OldTy->isIntegerTy())
+    if (OldTy->isIntegerTy() || OldTy->isByteTy())
       return !DL.isNonIntegralPointerType(NewTy);
 
     // We can convert integral pointers to integers, but non-integral pointers
     // need to remain pointers.
     if (!DL.isNonIntegralPointerType(OldTy))
-      return NewTy->isIntegerTy();
+      return NewTy->isIntegerTy() || NewTy->isByteTy();
 
     return false;
   }
@@ -1999,6 +2006,8 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
 
   assert(!(isa<IntegerType>(OldTy) && isa<IntegerType>(NewTy)) &&
          "Integer types must be the exact same to convert.");
+  assert(!(isa<ByteType>(OldTy) && isa<ByteType>(NewTy)) &&
+         "Byte types must be the exact same to convert.");
 
   // See if we need inttoptr for this type pair. May require additional bitcast.
   if (OldTy->isIntOrIntVectorTy() && NewTy->isPtrOrPtrVectorTy()) {
@@ -2034,6 +2043,12 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
       return IRB.CreateIntToPtr(IRB.CreatePtrToInt(V, DL.getIntPtrType(OldTy)),
                                 NewTy);
     }
+  }
+
+  if (OldTy->isByteOrByteVectorTy()) {
+    if (NewTy->isByteOrByteVectorTy())
+      return IRB.CreateBitCast(V, NewTy);
+    return IRB.CreateExactByteCast(V, NewTy);
   }
 
   return IRB.CreateBitCast(V, NewTy);
@@ -2491,10 +2506,36 @@ static bool isIntegerWideningViable(Partition &P, Type *AllocaTy,
   return WholeAllocaOp;
 }
 
+static Value *extractByte(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
+                          ByteType *Ty, uint64_t Offset, const Twine &Name) {
+  LLVM_DEBUG(dbgs() << "       start: " << *V << "\n");
+  llvm::errs() << "V: " << *V << "\n";
+  ByteType *ByteTy = cast<ByteType>(V->getType());
+  assert(DL.getTypeStoreSize(Ty).getFixedValue() + Offset <=
+             DL.getTypeStoreSize(ByteTy).getFixedValue() &&
+         "Element extends past full value");
+  uint64_t ShAmt = 8 * Offset;
+  if (DL.isBigEndian())
+    ShAmt = 8 * (DL.getTypeStoreSize(ByteTy).getFixedValue() -
+                 DL.getTypeStoreSize(Ty).getFixedValue() - Offset);
+  if (ShAmt) {
+    V = IRB.CreateLShr(V, ShAmt, Name + ".shift");
+    LLVM_DEBUG(dbgs() << "     shifted: " << *V << "\n");
+  }
+  assert(Ty->getBitWidth() <= ByteTy->getBitWidth() &&
+         "Cannot extract to a larger byte!");
+  if (Ty != ByteTy) {
+    V = IRB.CreateTrunc(V, Ty, Name + ".trunc");
+    LLVM_DEBUG(dbgs() << "     trunced: " << *V << "\n");
+  }
+  return V;
+}
+
 static Value *extractInteger(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
                              IntegerType *Ty, uint64_t Offset,
                              const Twine &Name) {
   LLVM_DEBUG(dbgs() << "       start: " << *V << "\n");
+  llvm::errs() << "V: " << *V << "\n";
   IntegerType *IntTy = cast<IntegerType>(V->getType());
   assert(DL.getTypeStoreSize(Ty).getFixedValue() + Offset <=
              DL.getTypeStoreSize(IntTy).getFixedValue() &&
@@ -2855,12 +2896,27 @@ private:
     assert(!LI.isVolatile());
     Value *V = IRB.CreateAlignedLoad(NewAI.getAllocatedType(), &NewAI,
                                      NewAI.getAlign(), "load");
-    V = convertValue(DL, IRB, V, IntTy);
-    assert(NewBeginOffset >= NewAllocaBeginOffset && "Out of bounds offset");
-    uint64_t Offset = NewBeginOffset - NewAllocaBeginOffset;
-    if (Offset > 0 || NewEndOffset < NewAllocaEndOffset) {
-      IntegerType *ExtractTy = Type::getIntNTy(LI.getContext(), SliceSize * 8);
-      V = extractInteger(DL, IRB, V, ExtractTy, Offset, "extract");
+    uint64_t VSize = DL.getTypeStoreSize(V->getType()).getFixedValue();
+    uint64_t LoadSize = DL.getTypeStoreSize(LI.getType()).getFixedValue();
+    // When truncating a byte value to a smaller integer type, perform the
+    // extraction first, as to avoid bytecasting the byte immediately, which
+    // could spread `poison`.
+    if (V->getType()->isByteOrByteVectorTy() && VSize > LoadSize) {
+      assert(NewBeginOffset >= NewAllocaBeginOffset && "Out of bounds offset");
+      uint64_t Offset = NewBeginOffset - NewAllocaBeginOffset;
+      if (Offset > 0 || NewEndOffset < NewAllocaEndOffset) {
+        ByteType *ExtractTy = Type::getByteNTy(LI.getContext(), SliceSize * 8);
+        V = extractByte(DL, IRB, V, ExtractTy, Offset, "extract");
+      }
+      V = IRB.CreateExactByteCastToInt(V);
+    } else {
+      V = convertValue(DL, IRB, V, IntTy);
+      assert(NewBeginOffset >= NewAllocaBeginOffset && "Out of bounds offset");
+      uint64_t Offset = NewBeginOffset - NewAllocaBeginOffset;
+      if (Offset > 0 || NewEndOffset < NewAllocaEndOffset) {
+        IntegerType *ExtractTy = Type::getIntNTy(LI.getContext(), SliceSize * 8);
+        V = extractInteger(DL, IRB, V, ExtractTy, Offset, "extract");
+      }
     }
     // It is possible that the extracted type is not the load type. This
     // happens if there is a load past the end of the alloca, and as
