@@ -891,6 +891,16 @@ Type *DataLayout::getBytePtrType(Type *Ty) const {
   return ByteTy;
 }
 
+Type *DataLayout::getByteIntType(Type *Ty) const {
+  assert(!Ty->isPtrOrPtrVectorTy() &&
+         "Expected a non-pointer or non-pointer vector type.");
+  unsigned NumBits = Ty->getScalarSizeInBits();
+  ByteType *ByteTy = ByteType::get(Ty->getContext(), NumBits);
+  if (VectorType *VecTy = dyn_cast<VectorType>(Ty))
+    return VectorType::get(ByteTy, VecTy);
+  return ByteTy;
+}
+
 Type *DataLayout::getSmallestLegalIntType(LLVMContext &C, unsigned Width) const {
   for (unsigned LegalIntWidth : LegalIntWidths)
     if (Width <= LegalIntWidth)
