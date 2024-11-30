@@ -1939,6 +1939,13 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy) {
     return false;
   }
 
+  if (isa<ByteType>(OldTy) && isa<ByteType>(NewTy)) {
+    assert(cast<ByteType>(OldTy)->getBitWidth() !=
+               cast<ByteType>(NewTy)->getBitWidth() &&
+           "We can't have the same bitwidth for different byte types");
+    return false;
+  }
+
   if (DL.getTypeSizeInBits(NewTy).getFixedValue() !=
       DL.getTypeSizeInBits(OldTy).getFixedValue())
     return false;
@@ -1946,7 +1953,7 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy) {
     return false;
 
   // We can convert pointers to integers and vice-versa. Same for vectors
-  // of pointers and integers.
+  // of pointers and integers. We can also convert bytes to pointers.
   OldTy = OldTy->getScalarType();
   NewTy = NewTy->getScalarType();
   if (NewTy->isPointerTy() || OldTy->isPointerTy()) {
@@ -1964,13 +1971,13 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy) {
 
     // We can convert integers to integral pointers, but not to non-integral
     // pointers.
-    if (OldTy->isIntegerTy())
+    if (OldTy->isIntegerTy() || OldTy->isByteTy())
       return !DL.isNonIntegralPointerType(NewTy);
 
     // We can convert integral pointers to integers, but non-integral pointers
     // need to remain pointers.
     if (!DL.isNonIntegralPointerType(OldTy))
-      return NewTy->isIntegerTy();
+      return NewTy->isIntegerTy() || NewTy->isByteTy();
 
     return false;
   }
@@ -1997,6 +2004,8 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
 
   assert(!(isa<IntegerType>(OldTy) && isa<IntegerType>(NewTy)) &&
          "Integer types must be the exact same to convert.");
+  assert(!(isa<ByteType>(OldTy) && isa<ByteType>(NewTy)) &&
+         "Byte types must be the exact same to convert.");
 
   // See if we need inttoptr for this type pair. May require additional bitcast.
   if (OldTy->isIntOrIntVectorTy() && NewTy->isPtrOrPtrVectorTy()) {
@@ -2032,6 +2041,12 @@ static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
       return IRB.CreateIntToPtr(IRB.CreatePtrToInt(V, DL.getIntPtrType(OldTy)),
                                 NewTy);
     }
+  }
+
+  if (OldTy->isByteOrByteVectorTy()) {
+    if (NewTy->isByteOrByteVectorTy())
+      return IRB.CreateBitCast(V, NewTy);
+    return IRB.CreateByteCast(V, NewTy, "", /*IsExact*/ true);
   }
 
   return IRB.CreateBitCast(V, NewTy);
@@ -2858,7 +2873,16 @@ private:
     uint64_t Offset = NewBeginOffset - NewAllocaBeginOffset;
     if (Offset > 0 || NewEndOffset < NewAllocaEndOffset) {
       IntegerType *ExtractTy = Type::getIntNTy(LI.getContext(), SliceSize * 8);
-      V = extractInteger(DL, IRB, V, ExtractTy, Offset, "extract");
+      if (auto *BC = dyn_cast<ByteCastInst>(V)) {
+        // Instead of truncating the result of the bytecast, replace the
+        // original bytecast with a bytecast to the truncated type.
+        auto *NewBC =
+          IRB.CreateByteCast(BC->getOperand(0), ExtractTy, "", BC->isExact());
+        deleteIfTriviallyDead(V);
+        V =  NewBC;
+      } else {
+        V = extractInteger(DL, IRB, V, ExtractTy, Offset, "extract");
+      }
     }
     // It is possible that the extracted type is not the load type. This
     // happens if there is a load past the end of the alloca, and as

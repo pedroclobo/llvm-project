@@ -352,6 +352,10 @@ static Value *getStoreValueForLoadHelper(Value *SrcVal, unsigned Offset,
   if (SrcVal->getType()->isPtrOrPtrVectorTy())
     SrcVal =
         Builder.CreatePtrToInt(SrcVal, DL.getIntPtrType(SrcVal->getType()));
+  if (SrcVal->getType()->isByteTy())
+    SrcVal =
+        Builder.CreateByteCast(SrcVal, IntegerType::get(Ctx, StoreSize * 8),
+                               "", /*IsExact=*/true);
   if (!SrcVal->getType()->isIntegerTy())
     SrcVal =
         Builder.CreateBitCast(SrcVal, IntegerType::get(Ctx, StoreSize * 8));
