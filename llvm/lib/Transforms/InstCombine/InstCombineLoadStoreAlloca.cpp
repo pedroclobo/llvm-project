@@ -711,6 +711,16 @@ static Instruction *combineLoadToOperationType(InstCombinerImpl &IC,
         return &Load;
       }
     }
+
+    if (auto *BC = dyn_cast<ByteCastInst>(Load.user_back())) {
+      Type *DestTy = BC->getDestTy();
+      if (BC->isExact()) {
+        LoadInst *NewLoad = IC.combineLoadToNewType(Load, DestTy);
+        BC->replaceAllUsesWith(NewLoad);
+        IC.eraseInstFromFunction(*BC);
+        return &Load;
+      }
+    }
   }
 
   // FIXME: We should also canonicalize loads of vectors when their elements are
