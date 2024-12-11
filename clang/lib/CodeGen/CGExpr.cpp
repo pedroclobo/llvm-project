@@ -2168,6 +2168,9 @@ llvm::Value *CodeGenFunction::EmitToMemory(llvm::Value *Value, QualType Ty) {
     Value = Builder.CreateBitCast(Value, StoreTy);
   }
 
+  if (isa<llvm::Constant>(Value) && Value->getType()->isByteTy())
+    Value = Builder.CreateExactByteCastToInt(Value);
+
   if (Ty->hasBooleanRepresentation() || Ty->isBitIntType()) {
     llvm::Type *StoreTy = convertTypeForLoadStore(Ty, Value->getType());
     bool Signed = Ty->isSignedIntegerOrEnumerationType();
