@@ -2072,6 +2072,9 @@ llvm::Value *CodeGenFunction::EmitToMemory(llvm::Value *Value, QualType Ty) {
     Value = Builder.CreateBitCast(Value, StoreTy);
   }
 
+  if (isa<llvm::Constant>(Value) && Value->getType()->isByteTy())
+    Value = Builder.CreateByteCastToInt(Value, "", /*IsExact=*/true);
+
   return Value;
 }
 
