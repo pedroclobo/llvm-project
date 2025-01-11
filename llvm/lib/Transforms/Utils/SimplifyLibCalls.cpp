@@ -1547,10 +1547,12 @@ static Value *optimizeMemCmpConstantSize(CallInst *CI, Value *LHS, Value *RHS,
 
   // memcmp(S1,S2,1) -> *(unsigned char*)LHS - *(unsigned char*)RHS
   if (Len == 1) {
-    Value *LHSV = B.CreateZExt(B.CreateLoad(B.getInt8Ty(), LHS, "lhsc"),
-                               CI->getType(), "lhsv");
-    Value *RHSV = B.CreateZExt(B.CreateLoad(B.getInt8Ty(), RHS, "rhsc"),
-                               CI->getType(), "rhsv");
+    Value *LHSC = B.CreateByteCastToInt(
+                    B.CreateLoad(B.getByte8Ty(), LHS, "lhsb"), "lhsc");
+    Value *LHSV = B.CreateZExt(LHSC, CI->getType(), "lhsv");
+    Value *RHSC = B.CreateByteCastToInt(
+                    B.CreateLoad(B.getByte8Ty(), RHS, "rhsb"), "rhsc");
+    Value *RHSV = B.CreateZExt(RHSC, CI->getType(), "rhsv");
     return B.CreateSub(LHSV, RHSV, "chardiff");
   }
 
