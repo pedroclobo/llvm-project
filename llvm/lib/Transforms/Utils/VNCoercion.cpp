@@ -69,6 +69,16 @@ bool canCoerceMustAliasedValueToLoad(Value *StoredVal, Type *LoadTy,
     return false;
   }
 
+  // Pointers cannot be coerced to byte values of smaller size.
+  if (LoadTy->isByteOrByteVectorTy() &&
+      StoredVal->getType()->isPtrOrPtrVectorTy() && MinStoreSize > LoadSize)
+    return false;
+
+  // Bytes stores cannot be coerced to loads of bytes of larger size.
+  if (LoadTy->isByteOrByteVectorTy() &&
+      StoredTy->isByteOrByteVectorTy() && MinStoreSize > LoadSize)
+    return false;
+
   // The implementation below uses inttoptr for vectors of unequal size; we
   // can't allow this for non integral pointers. We could teach it to extract
   // exact subvectors if desired.
@@ -79,6 +89,40 @@ bool canCoerceMustAliasedValueToLoad(Value *StoredVal, Type *LoadTy,
     return false;
 
   return true;
+}
+
+/// Return true if coerceAvailableValueUsingByteLoad will succeed.
+bool shouldCoerceWithByteLoad(LoadInst *Load, LoadInst *CoercedLoad,
+                              const DataLayout &DL) {
+  Type *LoadTy = Load->getType();
+  Type *CoercedTy = CoercedLoad->getType();
+
+  // The loads must be from the same pointer.
+  if (Load->getPointerOperand() != CoercedLoad->getPointerOperand())
+    return false;
+
+  // Regular coercion should be used if the types are the same.
+  if (LoadTy == CoercedTy)
+    return false;
+
+  unsigned LoadSize = DL.getTypeStoreSizeInBits(LoadTy).getFixedValue();
+  unsigned CoercedSize = DL.getTypeStoreSizeInBits(CoercedTy).getFixedValue();
+
+  // The coerced load has to be at least as big as the load.
+  if (CoercedSize < LoadSize)
+    return false;
+
+  // Don't coerce other values to bytes by bitcasting a pointer/integer/float to
+  // a byte. This is unsound as the loaded value could be `poison`, while the
+  // byte load is not.
+  if (CoercedTy->isByteOrByteVectorTy())
+    return false;
+
+  // Regular coercion is unsound when coercing pointers to/from other types due
+  // to type punning. The same applies when coercing larger values to smaller
+  // values.
+  return LoadTy->isPtrOrPtrVectorTy() != CoercedTy->isPtrOrPtrVectorTy() ||
+         LoadSize != CoercedSize;
 }
 
 /// If we saw a store of a value to memory, and
@@ -183,6 +227,75 @@ Value *coerceAvailableValueToLoadType(Value *StoredVal, Type *LoadedTy,
     StoredVal = ConstantFoldConstant(C, DL);
 
   return StoredVal;
+}
+
+/// If we saw a store of a value to memory, and then a load from a must-aliased
+/// pointer of a different type (and one of the types is a pointer type), try to
+/// coerce the stored value by inserting byte loads and bytecasts.
+/// This is necessary due to type punning.
+/// LoadedTy is the type of the load we want to replace.
+/// IRB is IRBuilder used to insert new instructions.
+Value *coerceAvailableValueUsingByteLoad(LoadInst *Load, LoadInst *CoercedLoad,
+                                         IRBuilderBase &Helper,
+                                         SmallVectorImpl<Value *> &NewInsts,
+                                         const DataLayout &DL) {
+  assert(shouldCoerceWithByteLoad(Load, CoercedLoad, DL) &&
+         "Not coercable with a byte load");
+
+  Type *LoadTy = Load->getType();
+  Type *CoercedTy = CoercedLoad->getType();
+  TypeSize CoercedLoadSize = DL.getTypeSizeInBits(CoercedTy);
+
+  // Create byte type load.
+  LLVMContext &Ctx = Load->getContext();
+  Type *BTy = ByteType::getByteNTy(Ctx, CoercedLoadSize);
+  Value *NewLoad = Helper.CreateLoad(BTy, Load->getPointerOperand());
+  NewInsts.push_back(NewLoad);
+
+  /// Return a vector type with the same size as Ty and element count equal to
+  /// NumEls.
+  auto GetByteVectorTy = [&](Type *Ty, ElementCount NumEls) -> Type * {
+    unsigned BitWidth = DL.getTypeStoreSizeInBits(Ty) / NumEls.getFixedValue();
+    return VectorType::get(ByteType::getByteNTy(Ctx, BitWidth), NumEls);
+  };
+
+  Value *Res = Load;
+
+  // Bitcast scalar load to vector type if necessary.
+  // This is needed as the bytecast needs vector equivalence.
+  Value *CoercedVal = NewLoad;
+  Value *LoadVal = NewLoad;
+  if (LoadTy->isVectorTy() != CoercedTy->isVectorTy()) {
+    if (auto *VTy = dyn_cast<VectorType>(CoercedTy)) {
+      ElementCount NumEls = VTy->getElementCount();
+      Value *BC = Helper.CreateBitCast(NewLoad, GetByteVectorTy(BTy, NumEls));
+      NewInsts.push_back(BC);
+      CoercedVal = BC;
+    }
+    if (auto *VTy = dyn_cast<VectorType>(LoadTy)) {
+      ElementCount NumEls = VTy->getElementCount();
+      Value *BC = Helper.CreateBitCast(NewLoad, GetByteVectorTy(BTy, NumEls));
+      NewInsts.push_back(BC);
+      LoadVal = BC;
+    }
+  }
+
+  // Create a bytecast to the coerced type.
+  if (!CoercedTy->isByteOrByteVectorTy()) {
+    Value *BC = Helper.CreateByteCast(CoercedVal, CoercedTy, "", true);
+    CoercedLoad->replaceAllUsesWith(BC);
+    NewInsts.push_back(BC);
+  }
+
+  // Create a bytecast to the original, to be used in phi construction.
+  // If the destination type is a byte type, create a no-op bitcast to aid phi
+  // construction, which will be later optimized away.
+  Res = !LoadTy->isByteOrByteVectorTy()
+            ? Helper.CreateByteCast(LoadVal, LoadTy, "", true)
+            : Helper.CreateBitCast(LoadVal, LoadTy);
+  NewInsts.push_back(Res);
+
+  return Res;
 }
 
 /// This function is called when we have a memdep query of a load that ends up
@@ -347,15 +460,42 @@ static Value *getStoreValueForLoadHelper(Value *SrcVal, unsigned Offset,
   uint64_t StoreSize =
       (DL.getTypeSizeInBits(SrcVal->getType()).getFixedValue() + 7) / 8;
   uint64_t LoadSize = (DL.getTypeSizeInBits(LoadTy).getFixedValue() + 7) / 8;
+
+  /// Return a vector type with the same size as Ty and element count equal to
+  /// NumEls.
+  auto GetByteVectorTy = [&](Type *Ty, ElementCount NumEls) -> Type * {
+    unsigned BitWidth = DL.getTypeStoreSizeInBits(Ty) / NumEls.getFixedValue();
+    return VectorType::get(ByteType::getByteNTy(Ctx, BitWidth), NumEls);
+  };
+
+  // It is generally not sound to convert byte values to integers. If LoadTy is
+  // a pointer type, we would lose provenance information.
+  if (SrcVal->getType()->isByteOrByteVectorTy()) {
+    if (SrcVal->getType()->isVectorTy() != LoadTy->isVectorTy()) {
+      Type *IntermTy =
+          LoadTy->isVectorTy()
+              ? GetByteVectorTy(SrcVal->getType(),
+                                cast<VectorType>(LoadTy)->getElementCount())
+              : ByteType::getByteNTy(Ctx, StoreSize * 8);
+      SrcVal = Builder.CreateBitCast(SrcVal, IntermTy);
+    }
+
+    SrcVal = Builder.CreateByteCast(SrcVal, LoadTy, "", /*IsExact=*/true);
+    return SrcVal;
+  }
+
+  // Bitcasts must have the same size.
+  if (LoadTy->isByteOrByteVectorTy()) {
+    if (LoadSize == StoreSize)
+      SrcVal = Builder.CreateBitCast(SrcVal, LoadTy);
+    return SrcVal;
+  }
+
   // Compute which bits of the stored value are being used by the load.  Convert
   // to an integer type to start with.
   if (SrcVal->getType()->isPtrOrPtrVectorTy())
     SrcVal =
         Builder.CreatePtrToInt(SrcVal, DL.getIntPtrType(SrcVal->getType()));
-  if (SrcVal->getType()->isByteTy())
-    SrcVal =
-        Builder.CreateByteCast(SrcVal, IntegerType::get(Ctx, StoreSize * 8),
-                               "", /*IsExact=*/true);
   if (!SrcVal->getType()->isIntegerTy())
     SrcVal =
         Builder.CreateBitCast(SrcVal, IntegerType::get(Ctx, StoreSize * 8));
