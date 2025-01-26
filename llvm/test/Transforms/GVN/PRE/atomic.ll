@@ -426,10 +426,12 @@ define i64 @widen1(ptr %P1) {
 define i64 @narrow(ptr %P1) {
 ; CHECK-LABEL: define i64 @narrow
 ; CHECK-SAME: (ptr [[P1:%.*]]) {
-; CHECK-NEXT:    [[A64:%.*]] = load atomic i64, ptr [[P1]] unordered, align 4
-; CHECK-NEXT:    [[TMP1:%.*]] = trunc i64 [[A64]] to i32
-; CHECK-NEXT:    [[B64:%.*]] = sext i32 [[TMP1]] to i64
-; CHECK-NEXT:    [[RES:%.*]] = sub i64 [[A64]], [[B64]]
+; CHECK-NEXT:    [[TMP1:%.*]] = load atomic b64, ptr [[P1]] unordered, align 8
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b64 [[TMP1]] to b32
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact b64 [[TMP1]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact b32 [[TMP2]] to i32
+; CHECK-NEXT:    [[B64:%.*]] = sext i32 [[TMP4]] to i64
+; CHECK-NEXT:    [[RES:%.*]] = sub i64 [[TMP3]], [[B64]]
 ; CHECK-NEXT:    ret i64 [[RES]]
 ;
   %a64 = load atomic i64, ptr %P1 unordered, align 4

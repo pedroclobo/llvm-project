@@ -654,6 +654,7 @@ uint32_t GVNPass::ValueTable::lookupOrAdd(Value *V) {
     case Instruction::IntToPtr:
     case Instruction::AddrSpaceCast:
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::Select:
     case Instruction::Freeze:
     case Instruction::ExtractElement:
@@ -1038,21 +1039,53 @@ static void replaceValuesPerBlockEntry(
   }
 }
 
+Value *GVNPass::CoerceToByteLoad(LoadInst *Load, LoadInst *CoercedLoad) {
+  const DataLayout &DL = Load->getDataLayout();
+
+  assert(shouldCoerceWithByteLoad(Load, CoercedLoad, DL) &&
+         "Cannot coerce to byte load");
+
+  IRBuilder<> Builder(CoercedLoad);
+  SmallVector<Value *, 4> NewInsts;
+
+  Value *Res = coerceAvailableValueUsingByteLoad(Load, CoercedLoad, Builder,
+                                                 NewInsts, DL);
+
+  for (Value *V : NewInsts)
+    VN.lookupOrAdd(V);
+
+  if (CoercedLoad->getNumUses() == 0) {
+    if (uint32_t ValNo = VN.lookup(CoercedLoad, false))
+      LeaderTable.erase(ValNo, CoercedLoad, CoercedLoad->getParent());
+    VN.erase(CoercedLoad);
+    removeInstruction(CoercedLoad);
+  }
+
+  return Res;
+}
+
 /// Given a set of loads specified by ValuesPerBlock,
 /// construct SSA form, allowing us to eliminate Load.  This returns the value
 /// that should be used at Load's definition site.
-static Value *
-ConstructSSAForLoadSet(LoadInst *Load,
-                       SmallVectorImpl<AvailableValueInBlock> &ValuesPerBlock,
-                       GVNPass &GVN) {
+Value *GVNPass::ConstructSSAForLoadSet(
+    LoadInst *Load, SmallVectorImpl<AvailableValueInBlock> &ValuesPerBlock) {
   // Check for the fully redundant, dominating load case.  In this case, we can
   // just use the dominating value directly.
   if (ValuesPerBlock.size() == 1 &&
-      GVN.getDominatorTree().properlyDominates(ValuesPerBlock[0].BB,
-                                               Load->getParent())) {
+      getDominatorTree().properlyDominates(ValuesPerBlock[0].BB,
+                                           Load->getParent())) {
     assert(!ValuesPerBlock[0].AV.isUndefValue() &&
            "Dead BB dominate this block");
-    return ValuesPerBlock[0].MaterializeAdjustedValue(Load);
+
+    const DataLayout &DL = Load->getDataLayout();
+    return ValuesPerBlock[0].AV.isCoercedLoadValue() &&
+                   shouldCoerceWithByteLoad(
+                       Load,
+                       ValuesPerBlock[0].AV.getCoercedLoadValue(),
+                       DL)
+               ? CoerceToByteLoad(Load,
+                                  ValuesPerBlock[0].AV.getCoercedLoadValue())
+               : ValuesPerBlock[0].MaterializeAdjustedValue(Load);
   }
 
   // Otherwise, we have to construct SSA form.
@@ -1078,7 +1111,14 @@ ConstructSSAForLoadSet(LoadInst *Load,
          (AV.AV.isCoercedLoadValue() && AV.AV.getCoercedLoadValue() == Load)))
       continue;
 
-    SSAUpdate.AddAvailableValue(BB, AV.MaterializeAdjustedValue(Load));
+    const DataLayout &DL = Load->getDataLayout();
+    if (AV.AV.isCoercedLoadValue() &&
+        shouldCoerceWithByteLoad(Load, AV.AV.getCoercedLoadValue(),
+                                 DL))
+      SSAUpdate.AddAvailableValue(
+          BB, CoerceToByteLoad(Load, AV.AV.getCoercedLoadValue()));
+    else
+      SSAUpdate.AddAvailableValue(BB, AV.MaterializeAdjustedValue(Load));
   }
 
   // Perform PHI construction.
@@ -1090,6 +1130,7 @@ Value *AvailableValue::MaterializeAdjustedValue(LoadInst *Load,
   Value *Res;
   Type *LoadTy = Load->getType();
   const DataLayout &DL = Load->getDataLayout();
+
   if (isSimpleValue()) {
     Res = getSimpleValue();
     if (Res->getType() != LoadTy) {
@@ -1562,7 +1603,7 @@ void GVNPass::eliminatePartiallyRedundantLoad(
   }
 
   // Perform PHI construction.
-  Value *V = ConstructSSAForLoadSet(Load, ValuesPerBlock, *this);
+  Value *V = ConstructSSAForLoadSet(Load, ValuesPerBlock);
   // ConstructSSAForLoadSet is responsible for combining metadata.
   ICF->removeUsersOf(Load);
   Load->replaceAllUsesWith(V);
@@ -1979,7 +2020,7 @@ bool GVNPass::processNonLocalLoad(LoadInst *Load) {
     LLVM_DEBUG(dbgs() << "GVN REMOVING NONLOCAL LOAD: " << *Load << '\n');
 
     // Perform PHI construction.
-    Value *V = ConstructSSAForLoadSet(Load, ValuesPerBlock, *this);
+    Value *V = ConstructSSAForLoadSet(Load, ValuesPerBlock);
     // ConstructSSAForLoadSet is responsible for combining metadata.
     ICF->removeUsersOf(Load);
     Load->replaceAllUsesWith(V);
@@ -2200,7 +2241,15 @@ bool GVNPass::processLoad(LoadInst *L) {
   if (!AV)
     return false;
 
-  Value *AvailableValue = AV->MaterializeAdjustedValue(L, L);
+  Value *AvailableValue = nullptr;
+
+  if (AV->isCoercedLoadValue() &&
+      shouldCoerceWithByteLoad(L, AV->getCoercedLoadValue(),
+                               L->getDataLayout())) {
+    AvailableValue = CoerceToByteLoad(L, AV->getCoercedLoadValue());
+  } else {
+    AvailableValue = AV->MaterializeAdjustedValue(L, L);
+  }
 
   // MaterializeAdjustedValue is responsible for combining metadata.
   ICF->removeUsersOf(L);
