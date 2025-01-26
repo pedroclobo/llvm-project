@@ -144,8 +144,8 @@ define ptr @coerce_mustalias3(float %V, ptr %P) {
 ; LE-MEMDEP-LABEL: define ptr @coerce_mustalias3(
 ; LE-MEMDEP-SAME: float [[V:%.*]], ptr [[P:%.*]]) {
 ; LE-MEMDEP-NEXT:    store float [[V]], ptr [[P]], align 4
-; LE-MEMDEP-NEXT:    [[TMP1:%.*]] = bitcast float [[V]] to i32
-; LE-MEMDEP-NEXT:    [[TMP2:%.*]] = inttoptr i32 [[TMP1]] to ptr
+; LE-MEMDEP-NEXT:    [[TMP1:%.*]] = bitcast float [[V]] to b32
+; LE-MEMDEP-NEXT:    [[TMP2:%.*]] = bytecast exact b32 [[TMP1]] to ptr
 ; LE-MEMDEP-NEXT:    ret ptr [[TMP2]]
 ;
 ; LE-MEMSSA-LABEL: define ptr @coerce_mustalias3(
@@ -157,8 +157,8 @@ define ptr @coerce_mustalias3(float %V, ptr %P) {
 ; BE-MEMDEP-LABEL: define ptr @coerce_mustalias3(
 ; BE-MEMDEP-SAME: float [[V:%.*]], ptr [[P:%.*]]) {
 ; BE-MEMDEP-NEXT:    store float [[V]], ptr [[P]], align 4
-; BE-MEMDEP-NEXT:    [[TMP1:%.*]] = bitcast float [[V]] to i32
-; BE-MEMDEP-NEXT:    [[TMP2:%.*]] = inttoptr i32 [[TMP1]] to ptr
+; BE-MEMDEP-NEXT:    [[TMP1:%.*]] = bitcast float [[V]] to b32
+; BE-MEMDEP-NEXT:    [[TMP2:%.*]] = bytecast exact b32 [[TMP1]] to ptr
 ; BE-MEMDEP-NEXT:    ret ptr [[TMP2]]
 ;
 ; BE-MEMSSA-LABEL: define ptr @coerce_mustalias3(
@@ -306,8 +306,9 @@ define ptr @coerce_mustalias7(i64 %V, ptr %P) {
 ; LE-MEMDEP-LABEL: define ptr @coerce_mustalias7(
 ; LE-MEMDEP-SAME: i64 [[V:%.*]], ptr [[P:%.*]]) {
 ; LE-MEMDEP-NEXT:    store i64 [[V]], ptr [[P]], align 4
-; LE-MEMDEP-NEXT:    [[TMP1:%.*]] = trunc i64 [[V]] to i32
-; LE-MEMDEP-NEXT:    [[TMP2:%.*]] = inttoptr i32 [[TMP1]] to ptr
+; LE-MEMDEP-NEXT:    [[TMP1:%.*]] = bitcast i64 [[V]] to b64
+; LE-MEMDEP-NEXT:    [[TMP3:%.*]] = trunc b64 [[TMP1]] to b32
+; LE-MEMDEP-NEXT:    [[TMP2:%.*]] = bytecast exact b32 [[TMP3]] to ptr
 ; LE-MEMDEP-NEXT:    ret ptr [[TMP2]]
 ;
 ; LE-MEMSSA-LABEL: define ptr @coerce_mustalias7(
@@ -319,9 +320,10 @@ define ptr @coerce_mustalias7(i64 %V, ptr %P) {
 ; BE-MEMDEP-LABEL: define ptr @coerce_mustalias7(
 ; BE-MEMDEP-SAME: i64 [[V:%.*]], ptr [[P:%.*]]) {
 ; BE-MEMDEP-NEXT:    store i64 [[V]], ptr [[P]], align 4
-; BE-MEMDEP-NEXT:    [[TMP1:%.*]] = lshr i64 [[V]], 32
-; BE-MEMDEP-NEXT:    [[TMP2:%.*]] = trunc i64 [[TMP1]] to i32
-; BE-MEMDEP-NEXT:    [[TMP3:%.*]] = inttoptr i32 [[TMP2]] to ptr
+; BE-MEMDEP-NEXT:    [[TMP1:%.*]] = bitcast i64 [[V]] to b64
+; BE-MEMDEP-NEXT:    [[TMP2:%.*]] = lshr b64 [[TMP1]], 32
+; BE-MEMDEP-NEXT:    [[TMP4:%.*]] = trunc b64 [[TMP2]] to b32
+; BE-MEMDEP-NEXT:    [[TMP3:%.*]] = bytecast exact b32 [[TMP4]] to ptr
 ; BE-MEMDEP-NEXT:    ret ptr [[TMP3]]
 ;
 ; BE-MEMSSA-LABEL: define ptr @coerce_mustalias7(
