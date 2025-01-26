@@ -32,11 +32,15 @@ class IRBuilderBase;
 class Value;
 class Type;
 class DataLayout;
+template <typename T> class SmallVectorImpl;
 namespace VNCoercion {
 /// Return true if CoerceAvailableValueToLoadType would succeed if it was
 /// called.
 bool canCoerceMustAliasedValueToLoad(Value *StoredVal, Type *LoadTy,
                                      Function *F);
+
+bool shouldCoerceWithByteLoad(LoadInst *Load, LoadInst *CoercedTy,
+                              const DataLayout &DL);
 
 /// If we saw a store of a value to memory, and then a load from a must-aliased
 /// pointer of a different type, try to coerce the stored value to the loaded
@@ -46,6 +50,11 @@ bool canCoerceMustAliasedValueToLoad(Value *StoredVal, Type *LoadTy,
 /// If we can't do it, return null.
 Value *coerceAvailableValueToLoadType(Value *StoredVal, Type *LoadedTy,
                                       IRBuilderBase &IRB, Function *F);
+
+Value *coerceAvailableValueUsingByteLoad(LoadInst *Load, LoadInst *CoercedLoad,
+                                         IRBuilderBase &Helper,
+                                         SmallVectorImpl<Value *> &NewInsts,
+                                         const DataLayout &DL);
 
 /// This function determines whether a value for the pointer LoadPtr can be
 /// extracted from the store at DepSI.

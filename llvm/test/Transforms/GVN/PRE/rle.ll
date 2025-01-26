@@ -83,8 +83,8 @@ define float @coerce_mustalias2(ptr %V, ptr %P) {
 define ptr @coerce_mustalias3(float %V, ptr %P) {
 ; CHECK-LABEL: @coerce_mustalias3(
 ; CHECK-NEXT:    store float [[V:%.*]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast float [[V]] to i32
-; CHECK-NEXT:    [[TMP2:%.*]] = inttoptr i32 [[TMP1]] to ptr
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast float [[V]] to b32
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact b32 [[TMP1]] to ptr
 ; CHECK-NEXT:    ret ptr [[TMP2]]
 ;
   store float %V, ptr %P
@@ -164,15 +164,17 @@ define float @coerce_mustalias6(i64 %V, ptr %P) {
 define ptr @coerce_mustalias7(i64 %V, ptr %P) {
 ; LE-LABEL: @coerce_mustalias7(
 ; LE-NEXT:    store i64 [[V:%.*]], ptr [[P:%.*]], align 4
-; LE-NEXT:    [[TMP1:%.*]] = trunc i64 [[V]] to i32
-; LE-NEXT:    [[TMP2:%.*]] = inttoptr i32 [[TMP1]] to ptr
+; LE-NEXT:    [[TMP1:%.*]] = bitcast i64 [[V]] to b64
+; LE-NEXT:    [[TMP3:%.*]] = trunc b64 [[TMP1]] to b32
+; LE-NEXT:    [[TMP2:%.*]] = bytecast exact b32 [[TMP3]] to ptr
 ; LE-NEXT:    ret ptr [[TMP2]]
 ;
 ; BE-LABEL: @coerce_mustalias7(
 ; BE-NEXT:    store i64 [[V:%.*]], ptr [[P:%.*]], align 4
-; BE-NEXT:    [[TMP1:%.*]] = lshr i64 [[V]], 32
-; BE-NEXT:    [[TMP2:%.*]] = trunc i64 [[TMP1]] to i32
-; BE-NEXT:    [[TMP3:%.*]] = inttoptr i32 [[TMP2]] to ptr
+; BE-NEXT:    [[TMP1:%.*]] = bitcast i64 [[V]] to b64
+; BE-NEXT:    [[TMP2:%.*]] = lshr b64 [[TMP1]], 32
+; BE-NEXT:    [[TMP4:%.*]] = trunc b64 [[TMP2]] to b32
+; BE-NEXT:    [[TMP3:%.*]] = bytecast exact b32 [[TMP4]] to ptr
 ; BE-NEXT:    ret ptr [[TMP3]]
 ;
   store i64 %V, ptr %P
