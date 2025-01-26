@@ -369,6 +369,12 @@ private:
   LoadInst *findLoadToHoistIntoPred(BasicBlock *Pred, BasicBlock *LoadBB,
                                     LoadInst *Load);
 
+  Value *CoerceToByteLoad(LoadInst *Load, LoadInst *CoercedLoad);
+
+  Value *ConstructSSAForLoadSet(
+      LoadInst *Load,
+      SmallVectorImpl<llvm::gvn::AvailableValueInBlock> &ValuesPerBlock);
+
   bool PerformLoadPRE(LoadInst *Load, AvailValInBlkVect &ValuesPerBlock,
                       UnavailBlkVect &UnavailableBlocks);
 
