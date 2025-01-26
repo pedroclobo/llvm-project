@@ -7,9 +7,10 @@ define i64 @foo(ptr %arrayidx) {
 ; CHECK-LABEL: define i64 @foo(
 ; CHECK-SAME: ptr [[ARRAYIDX:%.*]]) {
 ; CHECK-NEXT:  [[ENTRY:.*:]]
-; CHECK-NEXT:    [[P:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8
+; CHECK-NEXT:    [[TMP1:%.*]] = load b64, ptr [[ARRAYIDX]], align 8
+; CHECK-NEXT:    [[P:%.*]] = bytecast b64 [[TMP1]] to ptr
+; CHECK-NEXT:    [[TMP0:%.*]] = bytecast b64 [[TMP1]] to i64
 ; CHECK-NEXT:    [[CMPNULL:%.*]] = icmp eq ptr [[P]], null
-; CHECK-NEXT:    [[TMP0:%.*]] = ptrtoint ptr [[P]] to i64
 ; CHECK-NEXT:    br label %[[BB2:.*]]
 ; CHECK:       [[ENTRY2:.*:]]
 ; CHECK-NEXT:    br label %[[BB2]]
