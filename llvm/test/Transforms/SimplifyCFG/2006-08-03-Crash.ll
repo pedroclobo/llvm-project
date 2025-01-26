@@ -1,6 +1,8 @@
 ; RUN: opt < %s -passes=gvn,simplifycfg -simplifycfg-require-and-preserve-domtree=1 -disable-output
 ; PR867
 
+; FIXME: the test crashes when bytecasting b32 to ptr
+; the datalayout specifies that the pointer is 32-bit
 target datalayout = "E-p:32:32"
 target triple = "powerpc-unknown-linux-gnu"
 	%struct.CUMULATIVE_ARGS = type { i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32 }
