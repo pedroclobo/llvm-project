@@ -2026,6 +2026,7 @@ NewGVN::performSymbolicEvaluation(Instruction *I,
   case Instruction::Load:
     E = performSymbolicLoadEvaluation(I);
     break;
+  case Instruction::ByteCast:
   case Instruction::BitCast:
     // Intrinsics with the returned attribute are copies of arguments.
     if (I->getType() == I->getOperand(0)->getType())
