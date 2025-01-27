@@ -2030,6 +2030,7 @@ NewGVN::performSymbolicEvaluation(Instruction *I,
   case Instruction::Load:
     E = performSymbolicLoadEvaluation(I);
     break;
+  case Instruction::ByteCast:
   case Instruction::BitCast:
   case Instruction::AddrSpaceCast:
   case Instruction::Freeze:
