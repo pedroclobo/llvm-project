@@ -36,6 +36,8 @@ entry:
 
 ; A local variable with a small array type.
 ; CHECK-LABEL: define{{.*}}bar
+; CHECK:       %[[COPYLOAD1:[^ ]+]] = load b32
+; CHECK:       %[[COPYLOAD1:[^ ]+]] = load b32
 ; CHECK:       %[[ARRAYSLICE1:[^ ]+]] = load
 ; CHECK:       %[[ARRAYSLICE2:[^ ]+]] = load
 ; CHECK-DAG:   call{{.*}} @llvm.fake.use(i32 %[[ARRAYSLICE1]])
