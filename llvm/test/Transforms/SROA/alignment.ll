@@ -11,33 +11,47 @@ declare void @llvm.memcpy.p0.p0.i32(ptr, ptr, i32, i1)
 define void @test1(ptr %a, ptr %b) {
 ; CHECK-LABEL: @test1(
 ; CHECK-NEXT:  entry:
+; CHECK-NEXT:    [[ALLOCA_SROA_0:%.*]] = alloca i8, align 16
+; CHECK-NEXT:    [[ALLOCA_SROA_3:%.*]] = alloca i8, align 1
 ; CHECK-NEXT:    [[GEP_A:%.*]] = getelementptr { i8, i8 }, ptr [[A:%.*]], i32 0, i32 0
 ; CHECK-NEXT:    [[GEP_B:%.*]] = getelementptr { i8, i8 }, ptr [[B:%.*]], i32 0, i32 0
-; CHECK-NEXT:    [[ALLOCA_SROA_0_0_COPYLOAD:%.*]] = load i8, ptr [[GEP_A]], align 16
+; CHECK-NEXT:    store i8 -92, ptr [[ALLOCA_SROA_0]], align 16
+; CHECK-NEXT:    [[ALLOCA_SROA_0_0_COPYLOAD:%.*]] = load b8, ptr [[GEP_A]], align 16
+; CHECK-NEXT:    store b8 [[ALLOCA_SROA_0_0_COPYLOAD]], ptr [[ALLOCA_SROA_0]], align 16
 ; CHECK-NEXT:    [[ALLOCA_SROA_3_0_GEP_A_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[GEP_A]], i64 1
-; CHECK-NEXT:    [[ALLOCA_SROA_3_0_COPYLOAD:%.*]] = load i8, ptr [[ALLOCA_SROA_3_0_GEP_A_SROA_IDX]], align 1
-; CHECK-NEXT:    store i8 [[ALLOCA_SROA_0_0_COPYLOAD]], ptr [[GEP_B]], align 16
+; CHECK-NEXT:    [[ALLOCA_SROA_3_0_COPYLOAD:%.*]] = load b8, ptr [[ALLOCA_SROA_3_0_GEP_A_SROA_IDX]], align 1
+; CHECK-NEXT:    store b8 [[ALLOCA_SROA_3_0_COPYLOAD]], ptr [[ALLOCA_SROA_3]], align 1
+; CHECK-NEXT:    [[ALLOCA_SROA_0_0_COPYLOAD1:%.*]] = load b8, ptr [[ALLOCA_SROA_0]], align 16
+; CHECK-NEXT:    store b8 [[ALLOCA_SROA_0_0_COPYLOAD1]], ptr [[GEP_B]], align 16
 ; CHECK-NEXT:    [[ALLOCA_SROA_3_0_GEP_B_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[GEP_B]], i64 1
-; CHECK-NEXT:    store i8 [[ALLOCA_SROA_3_0_COPYLOAD]], ptr [[ALLOCA_SROA_3_0_GEP_B_SROA_IDX]], align 1
+; CHECK-NEXT:    [[ALLOCA_SROA_3_0_COPYLOAD2:%.*]] = load b8, ptr [[ALLOCA_SROA_3]], align 1
+; CHECK-NEXT:    store b8 [[ALLOCA_SROA_3_0_COPYLOAD2]], ptr [[ALLOCA_SROA_3_0_GEP_B_SROA_IDX]], align 1
 ; CHECK-NEXT:    ret void
 ;
 ; CHECK-DEBUGLOC-LABEL: @test1(
 ; CHECK-DEBUGLOC-NEXT:  entry:
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr poison, [[META9:![0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 8), [[META14:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr poison, [[META9]], !DIExpression(DW_OP_LLVM_fragment, 8, 8), [[META14]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META9]], !DIExpression(), [[META14]])
+; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_0:%.*]] = alloca i8, align 16, !dbg [[DBG14:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_3:%.*]] = alloca i8, align 1, !dbg [[DBG14]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[ALLOCA_SROA_0]], [[META9:![0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 8), [[DBG14]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[ALLOCA_SROA_3]], [[META9]], !DIExpression(DW_OP_LLVM_fragment, 8, 8), [[DBG14]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META9]], !DIExpression(), [[DBG14]])
 ; CHECK-DEBUGLOC-NEXT:    [[GEP_A:%.*]] = getelementptr { i8, i8 }, ptr [[A:%.*]], i32 0, i32 0, !dbg [[DBG15:![0-9]+]]
 ; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[GEP_A]], [[META11:![0-9]+]], !DIExpression(), [[DBG15]])
 ; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META12:![0-9]+]], !DIExpression(), [[META16:![0-9]+]])
 ; CHECK-DEBUGLOC-NEXT:    [[GEP_B:%.*]] = getelementptr { i8, i8 }, ptr [[B:%.*]], i32 0, i32 0, !dbg [[DBG17:![0-9]+]]
 ; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[GEP_B]], [[META13:![0-9]+]], !DIExpression(), [[DBG17]])
-; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_0_0_COPYLOAD:%.*]] = load i8, ptr [[GEP_A]], align 16, !dbg [[DBG18:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_3_0_GEP_A_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[GEP_A]], i64 1, !dbg [[DBG18]]
-; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_3_0_COPYLOAD:%.*]] = load i8, ptr [[ALLOCA_SROA_3_0_GEP_A_SROA_IDX]], align 1, !dbg [[DBG18]]
-; CHECK-DEBUGLOC-NEXT:    store i8 [[ALLOCA_SROA_0_0_COPYLOAD]], ptr [[GEP_B]], align 16, !dbg [[DBG19:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_3_0_GEP_B_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[GEP_B]], i64 1, !dbg [[DBG19]]
-; CHECK-DEBUGLOC-NEXT:    store i8 [[ALLOCA_SROA_3_0_COPYLOAD]], ptr [[ALLOCA_SROA_3_0_GEP_B_SROA_IDX]], align 1, !dbg [[DBG19]]
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG20:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store i8 -92, ptr [[ALLOCA_SROA_0]], align 16, !dbg [[DBG18:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_0_0_COPYLOAD:%.*]] = load b8, ptr [[GEP_A]], align 16, !dbg [[DBG19:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store b8 [[ALLOCA_SROA_0_0_COPYLOAD]], ptr [[ALLOCA_SROA_0]], align 16, !dbg [[DBG19]]
+; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_3_0_GEP_A_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[GEP_A]], i64 1, !dbg [[DBG19]]
+; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_3_0_COPYLOAD:%.*]] = load b8, ptr [[ALLOCA_SROA_3_0_GEP_A_SROA_IDX]], align 1, !dbg [[DBG19]]
+; CHECK-DEBUGLOC-NEXT:    store b8 [[ALLOCA_SROA_3_0_COPYLOAD]], ptr [[ALLOCA_SROA_3]], align 1, !dbg [[DBG19]]
+; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_0_0_COPYLOAD1:%.*]] = load b8, ptr [[ALLOCA_SROA_0]], align 16, !dbg [[DBG20:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store b8 [[ALLOCA_SROA_0_0_COPYLOAD1]], ptr [[GEP_B]], align 16, !dbg [[DBG20]]
+; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_3_0_GEP_B_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[GEP_B]], i64 1, !dbg [[DBG20]]
+; CHECK-DEBUGLOC-NEXT:    [[ALLOCA_SROA_3_0_COPYLOAD2:%.*]] = load b8, ptr [[ALLOCA_SROA_3]], align 1, !dbg [[DBG20]]
+; CHECK-DEBUGLOC-NEXT:    store b8 [[ALLOCA_SROA_3_0_COPYLOAD2]], ptr [[ALLOCA_SROA_3_0_GEP_B_SROA_IDX]], align 1, !dbg [[DBG20]]
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG21:![0-9]+]]
 ;
 entry:
   %alloca = alloca { i8, i8 }, align 16
@@ -67,18 +81,18 @@ define void @test2() {
 ;
 ; CHECK-DEBUGLOC-LABEL: @test2(
 ; CHECK-DEBUGLOC-NEXT:  entry:
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca i16, align 2, !dbg [[DBG28:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META23:![0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 8, 16), [[DBG28]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META23]], !DIExpression(), [[DBG28]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META24:![0-9]+]], !DIExpression(), [[META29:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    store volatile i16 0, ptr [[A_SROA_0]], align 2, !dbg [[DBG30:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META25:![0-9]+]], !DIExpression(), [[META31:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_1_GEP2_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[A_SROA_0]], i64 1, !dbg [[DBG32:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_1_A_SROA_0_2_RESULT:%.*]] = load i8, ptr [[A_SROA_0_1_GEP2_SROA_IDX]], align 1, !dbg [[DBG32]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(i8 [[A_SROA_0_1_A_SROA_0_2_RESULT]], [[META26:![0-9]+]], !DIExpression(), [[DBG32]])
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_1_GEP2_SROA_IDX2:%.*]] = getelementptr inbounds i8, ptr [[A_SROA_0]], i64 1, !dbg [[DBG33:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    store i8 42, ptr [[A_SROA_0_1_GEP2_SROA_IDX2]], align 1, !dbg [[DBG33]]
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG34:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca i16, align 2, !dbg [[DBG29:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META24:![0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 8, 16), [[DBG29]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META24]], !DIExpression(), [[DBG29]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META25:![0-9]+]], !DIExpression(), [[META30:![0-9]+]])
+; CHECK-DEBUGLOC-NEXT:    store volatile i16 0, ptr [[A_SROA_0]], align 2, !dbg [[DBG31:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META26:![0-9]+]], !DIExpression(), [[META32:![0-9]+]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_1_GEP2_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[A_SROA_0]], i64 1, !dbg [[DBG33:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_1_A_SROA_0_2_RESULT:%.*]] = load i8, ptr [[A_SROA_0_1_GEP2_SROA_IDX]], align 1, !dbg [[DBG33]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(i8 [[A_SROA_0_1_A_SROA_0_2_RESULT]], [[META27:![0-9]+]], !DIExpression(), [[DBG33]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_1_GEP2_SROA_IDX2:%.*]] = getelementptr inbounds i8, ptr [[A_SROA_0]], i64 1, !dbg [[DBG34:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store i8 42, ptr [[A_SROA_0_1_GEP2_SROA_IDX2]], align 1, !dbg [[DBG34]]
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG35:![0-9]+]]
 ;
 entry:
   %a = alloca { i8, i8, i8, i8 }, align 2      ; "line 9" to -debugify
@@ -96,16 +110,22 @@ define void @PR13920(ptr %a, ptr %b) {
 ;
 ; CHECK-LABEL: @PR13920(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x i64>, ptr [[A:%.*]], align 2
-; CHECK-NEXT:    store <2 x i64> [[AA_0_COPYLOAD]], ptr [[B:%.*]], align 2
+; CHECK-NEXT:    [[AA:%.*]] = alloca <2 x i64>, align 16
+; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x b64>, ptr [[A:%.*]], align 2
+; CHECK-NEXT:    store <2 x b64> [[AA_0_COPYLOAD]], ptr [[AA]], align 16
+; CHECK-NEXT:    [[AA_0_COPYLOAD1:%.*]] = load <2 x b64>, ptr [[AA]], align 16
+; CHECK-NEXT:    store <2 x b64> [[AA_0_COPYLOAD1]], ptr [[B:%.*]], align 2
 ; CHECK-NEXT:    ret void
 ;
 ; CHECK-DEBUGLOC-LABEL: @PR13920(
 ; CHECK-DEBUGLOC-NEXT:  entry:
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr poison, [[META37:![0-9]+]], !DIExpression(), [[META38:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x i64>, ptr [[A:%.*]], align 2, !dbg [[DBG39:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    store <2 x i64> [[AA_0_COPYLOAD]], ptr [[B:%.*]], align 2, !dbg [[DBG40:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG41:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[AA:%.*]] = alloca <2 x i64>, align 16, !dbg [[DBG39:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[AA]], [[META38:![0-9]+]], !DIExpression(), [[DBG39]])
+; CHECK-DEBUGLOC-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x b64>, ptr [[A:%.*]], align 2, !dbg [[DBG40:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store <2 x b64> [[AA_0_COPYLOAD]], ptr [[AA]], align 16, !dbg [[DBG40]]
+; CHECK-DEBUGLOC-NEXT:    [[AA_0_COPYLOAD1:%.*]] = load <2 x b64>, ptr [[AA]], align 16, !dbg [[DBG41:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store <2 x b64> [[AA_0_COPYLOAD1]], ptr [[B:%.*]], align 2, !dbg [[DBG41]]
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG42:![0-9]+]]
 ;
 entry:
   %aa = alloca <2 x i64>, align 16
@@ -130,16 +150,16 @@ define void @test3(ptr %x) {
 ;
 ; CHECK-DEBUGLOC-LABEL: @test3(
 ; CHECK-DEBUGLOC-NEXT:  entry:
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca [22 x i8], align 8, !dbg [[DBG47:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META44:![0-9]+]], !DIExpression(), [[DBG47]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META44]], !DIExpression(), [[DBG47]])
-; CHECK-DEBUGLOC-NEXT:    [[B_SROA_0:%.*]] = alloca [18 x i8], align 2, !dbg [[DBG48:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[B_SROA_0]], [[META45:![0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 48, 16), [[DBG48]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca [22 x i8], align 8, !dbg [[DBG48:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META45:![0-9]+]], !DIExpression(), [[DBG48]])
 ; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META45]], !DIExpression(), [[DBG48]])
-; CHECK-DEBUGLOC-NEXT:    call void @llvm.memcpy.p0.p0.i32(ptr align 8 [[A_SROA_0]], ptr align 8 [[X:%.*]], i32 22, i1 false), !dbg [[DBG49:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META46:![0-9]+]], !DIExpression(), [[META50:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    call void @llvm.memcpy.p0.p0.i32(ptr align 2 [[B_SROA_0]], ptr align 2 [[X]], i32 18, i1 false), !dbg [[DBG51:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG52:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[B_SROA_0:%.*]] = alloca [18 x i8], align 2, !dbg [[DBG49:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[B_SROA_0]], [[META46:![0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 48, 16), [[DBG49]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META46]], !DIExpression(), [[DBG49]])
+; CHECK-DEBUGLOC-NEXT:    call void @llvm.memcpy.p0.p0.i32(ptr align 8 [[A_SROA_0]], ptr align 8 [[X:%.*]], i32 22, i1 false), !dbg [[DBG50:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META47:![0-9]+]], !DIExpression(), [[META51:![0-9]+]])
+; CHECK-DEBUGLOC-NEXT:    call void @llvm.memcpy.p0.p0.i32(ptr align 2 [[B_SROA_0]], ptr align 2 [[X]], i32 18, i1 false), !dbg [[DBG52:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG53:![0-9]+]]
 ;
 entry:
   %a = alloca { ptr, ptr, ptr }
@@ -172,24 +192,24 @@ define void @test5() {
 ;
 ; CHECK-DEBUGLOC-LABEL: @test5(
 ; CHECK-DEBUGLOC-NEXT:  entry:
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca [9 x i8], align 1, !dbg [[DBG63:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_3:%.*]] = alloca [9 x i8], align 1, !dbg [[DBG63]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META55:![0-9]+]], !DIExpression(), [[DBG63]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META55]], !DIExpression(), [[DBG63]])
-; CHECK-DEBUGLOC-NEXT:    store volatile double 0.000000e+00, ptr [[A_SROA_0]], align 1, !dbg [[DBG64:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META56:![0-9]+]], !DIExpression(), [[META65:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_7_WEIRD_GEP1_SROA_IDX1:%.*]] = getelementptr inbounds i8, ptr [[A_SROA_0]], i64 7, !dbg [[DBG66:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_7_A_SROA_0_7_WEIRD_LOAD1:%.*]] = load volatile i16, ptr [[A_SROA_0_7_WEIRD_GEP1_SROA_IDX1]], align 1, !dbg [[DBG66]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(i16 [[A_SROA_0_7_A_SROA_0_7_WEIRD_LOAD1]], [[META57:![0-9]+]], !DIExpression(), [[DBG66]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META59:![0-9]+]], !DIExpression(), [[META67:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_0_A_SROA_0_0_D1:%.*]] = load double, ptr [[A_SROA_0]], align 1, !dbg [[DBG68:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(double [[A_SROA_0_0_A_SROA_0_0_D1]], [[META60:![0-9]+]], !DIExpression(), [[DBG68]])
-; CHECK-DEBUGLOC-NEXT:    store volatile double [[A_SROA_0_0_A_SROA_0_0_D1]], ptr [[A_SROA_3]], align 1, !dbg [[DBG69:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META61:![0-9]+]], !DIExpression(), [[META70:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_3_7_WEIRD_GEP2_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[A_SROA_3]], i64 7, !dbg [[DBG71:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_3_7_A_SROA_3_16_WEIRD_LOAD2:%.*]] = load volatile i16, ptr [[A_SROA_3_7_WEIRD_GEP2_SROA_IDX]], align 1, !dbg [[DBG71]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(i16 [[A_SROA_3_7_A_SROA_3_16_WEIRD_LOAD2]], [[META62:![0-9]+]], !DIExpression(), [[DBG71]])
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG72:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca [9 x i8], align 1, !dbg [[DBG64:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_3:%.*]] = alloca [9 x i8], align 1, !dbg [[DBG64]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META56:![0-9]+]], !DIExpression(), [[DBG64]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META56]], !DIExpression(), [[DBG64]])
+; CHECK-DEBUGLOC-NEXT:    store volatile double 0.000000e+00, ptr [[A_SROA_0]], align 1, !dbg [[DBG65:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META57:![0-9]+]], !DIExpression(), [[META66:![0-9]+]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_7_WEIRD_GEP1_SROA_IDX1:%.*]] = getelementptr inbounds i8, ptr [[A_SROA_0]], i64 7, !dbg [[DBG67:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_7_A_SROA_0_7_WEIRD_LOAD1:%.*]] = load volatile i16, ptr [[A_SROA_0_7_WEIRD_GEP1_SROA_IDX1]], align 1, !dbg [[DBG67]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(i16 [[A_SROA_0_7_A_SROA_0_7_WEIRD_LOAD1]], [[META58:![0-9]+]], !DIExpression(), [[DBG67]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META60:![0-9]+]], !DIExpression(), [[META68:![0-9]+]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_0_A_SROA_0_0_D1:%.*]] = load double, ptr [[A_SROA_0]], align 1, !dbg [[DBG69:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(double [[A_SROA_0_0_A_SROA_0_0_D1]], [[META61:![0-9]+]], !DIExpression(), [[DBG69]])
+; CHECK-DEBUGLOC-NEXT:    store volatile double [[A_SROA_0_0_A_SROA_0_0_D1]], ptr [[A_SROA_3]], align 1, !dbg [[DBG70:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META62:![0-9]+]], !DIExpression(), [[META71:![0-9]+]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_3_7_WEIRD_GEP2_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[A_SROA_3]], i64 7, !dbg [[DBG72:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_3_7_A_SROA_3_16_WEIRD_LOAD2:%.*]] = load volatile i16, ptr [[A_SROA_3_7_WEIRD_GEP2_SROA_IDX]], align 1, !dbg [[DBG72]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(i16 [[A_SROA_3_7_A_SROA_3_16_WEIRD_LOAD2]], [[META63:![0-9]+]], !DIExpression(), [[DBG72]])
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG73:![0-9]+]]
 ;
 entry:
   %a = alloca [18 x i8]
@@ -222,16 +242,16 @@ define void @test6() {
 ;
 ; CHECK-DEBUGLOC-LABEL: @test6(
 ; CHECK-DEBUGLOC-NEXT:  entry:
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca double, align 8, !dbg [[DBG78:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_2:%.*]] = alloca double, align 8, !dbg [[DBG78]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META75:![0-9]+]], !DIExpression(), [[DBG78]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META75]], !DIExpression(), [[DBG78]])
-; CHECK-DEBUGLOC-NEXT:    store volatile double 0.000000e+00, ptr [[A_SROA_0]], align 8, !dbg [[DBG79:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META76:![0-9]+]], !DIExpression(), [[META80:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_0_A_SROA_0_0_VAL:%.*]] = load double, ptr [[A_SROA_0]], align 8, !dbg [[DBG81:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(double [[A_SROA_0_0_A_SROA_0_0_VAL]], [[META77:![0-9]+]], !DIExpression(), [[DBG81]])
-; CHECK-DEBUGLOC-NEXT:    store volatile double [[A_SROA_0_0_A_SROA_0_0_VAL]], ptr [[A_SROA_2]], align 8, !dbg [[DBG82:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG83:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca double, align 8, !dbg [[DBG79:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_2:%.*]] = alloca double, align 8, !dbg [[DBG79]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META76:![0-9]+]], !DIExpression(), [[DBG79]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META76]], !DIExpression(), [[DBG79]])
+; CHECK-DEBUGLOC-NEXT:    store volatile double 0.000000e+00, ptr [[A_SROA_0]], align 8, !dbg [[DBG80:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META77:![0-9]+]], !DIExpression(), [[META81:![0-9]+]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_0_A_SROA_0_0_VAL:%.*]] = load double, ptr [[A_SROA_0]], align 8, !dbg [[DBG82:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(double [[A_SROA_0_0_A_SROA_0_0_VAL]], [[META78:![0-9]+]], !DIExpression(), [[DBG82]])
+; CHECK-DEBUGLOC-NEXT:    store volatile double [[A_SROA_0_0_A_SROA_0_0_VAL]], ptr [[A_SROA_2]], align 8, !dbg [[DBG83:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG84:![0-9]+]]
 ;
 entry:
   %a = alloca [16 x i8]
@@ -251,28 +271,48 @@ define void @test7(ptr %out) {
 ;
 ; CHECK-LABEL: @test7(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load double, ptr [[OUT:%.*]], align 1
+; CHECK-NEXT:    [[A_SROA_0:%.*]] = alloca double, align 8
+; CHECK-NEXT:    [[A_SROA_4:%.*]] = alloca double, align 8
+; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load b64, ptr [[OUT:%.*]], align 1
+; CHECK-NEXT:    store b64 [[A_SROA_0_0_COPYLOAD]], ptr [[A_SROA_0]], align 8
 ; CHECK-NEXT:    [[A_SROA_4_0_OUT_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[OUT]], i64 8
-; CHECK-NEXT:    [[A_SROA_4_0_COPYLOAD:%.*]] = load double, ptr [[A_SROA_4_0_OUT_SROA_IDX]], align 1
-; CHECK-NEXT:    store double [[A_SROA_4_0_COPYLOAD]], ptr [[OUT]], align 1
+; CHECK-NEXT:    [[A_SROA_4_0_COPYLOAD:%.*]] = load b64, ptr [[A_SROA_4_0_OUT_SROA_IDX]], align 1
+; CHECK-NEXT:    store b64 [[A_SROA_4_0_COPYLOAD]], ptr [[A_SROA_4]], align 8
+; CHECK-NEXT:    [[A_SROA_4_8_VAL1:%.*]] = load double, ptr [[A_SROA_4]], align 8
+; CHECK-NEXT:    [[A_SROA_0_0_VAL2:%.*]] = load double, ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    store double [[A_SROA_4_8_VAL1]], ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    store double [[A_SROA_0_0_VAL2]], ptr [[A_SROA_4]], align 8
+; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD1:%.*]] = load b64, ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    store b64 [[A_SROA_0_0_COPYLOAD1]], ptr [[OUT]], align 1
 ; CHECK-NEXT:    [[A_SROA_4_0_OUT_SROA_IDX2:%.*]] = getelementptr inbounds i8, ptr [[OUT]], i64 8
-; CHECK-NEXT:    store double [[A_SROA_0_0_COPYLOAD]], ptr [[A_SROA_4_0_OUT_SROA_IDX2]], align 1
+; CHECK-NEXT:    [[A_SROA_4_0_COPYLOAD3:%.*]] = load b64, ptr [[A_SROA_4]], align 8
+; CHECK-NEXT:    store b64 [[A_SROA_4_0_COPYLOAD3]], ptr [[A_SROA_4_0_OUT_SROA_IDX2]], align 1
 ; CHECK-NEXT:    ret void
 ;
 ; CHECK-DEBUGLOC-LABEL: @test7(
 ; CHECK-DEBUGLOC-NEXT:  entry:
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr poison, [[META86:![0-9]+]], !DIExpression(), [[META90:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META86]], !DIExpression(), [[META90]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META87:![0-9]+]], !DIExpression(), [[META91:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load double, ptr [[OUT:%.*]], align 1, !dbg [[DBG92:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4_0_OUT_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[OUT]], i64 8, !dbg [[DBG92]]
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4_0_COPYLOAD:%.*]] = load double, ptr [[A_SROA_4_0_OUT_SROA_IDX]], align 1, !dbg [[DBG92]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(double [[A_SROA_4_0_COPYLOAD]], [[META88:![0-9]+]], !DIExpression(), [[META93:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(double [[A_SROA_0_0_COPYLOAD]], [[META89:![0-9]+]], !DIExpression(), [[META94:![0-9]+]])
-; CHECK-DEBUGLOC-NEXT:    store double [[A_SROA_4_0_COPYLOAD]], ptr [[OUT]], align 1, !dbg [[DBG95:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4_0_OUT_SROA_IDX2:%.*]] = getelementptr inbounds i8, ptr [[OUT]], i64 8, !dbg [[DBG95]]
-; CHECK-DEBUGLOC-NEXT:    store double [[A_SROA_0_0_COPYLOAD]], ptr [[A_SROA_4_0_OUT_SROA_IDX2]], align 1, !dbg [[DBG95]]
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG96:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0:%.*]] = alloca double, align 8, !dbg [[DBG91:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4:%.*]] = alloca double, align 8, !dbg [[DBG91]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[A_SROA_0]], [[META87:![0-9]+]], !DIExpression(), [[DBG91]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META87]], !DIExpression(), [[DBG91]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META88:![0-9]+]], !DIExpression(), [[META92:![0-9]+]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load b64, ptr [[OUT:%.*]], align 1, !dbg [[DBG93:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store b64 [[A_SROA_0_0_COPYLOAD]], ptr [[A_SROA_0]], align 8, !dbg [[DBG93]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4_0_OUT_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[OUT]], i64 8, !dbg [[DBG93]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4_0_COPYLOAD:%.*]] = load b64, ptr [[A_SROA_4_0_OUT_SROA_IDX]], align 1, !dbg [[DBG93]]
+; CHECK-DEBUGLOC-NEXT:    store b64 [[A_SROA_4_0_COPYLOAD]], ptr [[A_SROA_4]], align 8, !dbg [[DBG93]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4_8_VAL1:%.*]] = load double, ptr [[A_SROA_4]], align 8, !dbg [[DBG94:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(double [[A_SROA_4_8_VAL1]], [[META89:![0-9]+]], !DIExpression(), [[DBG94]])
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_0_VAL2:%.*]] = load double, ptr [[A_SROA_0]], align 8, !dbg [[DBG95:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(double [[A_SROA_0_0_VAL2]], [[META90:![0-9]+]], !DIExpression(), [[DBG95]])
+; CHECK-DEBUGLOC-NEXT:    store double [[A_SROA_4_8_VAL1]], ptr [[A_SROA_0]], align 8, !dbg [[DBG96:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store double [[A_SROA_0_0_VAL2]], ptr [[A_SROA_4]], align 8, !dbg [[DBG97:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_0_0_COPYLOAD1:%.*]] = load b64, ptr [[A_SROA_0]], align 8, !dbg [[DBG98:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    store b64 [[A_SROA_0_0_COPYLOAD1]], ptr [[OUT]], align 1, !dbg [[DBG98]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4_0_OUT_SROA_IDX2:%.*]] = getelementptr inbounds i8, ptr [[OUT]], i64 8, !dbg [[DBG98]]
+; CHECK-DEBUGLOC-NEXT:    [[A_SROA_4_0_COPYLOAD3:%.*]] = load b64, ptr [[A_SROA_4]], align 8, !dbg [[DBG98]]
+; CHECK-DEBUGLOC-NEXT:    store b64 [[A_SROA_4_0_COPYLOAD3]], ptr [[A_SROA_4_0_OUT_SROA_IDX2]], align 1, !dbg [[DBG98]]
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG99:![0-9]+]]
 ;
 entry:
   %a = alloca [16 x i8]
@@ -313,26 +353,26 @@ define void @test8() {
 ; CHECK-NEXT:    ret void
 ;
 ; CHECK-DEBUGLOC-LABEL: @test8(
-; CHECK-DEBUGLOC-NEXT:    [[PTR:%.*]] = alloca [5 x i32], align 1, !dbg [[DBG102:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[PTR]], [[META99:![0-9]+]], !DIExpression(), [[DBG102]])
-; CHECK-DEBUGLOC-NEXT:    call void @populate(ptr [[PTR]]), !dbg [[DBG103:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 0, !dbg [[DBG104:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_LOAD:%.*]] = load i32, ptr [[VAL_FCA_0_GEP]], align 1, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_INSERT:%.*]] = insertvalue [5 x i32] poison, i32 [[VAL_FCA_0_LOAD]], 0, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 1, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_LOAD:%.*]] = load i32, ptr [[VAL_FCA_1_GEP]], align 1, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_0_INSERT]], i32 [[VAL_FCA_1_LOAD]], 1, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 2, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_LOAD:%.*]] = load i32, ptr [[VAL_FCA_2_GEP]], align 1, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_1_INSERT]], i32 [[VAL_FCA_2_LOAD]], 2, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 3, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_LOAD:%.*]] = load i32, ptr [[VAL_FCA_3_GEP]], align 1, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_2_INSERT]], i32 [[VAL_FCA_3_LOAD]], 3, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 4, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_LOAD:%.*]] = load i32, ptr [[VAL_FCA_4_GEP]], align 1, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_3_INSERT]], i32 [[VAL_FCA_4_LOAD]], 4, !dbg [[DBG104]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value([5 x i32] [[VAL_FCA_4_INSERT]], [[META100:![0-9]+]], !DIExpression(), [[DBG104]])
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG105:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[PTR:%.*]] = alloca [5 x i32], align 1, !dbg [[DBG105:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[PTR]], [[META102:![0-9]+]], !DIExpression(), [[DBG105]])
+; CHECK-DEBUGLOC-NEXT:    call void @populate(ptr [[PTR]]), !dbg [[DBG106:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 0, !dbg [[DBG107:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_LOAD:%.*]] = load i32, ptr [[VAL_FCA_0_GEP]], align 1, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_INSERT:%.*]] = insertvalue [5 x i32] poison, i32 [[VAL_FCA_0_LOAD]], 0, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 1, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_LOAD:%.*]] = load i32, ptr [[VAL_FCA_1_GEP]], align 1, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_0_INSERT]], i32 [[VAL_FCA_1_LOAD]], 1, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 2, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_LOAD:%.*]] = load i32, ptr [[VAL_FCA_2_GEP]], align 1, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_1_INSERT]], i32 [[VAL_FCA_2_LOAD]], 2, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 3, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_LOAD:%.*]] = load i32, ptr [[VAL_FCA_3_GEP]], align 1, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_2_INSERT]], i32 [[VAL_FCA_3_LOAD]], 3, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 4, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_LOAD:%.*]] = load i32, ptr [[VAL_FCA_4_GEP]], align 1, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_3_INSERT]], i32 [[VAL_FCA_4_LOAD]], 4, !dbg [[DBG107]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value([5 x i32] [[VAL_FCA_4_INSERT]], [[META103:![0-9]+]], !DIExpression(), [[DBG107]])
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG108:![0-9]+]]
 ;
   %ptr = alloca [5 x i32], align 1
   call void @populate(ptr %ptr)
@@ -362,26 +402,26 @@ define void @test9() {
 ; CHECK-NEXT:    ret void
 ;
 ; CHECK-DEBUGLOC-LABEL: @test9(
-; CHECK-DEBUGLOC-NEXT:    [[PTR:%.*]] = alloca [5 x i32], align 8, !dbg [[DBG110:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[PTR]], [[META108:![0-9]+]], !DIExpression(), [[DBG110]])
-; CHECK-DEBUGLOC-NEXT:    call void @populate(ptr [[PTR]]), !dbg [[DBG111:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 0, !dbg [[DBG112:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_LOAD:%.*]] = load i32, ptr [[VAL_FCA_0_GEP]], align 8, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_INSERT:%.*]] = insertvalue [5 x i32] poison, i32 [[VAL_FCA_0_LOAD]], 0, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 1, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_LOAD:%.*]] = load i32, ptr [[VAL_FCA_1_GEP]], align 4, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_0_INSERT]], i32 [[VAL_FCA_1_LOAD]], 1, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 2, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_LOAD:%.*]] = load i32, ptr [[VAL_FCA_2_GEP]], align 8, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_1_INSERT]], i32 [[VAL_FCA_2_LOAD]], 2, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 3, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_LOAD:%.*]] = load i32, ptr [[VAL_FCA_3_GEP]], align 4, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_2_INSERT]], i32 [[VAL_FCA_3_LOAD]], 3, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 4, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_LOAD:%.*]] = load i32, ptr [[VAL_FCA_4_GEP]], align 8, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_3_INSERT]], i32 [[VAL_FCA_4_LOAD]], 4, !dbg [[DBG112]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value([5 x i32] [[VAL_FCA_4_INSERT]], [[META109:![0-9]+]], !DIExpression(), [[DBG112]])
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG113:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[PTR:%.*]] = alloca [5 x i32], align 8, !dbg [[DBG113:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[PTR]], [[META111:![0-9]+]], !DIExpression(), [[DBG113]])
+; CHECK-DEBUGLOC-NEXT:    call void @populate(ptr [[PTR]]), !dbg [[DBG114:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 0, !dbg [[DBG115:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_LOAD:%.*]] = load i32, ptr [[VAL_FCA_0_GEP]], align 8, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_INSERT:%.*]] = insertvalue [5 x i32] poison, i32 [[VAL_FCA_0_LOAD]], 0, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 1, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_LOAD:%.*]] = load i32, ptr [[VAL_FCA_1_GEP]], align 4, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_0_INSERT]], i32 [[VAL_FCA_1_LOAD]], 1, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 2, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_LOAD:%.*]] = load i32, ptr [[VAL_FCA_2_GEP]], align 8, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_1_INSERT]], i32 [[VAL_FCA_2_LOAD]], 2, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 3, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_LOAD:%.*]] = load i32, ptr [[VAL_FCA_3_GEP]], align 4, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_2_INSERT]], i32 [[VAL_FCA_3_LOAD]], 3, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_GEP:%.*]] = getelementptr inbounds [5 x i32], ptr [[PTR]], i32 0, i32 4, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_LOAD:%.*]] = load i32, ptr [[VAL_FCA_4_GEP]], align 8, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_4_INSERT:%.*]] = insertvalue [5 x i32] [[VAL_FCA_3_INSERT]], i32 [[VAL_FCA_4_LOAD]], 4, !dbg [[DBG115]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value([5 x i32] [[VAL_FCA_4_INSERT]], [[META112:![0-9]+]], !DIExpression(), [[DBG115]])
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG116:![0-9]+]]
 ;
   %ptr = alloca [5 x i32], align 8
   call void @populate(ptr %ptr)
@@ -411,26 +451,26 @@ define void @test10() {
 ; CHECK-NEXT:    ret void
 ;
 ; CHECK-DEBUGLOC-LABEL: @test10(
-; CHECK-DEBUGLOC-NEXT:    [[PTR:%.*]] = alloca { i32, i8, i8, { i8, i16 } }, align 2, !dbg [[DBG119:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[PTR]], [[META116:![0-9]+]], !DIExpression(), [[DBG119]])
-; CHECK-DEBUGLOC-NEXT:    call void @populate(ptr [[PTR]]), !dbg [[DBG120:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 0, !dbg [[DBG121:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_LOAD:%.*]] = load i32, ptr [[VAL_FCA_0_GEP]], align 2, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } poison, i32 [[VAL_FCA_0_LOAD]], 0, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 1, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_LOAD:%.*]] = load i8, ptr [[VAL_FCA_1_GEP]], align 2, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } [[VAL_FCA_0_INSERT]], i8 [[VAL_FCA_1_LOAD]], 1, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 2, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_LOAD:%.*]] = load i8, ptr [[VAL_FCA_2_GEP]], align 1, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } [[VAL_FCA_1_INSERT]], i8 [[VAL_FCA_2_LOAD]], 2, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_0_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 3, i32 0, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_0_LOAD:%.*]] = load i8, ptr [[VAL_FCA_3_0_GEP]], align 2, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_0_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } [[VAL_FCA_2_INSERT]], i8 [[VAL_FCA_3_0_LOAD]], 3, 0, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_1_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 3, i32 1, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_1_LOAD:%.*]] = load i16, ptr [[VAL_FCA_3_1_GEP]], align 2, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_1_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } [[VAL_FCA_3_0_INSERT]], i16 [[VAL_FCA_3_1_LOAD]], 3, 1, !dbg [[DBG121]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value({ i32, i8, i8, { i8, i16 } } [[VAL_FCA_3_1_INSERT]], [[META117:![0-9]+]], !DIExpression(), [[DBG121]])
-; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG122:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[PTR:%.*]] = alloca { i32, i8, i8, { i8, i16 } }, align 2, !dbg [[DBG122:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[PTR]], [[META119:![0-9]+]], !DIExpression(), [[DBG122]])
+; CHECK-DEBUGLOC-NEXT:    call void @populate(ptr [[PTR]]), !dbg [[DBG123:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 0, !dbg [[DBG124:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_LOAD:%.*]] = load i32, ptr [[VAL_FCA_0_GEP]], align 2, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_0_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } poison, i32 [[VAL_FCA_0_LOAD]], 0, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 1, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_LOAD:%.*]] = load i8, ptr [[VAL_FCA_1_GEP]], align 2, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_1_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } [[VAL_FCA_0_INSERT]], i8 [[VAL_FCA_1_LOAD]], 1, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 2, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_LOAD:%.*]] = load i8, ptr [[VAL_FCA_2_GEP]], align 1, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_2_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } [[VAL_FCA_1_INSERT]], i8 [[VAL_FCA_2_LOAD]], 2, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_0_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 3, i32 0, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_0_LOAD:%.*]] = load i8, ptr [[VAL_FCA_3_0_GEP]], align 2, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_0_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } [[VAL_FCA_2_INSERT]], i8 [[VAL_FCA_3_0_LOAD]], 3, 0, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_1_GEP:%.*]] = getelementptr inbounds { i32, i8, i8, { i8, i16 } }, ptr [[PTR]], i32 0, i32 3, i32 1, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_1_LOAD:%.*]] = load i16, ptr [[VAL_FCA_3_1_GEP]], align 2, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:    [[VAL_FCA_3_1_INSERT:%.*]] = insertvalue { i32, i8, i8, { i8, i16 } } [[VAL_FCA_3_0_INSERT]], i16 [[VAL_FCA_3_1_LOAD]], 3, 1, !dbg [[DBG124]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value({ i32, i8, i8, { i8, i16 } } [[VAL_FCA_3_1_INSERT]], [[META120:![0-9]+]], !DIExpression(), [[DBG124]])
+; CHECK-DEBUGLOC-NEXT:    ret void, !dbg [[DBG125:![0-9]+]]
 ;
   %ptr = alloca {i32, i8, i8, {i8, i16}}, align 2
   call void @populate(ptr %ptr)
@@ -448,15 +488,15 @@ define dso_local i32 @pr45010(ptr %A) {
 ; CHECK-NEXT:    ret i32 [[B_SROA_0_0_B_SROA_0_0_X]]
 ;
 ; CHECK-DEBUGLOC-LABEL: @pr45010(
-; CHECK-DEBUGLOC-NEXT:    [[B_SROA_0:%.*]] = alloca i32, align 4, !dbg [[DBG129:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[B_SROA_0]], [[META125:![0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32), [[DBG129]])
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META125]], !DIExpression(), [[DBG129]])
-; CHECK-DEBUGLOC-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A:%.*]], align 4, !dbg [[DBG130:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(i32 [[TMP1]], [[META126:![0-9]+]], !DIExpression(), [[DBG130]])
-; CHECK-DEBUGLOC-NEXT:    store atomic volatile i32 [[TMP1]], ptr [[B_SROA_0]] release, align 4, !dbg [[DBG131:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:    [[B_SROA_0_0_B_SROA_0_0_X:%.*]] = load atomic volatile i32, ptr [[B_SROA_0]] acquire, align 4, !dbg [[DBG132:![0-9]+]]
-; CHECK-DEBUGLOC-NEXT:      #dbg_value(i32 [[B_SROA_0_0_B_SROA_0_0_X]], [[META128:![0-9]+]], !DIExpression(), [[DBG132]])
-; CHECK-DEBUGLOC-NEXT:    ret i32 [[B_SROA_0_0_B_SROA_0_0_X]], !dbg [[DBG133:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[B_SROA_0:%.*]] = alloca i32, align 4, !dbg [[DBG132:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr [[B_SROA_0]], [[META128:![0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32), [[DBG132]])
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(ptr undef, [[META128]], !DIExpression(), [[DBG132]])
+; CHECK-DEBUGLOC-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A:%.*]], align 4, !dbg [[DBG133:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(i32 [[TMP1]], [[META129:![0-9]+]], !DIExpression(), [[DBG133]])
+; CHECK-DEBUGLOC-NEXT:    store atomic volatile i32 [[TMP1]], ptr [[B_SROA_0]] release, align 4, !dbg [[DBG134:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:    [[B_SROA_0_0_B_SROA_0_0_X:%.*]] = load atomic volatile i32, ptr [[B_SROA_0]] acquire, align 4, !dbg [[DBG135:![0-9]+]]
+; CHECK-DEBUGLOC-NEXT:      #dbg_value(i32 [[B_SROA_0_0_B_SROA_0_0_X]], [[META131:![0-9]+]], !DIExpression(), [[DBG135]])
+; CHECK-DEBUGLOC-NEXT:    ret i32 [[B_SROA_0_0_B_SROA_0_0_X]], !dbg [[DBG136:![0-9]+]]
 ;
   %B = alloca %struct, align 4
   %1 = load i32, ptr %A, align 4
