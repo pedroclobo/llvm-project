@@ -12,8 +12,11 @@ declare void @llvm.memcpy.p1.p1.i32(ptr addrspace(1) nocapture, ptr addrspace(1)
 ; Make sure an illegal bitcast isn't introduced
 define void @test_address_space_1_1(ptr addrspace(1) %a, ptr addrspace(1) %b) {
 ; CHECK-LABEL: @test_address_space_1_1(
-; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x i64>, ptr addrspace(1) [[A:%.*]], align 2
-; CHECK-NEXT:    store <2 x i64> [[AA_0_COPYLOAD]], ptr addrspace(1) [[B:%.*]], align 2
+; CHECK-NEXT:    [[AA:%.*]] = alloca <2 x i64>, align 16
+; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x b64>, ptr addrspace(1) [[A:%.*]], align 2
+; CHECK-NEXT:    store <2 x b64> [[AA_0_COPYLOAD]], ptr [[AA]], align 16
+; CHECK-NEXT:    [[AA_0_COPYLOAD1:%.*]] = load <2 x b64>, ptr [[AA]], align 16
+; CHECK-NEXT:    store <2 x b64> [[AA_0_COPYLOAD1]], ptr addrspace(1) [[B:%.*]], align 2
 ; CHECK-NEXT:    ret void
 ;
   %aa = alloca <2 x i64>, align 16
@@ -24,8 +27,11 @@ define void @test_address_space_1_1(ptr addrspace(1) %a, ptr addrspace(1) %b) {
 
 define void @test_address_space_1_0(ptr addrspace(1) %a, ptr %b) {
 ; CHECK-LABEL: @test_address_space_1_0(
-; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x i64>, ptr addrspace(1) [[A:%.*]], align 2
-; CHECK-NEXT:    store <2 x i64> [[AA_0_COPYLOAD]], ptr [[B:%.*]], align 2
+; CHECK-NEXT:    [[AA:%.*]] = alloca <2 x i64>, align 16
+; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x b64>, ptr addrspace(1) [[A:%.*]], align 2
+; CHECK-NEXT:    store <2 x b64> [[AA_0_COPYLOAD]], ptr [[AA]], align 16
+; CHECK-NEXT:    [[AA_0_COPYLOAD1:%.*]] = load <2 x b64>, ptr [[AA]], align 16
+; CHECK-NEXT:    store <2 x b64> [[AA_0_COPYLOAD1]], ptr [[B:%.*]], align 2
 ; CHECK-NEXT:    ret void
 ;
   %aa = alloca <2 x i64>, align 16
@@ -36,8 +42,11 @@ define void @test_address_space_1_0(ptr addrspace(1) %a, ptr %b) {
 
 define void @test_address_space_0_1(ptr %a, ptr addrspace(1) %b) {
 ; CHECK-LABEL: @test_address_space_0_1(
-; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x i64>, ptr [[A:%.*]], align 2
-; CHECK-NEXT:    store <2 x i64> [[AA_0_COPYLOAD]], ptr addrspace(1) [[B:%.*]], align 2
+; CHECK-NEXT:    [[AA:%.*]] = alloca <2 x i64>, align 16
+; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x b64>, ptr [[A:%.*]], align 2
+; CHECK-NEXT:    store <2 x b64> [[AA_0_COPYLOAD]], ptr [[AA]], align 16
+; CHECK-NEXT:    [[AA_0_COPYLOAD1:%.*]] = load <2 x b64>, ptr [[AA]], align 16
+; CHECK-NEXT:    store <2 x b64> [[AA_0_COPYLOAD1]], ptr addrspace(1) [[B:%.*]], align 2
 ; CHECK-NEXT:    ret void
 ;
   %aa = alloca <2 x i64>, align 16
@@ -51,17 +60,22 @@ define void @test_address_space_0_1(ptr %a, ptr addrspace(1) %b) {
 define void @copy_struct([5 x i64] %in.coerce, ptr addrspace(1) align 4 %ptr) {
 ; CHECK-LABEL: @copy_struct(
 ; CHECK-NEXT:  for.end:
+; CHECK-NEXT:    [[IN_SROA_4:%.*]] = alloca i64, align 8
+; CHECK-NEXT:    [[IN_SROA_5:%.*]] = alloca i32, align 8
 ; CHECK-NEXT:    [[IN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [5 x i64] [[IN_COERCE:%.*]], 0
 ; CHECK-NEXT:    [[IN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [5 x i64] [[IN_COERCE]], 1
 ; CHECK-NEXT:    [[IN_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [5 x i64] [[IN_COERCE]], 2
 ; CHECK-NEXT:    [[IN_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [5 x i64] [[IN_COERCE]], 3
+; CHECK-NEXT:    store i64 [[IN_COERCE_FCA_3_EXTRACT]], ptr [[IN_SROA_4]], align 8
 ; CHECK-NEXT:    [[IN_SROA_2_4_EXTRACT_SHIFT:%.*]] = lshr i64 [[IN_COERCE_FCA_2_EXTRACT]], 32
 ; CHECK-NEXT:    [[IN_SROA_2_4_EXTRACT_TRUNC:%.*]] = trunc i64 [[IN_SROA_2_4_EXTRACT_SHIFT]] to i32
 ; CHECK-NEXT:    store i32 [[IN_SROA_2_4_EXTRACT_TRUNC]], ptr addrspace(1) [[PTR:%.*]], align 4
 ; CHECK-NEXT:    [[IN_SROA_4_20_PTR_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[PTR]], i16 4
-; CHECK-NEXT:    store i64 [[IN_COERCE_FCA_3_EXTRACT]], ptr addrspace(1) [[IN_SROA_4_20_PTR_SROA_IDX]], align 4
+; CHECK-NEXT:    [[IN_SROA_4_20_COPYLOAD:%.*]] = load b64, ptr [[IN_SROA_4]], align 8
+; CHECK-NEXT:    store b64 [[IN_SROA_4_20_COPYLOAD]], ptr addrspace(1) [[IN_SROA_4_20_PTR_SROA_IDX]], align 4
 ; CHECK-NEXT:    [[IN_SROA_5_20_PTR_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[PTR]], i16 12
-; CHECK-NEXT:    store i32 undef, ptr addrspace(1) [[IN_SROA_5_20_PTR_SROA_IDX]], align 4
+; CHECK-NEXT:    [[IN_SROA_5_20_COPYLOAD:%.*]] = load b32, ptr [[IN_SROA_5]], align 8
+; CHECK-NEXT:    store b32 [[IN_SROA_5_20_COPYLOAD]], ptr addrspace(1) [[IN_SROA_5_20_PTR_SROA_IDX]], align 4
 ; CHECK-NEXT:    ret void
 ;
 for.end:

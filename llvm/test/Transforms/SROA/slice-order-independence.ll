@@ -11,10 +11,13 @@ declare void @llvm.memcpy.p0.p0.i32(ptr nocapture, ptr nocapture, i32, i1) nounw
 define void @skipped_inttype_first(ptr) {
 ; CHECK-LABEL: @skipped_inttype_first(
 ; CHECK-NEXT:    [[ARG_SROA_0:%.*]] = alloca ptr, align 8
-; CHECK-NEXT:    [[ARG_SROA_0_0_COPYLOAD:%.*]] = load ptr, ptr [[TMP0:%.*]], align 8
+; CHECK-NEXT:    [[ARG_SROA_3:%.*]] = alloca i64, align 8
+; CHECK-NEXT:    [[ARG_SROA_0_0_COPYLOAD1:%.*]] = load b64, ptr [[TMP0:%.*]], align 8
+; CHECK-NEXT:    [[ARG_SROA_0_0_COPYLOAD:%.*]] = bytecast exact b64 [[ARG_SROA_0_0_COPYLOAD1]] to ptr
 ; CHECK-NEXT:    store ptr [[ARG_SROA_0_0_COPYLOAD]], ptr [[ARG_SROA_0]], align 8
 ; CHECK-NEXT:    [[ARG_SROA_3_0__SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[TMP0]], i64 8
-; CHECK-NEXT:    [[ARG_SROA_3_0_COPYLOAD:%.*]] = load i64, ptr [[ARG_SROA_3_0__SROA_IDX]], align 8
+; CHECK-NEXT:    [[ARG_SROA_3_0_COPYLOAD:%.*]] = load b64, ptr [[ARG_SROA_3_0__SROA_IDX]], align 8
+; CHECK-NEXT:    store b64 [[ARG_SROA_3_0_COPYLOAD]], ptr [[ARG_SROA_3]], align 8
 ; CHECK-NEXT:    [[ARG_SROA_0_0_ARG_SROA_0_0_B0:%.*]] = load i63, ptr [[ARG_SROA_0]], align 8
 ; CHECK-NEXT:    [[ARG_SROA_0_0_ARG_SROA_0_0_B1:%.*]] = load ptr, ptr [[ARG_SROA_0]], align 8
 ; CHECK-NEXT:    ret void
@@ -30,10 +33,13 @@ define void @skipped_inttype_first(ptr) {
 define void @skipped_inttype_last(ptr) {
 ; CHECK-LABEL: @skipped_inttype_last(
 ; CHECK-NEXT:    [[ARG_SROA_0:%.*]] = alloca ptr, align 8
-; CHECK-NEXT:    [[ARG_SROA_0_0_COPYLOAD:%.*]] = load ptr, ptr [[TMP0:%.*]], align 8
+; CHECK-NEXT:    [[ARG_SROA_3:%.*]] = alloca i64, align 8
+; CHECK-NEXT:    [[ARG_SROA_0_0_COPYLOAD1:%.*]] = load b64, ptr [[TMP0:%.*]], align 8
+; CHECK-NEXT:    [[ARG_SROA_0_0_COPYLOAD:%.*]] = bytecast exact b64 [[ARG_SROA_0_0_COPYLOAD1]] to ptr
 ; CHECK-NEXT:    store ptr [[ARG_SROA_0_0_COPYLOAD]], ptr [[ARG_SROA_0]], align 8
 ; CHECK-NEXT:    [[ARG_SROA_3_0__SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[TMP0]], i64 8
-; CHECK-NEXT:    [[ARG_SROA_3_0_COPYLOAD:%.*]] = load i64, ptr [[ARG_SROA_3_0__SROA_IDX]], align 8
+; CHECK-NEXT:    [[ARG_SROA_3_0_COPYLOAD:%.*]] = load b64, ptr [[ARG_SROA_3_0__SROA_IDX]], align 8
+; CHECK-NEXT:    store b64 [[ARG_SROA_3_0_COPYLOAD]], ptr [[ARG_SROA_3]], align 8
 ; CHECK-NEXT:    [[ARG_SROA_0_0_ARG_SROA_0_0_B1:%.*]] = load ptr, ptr [[ARG_SROA_0]], align 8
 ; CHECK-NEXT:    [[ARG_SROA_0_0_ARG_SROA_0_0_B0:%.*]] = load i63, ptr [[ARG_SROA_0]], align 8
 ; CHECK-NEXT:    ret void
