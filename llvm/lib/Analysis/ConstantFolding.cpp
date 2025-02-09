@@ -207,6 +207,31 @@ Constant *FoldBitCast(Constant *C, Type *DestTy, const DataLayout &DL) {
            "Constant folding cannot fail for plain fp->int bitcast!");
   }
 
+  // Convert byte input constants into integers.
+  if (SrcEltTy->isByteTy()) {
+    unsigned ByteWidth = SrcEltTy->getPrimitiveSizeInBits();
+    auto *SrcIVTy = FixedVectorType::get(
+        IntegerType::get(C->getContext(), ByteWidth), NumSrcElt);
+    // Ask IR to do the conversion now that #elts line up.
+    C = ConstantExpr::getByteCast(C, SrcIVTy);
+    assert((isa<ConstantVector>(C) || // FIXME: Remove ConstantVector.
+            isa<ConstantDataVector>(C) || isa<ConstantInt>(C)) &&
+           "Constant folding cannot fail for plain byte->int bitcast!");
+  }
+
+  // Convert byte output constants into integers.
+  if (DstEltTy->isByteTy()) {
+    // Fold to an vector of integers with same size as the byte type.
+    unsigned ByteWidth = DstEltTy->getPrimitiveSizeInBits();
+    auto *DestIVTy = FixedVectorType::get(
+        IntegerType::get(C->getContext(), ByteWidth), NumDstElt);
+    // Recursively handle this integer conversion, if possible.
+    C = FoldBitCast(C, DestIVTy, DL);
+
+    // Finally, IR can handle this now that #elts line up.
+    return ConstantExpr::getBitCast(C, DestTy);
+  }
+
   // Now we know that the input and output vectors are both integer vectors
   // of the same size, and that their #elements is not the same.  Do the
   // conversion here, which depends on whether the input or output has
