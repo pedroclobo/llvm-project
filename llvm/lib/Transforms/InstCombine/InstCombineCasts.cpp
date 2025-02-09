@@ -2592,6 +2592,9 @@ Instruction *InstCombinerImpl::optimizeBitCastFromPhi(CastInst &CI,
         // is replaced with a specific intrinsic.
         if (DestTy->isX86_AMXTy())
           return nullptr;
+        // Don't transform byte loads as it is unsound due to type punning.
+        if (DestTy->isByteOrByteVectorTy())
+          return nullptr;
         if (LI->hasOneUse() && LI->isSimple())
           continue;
         // If a LoadInst has more than one use, changing the type of loaded
@@ -2693,6 +2696,9 @@ Instruction *InstCombinerImpl::optimizeBitCastFromPhi(CastInst &CI,
     for (User *V : make_early_inc_range(OldPN->users())) {
       if (auto *SI = dyn_cast<StoreInst>(V)) {
         assert(SI->isSimple() && SI->getOperand(0) == OldPN);
+        assert(!(NewPN->getType()->isByteOrByteVectorTy() &&
+                 !SrcTy->isByteOrByteVectorTy()) &&
+                 "Cannot bitcast a byte value to a non-byte type");
         Builder.SetInsertPoint(SI);
         auto *NewBC =
           cast<BitCastInst>(Builder.CreateBitCast(NewPN, SrcTy));
