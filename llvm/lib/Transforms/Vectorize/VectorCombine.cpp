@@ -1057,6 +1057,8 @@ bool VectorCombine::foldBitcastShuffle(Instruction &I) {
   auto *SrcTy = dyn_cast<FixedVectorType>(V0->getType());
   if (!DestTy || !SrcTy)
     return false;
+  if (SrcTy->isPtrOrPtrVectorTy() != DestTy->isPtrOrPtrVectorTy())
+    return false;
 
   unsigned DestEltSize = DestTy->getScalarSizeInBits();
   unsigned SrcEltSize = SrcTy->getScalarSizeInBits();
