@@ -2971,8 +2971,9 @@ void VPWidenStoreEVLRecipe::print(raw_ostream &O, const Twine &Indent,
 }
 #endif
 
-static Value *createBitOrPointerCast(IRBuilderBase &Builder, Value *V,
-                                     VectorType *DstVTy, const DataLayout &DL) {
+static Value *createBitOrByteOrPointerCast(IRBuilderBase &Builder, Value *V,
+                                           VectorType *DstVTy,
+                                           const DataLayout &DL) {
   // Verify that V is a vector type with same number of elements as DstVTy.
   auto VF = DstVTy->getElementCount();
   auto *SrcVecTy = cast<VectorType>(V->getType());
@@ -2986,6 +2987,10 @@ static Value *createBitOrPointerCast(IRBuilderBase &Builder, Value *V,
   if (CastInst::isBitOrNoopPointerCastable(SrcElemTy, DstElemTy, DL)) {
     return Builder.CreateBitOrPointerCast(V, DstVTy);
   }
+
+  if (SrcElemTy->isByteTy())
+    return Builder.CreateExactByteCast(V, DstVTy);
+
   // V cannot be directly casted to desired vector type.
   // May happen when V is a floating point vector but DstVTy is a vector of
   // pointers or vice-versa. Handle this using a two-step bitcast using an
@@ -3207,7 +3212,8 @@ void VPInterleaveRecipe::execute(VPTransformState &State) {
         if (Member->getType() != ScalarTy) {
           VectorType *OtherVTy = VectorType::get(Member->getType(), State.VF);
           StridedVec =
-              createBitOrPointerCast(State.Builder, StridedVec, OtherVTy, DL);
+              createBitOrByteOrPointerCast(State.Builder, StridedVec, OtherVTy,
+                                           DL);
         }
 
         if (Group->isReverse())
@@ -3240,7 +3246,8 @@ void VPInterleaveRecipe::execute(VPTransformState &State) {
         assert(!State.VF.isScalable() && "VF is assumed to be non scalable.");
         VectorType *OtherVTy = VectorType::get(Member->getType(), State.VF);
         StridedVec =
-            createBitOrPointerCast(State.Builder, StridedVec, OtherVTy, DL);
+            createBitOrByteOrPointerCast(State.Builder, StridedVec, OtherVTy,
+                                         DL);
       }
 
       if (Group->isReverse())
@@ -3285,7 +3292,8 @@ void VPInterleaveRecipe::execute(VPTransformState &State) {
     // If this member has different type, cast it to a unified type.
 
     if (StoredVec->getType() != SubVT)
-      StoredVec = createBitOrPointerCast(State.Builder, StoredVec, SubVT, DL);
+      StoredVec = createBitOrByteOrPointerCast(State.Builder, StoredVec, SubVT,
+                                               DL);
 
     StoredVecs.push_back(StoredVec);
   }
