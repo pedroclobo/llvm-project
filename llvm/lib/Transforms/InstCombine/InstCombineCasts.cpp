@@ -2563,6 +2563,10 @@ Instruction *InstCombinerImpl::optimizeBitCastFromPhi(CastInst &CI,
   Type *SrcTy = Src->getType();         // Type B
   Type *DestTy = CI.getType();          // Type A
 
+  // If B is a byte and A is not a byte, the B -> A bitcast is invalid.
+  if (!SrcTy->isByteOrByteVectorTy() && DestTy->isByteOrByteVectorTy())
+    return nullptr;
+
   SmallVector<PHINode *, 4> PhiWorklist;
   SmallSetVector<PHINode *, 4> OldPhiNodes;
 
@@ -2591,6 +2595,9 @@ Instruction *InstCombinerImpl::optimizeBitCastFromPhi(CastInst &CI,
         // TODO: Remove this check when bitcast between vector and x86_amx
         // is replaced with a specific intrinsic.
         if (DestTy->isX86_AMXTy())
+          return nullptr;
+        // Don't transform byte loads as it is unsound due to type punning.
+        if (DestTy->isByteOrByteVectorTy())
           return nullptr;
         if (LI->hasOneUse() && LI->isSimple())
           continue;
