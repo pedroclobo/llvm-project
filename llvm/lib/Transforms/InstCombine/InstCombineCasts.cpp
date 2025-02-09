@@ -2638,6 +2638,10 @@ Instruction *InstCombinerImpl::optimizeBitCastFromPhi(CastInst &CI,
   Type *SrcTy = Src->getType();         // Type B
   Type *DestTy = CI.getType();          // Type A
 
+  // If B is a byte and A is not a byte, the B -> A bitcast is invalid.
+  if (!SrcTy->isByteOrByteVectorTy() && DestTy->isByteOrByteVectorTy())
+    return nullptr;
+
   SmallVector<PHINode *, 4> PhiWorklist;
   SmallSetVector<PHINode *, 4> OldPhiNodes;
 
