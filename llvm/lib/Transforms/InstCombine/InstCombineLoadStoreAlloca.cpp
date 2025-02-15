@@ -665,6 +665,7 @@ static Instruction *combineLoadToOperationType(InstCombinerImpl &IC,
       Type *DestTy = CastUser->getDestTy();
       if (CastUser->isNoopCast(IC.getDataLayout()) &&
           LoadTy->isPtrOrPtrVectorTy() == DestTy->isPtrOrPtrVectorTy() &&
+          LoadTy->isByteOrByteVectorTy() == DestTy->isByteOrByteVectorTy() &&
           (!Load.isAtomic() || isSupportedAtomicType(DestTy))) {
         LoadInst *NewLoad = IC.combineLoadToNewType(Load, DestTy);
         CastUser->replaceAllUsesWith(NewLoad);
