@@ -5192,7 +5192,7 @@ RValue CodeGenFunction::EmitCall(const CGFunctionInfo &CallInfo,
     // Insert a padding argument to ensure proper alignment.
     if (IRFunctionArgs.hasPaddingArg(ArgNo))
       IRCallArgs[IRFunctionArgs.getPaddingArgNo(ArgNo)] =
-          llvm::UndefValue::get(ArgInfo.getPaddingType());
+          llvm::PoisonValue::get(ArgInfo.getPaddingType());
 
     unsigned FirstIRArg, NumIRArgs;
     std::tie(FirstIRArg, NumIRArgs) = IRFunctionArgs.getIRArgs(ArgNo);
