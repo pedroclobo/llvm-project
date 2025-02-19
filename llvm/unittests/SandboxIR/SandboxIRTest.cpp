@@ -5348,7 +5348,7 @@ define void @foo() {
 
 TEST_F(SandboxIRTest, CastInst) {
   parseIR(C, R"IR(
-define void @foo(i32 %arg, float %farg, double %darg, ptr %ptr) {
+define void @foo(i32 %arg, b32 %barg, float %farg, double %darg, ptr %ptr) {
   %zext = zext i32 %arg to i64
   %sext = sext i32 %arg to i64
   %fptoui = fptoui float %farg to i32
@@ -5361,6 +5361,7 @@ define void @foo(i32 %arg, float %farg, double %darg, ptr %ptr) {
   %trunc = trunc i32 %arg to i16
   %fptrunc = fptrunc double %darg to float
   %bitcast = bitcast i32 %arg to float
+  %bytecast = bytecast b32 %barg to float
   %addrspacecast = addrspacecast ptr %ptr to ptr addrspace(1)
   ret void
 }
@@ -5376,6 +5377,7 @@ define void @foo(i32 %arg, float %farg, double %darg, ptr %ptr) {
   auto *Ti64 = sandboxir::Type::getInt64Ty(Ctx);
   auto *Ti32 = sandboxir::Type::getInt32Ty(Ctx);
   auto *Ti16 = sandboxir::Type::getInt16Ty(Ctx);
+  auto *Tb32 = sandboxir::Type::getByte32Ty(Ctx);
   auto *Tdouble = sandboxir::Type::getDoubleTy(Ctx);
   auto *Tfloat = sandboxir::Type::getFloatTy(Ctx);
   auto *Tptr = sandboxir::PointerType::get(Ctx, 0);
@@ -5477,6 +5479,14 @@ define void @foo(i32 %arg, float %farg, double %darg, ptr %ptr) {
   EXPECT_EQ(BitCast->getOpcode(), sandboxir::Instruction::Opcode::BitCast);
   EXPECT_EQ(BitCast->getSrcTy(), Ti32);
   EXPECT_EQ(BitCast->getDestTy(), Tfloat);
+
+  auto *ByteCast = cast<sandboxir::CastInst>(&*It++);
+  auto *ByteCastI = cast<sandboxir::ByteCastInst>(ByteCast);
+  EXPECT_TRUE(isa<sandboxir::UnaryInstruction>(ByteCast));
+  EXPECT_TRUE(isa<sandboxir::UnaryInstruction>(ByteCastI));
+  EXPECT_EQ(ByteCast->getOpcode(), sandboxir::Instruction::Opcode::ByteCast);
+  EXPECT_EQ(ByteCast->getSrcTy(), Tb32);
+  EXPECT_EQ(ByteCast->getDestTy(), Tfloat);
 
   auto *AddrSpaceCast = cast<sandboxir::CastInst>(&*It++);
   auto *AddrSpaceCastI = cast<sandboxir::AddrSpaceCastInst>(AddrSpaceCast);
@@ -5797,6 +5807,18 @@ define void @foo(i32 %arg) {
   testCastInst<sandboxir::BitCastInst, sandboxir::Instruction::Opcode::BitCast>(
       *M,
       /*SrcTy=*/Type::getInt32Ty(C), /*DstTy=*/Type::getFloatTy(C));
+}
+
+TEST_F(SandboxIRTest, ByteCastInst) {
+  parseIR(C, R"IR(
+define void @foo(b32 %arg) {
+  %bitcast = bytecast b32 %arg to float
+  ret void
+}
+)IR");
+  testCastInst<sandboxir::ByteCastInst,
+               sandboxir::Instruction::Opcode::ByteCast>(
+      *M, /*SrcTy=*/Type::getByte32Ty(C), /*DstTy=*/Type::getFloatTy(C));
 }
 
 TEST_F(SandboxIRTest, AddrSpaceCastInst) {
