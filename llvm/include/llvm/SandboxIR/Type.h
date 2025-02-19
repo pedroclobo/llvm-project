@@ -54,6 +54,7 @@ protected:
   friend class ScalableVectorType; // For LLVMTy.
   friend class PointerType;        // For LLVMTy.
   friend class FunctionType;       // For LLVMTy.
+  friend class ByteType;           // For LLVMTy.
   friend class IntegerType;        // For LLVMTy.
   friend class Function;           // For LLVMTy.
   friend class CallBase;           // For LLVMTy.
@@ -179,6 +180,23 @@ public:
     return LLVMTy->isIntOrIntVectorTy(BitWidth);
   }
 
+  /// True if this is an instance of ByteType.
+  bool isByteTy() const { return LLVMTy->isByteTy(); }
+
+  /// Return true if this is an ByteType of the given width.
+  bool isByteTy(unsigned Bitwidth) const {
+    return LLVMTy->isByteTy(Bitwidth);
+  }
+
+  /// Return true if this is an byte type or a vector of byte types.
+  bool isByteOrByteVectorTy() const { return LLVMTy->isByteOrByteVectorTy(); }
+
+  /// Return true if this is an byte type or a vector of byte types of the given
+  /// width.
+  bool isByteOrByteVectorTy(unsigned BitWidth) const {
+    return LLVMTy->isByteOrByteVectorTy(BitWidth);
+  }
+
   /// Return true if this is an integer type or a pointer type.
   bool isIntOrPtrTy() const { return LLVMTy->isIntOrPtrTy(); }
 
@@ -274,6 +292,10 @@ public:
   LLVM_ABI static Type *getInt16Ty(Context &Ctx);
   LLVM_ABI static Type *getInt8Ty(Context &Ctx);
   LLVM_ABI static Type *getInt1Ty(Context &Ctx);
+  LLVM_ABI static Type *getByte64Ty(Context &Ctx);
+  LLVM_ABI static Type *getByte32Ty(Context &Ctx);
+  LLVM_ABI static Type *getByte16Ty(Context &Ctx);
+  LLVM_ABI static Type *getByte8Ty(Context &Ctx);
   LLVM_ABI static Type *getDoubleTy(Context &Ctx);
   LLVM_ABI static Type *getFloatTy(Context &Ctx);
   LLVM_ABI static Type *getHalfTy(Context &Ctx);
