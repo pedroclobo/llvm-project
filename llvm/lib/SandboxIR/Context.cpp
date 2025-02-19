@@ -264,6 +264,7 @@ Value *Context::getOrCreateValueInternal(llvm::Value *LLVMV, llvm::User *U) {
     case llvm::Instruction::Trunc:
     case llvm::Instruction::FPTrunc:
     case llvm::Instruction::BitCast:
+    case llvm::Instruction::ByteCast:
     case llvm::Instruction::AddrSpaceCast: {
       auto *LLVMCast = cast<llvm::CastInst>(LLVMV);
       It->second = std::unique_ptr<CastInst>(new CastInst(LLVMCast, *this));

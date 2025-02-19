@@ -30,6 +30,18 @@ Type *Type::getInt8Ty(Context &Ctx) {
 Type *Type::getInt1Ty(Context &Ctx) {
   return Ctx.getType(llvm::Type::getInt1Ty(Ctx.LLVMCtx));
 }
+Type *Type::getByte64Ty(Context &Ctx) {
+  return Ctx.getType(llvm::Type::getByte64Ty(Ctx.LLVMCtx));
+}
+Type *Type::getByte32Ty(Context &Ctx) {
+  return Ctx.getType(llvm::Type::getByte32Ty(Ctx.LLVMCtx));
+}
+Type *Type::getByte16Ty(Context &Ctx) {
+  return Ctx.getType(llvm::Type::getByte16Ty(Ctx.LLVMCtx));
+}
+Type *Type::getByte8Ty(Context &Ctx) {
+  return Ctx.getType(llvm::Type::getByte8Ty(Ctx.LLVMCtx));
+}
 Type *Type::getDoubleTy(Context &Ctx) {
   return Ctx.getType(llvm::Type::getDoubleTy(Ctx.LLVMCtx));
 }
