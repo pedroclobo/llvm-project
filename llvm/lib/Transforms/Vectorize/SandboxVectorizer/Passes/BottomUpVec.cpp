@@ -91,6 +91,7 @@ Value *BottomUpVec::createVectorInstr(ArrayRef<Value *> Bndl,
     case Instruction::Opcode::UIToFP:
     case Instruction::Opcode::Trunc:
     case Instruction::Opcode::FPTrunc:
+    case Instruction::Opcode::ByteCast:
     case Instruction::Opcode::BitCast: {
       assert(Operands.size() == 1u && "Casts are unary!");
       return CastInst::create(VecTy, Opcode, Operands[0], WhereIt, Ctx,

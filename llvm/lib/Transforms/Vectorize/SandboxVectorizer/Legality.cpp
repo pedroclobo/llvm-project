@@ -88,6 +88,7 @@ LegalityAnalysis::notVectorizableBasedOnOpcodesAndTypes(
   case Instruction::Opcode::UIToFP:
   case Instruction::Opcode::Trunc:
   case Instruction::Opcode::FPTrunc:
+  case Instruction::Opcode::ByteCast:
   case Instruction::Opcode::BitCast: {
     // We have already checked that they are of the same opcode.
     assert(all_of(Bndl,
