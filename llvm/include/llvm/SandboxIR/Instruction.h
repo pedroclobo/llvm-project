@@ -2292,6 +2292,8 @@ class CastInst : public UnaryInstruction {
       return Opcode::FPTrunc;
     case llvm::Instruction::BitCast:
       return Opcode::BitCast;
+    case llvm::Instruction::ByteCast:
+      return Opcode::ByteCast;
     case llvm::Instruction::AddrSpaceCast:
       return Opcode::AddrSpaceCast;
     case llvm::Instruction::CastOpsEnd:
@@ -2366,6 +2368,7 @@ class IntToPtrInst final : public CastInstImpl<Instruction::Opcode::IntToPtr> {
 };
 class PtrToIntInst final : public CastInstImpl<Instruction::Opcode::PtrToInt> {
 };
+class ByteCastInst final : public CastInstImpl<Instruction::Opcode::ByteCast> {};
 class BitCastInst final : public CastInstImpl<Instruction::Opcode::BitCast> {};
 class AddrSpaceCastInst final
     : public CastInstImpl<Instruction::Opcode::AddrSpaceCast> {
