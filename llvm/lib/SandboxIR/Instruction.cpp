@@ -1022,6 +1022,8 @@ static llvm::Instruction::CastOps getLLVMCastOp(Instruction::Opcode Opc) {
     return static_cast<llvm::Instruction::CastOps>(llvm::Instruction::Trunc);
   case Instruction::Opcode::FPTrunc:
     return static_cast<llvm::Instruction::CastOps>(llvm::Instruction::FPTrunc);
+  case Instruction::Opcode::ByteCast:
+    return static_cast<llvm::Instruction::CastOps>(llvm::Instruction::ByteCast);
   case Instruction::Opcode::BitCast:
     return static_cast<llvm::Instruction::CastOps>(llvm::Instruction::BitCast);
   case Instruction::Opcode::AddrSpaceCast:
