@@ -27,6 +27,7 @@ DEF_USER(User, User)
 DEF_VALUE(Block, BasicBlock)
 DEF_CONST(Constant, Constant)
 DEF_CONST(ConstantInt, ConstantInt)
+DEF_CONST(ConstantByte, ConstantByte)
 DEF_CONST(ConstantFP, ConstantFP)
 DEF_CONST(ConstantDataArray, ConstantDataArray)
 DEF_CONST(ConstantDataVector, ConstantDataVector)
@@ -125,6 +126,7 @@ DEF_INSTR(Cast,   OPCODES(\
                           OP(UIToFP)        \
                           OP(Trunc)         \
                           OP(FPTrunc)       \
+                          OP(ByteCast)      \
                           OP(BitCast)       \
                           OP(AddrSpaceCast) \
                           ),                  CastInst)
