@@ -103,3 +103,12 @@ define void @vector_bytecasts(<2 x b64> %b1, <2 x b128> %b2, b64 %b3) {
   %8 = bytecast <2 x b128> %b2 to <4 x ptr>
   ret void
 }
+
+; CHECK-LABEL: trunc
+; CHECK: trunc b16 %{{.*}} to b8
+; CHECK: trunc <2 x b16> %{{.*}} to <2 x b8>
+define void @trunc(b16 %b, <2 x b16> %v) {
+  %t1 = trunc b16 %b to b8
+  %t2 = trunc <2 x b16> %v to <2 x b8>
+  ret void
+}
