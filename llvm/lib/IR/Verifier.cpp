@@ -3386,8 +3386,13 @@ void Verifier::visitTruncInst(TruncInst &I) {
   unsigned SrcBitSize = SrcTy->getScalarSizeInBits();
   unsigned DestBitSize = DestTy->getScalarSizeInBits();
 
-  Check(SrcTy->isIntOrIntVectorTy(), "Trunc only operates on integer", &I);
-  Check(DestTy->isIntOrIntVectorTy(), "Trunc only produces integer", &I);
+  Check(SrcTy->isIntOrIntVectorTy() || SrcTy->isByteOrByteVectorTy(),
+        "Trunc only operates on integer or byte", &I);
+  Check(DestTy->isIntOrIntVectorTy() || DestTy->isByteOrByteVectorTy(),
+        "Trunc only produces integer or byte", &I);
+  Check(SrcTy->isIntOrIntVectorTy() == DestTy->isIntOrIntVectorTy() &&
+        SrcTy->isByteOrByteVectorTy() == DestTy->isByteOrByteVectorTy(),
+        "Trunc only operates on operands of the same base type", &I);
   Check(SrcTy->isVectorTy() == DestTy->isVectorTy(),
         "trunc source and destination must both be a vector or neither", &I);
   Check(SrcBitSize > DestBitSize, "DestTy too big for Trunc", &I);

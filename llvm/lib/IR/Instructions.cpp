@@ -3362,8 +3362,9 @@ CastInst::castIsValid(Instruction::CastOps op, Type *SrcTy, Type *DstTy) {
   switch (op) {
   default: return false; // This is an input error
   case Instruction::Trunc:
-    return SrcTy->isIntOrIntVectorTy() && DstTy->isIntOrIntVectorTy() &&
-           SrcEC == DstEC && SrcScalarBitSize > DstScalarBitSize;
+    return ((SrcTy->isIntOrIntVectorTy() && DstTy->isIntOrIntVectorTy()) ||
+            (SrcTy->isByteOrByteVectorTy() && DstTy->isByteOrByteVectorTy())) &&
+            SrcEC == DstEC && SrcScalarBitSize > DstScalarBitSize;
   case Instruction::ZExt:
     return SrcTy->isIntOrIntVectorTy() && DstTy->isIntOrIntVectorTy() &&
            SrcEC == DstEC && SrcScalarBitSize < DstScalarBitSize;
