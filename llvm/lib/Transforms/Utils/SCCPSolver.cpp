@@ -95,6 +95,8 @@ static bool refineInstruction(SCCPSolver &Solver,
       unsigned Bitwidth = Op->getType()->getScalarSizeInBits();
       return ConstantRange::getFull(Bitwidth);
     }
+    if (!Op->getType()->isIntOrIntVectorTy())
+      return ConstantRange::getFull(Op->getType()->getScalarSizeInBits());
     return Solver.getLatticeValueFor(Op).asConstantRange(
         Op->getType(), /*UndefAllowed=*/false);
   };
