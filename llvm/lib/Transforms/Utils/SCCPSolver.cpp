@@ -98,6 +98,8 @@ static ConstantRange getRange(Value *Op, SCCPSolver &Solver,
     unsigned Bitwidth = Op->getType()->getScalarSizeInBits();
     return ConstantRange::getFull(Bitwidth);
   }
+  if (!Op->getType()->isIntOrIntVectorTy())
+    return ConstantRange::getFull(Op->getType()->getScalarSizeInBits());
   return Solver.getLatticeValueFor(Op).asConstantRange(Op->getType(),
                                                        /*UndefAllowed=*/false);
 }
