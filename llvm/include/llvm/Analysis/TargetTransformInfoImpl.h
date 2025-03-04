@@ -1374,6 +1374,7 @@ public:
     case Instruction::Trunc:
     case Instruction::FPTrunc:
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::FPExt:
     case Instruction::SExt:
     case Instruction::ZExt:
