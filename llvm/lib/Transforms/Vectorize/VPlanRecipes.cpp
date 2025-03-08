@@ -2991,6 +2991,9 @@ static Value *createBitOrByteOrPointerCast(IRBuilderBase &Builder, Value *V,
   if (SrcElemTy->isByteTy())
     return Builder.CreateExactByteCast(V, DstVTy);
 
+  if (SrcElemTy->isPointerTy() && DstElemTy->isByteTy())
+    return Builder.CreateBitCast(V, DstVTy);
+
   // V cannot be directly casted to desired vector type.
   // May happen when V is a floating point vector but DstVTy is a vector of
   // pointers or vice-versa. Handle this using a two-step bitcast using an
