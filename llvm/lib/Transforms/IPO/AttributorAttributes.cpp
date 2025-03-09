@@ -9797,6 +9797,7 @@ struct AAPotentialConstantValuesFloating : AAPotentialConstantValuesImpl {
     switch (CastOp) {
     default:
       llvm_unreachable("unsupported or not integer cast");
+    case Instruction::ByteCast:
     case Instruction::Trunc:
       return Src.trunc(ResultBitWidth);
     case Instruction::SExt:

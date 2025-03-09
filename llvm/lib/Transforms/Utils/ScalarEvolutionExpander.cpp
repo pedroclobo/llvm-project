@@ -756,6 +756,7 @@ Instruction *SCEVExpander::getIVIncOperand(Instruction *IncV,
       return dyn_cast<Instruction>(IncV->getOperand(0));
     return nullptr;
   }
+  case Instruction::ByteCast:
   case Instruction::BitCast:
     return dyn_cast<Instruction>(IncV->getOperand(0));
   case Instruction::GetElementPtr:

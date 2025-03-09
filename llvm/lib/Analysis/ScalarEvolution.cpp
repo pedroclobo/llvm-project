@@ -7606,6 +7606,7 @@ ScalarEvolution::getOperandsToCreate(Value *V, SmallVectorImpl<Value *> &Ops) {
     Ops.push_back(U->getOperand(0));
     return nullptr;
 
+  case Instruction::ByteCast:
   case Instruction::BitCast:
     if (isSCEVable(U->getType()) && isSCEVable(U->getOperand(0)->getType())) {
       Ops.push_back(U->getOperand(0));
@@ -8071,6 +8072,7 @@ const SCEV *ScalarEvolution::createSCEV(Value *V) {
     }
     return getSignExtendExpr(getSCEV(U->getOperand(0)), U->getType());
 
+  case Instruction::ByteCast:
   case Instruction::BitCast:
     // BitCasts are no-op casts so we just eliminate the cast.
     if (isSCEVable(U->getType()) && isSCEVable(U->getOperand(0)->getType()))

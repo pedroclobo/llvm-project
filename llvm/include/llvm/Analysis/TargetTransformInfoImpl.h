@@ -680,6 +680,9 @@ public:
         // Identity, pointer-to-pointer casts and casts to bytes are free.
         return 0;
       break;
+    case Instruction::ByteCast:
+      return 0;
+      break;
     case Instruction::Trunc: {
       // trunc to a native type is free (assuming the target has compare and
       // shift-right of the same width).

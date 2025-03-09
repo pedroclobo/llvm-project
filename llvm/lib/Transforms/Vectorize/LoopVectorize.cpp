@@ -6754,10 +6754,6 @@ LoopVectorizationCostModel::getInstructionCost(Instruction *I,
     VectorTy = toVectorTy(getLoadStoreType(I), Width);
     return getMemoryInstructionCost(I, VF);
   }
-  case Instruction::ByteCast:
-    // Bytecasts simply reinterpret types. They are free.
-    return 0;
-    [[fallthrough]];
   case Instruction::BitCast:
     if (I->getType()->isPointerTy())
       return 0;
@@ -6772,6 +6768,7 @@ LoopVectorizationCostModel::getInstructionCost(Instruction *I,
   case Instruction::SIToFP:
   case Instruction::UIToFP:
   case Instruction::Trunc:
+  case Instruction::ByteCast:
   case Instruction::FPTrunc: {
     // Computes the CastContextHint from a Load/Store instruction.
     auto ComputeCCH = [&](Instruction *I) -> TTI::CastContextHint {

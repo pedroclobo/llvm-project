@@ -871,6 +871,7 @@ determinePointerAccessAttrs(Argument *A,
 
     switch (I->getOpcode()) {
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::GetElementPtr:
     case Instruction::PHI:
     case Instruction::Select:
@@ -1455,6 +1456,7 @@ static bool isFunctionMallocLike(Function *F, const SCCNodeSet &SCCNodes) {
       switch (RVI->getOpcode()) {
       // Extend the analysis by looking upwards.
       case Instruction::BitCast:
+      case Instruction::ByteCast:
       case Instruction::GetElementPtr:
       case Instruction::AddrSpaceCast:
         FlowsToReturn.insert(RVI->getOperand(0));
@@ -1566,6 +1568,7 @@ static bool isReturnNonNull(Function *F, const SCCNodeSet &SCCNodes,
     switch (RVI->getOpcode()) {
     // Extend the analysis by looking upwards.
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::AddrSpaceCast:
       FlowsToReturn.insert(RVI->getOperand(0));
       continue;

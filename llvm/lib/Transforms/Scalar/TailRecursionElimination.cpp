@@ -154,6 +154,7 @@ struct AllocaDerivedValueTracker {
         continue;  // Stores have no users to analyze.
       }
       case Instruction::BitCast:
+      case Instruction::ByteCast:
       case Instruction::GetElementPtr:
       case Instruction::PHI:
       case Instruction::Select:
