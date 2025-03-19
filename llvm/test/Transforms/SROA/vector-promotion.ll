@@ -395,20 +395,20 @@ define i64 @test6(<4 x i64> %x, <4 x i64> %y, i64 %n) {
 define <4 x i32> @test_subvec_store() {
 ; CHECK-LABEL: @test_subvec_store(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[A_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x i32> <i32 0, i32 0, i32 undef, i32 undef>, <4 x i32> undef
-; CHECK-NEXT:    [[A_4_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 true, i1 true, i1 false>, <4 x i32> <i32 undef, i32 1, i32 1, i32 undef>, <4 x i32> [[A_0_VECBLEND]]
-; CHECK-NEXT:    [[A_8_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x i32> <i32 undef, i32 undef, i32 2, i32 2>, <4 x i32> [[A_4_VECBLEND]]
+; CHECK-NEXT:    [[A_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x i32> <i32 0, i32 0, i32 poison, i32 poison>, <4 x i32> undef
+; CHECK-NEXT:    [[A_4_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 true, i1 true, i1 false>, <4 x i32> <i32 poison, i32 1, i32 1, i32 poison>, <4 x i32> [[A_0_VECBLEND]]
+; CHECK-NEXT:    [[A_8_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x i32> <i32 poison, i32 poison, i32 2, i32 2>, <4 x i32> [[A_4_VECBLEND]]
 ; CHECK-NEXT:    [[A_12_VEC_INSERT:%.*]] = insertelement <4 x i32> [[A_8_VECBLEND]], i32 3, i32 3
 ; CHECK-NEXT:    ret <4 x i32> [[A_12_VEC_INSERT]]
 ;
 ; DEBUG-LABEL: @test_subvec_store(
 ; DEBUG-NEXT:  entry:
 ; DEBUG-NEXT:      #dbg_value(ptr poison, [[META178:![0-9]+]], !DIExpression(), [[META184:![0-9]+]])
-; DEBUG-NEXT:    [[A_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x i32> <i32 0, i32 0, i32 undef, i32 undef>, <4 x i32> undef, !dbg [[DBG185:![0-9]+]]
+; DEBUG-NEXT:    [[A_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x i32> <i32 0, i32 0, i32 poison, i32 poison>, <4 x i32> undef, !dbg [[DBG185:![0-9]+]]
 ; DEBUG-NEXT:      #dbg_value(ptr undef, [[META179:![0-9]+]], !DIExpression(), [[META186:![0-9]+]])
-; DEBUG-NEXT:    [[A_4_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 true, i1 true, i1 false>, <4 x i32> <i32 undef, i32 1, i32 1, i32 undef>, <4 x i32> [[A_0_VECBLEND]], !dbg [[DBG187:![0-9]+]]
+; DEBUG-NEXT:    [[A_4_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 true, i1 true, i1 false>, <4 x i32> <i32 poison, i32 1, i32 1, i32 poison>, <4 x i32> [[A_0_VECBLEND]], !dbg [[DBG187:![0-9]+]]
 ; DEBUG-NEXT:      #dbg_value(ptr undef, [[META180:![0-9]+]], !DIExpression(), [[META188:![0-9]+]])
-; DEBUG-NEXT:    [[A_8_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x i32> <i32 undef, i32 undef, i32 2, i32 2>, <4 x i32> [[A_4_VECBLEND]], !dbg [[DBG189:![0-9]+]]
+; DEBUG-NEXT:    [[A_8_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x i32> <i32 poison, i32 poison, i32 2, i32 2>, <4 x i32> [[A_4_VECBLEND]], !dbg [[DBG189:![0-9]+]]
 ; DEBUG-NEXT:      #dbg_value(ptr undef, [[META181:![0-9]+]], !DIExpression(), [[META190:![0-9]+]])
 ; DEBUG-NEXT:    [[A_12_VEC_INSERT:%.*]] = insertelement <4 x i32> [[A_8_VECBLEND]], i32 3, i32 3, !dbg [[DBG191:![0-9]+]]
 ; DEBUG-NEXT:      #dbg_value(<4 x i32> [[A_12_VEC_INSERT]], [[META182:![0-9]+]], !DIExpression(), [[META192:![0-9]+]])
@@ -482,20 +482,20 @@ entry:
 define <4 x float> @test_subvec_memset() {
 ; CHECK-LABEL: @test_subvec_memset(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[A_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x float> <float 0.000000e+00, float 0.000000e+00, float undef, float undef>, <4 x float> undef
-; CHECK-NEXT:    [[A_4_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 true, i1 true, i1 false>, <4 x float> <float undef, float 0x3820202020000000, float 0x3820202020000000, float undef>, <4 x float> [[A_0_VECBLEND]]
-; CHECK-NEXT:    [[A_8_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x float> <float undef, float undef, float 0x3860606060000000, float 0x3860606060000000>, <4 x float> [[A_4_VECBLEND]]
+; CHECK-NEXT:    [[A_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x float> <float 0.000000e+00, float 0.000000e+00, float poison, float poison>, <4 x float> undef
+; CHECK-NEXT:    [[A_4_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 true, i1 true, i1 false>, <4 x float> <float poison, float 0x3820202020000000, float 0x3820202020000000, float poison>, <4 x float> [[A_0_VECBLEND]]
+; CHECK-NEXT:    [[A_8_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x float> <float poison, float poison, float 0x3860606060000000, float 0x3860606060000000>, <4 x float> [[A_4_VECBLEND]]
 ; CHECK-NEXT:    [[A_12_VEC_INSERT:%.*]] = insertelement <4 x float> [[A_8_VECBLEND]], float 0x38E0E0E0E0000000, i32 3
 ; CHECK-NEXT:    ret <4 x float> [[A_12_VEC_INSERT]]
 ;
 ; DEBUG-LABEL: @test_subvec_memset(
 ; DEBUG-NEXT:  entry:
 ; DEBUG-NEXT:      #dbg_value(ptr poison, [[META215:![0-9]+]], !DIExpression(), [[META220:![0-9]+]])
-; DEBUG-NEXT:    [[A_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x float> <float 0.000000e+00, float 0.000000e+00, float undef, float undef>, <4 x float> undef, !dbg [[DBG221:![0-9]+]]
+; DEBUG-NEXT:    [[A_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 false, i1 false>, <4 x float> <float 0.000000e+00, float 0.000000e+00, float poison, float poison>, <4 x float> undef, !dbg [[DBG221:![0-9]+]]
 ; DEBUG-NEXT:      #dbg_value(ptr undef, [[META216:![0-9]+]], !DIExpression(), [[META222:![0-9]+]])
-; DEBUG-NEXT:    [[A_4_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 true, i1 true, i1 false>, <4 x float> <float undef, float 0x3820202020000000, float 0x3820202020000000, float undef>, <4 x float> [[A_0_VECBLEND]], !dbg [[DBG223:![0-9]+]]
+; DEBUG-NEXT:    [[A_4_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 true, i1 true, i1 false>, <4 x float> <float poison, float 0x3820202020000000, float 0x3820202020000000, float poison>, <4 x float> [[A_0_VECBLEND]], !dbg [[DBG223:![0-9]+]]
 ; DEBUG-NEXT:      #dbg_value(ptr undef, [[META217:![0-9]+]], !DIExpression(), [[META224:![0-9]+]])
-; DEBUG-NEXT:    [[A_8_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x float> <float undef, float undef, float 0x3860606060000000, float 0x3860606060000000>, <4 x float> [[A_4_VECBLEND]], !dbg [[DBG225:![0-9]+]]
+; DEBUG-NEXT:    [[A_8_VECBLEND:%.*]] = select <4 x i1> <i1 false, i1 false, i1 true, i1 true>, <4 x float> <float poison, float poison, float 0x3860606060000000, float 0x3860606060000000>, <4 x float> [[A_4_VECBLEND]], !dbg [[DBG225:![0-9]+]]
 ; DEBUG-NEXT:      #dbg_value(ptr undef, [[META218:![0-9]+]], !DIExpression(), [[META226:![0-9]+]])
 ; DEBUG-NEXT:    [[A_12_VEC_INSERT:%.*]] = insertelement <4 x float> [[A_8_VECBLEND]], float 0x38E0E0E0E0000000, i32 3, !dbg [[DBG227:![0-9]+]]
 ; DEBUG-NEXT:      #dbg_value(<4 x float> [[A_12_VEC_INSERT]], [[META219:![0-9]+]], !DIExpression(), [[META228:![0-9]+]])

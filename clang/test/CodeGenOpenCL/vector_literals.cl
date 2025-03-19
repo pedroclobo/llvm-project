@@ -39,10 +39,10 @@ void vector_literals_valid() {
   //CHECK: store <2 x i32> <i32 1, i32 2>, ptr
   //CHECK: shufflevector <2 x i32> %{{[0-9]+}}, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
   //CHECK: shufflevector <4 x i32> %{{.+}}, <4 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
-  //CHECK: shufflevector <4 x i32> %{{.+}}, <4 x i32> <i32 3, i32 3, i32 undef, i32 undef>, <4 x i32> <i32 0, i32 1, i32 4, i32 5>
+  //CHECK: shufflevector <4 x i32> %{{.+}}, <4 x i32> <i32 3, i32 3, i32 poison, i32 poison>, <4 x i32> <i32 0, i32 1, i32 4, i32 5>
   int4 a_2_2 = (int4)((int2)(1, 2), (int2)(3));
 
-  //CHECK: store <4 x i32> <i32 2, i32 3, i32 4, i32 undef>, ptr
+  //CHECK: store <4 x i32> <i32 2, i32 3, i32 4, i32 poison>, ptr
   //CHECK: shufflevector <4 x i32> %{{.+}}, <4 x i32> poison, <3 x i32> <i32 0, i32 1, i32 2>
   //CHECK: shufflevector <3 x i32> %{{.+}}, <3 x i32> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
   //CHECK: shufflevector <4 x i32> <i32 1, i32 poison, i32 poison, i32 poison>, <4 x i32> %{{.+}}, <4 x i32> <i32 0, i32 4, i32 5, i32 6>

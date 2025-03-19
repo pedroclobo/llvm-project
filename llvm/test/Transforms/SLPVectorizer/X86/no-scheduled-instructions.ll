@@ -6,7 +6,7 @@ define void @test(i1 %arg) {
 ; CHECK-SAME: (i1 %arg) #[[ATTR0:[0-9]+]] {
 ; CHECK-NEXT:    br i1 %arg, label [[BB1:%.*]], label [[BB2:%.*]]
 ; CHECK:       bb1:
-; CHECK-NEXT:    [[TMP1:%.*]] = call i32 @llvm.vector.reduce.mul.v8i32(<8 x i32> <i32 0, i32 0, i32 0, i32 0, i32 undef, i32 undef, i32 undef, i32 undef>)
+; CHECK-NEXT:    [[TMP1:%.*]] = call i32 @llvm.vector.reduce.mul.v8i32(<8 x i32> <i32 0, i32 0, i32 0, i32 0, i32 poison, i32 poison, i32 poison, i32 poison>)
 ; CHECK-NEXT:    call void @f(i32 noundef [[TMP1]])
 ; CHECK-NEXT:    br label [[BB2]]
 ; CHECK:       bb2:
