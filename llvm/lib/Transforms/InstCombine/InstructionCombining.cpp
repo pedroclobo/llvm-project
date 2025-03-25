@@ -3338,12 +3338,14 @@ Instruction *InstCombinerImpl::visitGetElementPtrInst(GetElementPtrInst &GEP) {
       //   %newgep = getelementptr i32, ptr %newptr, i64 %idx2
       bool NUW = match(GEP.getOperand(1), m_NUWAddLike(m_Value(), m_Value()));
       GEPNoWrapFlags NWFlags = GetPreservedNoWrapFlags(NUW);
-      auto *NewPtr =
-          Builder.CreateGEP(GEP.getSourceElementType(), GEP.getPointerOperand(),
-                            Idx1, "", NWFlags);
-      return replaceInstUsesWith(GEP,
-                                 Builder.CreateGEP(GEP.getSourceElementType(),
-                                                   NewPtr, Idx2, "", NWFlags));
+      if (GEP.isInBounds() == NWFlags.isInBounds()) {
+        auto *NewPtr =
+            Builder.CreateGEP(GEP.getSourceElementType(), GEP.getPointerOperand(),
+                              Idx1, "", NWFlags);
+        return replaceInstUsesWith(GEP,
+                                  Builder.CreateGEP(GEP.getSourceElementType(),
+                                                    NewPtr, Idx2, "", NWFlags));
+      }
     }
     ConstantInt *C;
     if (match(GEP.getOperand(1), m_OneUse(m_SExtLike(m_OneUse(m_NSWAddLike(
@@ -3357,14 +3359,16 @@ Instruction *InstCombinerImpl::visitGetElementPtrInst(GetElementPtrInst &GEP) {
       bool NUW = match(GEP.getOperand(1),
                        m_NNegZExt(m_NUWAddLike(m_Value(), m_Value())));
       GEPNoWrapFlags NWFlags = GetPreservedNoWrapFlags(NUW);
-      auto *NewPtr = Builder.CreateGEP(
-          GEP.getSourceElementType(), GEP.getPointerOperand(),
-          Builder.CreateSExt(Idx1, GEP.getOperand(1)->getType()), "", NWFlags);
-      return replaceInstUsesWith(
-          GEP,
-          Builder.CreateGEP(GEP.getSourceElementType(), NewPtr,
-                            Builder.CreateSExt(C, GEP.getOperand(1)->getType()),
-                            "", NWFlags));
+      if (GEP.isInBounds() == NWFlags.isInBounds()) {
+        auto *NewPtr = Builder.CreateGEP(
+            GEP.getSourceElementType(), GEP.getPointerOperand(),
+            Builder.CreateSExt(Idx1, GEP.getOperand(1)->getType()), "", NWFlags);
+        return replaceInstUsesWith(
+            GEP,
+            Builder.CreateGEP(GEP.getSourceElementType(), NewPtr,
+                              Builder.CreateSExt(C, GEP.getOperand(1)->getType()),
+                              "", NWFlags));
+      }
     }
   }
 
