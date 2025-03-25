@@ -300,12 +300,12 @@ define void @gather_nxv4i32_ind64_stride2(ptr noalias nocapture %a, ptr noalias 
 ; CHECK:       vector.body:
 ; CHECK-NEXT:    [[INDEX:%.*]] = phi i64 [ 0, [[VECTOR_PH]] ], [ [[INDEX_NEXT:%.*]], [[VECTOR_BODY]] ]
 ; CHECK-NEXT:    [[TMP9:%.*]] = call i64 @llvm.vscale.i64()
+; CHECK-NEXT:    [[TMP17:%.*]] = shl nuw nsw i64 [[TMP9]], 3
+; CHECK-NEXT:    [[TMP11:%.*]] = shl i64 [[INDEX]], 1
+; CHECK-NEXT:    [[TMP19:%.*]] = add i64 [[TMP17]], [[TMP11]]
 ; CHECK-NEXT:    [[DOTIDX1:%.*]] = shl i64 [[INDEX]], 3
 ; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr inbounds i8, ptr [[B:%.*]], i64 [[DOTIDX1]]
-; CHECK-NEXT:    [[DOTIDX3:%.*]] = shl nuw nsw i64 [[TMP9]], 5
-; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr i8, ptr [[B]], i64 [[DOTIDX3]]
-; CHECK-NEXT:    [[DOTIDX4:%.*]] = shl i64 [[INDEX]], 3
-; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr i8, ptr [[TMP11]], i64 [[DOTIDX4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr inbounds float, ptr [[B]], i64 [[TMP19]]
 ; CHECK-NEXT:    [[WIDE_VEC:%.*]] = load <vscale x 8 x float>, ptr [[TMP10]], align 4
 ; CHECK-NEXT:    [[STRIDED_VEC:%.*]] = call { <vscale x 4 x float>, <vscale x 4 x float> } @llvm.vector.deinterleave2.nxv8f32(<vscale x 8 x float> [[WIDE_VEC]])
 ; CHECK-NEXT:    [[WIDE_MASKED_GATHER:%.*]] = extractvalue { <vscale x 4 x float>, <vscale x 4 x float> } [[STRIDED_VEC]], 0
