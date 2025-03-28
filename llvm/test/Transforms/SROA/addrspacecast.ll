@@ -90,15 +90,10 @@ entry:
 define i64 @getAdjustedPtr_addrspacecast_gep(ptr %x) {
 ; CHECK-LABEL: @getAdjustedPtr_addrspacecast_gep(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[A_SROA_0:%.*]] = alloca i64, align 8
-; CHECK-NEXT:    [[A_SROA_2:%.*]] = alloca i64, align 8
 ; CHECK-NEXT:    [[CAST1:%.*]] = addrspacecast ptr [[X:%.*]] to ptr addrspace(1)
-; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD1:%.*]] = load b64, ptr addrspace(1) [[CAST1]], align 1
-; CHECK-NEXT:    store b64 [[A_SROA_0_0_COPYLOAD1]], ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load i64, ptr addrspace(1) [[CAST1]], align 1
 ; CHECK-NEXT:    [[A_SROA_2_0_CAST1_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[CAST1]], i16 8
-; CHECK-NEXT:    [[A_SROA_2_0_COPYLOAD:%.*]] = load b64, ptr addrspace(1) [[A_SROA_2_0_CAST1_SROA_IDX]], align 1
-; CHECK-NEXT:    store b64 [[A_SROA_2_0_COPYLOAD]], ptr [[A_SROA_2]], align 8
-; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load i64, ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    [[A_SROA_2_0_COPYLOAD:%.*]] = load i64, ptr addrspace(1) [[A_SROA_2_0_CAST1_SROA_IDX]], align 1
 ; CHECK-NEXT:    ret i64 [[A_SROA_0_0_COPYLOAD]]
 ;
 entry:
@@ -112,16 +107,11 @@ entry:
 define i64 @getAdjustedPtr_gep_addrspacecast(ptr %x) {
 ; CHECK-LABEL: @getAdjustedPtr_gep_addrspacecast(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[A_SROA_0:%.*]] = alloca i64, align 8
-; CHECK-NEXT:    [[A_SROA_2:%.*]] = alloca i64, align 8
 ; CHECK-NEXT:    [[GEP_X:%.*]] = getelementptr [32 x i8], ptr [[X:%.*]], i32 0, i32 16
 ; CHECK-NEXT:    [[CAST1:%.*]] = addrspacecast ptr [[GEP_X]] to ptr addrspace(1)
-; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD1:%.*]] = load b64, ptr addrspace(1) [[CAST1]], align 1
-; CHECK-NEXT:    store b64 [[A_SROA_0_0_COPYLOAD1]], ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load i64, ptr addrspace(1) [[CAST1]], align 1
 ; CHECK-NEXT:    [[A_SROA_2_0_CAST1_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[CAST1]], i16 8
-; CHECK-NEXT:    [[A_SROA_2_0_COPYLOAD:%.*]] = load b64, ptr addrspace(1) [[A_SROA_2_0_CAST1_SROA_IDX]], align 1
-; CHECK-NEXT:    store b64 [[A_SROA_2_0_COPYLOAD]], ptr [[A_SROA_2]], align 8
-; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load i64, ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    [[A_SROA_2_0_COPYLOAD:%.*]] = load i64, ptr addrspace(1) [[A_SROA_2_0_CAST1_SROA_IDX]], align 1
 ; CHECK-NEXT:    ret i64 [[A_SROA_0_0_COPYLOAD]]
 ;
 entry:
@@ -137,17 +127,12 @@ entry:
 define i64 @getAdjustedPtr_gep_addrspacecast_gep(ptr %x) {
 ; CHECK-LABEL: @getAdjustedPtr_gep_addrspacecast_gep(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[A_SROA_0:%.*]] = alloca i64, align 8
-; CHECK-NEXT:    [[A_SROA_2:%.*]] = alloca i64, align 8
 ; CHECK-NEXT:    [[GEP0_X:%.*]] = getelementptr [32 x i8], ptr [[X:%.*]], i32 0, i32 8
 ; CHECK-NEXT:    [[CAST1:%.*]] = addrspacecast ptr [[GEP0_X]] to ptr addrspace(1)
 ; CHECK-NEXT:    [[GEP1_X:%.*]] = getelementptr i8, ptr addrspace(1) [[CAST1]], i32 8
-; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD1:%.*]] = load b64, ptr addrspace(1) [[GEP1_X]], align 1
-; CHECK-NEXT:    store b64 [[A_SROA_0_0_COPYLOAD1]], ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load i64, ptr addrspace(1) [[GEP1_X]], align 1
 ; CHECK-NEXT:    [[A_SROA_2_0_GEP1_X_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[GEP1_X]], i16 8
-; CHECK-NEXT:    [[A_SROA_2_0_COPYLOAD:%.*]] = load b64, ptr addrspace(1) [[A_SROA_2_0_GEP1_X_SROA_IDX]], align 1
-; CHECK-NEXT:    store b64 [[A_SROA_2_0_COPYLOAD]], ptr [[A_SROA_2]], align 8
-; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load i64, ptr [[A_SROA_0]], align 8
+; CHECK-NEXT:    [[A_SROA_2_0_COPYLOAD:%.*]] = load i64, ptr addrspace(1) [[A_SROA_2_0_GEP1_X_SROA_IDX]], align 1
 ; CHECK-NEXT:    ret i64 [[A_SROA_0_0_COPYLOAD]]
 ;
 entry:
@@ -273,13 +258,13 @@ entry:
 define void @volatile_memcpy(ptr %src, ptr %dst) {
 ; CHECK-LABEL: @volatile_memcpy(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[A_SROA_0:%.*]] = alloca b32, align 4
-; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load volatile b32, ptr [[SRC:%.*]], align 1, !tbaa [[TBAA0:![0-9]+]]
+; CHECK-NEXT:    [[A_SROA_0:%.*]] = alloca i32, align 4
+; CHECK-NEXT:    [[A_SROA_0_0_COPYLOAD:%.*]] = load volatile i32, ptr [[SRC:%.*]], align 1, !tbaa [[TBAA0:![0-9]+]]
 ; CHECK-NEXT:    [[TMP0:%.*]] = addrspacecast ptr [[A_SROA_0]] to ptr addrspace(1)
-; CHECK-NEXT:    store volatile b32 [[A_SROA_0_0_COPYLOAD]], ptr addrspace(1) [[TMP0]], align 4, !tbaa [[TBAA0]]
+; CHECK-NEXT:    store volatile i32 [[A_SROA_0_0_COPYLOAD]], ptr addrspace(1) [[TMP0]], align 4, !tbaa [[TBAA0]]
 ; CHECK-NEXT:    [[TMP1:%.*]] = addrspacecast ptr [[A_SROA_0]] to ptr addrspace(1)
-; CHECK-NEXT:    [[A_SROA_0_SROA_0_0_A_SROA_0_SROA_0_0_A_SROA_0_0_COPYLOAD1:%.*]] = load volatile b32, ptr addrspace(1) [[TMP1]], align 4, !tbaa [[TBAA3:![0-9]+]]
-; CHECK-NEXT:    store volatile b32 [[A_SROA_0_SROA_0_0_A_SROA_0_SROA_0_0_A_SROA_0_0_COPYLOAD1]], ptr [[DST:%.*]], align 1, !tbaa [[TBAA3]]
+; CHECK-NEXT:    [[A_SROA_0_0_A_SROA_0_0_COPYLOAD1:%.*]] = load volatile i32, ptr addrspace(1) [[TMP1]], align 4, !tbaa [[TBAA3:![0-9]+]]
+; CHECK-NEXT:    store volatile i32 [[A_SROA_0_0_A_SROA_0_0_COPYLOAD1]], ptr [[DST:%.*]], align 1, !tbaa [[TBAA3]]
 ; CHECK-NEXT:    ret void
 ;
 entry:

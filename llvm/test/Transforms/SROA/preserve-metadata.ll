@@ -13,7 +13,7 @@ define ptr @propagate_nonnull(ptr %v) {
 ; CHECK-NEXT:  entry:
 ; CHECK-NEXT:    [[A_SROA_1:%.*]] = alloca ptr, align 8
 ; CHECK-NEXT:    store ptr [[V:%.*]], ptr [[A_SROA_1]], align 8
-; CHECK-NEXT:    [[A_SROA_1_0_A_SROA_1_8_LOAD:%.*]] = load volatile ptr, ptr [[A_SROA_1]], align 8, !nonnull [[META0:![0-9]+]]
+; CHECK-NEXT:    [[A_SROA_1_0_A_SROA_1_8_LOAD:%.*]] = load volatile ptr, ptr [[A_SROA_1]], align 8, !nonnull !0
 ; CHECK-NEXT:    ret ptr [[A_SROA_1_0_A_SROA_1_8_LOAD]]
 ;
 entry:
@@ -47,7 +47,7 @@ define ptr @propagate_noundef(ptr %v) {
 ; CHECK-NEXT:  entry:
 ; CHECK-NEXT:    [[A_SROA_1:%.*]] = alloca ptr, align 8
 ; CHECK-NEXT:    store ptr [[V:%.*]], ptr [[A_SROA_1]], align 8
-; CHECK-NEXT:    [[A_SROA_1_0_A_SROA_1_8_LOAD:%.*]] = load volatile ptr, ptr [[A_SROA_1]], align 8, !noundef [[META0]]
+; CHECK-NEXT:    [[A_SROA_1_0_A_SROA_1_8_LOAD:%.*]] = load volatile ptr, ptr [[A_SROA_1]], align 8, !noundef !0
 ; CHECK-NEXT:    ret ptr [[A_SROA_1_0_A_SROA_1_8_LOAD]]
 ;
 entry:
@@ -62,10 +62,9 @@ entry:
 define ptr @turn_nonnull_noundef_into_assume(ptr %arg) {
 ; CHECK-LABEL: @turn_nonnull_noundef_into_assume(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[BUF:%.*]] = alloca ptr, align 8
-; CHECK-NEXT:    [[BUF_0_COPYLOAD1:%.*]] = load b64, ptr [[ARG:%.*]], align 8
-; CHECK-NEXT:    store b64 [[BUF_0_COPYLOAD1]], ptr [[BUF]], align 8
-; CHECK-NEXT:    [[BUF_0_COPYLOAD:%.*]] = load ptr, ptr [[BUF]], align 8, !nonnull [[META0]], !noundef [[META0]]
+; CHECK-NEXT:    [[BUF_0_COPYLOAD:%.*]] = load ptr, ptr [[ARG:%.*]], align 8
+; CHECK-NEXT:    [[TMP0:%.*]] = icmp ne ptr [[BUF_0_COPYLOAD]], null
+; CHECK-NEXT:    call void @llvm.assume(i1 [[TMP0]])
 ; CHECK-NEXT:    ret ptr [[BUF_0_COPYLOAD]]
 ;
 entry:
@@ -78,10 +77,7 @@ entry:
 define ptr @dont_turn_nonnull_without_noundef_into_assume(ptr %arg) {
 ; CHECK-LABEL: @dont_turn_nonnull_without_noundef_into_assume(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[BUF:%.*]] = alloca ptr, align 8
-; CHECK-NEXT:    [[BUF_0_COPYLOAD1:%.*]] = load b64, ptr [[ARG:%.*]], align 8
-; CHECK-NEXT:    store b64 [[BUF_0_COPYLOAD1]], ptr [[BUF]], align 8
-; CHECK-NEXT:    [[BUF_0_COPYLOAD:%.*]] = load ptr, ptr [[BUF]], align 8, !nonnull [[META0]]
+; CHECK-NEXT:    [[BUF_0_COPYLOAD:%.*]] = load ptr, ptr [[ARG:%.*]], align 8
 ; CHECK-NEXT:    ret ptr [[BUF_0_COPYLOAD]]
 ;
 entry:
@@ -102,7 +98,7 @@ define ptr @propagate_nonnull_to_int() {
 ; CHECK-NEXT:  entry:
 ; CHECK-NEXT:    [[A_SROA_1:%.*]] = alloca ptr, align 8
 ; CHECK-NEXT:    store ptr inttoptr (i64 42 to ptr), ptr [[A_SROA_1]], align 8
-; CHECK-NEXT:    [[A_SROA_1_0_A_SROA_1_8_LOAD:%.*]] = load volatile ptr, ptr [[A_SROA_1]], align 8, !nonnull [[META0]]
+; CHECK-NEXT:    [[A_SROA_1_0_A_SROA_1_8_LOAD:%.*]] = load volatile ptr, ptr [[A_SROA_1]], align 8, !nonnull !0
 ; CHECK-NEXT:    ret ptr [[A_SROA_1_0_A_SROA_1_8_LOAD]]
 ;
 entry:
