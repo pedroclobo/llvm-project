@@ -3504,16 +3504,7 @@ private:
       uint64_t Offset = NewBeginOffset - NewAllocaBeginOffset;
       Src = extractInteger(DL, IRB, Src, SubIntTy, Offset, "extract");
     } else {
-      // There is no way of coercing a byte type to a target extended type.
-      Type *CopyTy = nullptr;
-      if (OtherTy->isTargetExtTy())
-        CopyTy = OtherTy;
-      else if (OtherTy->isPtrOrPtrVectorTy())
-        CopyTy = DL.getBytePtrType(OtherTy);
-      else
-        CopyTy = DL.getByteIntType(OtherTy);
-
-      LoadInst *Load = IRB.CreateAlignedLoad(CopyTy, SrcPtr, SrcAlign,
+      LoadInst *Load = IRB.CreateAlignedLoad(OtherTy, SrcPtr, SrcAlign,
                                              II.isVolatile(), "copyload");
       Load->copyMetadata(II, {LLVMContext::MD_mem_parallel_loop_access,
                               LLVMContext::MD_access_group});
@@ -3526,18 +3517,12 @@ private:
     if (VecTy && !IsWholeAlloca && IsDest) {
       Value *Old = IRB.CreateAlignedLoad(NewAI.getAllocatedType(), &NewAI,
                                          NewAI.getAlign(), "oldload");
-      if (Src->getType()->isByteOrByteVectorTy() &&
-          !OtherTy->isByteOrByteVectorTy())
-        Src = IRB.CreateByteCast(Src, OtherTy, "cast", /*IsExact*/ true);
       Src = insertVector(IRB, Old, Src, BeginIndex, "vec");
     } else if (IntTy && !IsWholeAlloca && IsDest) {
       Value *Old = IRB.CreateAlignedLoad(NewAI.getAllocatedType(), &NewAI,
                                          NewAI.getAlign(), "oldload");
       Old = convertValue(DL, IRB, Old, IntTy);
       uint64_t Offset = NewBeginOffset - NewAllocaBeginOffset;
-      if (Src->getType()->isByteOrByteVectorTy() &&
-          !OtherTy->isByteOrByteVectorTy())
-        Src = IRB.CreateByteCast(Src, OtherTy, "cast", /*IsExact*/ true);
       Src = insertInteger(DL, IRB, Old, Src, Offset, "insert");
       Src = convertValue(DL, IRB, Src, NewAllocaTy);
     }

@@ -757,15 +757,9 @@ void PromoteMem2Reg::run() {
   for (unsigned AllocaNum = 0; AllocaNum != Allocas.size(); ++AllocaNum) {
     AllocaInst *AI = Allocas[AllocaNum];
 
+    assert(isAllocaPromotable(AI) && "Cannot promote non-promotable alloca!");
     assert(AI->getParent()->getParent() == &F &&
            "All allocas should be in the same function, which is same as DF!");
-
-    if (!isAllocaPromotable(AI)) {
-      // Remove the alloca from the Allocas list, since it has been processed
-      RemoveFromAllocasList(AllocaNum);
-      ++NumDeadAlloca;
-      continue;
-    }
 
     removeIntrinsicUsers(AI);
 

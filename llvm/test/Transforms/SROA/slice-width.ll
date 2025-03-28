@@ -48,15 +48,10 @@ load_i1:
 define void @memcpy_fp80_padding() {
 ; CHECK-LABEL: @memcpy_fp80_padding(
 ; CHECK-NEXT:    [[X_SROA_0:%.*]] = alloca x86_fp80, align 16
-; CHECK-NEXT:    [[X_SROA_1:%.*]] = alloca i64, align 16
-; CHECK-NEXT:    [[X_SROA_2:%.*]] = alloca i64, align 8
 ; CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i32(ptr align 16 [[X_SROA_0]], ptr align 16 @foo_copy_source, i32 16, i1 false)
-; CHECK-NEXT:    [[X_SROA_1_0_COPYLOAD:%.*]] = load b64, ptr getelementptr inbounds (i8, ptr @foo_copy_source, i64 16), align 16
-; CHECK-NEXT:    store b64 [[X_SROA_1_0_COPYLOAD]], ptr [[X_SROA_1]], align 16
-; CHECK-NEXT:    [[X_SROA_2_0_COPYLOAD:%.*]] = load b64, ptr getelementptr inbounds (i8, ptr @foo_copy_source, i64 24), align 8
-; CHECK-NEXT:    store b64 [[X_SROA_2_0_COPYLOAD]], ptr [[X_SROA_2]], align 8
-; CHECK-NEXT:    [[X_SROA_1_16_ELT:%.*]] = load i64, ptr [[X_SROA_1]], align 16
-; CHECK-NEXT:    store i64 [[X_SROA_1_16_ELT]], ptr @i64_sink, align 4
+; CHECK-NEXT:    [[X_SROA_1_0_COPYLOAD:%.*]] = load i64, ptr getelementptr inbounds (i8, ptr @foo_copy_source, i64 16), align 16
+; CHECK-NEXT:    [[X_SROA_2_0_COPYLOAD:%.*]] = load i64, ptr getelementptr inbounds (i8, ptr @foo_copy_source, i64 24), align 8
+; CHECK-NEXT:    store i64 [[X_SROA_1_0_COPYLOAD]], ptr @i64_sink, align 4
 ; CHECK-NEXT:    ret void
 ;
   %x = alloca %union.Foo
@@ -100,8 +95,7 @@ declare i32 @memcpy_vec3float_helper(ptr)
 define i32 @memcpy_vec3float_widening(ptr %x) {
 ; CHECK-LABEL: @memcpy_vec3float_widening(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[TMP1_SROA_0_0_COPYLOAD1:%.*]] = load <3 x b32>, ptr [[X:%.*]], align 4
-; CHECK-NEXT:    [[TMP1_SROA_0_0_COPYLOAD:%.*]] = bytecast exact <3 x b32> [[TMP1_SROA_0_0_COPYLOAD1]] to <3 x float>
+; CHECK-NEXT:    [[TMP1_SROA_0_0_COPYLOAD:%.*]] = load <3 x float>, ptr [[X:%.*]], align 4
 ; CHECK-NEXT:    [[TMP1_SROA_0_0_VEC_EXPAND:%.*]] = shufflevector <3 x float> [[TMP1_SROA_0_0_COPYLOAD]], <3 x float> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
 ; CHECK-NEXT:    [[TMP1_SROA_0_0_VECBLEND:%.*]] = select <4 x i1> <i1 true, i1 true, i1 true, i1 false>, <4 x float> [[TMP1_SROA_0_0_VEC_EXPAND]], <4 x float> undef
 ; CHECK-NEXT:    [[TMP2:%.*]] = alloca [[S_VEC3FLOAT:%.*]], align 4
