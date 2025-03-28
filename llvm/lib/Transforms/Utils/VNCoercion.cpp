@@ -69,16 +69,6 @@ bool canCoerceMustAliasedValueToLoad(Value *StoredVal, Type *LoadTy,
     return false;
   }
 
-  // Pointers cannot be coerced to byte values of smaller size.
-  if (LoadTy->isByteOrByteVectorTy() &&
-      StoredVal->getType()->isPtrOrPtrVectorTy() && MinStoreSize > LoadSize)
-    return false;
-
-  // Bytes stores cannot be coerced to loads of bytes of larger size.
-  if (LoadTy->isByteOrByteVectorTy() &&
-      StoredTy->isByteOrByteVectorTy() && MinStoreSize > LoadSize)
-    return false;
-
   // The implementation below uses inttoptr for vectors of unequal size; we
   // can't allow this for non integral pointers. We could teach it to extract
   // exact subvectors if desired.
@@ -158,6 +148,10 @@ Value *coerceAvailableValueToLoadType(Value *StoredVal, Type *LoadedTy,
     // Pointer to Pointer -> use bitcast.
     if (StoredValTy->isPtrOrPtrVectorTy() && LoadedTy->isPtrOrPtrVectorTy()) {
       StoredVal = Helper.CreateBitCast(StoredVal, LoadedTy);
+    // Byte to other type -> use bytecast.
+    } else if (StoredValTy->isByteOrByteVectorTy() &&
+               !LoadedTy->isByteOrByteVectorTy()) {
+       StoredVal = Helper.CreateByteCast(StoredVal, LoadedTy, "", true);
     } else {
       // Convert source pointers to integers, which can be bitcast.
       if (StoredValTy->isPtrOrPtrVectorTy()) {
@@ -193,6 +187,11 @@ Value *coerceAvailableValueToLoadType(Value *StoredVal, Type *LoadedTy,
   if (StoredValTy->isPtrOrPtrVectorTy()) {
     StoredValTy = DL.getIntPtrType(StoredValTy);
     StoredVal = Helper.CreatePtrToInt(StoredVal, StoredValTy);
+  }
+
+  if (StoredValTy->isByteOrByteVectorTy()) {
+    StoredValTy = IntegerType::get(StoredValTy->getContext(), StoredValSize);
+    StoredVal = Helper.CreateByteCast(StoredVal, StoredValTy, "", true);
   }
 
   // Convert vectors and fp to integer, which can be manipulated.
@@ -457,48 +456,20 @@ static Value *getStoreValueForLoadHelper(Value *SrcVal, unsigned Offset,
       (DL.getTypeSizeInBits(SrcVal->getType()).getFixedValue() + 7) / 8;
   uint64_t LoadSize = (DL.getTypeSizeInBits(LoadTy).getFixedValue() + 7) / 8;
 
-  /// Return a vector type with the same size as Ty and element count equal to
-  /// NumEls.
-  auto GetByteVectorTy = [&](Type *Ty, ElementCount NumEls) -> Type * {
-    unsigned BitWidth = DL.getTypeStoreSizeInBits(Ty) / NumEls.getFixedValue();
-    return VectorType::get(ByteType::getByteNTy(Ctx, BitWidth), NumEls);
-  };
-
-  // Bitcasts must have the same size.
-  if (LoadTy->isByteOrByteVectorTy()) {
-    if (LoadSize == StoreSize)
-      SrcVal = Builder.CreateBitCast(SrcVal, LoadTy);
-    return SrcVal;
+  // LoadTy can either be an integer or not. If it is an integer type, convert
+  // the stored value to an integer type to start with. Otherwise, convert it to
+  // a byte type to prevent type punning.
+  if ((LoadTy->isIntOrIntVectorTy() || LoadTy->isFPOrFPVectorTy()) &&
+      !SrcVal->getType()->isByteOrByteVectorTy()) {
+    if (SrcVal->getType()->isPtrOrPtrVectorTy())
+      SrcVal =
+          Builder.CreatePtrToInt(SrcVal, DL.getIntPtrType(SrcVal->getType()));
+    if (!SrcVal->getType()->isIntegerTy())
+      SrcVal =
+          Builder.CreateBitCast(SrcVal, IntegerType::get(Ctx, StoreSize * 8));
+  } else {
+    SrcVal = Builder.CreateBitCast(SrcVal, ByteType::get(Ctx, StoreSize * 8));
   }
-
-  if (SrcVal->getType()->isPtrOrPtrVectorTy())
-    SrcVal =
-        Builder.CreatePtrToInt(SrcVal, DL.getIntPtrType(SrcVal->getType()));
-
-  // Compute which bits of the stored value are being used by the load.  Convert
-  // to an integer type to start with.
-  // It is generally not sound to convert byte values to integers. If LoadTy is
-  // a pointer type, we would lose provenance information.
-  if (SrcVal->getType()->isByteOrByteVectorTy()) {
-    if (SrcVal->getType()->isVectorTy() != LoadTy->isVectorTy()) {
-      Type *IntermTy =
-          LoadTy->isVectorTy()
-              ? GetByteVectorTy(SrcVal->getType(),
-                                cast<VectorType>(LoadTy)->getElementCount())
-              : ByteType::getByteNTy(Ctx, StoreSize * 8);
-      SrcVal = Builder.CreateBitCast(SrcVal, IntermTy);
-    }
-
-    // TODO: it is problematic to bytecast to the exact type (when performing truncation) because of the bitcasts that come next
-    // TODO: this should be safe as the offset != 0 should imply that we are
-    // loading a pointer for its address
-    SrcVal = Offset != 0 ?
-      Builder.CreateByteCastToInt(SrcVal, "", /*IsExact=*/true) :
-      Builder.CreateByteCast(SrcVal, LoadTy, "", /*IsExact=*/true);
-  }
-  if (!SrcVal->getType()->isIntegerTy() && !SrcVal->getType()->isPointerTy())
-    SrcVal =
-        Builder.CreateBitCast(SrcVal, IntegerType::get(Ctx, StoreSize * 8));
 
   // Shift the bits to the least significant depending on endianness.
   unsigned ShiftAmt;
@@ -506,16 +477,20 @@ static Value *getStoreValueForLoadHelper(Value *SrcVal, unsigned Offset,
     ShiftAmt = Offset * 8;
   else
     ShiftAmt = (StoreSize - LoadSize - Offset) * 8;
-  if (ShiftAmt)
-    SrcVal = Builder.CreateLShr(SrcVal,
-                                ConstantInt::get(SrcVal->getType(), ShiftAmt));
+  if (ShiftAmt) {
+    Constant *C = SrcVal->getType()->isIntOrIntVectorTy()
+      ? ConstantInt::get(SrcVal->getType(), ShiftAmt)
+      : ConstantByte::get(SrcVal->getType(), ShiftAmt);
+    SrcVal = Builder.CreateLShr(SrcVal, C);
+  }
 
   if (LoadSize != StoreSize) {
-    // TODO: this guard doesn't work
-    if (!SrcVal->getType()->isPtrOrPtrVectorTy())
-      SrcVal = Builder.CreateTruncOrBitCast(SrcVal,
-                                            IntegerType::get(Ctx, LoadSize * 8));
+    auto *Ty = SrcVal->getType()->isIntOrIntVectorTy()
+                    ? cast<Type>(IntegerType::get(Ctx, LoadSize * 8))
+                    : cast<Type>(ByteType::get(Ctx, LoadSize * 8));
+    SrcVal = Builder.CreateTruncOrBitCast(SrcVal, Ty);
   }
+
   return SrcVal;
 }
 

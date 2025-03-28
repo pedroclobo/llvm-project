@@ -4085,8 +4085,8 @@ void Verifier::visitBinaryOperator(BinaryOperator &B) {
   case Instruction::Shl:
   case Instruction::LShr:
   case Instruction::AShr:
-    Check(B.getType()->isIntOrIntVectorTy(),
-          "Shifts only work with integral types!", &B);
+    Check(B.getType()->isIntOrIntVectorTy() || B.getType()->isByteOrByteVectorTy(),
+          "Shifts only work with integral/byte types!", &B);
     Check(B.getType() == B.getOperand(0)->getType(),
           "Shift return type must be same as operands!", &B);
     break;

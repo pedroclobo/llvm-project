@@ -15,12 +15,27 @@ define b8 @int_to_byte(ptr %p, i8 %val) {
 define b8 @int_trunc_to_byte(ptr %p, i16 %val) {
 ; CHECK-LABEL: @int_trunc_to_byte(
 ; CHECK-NEXT:    store i16 [[VAL:%.*]], ptr [[P:%.*]], align 2
-; CHECK-NEXT:    [[TMP1:%.*]] = trunc i16 [[VAL]] to i8
-; CHECK-NEXT:    [[Y:%.*]] = bitcast i8 [[TMP1]] to b8
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast i16 [[VAL]] to b16
+; CHECK-NEXT:    [[Y:%.*]] = trunc b16 [[TMP1]] to b8
 ; CHECK-NEXT:    ret b8 [[Y]]
 ;
   store i16 %val, ptr %p
   %y = load b8, ptr %p
+  ret b8 %y
+}
+
+define b8 @int_offset_to_byte(ptr %p, i16 %val) {
+; CHECK-LABEL: @int_offset_to_byte(
+; CHECK-NEXT:    store i16 [[VAL:%.*]], ptr [[P:%.*]], align 2
+; CHECK-NEXT:    [[G:%.*]] = getelementptr i8, ptr [[P]], i16 1
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast i16 [[VAL]] to b16
+; CHECK-NEXT:    [[TMP2:%.*]] = lshr b16 [[TMP1]], 8
+; CHECK-NEXT:    [[TMP3:%.*]] = trunc b16 [[TMP2]] to b8
+; CHECK-NEXT:    ret b8 [[TMP3]]
+;
+  store i16 %val, ptr %p
+  %g = getelementptr i8, ptr %p, i16 1
+  %y = load b8, ptr %g
   ret b8 %y
 }
 
@@ -35,16 +50,31 @@ define b64 @ptr_to_byte(ptr %p) {
   ret b64 %y
 }
 
-; There is no sound way to convert a pointer to a byte of smaller width
 define b8 @ptr_trunc_to_byte(ptr %p) {
 ; CHECK-LABEL: @ptr_trunc_to_byte(
 ; CHECK-NEXT:    store ptr [[P:%.*]], ptr [[P]], align 8
-; CHECK-NEXT:    [[Y:%.*]] = load b8, ptr [[P]], align 1
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast ptr [[P]] to b64
+; CHECK-NEXT:    [[Y:%.*]] = trunc b64 [[TMP1]] to b8
 ; CHECK-NEXT:    ret b8 [[Y]]
 ;
   store ptr %p, ptr %p
   %y = load b8, ptr %p
   ret b8 %y
+}
+
+define b32 @ptr_offset_to_byte(ptr %p, ptr %val) {
+; CHECK-LABEL: @ptr_offset_to_byte(
+; CHECK-NEXT:    store ptr [[VAL:%.*]], ptr [[P:%.*]], align 8
+; CHECK-NEXT:    [[G:%.*]] = getelementptr i8, ptr [[P]], i32 4
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast ptr [[VAL]] to b64
+; CHECK-NEXT:    [[TMP2:%.*]] = lshr b64 [[TMP1]], 32
+; CHECK-NEXT:    [[Y:%.*]] = trunc b64 [[TMP2]] to b32
+; CHECK-NEXT:    ret b32 [[Y]]
+;
+  store ptr %val, ptr %p
+  %g = getelementptr i8, ptr %p, i32 4
+  %y = load b32, ptr %g
+  ret b32 %y
 }
 
 define b32 @float_to_byte(ptr %p, float %val) {
@@ -61,9 +91,8 @@ define b32 @float_to_byte(ptr %p, float %val) {
 define b8 @float_trunc_to_byte(ptr %p, float %val) {
 ; CHECK-LABEL: @float_trunc_to_byte(
 ; CHECK-NEXT:    store float [[VAL:%.*]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast float [[VAL]] to i32
-; CHECK-NEXT:    [[TMP2:%.*]] = trunc i32 [[TMP1]] to i8
-; CHECK-NEXT:    [[TMP3:%.*]] = bitcast i8 [[TMP2]] to b8
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast float [[VAL]] to b32
+; CHECK-NEXT:    [[TMP3:%.*]] = trunc b32 [[TMP1]] to b8
 ; CHECK-NEXT:    ret b8 [[TMP3]]
 ;
   store float %val, ptr %p
@@ -85,12 +114,28 @@ define i8 @byte_to_int(ptr %p, b8 %val) {
 define i8 @byte_trunc_to_int(ptr %p, b16 %val) {
 ; CHECK-LABEL: @byte_trunc_to_int(
 ; CHECK-NEXT:    store b16 [[VAL:%.*]], ptr [[P:%.*]], align 2
-; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b16 [[VAL]] to i8
-; CHECK-NEXT:    ret i8 [[TMP1]]
+; CHECK-NEXT:    [[TMP1:%.*]] = trunc b16 [[VAL]] to b8
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact b8 [[TMP1]] to i8
+; CHECK-NEXT:    ret i8 [[TMP2]]
 ;
   store b16 %val, ptr %p
   %y = load i8, ptr %p
   ret i8 %y
+}
+
+define i16 @byte_offset_to_int(ptr %p, b32 %val) {
+; CHECK-LABEL: @byte_offset_to_int(
+; CHECK-NEXT:    store b32 [[VAL:%.*]], ptr [[P:%.*]], align 4
+; CHECK-NEXT:    [[G:%.*]] = getelementptr i8, ptr [[P]], i32 2
+; CHECK-NEXT:    [[TMP1:%.*]] = lshr b32 [[VAL]], 16
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b32 [[TMP1]] to b16
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact b16 [[TMP2]] to i16
+; CHECK-NEXT:    ret i16 [[TMP3]]
+;
+  store b32 %val, ptr %p
+  %g = getelementptr i8, ptr %p, i32 2
+  %y = load i16, ptr %g
+  ret i16 %y
 }
 
 define ptr @byte_to_ptr(ptr %p, b64 %val) {
@@ -107,11 +152,28 @@ define ptr @byte_to_ptr(ptr %p, b64 %val) {
 define ptr @byte_trunc_to_ptr(ptr %p, b128 %val) {
 ; CHECK-LABEL: @byte_trunc_to_ptr(
 ; CHECK-NEXT:    store b128 [[VAL:%.*]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b128 [[VAL]] to ptr
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b128 [[VAL]] to b64
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b64 [[TMP2]] to ptr
 ; CHECK-NEXT:    ret ptr [[TMP1]]
 ;
   store b128 %val, ptr %p
   %y = load ptr, ptr %p
+  ret ptr %y
+}
+
+; Bytecasting %val to i32 is unsound, as it may contain poison bits
+define ptr @byte_offset_to_ptr(ptr %p, b128 %val) {
+; CHECK-LABEL: @byte_offset_to_ptr(
+; CHECK-NEXT:    store b128 [[VAL:%.*]], ptr [[P:%.*]], align 4
+; CHECK-NEXT:    [[G:%.*]] = getelementptr i8, ptr [[P]], i32 8
+; CHECK-NEXT:    [[TMP1:%.*]] = lshr b128 [[VAL]], 64
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b128 [[TMP1]] to b64
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact b64 [[TMP2]] to ptr
+; CHECK-NEXT:    ret ptr [[TMP3]]
+;
+  store b128 %val, ptr %p
+  %g = getelementptr i8, ptr %p, i32 8
+  %y = load ptr, ptr %g
   ret ptr %y
 }
 
@@ -159,12 +221,13 @@ define b8 @intptr_to_b8(ptr %p, i32 %val) {
 ; CHECK:       bb1:
 ; CHECK-NEXT:    [[ADD:%.*]] = add i32 [[VAL]], 4
 ; CHECK-NEXT:    store i32 [[ADD]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[TMP0:%.*]] = trunc i32 [[ADD]] to i8
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast i8 [[TMP0]] to b8
+; CHECK-NEXT:    [[TMP0:%.*]] = bitcast i32 [[ADD]] to b32
+; CHECK-NEXT:    [[TMP1:%.*]] = trunc b32 [[TMP0]] to b8
 ; CHECK-NEXT:    br label [[MERGE:%.*]]
 ; CHECK:       bb2:
 ; CHECK-NEXT:    store ptr [[P]], ptr [[P]], align 8
-; CHECK-NEXT:    [[TMP4:%.*]] = load b8, ptr [[P]], align 1
+; CHECK-NEXT:    [[TMP2:%.*]] = bitcast ptr [[P]] to b64
+; CHECK-NEXT:    [[TMP4:%.*]] = trunc b64 [[TMP2]] to b8
 ; CHECK-NEXT:    br label [[MERGE]]
 ; CHECK:       merge:
 ; CHECK-NEXT:    [[Y:%.*]] = phi b8 [ [[TMP4]], [[BB2]] ], [ [[TMP1]], [[BB1]] ]
@@ -229,12 +292,13 @@ define i32 @byteptr_to_i32(ptr %p, i32 %val, b64 %add) {
 ; CHECK-NEXT:    br i1 [[CMP]], label [[BB1:%.*]], label [[BB2:%.*]]
 ; CHECK:       bb1:
 ; CHECK-NEXT:    store b64 [[ADD:%.*]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[Y_PRE:%.*]] = bytecast exact b64 [[ADD]] to i32
+; CHECK-NEXT:    [[TMP0:%.*]] = trunc b64 [[ADD]] to b32
+; CHECK-NEXT:    [[Y_PRE:%.*]] = bytecast exact b32 [[TMP0]] to i32
 ; CHECK-NEXT:    br label [[MERGE:%.*]]
 ; CHECK:       bb2:
 ; CHECK-NEXT:    store ptr [[P]], ptr [[P]], align 8
-; CHECK-NEXT:    [[TMP0:%.*]] = ptrtoint ptr [[P]] to i64
-; CHECK-NEXT:    [[TMP1:%.*]] = trunc i64 [[TMP0]] to i32
+; CHECK-NEXT:    [[TMP2:%.*]] = ptrtoint ptr [[P]] to i64
+; CHECK-NEXT:    [[TMP1:%.*]] = trunc i64 [[TMP2]] to i32
 ; CHECK-NEXT:    br label [[MERGE]]
 ; CHECK:       merge:
 ; CHECK-NEXT:    [[Y:%.*]] = phi i32 [ [[TMP1]], [[BB2]] ], [ [[Y_PRE]], [[BB1]] ]
@@ -257,11 +321,10 @@ merge:
   ret i32 %y
 }
 
-; There is no way of converting a byte to a smaller byte
 define b8 @byte_to_smaller_byte(ptr %p, b16 %val) {
 ; CHECK-LABEL: @byte_to_smaller_byte(
 ; CHECK-NEXT:    store b16 [[VAL:%.*]], ptr [[P:%.*]], align 2
-; CHECK-NEXT:    [[Y:%.*]] = load b8, ptr [[P]], align 1
+; CHECK-NEXT:    [[Y:%.*]] = trunc b16 [[VAL]] to b8
 ; CHECK-NEXT:    ret b8 [[Y]]
 ;
   store b16 %val, ptr %p
@@ -290,8 +353,8 @@ define i32 @crash() {
 entry:
   %0 = load i8, ptr inttoptr (i64 2 to ptr), align 1
   switch i8 %0, label %if.end80 [
-    i8 0, label %if.then78
-    i8 1, label %if.then78
+  i8 0, label %if.then78
+  i8 1, label %if.then78
   ]
 
 if.then78:

@@ -2459,8 +2459,8 @@ Constant *ConstantExpr::getTrunc(Constant *C, Type *Ty, bool OnlyIfReduced) {
   bool toVec = isa<VectorType>(Ty);
 #endif
   assert((fromVec == toVec) && "Cannot convert from scalar to/from vector");
-  assert(C->getType()->isIntOrIntVectorTy() && "Trunc operand must be integer");
-  assert(Ty->isIntOrIntVectorTy() && "Trunc produces only integral");
+  assert((C->getType()->isIntOrIntVectorTy() || C->getType()->isByteOrByteVectorTy()) && "Trunc operand must be integer");
+  assert((Ty->isIntOrIntVectorTy() || Ty->isByteOrByteVectorTy()) && "Trunc produces only integral");
   assert(C->getType()->getScalarSizeInBits() > Ty->getScalarSizeInBits()&&
          "SrcTy must be larger than DestTy for Trunc!");
 
@@ -3694,6 +3694,7 @@ Instruction *ConstantExpr::getAsInstruction() const {
   case Instruction::PtrToInt:
   case Instruction::IntToPtr:
   case Instruction::BitCast:
+  case Instruction::ByteCast:
   case Instruction::AddrSpaceCast:
     return CastInst::Create((Instruction::CastOps)getOpcode(), Ops[0],
                             getType(), "");

@@ -4,7 +4,8 @@
 define <4 x b8> @int_to_byte(ptr %p, <4 x i8> %val) {
 ; CHECK-LABEL: @int_to_byte(
 ; CHECK-NEXT:    store <4 x i8> [[VAL:%.*]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i8> [[VAL]] to <4 x b8>
+; CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i8> [[VAL]] to b32
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast b32 [[TMP2]] to <4 x b8>
 ; CHECK-NEXT:    ret <4 x b8> [[TMP1]]
 ;
   store <4 x i8> %val, ptr %p
@@ -15,9 +16,9 @@ define <4 x b8> @int_to_byte(ptr %p, <4 x i8> %val) {
 define <4 x b8> @int_trunc_to_byte(ptr %p, <4 x i16> %val) {
 ; CHECK-LABEL: @int_trunc_to_byte(
 ; CHECK-NEXT:    store <4 x i16> [[VAL:%.*]], ptr [[P:%.*]], align 8
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[VAL]] to i64
-; CHECK-NEXT:    [[TMP2:%.*]] = trunc i64 [[TMP1]] to i32
-; CHECK-NEXT:    [[Y:%.*]] = bitcast i32 [[TMP2]] to <4 x b8>
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[VAL]] to b64
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b64 [[TMP1]] to b32
+; CHECK-NEXT:    [[Y:%.*]] = bitcast b32 [[TMP2]] to <4 x b8>
 ; CHECK-NEXT:    ret <4 x b8> [[Y]]
 ;
   store <4 x i16> %val, ptr %p
@@ -25,10 +26,26 @@ define <4 x b8> @int_trunc_to_byte(ptr %p, <4 x i16> %val) {
   ret <4 x b8> %y
 }
 
+define <2 x b8> @int_offset_to_byte(ptr %p, <4 x i16> %val) {
+; CHECK-LABEL: @int_offset_to_byte(
+; CHECK-NEXT:    store <4 x i16> [[VAL:%.*]], ptr [[P:%.*]], align 8
+; CHECK-NEXT:    [[G:%.*]] = getelementptr i8, ptr [[P]], i16 4
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[VAL]] to b64
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b64 [[TMP1]] to b16
+; CHECK-NEXT:    [[TMP3:%.*]] = bitcast b16 [[TMP2]] to <2 x b8>
+; CHECK-NEXT:    ret <2 x b8> [[TMP3]]
+;
+  store <4 x i16> %val, ptr %p
+  %g = getelementptr i8, ptr %p, i16 4
+  %y = load <2 x b8>, ptr %p
+  ret <2 x b8> %y
+}
+
 define <4 x b64> @ptr_to_byte(ptr %p, <4 x ptr> %val) {
 ; CHECK-LABEL: @ptr_to_byte(
 ; CHECK-NEXT:    store <4 x ptr> [[VAL:%.*]], ptr [[P:%.*]], align 32
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x ptr> [[VAL]] to <4 x b64>
+; CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x ptr> [[VAL]] to b256
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast b256 [[TMP2]] to <4 x b64>
 ; CHECK-NEXT:    ret <4 x b64> [[TMP1]]
 ;
   store <4 x ptr> %val, ptr %p
@@ -39,7 +56,9 @@ define <4 x b64> @ptr_to_byte(ptr %p, <4 x ptr> %val) {
 define <4 x b8> @ptr_trunc_to_byte(ptr %p, <4 x ptr> %val) {
 ; CHECK-LABEL: @ptr_trunc_to_byte(
 ; CHECK-NEXT:    store <4 x ptr> [[VAL:%.*]], ptr [[P:%.*]], align 32
-; CHECK-NEXT:    [[Y:%.*]] = load <4 x b8>, ptr [[P]], align 4
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x ptr> [[VAL]] to b256
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b256 [[TMP1]] to b32
+; CHECK-NEXT:    [[Y:%.*]] = bitcast b32 [[TMP2]] to <4 x b8>
 ; CHECK-NEXT:    ret <4 x b8> [[Y]]
 ;
   store <4 x ptr> %val, ptr %p
@@ -47,10 +66,26 @@ define <4 x b8> @ptr_trunc_to_byte(ptr %p, <4 x ptr> %val) {
   ret <4 x b8> %y
 }
 
+define <2 x b8> @ptr_offset_to_byte(ptr %p, <4 x ptr> %val) {
+; CHECK-LABEL: @ptr_offset_to_byte(
+; CHECK-NEXT:    store <4 x ptr> [[VAL:%.*]], ptr [[P:%.*]], align 32
+; CHECK-NEXT:    [[G:%.*]] = getelementptr i8, ptr [[P]], i32 16
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x ptr> [[VAL]] to b256
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b256 [[TMP1]] to b16
+; CHECK-NEXT:    [[TMP3:%.*]] = bitcast b16 [[TMP2]] to <2 x b8>
+; CHECK-NEXT:    ret <2 x b8> [[TMP3]]
+;
+  store <4 x ptr> %val, ptr %p
+  %g = getelementptr i8, ptr %p, i32 16
+  %y = load <2 x b8>, ptr %p
+  ret <2 x b8> %y
+}
+
 define <4 x b32> @float_to_byte(ptr %p, <4 x float> %val) {
 ; CHECK-LABEL: @float_to_byte(
 ; CHECK-NEXT:    store <4 x float> [[VAL:%.*]], ptr [[P:%.*]], align 16
-; CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[VAL]] to <4 x b32>
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[VAL]] to b128
+; CHECK-NEXT:    [[TMP2:%.*]] = bitcast b128 [[TMP1]] to <4 x b32>
 ; CHECK-NEXT:    ret <4 x b32> [[TMP2]]
 ;
   store <4 x float> %val, ptr %p
@@ -61,9 +96,9 @@ define <4 x b32> @float_to_byte(ptr %p, <4 x float> %val) {
 define <4 x b8> @float_trunc_to_byte(ptr %p, <4 x float> %val) {
 ; CHECK-LABEL: @float_trunc_to_byte(
 ; CHECK-NEXT:    store <4 x float> [[VAL:%.*]], ptr [[P:%.*]], align 16
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[VAL]] to i128
-; CHECK-NEXT:    [[TMP2:%.*]] = trunc i128 [[TMP1]] to i32
-; CHECK-NEXT:    [[TMP3:%.*]] = bitcast i32 [[TMP2]] to <4 x b8>
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[VAL]] to b128
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b128 [[TMP1]] to b32
+; CHECK-NEXT:    [[TMP3:%.*]] = bitcast b32 [[TMP2]] to <4 x b8>
 ; CHECK-NEXT:    ret <4 x b8> [[TMP3]]
 ;
   store <4 x float> %val, ptr %p
@@ -74,7 +109,8 @@ define <4 x b8> @float_trunc_to_byte(ptr %p, <4 x float> %val) {
 define <4 x i8> @byte_to_int(ptr %p, <4 x b8> %val) {
 ; CHECK-LABEL: @byte_to_int(
 ; CHECK-NEXT:    store <4 x b8> [[VAL:%.*]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b8> [[VAL]] to <4 x i8>
+; CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x b8> [[VAL]] to b32
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b32 [[TMP2]] to <4 x i8>
 ; CHECK-NEXT:    ret <4 x i8> [[TMP1]]
 ;
   store <4 x b8> %val, ptr %p
@@ -85,7 +121,9 @@ define <4 x i8> @byte_to_int(ptr %p, <4 x b8> %val) {
 define <4 x i8> @byte_trunc_to_int(ptr %p, <4 x b16> %val) {
 ; CHECK-LABEL: @byte_trunc_to_int(
 ; CHECK-NEXT:    store <4 x b16> [[VAL:%.*]], ptr [[P:%.*]], align 8
-; CHECK-NEXT:    [[Y:%.*]] = bytecast exact <4 x b16> [[VAL]] to <4 x i8>
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x b16> [[VAL]] to b64
+; CHECK-NEXT:    [[TMP2:%.*]] = trunc b64 [[TMP1]] to b32
+; CHECK-NEXT:    [[Y:%.*]] = bytecast exact b32 [[TMP2]] to <4 x i8>
 ; CHECK-NEXT:    ret <4 x i8> [[Y]]
 ;
   store <4 x b16> %val, ptr %p
@@ -96,7 +134,8 @@ define <4 x i8> @byte_trunc_to_int(ptr %p, <4 x b16> %val) {
 define <4 x ptr> @byte_to_ptr(ptr %p, <4 x b64> %val) {
 ; CHECK-LABEL: @byte_to_ptr(
 ; CHECK-NEXT:    store <4 x b64> [[VAL:%.*]], ptr [[P:%.*]], align 32
-; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <4 x b64> [[VAL]] to <4 x ptr>
+; CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x b64> [[VAL]] to b256
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact b256 [[TMP2]] to <4 x ptr>
 ; CHECK-NEXT:    ret <4 x ptr> [[TMP1]]
 ;
   store <4 x b64> %val, ptr %p
@@ -120,7 +159,8 @@ define i8 @byte_vector_to_shorter_int(ptr %p, <2 x b32> %val) {
 ; CHECK-LABEL: @byte_vector_to_shorter_int(
 ; CHECK-NEXT:    store <2 x b32> [[VAL:%.*]], ptr [[P:%.*]], align 8
 ; CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x b32> [[VAL]] to b64
-; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact b64 [[TMP1]] to i8
+; CHECK-NEXT:    [[TMP3:%.*]] = trunc b64 [[TMP1]] to b8
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact b8 [[TMP3]] to i8
 ; CHECK-NEXT:    ret i8 [[TMP2]]
 ;
   store <2 x b32> %val, ptr %p
@@ -131,8 +171,7 @@ define i8 @byte_vector_to_shorter_int(ptr %p, <2 x b32> %val) {
 define <2 x i32> @byte_to_int_vector(ptr %p, b64 %val) {
 ; CHECK-LABEL: @byte_to_int_vector(
 ; CHECK-NEXT:    store b64 [[VAL:%.*]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast b64 [[VAL]] to <2 x b32>
-; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <2 x b32> [[TMP1]] to <2 x i32>
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact b64 [[VAL]] to <2 x i32>
 ; CHECK-NEXT:    ret <2 x i32> [[TMP2]]
 ;
   store b64 %val, ptr %p
@@ -143,8 +182,8 @@ define <2 x i32> @byte_to_int_vector(ptr %p, b64 %val) {
 define <2 x i8> @byte_to_shorter_int_vector(ptr %p, b64 %val) {
 ; CHECK-LABEL: @byte_to_shorter_int_vector(
 ; CHECK-NEXT:    store b64 [[VAL:%.*]], ptr [[P:%.*]], align 4
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast b64 [[VAL]] to <2 x b32>
-; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <2 x b32> [[TMP1]] to <2 x i8>
+; CHECK-NEXT:    [[TMP1:%.*]] = trunc b64 [[VAL]] to b16
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact b16 [[TMP1]] to <2 x i8>
 ; CHECK-NEXT:    ret <2 x i8> [[TMP2]]
 ;
   store b64 %val, ptr %p

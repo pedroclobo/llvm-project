@@ -7791,7 +7791,8 @@ bool LLParser::parseUnaryOp(Instruction *&Inst, PerFunctionState &PFS,
     return true;
 
   bool Valid = IsFP ? LHS->getType()->isFPOrFPVectorTy()
-                    : LHS->getType()->isIntOrIntVectorTy();
+                    : (LHS->getType()->isIntOrIntVectorTy() ||
+                       LHS->getType()->isByteOrByteVectorTy());
 
   if (!Valid)
     return error(Loc, "invalid operand type for instruction");
@@ -7921,7 +7922,8 @@ bool LLParser::parseArithmetic(Instruction *&Inst, PerFunctionState &PFS,
     return true;
 
   bool Valid = IsFP ? LHS->getType()->isFPOrFPVectorTy()
-                    : LHS->getType()->isIntOrIntVectorTy();
+                    : (LHS->getType()->isIntOrIntVectorTy() ||
+                       LHS->getType()->isByteOrByteVectorTy());
 
   if (!Valid)
     return error(Loc, "invalid operand type for instruction");

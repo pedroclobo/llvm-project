@@ -352,7 +352,7 @@ merge:
   ret ptr %v3
 }
 
-; It is not sound to trunc the i64, as it may be poison.
+; It is not sound to trunc the i64 as its most significant bits may be poison.
 define i32 @load-i64-i32(ptr %p) {
 ; CHECK-LABEL: @load-i64-i32(
 ; CHECK-NEXT:    [[TMP1:%.*]] = load b64, ptr [[P:%.*]], align 4
@@ -367,7 +367,7 @@ define i32 @load-i64-i32(ptr %p) {
   ret i32 %l2
 }
 
-; It is not sound to trunc the double, as it may be poison.
+; It is unsound to trunc the double as its most significant bits may be poison.
 define float @load-double-float(ptr %p) {
 ; CHECK-LABEL: @load-double-float(
 ; CHECK-NEXT:    [[TMP1:%.*]] = load b64, ptr [[P:%.*]], align 4
