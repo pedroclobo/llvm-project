@@ -5108,7 +5108,7 @@ protected:
   ByteCastInst *cloneImpl() const;
 
 public:
-  enum { NoExact = 0, Exact = (1 << 0) };
+  enum { NoExact = 0, Exact = (1 << 0), NoSExt = (1 << 1), SExt = (1 << 2) };
 
   /// Constructor with insert-before-instruction semantics
   ByteCastInst(
@@ -5133,6 +5133,14 @@ public:
 
   bool isExact() const {
     return (SubclassOptionalData & Exact) != 0;
+  }
+
+  void setIsSExt(bool B) {
+    SubclassOptionalData = (SubclassOptionalData & ~SExt) | (B * SExt);
+  }
+
+  bool isSExt() const {
+    return (SubclassOptionalData & SExt) != 0;
   }
 };
 

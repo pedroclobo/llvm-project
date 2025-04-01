@@ -7201,10 +7201,15 @@ int LLParser::parseInstruction(Instruction *&Inst, BasicBlock *BB,
     return parseCast(Inst, PFS, KeywordVal);
   case lltok::kw_bytecast: {
     bool Exact = EatIfPresent(lltok::kw_exact);
+    bool SExt = EatIfPresent(lltok::kw_sext);
+    if (!Exact)
+      Exact = EatIfPresent(lltok::kw_exact);
     if (parseCast(Inst, PFS, KeywordVal))
       return true;
     if (Exact)
       cast<ByteCastInst>(Inst)->setIsExact(true);
+    if (SExt)
+      cast<ByteCastInst>(Inst)->setIsSExt(true);
     return false;
   }
   case lltok::kw_fptrunc:

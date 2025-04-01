@@ -1439,6 +1439,11 @@ static void WriteOptimizationInfo(raw_ostream &Out, const User *U) {
       Out << " nuw";
     if (OBO->hasNoSignedWrap())
       Out << " nsw";
+  } else if (const auto *BC = dyn_cast<ByteCastInst>(U)) {
+    if (BC->isExact())
+      Out << " exact";
+    if (BC->isSExt())
+      Out << " sext";
   } else if (const PossiblyExactOperator *Div =
                dyn_cast<PossiblyExactOperator>(U)) {
     if (Div->isExact())

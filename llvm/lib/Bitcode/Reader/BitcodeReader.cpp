@@ -1743,6 +1743,9 @@ Expected<Value *> BitcodeReader::materializeValue(unsigned StartValID,
       if (isa<PossiblyExactOperator>(I) &&
           (BC->Flags & PossiblyExactOperator::IsExact))
         I->setIsExact();
+      if (isa<PossiblySExtOperator>(I) &&
+          (BC->Flags & PossiblySExtOperator::IsSExt))
+        I->setIsSExt();
     } else if (Instruction::isUnaryOp(BC->Opcode)) {
       I = UnaryOperator::Create((Instruction::UnaryOps)BC->Opcode, Ops[0],
                                 "constexpr", InsertBB);
@@ -5283,8 +5286,10 @@ Error BitcodeReader::parseFunctionBody(Function *F) {
           if (Record[OpNum] & (1 << bitc::TIO_NO_SIGNED_WRAP))
             cast<TruncInst>(I)->setHasNoSignedWrap(true);
         } else if (Opc == Instruction::ByteCast) {
-          if (Record[OpNum] & (1 << bitc::PEO_EXACT))
+          if (Record[OpNum] & (1 << bitc::BCO_EXACT))
             cast<ByteCastInst>(I)->setIsExact(true);
+          if (Record[OpNum] & (1 << bitc::BCO_SEXT))
+            cast<ByteCastInst>(I)->setIsSExt(true);
         }
         if (isa<FPMathOperator>(I)) {
           FastMathFlags FMF = getDecodedFastMathFlags(Record[OpNum]);

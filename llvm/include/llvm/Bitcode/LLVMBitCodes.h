@@ -525,6 +525,13 @@ enum TruncInstOptionalFlags {
   TIO_NO_SIGNED_WRAP = 1
 };
 
+/// ByteCastInstOptionalFlags - Flags for serializing
+/// ByteCastInstOptionalFlags's SubclassOptionalData contents.
+enum ByteCastInstOptionalFlags {
+  BCO_EXACT = 0,
+  BCO_SEXT = 1
+};
+
 /// FastMath Flags
 /// This is a fixed layout derived from the bitcode emitted by LLVM 5.0
 /// intended to decouple the in-memory representation from the serialization.

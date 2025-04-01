@@ -526,6 +526,10 @@ public:
   /// which supports this flag. See LangRef.html for the meaning of this flag.
   void setIsExact(bool b = true);
 
+  /// Set or clear the sext flag on this instruction, which must be an operator
+  /// which supports this flag. See LangRef.html for the meaning of this flag.
+  void setIsSExt(bool b = true);
+
   /// Set or clear the nneg flag on this instruction, which must be a zext
   /// instruction.
   void setNonNeg(bool b = true);
@@ -587,6 +591,9 @@ public:
 
   /// Determine whether the exact flag is set.
   bool isExact() const LLVM_READONLY;
+
+  /// Determine whether the sext flag is set.
+  bool isSExt() const LLVM_READONLY;
 
   /// Set or clear all fast-math-flags on this instruction, which must be an
   /// operator which supports this flag. See LangRef.html for the meaning of

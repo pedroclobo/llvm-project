@@ -2199,17 +2199,19 @@ public:
   }
 
   Value *CreateByteCast(Value *V, Type *DestTy, const Twine &Name = "",
-                        bool IsExact = false) {
+                        bool IsExact = false, bool IsSExt = false) {
     if (Value *Folded = Folder.FoldCast(Instruction::ByteCast, V, DestTy))
       return Folded;
     Instruction *I = CastInst::Create(Instruction::ByteCast, V, DestTy);
     if (IsExact)
       I->setIsExact();
+    if (IsSExt)
+      I->setIsSExt();
     return Insert(I, Name);
   }
 
   Value *CreateByteCastToInt(Value *V, const Twine &Name = "",
-                             bool IsExact = false) {
+                             bool IsExact = false, bool IsSExt = false) {
     if (auto *VTy = dyn_cast<VectorType>(V->getType())) {
       unsigned NumEls = VTy->getElementCount().getKnownMinValue();
       unsigned BitWidth = VTy->getElementType()->getPrimitiveSizeInBits();
@@ -2218,15 +2220,16 @@ public:
       VectorType *DestTy = VectorType::get(DestElTy, NumEls,
                                            VTy->isScalableTy());
 
-      return CreateByteCast(V, DestTy, Name, IsExact);
+      return CreateByteCast(V, DestTy, Name, IsExact, IsSExt);
     }
 
     Type *DestTy = getIntNTy(V->getType()->getByteBitWidth());
-    return CreateByteCast(V, DestTy, Name, IsExact);
+    return CreateByteCast(V, DestTy, Name, IsExact, IsSExt);
   }
 
   Value *CreateByteCastToPtr(Value *V, unsigned AddrSpace = 0,
-                             const Twine &Name = "", bool IsExact = false) {
+                             const Twine &Name = "", bool IsExact = false,
+                             bool IsSExt = false) {
     if (auto *VTy = dyn_cast<VectorType>(V->getType())) {
       unsigned NumEls = VTy->getElementCount().getKnownMinValue();
 
@@ -2234,11 +2237,11 @@ public:
       VectorType *DestTy = VectorType::get(DestElTy, NumEls,
                                            VTy->isScalableTy());
 
-      return CreateByteCast(V, DestTy, Name, IsExact);
+      return CreateByteCast(V, DestTy, Name, IsExact, IsSExt);
     }
 
     Type *DestTy = getPtrTy(AddrSpace);
-    return CreateByteCast(V, DestTy, Name, IsExact);
+    return CreateByteCast(V, DestTy, Name, IsExact, IsSExt);
   }
 
   Value *CreateZExtOrBitCast(Value *V, Type *DestTy, const Twine &Name = "") {

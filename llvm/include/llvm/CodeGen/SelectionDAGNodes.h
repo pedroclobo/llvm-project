@@ -415,6 +415,7 @@ public:
     Unpredictable = 1 << 13,
     // Compare instructions which may carry the samesign flag.
     SameSign = 1 << 14,
+    SExt = 1 << 15,
 
     // NOTE: Please update LargestValue in LLVM_DECLARE_ENUM_AS_BITMASK below
     // the class definition when adding new flags.
@@ -443,6 +444,7 @@ public:
   void setNoUnsignedWrap(bool b) { setFlag<NoUnsignedWrap>(b); }
   void setNoSignedWrap(bool b) { setFlag<NoSignedWrap>(b); }
   void setExact(bool b) { setFlag<Exact>(b); }
+  void setSExt(bool b) { setFlag<SExt>(b); }
   void setDisjoint(bool b) { setFlag<Disjoint>(b); }
   void setSameSign(bool b) { setFlag<SameSign>(b); }
   void setNonNeg(bool b) { setFlag<NonNeg>(b); }
@@ -460,6 +462,7 @@ public:
   bool hasNoUnsignedWrap() const { return Flags & NoUnsignedWrap; }
   bool hasNoSignedWrap() const { return Flags & NoSignedWrap; }
   bool hasExact() const { return Flags & Exact; }
+  bool hasSExt() const { return Flags & SExt; }
   bool hasDisjoint() const { return Flags & Disjoint; }
   bool hasSameSign() const { return Flags & SameSign; }
   bool hasNonNeg() const { return Flags & NonNeg; }

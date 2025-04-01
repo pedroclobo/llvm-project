@@ -73,6 +73,7 @@ define void @byte_constant(ptr %ptr) {
 ; CHECK: bytecast b64 %{{.*}} to half
 ; CHECK: bytecast b128 %{{.*}} to ptr
 ; CHECK: bytecast exact b8 %{{.*}} to i8
+; CHECK: bytecast sext b8 %{{.*}} to i16
 define void @bytecasts(b8 %b1, b16 %b2, b32 %b3, b64 %b4, b128 %b5) {
   %1 = bytecast b8 %b1 to i8
   %2 = bytecast b16 %b2 to i16
@@ -86,6 +87,7 @@ define void @bytecasts(b8 %b1, b16 %b2, b32 %b3, b64 %b4, b128 %b5) {
   %10 = bytecast b64 %b4 to half
   %11 = bytecast b128 %b5 to ptr
   %12 = bytecast exact b8 %b1 to i8
+  %13 = bytecast sext b8 %b1 to i16
   ret void
 }
 
@@ -101,6 +103,7 @@ define void @bytecasts(b8 %b1, b16 %b2, b32 %b3, b64 %b4, b128 %b5) {
 ; CHECK: bytecast <2 x b64> %{{.*}} to i128
 ; CHECK: bytecast <2 x b64> %{{.*}} to <4 x i32>
 ; CHECK: bytecast <2 x b128> %{{.*}} to <4 x ptr>
+; CHECK: bytecast sext <2 x b64> %{{.*}} to <2 x i128>
 define void @vector_bytecasts(<2 x b64> %b1, <2 x b128> %b2, b64 %b3) {
   %1 = bytecast <2 x b64> %b1 to <2 x i64>
   %2 = bytecast <2 x b64> %b1 to <2 x double>
@@ -113,6 +116,7 @@ define void @vector_bytecasts(<2 x b64> %b1, <2 x b128> %b2, b64 %b3) {
   %9 = bytecast <2 x b64> %b1 to i128
   %10 = bytecast <2 x b64> %b1 to <4 x i32>
   %11 = bytecast <2 x b128> %b2 to <4 x ptr>
+  %12 = bytecast sext <2 x b64> %b1 to <2 x i128>
   ret void
 }
 

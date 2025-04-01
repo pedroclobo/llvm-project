@@ -202,6 +202,53 @@ struct OperandTraits<PossiblyExactOperator>
 
 DEFINE_TRANSPARENT_OPERAND_ACCESSORS(PossiblyExactOperator, Value)
 
+/// A bytecast instruction can either sign or zero extend if the destination
+/// type is larger than the source type.
+class PossiblySExtOperator : public Operator {
+public:
+  enum {
+    IsSExt = (1 << 0)
+  };
+
+private:
+  friend class Instruction;
+  friend class ConstantExpr;
+
+  void setIsSExt(bool B) {
+    SubclassOptionalData = (SubclassOptionalData & ~IsSExt) | (B * IsSExt);
+  }
+
+public:
+  /// Transparently provide more efficient getOperand methods.
+  DECLARE_TRANSPARENT_OPERAND_ACCESSORS(Value);
+
+  /// Test whether this division is known to be exact, with zero remainder.
+  bool isSExt() const {
+    return SubclassOptionalData & IsSExt;
+  }
+
+  static bool isPossiblySExtOpcode(unsigned OpC) {
+    return OpC == Instruction::ByteCast;
+  }
+
+  static bool classof(const ConstantExpr *CE) {
+    return isPossiblySExtOpcode(CE->getOpcode());
+  }
+  static bool classof(const Instruction *I) {
+    return isPossiblySExtOpcode(I->getOpcode());
+  }
+  static bool classof(const Value *V) {
+    return (isa<Instruction>(V) && classof(cast<Instruction>(V))) ||
+           (isa<ConstantExpr>(V) && classof(cast<ConstantExpr>(V)));
+  }
+};
+
+template <>
+struct OperandTraits<PossiblySExtOperator>
+    : public FixedNumOperandTraits<PossiblySExtOperator, 2> {};
+
+DEFINE_TRANSPARENT_OPERAND_ACCESSORS(PossiblySExtOperator, Value)
+
 /// Utility class for floating point operations which can have
 /// information about relaxed accuracy requirements attached to them.
 class FPMathOperator : public Operator {

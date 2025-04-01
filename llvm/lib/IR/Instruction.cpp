@@ -394,6 +394,10 @@ void Instruction::setIsExact(bool b) {
   cast<PossiblyExactOperator>(this)->setIsExact(b);
 }
 
+void Instruction::setIsSExt(bool b) {
+  cast<PossiblySExtOperator>(this)->setIsSExt(b);
+}
+
 void Instruction::setNonNeg(bool b) {
   assert(isa<PossiblyNonNegInst>(this) && "Must be zext/uitofp");
   SubclassOptionalData = (SubclassOptionalData & ~PossiblyNonNegInst::NonNeg) |
