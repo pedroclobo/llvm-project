@@ -292,3 +292,19 @@ define <2 x i64> @bitcast_constexpr_4f32_2i64_1111() {
   %res = bitcast <4 x float> splat (float 1.0) to <2 x i64>
   ret <2 x i64> %res
 }
+
+define <2 x b64> @bitcast_constexpr_16i8_2b64() {
+; CHECK-LABEL: @bitcast_constexpr_16i8_2b64(
+; CHECK-NEXT:    ret <2 x b64> splat (b64 144680345676153346)
+;
+  %res = bitcast <16 x i8> splat (i8 2) to <2 x b64>
+  ret <2 x b64> %res
+}
+
+define <2 x b64> @bitcast_constexpr_16b8_2b64() {
+; CHECK-LABEL: @bitcast_constexpr_16b8_2b64(
+; CHECK-NEXT:    ret <2 x b64> splat (b64 144680345676153346)
+;
+  %res = bitcast <16 x b8> splat (b8 2) to <2 x b64>
+  ret <2 x b64> %res
+}
