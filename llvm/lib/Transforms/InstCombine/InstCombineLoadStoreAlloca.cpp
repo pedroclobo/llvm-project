@@ -1495,6 +1495,29 @@ Instruction *InstCombinerImpl::visitStoreInst(StoreInst &SI) {
       break;
   }
 
+  // Replace byte constants with integer constants.
+  if (isa<ConstantByte>(Val)) {
+    Type *ITy = Builder.getIntNTy(Val->getType()->getScalarSizeInBits());
+    APInt IntVal = cast<ConstantByte>(Val)->getValue();
+    return replaceOperand(SI, 0, ConstantInt::get(ITy, IntVal));
+  }
+  if ((isa<ConstantVector>(Val) || isa<ConstantDataVector>(Val)) &&
+       Val->getType()->getScalarType()->isByteTy()) {
+    Type *BTy = Val->getType()->getScalarType();
+    Type *ITy = Builder.getIntNTy(BTy->getScalarSizeInBits());
+    Constant *C = cast<Constant>(Val);
+    unsigned VWidth = cast<FixedVectorType>(C->getType())->getNumElements();
+
+    SmallVector<Constant *, 16> Elts(VWidth);
+    for (unsigned i = 0; i != VWidth; ++i) {
+      ConstantByte *Elt = cast<ConstantByte>(C->getAggregateElement(i));
+      Elts[i] = ConstantInt::get(ITy, Elt->getValue());
+    }
+
+    Constant *NewVec = ConstantVector::get(Elts);
+    return replaceOperand(SI, 0, NewVec);
+  }
+
   // store X, null    -> turns into 'unreachable' in SimplifyCFG
   // store X, GEP(null, Y) -> turns into 'unreachable' in SimplifyCFG
   if (canSimplifyNullStoreOrGEP(SI)) {
