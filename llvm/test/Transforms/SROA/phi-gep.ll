@@ -466,10 +466,17 @@ bb2:
 define void @constant_value_phi(i1 %c1) {
 ; CHECK-LABEL: @constant_value_phi(
 ; CHECK-NEXT:  entry:
+; CHECK-NEXT:    [[S1_SROA_0:%.*]] = alloca i16, align 2
+; CHECK-NEXT:    [[S1_SROA_1_SROA_0:%.*]] = alloca i8, align 2
+; CHECK-NEXT:    [[S_SROA_0:%.*]] = alloca i16, align 2
+; CHECK-NEXT:    [[S_SROA_2_SROA_0:%.*]] = alloca i8, align 2
 ; CHECK-NEXT:    br label [[LAND_LHS_TRUE_I:%.*]]
 ; CHECK:       land.lhs.true.i:
 ; CHECK-NEXT:    br i1 [[C1:%.*]], label [[COND_END_I:%.*]], label [[COND_END_I]]
 ; CHECK:       cond.end.i:
+; CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i64(ptr align 2 [[S1_SROA_0]], ptr align 2 [[S_SROA_0]], i64 2, i1 false)
+; CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i64(ptr align 2 [[S1_SROA_1_SROA_0]], ptr align 2 [[S_SROA_2_SROA_0]], i64 1, i1 false)
+; CHECK-NEXT:    [[S_SROA_0_0_LOAD:%.*]] = load i16, ptr [[S_SROA_0]], align 2
 ; CHECK-NEXT:    unreachable
 ;
 entry:

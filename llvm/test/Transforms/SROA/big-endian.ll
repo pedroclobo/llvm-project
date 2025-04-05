@@ -203,9 +203,15 @@ define void @test4() {
 ;
 ; CHECK-LABEL: @test4(
 ; CHECK-NEXT:  entry:
-; CHECK-NEXT:    [[A_SROA_0_0_EXTRACT_SHIFT:%.*]] = lshr i64 34494054408, 32
-; CHECK-NEXT:    [[A_SROA_0_0_EXTRACT_TRUNC:%.*]] = trunc i64 [[A_SROA_0_0_EXTRACT_SHIFT]] to i32
-; CHECK-NEXT:    [[A_SROA_3_0_EXTRACT_TRUNC:%.*]] = trunc i64 34494054408 to i32
+; CHECK-NEXT:    [[A_SROA_0:%.*]] = alloca i32, align 4
+; CHECK-NEXT:    [[A_SROA_3_SROA_0:%.*]] = alloca i32, align 4
+; CHECK-NEXT:    [[A2:%.*]] = alloca i64, align 4
+; CHECK-NEXT:    store i64 34494054408, ptr [[A2]], align 4
+; CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i64(ptr align 4 [[A_SROA_0]], ptr align 4 [[A2]], i64 4, i1 false)
+; CHECK-NEXT:    [[A_SROA_3_0_A2_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[A2]], i64 4
+; CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i64(ptr align 4 [[A_SROA_3_SROA_0]], ptr align 4 [[A_SROA_3_0_A2_SROA_IDX]], i64 4, i1 false)
+; CHECK-NEXT:    [[A_SROA_0_0_EXTRACT_TRUNC:%.*]] = load i32, ptr [[A_SROA_0]], align 4
+; CHECK-NEXT:    [[A_SROA_3_0_EXTRACT_TRUNC:%.*]] = load i32, ptr [[A_SROA_3_SROA_0]], align 4
 ; CHECK-NEXT:    [[A_SROA_3_0_INSERT_EXT:%.*]] = zext i32 [[A_SROA_3_0_EXTRACT_TRUNC]] to i64
 ; CHECK-NEXT:    [[A_SROA_3_0_INSERT_MASK:%.*]] = and i64 undef, -4294967296
 ; CHECK-NEXT:    [[A_SROA_3_0_INSERT_INSERT:%.*]] = or i64 [[A_SROA_3_0_INSERT_MASK]], [[A_SROA_3_0_INSERT_EXT]]
@@ -213,7 +219,8 @@ define void @test4() {
 ; CHECK-NEXT:    [[A_SROA_0_0_INSERT_SHIFT:%.*]] = shl i64 [[A_SROA_0_0_INSERT_EXT]], 32
 ; CHECK-NEXT:    [[A_SROA_0_0_INSERT_MASK:%.*]] = and i64 [[A_SROA_3_0_INSERT_INSERT]], 4294967295
 ; CHECK-NEXT:    [[A_SROA_0_0_INSERT_INSERT:%.*]] = or i64 [[A_SROA_0_0_INSERT_MASK]], [[A_SROA_0_0_INSERT_SHIFT]]
-; CHECK-NEXT:    call void @f(i64 [[A_SROA_0_0_INSERT_INSERT]], i32 [[A_SROA_0_0_EXTRACT_TRUNC]])
+; CHECK-NEXT:    [[A_SROA_0_0_LOAD:%.*]] = load i32, ptr [[A_SROA_0]], align 4
+; CHECK-NEXT:    call void @f(i64 [[A_SROA_0_0_INSERT_INSERT]], i32 [[A_SROA_0_0_LOAD]])
 ; CHECK-NEXT:    ret void
 ;
 entry:

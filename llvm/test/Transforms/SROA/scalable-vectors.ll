@@ -66,8 +66,9 @@ define <vscale x 4 x i32> @cast_alloca_to_svint32_t(<vscale x 4 x i32> %type.coe
 ; GEP where the element type is a scalable vector.
 define <vscale x 4 x i32> @cast_alloca_from_svint32_t() {
 ; CHECK-LABEL: @cast_alloca_from_svint32_t(
+; CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x i32>, align 64
 ; CHECK-NEXT:    [[RETVAL_COERCE:%.*]] = alloca <vscale x 4 x i32>, align 16
-; CHECK-NEXT:    store <16 x i32> undef, ptr [[RETVAL_COERCE]], align 16
+; CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i64(ptr align 16 [[RETVAL_COERCE]], ptr align 16 [[RETVAL]], i64 64, i1 false)
 ; CHECK-NEXT:    [[TMP1:%.*]] = load <vscale x 4 x i32>, ptr [[RETVAL_COERCE]], align 16
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[TMP1]]
 ;

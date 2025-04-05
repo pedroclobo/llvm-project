@@ -11,8 +11,9 @@ declare void @llvm.memcpy.p1.p1.i32(ptr addrspace(1) nocapture, ptr addrspace(1)
 
 define void @test_address_space_1_1(ptr addrspace(1) %a, ptr addrspace(1) %b) {
 ; CHECK-LABEL: @test_address_space_1_1(
-; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x i64>, ptr addrspace(1) [[A:%.*]], align 2
-; CHECK-NEXT:    store <2 x i64> [[AA_0_COPYLOAD]], ptr addrspace(1) [[B:%.*]], align 2
+; CHECK-NEXT:    [[AA:%.*]] = alloca <2 x i64>, align 16, addrspace(2)
+; CHECK-NEXT:    call void @llvm.memcpy.p2.p1.i32(ptr addrspace(2) align 2 [[AA]], ptr addrspace(1) align 2 [[A:%.*]], i32 16, i1 false)
+; CHECK-NEXT:    call void @llvm.memcpy.p1.p2.i32(ptr addrspace(1) align 2 [[B:%.*]], ptr addrspace(2) align 2 [[AA]], i32 16, i1 false)
 ; CHECK-NEXT:    ret void
 ;
   %aa = alloca <2 x i64>, align 16, addrspace(2)
@@ -23,8 +24,9 @@ define void @test_address_space_1_1(ptr addrspace(1) %a, ptr addrspace(1) %b) {
 
 define void @test_address_space_1_0(ptr addrspace(1) %a, ptr addrspace(2) %b) {
 ; CHECK-LABEL: @test_address_space_1_0(
-; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x i64>, ptr addrspace(1) [[A:%.*]], align 2
-; CHECK-NEXT:    store <2 x i64> [[AA_0_COPYLOAD]], ptr addrspace(2) [[B:%.*]], align 2
+; CHECK-NEXT:    [[AA:%.*]] = alloca <2 x i64>, align 16, addrspace(2)
+; CHECK-NEXT:    call void @llvm.memcpy.p2.p1.i32(ptr addrspace(2) align 2 [[AA]], ptr addrspace(1) align 2 [[A:%.*]], i32 16, i1 false)
+; CHECK-NEXT:    call void @llvm.memcpy.p2.p2.i32(ptr addrspace(2) align 2 [[B:%.*]], ptr addrspace(2) align 2 [[AA]], i32 16, i1 false)
 ; CHECK-NEXT:    ret void
 ;
   %aa = alloca <2 x i64>, align 16, addrspace(2)
@@ -35,8 +37,9 @@ define void @test_address_space_1_0(ptr addrspace(1) %a, ptr addrspace(2) %b) {
 
 define void @test_address_space_0_1(ptr addrspace(2) %a, ptr addrspace(1) %b) {
 ; CHECK-LABEL: @test_address_space_0_1(
-; CHECK-NEXT:    [[AA_0_COPYLOAD:%.*]] = load <2 x i64>, ptr addrspace(2) [[A:%.*]], align 2
-; CHECK-NEXT:    store <2 x i64> [[AA_0_COPYLOAD]], ptr addrspace(1) [[B:%.*]], align 2
+; CHECK-NEXT:    [[AA:%.*]] = alloca <2 x i64>, align 16, addrspace(2)
+; CHECK-NEXT:    call void @llvm.memcpy.p2.p2.i32(ptr addrspace(2) align 2 [[AA]], ptr addrspace(2) align 2 [[A:%.*]], i32 16, i1 false)
+; CHECK-NEXT:    call void @llvm.memcpy.p1.p2.i32(ptr addrspace(1) align 2 [[B:%.*]], ptr addrspace(2) align 2 [[AA]], i32 16, i1 false)
 ; CHECK-NEXT:    ret void
 ;
   %aa = alloca <2 x i64>, align 16, addrspace(2)
@@ -50,17 +53,21 @@ define void @test_address_space_0_1(ptr addrspace(2) %a, ptr addrspace(1) %b) {
 define void @copy_struct([5 x i64] %in.coerce, ptr addrspace(1) align 4 %ptr) {
 ; CHECK-LABEL: @copy_struct(
 ; CHECK-NEXT:  for.end:
+; CHECK-NEXT:    [[IN_SROA_2:%.*]] = alloca i64, align 8, addrspace(2)
+; CHECK-NEXT:    [[IN_SROA_4:%.*]] = alloca i64, align 8, addrspace(2)
+; CHECK-NEXT:    [[IN_SROA_5:%.*]] = alloca i32, align 8, addrspace(2)
 ; CHECK-NEXT:    [[IN_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [5 x i64] [[IN_COERCE:%.*]], 0
 ; CHECK-NEXT:    [[IN_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [5 x i64] [[IN_COERCE]], 1
 ; CHECK-NEXT:    [[IN_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [5 x i64] [[IN_COERCE]], 2
+; CHECK-NEXT:    store i64 [[IN_COERCE_FCA_2_EXTRACT]], ptr addrspace(2) [[IN_SROA_2]], align 8
 ; CHECK-NEXT:    [[IN_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [5 x i64] [[IN_COERCE]], 3
-; CHECK-NEXT:    [[IN_SROA_2_4_EXTRACT_SHIFT:%.*]] = lshr i64 [[IN_COERCE_FCA_2_EXTRACT]], 32
-; CHECK-NEXT:    [[IN_SROA_2_4_EXTRACT_TRUNC:%.*]] = trunc i64 [[IN_SROA_2_4_EXTRACT_SHIFT]] to i32
-; CHECK-NEXT:    store i32 [[IN_SROA_2_4_EXTRACT_TRUNC]], ptr addrspace(1) [[PTR:%.*]], align 4
+; CHECK-NEXT:    store i64 [[IN_COERCE_FCA_3_EXTRACT]], ptr addrspace(2) [[IN_SROA_4]], align 8
+; CHECK-NEXT:    [[IN_SROA_2_20_SCEVGEP9_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr addrspace(2) [[IN_SROA_2]], i32 4
+; CHECK-NEXT:    call void @llvm.memcpy.p1.p2.i32(ptr addrspace(1) align 4 [[PTR:%.*]], ptr addrspace(2) align 4 [[IN_SROA_2_20_SCEVGEP9_SROA_IDX]], i32 4, i1 false)
 ; CHECK-NEXT:    [[IN_SROA_4_20_PTR_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[PTR]], i16 4
-; CHECK-NEXT:    store i64 [[IN_COERCE_FCA_3_EXTRACT]], ptr addrspace(1) [[IN_SROA_4_20_PTR_SROA_IDX]], align 4
+; CHECK-NEXT:    call void @llvm.memcpy.p1.p2.i32(ptr addrspace(1) align 4 [[IN_SROA_4_20_PTR_SROA_IDX]], ptr addrspace(2) align 8 [[IN_SROA_4]], i32 8, i1 false)
 ; CHECK-NEXT:    [[IN_SROA_5_20_PTR_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr addrspace(1) [[PTR]], i16 12
-; CHECK-NEXT:    store i32 undef, ptr addrspace(1) [[IN_SROA_5_20_PTR_SROA_IDX]], align 4
+; CHECK-NEXT:    call void @llvm.memcpy.p1.p2.i32(ptr addrspace(1) align 4 [[IN_SROA_5_20_PTR_SROA_IDX]], ptr addrspace(2) align 8 [[IN_SROA_5]], i32 4, i1 false)
 ; CHECK-NEXT:    ret void
 ;
 for.end:

@@ -17,7 +17,12 @@ define target("spirv.DeviceEvent") @basic_alloc(target("spirv.DeviceEvent") %arg
 
 define target("spirv.DeviceEvent") @via_memcpy(target("spirv.DeviceEvent") %arg) {
 ; CHECK-LABEL: @via_memcpy(
-; CHECK-NEXT:    ret target("spirv.DeviceEvent") [[ARG:%.*]]
+; CHECK-NEXT:    [[VAL:%.*]] = alloca target("spirv.DeviceEvent"), align 8
+; CHECK-NEXT:    [[BAR:%.*]] = alloca target("spirv.DeviceEvent"), align 8
+; CHECK-NEXT:    store target("spirv.DeviceEvent") [[ARG1:%.*]], ptr [[VAL]], align 8
+; CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i64(ptr [[BAR]], ptr [[VAL]], i64 8, i1 false)
+; CHECK-NEXT:    [[ARG:%.*]] = load target("spirv.DeviceEvent"), ptr [[BAR]], align 8
+; CHECK-NEXT:    ret target("spirv.DeviceEvent") [[ARG]]
 ;
   %val = alloca target("spirv.DeviceEvent")
   %bar = alloca target("spirv.DeviceEvent")
