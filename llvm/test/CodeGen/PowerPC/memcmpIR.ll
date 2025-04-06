@@ -10,20 +10,24 @@ entry:
   ; CHECK-NEXT: br label %endblock
 
   ; CHECK-LABEL: loadbb:{{.*}}
-  ; CHECK: [[LOAD1:%[0-9]+]] = load i64, ptr
-  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load i64, ptr
-  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[LOAD1]])
-  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[LOAD2]])
+  ; CHECK: [[LOAD1:%[0-9]+]] = load b64, ptr
+  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load b64, ptr
+  ; CHECK-NEXT: [[CAST1:%[0-9]+]] = bytecast b64 [[LOAD1]] to i64
+  ; CHECK-NEXT: [[CAST2:%[0-9]+]] = bytecast b64 [[LOAD2]] to i64
+  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[CAST1]])
+  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[CAST2]])
   ; CHECK-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[BSWAP1]], [[BSWAP2]]
   ; CHECK-NEXT:  br i1 [[ICMP]], label %loadbb1, label %res_block
 
   ; CHECK-LABEL: loadbb1:{{.*}}
-  ; CHECK-NEXT: [[GEP1:%[0-9]+]] = getelementptr i8, ptr {{.*}}, i64 8
-  ; CHECK-NEXT: [[GEP2:%[0-9]+]] = getelementptr i8, ptr {{.*}}, i64 8
-  ; CHECK-NEXT: [[LOAD1:%[0-9]+]] = load i64, ptr [[GEP1]]
-  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load i64, ptr [[GEP2]]
-  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[LOAD1]])
-  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[LOAD2]])
+  ; CHECK-NEXT: [[GEP1:%[0-9]+]] = getelementptr b8, ptr {{.*}}, i64 8
+  ; CHECK-NEXT: [[GEP2:%[0-9]+]] = getelementptr b8, ptr {{.*}}, i64 8
+  ; CHECK-NEXT: [[LOAD1:%[0-9]+]] = load b64, ptr [[GEP1]]
+  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load b64, ptr [[GEP2]]
+  ; CHECK-NEXT: [[CAST1:%[0-9]+]] = bytecast b64 [[LOAD1]] to i64
+  ; CHECK-NEXT: [[CAST2:%[0-9]+]] = bytecast b64 [[LOAD2]] to i64
+  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[CAST1]])
+  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[CAST2]])
   ; CHECK-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[BSWAP1]], [[BSWAP2]]
   ; CHECK-NEXT:  br i1 [[ICMP]], label %endblock, label %res_block
 
@@ -34,17 +38,21 @@ entry:
   ; CHECK-BE-NEXT: br label %endblock
 
   ; CHECK-BE-LABEL: loadbb:{{.*}}
-  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load i64, ptr
-  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load i64, ptr
-  ; CHECK-BE-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[LOAD1]], [[LOAD2]]
+  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load b64, ptr
+  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load b64, ptr
+  ; CHECK-BE-NEXT: [[CAST1:%[0-9]+]] = bytecast b64 [[LOAD1]] to i64
+  ; CHECK-BE-NEXT: [[CAST2:%[0-9]+]] = bytecast b64 [[LOAD2]] to i64
+  ; CHECK-BE-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[CAST1]], [[CAST2]]
   ; CHECK-BE-NEXT:  br i1 [[ICMP]], label %loadbb1, label %res_block
 
   ; CHECK-BE-LABEL: loadbb1:{{.*}}
-  ; CHECK-BE-NEXT: [[GEP1:%[0-9]+]] = getelementptr i8, ptr {{.*}}, i64 8
-  ; CHECK-BE-NEXT: [[GEP2:%[0-9]+]] = getelementptr i8, ptr {{.*}}, i64 8
-  ; CHECK-BE-NEXT: [[LOAD1:%[0-9]+]] = load i64, ptr [[GEP1]]
-  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load i64, ptr [[GEP2]]
-  ; CHECK-BE-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[LOAD1]], [[LOAD2]]
+  ; CHECK-BE-NEXT: [[GEP1:%[0-9]+]] = getelementptr b8, ptr {{.*}}, i64 8
+  ; CHECK-BE-NEXT: [[GEP2:%[0-9]+]] = getelementptr b8, ptr {{.*}}, i64 8
+  ; CHECK-BE-NEXT: [[LOAD1:%[0-9]+]] = load b64, ptr [[GEP1]]
+  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load b64, ptr [[GEP2]]
+  ; CHECK-BE-NEXT: [[CAST1:%[0-9]+]] = bytecast b64 [[LOAD1]] to i64
+  ; CHECK-BE-NEXT: [[CAST2:%[0-9]+]] = bytecast b64 [[LOAD2]] to i64
+  ; CHECK-BE-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[CAST1]], [[CAST2]]
   ; CHECK-BE-NEXT:  br i1 [[ICMP]], label %endblock, label %res_block
 
   %call = tail call signext i32 @memcmp(ptr %buffer1, ptr %buffer2, i64 16)
@@ -55,17 +63,21 @@ declare signext i32 @memcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_add
 
 define signext i32 @test2(ptr nocapture readonly %buffer1, ptr nocapture readonly %buffer2)  {
   ; CHECK-LABEL: @test2(
-  ; CHECK: [[LOAD1:%[0-9]+]] = load i32, ptr
-  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load i32, ptr
-  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i32 @llvm.bswap.i32(i32 [[LOAD1]])
-  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i32 @llvm.bswap.i32(i32 [[LOAD2]])
+  ; CHECK: [[LOAD1:%[0-9]+]] = load b32, ptr
+  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load b32, ptr
+  ; CHECK-NEXT: [[CAST1:%[0-9]+]] = bytecast b32 [[LOAD1]] to i32
+  ; CHECK-NEXT: [[CAST2:%[0-9]+]] = bytecast b32 [[LOAD2]] to i32
+  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i32 @llvm.bswap.i32(i32 [[CAST1]])
+  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i32 @llvm.bswap.i32(i32 [[CAST2]])
   ; CHECK-NEXT: [[UCMP:%[0-9]+]] = call i32 @llvm.ucmp.i32.i32(i32 [[BSWAP1]], i32 [[BSWAP2]])
   ; CHECK-NEXT: ret i32 [[UCMP]]
 
   ; CHECK-BE-LABEL: @test2(
-  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load i32, ptr
-  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load i32, ptr
-  ; CHECK-BE-NEXT: [[UCMP:%[0-9]+]] = call i32 @llvm.ucmp.i32.i32(i32 [[LOAD1]], i32 [[LOAD2]])
+  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load b32, ptr
+  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load b32, ptr
+  ; CHECK-BE-NEXT: [[CAST1:%[0-9]+]] = bytecast b32 [[LOAD1]] to i32
+  ; CHECK-BE-NEXT: [[CAST2:%[0-9]+]] = bytecast b32 [[LOAD2]] to i32
+  ; CHECK-BE-NEXT: [[UCMP:%[0-9]+]] = call i32 @llvm.ucmp.i32.i32(i32 [[CAST1]], i32 [[CAST2]])
   ; CHECK-BE-NEXT: ret i32 [[UCMP]]
 
 entry:
@@ -80,38 +92,46 @@ define signext i32 @test3(ptr nocapture readonly %buffer1, ptr nocapture readonl
   ; CHECK-NEXT: br label %endblock
 
   ; CHECK-LABEL: loadbb:{{.*}}
-  ; CHECK: [[LOAD1:%[0-9]+]] = load i64, ptr
-  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load i64, ptr
-  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[LOAD1]])
-  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[LOAD2]])
+  ; CHECK: [[LOAD1:%[0-9]+]] = load b64, ptr
+  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load b64, ptr
+  ; CHECK-NEXT: [[CAST1:%[0-9]+]] = bytecast b64 [[LOAD1]] to i64
+  ; CHECK-NEXT: [[CAST2:%[0-9]+]] = bytecast b64 [[LOAD2]] to i64
+  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[CAST1]])
+  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i64 @llvm.bswap.i64(i64 [[CAST2]])
   ; CHECK-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[BSWAP1]], [[BSWAP2]]
   ; CHECK-NEXT:  br i1 [[ICMP]], label %loadbb1, label %res_block
 
   ; CHECK-LABEL: loadbb1:{{.*}}
-  ; CHECK: [[LOAD1:%[0-9]+]] = load i32, ptr
-  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load i32, ptr
-  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i32 @llvm.bswap.i32(i32 [[LOAD1]])
-  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i32 @llvm.bswap.i32(i32 [[LOAD2]])
+  ; CHECK: [[LOAD1:%[0-9]+]] = load b32, ptr
+  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load b32, ptr
+  ; CHECK-NEXT: [[CAST1:%[0-9]+]] = bytecast b32 [[LOAD1]] to i32
+  ; CHECK-NEXT: [[CAST2:%[0-9]+]] = bytecast b32 [[LOAD2]] to i32
+  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i32 @llvm.bswap.i32(i32 [[CAST1]])
+  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i32 @llvm.bswap.i32(i32 [[CAST2]])
   ; CHECK-NEXT: [[ZEXT1:%[0-9]+]] = zext i32 [[BSWAP1]] to i64
   ; CHECK-NEXT: [[ZEXT2:%[0-9]+]] = zext i32 [[BSWAP2]] to i64
   ; CHECK-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[ZEXT1]], [[ZEXT2]]
   ; CHECK-NEXT:  br i1 [[ICMP]], label %loadbb2, label %res_block
 
   ; CHECK-LABEL: loadbb2:{{.*}}
-  ; CHECK: [[LOAD1:%[0-9]+]] = load i16, ptr
-  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load i16, ptr
-  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i16 @llvm.bswap.i16(i16 [[LOAD1]])
-  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i16 @llvm.bswap.i16(i16 [[LOAD2]])
+  ; CHECK: [[LOAD1:%[0-9]+]] = load b16, ptr
+  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load b16, ptr
+  ; CHECK-NEXT: [[CAST1:%[0-9]+]] = bytecast b16 [[LOAD1]] to i16
+  ; CHECK-NEXT: [[CAST2:%[0-9]+]] = bytecast b16 [[LOAD2]] to i16
+  ; CHECK-NEXT: [[BSWAP1:%[0-9]+]] = call i16 @llvm.bswap.i16(i16 [[CAST1]])
+  ; CHECK-NEXT: [[BSWAP2:%[0-9]+]] = call i16 @llvm.bswap.i16(i16 [[CAST2]])
   ; CHECK-NEXT: [[ZEXT1:%[0-9]+]] = zext i16 [[BSWAP1]] to i64
   ; CHECK-NEXT: [[ZEXT2:%[0-9]+]] = zext i16 [[BSWAP2]] to i64
   ; CHECK-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[ZEXT1]], [[ZEXT2]]
   ; CHECK-NEXT:  br i1 [[ICMP]], label %loadbb3, label %res_block
 
   ; CHECK-LABEL: loadbb3:{{.*}}
-  ; CHECK: [[LOAD1:%[0-9]+]] = load i8, ptr
-  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load i8, ptr
-  ; CHECK-NEXT: [[ZEXT1:%[0-9]+]] = zext i8 [[LOAD1]] to i32
-  ; CHECK-NEXT: [[ZEXT2:%[0-9]+]] = zext i8 [[LOAD2]] to i32
+  ; CHECK: [[LOAD1:%[0-9]+]] = load b8, ptr
+  ; CHECK-NEXT: [[LOAD2:%[0-9]+]] = load b8, ptr
+  ; CHECK-NEXT: [[CAST1:%[0-9]+]] = bytecast b8 [[LOAD1]] to i8
+  ; CHECK-NEXT: [[CAST2:%[0-9]+]] = bytecast b8 [[LOAD2]] to i8
+  ; CHECK-NEXT: [[ZEXT1:%[0-9]+]] = zext i8 [[CAST1]] to i32
+  ; CHECK-NEXT: [[ZEXT2:%[0-9]+]] = zext i8 [[CAST2]] to i32
   ; CHECK-NEXT: [[SUB:%[0-9]+]] = sub i32 [[ZEXT1]], [[ZEXT2]]
   ; CHECK-NEXT:  br label %endblock
 
@@ -121,29 +141,37 @@ define signext i32 @test3(ptr nocapture readonly %buffer1, ptr nocapture readonl
   ; CHECK-BE-NEXT: br label %endblock
 
   ; CHECK-BE-LABEL: loadbb:{{.*}}
-  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load i64, ptr
-  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load i64, ptr
-  ; CHECK-BE-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[LOAD1]], [[LOAD2]]
+  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load b64, ptr
+  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load b64, ptr
+  ; CHECK-BE-NEXT: [[CAST1:%[0-9]+]] = bytecast b64 [[LOAD1]] to i64
+  ; CHECK-BE-NEXT: [[CAST2:%[0-9]+]] = bytecast b64 [[LOAD2]] to i64
+  ; CHECK-BE-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[CAST1]], [[CAST2]]
   ; CHECK-BE-NEXT:  br i1 [[ICMP]], label %loadbb1, label %res_block
 
-  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load i32, ptr
-  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load i32, ptr
-  ; CHECK-BE-NEXT: [[ZEXT1:%[0-9]+]] = zext i32 [[LOAD1]] to i64
-  ; CHECK-BE-NEXT: [[ZEXT2:%[0-9]+]] = zext i32 [[LOAD2]] to i64
+  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load b32, ptr
+  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load b32, ptr
+  ; CHECK-BE-NEXT: [[CAST1:%[0-9]+]] = bytecast b32 [[LOAD1]] to i32
+  ; CHECK-BE-NEXT: [[CAST2:%[0-9]+]] = bytecast b32 [[LOAD2]] to i32
+  ; CHECK-BE-NEXT: [[ZEXT1:%[0-9]+]] = zext i32 [[CAST1]] to i64
+  ; CHECK-BE-NEXT: [[ZEXT2:%[0-9]+]] = zext i32 [[CAST2]] to i64
   ; CHECK-BE-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[ZEXT1]], [[ZEXT2]]
   ; CHECK-BE-NEXT:  br i1 [[ICMP]], label %loadbb2, label %res_block
 
-  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load i16, ptr
-  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load i16, ptr
-  ; CHECK-BE-NEXT: [[ZEXT1:%[0-9]+]] = zext i16 [[LOAD1]] to i64
-  ; CHECK-BE-NEXT: [[ZEXT2:%[0-9]+]] = zext i16 [[LOAD2]] to i64
+  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load b16, ptr
+  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load b16, ptr
+  ; CHECK-BE-NEXT: [[CAST1:%[0-9]+]] = bytecast b16 [[LOAD1]] to i16
+  ; CHECK-BE-NEXT: [[CAST2:%[0-9]+]] = bytecast b16 [[LOAD2]] to i16
+  ; CHECK-BE-NEXT: [[ZEXT1:%[0-9]+]] = zext i16 [[CAST1]] to i64
+  ; CHECK-BE-NEXT: [[ZEXT2:%[0-9]+]] = zext i16 [[CAST2]] to i64
   ; CHECK-BE-NEXT: [[ICMP:%[0-9]+]] = icmp eq i64 [[ZEXT1]], [[ZEXT2]]
   ; CHECK-BE-NEXT:  br i1 [[ICMP]], label %loadbb3, label %res_block
 
-  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load i8, ptr
-  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load i8, ptr
-  ; CHECK-BE-NEXT: [[ZEXT1:%[0-9]+]] = zext i8 [[LOAD1]] to i32
-  ; CHECK-BE-NEXT: [[ZEXT2:%[0-9]+]] = zext i8 [[LOAD2]] to i32
+  ; CHECK-BE: [[LOAD1:%[0-9]+]] = load b8, ptr
+  ; CHECK-BE-NEXT: [[LOAD2:%[0-9]+]] = load b8, ptr
+  ; CHECK-BE-NEXT: [[CAST1:%[0-9]+]] = bytecast b8 [[LOAD1]] to i8
+  ; CHECK-BE-NEXT: [[CAST2:%[0-9]+]] = bytecast b8 [[LOAD2]] to i8
+  ; CHECK-BE-NEXT: [[ZEXT1:%[0-9]+]] = zext i8 [[CAST1]] to i32
+  ; CHECK-BE-NEXT: [[ZEXT2:%[0-9]+]] = zext i8 [[CAST2]] to i32
   ; CHECK-BE-NEXT: [[SUB:%[0-9]+]] = sub i32 [[ZEXT1]], [[ZEXT2]]
   ; CHECK-BE-NEXT:  br label %endblock
 
