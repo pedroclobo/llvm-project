@@ -327,7 +327,7 @@ MemCmpExpansion::LoadPair MemCmpExpansion::getLoadPair(Type *LoadSizeType,
   Align LhsAlign = LhsSource->getPointerAlignment(DL);
   Align RhsAlign = RhsSource->getPointerAlignment(DL);
   if (OffsetBytes > 0) {
-    auto *ByteType = Type::getInt8Ty(CI->getContext());
+    auto *ByteType = Type::getByte8Ty(CI->getContext());
     LhsSource = Builder.CreateConstGEP1_64(ByteType, LhsSource, OffsetBytes);
     RhsSource = Builder.CreateConstGEP1_64(ByteType, RhsSource, OffsetBytes);
     LhsAlign = commonAlignment(LhsAlign, OffsetBytes);
@@ -346,6 +346,9 @@ MemCmpExpansion::LoadPair MemCmpExpansion::getLoadPair(Type *LoadSizeType,
     Rhs = ConstantFoldLoadFromConstPtr(C, LoadSizeType, DL);
   if (!Rhs)
     Rhs = Builder.CreateAlignedLoad(LoadSizeType, RhsSource, RhsAlign);
+
+  Lhs = Builder.CreateByteCastToInt(Lhs);
+  Rhs = Builder.CreateByteCastToInt(Rhs);
 
   // Zero extend if Byte Swap intrinsic has different type
   if (BSwapSizeType && LoadSizeType != BSwapSizeType) {
@@ -378,7 +381,7 @@ void MemCmpExpansion::emitLoadCompareByteBlock(unsigned BlockIndex,
   BasicBlock *BB = LoadCmpBlocks[BlockIndex];
   Builder.SetInsertPoint(BB);
   const LoadPair Loads =
-      getLoadPair(Type::getInt8Ty(CI->getContext()), nullptr,
+      getLoadPair(Type::getByte8Ty(CI->getContext()), nullptr,
                   Type::getInt32Ty(CI->getContext()), OffsetBytes);
   Value *Diff = Builder.CreateSub(Loads.Lhs, Loads.Rhs);
 
@@ -435,7 +438,7 @@ Value *MemCmpExpansion::getCompareLoadPairs(unsigned BlockIndex,
   for (unsigned i = 0; i < NumLoads; ++i, ++LoadIndex) {
     const LoadEntry &CurLoadEntry = LoadSequence[LoadIndex];
     const LoadPair Loads = getLoadPair(
-        IntegerType::get(CI->getContext(), CurLoadEntry.LoadSize * 8), nullptr,
+        ByteType::get(CI->getContext(), CurLoadEntry.LoadSize * 8), nullptr,
         MaxLoadType, CurLoadEntry.Offset);
 
     if (NumLoads != 1) {
@@ -521,7 +524,7 @@ void MemCmpExpansion::emitLoadCompareBlock(unsigned BlockIndex) {
   }
 
   Type *LoadSizeType =
-      IntegerType::get(CI->getContext(), CurLoadEntry.LoadSize * 8);
+      ByteType::get(CI->getContext(), CurLoadEntry.LoadSize * 8);
   Type *BSwapSizeType =
       DL.isLittleEndian()
           ? IntegerType::get(CI->getContext(),
@@ -644,7 +647,7 @@ Value *MemCmpExpansion::getMemCmpEqZeroOneBlock() {
 /// matter, then it generates more efficient code with only one comparison.
 Value *MemCmpExpansion::getMemCmpOneBlock() {
   bool NeedsBSwap = DL.isLittleEndian() && Size != 1;
-  Type *LoadSizeType = IntegerType::get(CI->getContext(), Size * 8);
+  Type *LoadSizeType = ByteType::get(CI->getContext(), Size * 8);
   Type *BSwapSizeType =
       NeedsBSwap ? IntegerType::get(CI->getContext(), PowerOf2Ceil(Size * 8))
                  : nullptr;
