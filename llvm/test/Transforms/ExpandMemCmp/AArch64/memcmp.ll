@@ -7,8 +7,12 @@ declare i32 @memcmp(ptr nocapture, ptr nocapture, i64)
 define i32 @cmp2(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp2(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i16, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b16, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b16, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = freeze b16 [[TMP8]]
+; CHECK-NEXT:    [[TMP11:%.*]] = freeze b16 [[TMP9]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b16 [[TMP10]] to i16
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b16 [[TMP11]] to i16
 ; CHECK-NEXT:    [[TMP3:%.*]] = call i16 @llvm.bswap.i16(i16 [[TMP1]])
 ; CHECK-NEXT:    [[TMP4:%.*]] = call i16 @llvm.bswap.i16(i16 [[TMP2]])
 ; CHECK-NEXT:    [[TMP5:%.*]] = zext i16 [[TMP3]] to i32
@@ -23,8 +27,12 @@ define i32 @cmp2(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 define i32 @cmp2_align2(ptr nocapture readonly align 2 %x, ptr nocapture readonly align 2 %y)  {
 ; CHECK-LABEL: define i32 @cmp2_align2(
 ; CHECK-SAME: ptr readonly align 2 captures(none) [[X:%.*]], ptr readonly align 2 captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i16, ptr [[X]], align 2
-; CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[Y]], align 2
+; CHECK-NEXT:    [[TMP8:%.*]] = load b16, ptr [[X]], align 2
+; CHECK-NEXT:    [[TMP9:%.*]] = load b16, ptr [[Y]], align 2
+; CHECK-NEXT:    [[TMP10:%.*]] = freeze b16 [[TMP8]]
+; CHECK-NEXT:    [[TMP11:%.*]] = freeze b16 [[TMP9]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b16 [[TMP10]] to i16
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b16 [[TMP11]] to i16
 ; CHECK-NEXT:    [[TMP3:%.*]] = call i16 @llvm.bswap.i16(i16 [[TMP1]])
 ; CHECK-NEXT:    [[TMP4:%.*]] = call i16 @llvm.bswap.i16(i16 [[TMP2]])
 ; CHECK-NEXT:    [[TMP5:%.*]] = zext i16 [[TMP3]] to i32
@@ -39,8 +47,12 @@ define i32 @cmp2_align2(ptr nocapture readonly align 2 %x, ptr nocapture readonl
 define i32 @cmp3(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp3(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i24, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i24, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP7:%.*]] = load b24, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b24, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = freeze b24 [[TMP7]]
+; CHECK-NEXT:    [[TMP10:%.*]] = freeze b24 [[TMP8]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b24 [[TMP9]] to i24
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b24 [[TMP10]] to i24
 ; CHECK-NEXT:    [[TMP3:%.*]] = zext i24 [[TMP1]] to i32
 ; CHECK-NEXT:    [[TMP4:%.*]] = zext i24 [[TMP2]] to i32
 ; CHECK-NEXT:    [[TMP5:%.*]] = call i32 @llvm.bswap.i32(i32 [[TMP3]])
@@ -55,8 +67,12 @@ define i32 @cmp3(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 define i32 @cmp4(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp4(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i32, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b32, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP6:%.*]] = load b32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP7:%.*]] = freeze b32 [[TMP5]]
+; CHECK-NEXT:    [[TMP8:%.*]] = freeze b32 [[TMP6]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b32 [[TMP7]] to i32
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b32 [[TMP8]] to i32
 ; CHECK-NEXT:    [[TMP3:%.*]] = call i32 @llvm.bswap.i32(i32 [[TMP1]])
 ; CHECK-NEXT:    [[TMP4:%.*]] = call i32 @llvm.bswap.i32(i32 [[TMP2]])
 ; CHECK-NEXT:    [[TMP9:%.*]] = call i32 @llvm.ucmp.i32.i32(i32 [[TMP3]], i32 [[TMP4]])
@@ -69,8 +85,12 @@ define i32 @cmp4(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 define i32 @cmp5(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp5(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i40, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i40, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP7:%.*]] = load b40, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b40, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = freeze b40 [[TMP7]]
+; CHECK-NEXT:    [[TMP10:%.*]] = freeze b40 [[TMP8]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b40 [[TMP9]] to i40
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b40 [[TMP10]] to i40
 ; CHECK-NEXT:    [[TMP3:%.*]] = zext i40 [[TMP1]] to i64
 ; CHECK-NEXT:    [[TMP4:%.*]] = zext i40 [[TMP2]] to i64
 ; CHECK-NEXT:    [[TMP5:%.*]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
@@ -85,8 +105,12 @@ define i32 @cmp5(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 define i32 @cmp6(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp6(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i48, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i48, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP7:%.*]] = load b48, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b48, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = freeze b48 [[TMP7]]
+; CHECK-NEXT:    [[TMP10:%.*]] = freeze b48 [[TMP8]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b48 [[TMP9]] to i48
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b48 [[TMP10]] to i48
 ; CHECK-NEXT:    [[TMP3:%.*]] = zext i48 [[TMP1]] to i64
 ; CHECK-NEXT:    [[TMP4:%.*]] = zext i48 [[TMP2]] to i64
 ; CHECK-NEXT:    [[TMP5:%.*]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
@@ -109,17 +133,25 @@ define i32 @cmp7(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i32, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b32, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP19:%.*]] = freeze b32 [[TMP8]]
+; CHECK-NEXT:    [[TMP20:%.*]] = freeze b32 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b32 [[TMP19]] to i32
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b32 [[TMP20]] to i32
 ; CHECK-NEXT:    [[TMP5]] = call i32 @llvm.bswap.i32(i32 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i32 @llvm.bswap.i32(i32 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i32 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 3
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 3
-; CHECK-NEXT:    [[TMP10:%.*]] = load i32, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i32, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr b8, ptr [[X]], i64 3
+; CHECK-NEXT:    [[TMP16:%.*]] = getelementptr b8, ptr [[Y]], i64 3
+; CHECK-NEXT:    [[TMP17:%.*]] = load b32, ptr [[TMP15]], align 1
+; CHECK-NEXT:    [[TMP18:%.*]] = load b32, ptr [[TMP16]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b32 [[TMP17]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b32 [[TMP18]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b32 [[TMP21]] to i32
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b32 [[TMP22]] to i32
 ; CHECK-NEXT:    [[TMP12]] = call i32 @llvm.bswap.i32(i32 [[TMP10]])
 ; CHECK-NEXT:    [[TMP13]] = call i32 @llvm.bswap.i32(i32 [[TMP11]])
 ; CHECK-NEXT:    [[TMP14:%.*]] = icmp eq i32 [[TMP12]], [[TMP13]]
@@ -135,8 +167,12 @@ define i32 @cmp7(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 define i32 @cmp8(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp8(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP6:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP7:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP8:%.*]] = freeze b64 [[TMP6]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP7]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP8]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = call i64 @llvm.bswap.i64(i64 [[TMP1]])
 ; CHECK-NEXT:    [[TMP4:%.*]] = call i64 @llvm.bswap.i64(i64 [[TMP2]])
 ; CHECK-NEXT:    [[TMP9:%.*]] = call i32 @llvm.ucmp.i32.i64(i64 [[TMP3]], i64 [[TMP4]])
@@ -155,17 +191,25 @@ define i32 @cmp9(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP19:%.*]] = freeze b64 [[TMP8]]
+; CHECK-NEXT:    [[TMP20:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP19]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP20]] to i64
 ; CHECK-NEXT:    [[TMP5]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i64 @llvm.bswap.i64(i64 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i64 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1:%.*]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 8
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 8
-; CHECK-NEXT:    [[TMP10:%.*]] = load i8, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i8, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr b8, ptr [[X]], i64 8
+; CHECK-NEXT:    [[TMP16:%.*]] = getelementptr b8, ptr [[Y]], i64 8
+; CHECK-NEXT:    [[TMP17:%.*]] = load b8, ptr [[TMP15]], align 1
+; CHECK-NEXT:    [[TMP18:%.*]] = load b8, ptr [[TMP16]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b8 [[TMP17]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b8 [[TMP18]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b8 [[TMP21]] to i8
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b8 [[TMP22]] to i8
 ; CHECK-NEXT:    [[TMP12:%.*]] = zext i8 [[TMP10]] to i32
 ; CHECK-NEXT:    [[TMP13:%.*]] = zext i8 [[TMP11]] to i32
 ; CHECK-NEXT:    [[TMP14:%.*]] = sub i32 [[TMP12]], [[TMP13]]
@@ -189,17 +233,25 @@ define i32 @cmp10(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b64 [[TMP8]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP21]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP22]] to i64
 ; CHECK-NEXT:    [[TMP5]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i64 @llvm.bswap.i64(i64 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i64 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 8
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 8
-; CHECK-NEXT:    [[TMP10:%.*]] = load i16, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i16, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP17:%.*]] = getelementptr b8, ptr [[X]], i64 8
+; CHECK-NEXT:    [[TMP18:%.*]] = getelementptr b8, ptr [[Y]], i64 8
+; CHECK-NEXT:    [[TMP19:%.*]] = load b16, ptr [[TMP17]], align 1
+; CHECK-NEXT:    [[TMP20:%.*]] = load b16, ptr [[TMP18]], align 1
+; CHECK-NEXT:    [[TMP23:%.*]] = freeze b16 [[TMP19]]
+; CHECK-NEXT:    [[TMP24:%.*]] = freeze b16 [[TMP20]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b16 [[TMP23]] to i16
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b16 [[TMP24]] to i16
 ; CHECK-NEXT:    [[TMP12:%.*]] = call i16 @llvm.bswap.i16(i16 [[TMP10]])
 ; CHECK-NEXT:    [[TMP13:%.*]] = call i16 @llvm.bswap.i16(i16 [[TMP11]])
 ; CHECK-NEXT:    [[TMP14]] = zext i16 [[TMP12]] to i64
@@ -225,17 +277,25 @@ define i32 @cmp11(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP19:%.*]] = freeze b64 [[TMP8]]
+; CHECK-NEXT:    [[TMP20:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP19]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP20]] to i64
 ; CHECK-NEXT:    [[TMP5]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i64 @llvm.bswap.i64(i64 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i64 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 3
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 3
-; CHECK-NEXT:    [[TMP10:%.*]] = load i64, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i64, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr b8, ptr [[X]], i64 3
+; CHECK-NEXT:    [[TMP16:%.*]] = getelementptr b8, ptr [[Y]], i64 3
+; CHECK-NEXT:    [[TMP17:%.*]] = load b64, ptr [[TMP15]], align 1
+; CHECK-NEXT:    [[TMP18:%.*]] = load b64, ptr [[TMP16]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b64 [[TMP17]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b64 [[TMP18]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b64 [[TMP21]] to i64
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b64 [[TMP22]] to i64
 ; CHECK-NEXT:    [[TMP12]] = call i64 @llvm.bswap.i64(i64 [[TMP10]])
 ; CHECK-NEXT:    [[TMP13]] = call i64 @llvm.bswap.i64(i64 [[TMP11]])
 ; CHECK-NEXT:    [[TMP14:%.*]] = icmp eq i64 [[TMP12]], [[TMP13]]
@@ -259,17 +319,25 @@ define i32 @cmp12(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b64 [[TMP8]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP21]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP22]] to i64
 ; CHECK-NEXT:    [[TMP5]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i64 @llvm.bswap.i64(i64 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i64 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 8
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 8
-; CHECK-NEXT:    [[TMP10:%.*]] = load i32, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i32, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP17:%.*]] = getelementptr b8, ptr [[X]], i64 8
+; CHECK-NEXT:    [[TMP18:%.*]] = getelementptr b8, ptr [[Y]], i64 8
+; CHECK-NEXT:    [[TMP19:%.*]] = load b32, ptr [[TMP17]], align 1
+; CHECK-NEXT:    [[TMP20:%.*]] = load b32, ptr [[TMP18]], align 1
+; CHECK-NEXT:    [[TMP23:%.*]] = freeze b32 [[TMP19]]
+; CHECK-NEXT:    [[TMP24:%.*]] = freeze b32 [[TMP20]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b32 [[TMP23]] to i32
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b32 [[TMP24]] to i32
 ; CHECK-NEXT:    [[TMP12:%.*]] = call i32 @llvm.bswap.i32(i32 [[TMP10]])
 ; CHECK-NEXT:    [[TMP13:%.*]] = call i32 @llvm.bswap.i32(i32 [[TMP11]])
 ; CHECK-NEXT:    [[TMP14]] = zext i32 [[TMP12]] to i64
@@ -295,17 +363,25 @@ define i32 @cmp13(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP19:%.*]] = freeze b64 [[TMP8]]
+; CHECK-NEXT:    [[TMP20:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP19]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP20]] to i64
 ; CHECK-NEXT:    [[TMP5]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i64 @llvm.bswap.i64(i64 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i64 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 5
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 5
-; CHECK-NEXT:    [[TMP10:%.*]] = load i64, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i64, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr b8, ptr [[X]], i64 5
+; CHECK-NEXT:    [[TMP16:%.*]] = getelementptr b8, ptr [[Y]], i64 5
+; CHECK-NEXT:    [[TMP17:%.*]] = load b64, ptr [[TMP15]], align 1
+; CHECK-NEXT:    [[TMP18:%.*]] = load b64, ptr [[TMP16]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b64 [[TMP17]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b64 [[TMP18]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b64 [[TMP21]] to i64
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b64 [[TMP22]] to i64
 ; CHECK-NEXT:    [[TMP12]] = call i64 @llvm.bswap.i64(i64 [[TMP10]])
 ; CHECK-NEXT:    [[TMP13]] = call i64 @llvm.bswap.i64(i64 [[TMP11]])
 ; CHECK-NEXT:    [[TMP14:%.*]] = icmp eq i64 [[TMP12]], [[TMP13]]
@@ -329,17 +405,25 @@ define i32 @cmp14(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP19:%.*]] = freeze b64 [[TMP8]]
+; CHECK-NEXT:    [[TMP20:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP19]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP20]] to i64
 ; CHECK-NEXT:    [[TMP5]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i64 @llvm.bswap.i64(i64 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i64 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 6
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 6
-; CHECK-NEXT:    [[TMP10:%.*]] = load i64, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i64, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr b8, ptr [[X]], i64 6
+; CHECK-NEXT:    [[TMP16:%.*]] = getelementptr b8, ptr [[Y]], i64 6
+; CHECK-NEXT:    [[TMP17:%.*]] = load b64, ptr [[TMP15]], align 1
+; CHECK-NEXT:    [[TMP18:%.*]] = load b64, ptr [[TMP16]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b64 [[TMP17]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b64 [[TMP18]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b64 [[TMP21]] to i64
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b64 [[TMP22]] to i64
 ; CHECK-NEXT:    [[TMP12]] = call i64 @llvm.bswap.i64(i64 [[TMP10]])
 ; CHECK-NEXT:    [[TMP13]] = call i64 @llvm.bswap.i64(i64 [[TMP11]])
 ; CHECK-NEXT:    [[TMP14:%.*]] = icmp eq i64 [[TMP12]], [[TMP13]]
@@ -363,17 +447,25 @@ define i32 @cmp15(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP19:%.*]] = freeze b64 [[TMP8]]
+; CHECK-NEXT:    [[TMP20:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP19]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP20]] to i64
 ; CHECK-NEXT:    [[TMP5]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i64 @llvm.bswap.i64(i64 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i64 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 7
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 7
-; CHECK-NEXT:    [[TMP10:%.*]] = load i64, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i64, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr b8, ptr [[X]], i64 7
+; CHECK-NEXT:    [[TMP16:%.*]] = getelementptr b8, ptr [[Y]], i64 7
+; CHECK-NEXT:    [[TMP17:%.*]] = load b64, ptr [[TMP15]], align 1
+; CHECK-NEXT:    [[TMP18:%.*]] = load b64, ptr [[TMP16]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b64 [[TMP17]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b64 [[TMP18]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b64 [[TMP21]] to i64
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b64 [[TMP22]] to i64
 ; CHECK-NEXT:    [[TMP12]] = call i64 @llvm.bswap.i64(i64 [[TMP10]])
 ; CHECK-NEXT:    [[TMP13]] = call i64 @llvm.bswap.i64(i64 [[TMP11]])
 ; CHECK-NEXT:    [[TMP14:%.*]] = icmp eq i64 [[TMP12]], [[TMP13]]
@@ -397,17 +489,25 @@ define i32 @cmp16(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-NEXT:    [[TMP2:%.*]] = select i1 [[TMP1]], i32 -1, i32 1
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP8:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP19:%.*]] = freeze b64 [[TMP8]]
+; CHECK-NEXT:    [[TMP20:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP19]] to i64
+; CHECK-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP20]] to i64
 ; CHECK-NEXT:    [[TMP5]] = call i64 @llvm.bswap.i64(i64 [[TMP3]])
 ; CHECK-NEXT:    [[TMP6]] = call i64 @llvm.bswap.i64(i64 [[TMP4]])
 ; CHECK-NEXT:    [[TMP7:%.*]] = icmp eq i64 [[TMP5]], [[TMP6]]
 ; CHECK-NEXT:    br i1 [[TMP7]], label [[LOADBB1]], label [[RES_BLOCK:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr i8, ptr [[X]], i64 8
-; CHECK-NEXT:    [[TMP9:%.*]] = getelementptr i8, ptr [[Y]], i64 8
-; CHECK-NEXT:    [[TMP10:%.*]] = load i64, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP11:%.*]] = load i64, ptr [[TMP9]], align 1
+; CHECK-NEXT:    [[TMP15:%.*]] = getelementptr b8, ptr [[X]], i64 8
+; CHECK-NEXT:    [[TMP16:%.*]] = getelementptr b8, ptr [[Y]], i64 8
+; CHECK-NEXT:    [[TMP17:%.*]] = load b64, ptr [[TMP15]], align 1
+; CHECK-NEXT:    [[TMP18:%.*]] = load b64, ptr [[TMP16]], align 1
+; CHECK-NEXT:    [[TMP21:%.*]] = freeze b64 [[TMP17]]
+; CHECK-NEXT:    [[TMP22:%.*]] = freeze b64 [[TMP18]]
+; CHECK-NEXT:    [[TMP10:%.*]] = bytecast b64 [[TMP21]] to i64
+; CHECK-NEXT:    [[TMP11:%.*]] = bytecast b64 [[TMP22]] to i64
 ; CHECK-NEXT:    [[TMP12]] = call i64 @llvm.bswap.i64(i64 [[TMP10]])
 ; CHECK-NEXT:    [[TMP13]] = call i64 @llvm.bswap.i64(i64 [[TMP11]])
 ; CHECK-NEXT:    [[TMP14:%.*]] = icmp eq i64 [[TMP12]], [[TMP13]]
@@ -423,8 +523,12 @@ define i32 @cmp16(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 define i32 @cmp_eq2(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp_eq2(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i16, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b16, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP6:%.*]] = load b16, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP7:%.*]] = freeze b16 [[TMP5]]
+; CHECK-NEXT:    [[TMP8:%.*]] = freeze b16 [[TMP6]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b16 [[TMP7]] to i16
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b16 [[TMP8]] to i16
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i16 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[TMP3]] to i32
 ; CHECK-NEXT:    [[CMP:%.*]] = icmp eq i32 [[TMP4]], 0
@@ -444,15 +548,23 @@ define i32 @cmp_eq3(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i16, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b16, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b16, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b16 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b16 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b16 [[TMP14]] to i16
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b16 [[TMP15]] to i16
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i16 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 2
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 2
-; CHECK-NEXT:    [[TMP6:%.*]] = load i8, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i8, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 2
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 2
+; CHECK-NEXT:    [[TMP12:%.*]] = load b8, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b8, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b8 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b8 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b8 [[TMP16]] to i8
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b8 [[TMP13]] to i8
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i8 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -470,8 +582,12 @@ define i32 @cmp_eq3(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 define i32 @cmp_eq4(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp_eq4(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i32, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b32, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP6:%.*]] = load b32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP7:%.*]] = freeze b32 [[TMP5]]
+; CHECK-NEXT:    [[TMP8:%.*]] = freeze b32 [[TMP6]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b32 [[TMP7]] to i32
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b32 [[TMP8]] to i32
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i32 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[TMP3]] to i32
 ; CHECK-NEXT:    [[CMP:%.*]] = icmp eq i32 [[TMP4]], 0
@@ -491,15 +607,23 @@ define i32 @cmp_eq5(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i32, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b32, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b32 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b32 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b32 [[TMP14]] to i32
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b32 [[TMP15]] to i32
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i32 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 4
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 4
-; CHECK-NEXT:    [[TMP6:%.*]] = load i8, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i8, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 4
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 4
+; CHECK-NEXT:    [[TMP12:%.*]] = load b8, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b8, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b8 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b8 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b8 [[TMP16]] to i8
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b8 [[TMP13]] to i8
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i8 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -521,15 +645,23 @@ define i32 @cmp_eq6(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i32, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b32, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b32 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b32 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b32 [[TMP14]] to i32
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b32 [[TMP15]] to i32
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i32 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 4
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 4
-; CHECK-NEXT:    [[TMP6:%.*]] = load i16, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i16, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 4
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 4
+; CHECK-NEXT:    [[TMP12:%.*]] = load b16, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b16, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b16 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b16 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b16 [[TMP16]] to i16
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b16 [[TMP13]] to i16
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i16 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -551,15 +683,23 @@ define i32 @cmp_eq6_align4(ptr nocapture readonly align 4 %x, ptr nocapture read
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i32, ptr [[X]], align 4
-; CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[Y]], align 4
+; CHECK-NEXT:    [[TMP4:%.*]] = load b32, ptr [[X]], align 4
+; CHECK-NEXT:    [[TMP5:%.*]] = load b32, ptr [[Y]], align 4
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b32 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b32 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b32 [[TMP14]] to i32
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b32 [[TMP15]] to i32
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i32 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 4
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 4
-; CHECK-NEXT:    [[TMP6:%.*]] = load i16, ptr [[TMP4]], align 4
-; CHECK-NEXT:    [[TMP7:%.*]] = load i16, ptr [[TMP5]], align 4
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 4
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 4
+; CHECK-NEXT:    [[TMP12:%.*]] = load b16, ptr [[TMP10]], align 4
+; CHECK-NEXT:    [[TMP9:%.*]] = load b16, ptr [[TMP11]], align 4
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b16 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b16 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b16 [[TMP16]] to i16
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b16 [[TMP13]] to i16
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i16 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -581,15 +721,23 @@ define i32 @cmp_eq7(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i32, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b32, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b32, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b32 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b32 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b32 [[TMP14]] to i32
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b32 [[TMP15]] to i32
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i32 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 3
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 3
-; CHECK-NEXT:    [[TMP6:%.*]] = load i32, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i32, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 3
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 3
+; CHECK-NEXT:    [[TMP12:%.*]] = load b32, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b32, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b32 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b32 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b32 [[TMP16]] to i32
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b32 [[TMP13]] to i32
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i32 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -607,8 +755,12 @@ define i32 @cmp_eq7(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 define i32 @cmp_eq8(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK-LABEL: define i32 @cmp_eq8(
 ; CHECK-SAME: ptr readonly captures(none) [[X:%.*]], ptr readonly captures(none) [[Y:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP6:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP7:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP8:%.*]] = freeze b64 [[TMP6]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP7]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP8]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[TMP3]] to i32
 ; CHECK-NEXT:    [[CMP:%.*]] = icmp eq i32 [[TMP4]], 0
@@ -628,15 +780,23 @@ define i32 @cmp_eq9(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b64 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP14]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP15]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 8
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 8
-; CHECK-NEXT:    [[TMP6:%.*]] = load i8, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i8, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 8
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 8
+; CHECK-NEXT:    [[TMP12:%.*]] = load b8, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b8, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b8 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b8 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b8 [[TMP16]] to i8
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b8 [[TMP13]] to i8
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i8 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -658,15 +818,23 @@ define i32 @cmp_eq10(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b64 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP14]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP15]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 8
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 8
-; CHECK-NEXT:    [[TMP6:%.*]] = load i16, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i16, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 8
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 8
+; CHECK-NEXT:    [[TMP12:%.*]] = load b16, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b16, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b16 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b16 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b16 [[TMP16]] to i16
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b16 [[TMP13]] to i16
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i16 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -688,15 +856,23 @@ define i32 @cmp_eq11(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b64 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP14]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP15]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 3
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 3
-; CHECK-NEXT:    [[TMP6:%.*]] = load i64, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i64, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 3
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 3
+; CHECK-NEXT:    [[TMP12:%.*]] = load b64, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b64 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b64 [[TMP16]] to i64
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b64 [[TMP13]] to i64
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i64 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -718,15 +894,23 @@ define i32 @cmp_eq12(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b64 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP14]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP15]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 8
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 8
-; CHECK-NEXT:    [[TMP6:%.*]] = load i32, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i32, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 8
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 8
+; CHECK-NEXT:    [[TMP12:%.*]] = load b32, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b32, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b32 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b32 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b32 [[TMP16]] to i32
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b32 [[TMP13]] to i32
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i32 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -748,15 +932,23 @@ define i32 @cmp_eq13(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b64 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP14]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP15]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 5
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 5
-; CHECK-NEXT:    [[TMP6:%.*]] = load i64, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i64, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 5
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 5
+; CHECK-NEXT:    [[TMP12:%.*]] = load b64, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b64 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b64 [[TMP16]] to i64
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b64 [[TMP13]] to i64
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i64 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -778,15 +970,23 @@ define i32 @cmp_eq14(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b64 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP14]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP15]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 6
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 6
-; CHECK-NEXT:    [[TMP6:%.*]] = load i64, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i64, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 6
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 6
+; CHECK-NEXT:    [[TMP12:%.*]] = load b64, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b64 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b64 [[TMP16]] to i64
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b64 [[TMP13]] to i64
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i64 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -808,15 +1008,23 @@ define i32 @cmp_eq15(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b64 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP14]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP15]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 7
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 7
-; CHECK-NEXT:    [[TMP6:%.*]] = load i64, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i64, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 7
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 7
+; CHECK-NEXT:    [[TMP12:%.*]] = load b64, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b64 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b64 [[TMP16]] to i64
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b64 [[TMP13]] to i64
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i64 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
@@ -838,15 +1046,23 @@ define i32 @cmp_eq16(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; CHECK:       res_block:
 ; CHECK-NEXT:    br label [[ENDBLOCK:%.*]]
 ; CHECK:       loadbb:
-; CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[X]], align 1
-; CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP4:%.*]] = load b64, ptr [[X]], align 1
+; CHECK-NEXT:    [[TMP5:%.*]] = load b64, ptr [[Y]], align 1
+; CHECK-NEXT:    [[TMP14:%.*]] = freeze b64 [[TMP4]]
+; CHECK-NEXT:    [[TMP15:%.*]] = freeze b64 [[TMP5]]
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP14]] to i64
+; CHECK-NEXT:    [[TMP2:%.*]] = bytecast b64 [[TMP15]] to i64
 ; CHECK-NEXT:    [[TMP3:%.*]] = icmp ne i64 [[TMP1]], [[TMP2]]
 ; CHECK-NEXT:    br i1 [[TMP3]], label [[RES_BLOCK:%.*]], label [[LOADBB1:%.*]]
 ; CHECK:       loadbb1:
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr i8, ptr [[X]], i64 8
-; CHECK-NEXT:    [[TMP5:%.*]] = getelementptr i8, ptr [[Y]], i64 8
-; CHECK-NEXT:    [[TMP6:%.*]] = load i64, ptr [[TMP4]], align 1
-; CHECK-NEXT:    [[TMP7:%.*]] = load i64, ptr [[TMP5]], align 1
+; CHECK-NEXT:    [[TMP10:%.*]] = getelementptr b8, ptr [[X]], i64 8
+; CHECK-NEXT:    [[TMP11:%.*]] = getelementptr b8, ptr [[Y]], i64 8
+; CHECK-NEXT:    [[TMP12:%.*]] = load b64, ptr [[TMP10]], align 1
+; CHECK-NEXT:    [[TMP9:%.*]] = load b64, ptr [[TMP11]], align 1
+; CHECK-NEXT:    [[TMP16:%.*]] = freeze b64 [[TMP12]]
+; CHECK-NEXT:    [[TMP13:%.*]] = freeze b64 [[TMP9]]
+; CHECK-NEXT:    [[TMP6:%.*]] = bytecast b64 [[TMP16]] to i64
+; CHECK-NEXT:    [[TMP7:%.*]] = bytecast b64 [[TMP13]] to i64
 ; CHECK-NEXT:    [[TMP8:%.*]] = icmp ne i64 [[TMP6]], [[TMP7]]
 ; CHECK-NEXT:    br i1 [[TMP8]], label [[RES_BLOCK]], label [[ENDBLOCK]]
 ; CHECK:       endblock:
