@@ -6,8 +6,10 @@ declare i32 @bcmp(ptr nocapture, ptr nocapture, i64)
 
 define i32 @bcmp8(ptr nocapture readonly %x, ptr nocapture readonly %y)  {
 ; X64-LABEL: @bcmp8(
-; X64-NEXT:    [[TMP3:%.*]] = load i64, ptr [[X:%.*]], align 1
-; X64-NEXT:    [[TMP4:%.*]] = load i64, ptr [[Y:%.*]], align 1
+; X64-NEXT:    [[TMP1:%.*]] = load b64, ptr [[X:%.*]], align 1
+; X64-NEXT:    [[TMP2:%.*]] = load b64, ptr [[Y:%.*]], align 1
+; X64-NEXT:    [[TMP3:%.*]] = bytecast b64 [[TMP1]] to i64
+; X64-NEXT:    [[TMP4:%.*]] = bytecast b64 [[TMP2]] to i64
 ; X64-NEXT:    [[TMP5:%.*]] = icmp ne i64 [[TMP3]], [[TMP4]]
 ; X64-NEXT:    [[TMP6:%.*]] = zext i1 [[TMP5]] to i32
 ; X64-NEXT:    ret i32 [[TMP6]]
