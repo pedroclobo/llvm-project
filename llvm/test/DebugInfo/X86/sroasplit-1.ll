@@ -20,10 +20,9 @@
 ;
 
 ; Verify that SROA creates a variable piece when splitting i1.
-; CHECK: %[[I1:.*]] = alloca [12 x i8], align 4
-; CHECK: #dbg_declare(ptr %[[I1]], ![[VAR:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 96),
-; CHECK: #dbg_value(i32 %[[A:.*]], ![[VAR]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; CHECK: ret i32 %[[A]]
+; CHECK: #dbg_value(b32 %[[A:.*]], ![[VAR:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; CHECK: %[[B:.*]] = bytecast exact b32 %[[A]] to i32
+; CHECK: ret i32 %[[B]]
 ; Read Var and Piece:
 ; CHECK: ![[VAR]] = !DILocalVariable(name: "i1",{{.*}} line: 11,
 
