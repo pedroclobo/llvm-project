@@ -36,10 +36,12 @@ entry:
 
 ; A local variable with a small array type.
 ; CHECK-LABEL: define{{.*}}bar
-; CHECK:       %[[ARRAYSLICE1:[^ ]+]] = load
-; CHECK:       %[[ARRAYSLICE2:[^ ]+]] = load
-; CHECK-DAG:   call{{.*}} @llvm.fake.use(i32 %[[ARRAYSLICE1]])
-; CHECK-DAG:   call{{.*}} @llvm.fake.use(i32 %[[ARRAYSLICE2]])
+; CHECK:       %[[ARRAYSLICE1:[^ ]+]] = load b32
+; CHECK:       %[[ARRAYSLICE2:[^ ]+]] = load b32
+; CHECK:       %[[CAST1:[^ ]+]] = bytecast exact b32 %[[ARRAYSLICE1]] to i32
+; CHECK:       %[[CAST2:[^ ]+]] = bytecast exact b32 %[[ARRAYSLICE2]] to i32
+; CHECK-DAG:   call{{.*}} @llvm.fake.use(i32 %[[CAST1]])
+; CHECK-DAG:   call{{.*}} @llvm.fake.use(i32 %[[CAST2]])
 define dso_local void @bar() optdebug {
 entry:
   %arr = alloca [2 x i32], align 4

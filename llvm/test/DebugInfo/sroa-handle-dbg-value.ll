@@ -3,15 +3,12 @@
 
 ; RUN: opt %s -S -p=sroa -o - | FileCheck %s
 
-; CHECK: [[SROA_5_SROA_21:%.*]] = alloca [7 x i8], align 8
-; CHECK-NEXT: #dbg_value(ptr [[SROA_5_SROA_21]], !59, !DIExpression(DW_OP_deref, DW_OP_LLVM_fragment, 72, 56), [[DBG72:![0-9]+]])
-
 ; CHECK: #dbg_value(ptr [[REG1:%[0-9]+]], [[META54:![0-9]+]], !DIExpression(DW_OP_deref), [[DBG78:![0-9]+]])
 ; CHECK-NEXT: #dbg_value(ptr [[REG2:%[0-9]+]], [[META56:![0-9]+]], !DIExpression(DW_OP_deref), [[DBG78]])
 ; CHECK-NEXT: #dbg_value(i64 0, [[META57:![0-9]+]], !DIExpression(), [[DBG78]])
 
-; CHECK: [[SROA_418_SROA_COPYLOAD:%.*]] = load i8, ptr [[SROA_418_0_U1_IDX:%.*]], align 8, !dbg [[DBG78]]
-; CHECK-NEXT #dbg_value(i8 [[SROA_418_SROA_COPYLOAD]], [[META59]], !DIExpression(DW_OP_deref, DW_OP_LLVM_fragment, 64, 8), [[DBG72]])
+; CHECK: [[SROA_418_SROA_COPYLOAD:%.*]] = load b8, ptr [[SROA_418_0_U1_IDX:%.*]], align 8, !dbg [[DBG78]]
+; CHECK-NEXT #dbg_value(b8 [[SROA_418_SROA_COPYLOAD]], [[META59]], !DIExpression(DW_OP_deref, DW_OP_LLVM_fragment, 64, 8), [[DBG72]])
 
 %T4main1TV13TangentVectorV = type <{ %T4main1UV13TangentVectorV, [7 x i8], %T4main1UV13TangentVectorV }>
 %T4main1UV13TangentVectorV = type <{ %T1M1SVySfG, [7 x i8], %T4main1VV13TangentVectorV }>

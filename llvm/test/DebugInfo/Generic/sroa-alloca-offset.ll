@@ -45,19 +45,19 @@
 ;; 64 bit variable A (!29) bits [0,  32): value a_reg.
 ;; 64 bit variable A (!29) bits [32, 64): value b_reg.
 
-; OLD-NEXT: %[[a_reg:.*]] = load i32, ptr @gt
-; OLD-NEXT: #dbg_value(i32 %[[a_reg]], ![[x0:[0-9]+]], !DIExpression(),
-; OLD-NEXT: #dbg_value(i32 %[[a_reg]], ![[A0:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; OLD-NEXT: %[[b_reg:.*]] = load i32, ptr getelementptr inbounds (i8, ptr @gt, i64 4)
-; OLD-NEXT: #dbg_value(i32 %[[b_reg]], ![[y0:[0-9]+]], !DIExpression(),
-; OLD-NEXT: #dbg_value(i32 %[[b_reg]], ![[A0]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
+; OLD-NEXT: %[[a_reg:.*]] = load b32, ptr @gt
+; OLD-NEXT: #dbg_value(b32 %[[a_reg]], ![[x0:[0-9]+]], !DIExpression(),
+; OLD-NEXT: #dbg_value(b32 %[[a_reg]], ![[A0:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; OLD-NEXT: %[[b_reg:.*]] = load b32, ptr getelementptr inbounds (i8, ptr @gt, i64 4)
+; OLD-NEXT: #dbg_value(b32 %[[b_reg]], ![[y0:[0-9]+]], !DIExpression(),
+; OLD-NEXT: #dbg_value(b32 %[[b_reg]], ![[A0]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
 
-; NEW-NEXT: %[[a_reg:.*]] = load i32, ptr @gt
-; NEW-NEXT: %[[b_reg:.*]] = load i32, ptr getelementptr inbounds (i8, ptr @gt, i64 4)
-; NEW-NEXT: #dbg_value(i32 %[[b_reg]], ![[y0:[0-9]+]], !DIExpression(),
-; NEW-NEXT: #dbg_value(i32 %[[a_reg]], ![[A0:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; NEW-NEXT: #dbg_value(i32 %[[b_reg]], ![[A0]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
-; NEW-NEXT: #dbg_value(i32 %[[a_reg]], ![[x0:[0-9]+]], !DIExpression(),
+; NEW-NEXT: %[[a_reg:.*]] = load b32, ptr @gt
+; NEW-NEXT: %[[b_reg:.*]] = load b32, ptr getelementptr inbounds (i8, ptr @gt, i64 4)
+; NEW-NEXT: #dbg_value(b32 %[[b_reg]], ![[y0:[0-9]+]], !DIExpression(),
+; NEW-NEXT: #dbg_value(b32 %[[a_reg]], ![[A0:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; NEW-NEXT: #dbg_value(b32 %[[b_reg]], ![[A0]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
+; NEW-NEXT: #dbg_value(b32 %[[a_reg]], ![[x0:[0-9]+]], !DIExpression(),
 define dso_local noundef i32 @_Z4fun1v() #0 !dbg !23 {
 entry:
   %0 = alloca %struct.two, align 4
@@ -86,29 +86,27 @@ entry:
 ;; 128 bit variable A (!52) bits [96, 128): value bb_reg
 ;;
 ;; NOTE: This 8 byte alloca contains x.b (4 bytes) and y.a (4 bytes).
-; COMMON-NEXT: %[[ab_ba_addr:.*]] = alloca [8 x i8], align 4
-; OLD-NEXT: #dbg_declare(ptr %[[ab_ba_addr]], ![[A1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 64),
-; OLD-NEXT: #dbg_declare(ptr %[[ab_ba_addr]], ![[y1:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 4, DW_OP_LLVM_fragment, 0, 32),
-; OLD-NEXT: #dbg_declare(ptr %[[ab_ba_addr]], ![[x1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
-; OLD-NEXT: %[[aa_reg:.*]] = load i32, ptr @gf, align 4
-; OLD-NEXT: #dbg_value(i32 %[[aa_reg]], ![[x1]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; OLD-NEXT: #dbg_value(i32 %[[aa_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; OLD-NEXT: call void @llvm.memcpy{{.*}}(ptr align 4 %[[ab_ba_addr]], ptr align 4 getelementptr inbounds (i8, ptr @gf, i64 4), i64 8, i1 false)
-; OLD-NEXT: %[[bb_reg:.*]] = load i32, ptr getelementptr inbounds (i8, ptr @gf, i64 12), align 4
-; OLD-NEXT: #dbg_value(i32 %[[bb_reg]], ![[y1]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
-; OLD-NEXT: #dbg_value(i32 %[[bb_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 96, 32),
+; OLD-NEXT: %[[aa_reg:.*]] = load b32, ptr @gf, align 4
+; OLD-NEXT: #dbg_value(b32 %[[aa_reg]], ![[x1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; OLD-NEXT: #dbg_value(b32 %[[aa_reg]], ![[A1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; OLD-NEXT: %[[bb_reg:.*]] = load b64, ptr getelementptr inbounds (i8, ptr @gf, i64 4), align 4
+; OLD-NEXT: #dbg_value(b64 %[[bb_reg]], ![[x1]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
+; OLD-NEXT: #dbg_value(b64 %[[bb_reg]], ![[y1:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 4, DW_OP_LLVM_fragment, 0, 32),
+; OLD-NEXT: #dbg_value(b64 %[[bb_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 32, 64),
+; OLD-NEXT: %[[cc_reg:.*]] = load b32, ptr getelementptr inbounds (i8, ptr @gf, i64 12), align 4
+; OLD-NEXT: #dbg_value(b32 %[[cc_reg]], ![[y1]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
+; OLD-NEXT: #dbg_value(b32 %[[cc_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 96, 32),
 
-; NEW-NEXT: #dbg_assign(i1 poison, ![[x1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 32), ![[#]], ptr %[[ab_ba_addr]], !DIExpression(),
-; NEW-NEXT: #dbg_assign(i1 poison, ![[A1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 64), ![[#]], ptr %[[ab_ba_addr]], !DIExpression(),
-; NEW-NEXT: #dbg_declare(ptr %[[ab_ba_addr]], ![[y1:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 4, DW_OP_LLVM_fragment, 0, 32),
-; NEW-NEXT: %[[aa_reg:.*]] = load i32, ptr @gf, align 4
-; NEW-NEXT: llvm.memcpy{{.*}}(ptr align 4 %[[ab_ba_addr]], ptr align 4 getelementptr inbounds (i8, ptr @gf, i64 4), i64 8, i1 false){{.*}}, !DIAssignID ![[ID:[0-9]+]]
-; NEW-NEXT: %[[bb_reg:.*]] = load i32, ptr getelementptr inbounds (i8, ptr @gf, i64 12), align 4
-; NEW-NEXT: #dbg_value(i32 %[[bb_reg]], ![[y1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
-; NEW-NEXT: #dbg_value(i32 %[[aa_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; NEW-NEXT: #dbg_assign(i1 poison, ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 32, 64), ![[ID]], ptr %[[ab_ba_addr]], !DIExpression(),
-; NEW-NEXT: #dbg_value(i32 %[[bb_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 96, 32),
-; NEW-NEXT: #dbg_value(i32 %[[aa_reg]], ![[x1]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; NEW-NEXT: %[[aa_reg:.*]] = load b32, ptr @gf, align 4
+; NEW-NEXT: %[[bb_reg:.*]] = load b64, ptr getelementptr inbounds (i8, ptr @gf, i64 4), align 4
+; NEW-NEXT: #dbg_value(b64 %[[bb_reg]], ![[x1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
+; NEW-NEXT: #dbg_value(b64 %[[bb_reg]], ![[y1:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 4, DW_OP_LLVM_fragment, 0, 32),
+; NEW-NEXT: %[[cc_reg:.*]] = load b32, ptr getelementptr inbounds (i8, ptr @gf, i64 12), align 4
+; NEW-NEXT: #dbg_value(b32 %[[cc_reg]], ![[y1]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
+; NEW-NEXT: #dbg_value(b32 %[[aa_reg]], ![[A1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; NEW-NEXT: #dbg_value(b64 %[[bb_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 32, 64),
+; NEW-NEXT: #dbg_value(b32 %[[cc_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 96, 32),
+; NEW-NEXT: #dbg_value(b32 %[[aa_reg]], ![[x1]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
 define dso_local noundef i32 @_Z4fun2v() #0 !dbg !48 {
 entry:
   %0 = alloca %struct.four, align 4
@@ -141,15 +139,13 @@ entry:
 ;; 16 bit variable g (!63): value vgf (upper bits)
 ;;
 ;; 16 bit variable h (!64): deref dead_64_128
-; COMMON-NEXT: %[[dead_64_128:.*]] = alloca %struct.two
-; COMMON-NEXT: #dbg_declare(ptr %[[dead_64_128]], ![[h:[0-9]+]], !DIExpression(),
-; COMMON-NEXT: %[[ve:.*]] = load i32, ptr @gf
+; COMMON-NEXT: %[[ve:.*]] = load b32, ptr @gf
 ;; FIXME: mem2reg bug - offset is incorrect - see comment above.
-; COMMON-NEXT: #dbg_value(i32 %[[ve]], ![[e:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 2),
-; COMMON-NEXT: %[[vfg:.*]] = load i32, ptr getelementptr inbounds (i8, ptr @gf, i64 4)
-; COMMON-NEXT: #dbg_value(i32 %[[vfg]], ![[f:[0-9]+]], !DIExpression(),
+; COMMON-NEXT: #dbg_value(b32 %[[ve]], ![[e:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 2),
+; COMMON-NEXT: %[[vfg:.*]] = load b32, ptr getelementptr inbounds (i8, ptr @gf, i64 4)
+; COMMON-NEXT: #dbg_value(b32 %[[vfg]], ![[f:[0-9]+]], !DIExpression(),
 ;; FIXME: mem2reg bug - offset is incorrect - see comment above.
-; COMMON-NEXT: #dbg_value(i32 %[[vfg]], ![[g:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 2),
+; COMMON-NEXT: #dbg_value(b32 %[[vfg]], ![[g:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 2),
 define dso_local noundef i32 @_Z4fun3v() #0 !dbg !55 {
 entry:
   %0 = alloca %struct.four, align 4
@@ -215,7 +211,6 @@ entry:
 ; COMMON-DAG: ![[e]] = !DILocalVariable(name: "e",
 ; COMMON-DAG: ![[f]] = !DILocalVariable(name: "f",
 ; COMMON-DAG: ![[g]] = !DILocalVariable(name: "g",
-; COMMON-DAG: ![[h]] = !DILocalVariable(name: "h",
 
 ; COMMON-DAG: ![[p]] = !DILocalVariable(name: "p"
 ; COMMON-DAG: ![[q]] = !DILocalVariable(name: "q"
