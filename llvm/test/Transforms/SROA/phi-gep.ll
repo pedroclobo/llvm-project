@@ -470,6 +470,7 @@ define void @constant_value_phi(i1 %c1) {
 ; CHECK:       land.lhs.true.i:
 ; CHECK-NEXT:    br i1 [[C1:%.*]], label [[COND_END_I:%.*]], label [[COND_END_I]]
 ; CHECK:       cond.end.i:
+; CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact b16 undef to i16
 ; CHECK-NEXT:    unreachable
 ;
 entry:

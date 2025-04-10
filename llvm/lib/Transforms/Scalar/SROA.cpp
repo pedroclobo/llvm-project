@@ -246,7 +246,7 @@ private:
   friend class AllocaSliceRewriter;
 
   bool presplitLoadsAndStores(AllocaInst &AI, AllocaSlices &AS);
-  AllocaInst *rewritePartition(AllocaInst &AI, AllocaSlices &AS, Partition &P);
+  AllocaInst *rewritePartition(AllocaInst &AI, AllocaSlices &AS, Partition &P, bool UseByteType);
   bool splitAlloca(AllocaInst &AI, AllocaSlices &AS);
   bool propagateStoredValuesToLoads(AllocaInst &AI, AllocaSlices &AS);
   std::pair<bool /*Changed*/, bool /*CFGChanged*/> runOnAlloca(AllocaInst &AI);
@@ -1101,6 +1101,14 @@ private:
 
   void handleLoadOrStore(Type *Ty, Instruction &I, const APInt &Offset,
                          uint64_t Size, bool IsVolatile) {
+
+    // Replace a constant byte with a constant int in a store instruction.
+    // This allows for the splitting of the store.
+    if (auto *CB = dyn_cast<ConstantByte>(I.getOperand(0))) {
+      ConstantInt *CI = ConstantInt::get(I.getContext(), CB->getValue());
+      I.setOperand(0, CI);
+    }
+
     // We allow splitting of non-volatile loads and stores where the type is an
     // integer type. These may be used to implement 'memcpy' or other "transfer
     // of bits" patterns.
@@ -1483,17 +1491,27 @@ LLVM_DUMP_METHOD void AllocaSlices::dump() const { print(dbgs()); }
 
 /// Walk the range of a partitioning looking for a common type to cover this
 /// sequence of slices.
-static std::pair<Type *, IntegerType *>
+static std::tuple<Type *, IntegerType *, ByteType *>
 findCommonType(AllocaSlices::const_iterator B, AllocaSlices::const_iterator E,
                uint64_t EndOffset) {
   Type *Ty = nullptr;
   bool TyIsCommon = true;
   IntegerType *ITy = nullptr;
+  ByteType *ByteTy = nullptr;
 
   // Note that we need to look at *every* alloca slice's Use to ensure we
   // always get consistent results regardless of the order of slices.
   for (AllocaSlices::const_iterator I = B; I != E; ++I) {
     Use *U = I->getUse();
+
+    // TODO: can maybe check whether the copy is of a constant and if so,
+    // dodge the byte type.
+    // Memcpy/memmove can only be lowered to byte loads.
+    if (isa<MemCpyInst>(*U->getUser()) || isa<MemMoveInst>(*U->getUser())) {
+      uint64_t Size = (EndOffset - B->beginOffset()) * 8;
+      ByteTy = ByteType::getByteNTy(U->getUser()->getContext(), Size);
+    }
+
     if (isa<IntrinsicInst>(*U->getUser()))
       continue;
     if (I->beginOffset() != B->beginOffset() || I->endOffset() != EndOffset)
@@ -1529,7 +1547,7 @@ findCommonType(AllocaSlices::const_iterator B, AllocaSlices::const_iterator E,
       Ty = UserTy;
   }
 
-  return {TyIsCommon ? Ty : nullptr, ITy};
+  return {TyIsCommon ? Ty : nullptr, ITy, ByteTy};
 }
 
 /// PHI instructions that use an alloca and are subsequently loaded can be
@@ -4895,19 +4913,20 @@ bool SROA::presplitLoadsAndStores(AllocaInst &AI, AllocaSlices &AS) {
 /// at enabling promotion and if it was successful queues the alloca to be
 /// promoted.
 AllocaInst *SROA::rewritePartition(AllocaInst &AI, AllocaSlices &AS,
-                                   Partition &P) {
+                                   Partition &P, bool UseByteType) {
   // Try to compute a friendly type for this partition of the alloca. This
   // won't always succeed, in which case we fall back to a legal integer type
   // or an i8 array of an appropriate size.
   Type *SliceTy = nullptr;
   VectorType *SliceVecTy = nullptr;
   const DataLayout &DL = AI.getDataLayout();
-  std::pair<Type *, IntegerType *> CommonUseTy =
+  std::tuple<Type *, IntegerType *, ByteType *> CommonUseTy =
       findCommonType(P.begin(), P.end(), P.endOffset());
+
   // Do all uses operate on the same type?
-  if (CommonUseTy.first)
-    if (DL.getTypeAllocSize(CommonUseTy.first).getFixedValue() >= P.size()) {
-      SliceTy = CommonUseTy.first;
+  if (!SliceTy && std::get<0>(CommonUseTy))
+    if (DL.getTypeAllocSize(std::get<0>(CommonUseTy)).getFixedValue() >= P.size()) {
+      SliceTy = std::get<0>(CommonUseTy);
       SliceVecTy = dyn_cast<VectorType>(SliceTy);
     }
   // If not, can we find an appropriate subtype in the original allocated type?
@@ -4917,9 +4936,9 @@ AllocaInst *SROA::rewritePartition(AllocaInst &AI, AllocaSlices &AS,
       SliceTy = TypePartitionTy;
 
   // If still not, can we use the largest bitwidth integer type used?
-  if (!SliceTy && CommonUseTy.second)
-    if (DL.getTypeAllocSize(CommonUseTy.second).getFixedValue() >= P.size()) {
-      SliceTy = CommonUseTy.second;
+  if (!SliceTy && std::get<1>(CommonUseTy))
+    if (DL.getTypeAllocSize(std::get<1>(CommonUseTy)).getFixedValue() >= P.size()) {
+      SliceTy = std::get<1>(CommonUseTy);
       SliceVecTy = dyn_cast<VectorType>(SliceTy);
     }
   if ((!SliceTy || (SliceTy->isArrayTy() &&
@@ -4941,6 +4960,15 @@ AllocaInst *SROA::rewritePartition(AllocaInst &AI, AllocaSlices &AS,
 
   if (!SliceTy)
     SliceTy = ArrayType::get(Type::getInt8Ty(*C), P.size());
+
+  // If one of the uses is a memcpy or a memmove, the allocated type should be
+  // a byte type. This enables the subsequent lowering of these intrinsics to
+  // byte load/store pairs.
+  if (std::get<2>(CommonUseTy) && SliceTy->isSingleValueType())
+    SliceTy = std::get<2>(CommonUseTy);
+  if (UseByteType)
+    SliceTy = ByteType::getByteNTy(AI.getContext(), P.size() * 8);
+
   assert(DL.getTypeAllocSize(SliceTy).getFixedValue() >= P.size());
 
   bool IsIntegerPromotable = isIntegerWideningViable(P, SliceTy, DL);
@@ -5392,8 +5420,11 @@ bool SROA::splitAlloca(AllocaInst &AI, AllocaSlices &AS) {
   SmallVector<Fragment, 4> Fragments;
 
   // Rewrite each partition.
+  bool UsesByteType = false;
   for (auto &P : AS.partitions()) {
-    if (AllocaInst *NewAI = rewritePartition(AI, AS, P)) {
+    if (AllocaInst *NewAI = rewritePartition(AI, AS, P, UsesByteType)) {
+      if (NewAI->getAllocatedType()->isByteTy())
+        UsesByteType = true;
       Changed = true;
       if (NewAI != &AI) {
         uint64_t SizeOfByte = 8;
