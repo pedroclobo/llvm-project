@@ -45,12 +45,12 @@
 ;; 64 bit variable A (!29) bits [0,  32): value a_reg.
 ;; 64 bit variable A (!29) bits [32, 64): value b_reg.
 
-; OLD-NEXT: %[[a_reg:.*]] = load i32, ptr @gt
-; OLD-NEXT: #dbg_value(i32 %[[a_reg]], ![[x0:[0-9]+]], !DIExpression(),
-; OLD-NEXT: #dbg_value(i32 %[[a_reg]], ![[A0:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; OLD-NEXT: %[[b_reg:.*]] = load i32, ptr getelementptr inbounds (i8, ptr @gt, i64 4)
-; OLD-NEXT: #dbg_value(i32 %[[b_reg]], ![[y0:[0-9]+]], !DIExpression(),
-; OLD-NEXT: #dbg_value(i32 %[[b_reg]], ![[A0]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
+; OLD-NEXT: %[[a_reg:.*]] = load b32, ptr @gt
+; OLD-NEXT: #dbg_value(b32 %[[a_reg]], ![[x0:[0-9]+]], !DIExpression(),
+; OLD-NEXT: #dbg_value(b32 %[[a_reg]], ![[A0:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; OLD-NEXT: %[[b_reg:.*]] = load b32, ptr getelementptr inbounds (i8, ptr @gt, i64 4)
+; OLD-NEXT: #dbg_value(b32 %[[b_reg]], ![[y0:[0-9]+]], !DIExpression(),
+; OLD-NEXT: #dbg_value(b32 %[[b_reg]], ![[A0]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
 
 ; NEW-NEXT: %[[a_reg:.*]] = load i32, ptr @gt
 ; NEW-NEXT: %[[b_reg:.*]] = load i32, ptr getelementptr inbounds (i8, ptr @gt, i64 4)
@@ -86,17 +86,12 @@ entry:
 ;; 128 bit variable A (!52) bits [96, 128): value bb_reg
 ;;
 ;; NOTE: This 8 byte alloca contains x.b (4 bytes) and y.a (4 bytes).
-; COMMON-NEXT: %[[ab_ba_addr:.*]] = alloca [8 x i8], align 4
-; OLD-NEXT: #dbg_declare(ptr %[[ab_ba_addr]], ![[A1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 64),
-; OLD-NEXT: #dbg_declare(ptr %[[ab_ba_addr]], ![[y1:[0-9]+]], !DIExpression(DW_OP_plus_uconst, 4, DW_OP_LLVM_fragment, 0, 32),
-; OLD-NEXT: #dbg_declare(ptr %[[ab_ba_addr]], ![[x1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
-; OLD-NEXT: %[[aa_reg:.*]] = load i32, ptr @gf, align 4
-; OLD-NEXT: #dbg_value(i32 %[[aa_reg]], ![[x1]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; OLD-NEXT: #dbg_value(i32 %[[aa_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
-; OLD-NEXT: call void @llvm.memcpy{{.*}}(ptr align 4 %[[ab_ba_addr]], ptr align 4 getelementptr inbounds (i8, ptr @gf, i64 4), i64 8, i1 false)
-; OLD-NEXT: %[[bb_reg:.*]] = load i32, ptr getelementptr inbounds (i8, ptr @gf, i64 12), align 4
-; OLD-NEXT: #dbg_value(i32 %[[bb_reg]], ![[y1]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
-; OLD-NEXT: #dbg_value(i32 %[[bb_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 96, 32),
+; OLD-NEXT: %[[aa_reg:.*]] = load b32, ptr @gf, align 4
+; OLD-NEXT: #dbg_value(b32 %[[aa_reg]], ![[x1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; OLD-NEXT: #dbg_value(b32 %[[aa_reg]], ![[A1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; OLD-NEXT: %[[bb_reg:.*]] = load b32, ptr getelementptr inbounds (i8, ptr @gf, i64 12), align 4
+; OLD-NEXT: #dbg_value(b32 %[[bb_reg]], ![[y1]], !DIExpression(DW_OP_LLVM_fragment, 32, 32),
+; OLD-NEXT: #dbg_value(b32 %[[bb_reg]], ![[A1]], !DIExpression(DW_OP_LLVM_fragment, 96, 32),
 
 ; NEW-NEXT: #dbg_assign(i1 poison, ![[x1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 32), ![[#]], ptr %[[ab_ba_addr]], !DIExpression(),
 ; NEW-NEXT: #dbg_assign(i1 poison, ![[A1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 64), ![[#]], ptr %[[ab_ba_addr]], !DIExpression(),
