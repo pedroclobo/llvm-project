@@ -741,7 +741,7 @@ define ptx_kernel void @test_phi(ptr byval(%struct.S) align 4 %input1, ptr byval
 ;
 ; PTX_60-LABEL: test_phi(
 ; PTX_60:       {
-; PTX_60-NEXT:    .reg .pred %p<2>;
+; PTX_60-NEXT:    .reg .pred %p<3>;
 ; PTX_60-NEXT:    .reg .b16 %rs<3>;
 ; PTX_60-NEXT:    .reg .b32 %r<2>;
 ; PTX_60-NEXT:    .reg .b64 %rd<3>;
@@ -752,11 +752,14 @@ define ptx_kernel void @test_phi(ptr byval(%struct.S) align 4 %input1, ptr byval
 ; PTX_60-NEXT:    setp.ne.b16 %p1, %rs2, 0;
 ; PTX_60-NEXT:    ld.param.b64 %rd2, [test_phi_param_2];
 ; PTX_60-NEXT:    cvta.to.global.u64 %rd1, %rd2;
+; PTX_60-NEXT:    not.pred %p2, %p1;
+; PTX_60-NEXT:    @%p2 bra $L__BB13_2;
+; PTX_60-NEXT:  // %bb.1: // %first
 ; PTX_60-NEXT:    ld.param.b32 %r1, [test_phi_param_0];
-; PTX_60-NEXT:    @%p1 bra $L__BB13_2;
-; PTX_60-NEXT:  // %bb.1: // %second
+; PTX_60-NEXT:    bra.uni $L__BB13_3;
+; PTX_60-NEXT:  $L__BB13_2: // %second
 ; PTX_60-NEXT:    ld.param.b32 %r1, [test_phi_param_1+4];
-; PTX_60-NEXT:  $L__BB13_2: // %merge
+; PTX_60-NEXT:  $L__BB13_3: // %merge
 ; PTX_60-NEXT:    st.global.b32 [%rd1], %r1;
 ; PTX_60-NEXT:    ret;
 ;

@@ -6,7 +6,7 @@
 ;; __attribute__((nodebug)) int Cond;
 ;; __attribute__((nodebug)) Blob *C;
 ;; __attribute__((nodebug)) void call(int);
-;; 
+;;
 ;; void f() {
 ;;   int A[16];
 ;;   __attribute__ ((nodebug)) int B[16];
@@ -14,7 +14,7 @@
 ;;   __builtin_memmove(&A[0], &Glob, sizeof(Blob));
 ;;   call(0);
 ;;   // B[8:14) <- Glob
-;;   __builtin_memmove(&B[8], &Glob, sizeof(Blob));  
+;;   __builtin_memmove(&B[8], &Glob, sizeof(Blob));
 ;;   call(A[0]);
 ;;   // A[8:14) <- A[0:6)
 ;;   __builtin_memmove(&A[8], &A[0], sizeof(Blob));
@@ -24,9 +24,9 @@
 ;;     __builtin_memmove(C, &A[8], sizeof(Blob));
 ;;   else
 ;;     // C <- B[8:14)
-;;     __builtin_memmove(C, &B[8], sizeof(Blob));    
+;;     __builtin_memmove(C, &B[8], sizeof(Blob));
 ;; }
-;; 
+;;
 ;; using:
 ;;   clang test.cpp -emit-llvm -S -g -O2 -Xclang -disable-llvm-passes -o - \
 ;;   | opt -passes=declare-to-assign -o test.ll - -S
@@ -162,3 +162,4 @@ declare void @llvm.dbg.assign(metadata, metadata, metadata, metadata, metadata, 
 !50 = !DILocation(line: 23, column: 5, scope: !41)
 !51 = !DILocation(line: 24, column: 1, scope: !9)
 !1000 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
+
