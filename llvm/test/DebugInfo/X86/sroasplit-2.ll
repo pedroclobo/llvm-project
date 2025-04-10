@@ -21,8 +21,8 @@
 
 ; Verify that SROA creates a variable piece when splitting i1.
 ; CHECK:  #dbg_value(i64 %outer.coerce0, ![[O:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 64),
-; CHECK:  #dbg_value(i32 {{.*}}, ![[O]], !DIExpression(DW_OP_LLVM_fragment, 64, 32),
-; CHECK:  #dbg_value(i32 {{.*}}, ![[O]], !DIExpression(DW_OP_LLVM_fragment, 96, 32),
+; CHECK:  #dbg_value(b32 {{.*}}, ![[O]], !DIExpression(DW_OP_LLVM_fragment, 64, 32),
+; CHECK:  #dbg_value(b32 {{.*}}, ![[O]], !DIExpression(DW_OP_LLVM_fragment, 96, 32),
 ; CHECK:  #dbg_value({{.*}}, ![[I1:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
 ; CHECK-DAG: ![[O]] = !DILocalVariable(name: "outer",{{.*}} line: 10
 ; CHECK-DAG: ![[I1]] = !DILocalVariable(name: "i1",{{.*}} line: 11
