@@ -252,7 +252,8 @@ private:
   friend class AllocaSliceRewriter;
 
   bool presplitLoadsAndStores(AllocaInst &AI, AllocaSlices &AS);
-  AllocaInst *rewritePartition(AllocaInst &AI, AllocaSlices &AS, Partition &P);
+  AllocaInst *rewritePartition(AllocaInst &AI, AllocaSlices &AS, Partition &P,
+                               bool UsesByteType);
   bool splitAlloca(AllocaInst &AI, AllocaSlices &AS);
   bool propagateStoredValuesToLoads(AllocaInst &AI, AllocaSlices &AS);
   std::pair<bool /*Changed*/, bool /*CFGChanged*/> runOnAlloca(AllocaInst &AI);
@@ -1120,6 +1121,11 @@ private:
 
   void handleLoadOrStore(Type *Ty, Instruction &I, const APInt &Offset,
                          uint64_t Size, bool IsVolatile) {
+    // Replace constant bytes with constant integers. This enables further
+    // splitting.
+    if (auto *CB = dyn_cast<ConstantByte>(I.getOperand(0)))
+      I.setOperand(0, ConstantInt::get(I.getContext(), CB->getValue()));
+
     // We allow splitting of non-volatile loads and stores where the type is an
     // integer type. These may be used to implement 'memcpy' or other "transfer
     // of bits" patterns.
@@ -1522,17 +1528,27 @@ LLVM_DUMP_METHOD void AllocaSlices::dump() const { print(dbgs()); }
 
 /// Walk the range of a partitioning looking for a common type to cover this
 /// sequence of slices.
-static std::pair<Type *, IntegerType *>
+static std::tuple<Type *, IntegerType *, ByteType *>
 findCommonType(AllocaSlices::const_iterator B, AllocaSlices::const_iterator E,
                uint64_t EndOffset) {
   Type *Ty = nullptr;
   bool TyIsCommon = true;
   IntegerType *ITy = nullptr;
+  ByteType *BTy = nullptr;
 
   // Note that we need to look at *every* alloca slice's Use to ensure we
   // always get consistent results regardless of the order of slices.
   for (AllocaSlices::const_iterator I = B; I != E; ++I) {
     Use *U = I->getUse();
+
+    // `memcpy` and `memmove` should be lowered to byte load/store pairs.
+    if (isa<MemCpyInst>(*U->getUser()) || isa<MemMoveInst>(*U->getUser())) {
+      uint64_t Size = (EndOffset - B->beginOffset()) * 8;
+      // Don't emit load/store larger than 256 bytes.
+      if (Size <= 256)
+        BTy = ByteType::getByteNTy(U->getUser()->getContext(), Size);
+    }
+
     if (isa<IntrinsicInst>(*U->getUser()))
       continue;
     if (I->beginOffset() != B->beginOffset() || I->endOffset() != EndOffset)
@@ -1568,7 +1584,7 @@ findCommonType(AllocaSlices::const_iterator B, AllocaSlices::const_iterator E,
       Ty = UserTy;
   }
 
-  return {TyIsCommon ? Ty : nullptr, ITy};
+  return {TyIsCommon ? Ty : nullptr, ITy, BTy};
 }
 
 /// PHI instructions that use an alloca and are subsequently loaded can be
@@ -5289,8 +5305,25 @@ bool SROA::presplitLoadsAndStores(AllocaInst &AI, AllocaSlices &AS) {
 ///     nullptr.
 static std::tuple<Type *, bool, VectorType *>
 selectPartitionType(Partition &P, const DataLayout &DL, AllocaInst &AI,
-                    LLVMContext &C) {
-  // First check if the partition is viable for vector promotion.
+                    LLVMContext &C, bool UseByteType) {
+
+  // Check if there is a common type that all slices of the partition use that
+  // spans the partition.
+  auto CommonTypes = findCommonType(P.begin(), P.end(), P.endOffset());
+  auto *CommonUseTy = std::get<0>(CommonTypes);
+  auto *LargestIntTy = std::get<1>(CommonTypes);
+  auto *ByteTy = std::get<2>(CommonTypes);
+
+  // If one of the uses is a `memcpy` or a `memmove`, the allocated type should
+  // be a byte type. This enables the subsequent lowering of these intrinsics to
+  // byte load/store pairs.
+  if (ByteTy)
+    return {ByteTy, false, nullptr};
+  if (UseByteType)
+    return {ByteType::getByteNTy(AI.getContext(), P.size() * 8), false,
+            nullptr};
+
+  // Check if the partition is viable for vector promotion.
   //
   // We prefer vector promotion over integer widening promotion when:
   // - The vector element type is a floating-point type.
@@ -5309,10 +5342,6 @@ selectPartitionType(Partition &P, const DataLayout &DL, AllocaInst &AI,
       VecTy->getElementCount().getFixedValue() > 1)
     return {VecTy, false, VecTy};
 
-  // Check if there is a common type that all slices of the partition use that
-  // spans the partition.
-  auto [CommonUseTy, LargestIntTy] =
-      findCommonType(P.begin(), P.end(), P.endOffset());
   if (CommonUseTy) {
     TypeSize CommonUseSize = DL.getTypeAllocSize(CommonUseTy);
     if (CommonUseSize.isFixed() && CommonUseSize.getFixedValue() >= P.size()) {
@@ -5377,11 +5406,11 @@ selectPartitionType(Partition &P, const DataLayout &DL, AllocaInst &AI,
 /// at enabling promotion and if it was successful queues the alloca to be
 /// promoted.
 AllocaInst *SROA::rewritePartition(AllocaInst &AI, AllocaSlices &AS,
-                                   Partition &P) {
+                                   Partition &P, bool UseByteType) {
   const DataLayout &DL = AI.getDataLayout();
   // Select the type for the new alloca that spans the partition.
   auto [PartitionTy, IsIntegerWideningViable, VecTy] =
-      selectPartitionType(P, DL, AI, *C);
+      selectPartitionType(P, DL, AI, *C, UseByteType);
 
   // Check for the case where we're going to rewrite to a new alloca of the
   // exact same type as the original, and with the same access offsets. In that
@@ -5749,8 +5778,13 @@ bool SROA::splitAlloca(AllocaInst &AI, AllocaSlices &AS) {
   SmallVector<Fragment, 4> Fragments;
 
   // Rewrite each partition.
+  bool UseByteType = false;
   for (auto &P : AS.partitions()) {
-    if (AllocaInst *NewAI = rewritePartition(AI, AS, P)) {
+    if (AllocaInst *NewAI = rewritePartition(AI, AS, P, UseByteType)) {
+      // Some partition has a `memcpy`/`memmove` use.
+      // Use a byte type to rewrite the partition.
+      if (NewAI->getAllocatedType()->isByteTy())
+        UseByteType = true;
       Changed = true;
       if (NewAI != &AI) {
         uint64_t SizeOfByte = 8;

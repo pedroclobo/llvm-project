@@ -11,6 +11,9 @@ define dso_local noundef i32 @_Z33block_scaling_decompr_8bitjPK27compressed_data
 ; CHECK-LABEL: define dso_local noundef i32 @_Z33block_scaling_decompr_8bitjPK27compressed_data_8bitP20cmplx_int16_tPKS2_(
 ; CHECK-SAME: i32 noundef [[N_PRB:%.*]], ptr noundef readonly captures(none) [[SRC:%.*]], ptr noundef writeonly captures(none) [[DST:%.*]], ptr noundef readonly captures(address_is_null) [[SCALE:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 ; CHECK-NEXT:  [[ENTRY:.*:]]
+; CHECK-NEXT:    [[AGG_TMP_COERCE_SROA_0:%.*]] = alloca b64, align 8
+; CHECK-NEXT:    [[AGG_TMP37_COERCE_SROA_0:%.*]] = alloca b64, align 8
+; CHECK-NEXT:    [[AGG_TMP42_COERCE_SROA_0:%.*]] = alloca b64, align 8
 ; CHECK-NEXT:    [[CMP47_NOT:%.*]] = icmp eq i32 [[N_PRB]], 0
 ; CHECK-NEXT:    br i1 [[CMP47_NOT]], label %[[FOR_END:.*]], label %[[FOR_BODY_LR_PH:.*]]
 ; CHECK:       [[FOR_BODY_LR_PH]]:
@@ -50,9 +53,6 @@ define dso_local noundef i32 @_Z33block_scaling_decompr_8bitjPK27compressed_data
 ; CHECK:       [[FOR_BODY]]:
 ; CHECK-NEXT:    [[INDVARS_IV:%.*]] = phi i64 [ [[INDVARS_IV_NEXT:%.*]], %[[FOR_BODY]] ], [ 0, %[[FOR_BODY_LR_PH]] ]
 ; CHECK-NEXT:    [[DST_ADDR_052:%.*]] = phi ptr [ [[DST_ADDR_1:%.*]], %[[FOR_BODY]] ], [ [[DST]], %[[FOR_BODY_LR_PH]] ]
-; CHECK-NEXT:    [[AGG_TMP_COERCE_050:%.*]] = phi i64 [ [[AGG_TMP_COERCE_0_INSERT_INSERT:%.*]], %[[FOR_BODY]] ], [ undef, %[[FOR_BODY_LR_PH]] ]
-; CHECK-NEXT:    [[AGG_TMP42_COERCE_049:%.*]] = phi i64 [ [[AGG_TMP42_COERCE_0_INSERT_INSERT:%.*]], %[[FOR_BODY]] ], [ undef, %[[FOR_BODY_LR_PH]] ]
-; CHECK-NEXT:    [[AGG_TMP37_COERCE_048:%.*]] = phi i64 [ [[AGG_TMP37_COERCE_0_INSERT_INSERT:%.*]], %[[FOR_BODY]] ], [ undef, %[[FOR_BODY_LR_PH]] ]
 ; CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw [[STRUCT_COMPRESSED_DATA_8BIT]], ptr [[SRC]], i64 [[INDVARS_IV]]
 ; CHECK-NEXT:    [[MANTISSA:%.*]] = getelementptr inbounds nuw i8, ptr [[ARRAYIDX]], i64 1
 ; CHECK-NEXT:    [[TMP4:%.*]] = load <8 x i8>, ptr [[MANTISSA]], align 1
@@ -71,24 +71,24 @@ define dso_local noundef i32 @_Z33block_scaling_decompr_8bitjPK27compressed_data
 ; CHECK-NEXT:    [[MUL_I87:%.*]] = mul <8 x i16> [[VECINIT7_I86]], [[VMOVL_I59]]
 ; CHECK-NEXT:    [[MUL_I74:%.*]] = mul <8 x i16> [[VECINIT7_I86]], [[VMOVL_I56]]
 ; CHECK-NEXT:    [[MUL_I:%.*]] = mul <8 x i16> [[VECINIT7_I86]], [[VMOVL_I]]
-; CHECK-NEXT:    [[AGG_TMP_SROA_0_0_COPYLOAD:%.*]] = load i32, ptr [[SCALE]], align 2
-; CHECK-NEXT:    [[AGG_TMP_COERCE_0_INSERT_EXT:%.*]] = zext i32 [[AGG_TMP_SROA_0_0_COPYLOAD]] to i64
-; CHECK-NEXT:    [[AGG_TMP_COERCE_0_INSERT_MASK:%.*]] = and i64 [[AGG_TMP_COERCE_050]], -4294967296
-; CHECK-NEXT:    [[AGG_TMP_COERCE_0_INSERT_INSERT]] = or disjoint i64 [[AGG_TMP_COERCE_0_INSERT_MASK]], [[AGG_TMP_COERCE_0_INSERT_EXT]]
-; CHECK-NEXT:    [[CALL33:%.*]] = tail call fastcc noundef <8 x i16> @_ZL24cmplx_mul_combined_re_im11__Int16x8_t20cmplx_int16_t(<8 x i16> noundef [[MUL_I87]], i64 [[AGG_TMP_COERCE_0_INSERT_INSERT]])
+; CHECK-NEXT:    [[AGG_TMP_SROA_0_0_COPYLOAD:%.*]] = load b32, ptr [[SCALE]], align 2
+; CHECK-NEXT:    store b32 [[AGG_TMP_SROA_0_0_COPYLOAD]], ptr [[AGG_TMP_COERCE_SROA_0]], align 8
+; CHECK-NEXT:    [[AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_:%.*]] = load b64, ptr [[AGG_TMP_COERCE_SROA_0]], align 8
+; CHECK-NEXT:    [[AGG_TMP_COERCE_0_INSERT_EXT:%.*]] = bytecast b64 [[AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_AGG_TMP_COERCE_SROA_0_0_]] to i64
+; CHECK-NEXT:    [[CALL33:%.*]] = tail call fastcc noundef <8 x i16> @_ZL24cmplx_mul_combined_re_im11__Int16x8_t20cmplx_int16_t(<8 x i16> noundef [[MUL_I87]], i64 [[AGG_TMP_COERCE_0_INSERT_EXT]])
 ; CHECK-NEXT:    store <8 x i16> [[CALL33]], ptr [[DST_ADDR_052]], align 2
-; CHECK-NEXT:    [[AGG_TMP37_SROA_0_0_COPYLOAD:%.*]] = load i32, ptr [[SCALE]], align 2
-; CHECK-NEXT:    [[AGG_TMP37_COERCE_0_INSERT_EXT:%.*]] = zext i32 [[AGG_TMP37_SROA_0_0_COPYLOAD]] to i64
-; CHECK-NEXT:    [[AGG_TMP37_COERCE_0_INSERT_MASK:%.*]] = and i64 [[AGG_TMP37_COERCE_048]], -4294967296
-; CHECK-NEXT:    [[AGG_TMP37_COERCE_0_INSERT_INSERT]] = or disjoint i64 [[AGG_TMP37_COERCE_0_INSERT_MASK]], [[AGG_TMP37_COERCE_0_INSERT_EXT]]
-; CHECK-NEXT:    [[CALL38:%.*]] = tail call fastcc noundef <8 x i16> @_ZL24cmplx_mul_combined_re_im11__Int16x8_t20cmplx_int16_t(<8 x i16> noundef [[MUL_I74]], i64 [[AGG_TMP37_COERCE_0_INSERT_INSERT]])
+; CHECK-NEXT:    [[AGG_TMP37_SROA_0_0_COPYLOAD:%.*]] = load b32, ptr [[SCALE]], align 2
+; CHECK-NEXT:    store b32 [[AGG_TMP37_SROA_0_0_COPYLOAD]], ptr [[AGG_TMP37_COERCE_SROA_0]], align 8
+; CHECK-NEXT:    [[AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_:%.*]] = load b64, ptr [[AGG_TMP37_COERCE_SROA_0]], align 8
+; CHECK-NEXT:    [[AGG_TMP37_COERCE_0_INSERT_EXT:%.*]] = bytecast b64 [[AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_AGG_TMP37_COERCE_SROA_0_0_]] to i64
+; CHECK-NEXT:    [[CALL38:%.*]] = tail call fastcc noundef <8 x i16> @_ZL24cmplx_mul_combined_re_im11__Int16x8_t20cmplx_int16_t(<8 x i16> noundef [[MUL_I74]], i64 [[AGG_TMP37_COERCE_0_INSERT_EXT]])
 ; CHECK-NEXT:    [[ARRAYIDX39:%.*]] = getelementptr inbounds nuw i8, ptr [[DST_ADDR_052]], i64 16
 ; CHECK-NEXT:    store <8 x i16> [[CALL38]], ptr [[ARRAYIDX39]], align 2
-; CHECK-NEXT:    [[AGG_TMP42_SROA_0_0_COPYLOAD:%.*]] = load i32, ptr [[SCALE]], align 2
-; CHECK-NEXT:    [[AGG_TMP42_COERCE_0_INSERT_EXT:%.*]] = zext i32 [[AGG_TMP42_SROA_0_0_COPYLOAD]] to i64
-; CHECK-NEXT:    [[AGG_TMP42_COERCE_0_INSERT_MASK:%.*]] = and i64 [[AGG_TMP42_COERCE_049]], -4294967296
-; CHECK-NEXT:    [[AGG_TMP42_COERCE_0_INSERT_INSERT]] = or disjoint i64 [[AGG_TMP42_COERCE_0_INSERT_MASK]], [[AGG_TMP42_COERCE_0_INSERT_EXT]]
-; CHECK-NEXT:    [[CALL43:%.*]] = tail call fastcc noundef <8 x i16> @_ZL24cmplx_mul_combined_re_im11__Int16x8_t20cmplx_int16_t(<8 x i16> noundef [[MUL_I]], i64 [[AGG_TMP42_COERCE_0_INSERT_INSERT]])
+; CHECK-NEXT:    [[AGG_TMP42_SROA_0_0_COPYLOAD:%.*]] = load b32, ptr [[SCALE]], align 2
+; CHECK-NEXT:    store b32 [[AGG_TMP42_SROA_0_0_COPYLOAD]], ptr [[AGG_TMP42_COERCE_SROA_0]], align 8
+; CHECK-NEXT:    [[AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_:%.*]] = load b64, ptr [[AGG_TMP42_COERCE_SROA_0]], align 8
+; CHECK-NEXT:    [[AGG_TMP42_COERCE_0_INSERT_EXT:%.*]] = bytecast b64 [[AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_AGG_TMP42_COERCE_SROA_0_0_]] to i64
+; CHECK-NEXT:    [[CALL43:%.*]] = tail call fastcc noundef <8 x i16> @_ZL24cmplx_mul_combined_re_im11__Int16x8_t20cmplx_int16_t(<8 x i16> noundef [[MUL_I]], i64 [[AGG_TMP42_COERCE_0_INSERT_EXT]])
 ; CHECK-NEXT:    [[ARRAYIDX44:%.*]] = getelementptr inbounds nuw i8, ptr [[DST_ADDR_052]], i64 32
 ; CHECK-NEXT:    store <8 x i16> [[CALL43]], ptr [[ARRAYIDX44]], align 2
 ; CHECK-NEXT:    [[DST_ADDR_1]] = getelementptr inbounds nuw i8, ptr [[DST_ADDR_052]], i64 48

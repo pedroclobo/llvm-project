@@ -100,9 +100,9 @@ entry:
 ; IR:          br label %static-memcpy-expansion-main-body
 ; IR:          static-memcpy-expansion-main-body:
 ; IR:          %loop-index = phi i64 [ 0, %entry ], [ [[IndexInc:%[0-9]+]], %static-memcpy-expansion-main-body ]
-; IR:          [[SrcGep:%[0-9]+]] = getelementptr inbounds b8, ptr %src, i64 %loop-index
+; IR:          [[SrcGep:%[0-9]+]] = getelementptr inbounds i8, ptr %src, i64 %loop-index
 ; IR:          [[Load:%[0-9]+]] = load b8, ptr [[SrcGep]]
-; IR:          [[DstGep:%[0-9]+]] = getelementptr inbounds b8, ptr %dst, i64 %loop-index
+; IR:          [[DstGep:%[0-9]+]] = getelementptr inbounds i8, ptr %dst, i64 %loop-index
 ; IR:          store b8 [[Load]], ptr [[DstGep]]
 ; IR:          [[IndexInc]] = add i64 %loop-index, 1
 ; IR:          [[Cond:%[0-9]+]] = icmp ult i64 %3, 144
@@ -154,7 +154,7 @@ entry:
 ; IR-LABEL:   @memmove_caller
 ; IR:         icmp ult ptr %src, %dst
 ; IR:         [[PHIVAL:%[0-9a-zA-Z_]+]] = phi i64
-; IR-NEXT:    %bwd_main_index = sub i64 [[PHIVAL]], 1
+; IR:         %bwd_main_index = sub i64 %6, 1
 ; IR:         [[FWDPHIVAL:%[0-9a-zA-Z_]+]] = phi i64
 ; IR:         {{%[0-9a-zA-Z_]+}} = add i64 [[FWDPHIVAL]], 1
 
@@ -170,11 +170,15 @@ entry:
 ; PTX:        st.b8 [%rd{{[0-9]+}}], %rs[[ELEMENT]]
 ; -- this is the forwards copying BB
 ; PTX:        $L__BB[[FORWARD_BB]]:
-; PTX:        @%p[[NEQ0]] bra $L__BB[[EXIT]]
+; PTX:        @%p[[NEQ0]] bra $L__BB[[FWD_MIDDLE:[0-9_]+]]
 ; PTX:        ld.b8 %rs[[ELEMENT2:[0-9]+]]
 ; PTX:        st.b8 [%rd{{[0-9]+}}], %rs[[ELEMENT2]]
 ; PTX:        add.s64 %rd{{[0-9]+}}, %rd{{[0-9]+}}, 1
 ; -- exit block
+; PTX:        $L__BB[[FWD_MIDDLE]]:
+; PTX:        @%p1 bra $L__BB[[EXIT]]
+; PTX:        ld.b8 %rs[[ELEMENT3:[0-9]+]]
+; PTX:        st.b8 [%rd{{[0-9]+}}], %rs[[ELEMENT3]]
 ; PTX:        $L__BB[[EXIT]]:
 ; PTX-NEXT:   st.param.b64 [func_retval0
 ; PTX-NEXT:   ret
