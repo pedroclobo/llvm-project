@@ -23,24 +23,18 @@
 ;; store may have been already split and then merged again at some point.
 
 ;; Alloca for var.a and associated dbg.assign:
-; CHECK: %var.sroa.0 = alloca i32, align 4, !DIAssignID ![[id_1:[0-9]+]]
-; CHECK-NEXT: #dbg_assign(i1 undef, ![[var:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 32), ![[id_1]], ptr %var.sroa.0, !DIExpression(),
-
-;; Alloca for var.b and associated dbg.assign:
-; CHECK-NEXT: %var.sroa.1 = alloca i32, align 4, !DIAssignID ![[id_2:[0-9]+]]
-; CHECK-NEXT: #dbg_assign(i1 undef, ![[var]], !DIExpression(DW_OP_LLVM_fragment, 64, 32), ![[id_2]], ptr %var.sroa.1, !DIExpression(),
+; CHECK: %var.sroa.0 = alloca b64, align 8, !DIAssignID ![[id_1:[0-9]+]]
+; CHECK-NEXT: #dbg_assign(i1 undef, ![[var:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 32, 64), ![[id_1]], ptr %var.sroa.0, !DIExpression(),
 
 ;; Store to var.b (split from store to var) and associated dbg.assigns. The
 ;; dbg.assign for the fragment covering the (pre-split) assignment to var.a
 ;; should not be linked to the store.
-; CHECK: store i32 %[[v:.*]], ptr %var.sroa.1,{{.*}}!DIAssignID ![[id_3:[0-9]+]]
-; CHECK-NEXT: #dbg_assign(i32 %{{.*var\.sroa\.0.*}}, ![[var]], !DIExpression(DW_OP_LLVM_fragment, 32, 32), ![[id_4:[0-9]+]], ptr %var.sroa.0, !DIExpression(),
-; CHECK-NEXT: #dbg_assign(i32 %[[v]], ![[var]], !DIExpression(DW_OP_LLVM_fragment, 64, 32), ![[id_3]], ptr %var.sroa.1, !DIExpression(),
+; CHECK: store b64 %[[v:.*]], ptr %var.sroa.0,{{.*}}
+; CHECK-NEXT: #dbg_assign(b64 %[[v]], ![[var]], !DIExpression(DW_OP_LLVM_fragment, 32, 32), ![[id_2:[0-9]+]], ptr %var.sroa.0, !DIExpression(),
+; CHECK-NEXT: #dbg_assign(b64 %[[v]], ![[var]], !DIExpression(DW_OP_LLVM_fragment, 64, 32), ![[id_2]], ptr %var.sroa.0, !DIExpression(),
 
 ; CHECK-DAG: ![[id_1]] = distinct !DIAssignID()
 ; CHECK-DAG: ![[id_2]] = distinct !DIAssignID()
-; CHECK-DAG: ![[id_3]] = distinct !DIAssignID()
-; CHECK-DAG: ![[id_4]] = distinct !DIAssignID()
 
 %struct.Tuple = type { i32, i32, i32 }
 
