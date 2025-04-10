@@ -64,10 +64,11 @@ define dso_local ptr @_Z3foo1S(ptr byval(%0) align 8 %arg) {
 ; CHECK-LABEL: @_Z3foo1S(
 ; CHECK-NEXT:  bb:
 ; CHECK-NEXT:    [[I2:%.*]] = alloca [[TMP0:%.*]], align 8
-; CHECK-NEXT:    [[I1_SROA_0_0_COPYLOAD:%.*]] = load ptr, ptr [[ARG:%.*]], align 8
-; CHECK-NEXT:    store ptr [[I1_SROA_0_0_COPYLOAD]], ptr [[I2]], align 8
+; CHECK-NEXT:    [[I1_SROA_0_0_COPYLOAD:%.*]] = load b64, ptr [[ARG:%.*]], align 8
+; CHECK-NEXT:    [[TMP0]] = bytecast exact b64 [[I1_SROA_0_0_COPYLOAD]] to ptr
+; CHECK-NEXT:    store b64 [[I1_SROA_0_0_COPYLOAD]], ptr [[I2]], align 8
 ; CHECK-NEXT:    tail call void @_Z7escape01S(ptr nonnull byval([[TMP0]]) align 8 [[I2]])
-; CHECK-NEXT:    ret ptr [[I1_SROA_0_0_COPYLOAD]]
+; CHECK-NEXT:    ret ptr [[TMP0]]
 ;
 bb:
   %i = alloca %0, align 8

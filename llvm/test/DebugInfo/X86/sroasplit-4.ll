@@ -2,11 +2,24 @@
 ;
 ; Test that recursively splitting an alloca updates the debug info correctly.
 ; CHECK: %[[T:.*]] = load i64, ptr @t, align 8
-; CHECK: #dbg_value(i64 %[[T]], ![[Y:.*]], !DIExpression(DW_OP_LLVM_fragment, 0, 64),
-; CHECK: %[[T1:.*]] = load i64, ptr @t, align 8
-; CHECK: #dbg_value(i64 %[[T1]], ![[Y]], !DIExpression(DW_OP_LLVM_fragment, 64, 64),
-; CHECK: #dbg_value(i64 %[[T]], ![[R:.*]], !DIExpression(DW_OP_LLVM_fragment, 192, 64),
-; CHECK: #dbg_value(i64 %[[T1]], ![[R]], !DIExpression(DW_OP_LLVM_fragment, 256, 64),
+; CHECK: %[[B:.*]] = bytecast exact b128 undef to i128,
+; CHECK: %[[Y_SROA_0_0_INSERT_EXT:.*]] = zext i64 %[[T]] to i128,
+; CHECK: %[[Y_SROA_0_0_INSERT_MASK:.*]] = and i128 %[[B]], -18446744073709551616,
+; CHECK: %[[Y_SROA_0_0_INSERT_INSERT:.*]] = or i128 %[[Y_SROA_0_0_INSERT_MASK]], %[[Y_SROA_0_0_INSERT_EXT]],
+; CHECK: %[[T2:.*]] = bitcast i128 %[[Y_SROA_0_0_INSERT_INSERT]] to b128,
+; CHECK: #dbg_value(b128 %[[T2]], ![[Y:.*]], !DIExpression(),
+; CHECK: %[[T3:.*]] = load i64, ptr @t, align 8
+; CHECK: %[[B2:.*]] = bytecast exact b128 %[[T2]] to i128,
+; CHECK: %[[Y_SROA_0_8_INSERT_EXT:.*]] = zext i64 %[[T3]] to i128,
+; CHECK: %[[Y_SROA_0_8_INSERT_SHIFT:.*]] = shl i128 %[[Y_SROA_0_8_INSERT_EXT]], 64,
+; CHECK: %[[Y_SROA_0_8_INSERT_MASK:.*]] = and i128 %[[B2]], 18446744073709551615,
+; CHECK: %[[Y_SROA_0_8_INSERT_INSERT:.*]] = or i128 %[[Y_SROA_0_8_INSERT_MASK]], %[[Y_SROA_0_8_INSERT_SHIFT]],
+; CHECK: %[[T5:.*]] = bitcast i128 %[[Y_SROA_0_8_INSERT_INSERT]] to b128,
+; CHECK: #dbg_value(b128 %[[T5]], ![[Y]], !DIExpression(),
+; CHECK: #dbg_value(b32 0, ![[R:.*]], !DIExpression(DW_OP_LLVM_fragment, 0, 32),
+; CHECK: #dbg_value(b64 0, ![[R]], !DIExpression(DW_OP_LLVM_fragment, 64, 64),
+; CHECK: #dbg_value(b64 0, ![[R]], !DIExpression(DW_OP_LLVM_fragment, 128, 64),
+; CHECK: #dbg_value(b128 %[[T5]], ![[R]], !DIExpression(DW_OP_LLVM_fragment, 192, 128),
 ;
 ; struct p {
 ;   __SIZE_TYPE__ s;
