@@ -18,34 +18,25 @@
 ;;   | opt -passes=declare-to-assign -S -o -
 
 ; CHECK: entry:
-;; Allocas have been promoted - the linked dbg.assigns have been removed.
+;; Allocas created with byte types
+; CHECK-NEXT: %point.sroa.0 = alloca b128, align 8, !DIAssignID ![[ID1:[0-9]+]]
+; CHECK-NEXT: #dbg_assign(i1 undef, ![[point:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 128), ![[ID1]], ptr %point.sroa.0, !DIExpression(), ![[LOC:[0-9]+]])
+; CHECK-NEXT: %other.sroa.0 = alloca b192, align 8, !DIAssignID ![[ID2:[0-9]+]]
+; CHECK-NEXT: #dbg_assign(i1 undef, ![[other:[0-9]+]], !DIExpression(), ![[ID2]], ptr %other.sroa.0, !DIExpression(), ![[LOC]])
 
-;; | V3i point = {0, 0, 0};
-; CHECK-NEXT: #dbg_value(i64 0, ![[point:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 64),
-; CHECK-NEXT: #dbg_value(i64 0, ![[point]], !DIExpression(DW_OP_LLVM_fragment, 64, 64),
+;; Memset and initial values
+; CHECK: #dbg_assign(i8 0, ![[point]], !DIExpression(DW_OP_LLVM_fragment, 0, 128), !{{[0-9]+}}, ptr %point.sroa.0, !DIExpression(), ![[LOC2:[0-9]+]])
+; CHECK-NEXT: #dbg_value(b64 5000, ![[point]], !DIExpression(DW_OP_LLVM_fragment, 128, 64), ![[LOC3:[0-9]+]])
 
-;; point.z = 5000;
-; CHECK-NEXT: #dbg_value(i64 5000, ![[point]], !DIExpression(DW_OP_LLVM_fragment, 128, 64),
+;; Other variable initialization
+; CHECK-NEXT: %other.sroa.0.0.copyload = load b192, ptr @__const._Z3funv.other, align 8
+; CHECK-NEXT: store b192 %other.sroa.0.0.copyload, ptr %other.sroa.0, align 8, !dbg !{{[0-9]+}}, !DIAssignID ![[ID3:[0-9]+]]
+; CHECK-NEXT: #dbg_assign(b192 %other.sroa.0.0.copyload, ![[other]], !DIExpression(), ![[ID3]], ptr %other.sroa.0, !DIExpression(), !{{[0-9]+}})
 
-;; | V3i other = {10, 9, 8};
-;;   other is global const:
-;;     local.other.x = global.other.x
-;;     local.other.y = global.other.y
-;;     local.other.z = global.other.z
-; CHECK-NEXT: %other.sroa.0.0.copyload = load i64, ptr @__const._Z3funv.other
-; CHECK-NEXT: %other.sroa.2.0.copyload = load i64, ptr getelementptr inbounds (i8, ptr @__const._Z3funv.other, i64 8)
-; CHECK-NEXT: %other.sroa.3.0.copyload = load i64, ptr getelementptr inbounds (i8, ptr @__const._Z3funv.other, i64 16)
-; CHECK-NEXT: #dbg_value(i64 %other.sroa.0.0.copyload, ![[other:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 64),
-; CHECK-NEXT: #dbg_value(i64 %other.sroa.2.0.copyload, ![[other]], !DIExpression(DW_OP_LLVM_fragment, 64, 64),
-; CHECK-NEXT: #dbg_value(i64 %other.sroa.3.0.copyload, ![[other]], !DIExpression(DW_OP_LLVM_fragment, 128, 64),
-
-;; | std::memcpy(&point.y, &other.x, sizeof(long) * 2);
-;;   other is now 3 scalars:
-;;     point.y = other.x
-; CHECK-NEXT: #dbg_value(i64 %other.sroa.0.0.copyload, ![[point]], !DIExpression(DW_OP_LLVM_fragment, 64, 64),
-;;
-;;     point.z = other.y
-; CHECK-NEXT: #dbg_value(i64 %other.sroa.2.0.copyload, ![[point]], !DIExpression(DW_OP_LLVM_fragment, 128, 64),
+;; Memcpy operation and resulting debug info
+; CHECK: call void @llvm.memcpy{{.*}}(ptr align 8 %{{.*}}, ptr align 8 %other.sroa.0, i64 8, i1 false), !dbg !{{[0-9]+}}, !DIAssignID ![[ID4:[0-9]+]]
+; CHECK: #dbg_assign(i1 undef, ![[point]], !DIExpression(DW_OP_LLVM_fragment, 64, 64), ![[ID4]], ptr %{{.*}}, !DIExpression(), !{{[0-9]+}})
+; CHECK-NEXT: #dbg_value(b64 %{{.*}}, ![[point]], !DIExpression(DW_OP_LLVM_fragment, 128, 64), !{{[0-9]+}})
 
 ; CHECK: ![[point]] = !DILocalVariable(name: "point",
 ; CHECK: ![[other]] = !DILocalVariable(name: "other",

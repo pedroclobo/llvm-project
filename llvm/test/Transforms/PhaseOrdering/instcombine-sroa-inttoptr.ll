@@ -64,10 +64,12 @@ define dso_local ptr @_Z3foo1S(ptr byval(%0) align 8 %arg) {
 ; CHECK-LABEL: @_Z3foo1S(
 ; CHECK-NEXT:  bb:
 ; CHECK-NEXT:    [[I2:%.*]] = alloca [[TMP0:%.*]], align 8
-; CHECK-NEXT:    [[I1_SROA_0_0_COPYLOAD:%.*]] = load ptr, ptr [[ARG:%.*]], align 8
-; CHECK-NEXT:    store ptr [[I1_SROA_0_0_COPYLOAD]], ptr [[I2]], align 8
+; CHECK-NEXT:    [[I1_SROA_0_0_COPYLOAD:%.*]] = load b192, ptr [[ARG:%.*]], align 8
+; CHECK-NEXT:    [[TMP0]] = trunc b192 [[I1_SROA_0_0_COPYLOAD]] to b64
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b64 [[TMP0]] to ptr
+; CHECK-NEXT:    store ptr [[TMP1]], ptr [[I2]], align 8
 ; CHECK-NEXT:    tail call void @_Z7escape01S(ptr nonnull byval([[TMP0]]) align 8 [[I2]])
-; CHECK-NEXT:    ret ptr [[I1_SROA_0_0_COPYLOAD]]
+; CHECK-NEXT:    ret ptr [[TMP1]]
 ;
 bb:
   %i = alloca %0, align 8
@@ -94,7 +96,9 @@ declare void @llvm.lifetime.end.p0(ptr nocapture)
 define dso_local ptr @_Z3bar1S(ptr byval(%0) align 8 %arg) {
 ; CHECK-LABEL: @_Z3bar1S(
 ; CHECK-NEXT:  bb:
-; CHECK-NEXT:    [[I1_SROA_0_0_COPYLOAD:%.*]] = load ptr, ptr [[ARG:%.*]], align 8
+; CHECK-NEXT:    [[I1_SROA_0_0_COPYLOAD1:%.*]] = load b192, ptr [[ARG:%.*]], align 8
+; CHECK-NEXT:    [[TMP0:%.*]] = trunc b192 [[I1_SROA_0_0_COPYLOAD1]] to b64
+; CHECK-NEXT:    [[I1_SROA_0_0_COPYLOAD:%.*]] = bytecast b64 [[TMP0]] to ptr
 ; CHECK-NEXT:    [[I5:%.*]] = tail call i32 @_Z4condv()
 ; CHECK-NEXT:    [[I6_NOT:%.*]] = icmp eq i32 [[I5]], 0
 ; CHECK-NEXT:    br i1 [[I6_NOT]], label [[BB10:%.*]], label [[BB7:%.*]]

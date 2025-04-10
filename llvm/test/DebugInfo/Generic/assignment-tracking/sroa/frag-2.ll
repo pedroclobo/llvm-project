@@ -37,10 +37,12 @@
 ; CHECK: define dso_local void @_Z1jv()
 ; CHECK: call void @_ZN1h1iEv(ptr nonnull sret(%class.B) align 4 %m,
 
-; CHECK: store <2 x float> %agg.tmp.sroa.0.0.copyload.i, ptr %4, align 4,{{.+}}!DIAssignID ![[id1:[0-9]+]]
-; CHECK: store <2 x float> %agg.tmp.sroa.2.0.copyload.i, ptr %n.sroa.2.4..sroa_idx, align 4,{{.+}}!DIAssignID ![[id2:[0-9]+]]
-; CHECK-NEXT: #dbg_assign(<2 x float> %agg.tmp.sroa.0.0.copyload.i, ![[var:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 64), ![[id1]], ptr %4, !DIExpression(),
-; CHECK-NEXT: #dbg_assign(<2 x float> %agg.tmp.sroa.2.0.copyload.i, ![[var]], !DIExpression(DW_OP_LLVM_fragment, 64, 64), ![[id2]], ptr %n.sroa.2.4..sroa_idx, !DIExpression(),
+; CHECK: %4 = bitcast <2 x float> %agg.tmp.sroa.0.0.copyload.i to b64,
+; CHECK: %5 = bitcast <2 x float> %agg.tmp.sroa.2.0.copyload.i to b64,
+; CHECK: store b64 %4, ptr %6, align 4,{{.+}}!DIAssignID ![[id1:[0-9]+]]
+; CHECK: store b64 %5, ptr %n.sroa.2.4..sroa_idx, align 4,{{.+}}!DIAssignID ![[id2:[0-9]+]]
+; CHECK: #dbg_assign(b64 %4, ![[var:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 0, 64), ![[id1]], ptr %6, !DIExpression(),
+; CHECK: #dbg_assign(b64 %5, ![[var]], !DIExpression(DW_OP_LLVM_fragment, 64, 64), ![[id2]], ptr %n.sroa.2.4..sroa_idx, !DIExpression(),
 
 ; CHECK: ret
 

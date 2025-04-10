@@ -20,9 +20,11 @@
 
 ; CHECK: %call = call
 ; CHECK-NEXT: %0 = extractvalue { <2 x float>, <2 x float> } %call, 0
-; CHECK-NEXT: %1 = extractvalue { <2 x float>, <2 x float> } %call, 1
-; CHECK-NEXT: #dbg_value(<2 x float> %0, ![[var:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 256, 64),
-; CHECK-NEXT: #dbg_value(<2 x float> %1, ![[var]], !DIExpression(DW_OP_LLVM_fragment, 320, 64),
+; CHECK-NEXT: %1 = bitcast <2 x float> %0 to b64
+; CHECK-NEXT: %2 = extractvalue { <2 x float>, <2 x float> } %call, 1
+; CHECK-NEXT: %3 = bitcast <2 x float> %2 to b64
+; CHECK-NEXT: #dbg_value(b64 %1, ![[var:[0-9]+]], !DIExpression(DW_OP_LLVM_fragment, 256, 64),
+; CHECK-NEXT: #dbg_value(b64 %3, ![[var]], !DIExpression(DW_OP_LLVM_fragment, 320, 64),
 
 %class.c = type { [4 x float] }
 

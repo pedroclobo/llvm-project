@@ -154,16 +154,24 @@ define amdgpu_vs void @promote_load_from_store_aggr_varoff(<4 x i32> %input) {
 
 define amdgpu_vs void @promote_memmove_aggr() #0 {
 ; CHECK-LABEL: @promote_memmove_aggr(
-; CHECK-NEXT:    [[F1:%.*]] = freeze <5 x float> poison
-; CHECK-NEXT:    [[TMP1:%.*]] = insertelement <5 x float> [[F1]], float 0.000000e+00, i32 0
-; CHECK-NEXT:    [[TMP2:%.*]] = insertelement <5 x float> [[TMP1]], float 0.000000e+00, i32 1
-; CHECK-NEXT:    [[TMP3:%.*]] = insertelement <5 x float> [[TMP2]], float 0.000000e+00, i32 2
-; CHECK-NEXT:    [[TMP4:%.*]] = insertelement <5 x float> [[TMP3]], float 0.000000e+00, i32 3
-; CHECK-NEXT:    [[TMP5:%.*]] = insertelement <5 x float> [[TMP4]], float 0.000000e+00, i32 4
-; CHECK-NEXT:    [[TMP6:%.*]] = insertelement <5 x float> [[TMP5]], float 1.000000e+00, i32 1
-; CHECK-NEXT:    [[TMP7:%.*]] = insertelement <5 x float> [[TMP6]], float 2.000000e+00, i32 3
-; CHECK-NEXT:    [[TMP8:%.*]] = shufflevector <5 x float> [[TMP7]], <5 x float> poison, <5 x i32> <i32 1, i32 2, i32 3, i32 4, i32 4>
-; CHECK-NEXT:    store float 1.000000e+00, ptr addrspace(1) @pv, align 4
+; CHECK-NEXT:    [[F1_SROA_0:%.*]] = alloca b160, align 8, addrspace(5)
+; CHECK-NEXT:    store float 0.000000e+00, ptr addrspace(5) [[F1_SROA_0]], align 8
+; CHECK-NEXT:    [[F1_SROA_0_4__FCA_1_GEP_SROA_IDX4:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[F1_SROA_0]], i32 4
+; CHECK-NEXT:    store float 0.000000e+00, ptr addrspace(5) [[F1_SROA_0_4__FCA_1_GEP_SROA_IDX4]], align 4
+; CHECK-NEXT:    [[F1_SROA_0_8__FCA_2_GEP_SROA_IDX5:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[F1_SROA_0]], i32 8
+; CHECK-NEXT:    store float 0.000000e+00, ptr addrspace(5) [[F1_SROA_0_8__FCA_2_GEP_SROA_IDX5]], align 8
+; CHECK-NEXT:    [[F1_SROA_0_12__FCA_3_GEP_SROA_IDX7:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[F1_SROA_0]], i32 12
+; CHECK-NEXT:    store float 0.000000e+00, ptr addrspace(5) [[F1_SROA_0_12__FCA_3_GEP_SROA_IDX7]], align 4
+; CHECK-NEXT:    [[F1_SROA_0_16__FCA_4_GEP_SROA_IDX8:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[F1_SROA_0]], i32 16
+; CHECK-NEXT:    store float 0.000000e+00, ptr addrspace(5) [[F1_SROA_0_16__FCA_4_GEP_SROA_IDX8]], align 8
+; CHECK-NEXT:    [[F1_SROA_0_4_FOO1_SROA_IDX3:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[F1_SROA_0]], i32 4
+; CHECK-NEXT:    store float 1.000000e+00, ptr addrspace(5) [[F1_SROA_0_4_FOO1_SROA_IDX3]], align 4
+; CHECK-NEXT:    [[F1_SROA_0_12_FOO2_SROA_IDX6:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[F1_SROA_0]], i32 12
+; CHECK-NEXT:    store float 2.000000e+00, ptr addrspace(5) [[F1_SROA_0_12_FOO2_SROA_IDX6]], align 4
+; CHECK-NEXT:    [[F1_SROA_0_4_FOO1_SROA_IDX2:%.*]] = getelementptr inbounds i8, ptr addrspace(5) [[F1_SROA_0]], i32 4
+; CHECK-NEXT:    call void @llvm.memmove.p5.p5.i32(ptr addrspace(5) align 8 [[F1_SROA_0]], ptr addrspace(5) align 4 [[F1_SROA_0_4_FOO1_SROA_IDX2]], i32 16, i1 false)
+; CHECK-NEXT:    [[F1_SROA_0_0_F1_SROA_0_0_FOO3:%.*]] = load float, ptr addrspace(5) [[F1_SROA_0]], align 8
+; CHECK-NEXT:    store float [[F1_SROA_0_0_F1_SROA_0_0_FOO3]], ptr addrspace(1) @pv, align 4
 ; CHECK-NEXT:    ret void
 ;
   %f1 = alloca [5 x float], addrspace(5)

@@ -47,9 +47,13 @@ define dso_local noundef <4 x float> @ConvertVectors_ByRef(ptr noundef nonnull a
 define noundef <4 x float> @ConvertVectors_ByVal(ptr noundef nonnull align 16 dereferenceable(16) %V) #0 {
 ; SSE-LABEL: @ConvertVectors_ByVal(
 ; SSE-NEXT:  entry:
-; SSE-NEXT:    [[TMP0:%.*]] = load <4 x float>, ptr [[V:%.*]], align 16
+; SSE-NEXT:    [[V_VAL:%.*]] = load b64, ptr [[V:%.*]], align 16
 ; SSE-NEXT:    [[TMP1:%.*]] = getelementptr inbounds nuw i8, ptr [[V]], i64 8
-; SSE-NEXT:    [[V_VAL421:%.*]] = load i64, ptr [[TMP1]], align 8
+; SSE-NEXT:    [[V_VAL4:%.*]] = load b64, ptr [[TMP1]], align 8
+; SSE-NEXT:    [[TMP4:%.*]] = bytecast b64 [[V_VAL]] to i64
+; SSE-NEXT:    [[TMP5:%.*]] = insertelement <2 x i64> poison, i64 [[TMP4]], i64 0
+; SSE-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[TMP5]] to <4 x float>
+; SSE-NEXT:    [[V_VAL421:%.*]] = bytecast b64 [[V_VAL4]] to i64
 ; SSE-NEXT:    [[TMP2:%.*]] = trunc i64 [[V_VAL421]] to i32
 ; SSE-NEXT:    [[TMP3:%.*]] = bitcast i32 [[TMP2]] to float
 ; SSE-NEXT:    [[VECINIT11:%.*]] = insertelement <4 x float> [[TMP0]], float [[TMP3]], i64 2
@@ -58,9 +62,13 @@ define noundef <4 x float> @ConvertVectors_ByVal(ptr noundef nonnull align 16 de
 ;
 ; AVX-LABEL: @ConvertVectors_ByVal(
 ; AVX-NEXT:  entry:
-; AVX-NEXT:    [[TMP0:%.*]] = load <4 x float>, ptr [[V:%.*]], align 16
+; AVX-NEXT:    [[V_VAL:%.*]] = load b64, ptr [[V:%.*]], align 16
 ; AVX-NEXT:    [[TMP1:%.*]] = getelementptr inbounds nuw i8, ptr [[V]], i64 8
-; AVX-NEXT:    [[V_VAL421:%.*]] = load i64, ptr [[TMP1]], align 8
+; AVX-NEXT:    [[V_VAL4:%.*]] = load b64, ptr [[TMP1]], align 8
+; AVX-NEXT:    [[TMP4:%.*]] = bytecast b64 [[V_VAL]] to i64
+; AVX-NEXT:    [[TMP5:%.*]] = insertelement <2 x i64> poison, i64 [[TMP4]], i64 0
+; AVX-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[TMP5]] to <4 x float>
+; AVX-NEXT:    [[V_VAL421:%.*]] = bytecast b64 [[V_VAL4]] to i64
 ; AVX-NEXT:    [[TMP2:%.*]] = trunc i64 [[V_VAL421]] to i32
 ; AVX-NEXT:    [[TMP3:%.*]] = bitcast i32 [[TMP2]] to float
 ; AVX-NEXT:    [[VECINIT11:%.*]] = insertelement <4 x float> [[TMP0]], float [[TMP3]], i64 2

@@ -26,11 +26,13 @@
 ;; dbg.assign/DIExpression. Ensure that only the value-expression gets fragment
 ;; info; that the address-expression remains untouched.
 
-; CHECK: %i.sroa.2.12.vec.insert = insertelement <2 x float> %i.sroa.2.0.vec.insert, float %2, i32 1, !dbg
-;; There's a few dbg intrinsics we're not interested in testing wedged in here.
-; CHECK-NEXT: #dbg_value
-; CHECK-NEXT: #dbg_value
-; CHECK-NEXT: #dbg_value(float %2,{{.+}}, !DIExpression(DW_OP_LLVM_fragment, 96, 32),
+; CHECK: %{{[0-9]+}} = load float, ptr @c, align 4, !dbg !{{[0-9]+}}
+; CHECK-NEXT: %{{[0-9]+}} = bitcast float %{{[0-9]+}} to b32, !dbg !{{[0-9]+}}
+; CHECK-NEXT: store b96 undef, ptr %i.sroa.0, align 8, !dbg !{{[0-9]+}}, !DIAssignID !{{[0-9]+}}
+; CHECK-NEXT: %i.sroa.0.12..sroa_idx{{[0-9]+}} = getelementptr inbounds i8, ptr %i.sroa.0, i64 12, !dbg !{{[0-9]+}}
+; CHECK-NEXT: store b32 %{{[0-9]+}}, ptr %i.sroa.0.12..sroa_idx{{[0-9]+}}, align 4, !dbg !{{[0-9]+}}, !DIAssignID !{{[0-9]+}}
+; CHECK-NEXT: #dbg_assign(b96 undef, !{{[0-9]+}}, !DIExpression(DW_OP_LLVM_fragment, 0, 96), !{{[0-9]+}}, ptr %i.sroa.0, !DIExpression(), !{{[0-9]+}})
+; CHECK-NEXT: #dbg_assign(b32 %{{[0-9]+}}, !{{[0-9]+}}, !DIExpression(DW_OP_LLVM_fragment, 96, 32), !{{[0-9]+}}, ptr %i.sroa.0.12..sroa_idx{{[0-9]+}}, !DIExpression(), !{{[0-9]+}})
 
 %class.d = type { %class.a }
 %class.a = type { [4 x float] }
