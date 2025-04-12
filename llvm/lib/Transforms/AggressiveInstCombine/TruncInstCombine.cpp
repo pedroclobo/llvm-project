@@ -349,6 +349,8 @@ Type *TruncInstCombine::getBestTruncatedType() {
       (DesiredBitWidth && DesiredBitWidth != MinBitWidth))
     return nullptr;
 
+  if (CurrentTruncInst->getOperand(0)->getType()->isByteOrByteVectorTy())
+    return ByteType::get(CurrentTruncInst->getContext(), MinBitWidth);
   return IntegerType::get(CurrentTruncInst->getContext(), MinBitWidth);
 }
 
