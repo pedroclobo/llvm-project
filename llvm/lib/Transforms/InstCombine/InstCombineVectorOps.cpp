@@ -585,9 +585,10 @@ Instruction *InstCombinerImpl::visitExtractElementInst(ExtractElementInst &EI) {
       }
     } else if (auto *CI = dyn_cast<CastInst>(I)) {
       // Canonicalize extractelement(cast) -> cast(extractelement).
-      // Bitcasts can change the number of vector elements, and they cost
-      // nothing.
-      if (CI->hasOneUse() && (CI->getOpcode() != Instruction::BitCast)) {
+      // Bitcasts/bytecasts can change the number of vector elements, and they
+      // cost nothing.
+      if (CI->hasOneUse() && CI->getOpcode() != Instruction::BitCast &&
+          CI->getOpcode() != Instruction::ByteCast) {
         Value *EE = Builder.CreateExtractElement(CI->getOperand(0), Index);
         return CastInst::Create(CI->getOpcode(), EE, EI.getType());
       }
