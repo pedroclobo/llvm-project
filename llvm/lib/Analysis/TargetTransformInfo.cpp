@@ -1021,6 +1021,13 @@ TargetTransformInfo::getCastContextHint(const Instruction *I) {
     if (I->getOpcode() == LdStOp)
       return CastContextHint::Normal;
 
+    // If the instruction is a bytecast and its operand is a load/store,
+    // consider it a single load/store.
+    if (I->getOpcode() == Instruction::ByteCast)
+      if (auto *OI = dyn_cast<Instruction>(I->getOperand(0)))
+        if (OI->getOpcode() == LdStOp)
+          return CastContextHint::Normal;
+
     if (const IntrinsicInst *II = dyn_cast<IntrinsicInst>(I)) {
       if (II->getIntrinsicID() == MaskedOp)
         return TTI::CastContextHint::Masked;
