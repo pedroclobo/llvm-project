@@ -2514,8 +2514,9 @@ bool VectorCombine::foldShuffleOfCastops(Instruction &I) {
 
   unsigned NumSrcElts = CastSrcTy->getNumElements();
   unsigned NumDstElts = CastDstTy->getNumElements();
-  assert((NumDstElts == NumSrcElts || Opcode == Instruction::BitCast) &&
-         "Only bitcasts expected to alter src/dst element counts");
+  assert((NumDstElts == NumSrcElts || Opcode == Instruction::BitCast ||
+          Opcode == Instruction::ByteCast) &&
+         "Only bitcasts/bytecasts expected to alter src/dst element counts");
 
   // Check for bitcasting of unscalable vector types.
   // e.g. <32 x i40> -> <40 x i32>
