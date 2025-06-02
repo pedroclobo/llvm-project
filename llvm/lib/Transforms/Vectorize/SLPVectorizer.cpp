@@ -9829,6 +9829,7 @@ class InstructionsCompatibilityAnalysis {
     case Instruction::Trunc:
     case Instruction::FPTrunc:
     case Instruction::BitCast:
+    case Instruction::ByteCast:
     case Instruction::ICmp:
     case Instruction::FCmp:
     case Instruction::Select:
