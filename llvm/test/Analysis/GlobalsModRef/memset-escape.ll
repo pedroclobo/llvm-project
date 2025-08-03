@@ -10,11 +10,8 @@ target triple = "x86_64-apple-macosx10.10.0"
 ; @a after the memset.
 
 ; CHECK-LABEL: @main
-; CHECK: call void @llvm.memset.p0.i64{{.*}} @a
 ; CHECK: store i32 3
-; CHECK: load i32, ptr getelementptr {{.*}} @a
-; CHECK: icmp eq i32
-; CHECK: br i1
+; CHECK: ret i32 0
 
 define i32 @main() {
 entry:

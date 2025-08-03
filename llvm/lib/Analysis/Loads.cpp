@@ -631,9 +631,14 @@ static Value *getAvailableLoadStore(Instruction *Inst, const Value *Ptr,
     if (!Val || !Len)
       return nullptr;
 
-    // TODO: Handle offsets.
-    Value *Dst = MSI->getDest();
-    if (!AreEquivalentAddressValues(Dst, Ptr))
+    // Handle offsets.
+    int64_t StoreOffset = 0, LoadOffset = 0;
+    const Value *StoreBase =
+        GetPointerBaseWithConstantOffset(MSI->getDest(), StoreOffset, DL);
+    const Value *LoadBase =
+        GetPointerBaseWithConstantOffset(Ptr, LoadOffset, DL);
+    int64_t Offset = LoadOffset - StoreOffset;
+    if (StoreBase != LoadBase || Offset < 0)
       return nullptr;
 
     if (IsLoadCSE)
@@ -645,7 +650,11 @@ static Value *getAvailableLoadStore(Instruction *Inst, const Value *Ptr,
 
     // Make sure the read bytes are contained in the memset.
     uint64_t LoadSize = LoadTypeSize.getFixedValue();
-    if ((Len->getValue() * 8).ult(LoadSize))
+    if ((Len->getValue() * 8).ult(LoadSize + Offset * 8))
+      return nullptr;
+
+    // If there is an offset, make sure the load size is a multiple of 8.
+    if (Offset && LoadSize % 8 != 0)
       return nullptr;
 
     APInt Splat = LoadSize >= 8 ? APInt::getSplat(LoadSize, Val->getValue())
