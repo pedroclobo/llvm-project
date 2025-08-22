@@ -212,7 +212,7 @@ __m128i test_mm_perm_epi8(__m128i a, __m128i b, __m128i c) {
 
 __m128i test_mm_rot_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_rot_epi8
-  // CHECK: call <16 x i8> @llvm.fshl.v16i8(<16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> %{{.*}})
+  // CHECK: call <16 x b8> @llvm.fshl.v16b8(<16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x b8> %{{.*}})
   return _mm_rot_epi8(a, b);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_rot_epi8((__m128i)(__v16qs){15, -14, -13, -12, 11, 10, 9, 8, 7, 6, 5, -4, 3, -2, 1, 0}, (__m128i)(__v16qs){0, 1, -2, 3, -4, 5, -6, 7, -8, 9, -10, 11, -12, 13, -14, 15}), 15, -27, -4, -89, -80, 65, 36, 4, 7, 12, 65, -25, 48, -33, 4, 0));
@@ -240,7 +240,7 @@ TEST_CONSTEXPR(match_v2di(_mm_rot_epi64((__m128i)(__v2di){99, -55}, (__m128i)(__
 
 __m128i test_mm_roti_epi8(__m128i a) {
   // CHECK-LABEL: test_mm_roti_epi8
-  // CHECK: call <16 x i8> @llvm.fshl.v16i8(<16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> splat (i8 1))
+  // CHECK: call <16 x b8> @llvm.fshl.v16b8(<16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x b8> splat (b8 1))
   return _mm_roti_epi8(a, 1);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_roti_epi8(((__m128i)(__v16qs){0, 1, -2, 3, -4, 5, -6, 7, -8, 9, -10, 11, -12, 13, -14, 15}), 3), 0, 8, -9, 24, -25, 40, -41, 56, -57, 72, -73, 88, -89, 104, -105, 120));

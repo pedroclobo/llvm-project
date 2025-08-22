@@ -11,7 +11,7 @@ __m128i test_mm_loadrs_epi8(const __m128i * __A) {
 __m128i test_mm_mask_loadrs_epi8(__m128i __A, __mmask16 __B, const __m128i * __C) {
   // CHECK-LABEL: @test_mm_mask_loadrs_epi8(
   // CHECK: call <16 x i8> @llvm.x86.avx10.vmovrsb128(
-  // CHECK: select <16 x i1> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> %{{.*}}
+  // CHECK: select <16 x i1> %{{.*}}, <16 x b8> %{{.*}}, <16 x b8> %{{.*}}
   return _mm_mask_loadrs_epi8(__A, __B, __C);
 }
 
@@ -19,7 +19,7 @@ __m128i test_mm_maskz_loadrs_epi8(__mmask16 __A, const __m128i * __B) {
   // CHECK-LABEL: @test_mm_maskz_loadrs_epi8(
   // CHECK: call <16 x i8> @llvm.x86.avx10.vmovrsb128(
   // CHECK: store <2 x i64> zeroinitializer
-  // CHECK: select <16 x i1> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> %{{.*}}
+  // CHECK: select <16 x i1> %{{.*}}, <16 x b8> %{{.*}}, <16 x b8> %{{.*}}
   return _mm_maskz_loadrs_epi8(__A, __B);
 }
 
@@ -32,7 +32,7 @@ __m256i test_mm256_loadrs_epi8(const __m256i * __A) {
 __m256i test_mm256_mask_loadrs_epi8(__m256i __A, __mmask32 __B, const __m256i * __C) {
   // CHECK-LABEL: @test_mm256_mask_loadrs_epi8(
   // CHECK: call <32 x i8> @llvm.x86.avx10.vmovrsb256(
-  // CHECK: select <32 x i1> %{{.*}}, <32 x i8> %{{.*}}, <32 x i8> %{{.*}}
+  // CHECK: select <32 x i1> %{{.*}}, <32 x b8> %{{.*}}, <32 x b8> %{{.*}}
   return _mm256_mask_loadrs_epi8(__A, __B, __C);
 }
 
@@ -40,7 +40,7 @@ __m256i test_mm256_maskz_loadrs_epi8(__mmask32 __A, const __m256i * __B) {
   // CHECK-LABEL: @test_mm256_maskz_loadrs_epi8(
   // CHECK: call <32 x i8> @llvm.x86.avx10.vmovrsb256(
   // CHECK: store <4 x i64> zeroinitializer
-  // CHECK: select <32 x i1> %{{.*}}, <32 x i8> %{{.*}}, <32 x i8> %{{.*}}
+  // CHECK: select <32 x i1> %{{.*}}, <32 x b8> %{{.*}}, <32 x b8> %{{.*}}
   return _mm256_maskz_loadrs_epi8(__A, __B);
 }
 

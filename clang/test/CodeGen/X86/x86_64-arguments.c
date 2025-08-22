@@ -6,7 +6,7 @@
 // RUN:   FileCheck %s -check-prefix=CHECK -check-prefix=AVX -check-prefix=AVX512
 #include <stdarg.h>
 
-// CHECK-LABEL: define{{.*}} signext i8 @f0()
+// CHECK-LABEL: define{{.*}} signext b8 @f0()
 char f0(void) {
   return 0;
 }
@@ -36,7 +36,7 @@ long double f5(void) {
   return 0;
 }
 
-// CHECK-LABEL: define{{.*}} void @f6(i8 noundef signext %a0, i16 noundef signext %a1, i32 noundef %a2, i64 noundef %a3, ptr noundef %a4)
+// CHECK-LABEL: define{{.*}} void @f6(b8 noundef signext %a0, i16 noundef signext %a1, i32 noundef %a2, i64 noundef %a3, ptr noundef %a4)
 void f6(char a0, short a1, int a2, long long a3, void *a4) {
 }
 
@@ -81,7 +81,7 @@ struct s13_1 { long long f0[2]; };
 struct s13_0 f13(int a, int b, int c, int d,
                  struct s13_1 e, int f) { while (1) {} }
 
-// CHECK: define{{.*}} void @f14({{.*}}, i8 noundef signext %X)
+// CHECK: define{{.*}} void @f14({{.*}}, b8 noundef signext %X)
 void f14(int a, int b, int c, int d, int e, int f, char X) {}
 
 // CHECK: define{{.*}} void @f15({{.*}}, ptr noundef %X)
