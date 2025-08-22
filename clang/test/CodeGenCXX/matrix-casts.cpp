@@ -8,9 +8,10 @@ using matrix_5_5 = Y __attribute__((matrix_type(5, 5)));
 
 // CHECK-LABEL: define{{.*}} void @_Z25CastCharMatrixToIntCStylev()
 void CastCharMatrixToIntCStyle() {
-  // CHECK: [[C:%.*]] = load <25 x i8>, ptr {{.*}}, align 1
-  // CHECK-NEXT: [[CONV:%.*]] = sext <25 x i8> [[C]] to <25 x i32>
-  // CHECK-NEXT: store <25 x i32> [[CONV]], ptr {{.*}}, align 4
+  // CHECK: [[C:%.*]] = load <25 x b8>, ptr {{.*}}, align 1
+  // CHECK-NEXT: [[CONV1:%.*]] = bytecast <25 x b8> [[C]] to <25 x i8>
+  // CHECK-NEXT: [[CONV2:%.*]] = sext <25 x i8> [[CONV1]] to <25 x i32>
+  // CHECK-NEXT: store <25 x i32> [[CONV2]], ptr {{.*}}, align 4
 
   matrix_5_5<char> c;
   matrix_5_5<int> i;
@@ -19,9 +20,10 @@ void CastCharMatrixToIntCStyle() {
 
 // CHECK-LABEL: define{{.*}} void @_Z29CastCharMatrixToIntStaticCastv()
 void CastCharMatrixToIntStaticCast() {
-  // CHECK: [[C:%.*]] = load <25 x i8>, ptr {{.*}}, align 1
-  // CHECK-NEXT: [[CONV:%.*]] = sext <25 x i8> [[C]] to <25 x i32>
-  // CHECK-NEXT: store <25 x i32> [[CONV]], ptr {{.*}}, align 4
+  // CHECK: [[C:%.*]] = load <25 x b8>, ptr {{.*}}, align 1
+  // CHECK-NEXT: [[CONV1:%.*]] = bytecast <25 x b8> [[C]] to <25 x i8>
+  // CHECK-NEXT: [[CONV2:%.*]] = sext <25 x i8> [[CONV1]] to <25 x i32>
+  // CHECK-NEXT: store <25 x i32> [[CONV2]], ptr {{.*}}, align 4
 
   matrix_5_5<char> c;
   matrix_5_5<int> i;
@@ -30,9 +32,10 @@ void CastCharMatrixToIntStaticCast() {
 
 // CHECK-LABEL: define{{.*}} void @_Z33CastCharMatrixToUnsignedIntCStylev
 void CastCharMatrixToUnsignedIntCStyle() {
-  // CHECK:       [[C:%.*]] = load <25 x i8>, ptr {{.*}}, align 1
-  // CHECK-NEXT:  [[CONV:%.*]] = sext <25 x i8> [[C]] to <25 x i32>
-  // CHECK-NEXT:  store <25 x i32> [[CONV]], ptr {{.*}}, align 4
+  // CHECK: [[C:%.*]] = load <25 x b8>, ptr {{.*}}, align 1
+  // CHECK-NEXT: [[CONV1:%.*]] = bytecast <25 x b8> [[C]] to <25 x i8>
+  // CHECK-NEXT: [[CONV2:%.*]] = sext <25 x i8> [[CONV1]] to <25 x i32>
+  // CHECK-NEXT:  store <25 x i32> [[CONV2]], ptr {{.*}}, align 4
   // CHECK-NEXT:  ret void
 
   matrix_5_5<char> c;
@@ -42,9 +45,10 @@ void CastCharMatrixToUnsignedIntCStyle() {
 
 // CHECK-LABEL: define{{.*}} void @_Z37CastCharMatrixToUnsignedIntStaticCastv
 void CastCharMatrixToUnsignedIntStaticCast() {
-  // CHECK:       [[C:%.*]] = load <25 x i8>, ptr {{.*}}, align 1
-  // CHECK-NEXT:  [[CONV:%.*]] = sext <25 x i8> [[C]] to <25 x i32>
-  // CHECK-NEXT:  store <25 x i32> [[CONV]], ptr {{.*}}, align 4
+  // CHECK: [[C:%.*]] = load <25 x b8>, ptr {{.*}}, align 1
+  // CHECK-NEXT: [[CONV1:%.*]] = bytecast <25 x b8> [[C]] to <25 x i8>
+  // CHECK-NEXT: [[CONV2:%.*]] = sext <25 x i8> [[CONV1]] to <25 x i32>
+  // CHECK-NEXT:  store <25 x i32> [[CONV2]], ptr {{.*}}, align 4
   // CHECK-NEXT:  ret void
 
   matrix_5_5<char> c;

@@ -47,12 +47,12 @@ typedef double __attribute__((ext_vector_type(4))) double4;
 typedef double __attribute__((ext_vector_type(8))) double8;
 typedef double __attribute__((ext_vector_type(16))) double16;
 
-// CHECK: @local_memory_alignment_global.lds_i8 = internal addrspace(3) global [4 x i8] undef, align 1
-// CHECK: @local_memory_alignment_global.lds_v2i8 = internal addrspace(3) global [4 x <2 x i8>] undef, align 2
-// CHECK: @local_memory_alignment_global.lds_v3i8 = internal addrspace(3) global [4 x <3 x i8>] undef, align 4
-// CHECK: @local_memory_alignment_global.lds_v4i8 = internal addrspace(3) global [4 x <4 x i8>] undef, align 4
-// CHECK: @local_memory_alignment_global.lds_v8i8 = internal addrspace(3) global [4 x <8 x i8>] undef, align 8
-// CHECK: @local_memory_alignment_global.lds_v16i8 = internal addrspace(3) global [4 x <16 x i8>] undef, align 16
+// CHECK: @local_memory_alignment_global.lds_i8 = internal addrspace(3) global [4 x b8] undef, align 1
+// CHECK: @local_memory_alignment_global.lds_v2i8 = internal addrspace(3) global [4 x <2 x b8>] undef, align 2
+// CHECK: @local_memory_alignment_global.lds_v3i8 = internal addrspace(3) global [4 x <3 x b8>] undef, align 4
+// CHECK: @local_memory_alignment_global.lds_v4i8 = internal addrspace(3) global [4 x <4 x b8>] undef, align 4
+// CHECK: @local_memory_alignment_global.lds_v8i8 = internal addrspace(3) global [4 x <8 x b8>] undef, align 8
+// CHECK: @local_memory_alignment_global.lds_v16i8 = internal addrspace(3) global [4 x <16 x b8>] undef, align 16
 // CHECK: @local_memory_alignment_global.lds_i16 = internal addrspace(3) global [4 x i16] undef, align 2
 // CHECK: @local_memory_alignment_global.lds_v2i16 = internal addrspace(3) global [4 x <2 x i16>] undef, align 4
 // CHECK: @local_memory_alignment_global.lds_v3i16 = internal addrspace(3) global [4 x <3 x i16>] undef, align 8
@@ -93,11 +93,11 @@ typedef double __attribute__((ext_vector_type(16))) double16;
 
 // CHECK-LABEL: @local_memory_alignment_global(
 // CHECK: store volatile i8 0, ptr addrspace(3) @local_memory_alignment_global.lds_i8, align 1
-// CHECK: store volatile <2 x i8> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v2i8, align 2
-// CHECK: store volatile <4 x i8> <i8 0, i8 0, i8 0, i8 undef>, ptr addrspace(3) @local_memory_alignment_global.lds_v3i8, align 4
-// CHECK: store volatile <4 x i8> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v4i8, align 4
-// CHECK: store volatile <8 x i8> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v8i8, align 8
-// CHECK: store volatile <16 x i8> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v16i8, align 16
+// CHECK: store volatile <2 x b8> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v2i8, align 2
+// CHECK: store volatile <4 x b8> <b8 0, b8 0, b8 0, b8 undef>, ptr addrspace(3) @local_memory_alignment_global.lds_v3i8, align 4
+// CHECK: store volatile <4 x b8> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v4i8, align 4
+// CHECK: store volatile <8 x b8> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v8i8, align 8
+// CHECK: store volatile <16 x b8> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v16i8, align 16
 // CHECK: store volatile i16 0, ptr addrspace(3) @local_memory_alignment_global.lds_i16, align 2
 // CHECK: store volatile <2 x i16> zeroinitializer, ptr addrspace(3) @local_memory_alignment_global.lds_v2i16, align 4
 // CHECK: store volatile <4 x i16> <i16 0, i16 0, i16 0, i16 undef>, ptr addrspace(3) @local_memory_alignment_global.lds_v3i16, align 8
@@ -336,12 +336,12 @@ kernel void local_memory_alignment_arg(
 }
 
 // CHECK-LABEL: @private_memory_alignment_alloca(
-// CHECK: %private_i8 = alloca [4 x i8], align 1, addrspace(5)
-// CHECK: %private_v2i8 = alloca [4 x <2 x i8>], align 2, addrspace(5)
-// CHECK: %private_v3i8 = alloca [4 x <3 x i8>], align 4, addrspace(5)
-// CHECK: %private_v4i8 = alloca [4 x <4 x i8>], align 4, addrspace(5)
-// CHECK: %private_v8i8 = alloca [4 x <8 x i8>], align 8, addrspace(5)
-// CHECK: %private_v16i8 = alloca [4 x <16 x i8>], align 16, addrspace(5)
+// CHECK: %private_i8 = alloca [4 x b8], align 1, addrspace(5)
+// CHECK: %private_v2i8 = alloca [4 x <2 x b8>], align 2, addrspace(5)
+// CHECK: %private_v3i8 = alloca [4 x <3 x b8>], align 4, addrspace(5)
+// CHECK: %private_v4i8 = alloca [4 x <4 x b8>], align 4, addrspace(5)
+// CHECK: %private_v8i8 = alloca [4 x <8 x b8>], align 8, addrspace(5)
+// CHECK: %private_v16i8 = alloca [4 x <16 x b8>], align 16, addrspace(5)
 // CHECK: %private_i16 = alloca [4 x i16], align 2, addrspace(5)
 // CHECK: %private_v2i16 = alloca [4 x <2 x i16>], align 4, addrspace(5)
 // CHECK: %private_v3i16 = alloca [4 x <3 x i16>], align 8, addrspace(5)
@@ -380,11 +380,11 @@ kernel void local_memory_alignment_arg(
 // CHECK: %private_v16f64 = alloca [4 x <16 x double>], align 128, addrspace(5)
 
 // CHECK: store volatile i8 0, ptr addrspace(5) %arraydecay, align 1
-// CHECK: store volatile <2 x i8> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 2
-// CHECK: store volatile <4 x i8> <i8 0, i8 0, i8 0, i8 undef>, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 4
-// CHECK: store volatile <4 x i8> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 4
-// CHECK: store volatile <8 x i8> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 8
-// CHECK: store volatile <16 x i8> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 16
+// CHECK: store volatile <2 x b8> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 2
+// CHECK: store volatile <4 x b8> <b8 0, b8 0, b8 0, b8 undef>, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 4
+// CHECK: store volatile <4 x b8> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 4
+// CHECK: store volatile <8 x b8> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 8
+// CHECK: store volatile <16 x b8> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 16
 // CHECK: store volatile i16 0, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 2
 // CHECK: store volatile <2 x i16> zeroinitializer, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 4
 // CHECK: store volatile <4 x i16> <i16 0, i16 0, i16 0, i16 undef>, ptr addrspace(5) %arraydecay{{[0-9]+}}, align 8

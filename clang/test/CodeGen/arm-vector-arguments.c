@@ -9,7 +9,7 @@
 
 #include <arm_neon.h>
 
-// CHECK: define{{.*}} void @f0(ptr dead_on_unwind noalias writable sret(%struct.int8x16x2_t) align 16 %agg.result, <16 x i8> noundef %{{.*}}, <16 x i8> noundef %{{.*}})
+// CHECK: define{{.*}} void @f0(ptr dead_on_unwind noalias writable sret(%struct.int8x16x2_t) align 16 %agg.result, <16 x b8> noundef %{{.*}}, <16 x b8> noundef %{{.*}})
 int8x16x2_t f0(int8x16_t a0, int8x16_t a1) {
   return vzipq_s8(a0, a1);
 }

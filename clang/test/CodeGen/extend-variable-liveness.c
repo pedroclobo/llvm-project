@@ -18,7 +18,7 @@ int foo(int i) {
       // CHECK-NEXT: br label %
     }
     glob_i = j;
-    // CHECK: call void (...) @llvm.fake.use(i8 %
+    // CHECK: call void (...) @llvm.fake.use(b8 %
     // CHECK-NEXT: br label %
   }
   // CHECK: call void (...) @llvm.fake.use(i32 %

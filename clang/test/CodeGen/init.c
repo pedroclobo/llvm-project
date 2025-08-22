@@ -55,7 +55,7 @@ vec3 f5(vec3 value) {
 
 void f6(void) {
   int x;
-  long ids[] = { (long) &x };  
+  long ids[] = { (long) &x };
 }
 
 
@@ -80,7 +80,7 @@ struct Huge {
   int arr[1000 * 1000 * 1000];
 } huge_struct = {1, {2, 0, 0, 0}};
 
-// CHECK-DAG: @large_array_with_zeroes ={{.*}} constant <{ [21 x i8], [979 x i8] }> <{ [21 x i8] c"abc\01\02\03xyzzy\00\00\00\00\00\00\00\00\00q", [979 x i8] zeroinitializer }>
+// CHECK-DAG: @large_array_with_zeroes ={{.*}} constant <{ [21 x b8], [979 x b8] }> <{ [21 x b8] c"abc\01\02\03xyzzy\00\00\00\00\00\00\00\00\00q", [979 x b8] zeroinitializer }>
 const char large_array_with_zeroes[1000] = {
   'a', 'b', 'c', 1, 2, 3, 'x', 'y', 'z', 'z', 'y', [20] = 'q'
 };

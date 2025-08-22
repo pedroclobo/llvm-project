@@ -35,7 +35,7 @@
 // Scalar types
 
 char pass_char(char arg) { return arg; }
-// CHECK-LABEL: define{{.*}} signext i8 @pass_char(i8 signext %{{.*}})
+// CHECK-LABEL: define{{.*}} signext b8 @pass_char(b8 signext %{{.*}})
 
 short pass_short(short arg) { return arg; }
 // CHECK-LABEL: define{{.*}} signext i16 @pass_short(i16 signext %{{.*}})
@@ -68,7 +68,7 @@ long double pass_longdouble(long double arg) { return arg; }
 // Complex types
 
 _Complex char pass_complex_char(_Complex char arg) { return arg; }
-// CHECK-LABEL: define{{.*}} void @pass_complex_char(ptr dead_on_unwind noalias writable sret({ i8, i8 }) align 1 %{{.*}}, ptr dead_on_return %{{.*}}arg)
+// CHECK-LABEL: define{{.*}} void @pass_complex_char(ptr dead_on_unwind noalias writable sret({ b8, b8 }) align 1 %{{.*}}, ptr dead_on_return %{{.*}}arg)
 
 _Complex short pass_complex_short(_Complex short arg) { return arg; }
 // CHECK-LABEL: define{{.*}} void @pass_complex_short(ptr dead_on_unwind noalias writable sret({ i16, i16 }) align 2 %{{.*}}, ptr dead_on_return %{{.*}}arg)
@@ -213,7 +213,7 @@ union union_double pass_union_double(union union_double arg) { return arg; }
 
 union tu_char { char a; } __attribute__((transparent_union));
 union tu_char pass_tu_char(union tu_char arg) { return arg; }
-// CHECK-LABEL: define{{.*}} void @pass_tu_char(ptr dead_on_unwind noalias writable sret(%union.tu_char) align 1 %{{.*}}, i8 signext %{{.*}})
+// CHECK-LABEL: define{{.*}} void @pass_tu_char(ptr dead_on_unwind noalias writable sret(%union.tu_char) align 1 %{{.*}}, b8 signext %{{.*}})
 
 union tu_short { short a; } __attribute__((transparent_union));
 union tu_short pass_tu_short(union tu_short arg) { return arg; }
@@ -350,7 +350,7 @@ long double va_longdouble(__builtin_va_list l) { return __builtin_va_arg(l, long
 // CHECK: ret void
 
 _Complex char va_complex_char(__builtin_va_list l) { return __builtin_va_arg(l, _Complex char); }
-// CHECK-LABEL: define{{.*}} void @va_complex_char(ptr dead_on_unwind noalias writable sret({ i8, i8 }) align 1 %{{.*}}, ptr %{{.*}}
+// CHECK-LABEL: define{{.*}} void @va_complex_char(ptr dead_on_unwind noalias writable sret({ b8, b8 }) align 1 %{{.*}}, ptr %{{.*}}
 // CHECK: [[REG_COUNT_PTR:%[^ ]+]] = getelementptr inbounds nuw %struct.__va_list_tag, ptr %{{.*}}, i32 0, i32 0
 // CHECK: [[REG_COUNT:%[^ ]+]] = load i64, ptr [[REG_COUNT_PTR]]
 // CHECK: [[FITS_IN_REGS:%[^ ]+]] = icmp ult i64 [[REG_COUNT]], 5
@@ -679,4 +679,3 @@ struct agg_nofloat3 va_agg_nofloat3(__builtin_va_list l) { return __builtin_va_a
 // CHECK: store ptr [[OVERFLOW_ARG_AREA2]], ptr [[OVERFLOW_ARG_AREA_PTR]]
 // CHECK: [[VA_ARG_ADDR:%[^ ]+]] = phi ptr [ [[RAW_REG_ADDR]], %{{.*}} ], [ [[RAW_MEM_ADDR]], %{{.*}} ]
 // CHECK: ret void
-

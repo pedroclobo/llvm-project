@@ -10,7 +10,7 @@ template<S s> constexpr const void* observable_addr() { return callee(&s); }
 
 // CHECK: [[HELLO:@_ZTAXtl1StlA32_cLc104ELc101ELc108ELc108ELc111ELc32ELc119ELc111ELc114ELc108ELc100EEEE]]
 // WITH-NONZERO-DEFAULT-AS: [[HELLO:@_ZTAXtl1StlA32_cLc104ELc101ELc108ELc108ELc111ELc32ELc119ELc111ELc114ELc108ELc100EEEE]]
-// CHECK-SAME: = linkonce_odr addrspace(1) constant { <{ [11 x i8], [21 x i8] }> } { <{ [11 x i8], [21 x i8] }> <{ [11 x i8] c"hello world", [21 x i8] zeroinitializer }> }, comdat
+// CHECK-SAME: = linkonce_odr addrspace(1) constant { <{ [11 x b8], [21 x b8] }> } { <{ [11 x b8], [21 x b8] }> <{ [11 x b8] c"hello world", [21 x b8] zeroinitializer }> }, comdat
 
 // CHECK: @p
 // CHECK-SAME: addrspace(1) global ptr addrspacecast (ptr addrspace(1) [[HELLO]] to ptr)

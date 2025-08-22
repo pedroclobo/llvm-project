@@ -55,7 +55,8 @@ void foo_reduction_array() {
 // CHECK: sext i8
 // CHECK: [[MUL:%.+]] = mul nsw i32 %{{.+}}, %{{.+}}
 // CHECK-NEXT: [[TRUNC:%.+]] = trunc i32 [[MUL]] to i8
-// CHECK-NEXT: store i8 [[TRUNC]], ptr
+// CHECK-NEXT: [[CAST:%.+]] = bitcast i8 [[TRUNC]] to b8
+// CHECK-NEXT: store b8 [[CAST]], ptr
 // CHECK-NEXT: ret void
 // CHECK-NEXT: }
 
@@ -64,7 +65,8 @@ void foo_reduction_array() {
 // CHECK-LOAD: sext i8
 // CHECK-LOAD: [[MUL:%.+]] = mul nsw i32 %{{.+}}, %{{.+}}
 // CHECK-LOAD-NEXT: [[TRUNC:%.+]] = trunc i32 [[MUL]] to i8
-// CHECK-LOAD-NEXT: store i8 [[TRUNC]], ptr
+// CHECK-LOAD-NEXT: [[CAST:%.+]] = bitcast i8 [[TRUNC]] to b8
+// CHECK-LOAD-NEXT: store b8 [[CAST]], ptr
 // CHECK-LOAD-NEXT: ret void
 // CHECK-LOAD-NEXT: }
 

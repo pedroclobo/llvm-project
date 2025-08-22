@@ -27,7 +27,7 @@ void foo() { extern void mayThrow(); mayThrow(); }
 // ALL-LABEL: @main
 // TERM_DEBUG-LABEL: @main
 int main() {
-  // ALL:       [[A_ADDR:%.+]] = alloca i8
+  // ALL:       [[A_ADDR:%.+]] = alloca b8
   char a;
 
 // ALL:       			[[GTID:%.+]] = call {{.*}}i32 @__kmpc_global_thread_num(ptr [[DEFAULT_LOC:@.+]])

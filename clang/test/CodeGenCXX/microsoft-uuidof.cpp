@@ -50,7 +50,7 @@ GUID thing = (side_effect(), __uuidof(Curly));
 // CHECK-DEFINE-WRONG-GUID: @g ={{.*}} global %struct._GUID zeroinitializer, align 4
 GUID g = (side_effect(), __uuidof(S1));
 
-// CHECK-DEFINE-GUID: @const_init ={{.*}} global %struct._GUID { i32 305419896, i16 4660, i16 4660, [8 x i8] c"\124\124Vx\90\AC" }
+// CHECK-DEFINE-GUID: @const_init ={{.*}} global %struct._GUID { i32 305419896, i16 4660, i16 4660, [8 x b8] c"\124\124Vx\90\AC" }
 // CHECK-DEFINE-WRONG-GUID: @const_init ={{.*}} global %struct._GUID zeroinitializer
 GUID const_init = __uuidof(Curly);
 #endif

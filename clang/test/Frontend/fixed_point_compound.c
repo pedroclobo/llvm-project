@@ -238,19 +238,20 @@ void add_iula(void) {
 // CHECK-LABEL: @add_ca(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr @a, align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr @c, align 1
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV]] to i47
+// CHECK-NEXT:    [[TMP1:%.*]] = load b8, ptr @c, align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV1]] to i47
 // CHECK-NEXT:    [[UPSCALE:%.*]] = shl i47 [[RESIZE]], 15
-// CHECK-NEXT:    [[RESIZE1:%.*]] = sext i32 [[TMP0]] to i47
-// CHECK-NEXT:    [[TMP2:%.*]] = add i47 [[UPSCALE]], [[RESIZE1]]
-// CHECK-NEXT:    [[RESIZE2:%.*]] = trunc i47 [[TMP2]] to i32
-// CHECK-NEXT:    [[TMP3:%.*]] = icmp slt i32 [[RESIZE2]], 0
-// CHECK-NEXT:    [[TMP4:%.*]] = add i32 [[RESIZE2]], 32767
-// CHECK-NEXT:    [[TMP5:%.*]] = select i1 [[TMP3]], i32 [[TMP4]], i32 [[RESIZE2]]
+// CHECK-NEXT:    [[RESIZE2:%.*]] = sext i32 [[TMP0]] to i47
+// CHECK-NEXT:    [[TMP2:%.*]] = add i47 [[UPSCALE]], [[RESIZE2]]
+// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i47 [[TMP2]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = icmp slt i32 [[RESIZE3]], 0
+// CHECK-NEXT:    [[TMP4:%.*]] = add i32 [[RESIZE3]], 32767
+// CHECK-NEXT:    [[TMP5:%.*]] = select i1 [[TMP3]], i32 [[TMP4]], i32 [[RESIZE3]]
 // CHECK-NEXT:    [[DOWNSCALE:%.*]] = ashr i32 [[TMP5]], 15
-// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i32 [[DOWNSCALE]] to i8
-// CHECK-NEXT:    store i8 [[RESIZE3]], ptr @c, align 1
+// CHECK-NEXT:    [[RESIZE4:%.*]] = trunc i32 [[DOWNSCALE]] to i8
+// CHECK-NEXT:    store i8 [[RESIZE4]], ptr @c, align 1
 // CHECK-NEXT:    ret void
 //
 void add_ca(void) {
@@ -280,23 +281,24 @@ void add_sai(void) {
 // CHECK-LABEL: @add_csa(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr @sa, align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr @c, align 1
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV]] to i47
+// CHECK-NEXT:    [[TMP1:%.*]] = load b8, ptr @c, align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV1]] to i47
 // CHECK-NEXT:    [[UPSCALE:%.*]] = shl i47 [[RESIZE]], 15
-// CHECK-NEXT:    [[RESIZE1:%.*]] = sext i32 [[TMP0]] to i47
-// CHECK-NEXT:    [[TMP2:%.*]] = call i47 @llvm.sadd.sat.i47(i47 [[UPSCALE]], i47 [[RESIZE1]])
+// CHECK-NEXT:    [[RESIZE2:%.*]] = sext i32 [[TMP0]] to i47
+// CHECK-NEXT:    [[TMP2:%.*]] = call i47 @llvm.sadd.sat.i47(i47 [[UPSCALE]], i47 [[RESIZE2]])
 // CHECK-NEXT:    [[TMP3:%.*]] = icmp sgt i47 [[TMP2]], 2147483647
 // CHECK-NEXT:    [[SATMAX:%.*]] = select i1 [[TMP3]], i47 2147483647, i47 [[TMP2]]
 // CHECK-NEXT:    [[TMP4:%.*]] = icmp slt i47 [[SATMAX]], -2147483648
 // CHECK-NEXT:    [[SATMIN:%.*]] = select i1 [[TMP4]], i47 -2147483648, i47 [[SATMAX]]
-// CHECK-NEXT:    [[RESIZE2:%.*]] = trunc i47 [[SATMIN]] to i32
-// CHECK-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[RESIZE2]], 0
-// CHECK-NEXT:    [[TMP6:%.*]] = add i32 [[RESIZE2]], 32767
-// CHECK-NEXT:    [[TMP7:%.*]] = select i1 [[TMP5]], i32 [[TMP6]], i32 [[RESIZE2]]
+// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i47 [[SATMIN]] to i32
+// CHECK-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[RESIZE3]], 0
+// CHECK-NEXT:    [[TMP6:%.*]] = add i32 [[RESIZE3]], 32767
+// CHECK-NEXT:    [[TMP7:%.*]] = select i1 [[TMP5]], i32 [[TMP6]], i32 [[RESIZE3]]
 // CHECK-NEXT:    [[DOWNSCALE:%.*]] = ashr i32 [[TMP7]], 15
-// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i32 [[DOWNSCALE]] to i8
-// CHECK-NEXT:    store i8 [[RESIZE3]], ptr @c, align 1
+// CHECK-NEXT:    [[RESIZE4:%.*]] = trunc i32 [[DOWNSCALE]] to i8
+// CHECK-NEXT:    store i8 [[RESIZE4]], ptr @c, align 1
 // CHECK-NEXT:    ret void
 //
 void add_csa(void) {
@@ -468,23 +470,24 @@ void sub_ai(void) {
 // CHECK-LABEL: @sub_csa(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr @sa, align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr @c, align 1
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV]] to i47
+// CHECK-NEXT:    [[TMP1:%.*]] = load b8, ptr @c, align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV1]] to i47
 // CHECK-NEXT:    [[UPSCALE:%.*]] = shl i47 [[RESIZE]], 15
-// CHECK-NEXT:    [[RESIZE1:%.*]] = sext i32 [[TMP0]] to i47
-// CHECK-NEXT:    [[TMP2:%.*]] = call i47 @llvm.ssub.sat.i47(i47 [[UPSCALE]], i47 [[RESIZE1]])
+// CHECK-NEXT:    [[RESIZE2:%.*]] = sext i32 [[TMP0]] to i47
+// CHECK-NEXT:    [[TMP2:%.*]] = call i47 @llvm.ssub.sat.i47(i47 [[UPSCALE]], i47 [[RESIZE2]])
 // CHECK-NEXT:    [[TMP3:%.*]] = icmp sgt i47 [[TMP2]], 2147483647
 // CHECK-NEXT:    [[SATMAX:%.*]] = select i1 [[TMP3]], i47 2147483647, i47 [[TMP2]]
 // CHECK-NEXT:    [[TMP4:%.*]] = icmp slt i47 [[SATMAX]], -2147483648
 // CHECK-NEXT:    [[SATMIN:%.*]] = select i1 [[TMP4]], i47 -2147483648, i47 [[SATMAX]]
-// CHECK-NEXT:    [[RESIZE2:%.*]] = trunc i47 [[SATMIN]] to i32
-// CHECK-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[RESIZE2]], 0
-// CHECK-NEXT:    [[TMP6:%.*]] = add i32 [[RESIZE2]], 32767
-// CHECK-NEXT:    [[TMP7:%.*]] = select i1 [[TMP5]], i32 [[TMP6]], i32 [[RESIZE2]]
+// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i47 [[SATMIN]] to i32
+// CHECK-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[RESIZE3]], 0
+// CHECK-NEXT:    [[TMP6:%.*]] = add i32 [[RESIZE3]], 32767
+// CHECK-NEXT:    [[TMP7:%.*]] = select i1 [[TMP5]], i32 [[TMP6]], i32 [[RESIZE3]]
 // CHECK-NEXT:    [[DOWNSCALE:%.*]] = ashr i32 [[TMP7]], 15
-// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i32 [[DOWNSCALE]] to i8
-// CHECK-NEXT:    store i8 [[RESIZE3]], ptr @c, align 1
+// CHECK-NEXT:    [[RESIZE4:%.*]] = trunc i32 [[DOWNSCALE]] to i8
+// CHECK-NEXT:    store i8 [[RESIZE4]], ptr @c, align 1
 // CHECK-NEXT:    ret void
 //
 void sub_csa(void) {
@@ -553,23 +556,24 @@ void mul_ai(void) {
 // CHECK-LABEL: @mul_csa(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr @sa, align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr @c, align 1
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV]] to i47
+// CHECK-NEXT:    [[TMP1:%.*]] = load b8, ptr @c, align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV1]] to i47
 // CHECK-NEXT:    [[UPSCALE:%.*]] = shl i47 [[RESIZE]], 15
-// CHECK-NEXT:    [[RESIZE1:%.*]] = sext i32 [[TMP0]] to i47
-// CHECK-NEXT:    [[TMP2:%.*]] = call i47 @llvm.smul.fix.sat.i47(i47 [[UPSCALE]], i47 [[RESIZE1]], i32 15)
+// CHECK-NEXT:    [[RESIZE2:%.*]] = sext i32 [[TMP0]] to i47
+// CHECK-NEXT:    [[TMP2:%.*]] = call i47 @llvm.smul.fix.sat.i47(i47 [[UPSCALE]], i47 [[RESIZE2]], i32 15)
 // CHECK-NEXT:    [[TMP3:%.*]] = icmp sgt i47 [[TMP2]], 2147483647
 // CHECK-NEXT:    [[SATMAX:%.*]] = select i1 [[TMP3]], i47 2147483647, i47 [[TMP2]]
 // CHECK-NEXT:    [[TMP4:%.*]] = icmp slt i47 [[SATMAX]], -2147483648
 // CHECK-NEXT:    [[SATMIN:%.*]] = select i1 [[TMP4]], i47 -2147483648, i47 [[SATMAX]]
-// CHECK-NEXT:    [[RESIZE2:%.*]] = trunc i47 [[SATMIN]] to i32
-// CHECK-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[RESIZE2]], 0
-// CHECK-NEXT:    [[TMP6:%.*]] = add i32 [[RESIZE2]], 32767
-// CHECK-NEXT:    [[TMP7:%.*]] = select i1 [[TMP5]], i32 [[TMP6]], i32 [[RESIZE2]]
+// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i47 [[SATMIN]] to i32
+// CHECK-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[RESIZE3]], 0
+// CHECK-NEXT:    [[TMP6:%.*]] = add i32 [[RESIZE3]], 32767
+// CHECK-NEXT:    [[TMP7:%.*]] = select i1 [[TMP5]], i32 [[TMP6]], i32 [[RESIZE3]]
 // CHECK-NEXT:    [[DOWNSCALE:%.*]] = ashr i32 [[TMP7]], 15
-// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i32 [[DOWNSCALE]] to i8
-// CHECK-NEXT:    store i8 [[RESIZE3]], ptr @c, align 1
+// CHECK-NEXT:    [[RESIZE4:%.*]] = trunc i32 [[DOWNSCALE]] to i8
+// CHECK-NEXT:    store i8 [[RESIZE4]], ptr @c, align 1
 // CHECK-NEXT:    ret void
 //
 void mul_csa(void) {
@@ -638,23 +642,24 @@ void div_ai(void) {
 // CHECK-LABEL: @div_csa(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr @sa, align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr @c, align 1
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV]] to i47
+// CHECK-NEXT:    [[TMP1:%.*]] = load b8, ptr @c, align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[RESIZE:%.*]] = sext i32 [[CONV1]] to i47
 // CHECK-NEXT:    [[UPSCALE:%.*]] = shl i47 [[RESIZE]], 15
-// CHECK-NEXT:    [[RESIZE1:%.*]] = sext i32 [[TMP0]] to i47
-// CHECK-NEXT:    [[TMP2:%.*]] = call i47 @llvm.sdiv.fix.sat.i47(i47 [[UPSCALE]], i47 [[RESIZE1]], i32 15)
+// CHECK-NEXT:    [[RESIZE2:%.*]] = sext i32 [[TMP0]] to i47
+// CHECK-NEXT:    [[TMP2:%.*]] = call i47 @llvm.sdiv.fix.sat.i47(i47 [[UPSCALE]], i47 [[RESIZE2]], i32 15)
 // CHECK-NEXT:    [[TMP3:%.*]] = icmp sgt i47 [[TMP2]], 2147483647
 // CHECK-NEXT:    [[SATMAX:%.*]] = select i1 [[TMP3]], i47 2147483647, i47 [[TMP2]]
 // CHECK-NEXT:    [[TMP4:%.*]] = icmp slt i47 [[SATMAX]], -2147483648
 // CHECK-NEXT:    [[SATMIN:%.*]] = select i1 [[TMP4]], i47 -2147483648, i47 [[SATMAX]]
-// CHECK-NEXT:    [[RESIZE2:%.*]] = trunc i47 [[SATMIN]] to i32
-// CHECK-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[RESIZE2]], 0
-// CHECK-NEXT:    [[TMP6:%.*]] = add i32 [[RESIZE2]], 32767
-// CHECK-NEXT:    [[TMP7:%.*]] = select i1 [[TMP5]], i32 [[TMP6]], i32 [[RESIZE2]]
+// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i47 [[SATMIN]] to i32
+// CHECK-NEXT:    [[TMP5:%.*]] = icmp slt i32 [[RESIZE3]], 0
+// CHECK-NEXT:    [[TMP6:%.*]] = add i32 [[RESIZE3]], 32767
+// CHECK-NEXT:    [[TMP7:%.*]] = select i1 [[TMP5]], i32 [[TMP6]], i32 [[RESIZE3]]
 // CHECK-NEXT:    [[DOWNSCALE:%.*]] = ashr i32 [[TMP7]], 15
-// CHECK-NEXT:    [[RESIZE3:%.*]] = trunc i32 [[DOWNSCALE]] to i8
-// CHECK-NEXT:    store i8 [[RESIZE3]], ptr @c, align 1
+// CHECK-NEXT:    [[RESIZE4:%.*]] = trunc i32 [[DOWNSCALE]] to i8
+// CHECK-NEXT:    store i8 [[RESIZE4]], ptr @c, align 1
 // CHECK-NEXT:    ret void
 //
 void div_csa(void) {

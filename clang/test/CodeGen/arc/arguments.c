@@ -41,10 +41,10 @@ s3 f3(void) {
 // CHECK: define{{.*}} void @f4(i64 inreg noundef %i)
 void f4(long long i) {}
 
-// CHECK: define{{.*}} void @f5(i8 inreg noundef signext %a, i16 inreg noundef signext %b)
+// CHECK: define{{.*}} void @f5(b8 inreg noundef signext %a, i16 inreg noundef signext %b)
 void f5(signed char a, short b) {}
 
-// CHECK: define{{.*}} void @f6(i8 inreg noundef zeroext %a, i16 inreg noundef zeroext %b)
+// CHECK: define{{.*}} void @f6(b8 inreg noundef zeroext %a, i16 inreg noundef zeroext %b)
 void f6(unsigned char a, unsigned short b) {}
 
 enum my_enum {
@@ -100,7 +100,7 @@ _Complex long long cplx4(long long r) {
   return r + 2i;
 }
 
-// CHECK: define{{.*}} inreg { i8, i8 } @cplx6(i8 inreg noundef signext %r)
+// CHECK: define{{.*}} inreg { b8, b8 } @cplx6(b8 inreg noundef signext %r)
 _Complex signed char cplx6(signed char r) {
   return r + 2i;
 }

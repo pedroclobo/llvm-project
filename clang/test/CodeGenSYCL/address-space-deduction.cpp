@@ -60,13 +60,14 @@
 // CHECK:       if.end:
 // CHECK-NEXT:    store ptr addrspace(4) addrspacecast (ptr addrspace(1) @.str to ptr addrspace(4)), ptr addrspace(4) [[STR_ASCAST]], align 8
 // CHECK-NEXT:    [[TMP6:%.*]] = load ptr addrspace(4), ptr addrspace(4) [[STR_ASCAST]], align 8
-// CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds i8, ptr addrspace(4) [[TMP6]], i64 0
-// CHECK-NEXT:    [[TMP7:%.*]] = load i8, ptr addrspace(4) [[ARRAYIDX]], align 1
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP7]] to i32
-// CHECK-NEXT:    store i32 [[CONV]], ptr addrspace(4) [[I_ASCAST]], align 4
+// CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds b8, ptr addrspace(4) [[TMP6]], i64 0
+// CHECK-NEXT:    [[TMP7:%.*]] = load b8, ptr addrspace(4) [[ARRAYIDX]], align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP7]] to i8
+// CHECK-NEXT:    [[CONV5:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    store i32 [[CONV5]], ptr addrspace(4) [[I_ASCAST]], align 4
 // CHECK-NEXT:    [[TMP8:%.*]] = load i32, ptr addrspace(4) [[I_ASCAST]], align 4
-// CHECK-NEXT:    [[CMP5:%.*]] = icmp sgt i32 [[TMP8]], 2
-// CHECK-NEXT:    br i1 [[CMP5]], label [[COND_TRUE:%.*]], label [[COND_FALSE:%.*]]
+// CHECK-NEXT:    [[CMP6:%.*]] = icmp sgt i32 [[TMP8]], 2
+// CHECK-NEXT:    br i1 [[CMP6]], label [[COND_TRUE:%.*]], label [[COND_FALSE:%.*]]
 // CHECK:       cond.true:
 // CHECK-NEXT:    [[TMP9:%.*]] = load ptr addrspace(4), ptr addrspace(4) [[STR_ASCAST]], align 8
 // CHECK-NEXT:    br label [[COND_END:%.*]]
@@ -76,10 +77,10 @@
 // CHECK-NEXT:    [[COND:%.*]] = phi ptr addrspace(4) [ [[TMP9]], [[COND_TRUE]] ], [ addrspacecast (ptr addrspace(1) @.str.1 to ptr addrspace(4)), [[COND_FALSE]] ]
 // CHECK-NEXT:    store ptr addrspace(4) [[COND]], ptr addrspace(4) [[PHI_STR_ASCAST]], align 8
 // CHECK-NEXT:    [[TMP10:%.*]] = load i32, ptr addrspace(4) [[I_ASCAST]], align 4
-// CHECK-NEXT:    [[CMP6:%.*]] = icmp sgt i32 [[TMP10]], 2
-// CHECK-NEXT:    [[TMP11:%.*]] = zext i1 [[CMP6]] to i64
-// CHECK-NEXT:    [[COND7:%.*]] = select i1 [[CMP6]], ptr addrspace(4) addrspacecast (ptr addrspace(1) @.str.2 to ptr addrspace(4)), ptr addrspace(4) null
-// CHECK-NEXT:    store ptr addrspace(4) [[COND7]], ptr addrspace(4) [[SELECT_NULL_ASCAST]], align 8
+// CHECK-NEXT:    [[CMP7:%.*]] = icmp sgt i32 [[TMP10]], 2
+// CHECK-NEXT:    [[TMP11:%.*]] = zext i1 [[CMP7]] to i64
+// CHECK-NEXT:    [[COND8:%.*]] = select i1 [[CMP7]], ptr addrspace(4) addrspacecast (ptr addrspace(1) @.str.2 to ptr addrspace(4)), ptr addrspace(4) null
+// CHECK-NEXT:    store ptr addrspace(4) [[COND8]], ptr addrspace(4) [[SELECT_NULL_ASCAST]], align 8
 // CHECK-NEXT:    [[TMP12:%.*]] = load ptr addrspace(4), ptr addrspace(4) [[STR_ASCAST]], align 8
 // CHECK-NEXT:    store ptr addrspace(4) [[TMP12]], ptr addrspace(4) [[SELECT_STR_TRIVIAL1_ASCAST]], align 8
 // CHECK-NEXT:    store ptr addrspace(4) addrspacecast (ptr addrspace(1) @.str.1 to ptr addrspace(4)), ptr addrspace(4) [[SELECT_STR_TRIVIAL2_ASCAST]], align 8

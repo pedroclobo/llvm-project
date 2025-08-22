@@ -261,8 +261,9 @@ void TestIntComparisons(void) {
 
   sa == c;
   // CHECK:      [[A:%[0-9]+]] = load i16, ptr %sa, align 2
-  // CHECK-NEXT: [[C:%[0-9]+]] = load i8, ptr %c, align 1
-  // CHECK-NEXT: [[CONV_C:%[a-z0-9]+]] = sext i8 [[C]] to i32
+  // CHECK-NEXT: [[C:%[0-9]+]] = load b8, ptr %c, align 1
+  // CHECK-NEXT: [[CONV_B:%[a-z0-9]+]] = bytecast b8 [[C]] to i8
+  // CHECK-NEXT: [[CONV_C:%[a-z0-9]+]] = sext i8 [[CONV_B]] to i32
   // CHECK-NEXT: [[RESIZE_A:%[a-z0-9]+]] = sext i16 [[A]] to i39
   // CHECK-NEXT: [[RESIZE_C:%[a-z0-9]+]] = sext i32 [[CONV_C]] to i39
   // CHECK-NEXT: [[UPSCALE_C:%[a-z0-9]+]] = shl i39 [[RESIZE_C]], 7

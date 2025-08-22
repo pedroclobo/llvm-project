@@ -36,8 +36,8 @@ int bar(int n){
 // CHECK-NEXT:    [[DOTZERO_ADDR:%.*]] = alloca i32, align 4
 // CHECK-NEXT:    store ptr [[DYN_PTR]], ptr [[DYN_PTR_ADDR]], align 8
 // CHECK-NEXT:    store i64 [[A]], ptr [[A_ADDR]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A_ADDR]], align 1
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A_CASTED]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[A_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[TMP0]], ptr [[A_CASTED]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = load i64, ptr [[A_CASTED]], align 8
 // CHECK-NEXT:    store i32 0, ptr [[DOTZERO_ADDR]], align 4
 // CHECK-NEXT:    call void @{{__omp_offloading_[0-9a-z]+_[0-9a-z]+}}__Z9ftemplateIcET_i_l13_omp_outlined(ptr null, ptr [[DOTZERO_ADDR]], i64 [[TMP1]]) #[[ATTR2:[0-9]+]]

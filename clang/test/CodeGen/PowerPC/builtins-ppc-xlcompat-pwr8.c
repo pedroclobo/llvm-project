@@ -32,8 +32,9 @@ void test_xlcompat() {
   __builtin_ppc_icbt(a);
 
   // CHECK-PWR8:         [[TMP0:%.*]] = load ptr, ptr @c_addr, align {{[0-9]+}}
-  // CHECK-PWR8-NEXT:    [[TMP1:%.*]] = load i8, ptr @c, align 1
-  // CHECK-PWR8-NEXT:    [[TMP2:%.*]] = sext i8 [[TMP1]] to i32
+  // CHECK-PWR8-NEXT:    [[TMP1:%.*]] = load b8, ptr @c, align 1
+  // CHECK-PWR8-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+  // CHECK-PWR8-NEXT:    [[TMP2:%.*]] = sext i8 [[CONV]] to i32
   // CHECK-PWR8-NEXT:    [[TMP3:%.*]] = call i32 @llvm.ppc.stbcx(ptr [[TMP0]], i32 [[TMP2]])
   // CHECK-NOPWR8: error: '__builtin_ppc_stbcx' needs target feature isa-v207-instructions
   i = __builtin_ppc_stbcx(c_addr, c);

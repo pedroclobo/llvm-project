@@ -54,7 +54,7 @@ id NSUserName(void);
 
 // CHECK: define{{.*}} i32 @main() [[NUW:#[0-9]+]]
 int main(void) {
-  // CHECK: call{{.*}}@objc_msgSend{{.*}}i8 noundef signext 97
+  // CHECK: call{{.*}}@objc_msgSend{{.*}}b8 noundef signext 97
   NSNumber *aNumber = @'a';
   // CHECK: call{{.*}}@objc_msgSend{{.*}}i32 noundef 42
   NSNumber *fortyTwo = @42;
@@ -72,13 +72,13 @@ int main(void) {
   NSNumber *piFloat = @3.141592654f;
   // CHECK: call{{.*}}@objc_msgSend{{.*}}double noundef 0x400921FB54411744
   NSNumber *piDouble = @3.1415926535;
-  // CHECK: call{{.*}}@objc_msgSend{{.*}}i8 noundef signext 1
+  // CHECK: call{{.*}}@objc_msgSend{{.*}}b8 noundef signext 1
   NSNumber *yesNumber = @__objc_yes;
-  // CHECK: call{{.*}}@objc_msgSend{{.*}}i8 noundef signext 0
+  // CHECK: call{{.*}}@objc_msgSend{{.*}}b8 noundef signext 0
   NSNumber *noNumber = @__objc_no;
-  // CHECK: call{{.*}}@objc_msgSend{{.*}}i8 noundef signext 1
+  // CHECK: call{{.*}}@objc_msgSend{{.*}}b8 noundef signext 1
   NSNumber *yesNumber1 = @YES;
-  // CHECK: call{{.*}}@objc_msgSend{{.*}}i8 noundef signext 0
+  // CHECK: call{{.*}}@objc_msgSend{{.*}}b8 noundef signext 0
   NSNumber *noNumber1 = @NO;
 NSDictionary *dictionary = @{@"name" : NSUserName(), 
                              @"date" : [NSDate date] }; 

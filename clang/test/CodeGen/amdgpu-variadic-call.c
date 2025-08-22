@@ -72,9 +72,10 @@ void one_f64(int f0, double f1, double v0)
 // C has various type promotion rules for variadics
 
 // CHECK-LABEL: define {{[^@]+}}@one_i8
-// CHECK-SAME: (i32 noundef [[F0:%.*]], double noundef [[F1:%.*]], i8 noundef signext [[V0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: (i32 noundef [[F0:%.*]], double noundef [[F1:%.*]], b8 noundef signext [[V0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[V0]] to i32
+// CHECK-NEXT:    [[CAST:%.*]] = bytecast b8 [[V0]] to i8
+// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[CAST]] to i32
 // CHECK-NEXT:    tail call void (...) @sink_0(i32 noundef [[CONV]]) #[[ATTR2]]
 // CHECK-NEXT:    tail call void (i32, ...) @sink_1(i32 noundef [[F0]], i32 noundef [[CONV]]) #[[ATTR2]]
 // CHECK-NEXT:    tail call void (double, i32, ...) @sink_2(double noundef [[F1]], i32 noundef [[F0]], i32 noundef [[CONV]]) #[[ATTR2]]

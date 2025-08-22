@@ -59,8 +59,9 @@ void kernel float3_to_double2(global float3 *a, global double2 *b) {
 // CHECK-LABEL: define dso_local spir_kernel void @char8_to_short3(
 // CHECK-SAME: ptr addrspace(1) noundef writeonly align 8 captures(none) initializes((0, 8)) [[A:%.*]], ptr addrspace(1) noundef readonly align 8 captures(none) [[B:%.*]]) local_unnamed_addr #[[ATTR0]] !kernel_arg_addr_space [[META3]] !kernel_arg_access_qual [[META4]] !kernel_arg_type [[META15:![0-9]+]] !kernel_arg_base_type [[META16:![0-9]+]] !kernel_arg_type_qual [[META7]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load <3 x i16>, ptr addrspace(1) [[B]], align 8, !tbaa [[CHAR_TBAA8]]
-// CHECK-NEXT:    [[EXTRACTVEC_I:%.*]] = shufflevector <3 x i16> [[TMP0]], <3 x i16> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
+// CHECK-NEXT:    [[TMP0:%.*]] = load <8 x b8>, ptr addrspace(1) [[B]], align 8, !tbaa [[CHAR_TBAA8]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[EXTRACTVEC_I:%.*]] = shufflevector <4 x i16> [[TMP1]], <4 x i16> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
 // CHECK-NEXT:    store <4 x i16> [[EXTRACTVEC_I]], ptr addrspace(1) [[A]], align 8, !tbaa [[CHAR_TBAA8]]
 // CHECK-NEXT:    ret void
 //
@@ -69,10 +70,11 @@ void kernel char8_to_short3(global short3 *a, global char8 *b) {
 }
 
 // CHECK-LABEL: define dso_local spir_func void @from_char3(
-// CHECK-SAME: <3 x i8> noundef [[A:%.*]], ptr addrspace(1) noundef writeonly captures(none) initializes((0, 4)) [[OUT:%.*]]) local_unnamed_addr #[[ATTR2:[0-9]+]] {
+// CHECK-SAME: <3 x b8> noundef [[A:%.*]], ptr addrspace(1) noundef writeonly captures(none) initializes((0, 4)) [[OUT:%.*]]) local_unnamed_addr #[[ATTR2:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[EXTRACTVEC:%.*]] = shufflevector <3 x i8> [[A]], <3 x i8> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
-// CHECK-NEXT:    store <4 x i8> [[EXTRACTVEC]], ptr addrspace(1) [[OUT]], align 4, !tbaa [[INT_TBAA17:![0-9]+]]
+// CHECK-NEXT:    [[EXTRACTVEC:%.*]] = shufflevector <3 x b8> [[A]], <3 x b8> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
+// CHECK-NEXT:    [[ASTYPE:%.*]] = bytecast <4 x b8> [[EXTRACTVEC]] to i32
+// CHECK-NEXT:    store i32 [[ASTYPE]], ptr addrspace(1) [[OUT]], align 4, !tbaa [[INT_TBAA17:![0-9]+]]
 // CHECK-NEXT:    ret void
 //
 void from_char3(char3 a, global int *out) {
@@ -93,9 +95,9 @@ void from_short3(short3 a, global long *out) {
 // CHECK-LABEL: define dso_local spir_func void @scalar_to_char3(
 // CHECK-SAME: i32 noundef [[A:%.*]], ptr addrspace(1) noundef writeonly captures(none) initializes((0, 4)) [[OUT:%.*]]) local_unnamed_addr #[[ATTR2]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i32 [[A]] to <4 x i8>
-// CHECK-NEXT:    [[EXTRACTVEC:%.*]] = shufflevector <4 x i8> [[TMP0]], <4 x i8> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
-// CHECK-NEXT:    store <4 x i8> [[EXTRACTVEC]], ptr addrspace(1) [[OUT]], align 4, !tbaa [[CHAR_TBAA8]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i32 [[A]] to <4 x b8>
+// CHECK-NEXT:    [[EXTRACTVEC:%.*]] = shufflevector <4 x b8> [[TMP0]], <4 x b8> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
+// CHECK-NEXT:    store <4 x b8> [[EXTRACTVEC]], ptr addrspace(1) [[OUT]], align 4, !tbaa [[CHAR_TBAA8]]
 // CHECK-NEXT:    ret void
 //
 void scalar_to_char3(int a, global char3 *out) {

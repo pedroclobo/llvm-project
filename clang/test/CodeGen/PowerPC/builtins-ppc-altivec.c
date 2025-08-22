@@ -5457,7 +5457,7 @@ void test6() {
 // CHECK: fsub <4 x float>
 // CHECK-LE: fsub <4 x float>
 
-  
+
 
   res_vsc = vec_vsububm(vsc, vsc);
 // CHECK: sub <16 x i8>
@@ -6058,16 +6058,16 @@ void test6() {
 
   /* vec_extract */
   res_sc = vec_extract(vsc, param_i);
-// CHECK: extractelement <16 x i8>
-// CHECK-LE: extractelement <16 x i8>
+// CHECK: extractelement <16 x b8>
+// CHECK-LE: extractelement <16 x b8>
 
   res_uc = vec_extract(vuc, param_i);
-// CHECK: extractelement <16 x i8>
-// CHECK-LE: extractelement <16 x i8>
+// CHECK: extractelement <16 x b8>
+// CHECK-LE: extractelement <16 x b8>
 
   res_uc = vec_extract(vbc, param_i);
-// CHECK: extractelement <16 x i8>
-// CHECK-LE: extractelement <16 x i8>
+// CHECK: extractelement <16 x b8>
+// CHECK-LE: extractelement <16 x b8>
 
   res_s  = vec_extract(vs, param_i);
 // CHECK: extractelement <8 x i16>
@@ -6099,16 +6099,16 @@ void test6() {
 
   /* vec_insert */
   res_vsc = vec_insert(param_sc, vsc, param_i);
-// CHECK: insertelement <16 x i8>
-// CHECK-LE: insertelement <16 x i8>
+// CHECK: insertelement <16 x b8>
+// CHECK-LE: insertelement <16 x b8>
 
   res_vuc = vec_insert(param_uc, vuc, param_i);
-// CHECK: insertelement <16 x i8>
-// CHECK-LE: insertelement <16 x i8>
+// CHECK: insertelement <16 x b8>
+// CHECK-LE: insertelement <16 x b8>
 
   res_vbc = vec_insert(param_uc, vbc, param_i);
-// CHECK: insertelement <16 x i8>
-// CHECK-LE: insertelement <16 x i8>
+// CHECK: insertelement <16 x b8>
+// CHECK-LE: insertelement <16 x b8>
 
   res_vs  = vec_insert(param_s, vs, param_i);
 // CHECK: insertelement <8 x i16>
@@ -6142,50 +6142,50 @@ void test6() {
   res_vsc = vec_lvlx(0, param_sc_ld);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vsc = vec_lvlx(0, &vsc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vuc = vec_lvlx(0, param_uc_ld);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vuc = vec_lvlx(0, &vuc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vbc = vec_lvlx(0, &vbc);
 // CHECK: @llvm.ppc.altivec.lvx
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.lvsl
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.lvsl
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
@@ -6313,50 +6313,50 @@ void test6() {
   res_vsc = vec_lvlxl(0, param_sc_ld);
 // CHECK: @llvm.ppc.altivec.lvxl
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvxl
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vsc = vec_lvlxl(0, &vsc);
 // CHECK: @llvm.ppc.altivec.lvxl
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvxl
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vuc = vec_lvlxl(0, param_uc_ld);
 // CHECK: @llvm.ppc.altivec.lvxl
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvxl
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vuc = vec_lvlxl(0, &vuc);
 // CHECK: @llvm.ppc.altivec.lvxl
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvxl
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vbc = vec_lvlxl(0, &vbc);
 // CHECK: @llvm.ppc.altivec.lvxl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.lvsl
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvxl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.lvsl
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
@@ -6484,49 +6484,49 @@ void test6() {
   res_vsc = vec_lvrx(0, param_sc_ld);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vsc = vec_lvrx(0, &vsc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vuc = vec_lvrx(0, param_uc_ld);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vuc = vec_lvrx(0, &vuc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vbc = vec_lvrx(0, &vbc);
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
 // CHECK: @llvm.ppc.altivec.vperm
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -6665,39 +6665,39 @@ void test6() {
   res_vsc = vec_lvrxl(0, &vsc);
 // CHECK: @llvm.ppc.altivec.lvxl
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvxl
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vuc = vec_lvrxl(0, param_uc_ld);
 // CHECK: @llvm.ppc.altivec.lvxl
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvxl
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vuc = vec_lvrxl(0, &vuc);
 // CHECK: @llvm.ppc.altivec.lvxl
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvxl
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 
   res_vbc = vec_lvrxl(0, &vbc);
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.lvxl
 // CHECK: @llvm.ppc.altivec.lvsl
 // CHECK: @llvm.ppc.altivec.vperm
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.lvxl
 // CHECK-LE: @llvm.ppc.altivec.lvsl
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -6833,7 +6833,7 @@ void test6() {
 // CHECK: @llvm.ppc.altivec.stvx
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -6842,14 +6842,14 @@ void test6() {
   vec_stvlx(vsc, 0, &vsc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvx
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -6858,14 +6858,14 @@ void test6() {
   vec_stvlx(vuc, 0, &param_uc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvx
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -6874,28 +6874,28 @@ void test6() {
   vec_stvlx(vuc, 0, &vuc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvx
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.stvx
 
   vec_stvlx(vbc, 0, &vbc);
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvx
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -7131,14 +7131,14 @@ void test6() {
   vec_stvlxl(vuc, 0, &param_uc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvxl
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -7147,28 +7147,28 @@ void test6() {
   vec_stvlxl(vuc, 0, &vuc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvxl
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.stvxl
 
   vec_stvlxl(vbc, 0, &vbc);
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvxl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -7404,14 +7404,14 @@ void test6() {
   vec_stvrx(vuc, 0, &param_uc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvx
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -7420,14 +7420,14 @@ void test6() {
   vec_stvrx(vuc, 0, &vuc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvx
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -7435,14 +7435,14 @@ void test6() {
 
   vec_stvrx(vbc, 0, &vbc);
 // CHECK: @llvm.ppc.altivec.lvx
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.lvsl
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvx
 // CHECK-LE: @llvm.ppc.altivec.lvx
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.lvsl
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
@@ -7677,14 +7677,14 @@ void test6() {
   vec_stvrxl(vuc, 0, &param_uc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvxl
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -7693,14 +7693,14 @@ void test6() {
   vec_stvrxl(vuc, 0, &vuc);
 // CHECK: @llvm.ppc.altivec.lvx
 // CHECK: @llvm.ppc.altivec.lvsl
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvxl
 // CHECK-LE: @llvm.ppc.altivec.lvx
 // CHECK-LE: @llvm.ppc.altivec.lvsl
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
 // CHECK-LE: @llvm.ppc.altivec.vperm
@@ -7708,14 +7708,14 @@ void test6() {
 
   vec_stvrxl(vbc, 0, &vbc);
 // CHECK: @llvm.ppc.altivec.lvx
-// CHECK: store <16 x i8> zeroinitializer
+// CHECK: store <16 x b8> zeroinitializer
 // CHECK: @llvm.ppc.altivec.lvsl
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.lvsr
 // CHECK: @llvm.ppc.altivec.vperm
 // CHECK: @llvm.ppc.altivec.stvxl
 // CHECK-LE: @llvm.ppc.altivec.lvx
-// CHECK-LE: store <16 x i8> zeroinitializer
+// CHECK-LE: store <16 x b8> zeroinitializer
 // CHECK-LE: @llvm.ppc.altivec.lvsl
 // CHECK-LE: @llvm.ppc.altivec.vperm
 // CHECK-LE: @llvm.ppc.altivec.lvsr
@@ -7922,10 +7922,10 @@ void test6() {
 // CHECK-LE: insertelement <16 x i8>
 
   res_vuc = vec_promote(param_uc, 0);
-// CHECK: store <16 x i8> zeroinitializer
-// CHECK: insertelement <16 x i8>
-// CHECK-LE: store <16 x i8> zeroinitializer
-// CHECK-LE: insertelement <16 x i8>
+// CHECK: store <16 x b8> zeroinitializer
+// CHECK: insertelement <16 x b8>
+// CHECK-LE: store <16 x b8> zeroinitializer
+// CHECK-LE: insertelement <16 x b8>
 
   res_vs  = vec_promote(param_s, 0);
 // CHECK: store <8 x i16> zeroinitializer
@@ -7963,8 +7963,8 @@ void test6() {
 // CHECK-LE: insertelement <16 x i8>
 
   res_vuc = vec_splats(param_uc);
-// CHECK: insertelement <16 x i8>
-// CHECK-LE: insertelement <16 x i8>
+// CHECK: insertelement <16 x b8>
+// CHECK-LE: insertelement <16 x b8>
 
   res_vs  = vec_splats(param_s);
 // CHECK: insertelement <8 x i16>
@@ -9334,16 +9334,16 @@ void test8() {
 // CHECK-LABEL: define{{.*}} void @test8
 // CHECK-LE-LABEL: define{{.*}} void @test8
   res_vbc = vec_reve(vbc);
-  // CHECK: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
-  // CHECK-LE: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
+  // CHECK: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
+  // CHECK-LE: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
 
   res_vsc = vec_reve(vsc);
-  // CHECK: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
-  // CHECK-LE: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
+  // CHECK: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
+  // CHECK-LE: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
 
   res_vuc = vec_reve(vuc);
-  // CHECK: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
-  // CHECK-LE: shufflevector <16 x i8> %{{[0-9]+}}, <16 x i8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
+  // CHECK: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
+  // CHECK-LE: shufflevector <16 x b8> %{{[0-9]+}}, <16 x b8> %{{[0-9]+}}, <16 x i32> <i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
 
   res_vbi = vec_reve(vbi);
   // CHECK: shufflevector <4 x i32> %{{[0-9]+}}, <4 x i32> %{{[0-9]+}}, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
@@ -9374,88 +9374,88 @@ void test8() {
   // CHECK-LE: shufflevector <4 x float> %{{[0-9]+}}, <4 x float> %{{[0-9]+}}, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
 
   res_vbc = vec_revb(vbc);
-// CHECK: [[T1:%.+]] = load <16 x i8>, ptr @vbc, align 16
-// CHECK: store <16 x i8> [[T1]], ptr [[T2:%.+]], align 16
-// CHECK: [[T3:%.+]] = load <16 x i8>, ptr [[T2]], align 16
-// CHECK: store <16 x i8> [[T3]], ptr @res_vbc, align 16
-// CHECK-LE: [[T1:%.+]] = load <16 x i8>, ptr @vbc, align 16
-// CHECK-LE: store <16 x i8> [[T1]], ptr [[T2:%.+]], align 16
-// CHECK-LE: [[T3:%.+]] = load <16 x i8>, ptr [[T2]], align 16
-// CHECK-LE: store <16 x i8> [[T3]], ptr @res_vbc, align 16
+// CHECK: [[T1:%.+]] = load <16 x b8>, ptr @vbc, align 16
+// CHECK: store <16 x b8> [[T1]], ptr [[T2:%.+]], align 16
+// CHECK: [[T3:%.+]] = load <16 x b8>, ptr [[T2]], align 16
+// CHECK: store <16 x b8> [[T3]], ptr @res_vbc, align 16
+// CHECK-LE: [[T1:%.+]] = load <16 x b8>, ptr @vbc, align 16
+// CHECK-LE: store <16 x b8> [[T1]], ptr [[T2:%.+]], align 16
+// CHECK-LE: [[T3:%.+]] = load <16 x b8>, ptr [[T2]], align 16
+// CHECK-LE: store <16 x b8> [[T3]], ptr @res_vbc, align 16
 
   res_vsc = vec_revb(vsc);
-// CHECK: [[T1:%.+]] = load <16 x i8>, ptr @vsc, align 16
-// CHECK: store <16 x i8> [[T1]], ptr [[T2:%.+]], align 16
-// CHECK: [[T3:%.+]] = load <16 x i8>, ptr [[T2]], align 16
-// CHECK: store <16 x i8> [[T3]], ptr @res_vsc, align 16
-// CHECK-LE: [[T1:%.+]] = load <16 x i8>, ptr @vsc, align 16
-// CHECK-LE: store <16 x i8> [[T1]], ptr [[T2:%.+]], align 16
-// CHECK-LE: [[T3:%.+]] = load <16 x i8>, ptr [[T2]], align 16
-// CHECK-LE: store <16 x i8> [[T3]], ptr @res_vsc, align 16
+// CHECK: [[T1:%.+]] = load <16 x b8>, ptr @vsc, align 16
+// CHECK: store <16 x b8> [[T1]], ptr [[T2:%.+]], align 16
+// CHECK: [[T3:%.+]] = load <16 x b8>, ptr [[T2]], align 16
+// CHECK: store <16 x b8> [[T3]], ptr @res_vsc, align 16
+// CHECK-LE: [[T1:%.+]] = load <16 x b8>, ptr @vsc, align 16
+// CHECK-LE: store <16 x b8> [[T1]], ptr [[T2:%.+]], align 16
+// CHECK-LE: [[T3:%.+]] = load <16 x b8>, ptr [[T2]], align 16
+// CHECK-LE: store <16 x b8> [[T3]], ptr @res_vsc, align 16
 
   res_vuc = vec_revb(vuc);
-// CHECK: [[T1:%.+]] = load <16 x i8>, ptr @vuc, align 16
-// CHECK: store <16 x i8> [[T1]], ptr [[T2:%.+]], align 16
-// CHECK: [[T3:%.+]] = load <16 x i8>, ptr [[T2]], align 16
-// CHECK: store <16 x i8> [[T3]], ptr @res_vuc, align 16
-// CHECK-LE: [[T1:%.+]] = load <16 x i8>, ptr @vuc, align 16
-// CHECK-LE: store <16 x i8> [[T1]], ptr [[T2:%.+]], align 16
-// CHECK-LE: [[T3:%.+]] = load <16 x i8>, ptr [[T2]], align 16
-// CHECK-LE: store <16 x i8> [[T3]], ptr @res_vuc, align 16
+// CHECK: [[T1:%.+]] = load <16 x b8>, ptr @vuc, align 16
+// CHECK: store <16 x b8> [[T1]], ptr [[T2:%.+]], align 16
+// CHECK: [[T3:%.+]] = load <16 x b8>, ptr [[T2]], align 16
+// CHECK: store <16 x b8> [[T3]], ptr @res_vuc, align 16
+// CHECK-LE: [[T1:%.+]] = load <16 x b8>, ptr @vuc, align 16
+// CHECK-LE: store <16 x b8> [[T1]], ptr [[T2:%.+]], align 16
+// CHECK-LE: [[T3:%.+]] = load <16 x b8>, ptr [[T2]], align 16
+// CHECK-LE: store <16 x b8> [[T3]], ptr @res_vuc, align 16
 
   res_vbs = vec_revb(vbs);
-// CHECK: store <16 x i8> <i8 1, i8 0, i8 3, i8 2, i8 5, i8 4, i8 7, i8 6, i8 9, i8 8, i8 11, i8 10, i8 13, i8 12, i8 15, i8 14>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 1, b8 0, b8 3, b8 2, b8 5, b8 4, b8 7, b8 6, b8 9, b8 8, b8 11, b8 10, b8 13, b8 12, b8 15, b8 14>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 1, i8 0, i8 3, i8 2, i8 5, i8 4, i8 7, i8 6, i8 9, i8 8, i8 11, i8 10, i8 13, i8 12, i8 15, i8 14>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 1, b8 0, b8 3, b8 2, b8 5, b8 4, b8 7, b8 6, b8 9, b8 8, b8 11, b8 10, b8 13, b8 12, b8 15, b8 14>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vs = vec_revb(vs);
-// CHECK: store <16 x i8> <i8 1, i8 0, i8 3, i8 2, i8 5, i8 4, i8 7, i8 6, i8 9, i8 8, i8 11, i8 10, i8 13, i8 12, i8 15, i8 14>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 1, b8 0, b8 3, b8 2, b8 5, b8 4, b8 7, b8 6, b8 9, b8 8, b8 11, b8 10, b8 13, b8 12, b8 15, b8 14>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 1, i8 0, i8 3, i8 2, i8 5, i8 4, i8 7, i8 6, i8 9, i8 8, i8 11, i8 10, i8 13, i8 12, i8 15, i8 14>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 1, b8 0, b8 3, b8 2, b8 5, b8 4, b8 7, b8 6, b8 9, b8 8, b8 11, b8 10, b8 13, b8 12, b8 15, b8 14>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vus = vec_revb(vus);
-// CHECK: store <16 x i8> <i8 1, i8 0, i8 3, i8 2, i8 5, i8 4, i8 7, i8 6, i8 9, i8 8, i8 11, i8 10, i8 13, i8 12, i8 15, i8 14>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 1, b8 0, b8 3, b8 2, b8 5, b8 4, b8 7, b8 6, b8 9, b8 8, b8 11, b8 10, b8 13, b8 12, b8 15, b8 14>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 1, i8 0, i8 3, i8 2, i8 5, i8 4, i8 7, i8 6, i8 9, i8 8, i8 11, i8 10, i8 13, i8 12, i8 15, i8 14>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 1, b8 0, b8 3, b8 2, b8 5, b8 4, b8 7, b8 6, b8 9, b8 8, b8 11, b8 10, b8 13, b8 12, b8 15, b8 14>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vbi = vec_revb(vbi);
-// CHECK: store <16 x i8> <i8 3, i8 2, i8 1, i8 0, i8 7, i8 6, i8 5, i8 4, i8 11, i8 10, i8 9, i8 8, i8 15, i8 14, i8 13, i8 12>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 3, b8 2, b8 1, b8 0, b8 7, b8 6, b8 5, b8 4, b8 11, b8 10, b8 9, b8 8, b8 15, b8 14, b8 13, b8 12>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 3, i8 2, i8 1, i8 0, i8 7, i8 6, i8 5, i8 4, i8 11, i8 10, i8 9, i8 8, i8 15, i8 14, i8 13, i8 12>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 3, b8 2, b8 1, b8 0, b8 7, b8 6, b8 5, b8 4, b8 11, b8 10, b8 9, b8 8, b8 15, b8 14, b8 13, b8 12>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vi = vec_revb(vi);
-// CHECK: store <16 x i8> <i8 3, i8 2, i8 1, i8 0, i8 7, i8 6, i8 5, i8 4, i8 11, i8 10, i8 9, i8 8, i8 15, i8 14, i8 13, i8 12>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 3, b8 2, b8 1, b8 0, b8 7, b8 6, b8 5, b8 4, b8 11, b8 10, b8 9, b8 8, b8 15, b8 14, b8 13, b8 12>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 3, i8 2, i8 1, i8 0, i8 7, i8 6, i8 5, i8 4, i8 11, i8 10, i8 9, i8 8, i8 15, i8 14, i8 13, i8 12>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 3, b8 2, b8 1, b8 0, b8 7, b8 6, b8 5, b8 4, b8 11, b8 10, b8 9, b8 8, b8 15, b8 14, b8 13, b8 12>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vui = vec_revb(vui);
-// CHECK: store <16 x i8> <i8 3, i8 2, i8 1, i8 0, i8 7, i8 6, i8 5, i8 4, i8 11, i8 10, i8 9, i8 8, i8 15, i8 14, i8 13, i8 12>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 3, b8 2, b8 1, b8 0, b8 7, b8 6, b8 5, b8 4, b8 11, b8 10, b8 9, b8 8, b8 15, b8 14, b8 13, b8 12>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 3, i8 2, i8 1, i8 0, i8 7, i8 6, i8 5, i8 4, i8 11, i8 10, i8 9, i8 8, i8 15, i8 14, i8 13, i8 12>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 3, b8 2, b8 1, b8 0, b8 7, b8 6, b8 5, b8 4, b8 11, b8 10, b8 9, b8 8, b8 15, b8 14, b8 13, b8 12>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 
   res_vf = vec_revb(vf);
-// CHECK: store <16 x i8> <i8 3, i8 2, i8 1, i8 0, i8 7, i8 6, i8 5, i8 4, i8 11, i8 10, i8 9, i8 8, i8 15, i8 14, i8 13, i8 12>, ptr {{%.+}}, align 16
+// CHECK: store <16 x b8> <b8 3, b8 2, b8 1, b8 0, b8 7, b8 6, b8 5, b8 4, b8 11, b8 10, b8 9, b8 8, b8 15, b8 14, b8 13, b8 12>, ptr {{%.+}}, align 16
 // CHECK: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
-// CHECK-LE: store <16 x i8> <i8 3, i8 2, i8 1, i8 0, i8 7, i8 6, i8 5, i8 4, i8 11, i8 10, i8 9, i8 8, i8 15, i8 14, i8 13, i8 12>, ptr {{%.+}}, align 16
-// CHECK-LE: store <16 x i8> splat (i8 -1), ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> <b8 3, b8 2, b8 1, b8 0, b8 7, b8 6, b8 5, b8 4, b8 11, b8 10, b8 9, b8 8, b8 15, b8 14, b8 13, b8 12>, ptr {{%.+}}, align 16
+// CHECK-LE: store <16 x b8> splat (b8 -1), ptr {{%.+}}, align 16
 // CHECK-LE: xor <16 x i8>
 // CHECK-LE: call <4 x i32> @llvm.ppc.altivec.vperm(<4 x i32> {{%.+}}, <4 x i32> {{%.+}}, <16 x i8> {{%.+}})
 }
@@ -9465,12 +9465,12 @@ void test9() {
   // CHECK-LABEL: define{{.*}} void @test9
   // CHECK-LE-LABEL: define{{.*}} void @test9
   res_vsc = vec_xl(param_sll, param_sc_ld);
-  // CHECK: load <16 x i8>, ptr %{{.+}}, align 1
-  // CHECK-LE: load <16 x i8>, ptr %{{.+}}, align 1
+  // CHECK: load <16 x b8>, ptr %{{.+}}, align 1
+  // CHECK-LE: load <16 x b8>, ptr %{{.+}}, align 1
 
   res_vuc = vec_xl(param_sll, param_uc_ld);
-  // CHECK: load <16 x i8>, ptr %{{.+}}, align 1
-  // CHECK-LE: load <16 x i8>, ptr %{{.+}}, align 1
+  // CHECK: load <16 x b8>, ptr %{{.+}}, align 1
+  // CHECK-LE: load <16 x b8>, ptr %{{.+}}, align 1
 
   res_vs = vec_xl(param_sll, param_s_ld);
   // CHECK: load <8 x i16>, ptr %{{.+}}, align 1
@@ -9498,12 +9498,12 @@ void test10() {
   // CHECK-LABEL: define{{.*}} void @test10
   // CHECK-LE-LABEL: define{{.*}} void @test10
   vec_xst(vsc, param_sll, &param_sc);
-  // CHECK: store <16 x i8> %{{[0-9]+}}, ptr %{{.+}}, align 1
-  // CHECK-LE: store <16 x i8> %{{[0-9]+}}, ptr %{{.+}}, align 1
+  // CHECK: store <16 x b8> %{{[0-9]+}}, ptr %{{.+}}, align 1
+  // CHECK-LE: store <16 x b8> %{{[0-9]+}}, ptr %{{.+}}, align 1
 
   vec_xst(vuc, param_sll, &param_uc);
-  // CHECK: store <16 x i8> %{{[0-9]+}}, ptr %{{.+}}, align 1
-  // CHECK-LE: store <16 x i8> %{{[0-9]+}}, ptr %{{.+}}, align 1
+  // CHECK: store <16 x b8> %{{[0-9]+}}, ptr %{{.+}}, align 1
+  // CHECK-LE: store <16 x b8> %{{[0-9]+}}, ptr %{{.+}}, align 1
 
   vec_xst(vs, param_sll, &param_s);
   // CHECK: store <8 x i16> %{{[0-9]+}}, ptr %{{.+}}, align 1

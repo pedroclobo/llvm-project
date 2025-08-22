@@ -8,8 +8,13 @@
 
 // CHECK-LABEL: @test_vcaddq_rot90_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.v16i8(i32 1, i32 0, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.v16i8(i32 1, i32 0, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    store <16 x i8> [[TMP2]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP3]]
 //
 uint8x16_t test_vcaddq_rot90_u8(uint8x16_t a, uint8x16_t b)
 {
@@ -50,8 +55,13 @@ uint32x4_t test_vcaddq_rot90_u32(uint32x4_t a, uint32x4_t b)
 
 // CHECK-LABEL: @test_vcaddq_rot90_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.v16i8(i32 1, i32 0, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.v16i8(i32 1, i32 0, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    store <16 x i8> [[TMP2]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP3]]
 //
 int8x16_t test_vcaddq_rot90_s8(int8x16_t a, int8x16_t b)
 {
@@ -120,8 +130,13 @@ float32x4_t test_vcaddq_rot90_f32(float32x4_t a, float32x4_t b)
 
 // CHECK-LABEL: @test_vcaddq_rot270_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.v16i8(i32 1, i32 1, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.v16i8(i32 1, i32 1, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    store <16 x i8> [[TMP2]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP3]]
 //
 uint8x16_t test_vcaddq_rot270_u8(uint8x16_t a, uint8x16_t b)
 {
@@ -162,8 +177,13 @@ uint32x4_t test_vcaddq_rot270_u32(uint32x4_t a, uint32x4_t b)
 
 // CHECK-LABEL: @test_vcaddq_rot270_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.v16i8(i32 1, i32 1, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.v16i8(i32 1, i32 1, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    store <16 x i8> [[TMP2]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP3:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP3]]
 //
 int8x16_t test_vcaddq_rot270_s8(int8x16_t a, int8x16_t b)
 {
@@ -233,10 +253,16 @@ float32x4_t test_vcaddq_rot270_f32(float32x4_t a, float32x4_t b)
 
 // CHECK-LABEL: @test_vcaddq_rot90_m_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 0, <16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 0, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 uint8x16_t test_vcaddq_rot90_m_u8(uint8x16_t inactive, uint8x16_t a, uint8x16_t b, mve_pred16_t p)
 {
@@ -281,10 +307,16 @@ uint32x4_t test_vcaddq_rot90_m_u32(uint32x4_t inactive, uint32x4_t a, uint32x4_t
 
 // CHECK-LABEL: @test_vcaddq_rot90_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 0, <16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 0, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vcaddq_rot90_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -361,10 +393,16 @@ float32x4_t test_vcaddq_rot90_m_f32(float32x4_t inactive, float32x4_t a, float32
 
 // CHECK-LABEL: @test_vcaddq_rot270_m_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 1, <16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 1, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 uint8x16_t test_vcaddq_rot270_m_u8(uint8x16_t inactive, uint8x16_t a, uint8x16_t b, mve_pred16_t p)
 {
@@ -409,10 +447,16 @@ uint32x4_t test_vcaddq_rot270_m_u32(uint32x4_t inactive, uint32x4_t a, uint32x4_
 
 // CHECK-LABEL: @test_vcaddq_rot270_m_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 1, <16 x i8> [[INACTIVE:%.*]], <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[INACTIVE:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 1, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i1> [[TMP4]])
+// CHECK-NEXT:    store <16 x i8> [[TMP5]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP6]]
 //
 int8x16_t test_vcaddq_rot270_m_s8(int8x16_t inactive, int8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -489,10 +533,15 @@ float32x4_t test_vcaddq_rot270_m_f32(float32x4_t inactive, float32x4_t a, float3
 
 // CHECK-LABEL: @test_vcaddq_rot90_x_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 0, <16 x i8> undef, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 0, <16 x i8> undef, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i1> [[TMP3]])
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vcaddq_rot90_x_u8(uint8x16_t a, uint8x16_t b, mve_pred16_t p)
 {
@@ -537,10 +586,15 @@ uint32x4_t test_vcaddq_rot90_x_u32(uint32x4_t a, uint32x4_t b, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vcaddq_rot90_x_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 0, <16 x i8> undef, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 0, <16 x i8> undef, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i1> [[TMP3]])
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 int8x16_t test_vcaddq_rot90_x_s8(int8x16_t a, int8x16_t b, mve_pred16_t p)
 {
@@ -617,10 +671,15 @@ float32x4_t test_vcaddq_rot90_x_f32(float32x4_t a, float32x4_t b, mve_pred16_t p
 
 // CHECK-LABEL: @test_vcaddq_rot270_x_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 1, <16 x i8> undef, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 1, <16 x i8> undef, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i1> [[TMP3]])
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vcaddq_rot270_x_u8(uint8x16_t a, uint8x16_t b, mve_pred16_t p)
 {
@@ -665,10 +724,15 @@ uint32x4_t test_vcaddq_rot270_x_u32(uint32x4_t a, uint32x4_t b, mve_pred16_t p)
 
 // CHECK-LABEL: @test_vcaddq_rot270_x_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP0]])
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 1, <16 x i8> undef, <16 x i8> [[A:%.*]], <16 x i8> [[B:%.*]], <16 x i1> [[TMP1]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP2]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call <16 x i8> @llvm.arm.mve.vcaddq.predicated.v16i8.v16i1(i32 1, i32 1, <16 x i8> undef, <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i1> [[TMP3]])
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 int8x16_t test_vcaddq_rot270_x_s8(int8x16_t a, int8x16_t b, mve_pred16_t p)
 {

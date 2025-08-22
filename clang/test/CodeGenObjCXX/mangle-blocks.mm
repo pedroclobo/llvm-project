@@ -25,7 +25,7 @@ int i = ^(int x) { return x;}(i);
 
 @implementation A
 - (void)method { 
-  // CHECK: define internal noundef signext i8 @"__11-[A method]_block_invoke"
+  // CHECK: define internal noundef signext b8 @"__11-[A method]_block_invoke"
   (void)^(int x) {
     // CHECK: @"_ZZZ11-[A method]EUb1_E4name"
     static const char *name = "hello";
@@ -42,7 +42,7 @@ void foo(int) {
 }
 
 namespace N {
-  // CHECK-LABEL: define internal noundef signext i8 @___Z3fooi_block_invoke
+  // CHECK-LABEL: define internal noundef signext b8 @___Z3fooi_block_invoke
   void bar() {
     (void)^(int x) { 
       // CHECK: @_ZZZN1N3barEvEUb3_E4name

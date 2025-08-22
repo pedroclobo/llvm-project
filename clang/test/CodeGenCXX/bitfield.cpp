@@ -173,7 +173,7 @@ namespace N1 {
     char c;
   };
 // LAYOUT-LABEL: LLVMType:%"struct.N1::S" =
-// LAYOUT-SAME: type { i8, i8, i8, i8 }
+// LAYOUT-SAME: type { b8, i8, b8, i8 }
 // LAYOUT: BitFields:[
 // LAYOUT-X86-64-NEXT: <CGBitFieldInfo Offset:0 Size:1 IsSigned:0 StorageSize:8 StorageOffset:1
 // LAYOUT-PPC64-NEXT: <CGBitFieldInfo Offset:7 Size:1 IsSigned:0 StorageSize:8 StorageOffset:1
@@ -370,7 +370,7 @@ namespace N5 {
     struct Y { unsigned b : 24; } y;
   };
 // LAYOUT-LABEL: LLVMType:%"struct.N5::U::X" =
-// LAYOUT-SAME: type { [3 x i8], i8 }
+// LAYOUT-SAME: type { [3 x i8], b8 }
 // LAYOUT-NEXT:  NonVirtualBaseLLVMType:%"struct.N5::U::X" =
 // LAYOUT: BitFields:[
 // LAYOUT-X86-64-NEXT: <CGBitFieldInfo Offset:0 Size:24 IsSigned:0 StorageSize:24 StorageOffset:0
@@ -443,7 +443,9 @@ namespace N6 {
     // CHECK-X86-64:   %[[ext1:.*]] = zext i24 %[[val1]] to i32
     // CHECK-X86-64:   %[[ptr2:.*]] = getelementptr inbounds nuw {{.*}}, ptr %{{.*}}, i32 0, i32 1
     // CHECK-X86-64:   %[[val2:.*]] = load i8, ptr %[[ptr2]]
-    // CHECK-X86-64:   %[[ext2:.*]] = zext i8 %[[val2]] to i32
+    // CHECK-X86-64:   %[[cast1:.*]] = bitcast i8 %[[val2]] to b8
+    // CHECK-X86-64:   %[[cast2:.*]] = bytecast b8 %[[cast1]] to i8
+    // CHECK-X86-64:   %[[ext2:.*]] = zext i8 %[[cast2]] to i32
     // CHECK-X86-64:   %[[add:.*]]  = add nsw i32 %[[ext1]], %[[ext2]]
     // CHECK-X86-64:                  ret i32 %[[add]]
     // CHECK-PPC64-LABEL: define{{.*}} zeroext i32 @_ZN2N64read
@@ -451,7 +453,9 @@ namespace N6 {
     // CHECK-PPC64:   %[[ext1:.*]] = zext i24 %[[val1]] to i32
     // CHECK-PPC64:   %[[ptr2:.*]] = getelementptr inbounds nuw {{.*}}, ptr %{{.*}}, i32 0, i32 1
     // CHECK-PPC64:   %[[val2:.*]] = load i8, ptr %[[ptr2]]
-    // CHECK-PPC64:   %[[ext2:.*]] = zext i8 %[[val2]] to i32
+    // CHECK-PPC64:   %[[cast1:.*]] = bitcast i8 %[[val2]] to b8
+    // CHECK-PPC64:   %[[cast2:.*]] = bytecast b8 %[[cast1]] to i8
+    // CHECK-PPC64:   %[[ext2:.*]] = zext i8 %[[cast2]] to i32
     // CHECK-PPC64:   %[[add:.*]]  = add nsw i32 %[[ext1]], %[[ext2]]
     // CHECK-PPC64:                  ret i32 %[[add]]
     return s->b1 + s->b2;
@@ -461,14 +465,18 @@ namespace N6 {
     // CHECK-X86-64:   %[[new1:.*]] = trunc i32 %{{.*}} to i24
     // CHECK-X86-64:                  store i24 %[[new1]], ptr %{{.*}}
     // CHECK-X86-64:   %[[new2:.*]] = trunc i32 %{{.*}} to i8
+    // CHECK-X86-64:   %[[cast1:.*]] = bitcast i8 %[[new2]] to b8
     // CHECK-X86-64:   %[[ptr2:.*]] = getelementptr inbounds nuw {{.*}}, ptr %{{.*}}, i32 0, i32 1
-    // CHECK-X86-64:                  store i8 %[[new2]], ptr %[[ptr2]]
+    // CHECK-X86-64:   %[[cast2:.*]] = bytecast b8 %[[cast1]] to i8
+    // CHECK-X86-64:                  store i8 %[[cast2]], ptr %[[ptr2]]
     // CHECK-PPC64-LABEL: define{{.*}} void @_ZN2N65write
     // CHECK-PPC64:   %[[new1:.*]] = trunc i32 %{{.*}} to i24
     // CHECK-PPC64:                  store i24 %[[new1]], ptr %{{.*}}
     // CHECK-PPC64:   %[[new2:.*]] = trunc i32 %{{.*}} to i8
+    // CHECK-PPC64:   %[[cast1:.*]] = bitcast i8 %[[new2]] to b8
     // CHECK-PPC64:   %[[ptr2:.*]] = getelementptr inbounds nuw {{.*}}, ptr %{{.*}}, i32 0, i32 1
-    // CHECK-PPC64:                  store i8 %[[new2]], ptr %[[ptr2]]
+    // CHECK-PPC64:   %[[cast2:.*]] = bytecast b8 %[[cast1]] to i8
+    // CHECK-PPC64:                  store i8 %[[cast2]], ptr %[[ptr2]]
     s->b1 = x;
     s->b2 = x;
   }

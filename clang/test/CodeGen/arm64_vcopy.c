@@ -6,18 +6,25 @@
 
 #include <arm_neon.h>
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vcopyq_laneq_s8(<16 x i8> noundef %a1, <16 x i8> noundef %a2) #0 {
-// CHECK:   [[VGETQ_LANE:%.*]] = extractelement <16 x i8> %a2, i32 13
-// CHECK:   [[VSET_LANE:%.*]] = insertelement <16 x i8> %a1, i8 [[VGETQ_LANE]], i32 3
-// CHECK:   ret <16 x i8> [[VSET_LANE]]
+// CHECK-LABEL: define <16 x b8> @test_vcopyq_laneq_s8(<16 x b8> noundef %a1, <16 x b8> noundef %a2) #0 {
+// CHECK:   [[REF_TMP:%.*]] = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a2 to <16 x i8>
+// CHECK:   [[VGETQ_LANE:%.*]] = extractelement <16 x i8> [[TMP0]], i32 13
+// CHECK:   store i8 [[VGETQ_LANE]], ptr [[REF_TMP]], align 1
+// CHECK:   [[TMP1:%.*]] = load b8, ptr [[REF_TMP]], align 1
+// CHECK:   [[VSET_LANE:%.*]] = insertelement <16 x b8> %a1, b8 [[TMP1]], i32 3
+// CHECK:   ret <16 x b8> [[VSET_LANE]]
 int8x16_t test_vcopyq_laneq_s8(int8x16_t a1, int8x16_t a2) {
   return vcopyq_laneq_s8(a1, (int64_t) 3, a2, (int64_t) 13);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vcopyq_laneq_u8(<16 x i8> noundef %a1, <16 x i8> noundef %a2) #0 {
-// CHECK:   [[VGETQ_LANE:%.*]] = extractelement <16 x i8> %a2, i32 13
-// CHECK:   [[VSET_LANE:%.*]] = insertelement <16 x i8> %a1, i8 [[VGETQ_LANE]], i32 3
-// CHECK:   ret <16 x i8> [[VSET_LANE]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vcopyq_laneq_u8(<16 x b8> noundef %a1, <16 x b8> noundef %a2) #0 {
+// CHECK:   [[RET:%.*]] = alloca b8, align 1
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a2 to <16 x i8>
+// CHECK:   [[VGETQ_LANE:%.*]] = extractelement <16 x i8> [[TMP0]], i32 13
+// CHECK:   [[TMP1:%.*]] = load b8, ptr [[RET]], align 1
+// CHECK:   [[VSET_LANE:%.*]] = insertelement <16 x b8> %a1, b8 [[TMP1]], i32 3
+// CHECK:   ret <16 x b8> [[VSET_LANE]]
 uint8x16_t test_vcopyq_laneq_u8(uint8x16_t a1, uint8x16_t a2) {
   return vcopyq_laneq_u8(a1, (int64_t) 3, a2, (int64_t) 13);
 

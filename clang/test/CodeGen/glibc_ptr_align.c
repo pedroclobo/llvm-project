@@ -50,7 +50,7 @@ char *glibc_ptr_align_commuted(char *base, char *pointer, long align_mask) {
 // CHECK-NEXT:    [[ADD:%.*]] = sub i64 [[SUB_PTR_SUB]], [[SUB_PTR_RHS_CAST]]
 // CHECK-NEXT:    [[NOT:%.*]] = xor i64 [[ALIGN_MASK]], -1
 // CHECK-NEXT:    [[AND:%.*]] = and i64 [[ADD]], [[NOT]]
-// CHECK-NEXT:    [[ADD_PTR:%.*]] = getelementptr inbounds i8, ptr [[COND1]], i64 [[AND]]
+// CHECK-NEXT:    [[ADD_PTR:%.*]] = getelementptr inbounds b8, ptr [[COND1]], i64 [[AND]]
 // CHECK-NEXT:    ret ptr [[ADD_PTR]]
 //
 char *glibc_ptr_align_non_constexpr(char *base, char *pointer, long align_mask, int cond) {

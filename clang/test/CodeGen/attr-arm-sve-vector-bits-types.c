@@ -154,7 +154,7 @@ void f() {
 // CHECK-128-NEXT: %struct.struct_int16 = type { <8 x i16> }
 // CHECK-128-NEXT: %struct.struct_int32 = type { <4 x i32> }
 // CHECK-128-NEXT: %struct.struct_int64 = type { <2 x i64> }
-// CHECK-128-NEXT: %struct.struct_uint8 = type { <16 x i8> }
+// CHECK-128-NEXT: %struct.struct_uint8 = type { <16 x b8> }
 // CHECK-128-NEXT: %struct.struct_uint16 = type { <8 x i16> }
 // CHECK-128-NEXT: %struct.struct_uint32 = type { <4 x i32> }
 // CHECK-128-NEXT: %struct.struct_uint64 = type { <2 x i64> }
@@ -162,13 +162,13 @@ void f() {
 // CHECK-128-NEXT: %struct.struct_float32 = type { <4 x float> }
 // CHECK-128-NEXT: %struct.struct_float64 = type { <2 x double> }
 // CHECK-128-NEXT: %struct.struct_bfloat16 = type { <8 x bfloat> }
-// CHECK-128-NEXT: %struct.struct_bool = type { <2 x i8> }
+// CHECK-128-NEXT: %struct.struct_bool = type { <2 x b8> }
 
 // CHECK-256:      %struct.struct_int8 = type { <32 x i8> }
 // CHECK-256-NEXT: %struct.struct_int16 = type { <16 x i16> }
 // CHECK-256-NEXT: %struct.struct_int32 = type { <8 x i32> }
 // CHECK-256-NEXT: %struct.struct_int64 = type { <4 x i64> }
-// CHECK-256-NEXT: %struct.struct_uint8 = type { <32 x i8> }
+// CHECK-256-NEXT: %struct.struct_uint8 = type { <32 x b8> }
 // CHECK-256-NEXT: %struct.struct_uint16 = type { <16 x i16> }
 // CHECK-256-NEXT: %struct.struct_uint32 = type { <8 x i32> }
 // CHECK-256-NEXT: %struct.struct_uint64 = type { <4 x i64> }
@@ -176,13 +176,13 @@ void f() {
 // CHECK-256-NEXT: %struct.struct_float32 = type { <8 x float> }
 // CHECK-256-NEXT: %struct.struct_float64 = type { <4 x double> }
 // CHECK-256-NEXT: %struct.struct_bfloat16 = type { <16 x bfloat> }
-// CHECK-256-NEXT: %struct.struct_bool = type { <4 x i8> }
+// CHECK-256-NEXT: %struct.struct_bool = type { <4 x b8> }
 
 // CHECK-512:      %struct.struct_int8 = type { <64 x i8> }
 // CHECK-512-NEXT: %struct.struct_int16 = type { <32 x i16> }
 // CHECK-512-NEXT: %struct.struct_int32 = type { <16 x i32> }
 // CHECK-512-NEXT: %struct.struct_int64 = type { <8 x i64> }
-// CHECK-512-NEXT: %struct.struct_uint8 = type { <64 x i8> }
+// CHECK-512-NEXT: %struct.struct_uint8 = type { <64 x b8> }
 // CHECK-512-NEXT: %struct.struct_uint16 = type { <32 x i16> }
 // CHECK-512-NEXT: %struct.struct_uint32 = type { <16 x i32> }
 // CHECK-512-NEXT: %struct.struct_uint64 = type { <8 x i64> }
@@ -190,13 +190,13 @@ void f() {
 // CHECK-512-NEXT: %struct.struct_float32 = type { <16 x float> }
 // CHECK-512-NEXT: %struct.struct_float64 = type { <8 x double> }
 // CHECK-512-NEXT: %struct.struct_bfloat16 = type { <32 x bfloat> }
-// CHECK-512-NEXT: %struct.struct_bool = type { <8 x i8> }
+// CHECK-512-NEXT: %struct.struct_bool = type { <8 x b8> }
 
 // CHECK-1024:      %struct.struct_int8 = type { <128 x i8> }
 // CHECK-1024-NEXT: %struct.struct_int16 = type { <64 x i16> }
 // CHECK-1024-NEXT: %struct.struct_int32 = type { <32 x i32> }
 // CHECK-1024-NEXT: %struct.struct_int64 = type { <16 x i64> }
-// CHECK-1024-NEXT: %struct.struct_uint8 = type { <128 x i8> }
+// CHECK-1024-NEXT: %struct.struct_uint8 = type { <128 x b8> }
 // CHECK-1024-NEXT: %struct.struct_uint16 = type { <64 x i16> }
 // CHECK-1024-NEXT: %struct.struct_uint32 = type { <32 x i32> }
 // CHECK-1024-NEXT: %struct.struct_uint64 = type { <16 x i64> }
@@ -204,13 +204,13 @@ void f() {
 // CHECK-1024-NEXT: %struct.struct_float32 = type { <32 x float> }
 // CHECK-1024-NEXT: %struct.struct_float64 = type { <16 x double> }
 // CHECK-1024-NEXT: %struct.struct_bfloat16 = type { <64 x bfloat> }
-// CHECK-1024-NEXT: %struct.struct_bool = type { <16 x i8> }
+// CHECK-1024-NEXT: %struct.struct_bool = type { <16 x b8> }
 
 // CHECK-2048:      %struct.struct_int8 = type { <256 x i8> }
 // CHECK-2048-NEXT: %struct.struct_int16 = type { <128 x i16> }
 // CHECK-2048-NEXT: %struct.struct_int32 = type { <64 x i32> }
 // CHECK-2048-NEXT: %struct.struct_int64 = type { <32 x i64> }
-// CHECK-2048-NEXT: %struct.struct_uint8 = type { <256 x i8> }
+// CHECK-2048-NEXT: %struct.struct_uint8 = type { <256 x b8> }
 // CHECK-2048-NEXT: %struct.struct_uint16 = type { <128 x i16> }
 // CHECK-2048-NEXT: %struct.struct_uint32 = type { <64 x i32> }
 // CHECK-2048-NEXT: %struct.struct_uint64 = type { <32 x i64> }
@@ -218,13 +218,13 @@ void f() {
 // CHECK-2048-NEXT: %struct.struct_float32 = type { <64 x float> }
 // CHECK-2048-NEXT: %struct.struct_float64 = type { <32 x double> }
 // CHECK-2048-NEXT: %struct.struct_bfloat16 = type { <128 x bfloat> }
-// CHECK-2048-NEXT: %struct.struct_bool = type { <32 x i8> }
+// CHECK-2048-NEXT: %struct.struct_bool = type { <32 x b8> }
 
 // CHECK-128:      %union.union_int8 = type { <16 x i8> }
 // CHECK-128-NEXT: %union.union_int16 = type { <8 x i16> }
 // CHECK-128-NEXT: %union.union_int32 = type { <4 x i32> }
 // CHECK-128-NEXT: %union.union_int64 = type { <2 x i64> }
-// CHECK-128-NEXT: %union.union_uint8 = type { <16 x i8> }
+// CHECK-128-NEXT: %union.union_uint8 = type { <16 x b8> }
 // CHECK-128-NEXT: %union.union_uint16 = type { <8 x i16> }
 // CHECK-128-NEXT: %union.union_uint32 = type { <4 x i32> }
 // CHECK-128-NEXT: %union.union_uint64 = type { <2 x i64> }
@@ -232,13 +232,13 @@ void f() {
 // CHECK-128-NEXT: %union.union_float32 = type { <4 x float> }
 // CHECK-128-NEXT: %union.union_float64 = type { <2 x double> }
 // CHECK-128-NEXT: %union.union_bfloat16 = type { <8 x bfloat> }
-// CHECK-128-NEXT: %union.union_bool = type { <2 x i8> }
+// CHECK-128-NEXT: %union.union_bool = type { <2 x b8> }
 
 // CHECK-256:      %union.union_int8 = type { <32 x i8> }
 // CHECK-256-NEXT: %union.union_int16 = type { <16 x i16> }
 // CHECK-256-NEXT: %union.union_int32 = type { <8 x i32> }
 // CHECK-256-NEXT: %union.union_int64 = type { <4 x i64> }
-// CHECK-256-NEXT: %union.union_uint8 = type { <32 x i8> }
+// CHECK-256-NEXT: %union.union_uint8 = type { <32 x b8> }
 // CHECK-256-NEXT: %union.union_uint16 = type { <16 x i16> }
 // CHECK-256-NEXT: %union.union_uint32 = type { <8 x i32> }
 // CHECK-256-NEXT: %union.union_uint64 = type { <4 x i64> }
@@ -246,13 +246,13 @@ void f() {
 // CHECK-256-NEXT: %union.union_float32 = type { <8 x float> }
 // CHECK-256-NEXT: %union.union_float64 = type { <4 x double> }
 // CHECK-256-NEXT: %union.union_bfloat16 = type { <16 x bfloat> }
-// CHECK-256-NEXT: %union.union_bool = type { <4 x i8> }
+// CHECK-256-NEXT: %union.union_bool = type { <4 x b8> }
 
 // CHECK-512:      %union.union_int8 = type { <64 x i8> }
 // CHECK-512-NEXT: %union.union_int16 = type { <32 x i16> }
 // CHECK-512-NEXT: %union.union_int32 = type { <16 x i32> }
 // CHECK-512-NEXT: %union.union_int64 = type { <8 x i64> }
-// CHECK-512-NEXT: %union.union_uint8 = type { <64 x i8> }
+// CHECK-512-NEXT: %union.union_uint8 = type { <64 x b8> }
 // CHECK-512-NEXT: %union.union_uint16 = type { <32 x i16> }
 // CHECK-512-NEXT: %union.union_uint32 = type { <16 x i32> }
 // CHECK-512-NEXT: %union.union_uint64 = type { <8 x i64> }
@@ -260,13 +260,13 @@ void f() {
 // CHECK-512-NEXT: %union.union_float32 = type { <16 x float> }
 // CHECK-512-NEXT: %union.union_float64 = type { <8 x double> }
 // CHECK-512-NEXT: %union.union_bfloat16 = type { <32 x bfloat> }
-// CHECK-512-NEXT: %union.union_bool = type { <8 x i8> }
+// CHECK-512-NEXT: %union.union_bool = type { <8 x b8> }
 
 // CHECK-1024:      %union.union_int8 = type { <128 x i8> }
 // CHECK-1024-NEXT: %union.union_int16 = type { <64 x i16> }
 // CHECK-1024-NEXT: %union.union_int32 = type { <32 x i32> }
 // CHECK-1024-NEXT: %union.union_int64 = type { <16 x i64> }
-// CHECK-1024-NEXT: %union.union_uint8 = type { <128 x i8> }
+// CHECK-1024-NEXT: %union.union_uint8 = type { <128 x b8> }
 // CHECK-1024-NEXT: %union.union_uint16 = type { <64 x i16> }
 // CHECK-1024-NEXT: %union.union_uint32 = type { <32 x i32> }
 // CHECK-1024-NEXT: %union.union_uint64 = type { <16 x i64> }
@@ -274,13 +274,13 @@ void f() {
 // CHECK-1024-NEXT: %union.union_float32 = type { <32 x float> }
 // CHECK-1024-NEXT: %union.union_float64 = type { <16 x double> }
 // CHECK-1024-NEXT: %union.union_bfloat16 = type { <64 x bfloat> }
-// CHECK-1024-NEXT: %union.union_bool = type { <16 x i8> }
+// CHECK-1024-NEXT: %union.union_bool = type { <16 x b8> }
 
 // CHECK-2048:      %union.union_int8 = type { <256 x i8> }
 // CHECK-2048-NEXT: %union.union_int16 = type { <128 x i16> }
 // CHECK-2048-NEXT: %union.union_int32 = type { <64 x i32> }
 // CHECK-2048-NEXT: %union.union_int64 = type { <32 x i64> }
-// CHECK-2048-NEXT: %union.union_uint8 = type { <256 x i8> }
+// CHECK-2048-NEXT: %union.union_uint8 = type { <256 x b8> }
 // CHECK-2048-NEXT: %union.union_uint16 = type { <128 x i16> }
 // CHECK-2048-NEXT: %union.union_uint32 = type { <64 x i32> }
 // CHECK-2048-NEXT: %union.union_uint64 = type { <32 x i64> }
@@ -288,7 +288,7 @@ void f() {
 // CHECK-2048-NEXT: %union.union_float32 = type { <64 x float> }
 // CHECK-2048-NEXT: %union.union_float64 = type { <32 x double> }
 // CHECK-2048-NEXT: %union.union_bfloat16 = type { <128 x bfloat> }
-// CHECK-2048-NEXT: %union.union_bool = type { <32 x i8> }
+// CHECK-2048-NEXT: %union.union_bool = type { <32 x b8> }
 
 //===----------------------------------------------------------------------===//
 // Global variables
@@ -297,7 +297,7 @@ void f() {
 // CHECK-128-NEXT: @global_i16 ={{.*}} global <8 x i16> zeroinitializer, align 16
 // CHECK-128-NEXT: @global_i32 ={{.*}} global <4 x i32> zeroinitializer, align 16
 // CHECK-128-NEXT: @global_i64 ={{.*}} global <2 x i64> zeroinitializer, align 16
-// CHECK-128-NEXT: @global_u8 ={{.*}} global <16 x i8> zeroinitializer, align 16
+// CHECK-128-NEXT: @global_u8 ={{.*}} global <16 x b8> zeroinitializer, align 16
 // CHECK-128-NEXT: @global_u16 ={{.*}} global <8 x i16> zeroinitializer, align 16
 // CHECK-128-NEXT: @global_u32 ={{.*}} global <4 x i32> zeroinitializer, align 16
 // CHECK-128-NEXT: @global_u64 ={{.*}} global <2 x i64> zeroinitializer, align 16
@@ -305,7 +305,7 @@ void f() {
 // CHECK-128-NEXT: @global_f32 ={{.*}} global <4 x float> zeroinitializer, align 16
 // CHECK-128-NEXT: @global_f64 ={{.*}} global <2 x double> zeroinitializer, align 16
 // CHECK-128-NEXT: @global_bf16 ={{.*}} global <8 x bfloat> zeroinitializer, align 16
-// CHECK-128-NEXT: @global_bool ={{.*}} global <2 x i8> zeroinitializer, align 2
+// CHECK-128-NEXT: @global_bool ={{.*}} global <2 x b8> zeroinitializer, align 2
 
 // CHECK-256:      @global_i8 ={{.*}} global <32 x i8> zeroinitializer, align 16
 // CHECK-NEXT-256: @global_i16 ={{.*}} global <16 x i16> zeroinitializer, align 16
@@ -370,7 +370,7 @@ void f() {
 // CHECK-128-NEXT: @global_arr_i16 ={{.*}} global [3 x <8 x i16>] zeroinitializer, align 16
 // CHECK-128-NEXT: @global_arr_i32 ={{.*}} global [3 x <4 x i32>] zeroinitializer, align 16
 // CHECK-128-NEXT: @global_arr_i64 ={{.*}} global [3 x <2 x i64>] zeroinitializer, align 16
-// CHECK-128-NEXT: @global_arr_u8 ={{.*}} global [3 x <16 x i8>] zeroinitializer, align 16
+// CHECK-128-NEXT: @global_arr_u8 ={{.*}} global [3 x <16 x b8>] zeroinitializer, align 16
 // CHECK-128-NEXT: @global_arr_u16 ={{.*}} global [3 x <8 x i16>] zeroinitializer, align 16
 // CHECK-128-NEXT: @global_arr_u32 ={{.*}} global [3 x <4 x i32>] zeroinitializer, align 16
 // CHECK-128-NEXT: @global_arr_u64 ={{.*}} global [3 x <2 x i64>] zeroinitializer, align 16
@@ -378,7 +378,7 @@ void f() {
 // CHECK-128-NEXT: @global_arr_f32 ={{.*}} global [3 x <4 x float>] zeroinitializer, align 16
 // CHECK-128-NEXT: @global_arr_f64 ={{.*}} global [3 x <2 x double>] zeroinitializer, align 16
 // CHECK-128-NEXT: @global_arr_bf16 ={{.*}} global [3 x <8 x bfloat>] zeroinitializer, align 16
-// CHECK-128-NEXT: @global_arr_bool ={{.*}} global [3 x <2 x i8>] zeroinitializer, align 2
+// CHECK-128-NEXT: @global_arr_bool ={{.*}} global [3 x <2 x b8>] zeroinitializer, align 2
 
 // CHECK-256:      @global_arr_i8 ={{.*}} global [3 x <32 x i8>] zeroinitializer, align 16
 // CHECK-NEXT-256: @global_arr_i16 ={{.*}} global [3 x <16 x i16>] zeroinitializer, align 16
@@ -443,7 +443,7 @@ void f() {
 // CHECK-128-NEXT: %local_i16 = alloca <8 x i16>, align 16
 // CHECK-128-NEXT: %local_i32 = alloca <4 x i32>, align 16
 // CHECK-128-NEXT: %local_i64 = alloca <2 x i64>, align 16
-// CHECK-128-NEXT: %local_u8 = alloca <16 x i8>, align 16
+// CHECK-128-NEXT: %local_u8 = alloca <16 x b8>, align 16
 // CHECK-128-NEXT: %local_u16 = alloca <8 x i16>, align 16
 // CHECK-128-NEXT: %local_u32 = alloca <4 x i32>, align 16
 // CHECK-128-NEXT: %local_u64 = alloca <2 x i64>, align 16
@@ -451,13 +451,13 @@ void f() {
 // CHECK-128-NEXT: %local_f32 = alloca <4 x float>, align 16
 // CHECK-128-NEXT: %local_f64 = alloca <2 x double>, align 16
 // CHECK-128-NEXT: %local_bf16 = alloca <8 x bfloat>, align 16
-// CHECK-128-NEXT: %local_bool = alloca <2 x i8>, align 2
+// CHECK-128-NEXT: %local_bool = alloca <2 x b8>, align 2
 
 // CHECK-256:      %local_i8 = alloca <32 x i8>, align 16
 // CHECK-256-NEXT: %local_i16 = alloca <16 x i16>, align 16
 // CHECK-256-NEXT: %local_i32 = alloca <8 x i32>, align 16
 // CHECK-256-NEXT: %local_i64 = alloca <4 x i64>, align 16
-// CHECK-256-NEXT: %local_u8 = alloca <32 x i8>, align 16
+// CHECK-256-NEXT: %local_u8 = alloca <32 x b8>, align 16
 // CHECK-256-NEXT: %local_u16 = alloca <16 x i16>, align 16
 // CHECK-256-NEXT: %local_u32 = alloca <8 x i32>, align 16
 // CHECK-256-NEXT: %local_u64 = alloca <4 x i64>, align 16
@@ -465,13 +465,13 @@ void f() {
 // CHECK-256-NEXT: %local_f32 = alloca <8 x float>, align 16
 // CHECK-256-NEXT: %local_f64 = alloca <4 x double>, align 16
 // CHECK-256-NEXT: %local_bf16 = alloca <16 x bfloat>, align 16
-// CHECK-256-NEXT: %local_bool = alloca <4 x i8>, align 2
+// CHECK-256-NEXT: %local_bool = alloca <4 x b8>, align 2
 
 // CHECK-512:      %local_i8 = alloca <64 x i8>, align 16
 // CHECK-512-NEXT: %local_i16 = alloca <32 x i16>, align 16
 // CHECK-512-NEXT: %local_i32 = alloca <16 x i32>, align 16
 // CHECK-512-NEXT: %local_i64 = alloca <8 x i64>, align 16
-// CHECK-512-NEXT: %local_u8 = alloca <64 x i8>, align 16
+// CHECK-512-NEXT: %local_u8 = alloca <64 x b8>, align 16
 // CHECK-512-NEXT: %local_u16 = alloca <32 x i16>, align 16
 // CHECK-512-NEXT: %local_u32 = alloca <16 x i32>, align 16
 // CHECK-512-NEXT: %local_u64 = alloca <8 x i64>, align 16
@@ -479,13 +479,13 @@ void f() {
 // CHECK-512-NEXT: %local_f32 = alloca <16 x float>, align 16
 // CHECK-512-NEXT: %local_f64 = alloca <8 x double>, align 16
 // CHECK-512-NEXT: %local_bf16 = alloca <32 x bfloat>, align 16
-// CHECK-512-NEXT: %local_bool = alloca <8 x i8>, align 2
+// CHECK-512-NEXT: %local_bool = alloca <8 x b8>, align 2
 
 // CHECK-1024:       %local_i8 = alloca <128 x i8>, align 16
 // CHECK-1024-NEXT:  %local_i16 = alloca <64 x i16>, align 16
 // CHECK-1024-NEXT:  %local_i32 = alloca <32 x i32>, align 16
 // CHECK-1024-NEXT:  %local_i64 = alloca <16 x i64>, align 16
-// CHECK-1024-NEXT:  %local_u8 = alloca <128 x i8>, align 16
+// CHECK-1024-NEXT:  %local_u8 = alloca <128 x b8>, align 16
 // CHECK-1024-NEXT:  %local_u16 = alloca <64 x i16>, align 16
 // CHECK-1024-NEXT:  %local_u32 = alloca <32 x i32>, align 16
 // CHECK-1024-NEXT:  %local_u64 = alloca <16 x i64>, align 16
@@ -493,13 +493,13 @@ void f() {
 // CHECK-1024-NEXT:  %local_f32 = alloca <32 x float>, align 16
 // CHECK-1024-NEXT:  %local_f64 = alloca <16 x double>, align 16
 // CHECK-1024-NEXT:  %local_bf16 = alloca <64 x bfloat>, align 16
-// CHECK-1024-NEXT:  %local_bool = alloca <16 x i8>, align 2
+// CHECK-1024-NEXT:  %local_bool = alloca <16 x b8>, align 2
 
 // CHECK-2048:       %local_i8 = alloca <256 x i8>, align 16
 // CHECK-2048-NEXT:  %local_i16 = alloca <128 x i16>, align 16
 // CHECK-2048-NEXT:  %local_i32 = alloca <64 x i32>, align 16
 // CHECK-2048-NEXT:  %local_i64 = alloca <32 x i64>, align 16
-// CHECK-2048-NEXT:  %local_u8 = alloca <256 x i8>, align 16
+// CHECK-2048-NEXT:  %local_u8 = alloca <256 x b8>, align 16
 // CHECK-2048-NEXT:  %local_u16 = alloca <128 x i16>, align 16
 // CHECK-2048-NEXT:  %local_u32 = alloca <64 x i32>, align 16
 // CHECK-2048-NEXT:  %local_u64 = alloca <32 x i64>, align 16
@@ -507,7 +507,7 @@ void f() {
 // CHECK-2048-NEXT:  %local_f32 = alloca <64 x float>, align 16
 // CHECK-2048-NEXT:  %local_f64 = alloca <32 x double>, align 16
 // CHECK-2048-NEXT:  %local_bf16 = alloca <128 x bfloat>, align 16
-// CHECK-2048-NEXT:  %local_bool = alloca <32 x i8>, align 2
+// CHECK-2048-NEXT:  %local_bool = alloca <32 x b8>, align 2
 
 //===----------------------------------------------------------------------===//
 // Local arrays
@@ -516,7 +516,7 @@ void f() {
 // CHECK-128-NEXT: %local_arr_i16 = alloca [3 x <8 x i16>], align 16
 // CHECK-128-NEXT: %local_arr_i32 = alloca [3 x <4 x i32>], align 16
 // CHECK-128-NEXT: %local_arr_i64 = alloca [3 x <2 x i64>], align 16
-// CHECK-128-NEXT: %local_arr_u8 = alloca [3 x <16 x i8>], align 16
+// CHECK-128-NEXT: %local_arr_u8 = alloca [3 x <16 x b8>], align 16
 // CHECK-128-NEXT: %local_arr_u16 = alloca [3 x <8 x i16>], align 16
 // CHECK-128-NEXT: %local_arr_u32 = alloca [3 x <4 x i32>], align 16
 // CHECK-128-NEXT: %local_arr_u64 = alloca [3 x <2 x i64>], align 16
@@ -524,13 +524,13 @@ void f() {
 // CHECK-128-NEXT: %local_arr_f32 = alloca [3 x <4 x float>], align 16
 // CHECK-128-NEXT: %local_arr_f64 = alloca [3 x <2 x double>], align 16
 // CHECK-128-NEXT: %local_arr_bf16 = alloca [3 x <8 x bfloat>], align 16
-// CHECK-128-NEXT: %local_arr_bool = alloca [3 x <2 x i8>], align 2
+// CHECK-128-NEXT: %local_arr_bool = alloca [3 x <2 x b8>], align 2
 
 // CHECK-256:      %local_arr_i8 = alloca [3 x <32 x i8>], align 16
 // CHECK-256-NEXT: %local_arr_i16 = alloca [3 x <16 x i16>], align 16
 // CHECK-256-NEXT: %local_arr_i32 = alloca [3 x <8 x i32>], align 16
 // CHECK-256-NEXT: %local_arr_i64 = alloca [3 x <4 x i64>], align 16
-// CHECK-256-NEXT: %local_arr_u8 = alloca [3 x <32 x i8>], align 16
+// CHECK-256-NEXT: %local_arr_u8 = alloca [3 x <32 x b8>], align 16
 // CHECK-256-NEXT: %local_arr_u16 = alloca [3 x <16 x i16>], align 16
 // CHECK-256-NEXT: %local_arr_u32 = alloca [3 x <8 x i32>], align 16
 // CHECK-256-NEXT: %local_arr_u64 = alloca [3 x <4 x i64>], align 16
@@ -538,13 +538,13 @@ void f() {
 // CHECK-256-NEXT: %local_arr_f32 = alloca [3 x <8 x float>], align 16
 // CHECK-256-NEXT: %local_arr_f64 = alloca [3 x <4 x double>], align 16
 // CHECK-256-NEXT: %local_arr_bf16 = alloca [3 x <16 x bfloat>], align 16
-// CHECK-256-NEXT: %local_arr_bool = alloca [3 x <4 x i8>], align 2
+// CHECK-256-NEXT: %local_arr_bool = alloca [3 x <4 x b8>], align 2
 
 // CHECK-512:      %local_arr_i8 = alloca [3 x <64 x i8>], align 16
 // CHECK-512-NEXT: %local_arr_i16 = alloca [3 x <32 x i16>], align 16
 // CHECK-512-NEXT: %local_arr_i32 = alloca [3 x <16 x i32>], align 16
 // CHECK-512-NEXT: %local_arr_i64 = alloca [3 x <8 x i64>], align 16
-// CHECK-512-NEXT: %local_arr_u8 = alloca [3 x <64 x i8>], align 16
+// CHECK-512-NEXT: %local_arr_u8 = alloca [3 x <64 x b8>], align 16
 // CHECK-512-NEXT: %local_arr_u16 = alloca [3 x <32 x i16>], align 16
 // CHECK-512-NEXT: %local_arr_u32 = alloca [3 x <16 x i32>], align 16
 // CHECK-512-NEXT: %local_arr_u64 = alloca [3 x <8 x i64>], align 16
@@ -552,13 +552,13 @@ void f() {
 // CHECK-512-NEXT: %local_arr_f32 = alloca [3 x <16 x float>], align 16
 // CHECK-512-NEXT: %local_arr_f64 = alloca [3 x <8 x double>], align 16
 // CHECK-512-NEXT: %local_arr_bf16 = alloca [3 x <32 x bfloat>], align 16
-// CHECK-512-NEXT: %local_arr_bool = alloca [3 x <8 x i8>], align 2
+// CHECK-512-NEXT: %local_arr_bool = alloca [3 x <8 x b8>], align 2
 
 // CHECK-1024:       %local_arr_i8 = alloca [3 x <128 x i8>], align 16
 // CHECK-1024-NEXT:  %local_arr_i16 = alloca [3 x <64 x i16>], align 16
 // CHECK-1024-NEXT:  %local_arr_i32 = alloca [3 x <32 x i32>], align 16
 // CHECK-1024-NEXT:  %local_arr_i64 = alloca [3 x <16 x i64>], align 16
-// CHECK-1024-NEXT:  %local_arr_u8 = alloca [3 x <128 x i8>], align 16
+// CHECK-1024-NEXT:  %local_arr_u8 = alloca [3 x <128 x b8>], align 16
 // CHECK-1024-NEXT:  %local_arr_u16 = alloca [3 x <64 x i16>], align 16
 // CHECK-1024-NEXT:  %local_arr_u32 = alloca [3 x <32 x i32>], align 16
 // CHECK-1024-NEXT:  %local_arr_u64 = alloca [3 x <16 x i64>], align 16
@@ -566,13 +566,13 @@ void f() {
 // CHECK-1024-NEXT:  %local_arr_f32 = alloca [3 x <32 x float>], align 16
 // CHECK-1024-NEXT:  %local_arr_f64 = alloca [3 x <16 x double>], align 16
 // CHECK-1024-NEXT:  %local_arr_bf16 = alloca [3 x <64 x bfloat>], align 16
-// CHECK-1024-NEXT:  %local_arr_bool = alloca [3 x <16 x i8>], align 2
+// CHECK-1024-NEXT:  %local_arr_bool = alloca [3 x <16 x b8>], align 2
 
 // CHECK-2048:       %local_arr_i8 = alloca [3 x <256 x i8>], align 16
 // CHECK-2048-NEXT:  %local_arr_i16 = alloca [3 x <128 x i16>], align 16
 // CHECK-2048-NEXT:  %local_arr_i32 = alloca [3 x <64 x i32>], align 16
 // CHECK-2048-NEXT:  %local_arr_i64 = alloca [3 x <32 x i64>], align 16
-// CHECK-2048-NEXT:  %local_arr_u8 = alloca [3 x <256 x i8>], align 16
+// CHECK-2048-NEXT:  %local_arr_u8 = alloca [3 x <256 x b8>], align 16
 // CHECK-2048-NEXT:  %local_arr_u16 = alloca [3 x <128 x i16>], align 16
 // CHECK-2048-NEXT:  %local_arr_u32 = alloca [3 x <64 x i32>], align 16
 // CHECK-2048-NEXT:  %local_arr_u64 = alloca [3 x <32 x i64>], align 16
@@ -580,7 +580,7 @@ void f() {
 // CHECK-2048-NEXT:  %local_arr_f32 = alloca [3 x <64 x float>], align 16
 // CHECK-2048-NEXT:  %local_arr_f64 = alloca [3 x <32 x double>], align 16
 // CHECK-2048-NEXT:  %local_arr_bf16 = alloca [3 x <128 x bfloat>], align 16
-// CHECK-2048-NEXT:  %local_arr_bool = alloca [3 x <32 x i8>], align 2
+// CHECK-2048-NEXT:  %local_arr_bool = alloca [3 x <32 x b8>], align 2
 
 //===----------------------------------------------------------------------===//
 // ILP32 ABI

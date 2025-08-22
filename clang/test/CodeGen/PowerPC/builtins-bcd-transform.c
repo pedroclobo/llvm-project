@@ -8,71 +8,85 @@
 // RUN: %clang_cc1 -triple powerpc-unknown-unknown -O2 -target-cpu pwr9 \
 // RUN:   -emit-llvm %s -o - | FileCheck %s
 
-// CHECK-LABEL: define dso_local <16 x i8> @tBcd_National2packed_imm1(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
+// CHECK-LABEL: define dso_local <16 x b8> @tBcd_National2packed_imm1(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.ppc.national2packed(<16 x i8> [[A]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i8> @llvm.ppc.national2packed(<16 x i8> [[TMP0]], i32 1)
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 vector unsigned char tBcd_National2packed_imm1(vector unsigned char a) {
     return __builtin_ppc_national2packed (a,'\1');
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @tBcd_National2packed_imm0(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @tBcd_National2packed_imm0(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.ppc.national2packed(<16 x i8> [[A]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i8> @llvm.ppc.national2packed(<16 x i8> [[TMP0]], i32 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 vector unsigned char tBcd_National2packed_imm0(vector unsigned char a) {
     return __builtin_ppc_national2packed (a,'\0');
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @tBcd_Packed2national(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @tBcd_Packed2national(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.ppc.packed2national(<16 x i8> [[A]])
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i8> @llvm.ppc.packed2national(<16 x i8> [[TMP0]])
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 vector unsigned char tBcd_Packed2national(vector unsigned char a){
     return __builtin_ppc_packed2national(a);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @tBcd_Packed2zoned_imm0(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @tBcd_Packed2zoned_imm0(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.ppc.packed2zoned(<16 x i8> [[A]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i8> @llvm.ppc.packed2zoned(<16 x i8> [[TMP0]], i32 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 vector unsigned char tBcd_Packed2zoned_imm0(vector unsigned char a){
     return __builtin_ppc_packed2zoned(a,'\0');
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @tBcd_Packed2zoned_imm1(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @tBcd_Packed2zoned_imm1(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.ppc.packed2zoned(<16 x i8> [[A]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i8> @llvm.ppc.packed2zoned(<16 x i8> [[TMP0]], i32 1)
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 vector unsigned char tBcd_Packed2zoned_imm1(vector unsigned char a){
     return __builtin_ppc_packed2zoned(a,'\1');
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @tBcd_Zoned2packed_imm0(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @tBcd_Zoned2packed_imm0(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.ppc.zoned2packed(<16 x i8> [[A]], i32 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i8> @llvm.ppc.zoned2packed(<16 x i8> [[TMP0]], i32 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 vector unsigned char tBcd_Zoned2packed_imm0(vector unsigned char a){
     return __builtin_ppc_zoned2packed(a,'\0');
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @tBcd_Zoned2packed_imm1(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @tBcd_Zoned2packed_imm1(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.ppc.zoned2packed(<16 x i8> [[A]], i32 1)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i8> @llvm.ppc.zoned2packed(<16 x i8> [[TMP0]], i32 1)
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 vector unsigned char tBcd_Zoned2packed_imm1(vector unsigned char a){
     return __builtin_ppc_zoned2packed(a,'\1');

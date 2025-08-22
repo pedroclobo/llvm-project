@@ -8,12 +8,16 @@
 
 // CHECK-LABEL: @test_vshlcq_s8(
 // CHECK-NEXT:  entry:
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr [[B:%.*]], align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = call { i32, <16 x i8> } @llvm.arm.mve.vshlc.v16i8(<16 x i8> [[A:%.*]], i32 [[TMP0]], i32 18)
-// CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { i32, <16 x i8> } [[TMP1]], 0
-// CHECK-NEXT:    store i32 [[TMP2]], ptr [[B]], align 4
-// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { i32, <16 x i8> } [[TMP1]], 1
-// CHECK-NEXT:    ret <16 x i8> [[TMP3]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call { i32, <16 x i8> } @llvm.arm.mve.vshlc.v16i8(<16 x i8> [[TMP1]], i32 [[TMP0]], i32 18)
+// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { i32, <16 x i8> } [[TMP2]], 0
+// CHECK-NEXT:    store i32 [[TMP3]], ptr [[B]], align 4
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { i32, <16 x i8> } [[TMP2]], 1
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 int8x16_t test_vshlcq_s8(int8x16_t a, uint32_t *b) {
 #ifdef POLYMORPHIC
@@ -59,12 +63,16 @@ int32x4_t test_vshlcq_s32(int32x4_t a, uint32_t *b) {
 
 // CHECK-LABEL: @test_vshlcq_u8(
 // CHECK-NEXT:  entry:
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr [[B:%.*]], align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = call { i32, <16 x i8> } @llvm.arm.mve.vshlc.v16i8(<16 x i8> [[A:%.*]], i32 [[TMP0]], i32 17)
-// CHECK-NEXT:    [[TMP2:%.*]] = extractvalue { i32, <16 x i8> } [[TMP1]], 0
-// CHECK-NEXT:    store i32 [[TMP2]], ptr [[B]], align 4
-// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { i32, <16 x i8> } [[TMP1]], 1
-// CHECK-NEXT:    ret <16 x i8> [[TMP3]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = call { i32, <16 x i8> } @llvm.arm.mve.vshlc.v16i8(<16 x i8> [[TMP1]], i32 [[TMP0]], i32 17)
+// CHECK-NEXT:    [[TMP3:%.*]] = extractvalue { i32, <16 x i8> } [[TMP2]], 0
+// CHECK-NEXT:    store i32 [[TMP3]], ptr [[B]], align 4
+// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { i32, <16 x i8> } [[TMP2]], 1
+// CHECK-NEXT:    store <16 x i8> [[TMP4]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP5]]
 //
 uint8x16_t test_vshlcq_u8(uint8x16_t a, uint32_t *b) {
 #ifdef POLYMORPHIC
@@ -110,14 +118,18 @@ uint32x4_t test_vshlcq_u32(uint32x4_t a, uint32_t *b) {
 
 // CHECK-LABEL: @test_vshlcq_m_s8(
 // CHECK-NEXT:  entry:
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr [[B:%.*]], align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
-// CHECK-NEXT:    [[TMP3:%.*]] = call { i32, <16 x i8> } @llvm.arm.mve.vshlc.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 [[TMP0]], i32 29, <16 x i1> [[TMP2]])
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { i32, <16 x i8> } [[TMP3]], 0
-// CHECK-NEXT:    store i32 [[TMP4]], ptr [[B]], align 4
-// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { i32, <16 x i8> } [[TMP3]], 1
-// CHECK-NEXT:    ret <16 x i8> [[TMP5]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call { i32, <16 x i8> } @llvm.arm.mve.vshlc.predicated.v16i8.v16i1(<16 x i8> [[TMP1]], i32 [[TMP0]], i32 29, <16 x i1> [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { i32, <16 x i8> } [[TMP4]], 0
+// CHECK-NEXT:    store i32 [[TMP5]], ptr [[B]], align 4
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { i32, <16 x i8> } [[TMP4]], 1
+// CHECK-NEXT:    store <16 x i8> [[TMP6]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP7:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP7]]
 //
 int8x16_t test_vshlcq_m_s8(int8x16_t a, uint32_t *b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
@@ -167,14 +179,18 @@ int32x4_t test_vshlcq_m_s32(int32x4_t a, uint32_t *b, mve_pred16_t p) {
 
 // CHECK-LABEL: @test_vshlcq_m_u8(
 // CHECK-NEXT:  entry:
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <16 x b8>, align 8
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr [[B:%.*]], align 4
-// CHECK-NEXT:    [[TMP1:%.*]] = zext i16 [[P:%.*]] to i32
-// CHECK-NEXT:    [[TMP2:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP1]])
-// CHECK-NEXT:    [[TMP3:%.*]] = call { i32, <16 x i8> } @llvm.arm.mve.vshlc.predicated.v16i8.v16i1(<16 x i8> [[A:%.*]], i32 [[TMP0]], i32 21, <16 x i1> [[TMP2]])
-// CHECK-NEXT:    [[TMP4:%.*]] = extractvalue { i32, <16 x i8> } [[TMP3]], 0
-// CHECK-NEXT:    store i32 [[TMP4]], ptr [[B]], align 4
-// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { i32, <16 x i8> } [[TMP3]], 1
-// CHECK-NEXT:    ret <16 x i8> [[TMP5]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i16 [[P:%.*]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = call <16 x i1> @llvm.arm.mve.pred.i2v.v16i1(i32 [[TMP2]])
+// CHECK-NEXT:    [[TMP4:%.*]] = call { i32, <16 x i8> } @llvm.arm.mve.vshlc.predicated.v16i8.v16i1(<16 x i8> [[TMP1]], i32 [[TMP0]], i32 21, <16 x i1> [[TMP3]])
+// CHECK-NEXT:    [[TMP5:%.*]] = extractvalue { i32, <16 x i8> } [[TMP4]], 0
+// CHECK-NEXT:    store i32 [[TMP5]], ptr [[B]], align 4
+// CHECK-NEXT:    [[TMP6:%.*]] = extractvalue { i32, <16 x i8> } [[TMP4]], 1
+// CHECK-NEXT:    store <16 x i8> [[TMP6]], ptr [[RETVAL]], align 8
+// CHECK-NEXT:    [[TMP7:%.*]] = load <16 x b8>, ptr [[RETVAL]], align 8
+// CHECK-NEXT:    ret <16 x b8> [[TMP7]]
 //
 uint8x16_t test_vshlcq_m_u8(uint8x16_t a, uint32_t *b, mve_pred16_t p) {
 #ifdef POLYMORPHIC
