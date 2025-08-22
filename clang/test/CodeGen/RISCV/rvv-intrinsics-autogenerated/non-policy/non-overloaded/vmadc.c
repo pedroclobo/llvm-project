@@ -7,9 +7,9 @@
 #include <riscv_vector.h>
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vmadc_vvm_i8mf8_b64
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], <vscale x 1 x i8> [[OP2:%.*]], <vscale x 1 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], <vscale x 1 x b8> [[OP2:%.*]], <vscale x 1 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.carry.in.nxv1i8.nxv1i8.i64(<vscale x 1 x i8> [[OP1]], <vscale x 1 x i8> [[OP2]], <vscale x 1 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.carry.in.nxv1b8.nxv1b8.i64(<vscale x 1 x b8> [[OP1]], <vscale x 1 x b8> [[OP2]], <vscale x 1 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP0]]
 //
 vbool64_t test_vmadc_vvm_i8mf8_b64(vint8mf8_t op1, vint8mf8_t op2, vbool64_t carryin, size_t vl) {
@@ -17,9 +17,9 @@ vbool64_t test_vmadc_vvm_i8mf8_b64(vint8mf8_t op1, vint8mf8_t op2, vbool64_t car
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vmadc_vxm_i8mf8_b64
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], <vscale x 1 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], <vscale x 1 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.carry.in.nxv1i8.i8.i64(<vscale x 1 x i8> [[OP1]], i8 [[OP2]], <vscale x 1 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.carry.in.nxv1b8.b8.i64(<vscale x 1 x b8> [[OP1]], b8 [[OP2]], <vscale x 1 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP0]]
 //
 vbool64_t test_vmadc_vxm_i8mf8_b64(vint8mf8_t op1, int8_t op2, vbool64_t carryin, size_t vl) {
@@ -27,9 +27,9 @@ vbool64_t test_vmadc_vxm_i8mf8_b64(vint8mf8_t op1, int8_t op2, vbool64_t carryin
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vmadc_vv_i8mf8_b64
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], <vscale x 1 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], <vscale x 1 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.nxv1i8.nxv1i8.i64(<vscale x 1 x i8> [[OP1]], <vscale x 1 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.nxv1b8.nxv1b8.i64(<vscale x 1 x b8> [[OP1]], <vscale x 1 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP0]]
 //
 vbool64_t test_vmadc_vv_i8mf8_b64(vint8mf8_t op1, vint8mf8_t op2, size_t vl) {
@@ -37,9 +37,9 @@ vbool64_t test_vmadc_vv_i8mf8_b64(vint8mf8_t op1, vint8mf8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vmadc_vx_i8mf8_b64
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.nxv1i8.i8.i64(<vscale x 1 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.nxv1b8.b8.i64(<vscale x 1 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP0]]
 //
 vbool64_t test_vmadc_vx_i8mf8_b64(vint8mf8_t op1, int8_t op2, size_t vl) {
@@ -47,9 +47,9 @@ vbool64_t test_vmadc_vx_i8mf8_b64(vint8mf8_t op1, int8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vmadc_vvm_i8mf4_b32
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], <vscale x 2 x i8> [[OP2:%.*]], <vscale x 2 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], <vscale x 2 x b8> [[OP2:%.*]], <vscale x 2 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.carry.in.nxv2i8.nxv2i8.i64(<vscale x 2 x i8> [[OP1]], <vscale x 2 x i8> [[OP2]], <vscale x 2 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.carry.in.nxv2b8.nxv2b8.i64(<vscale x 2 x b8> [[OP1]], <vscale x 2 x b8> [[OP2]], <vscale x 2 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP0]]
 //
 vbool32_t test_vmadc_vvm_i8mf4_b32(vint8mf4_t op1, vint8mf4_t op2, vbool32_t carryin, size_t vl) {
@@ -57,9 +57,9 @@ vbool32_t test_vmadc_vvm_i8mf4_b32(vint8mf4_t op1, vint8mf4_t op2, vbool32_t car
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vmadc_vxm_i8mf4_b32
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], <vscale x 2 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], <vscale x 2 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.carry.in.nxv2i8.i8.i64(<vscale x 2 x i8> [[OP1]], i8 [[OP2]], <vscale x 2 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.carry.in.nxv2b8.b8.i64(<vscale x 2 x b8> [[OP1]], b8 [[OP2]], <vscale x 2 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP0]]
 //
 vbool32_t test_vmadc_vxm_i8mf4_b32(vint8mf4_t op1, int8_t op2, vbool32_t carryin, size_t vl) {
@@ -67,9 +67,9 @@ vbool32_t test_vmadc_vxm_i8mf4_b32(vint8mf4_t op1, int8_t op2, vbool32_t carryin
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vmadc_vv_i8mf4_b32
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], <vscale x 2 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], <vscale x 2 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.nxv2i8.nxv2i8.i64(<vscale x 2 x i8> [[OP1]], <vscale x 2 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.nxv2b8.nxv2b8.i64(<vscale x 2 x b8> [[OP1]], <vscale x 2 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP0]]
 //
 vbool32_t test_vmadc_vv_i8mf4_b32(vint8mf4_t op1, vint8mf4_t op2, size_t vl) {
@@ -77,9 +77,9 @@ vbool32_t test_vmadc_vv_i8mf4_b32(vint8mf4_t op1, vint8mf4_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vmadc_vx_i8mf4_b32
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.nxv2i8.i8.i64(<vscale x 2 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.nxv2b8.b8.i64(<vscale x 2 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP0]]
 //
 vbool32_t test_vmadc_vx_i8mf4_b32(vint8mf4_t op1, int8_t op2, size_t vl) {
@@ -87,9 +87,9 @@ vbool32_t test_vmadc_vx_i8mf4_b32(vint8mf4_t op1, int8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vmadc_vvm_i8mf2_b16
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], <vscale x 4 x i8> [[OP2:%.*]], <vscale x 4 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], <vscale x 4 x b8> [[OP2:%.*]], <vscale x 4 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.carry.in.nxv4i8.nxv4i8.i64(<vscale x 4 x i8> [[OP1]], <vscale x 4 x i8> [[OP2]], <vscale x 4 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.carry.in.nxv4b8.nxv4b8.i64(<vscale x 4 x b8> [[OP1]], <vscale x 4 x b8> [[OP2]], <vscale x 4 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP0]]
 //
 vbool16_t test_vmadc_vvm_i8mf2_b16(vint8mf2_t op1, vint8mf2_t op2, vbool16_t carryin, size_t vl) {
@@ -97,9 +97,9 @@ vbool16_t test_vmadc_vvm_i8mf2_b16(vint8mf2_t op1, vint8mf2_t op2, vbool16_t car
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vmadc_vxm_i8mf2_b16
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], <vscale x 4 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], <vscale x 4 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.carry.in.nxv4i8.i8.i64(<vscale x 4 x i8> [[OP1]], i8 [[OP2]], <vscale x 4 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.carry.in.nxv4b8.b8.i64(<vscale x 4 x b8> [[OP1]], b8 [[OP2]], <vscale x 4 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP0]]
 //
 vbool16_t test_vmadc_vxm_i8mf2_b16(vint8mf2_t op1, int8_t op2, vbool16_t carryin, size_t vl) {
@@ -107,9 +107,9 @@ vbool16_t test_vmadc_vxm_i8mf2_b16(vint8mf2_t op1, int8_t op2, vbool16_t carryin
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vmadc_vv_i8mf2_b16
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], <vscale x 4 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], <vscale x 4 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.nxv4i8.nxv4i8.i64(<vscale x 4 x i8> [[OP1]], <vscale x 4 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.nxv4b8.nxv4b8.i64(<vscale x 4 x b8> [[OP1]], <vscale x 4 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP0]]
 //
 vbool16_t test_vmadc_vv_i8mf2_b16(vint8mf2_t op1, vint8mf2_t op2, size_t vl) {
@@ -117,9 +117,9 @@ vbool16_t test_vmadc_vv_i8mf2_b16(vint8mf2_t op1, vint8mf2_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vmadc_vx_i8mf2_b16
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.nxv4i8.i8.i64(<vscale x 4 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.nxv4b8.b8.i64(<vscale x 4 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP0]]
 //
 vbool16_t test_vmadc_vx_i8mf2_b16(vint8mf2_t op1, int8_t op2, size_t vl) {
@@ -127,9 +127,9 @@ vbool16_t test_vmadc_vx_i8mf2_b16(vint8mf2_t op1, int8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vmadc_vvm_i8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], <vscale x 8 x i8> [[OP2:%.*]], <vscale x 8 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], <vscale x 8 x b8> [[OP2:%.*]], <vscale x 8 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.carry.in.nxv8i8.nxv8i8.i64(<vscale x 8 x i8> [[OP1]], <vscale x 8 x i8> [[OP2]], <vscale x 8 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.carry.in.nxv8b8.nxv8b8.i64(<vscale x 8 x b8> [[OP1]], <vscale x 8 x b8> [[OP2]], <vscale x 8 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP0]]
 //
 vbool8_t test_vmadc_vvm_i8m1_b8(vint8m1_t op1, vint8m1_t op2, vbool8_t carryin, size_t vl) {
@@ -137,9 +137,9 @@ vbool8_t test_vmadc_vvm_i8m1_b8(vint8m1_t op1, vint8m1_t op2, vbool8_t carryin, 
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vmadc_vxm_i8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], <vscale x 8 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], <vscale x 8 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.carry.in.nxv8i8.i8.i64(<vscale x 8 x i8> [[OP1]], i8 [[OP2]], <vscale x 8 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.carry.in.nxv8b8.b8.i64(<vscale x 8 x b8> [[OP1]], b8 [[OP2]], <vscale x 8 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP0]]
 //
 vbool8_t test_vmadc_vxm_i8m1_b8(vint8m1_t op1, int8_t op2, vbool8_t carryin, size_t vl) {
@@ -147,9 +147,9 @@ vbool8_t test_vmadc_vxm_i8m1_b8(vint8m1_t op1, int8_t op2, vbool8_t carryin, siz
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vmadc_vv_i8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], <vscale x 8 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], <vscale x 8 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.nxv8i8.nxv8i8.i64(<vscale x 8 x i8> [[OP1]], <vscale x 8 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.nxv8b8.nxv8b8.i64(<vscale x 8 x b8> [[OP1]], <vscale x 8 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP0]]
 //
 vbool8_t test_vmadc_vv_i8m1_b8(vint8m1_t op1, vint8m1_t op2, size_t vl) {
@@ -157,9 +157,9 @@ vbool8_t test_vmadc_vv_i8m1_b8(vint8m1_t op1, vint8m1_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vmadc_vx_i8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.nxv8i8.i8.i64(<vscale x 8 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.nxv8b8.b8.i64(<vscale x 8 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP0]]
 //
 vbool8_t test_vmadc_vx_i8m1_b8(vint8m1_t op1, int8_t op2, size_t vl) {
@@ -167,9 +167,9 @@ vbool8_t test_vmadc_vx_i8m1_b8(vint8m1_t op1, int8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vmadc_vvm_i8m2_b4
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x b8> [[OP2:%.*]], <vscale x 16 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.carry.in.nxv16i8.nxv16i8.i64(<vscale x 16 x i8> [[OP1]], <vscale x 16 x i8> [[OP2]], <vscale x 16 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.carry.in.nxv16b8.nxv16b8.i64(<vscale x 16 x b8> [[OP1]], <vscale x 16 x b8> [[OP2]], <vscale x 16 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 vbool4_t test_vmadc_vvm_i8m2_b4(vint8m2_t op1, vint8m2_t op2, vbool4_t carryin, size_t vl) {
@@ -177,9 +177,9 @@ vbool4_t test_vmadc_vvm_i8m2_b4(vint8m2_t op1, vint8m2_t op2, vbool4_t carryin, 
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vmadc_vxm_i8m2_b4
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], <vscale x 16 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], <vscale x 16 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.carry.in.nxv16i8.i8.i64(<vscale x 16 x i8> [[OP1]], i8 [[OP2]], <vscale x 16 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.carry.in.nxv16b8.b8.i64(<vscale x 16 x b8> [[OP1]], b8 [[OP2]], <vscale x 16 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 vbool4_t test_vmadc_vxm_i8m2_b4(vint8m2_t op1, int8_t op2, vbool4_t carryin, size_t vl) {
@@ -187,9 +187,9 @@ vbool4_t test_vmadc_vxm_i8m2_b4(vint8m2_t op1, int8_t op2, vbool4_t carryin, siz
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vmadc_vv_i8m2_b4
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.nxv16i8.nxv16i8.i64(<vscale x 16 x i8> [[OP1]], <vscale x 16 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.nxv16b8.nxv16b8.i64(<vscale x 16 x b8> [[OP1]], <vscale x 16 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 vbool4_t test_vmadc_vv_i8m2_b4(vint8m2_t op1, vint8m2_t op2, size_t vl) {
@@ -197,9 +197,9 @@ vbool4_t test_vmadc_vv_i8m2_b4(vint8m2_t op1, vint8m2_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vmadc_vx_i8m2_b4
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.nxv16i8.i8.i64(<vscale x 16 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.nxv16b8.b8.i64(<vscale x 16 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 vbool4_t test_vmadc_vx_i8m2_b4(vint8m2_t op1, int8_t op2, size_t vl) {
@@ -207,9 +207,9 @@ vbool4_t test_vmadc_vx_i8m2_b4(vint8m2_t op1, int8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vmadc_vvm_i8m4_b2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], <vscale x 32 x i8> [[OP2:%.*]], <vscale x 32 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], <vscale x 32 x b8> [[OP2:%.*]], <vscale x 32 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.carry.in.nxv32i8.nxv32i8.i64(<vscale x 32 x i8> [[OP1]], <vscale x 32 x i8> [[OP2]], <vscale x 32 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.carry.in.nxv32b8.nxv32b8.i64(<vscale x 32 x b8> [[OP1]], <vscale x 32 x b8> [[OP2]], <vscale x 32 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP0]]
 //
 vbool2_t test_vmadc_vvm_i8m4_b2(vint8m4_t op1, vint8m4_t op2, vbool2_t carryin, size_t vl) {
@@ -217,9 +217,9 @@ vbool2_t test_vmadc_vvm_i8m4_b2(vint8m4_t op1, vint8m4_t op2, vbool2_t carryin, 
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vmadc_vxm_i8m4_b2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], <vscale x 32 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], <vscale x 32 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.carry.in.nxv32i8.i8.i64(<vscale x 32 x i8> [[OP1]], i8 [[OP2]], <vscale x 32 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.carry.in.nxv32b8.b8.i64(<vscale x 32 x b8> [[OP1]], b8 [[OP2]], <vscale x 32 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP0]]
 //
 vbool2_t test_vmadc_vxm_i8m4_b2(vint8m4_t op1, int8_t op2, vbool2_t carryin, size_t vl) {
@@ -227,9 +227,9 @@ vbool2_t test_vmadc_vxm_i8m4_b2(vint8m4_t op1, int8_t op2, vbool2_t carryin, siz
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vmadc_vv_i8m4_b2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], <vscale x 32 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], <vscale x 32 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.nxv32i8.nxv32i8.i64(<vscale x 32 x i8> [[OP1]], <vscale x 32 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.nxv32b8.nxv32b8.i64(<vscale x 32 x b8> [[OP1]], <vscale x 32 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP0]]
 //
 vbool2_t test_vmadc_vv_i8m4_b2(vint8m4_t op1, vint8m4_t op2, size_t vl) {
@@ -237,9 +237,9 @@ vbool2_t test_vmadc_vv_i8m4_b2(vint8m4_t op1, vint8m4_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vmadc_vx_i8m4_b2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.nxv32i8.i8.i64(<vscale x 32 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.nxv32b8.b8.i64(<vscale x 32 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP0]]
 //
 vbool2_t test_vmadc_vx_i8m4_b2(vint8m4_t op1, int8_t op2, size_t vl) {
@@ -247,9 +247,9 @@ vbool2_t test_vmadc_vx_i8m4_b2(vint8m4_t op1, int8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vmadc_vvm_i8m8_b1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[OP1:%.*]], <vscale x 64 x i8> [[OP2:%.*]], <vscale x 64 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[OP1:%.*]], <vscale x 64 x b8> [[OP2:%.*]], <vscale x 64 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.carry.in.nxv64i8.nxv64i8.i64(<vscale x 64 x i8> [[OP1]], <vscale x 64 x i8> [[OP2]], <vscale x 64 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.carry.in.nxv64b8.nxv64b8.i64(<vscale x 64 x b8> [[OP1]], <vscale x 64 x b8> [[OP2]], <vscale x 64 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP0]]
 //
 vbool1_t test_vmadc_vvm_i8m8_b1(vint8m8_t op1, vint8m8_t op2, vbool1_t carryin, size_t vl) {
@@ -257,9 +257,9 @@ vbool1_t test_vmadc_vvm_i8m8_b1(vint8m8_t op1, vint8m8_t op2, vbool1_t carryin, 
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vmadc_vxm_i8m8_b1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], <vscale x 64 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], <vscale x 64 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.carry.in.nxv64i8.i8.i64(<vscale x 64 x i8> [[OP1]], i8 [[OP2]], <vscale x 64 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.carry.in.nxv64b8.b8.i64(<vscale x 64 x b8> [[OP1]], b8 [[OP2]], <vscale x 64 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP0]]
 //
 vbool1_t test_vmadc_vxm_i8m8_b1(vint8m8_t op1, int8_t op2, vbool1_t carryin, size_t vl) {
@@ -267,9 +267,9 @@ vbool1_t test_vmadc_vxm_i8m8_b1(vint8m8_t op1, int8_t op2, vbool1_t carryin, siz
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vmadc_vv_i8m8_b1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[OP1:%.*]], <vscale x 64 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[OP1:%.*]], <vscale x 64 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.nxv64i8.nxv64i8.i64(<vscale x 64 x i8> [[OP1]], <vscale x 64 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.nxv64b8.nxv64b8.i64(<vscale x 64 x b8> [[OP1]], <vscale x 64 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP0]]
 //
 vbool1_t test_vmadc_vv_i8m8_b1(vint8m8_t op1, vint8m8_t op2, size_t vl) {
@@ -277,9 +277,9 @@ vbool1_t test_vmadc_vv_i8m8_b1(vint8m8_t op1, vint8m8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vmadc_vx_i8m8_b1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[OP1:%.*]], i8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[OP1:%.*]], b8 noundef signext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.nxv64i8.i8.i64(<vscale x 64 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.nxv64b8.b8.i64(<vscale x 64 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP0]]
 //
 vbool1_t test_vmadc_vx_i8m8_b1(vint8m8_t op1, int8_t op2, size_t vl) {
@@ -887,9 +887,9 @@ vbool8_t test_vmadc_vx_i64m8_b8(vint64m8_t op1, int64_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vmadc_vvm_u8mf8_b64
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], <vscale x 1 x i8> [[OP2:%.*]], <vscale x 1 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], <vscale x 1 x b8> [[OP2:%.*]], <vscale x 1 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.carry.in.nxv1i8.nxv1i8.i64(<vscale x 1 x i8> [[OP1]], <vscale x 1 x i8> [[OP2]], <vscale x 1 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.carry.in.nxv1b8.nxv1b8.i64(<vscale x 1 x b8> [[OP1]], <vscale x 1 x b8> [[OP2]], <vscale x 1 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP0]]
 //
 vbool64_t test_vmadc_vvm_u8mf8_b64(vuint8mf8_t op1, vuint8mf8_t op2, vbool64_t carryin, size_t vl) {
@@ -897,9 +897,9 @@ vbool64_t test_vmadc_vvm_u8mf8_b64(vuint8mf8_t op1, vuint8mf8_t op2, vbool64_t c
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vmadc_vxm_u8mf8_b64
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], <vscale x 1 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], <vscale x 1 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.carry.in.nxv1i8.i8.i64(<vscale x 1 x i8> [[OP1]], i8 [[OP2]], <vscale x 1 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.carry.in.nxv1b8.b8.i64(<vscale x 1 x b8> [[OP1]], b8 [[OP2]], <vscale x 1 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP0]]
 //
 vbool64_t test_vmadc_vxm_u8mf8_b64(vuint8mf8_t op1, uint8_t op2, vbool64_t carryin, size_t vl) {
@@ -907,9 +907,9 @@ vbool64_t test_vmadc_vxm_u8mf8_b64(vuint8mf8_t op1, uint8_t op2, vbool64_t carry
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vmadc_vv_u8mf8_b64
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], <vscale x 1 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], <vscale x 1 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.nxv1i8.nxv1i8.i64(<vscale x 1 x i8> [[OP1]], <vscale x 1 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.nxv1b8.nxv1b8.i64(<vscale x 1 x b8> [[OP1]], <vscale x 1 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP0]]
 //
 vbool64_t test_vmadc_vv_u8mf8_b64(vuint8mf8_t op1, vuint8mf8_t op2, size_t vl) {
@@ -917,9 +917,9 @@ vbool64_t test_vmadc_vv_u8mf8_b64(vuint8mf8_t op1, vuint8mf8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 1 x i1> @test_vmadc_vx_u8mf8_b64
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.nxv1i8.i8.i64(<vscale x 1 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i1> @llvm.riscv.vmadc.nxv1b8.b8.i64(<vscale x 1 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 1 x i1> [[TMP0]]
 //
 vbool64_t test_vmadc_vx_u8mf8_b64(vuint8mf8_t op1, uint8_t op2, size_t vl) {
@@ -927,9 +927,9 @@ vbool64_t test_vmadc_vx_u8mf8_b64(vuint8mf8_t op1, uint8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vmadc_vvm_u8mf4_b32
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], <vscale x 2 x i8> [[OP2:%.*]], <vscale x 2 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], <vscale x 2 x b8> [[OP2:%.*]], <vscale x 2 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.carry.in.nxv2i8.nxv2i8.i64(<vscale x 2 x i8> [[OP1]], <vscale x 2 x i8> [[OP2]], <vscale x 2 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.carry.in.nxv2b8.nxv2b8.i64(<vscale x 2 x b8> [[OP1]], <vscale x 2 x b8> [[OP2]], <vscale x 2 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP0]]
 //
 vbool32_t test_vmadc_vvm_u8mf4_b32(vuint8mf4_t op1, vuint8mf4_t op2, vbool32_t carryin, size_t vl) {
@@ -937,9 +937,9 @@ vbool32_t test_vmadc_vvm_u8mf4_b32(vuint8mf4_t op1, vuint8mf4_t op2, vbool32_t c
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vmadc_vxm_u8mf4_b32
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], <vscale x 2 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], <vscale x 2 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.carry.in.nxv2i8.i8.i64(<vscale x 2 x i8> [[OP1]], i8 [[OP2]], <vscale x 2 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.carry.in.nxv2b8.b8.i64(<vscale x 2 x b8> [[OP1]], b8 [[OP2]], <vscale x 2 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP0]]
 //
 vbool32_t test_vmadc_vxm_u8mf4_b32(vuint8mf4_t op1, uint8_t op2, vbool32_t carryin, size_t vl) {
@@ -947,9 +947,9 @@ vbool32_t test_vmadc_vxm_u8mf4_b32(vuint8mf4_t op1, uint8_t op2, vbool32_t carry
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vmadc_vv_u8mf4_b32
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], <vscale x 2 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], <vscale x 2 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.nxv2i8.nxv2i8.i64(<vscale x 2 x i8> [[OP1]], <vscale x 2 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.nxv2b8.nxv2b8.i64(<vscale x 2 x b8> [[OP1]], <vscale x 2 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP0]]
 //
 vbool32_t test_vmadc_vv_u8mf4_b32(vuint8mf4_t op1, vuint8mf4_t op2, size_t vl) {
@@ -957,9 +957,9 @@ vbool32_t test_vmadc_vv_u8mf4_b32(vuint8mf4_t op1, vuint8mf4_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 2 x i1> @test_vmadc_vx_u8mf4_b32
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.nxv2i8.i8.i64(<vscale x 2 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i1> @llvm.riscv.vmadc.nxv2b8.b8.i64(<vscale x 2 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 2 x i1> [[TMP0]]
 //
 vbool32_t test_vmadc_vx_u8mf4_b32(vuint8mf4_t op1, uint8_t op2, size_t vl) {
@@ -967,9 +967,9 @@ vbool32_t test_vmadc_vx_u8mf4_b32(vuint8mf4_t op1, uint8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vmadc_vvm_u8mf2_b16
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], <vscale x 4 x i8> [[OP2:%.*]], <vscale x 4 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], <vscale x 4 x b8> [[OP2:%.*]], <vscale x 4 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.carry.in.nxv4i8.nxv4i8.i64(<vscale x 4 x i8> [[OP1]], <vscale x 4 x i8> [[OP2]], <vscale x 4 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.carry.in.nxv4b8.nxv4b8.i64(<vscale x 4 x b8> [[OP1]], <vscale x 4 x b8> [[OP2]], <vscale x 4 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP0]]
 //
 vbool16_t test_vmadc_vvm_u8mf2_b16(vuint8mf2_t op1, vuint8mf2_t op2, vbool16_t carryin, size_t vl) {
@@ -977,9 +977,9 @@ vbool16_t test_vmadc_vvm_u8mf2_b16(vuint8mf2_t op1, vuint8mf2_t op2, vbool16_t c
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vmadc_vxm_u8mf2_b16
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], <vscale x 4 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], <vscale x 4 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.carry.in.nxv4i8.i8.i64(<vscale x 4 x i8> [[OP1]], i8 [[OP2]], <vscale x 4 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.carry.in.nxv4b8.b8.i64(<vscale x 4 x b8> [[OP1]], b8 [[OP2]], <vscale x 4 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP0]]
 //
 vbool16_t test_vmadc_vxm_u8mf2_b16(vuint8mf2_t op1, uint8_t op2, vbool16_t carryin, size_t vl) {
@@ -987,9 +987,9 @@ vbool16_t test_vmadc_vxm_u8mf2_b16(vuint8mf2_t op1, uint8_t op2, vbool16_t carry
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vmadc_vv_u8mf2_b16
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], <vscale x 4 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], <vscale x 4 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.nxv4i8.nxv4i8.i64(<vscale x 4 x i8> [[OP1]], <vscale x 4 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.nxv4b8.nxv4b8.i64(<vscale x 4 x b8> [[OP1]], <vscale x 4 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP0]]
 //
 vbool16_t test_vmadc_vv_u8mf2_b16(vuint8mf2_t op1, vuint8mf2_t op2, size_t vl) {
@@ -997,9 +997,9 @@ vbool16_t test_vmadc_vv_u8mf2_b16(vuint8mf2_t op1, vuint8mf2_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 4 x i1> @test_vmadc_vx_u8mf2_b16
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.nxv4i8.i8.i64(<vscale x 4 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i1> @llvm.riscv.vmadc.nxv4b8.b8.i64(<vscale x 4 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 4 x i1> [[TMP0]]
 //
 vbool16_t test_vmadc_vx_u8mf2_b16(vuint8mf2_t op1, uint8_t op2, size_t vl) {
@@ -1007,9 +1007,9 @@ vbool16_t test_vmadc_vx_u8mf2_b16(vuint8mf2_t op1, uint8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vmadc_vvm_u8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], <vscale x 8 x i8> [[OP2:%.*]], <vscale x 8 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], <vscale x 8 x b8> [[OP2:%.*]], <vscale x 8 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.carry.in.nxv8i8.nxv8i8.i64(<vscale x 8 x i8> [[OP1]], <vscale x 8 x i8> [[OP2]], <vscale x 8 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.carry.in.nxv8b8.nxv8b8.i64(<vscale x 8 x b8> [[OP1]], <vscale x 8 x b8> [[OP2]], <vscale x 8 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP0]]
 //
 vbool8_t test_vmadc_vvm_u8m1_b8(vuint8m1_t op1, vuint8m1_t op2, vbool8_t carryin, size_t vl) {
@@ -1017,9 +1017,9 @@ vbool8_t test_vmadc_vvm_u8m1_b8(vuint8m1_t op1, vuint8m1_t op2, vbool8_t carryin
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vmadc_vxm_u8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], <vscale x 8 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], <vscale x 8 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.carry.in.nxv8i8.i8.i64(<vscale x 8 x i8> [[OP1]], i8 [[OP2]], <vscale x 8 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.carry.in.nxv8b8.b8.i64(<vscale x 8 x b8> [[OP1]], b8 [[OP2]], <vscale x 8 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP0]]
 //
 vbool8_t test_vmadc_vxm_u8m1_b8(vuint8m1_t op1, uint8_t op2, vbool8_t carryin, size_t vl) {
@@ -1027,9 +1027,9 @@ vbool8_t test_vmadc_vxm_u8m1_b8(vuint8m1_t op1, uint8_t op2, vbool8_t carryin, s
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vmadc_vv_u8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], <vscale x 8 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], <vscale x 8 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.nxv8i8.nxv8i8.i64(<vscale x 8 x i8> [[OP1]], <vscale x 8 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.nxv8b8.nxv8b8.i64(<vscale x 8 x b8> [[OP1]], <vscale x 8 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP0]]
 //
 vbool8_t test_vmadc_vv_u8m1_b8(vuint8m1_t op1, vuint8m1_t op2, size_t vl) {
@@ -1037,9 +1037,9 @@ vbool8_t test_vmadc_vv_u8m1_b8(vuint8m1_t op1, vuint8m1_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 8 x i1> @test_vmadc_vx_u8m1_b8
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.nxv8i8.i8.i64(<vscale x 8 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i1> @llvm.riscv.vmadc.nxv8b8.b8.i64(<vscale x 8 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 8 x i1> [[TMP0]]
 //
 vbool8_t test_vmadc_vx_u8m1_b8(vuint8m1_t op1, uint8_t op2, size_t vl) {
@@ -1047,9 +1047,9 @@ vbool8_t test_vmadc_vx_u8m1_b8(vuint8m1_t op1, uint8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vmadc_vvm_u8m2_b4
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], <vscale x 16 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x b8> [[OP2:%.*]], <vscale x 16 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.carry.in.nxv16i8.nxv16i8.i64(<vscale x 16 x i8> [[OP1]], <vscale x 16 x i8> [[OP2]], <vscale x 16 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.carry.in.nxv16b8.nxv16b8.i64(<vscale x 16 x b8> [[OP1]], <vscale x 16 x b8> [[OP2]], <vscale x 16 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 vbool4_t test_vmadc_vvm_u8m2_b4(vuint8m2_t op1, vuint8m2_t op2, vbool4_t carryin, size_t vl) {
@@ -1057,9 +1057,9 @@ vbool4_t test_vmadc_vvm_u8m2_b4(vuint8m2_t op1, vuint8m2_t op2, vbool4_t carryin
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vmadc_vxm_u8m2_b4
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], <vscale x 16 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], <vscale x 16 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.carry.in.nxv16i8.i8.i64(<vscale x 16 x i8> [[OP1]], i8 [[OP2]], <vscale x 16 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.carry.in.nxv16b8.b8.i64(<vscale x 16 x b8> [[OP1]], b8 [[OP2]], <vscale x 16 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 vbool4_t test_vmadc_vxm_u8m2_b4(vuint8m2_t op1, uint8_t op2, vbool4_t carryin, size_t vl) {
@@ -1067,9 +1067,9 @@ vbool4_t test_vmadc_vxm_u8m2_b4(vuint8m2_t op1, uint8_t op2, vbool4_t carryin, s
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vmadc_vv_u8m2_b4
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], <vscale x 16 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], <vscale x 16 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.nxv16i8.nxv16i8.i64(<vscale x 16 x i8> [[OP1]], <vscale x 16 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.nxv16b8.nxv16b8.i64(<vscale x 16 x b8> [[OP1]], <vscale x 16 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 vbool4_t test_vmadc_vv_u8m2_b4(vuint8m2_t op1, vuint8m2_t op2, size_t vl) {
@@ -1077,9 +1077,9 @@ vbool4_t test_vmadc_vv_u8m2_b4(vuint8m2_t op1, vuint8m2_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 16 x i1> @test_vmadc_vx_u8m2_b4
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.nxv16i8.i8.i64(<vscale x 16 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i1> @llvm.riscv.vmadc.nxv16b8.b8.i64(<vscale x 16 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 16 x i1> [[TMP0]]
 //
 vbool4_t test_vmadc_vx_u8m2_b4(vuint8m2_t op1, uint8_t op2, size_t vl) {
@@ -1087,9 +1087,9 @@ vbool4_t test_vmadc_vx_u8m2_b4(vuint8m2_t op1, uint8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vmadc_vvm_u8m4_b2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], <vscale x 32 x i8> [[OP2:%.*]], <vscale x 32 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], <vscale x 32 x b8> [[OP2:%.*]], <vscale x 32 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.carry.in.nxv32i8.nxv32i8.i64(<vscale x 32 x i8> [[OP1]], <vscale x 32 x i8> [[OP2]], <vscale x 32 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.carry.in.nxv32b8.nxv32b8.i64(<vscale x 32 x b8> [[OP1]], <vscale x 32 x b8> [[OP2]], <vscale x 32 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP0]]
 //
 vbool2_t test_vmadc_vvm_u8m4_b2(vuint8m4_t op1, vuint8m4_t op2, vbool2_t carryin, size_t vl) {
@@ -1097,9 +1097,9 @@ vbool2_t test_vmadc_vvm_u8m4_b2(vuint8m4_t op1, vuint8m4_t op2, vbool2_t carryin
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vmadc_vxm_u8m4_b2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], <vscale x 32 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], <vscale x 32 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.carry.in.nxv32i8.i8.i64(<vscale x 32 x i8> [[OP1]], i8 [[OP2]], <vscale x 32 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.carry.in.nxv32b8.b8.i64(<vscale x 32 x b8> [[OP1]], b8 [[OP2]], <vscale x 32 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP0]]
 //
 vbool2_t test_vmadc_vxm_u8m4_b2(vuint8m4_t op1, uint8_t op2, vbool2_t carryin, size_t vl) {
@@ -1107,9 +1107,9 @@ vbool2_t test_vmadc_vxm_u8m4_b2(vuint8m4_t op1, uint8_t op2, vbool2_t carryin, s
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vmadc_vv_u8m4_b2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], <vscale x 32 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], <vscale x 32 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.nxv32i8.nxv32i8.i64(<vscale x 32 x i8> [[OP1]], <vscale x 32 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.nxv32b8.nxv32b8.i64(<vscale x 32 x b8> [[OP1]], <vscale x 32 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP0]]
 //
 vbool2_t test_vmadc_vv_u8m4_b2(vuint8m4_t op1, vuint8m4_t op2, size_t vl) {
@@ -1117,9 +1117,9 @@ vbool2_t test_vmadc_vv_u8m4_b2(vuint8m4_t op1, vuint8m4_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 32 x i1> @test_vmadc_vx_u8m4_b2
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.nxv32i8.i8.i64(<vscale x 32 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i1> @llvm.riscv.vmadc.nxv32b8.b8.i64(<vscale x 32 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 32 x i1> [[TMP0]]
 //
 vbool2_t test_vmadc_vx_u8m4_b2(vuint8m4_t op1, uint8_t op2, size_t vl) {
@@ -1127,9 +1127,9 @@ vbool2_t test_vmadc_vx_u8m4_b2(vuint8m4_t op1, uint8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vmadc_vvm_u8m8_b1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[OP1:%.*]], <vscale x 64 x i8> [[OP2:%.*]], <vscale x 64 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[OP1:%.*]], <vscale x 64 x b8> [[OP2:%.*]], <vscale x 64 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.carry.in.nxv64i8.nxv64i8.i64(<vscale x 64 x i8> [[OP1]], <vscale x 64 x i8> [[OP2]], <vscale x 64 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.carry.in.nxv64b8.nxv64b8.i64(<vscale x 64 x b8> [[OP1]], <vscale x 64 x b8> [[OP2]], <vscale x 64 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP0]]
 //
 vbool1_t test_vmadc_vvm_u8m8_b1(vuint8m8_t op1, vuint8m8_t op2, vbool1_t carryin, size_t vl) {
@@ -1137,9 +1137,9 @@ vbool1_t test_vmadc_vvm_u8m8_b1(vuint8m8_t op1, vuint8m8_t op2, vbool1_t carryin
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vmadc_vxm_u8m8_b1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], <vscale x 64 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], <vscale x 64 x i1> [[CARRYIN:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.carry.in.nxv64i8.i8.i64(<vscale x 64 x i8> [[OP1]], i8 [[OP2]], <vscale x 64 x i1> [[CARRYIN]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.carry.in.nxv64b8.b8.i64(<vscale x 64 x b8> [[OP1]], b8 [[OP2]], <vscale x 64 x i1> [[CARRYIN]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP0]]
 //
 vbool1_t test_vmadc_vxm_u8m8_b1(vuint8m8_t op1, uint8_t op2, vbool1_t carryin, size_t vl) {
@@ -1147,9 +1147,9 @@ vbool1_t test_vmadc_vxm_u8m8_b1(vuint8m8_t op1, uint8_t op2, vbool1_t carryin, s
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vmadc_vv_u8m8_b1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[OP1:%.*]], <vscale x 64 x i8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[OP1:%.*]], <vscale x 64 x b8> [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.nxv64i8.nxv64i8.i64(<vscale x 64 x i8> [[OP1]], <vscale x 64 x i8> [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.nxv64b8.nxv64b8.i64(<vscale x 64 x b8> [[OP1]], <vscale x 64 x b8> [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP0]]
 //
 vbool1_t test_vmadc_vv_u8m8_b1(vuint8m8_t op1, vuint8m8_t op2, size_t vl) {
@@ -1157,9 +1157,9 @@ vbool1_t test_vmadc_vv_u8m8_b1(vuint8m8_t op1, vuint8m8_t op2, size_t vl) {
 }
 
 // CHECK-RV64-LABEL: define dso_local <vscale x 64 x i1> @test_vmadc_vx_u8m8_b1
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[OP1:%.*]], i8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[OP1:%.*]], b8 noundef zeroext [[OP2:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.nxv64i8.i8.i64(<vscale x 64 x i8> [[OP1]], i8 [[OP2]], i64 [[VL]])
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i1> @llvm.riscv.vmadc.nxv64b8.b8.i64(<vscale x 64 x b8> [[OP1]], b8 [[OP2]], i64 [[VL]])
 // CHECK-RV64-NEXT:    ret <vscale x 64 x i1> [[TMP0]]
 //
 vbool1_t test_vmadc_vx_u8m8_b1(vuint8m8_t op1, uint8_t op2, size_t vl) {
