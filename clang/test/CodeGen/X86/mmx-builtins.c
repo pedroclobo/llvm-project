@@ -469,14 +469,22 @@ __m64 test_mm_sad_pu8(__m64 a, __m64 b) {
 
 __m64 test_mm_set_pi8(char a, char b, char c, char d, char e, char f, char g, char h) {
   // CHECK-LABEL: test_mm_set_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_set_pi8(a, b, c, d, e, f, g, h);
 }
 TEST_CONSTEXPR(match_v8qi(_mm_set_pi8(0, -1, 2, -3, 4, -5, 6, -7), -7, 6, -5, 4, -3, 2, -1, 0));
@@ -501,14 +509,22 @@ TEST_CONSTEXPR(match_v2si(_mm_set_pi32(5000, -1500), -1500, 5000));
 
 __m64 test_mm_setr_pi8(char a, char b, char c, char d, char e, char f, char g, char h) {
   // CHECK-LABEL: test_mm_setr_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_setr_pi8(a, b, c, d, e, f, g, h);
 }
 TEST_CONSTEXPR(match_v8qi(_mm_setr_pi8(0, -1, 2, -3, 4, -5, 6, -7), 0, -1, 2, -3, 4, -5, 6, -7));
@@ -540,14 +556,22 @@ TEST_CONSTEXPR(match_m64(_mm_setzero_si64(), 0ULL));
 
 __m64 test_mm_set1_pi8(char a) {
   // CHECK-LABEL: test_mm_set1_pi8
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
-  // CHECK: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-SC: insertelement <8 x i8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
+  // CHECK-NSC: insertelement <8 x b8>
   return _mm_set1_pi8(a);
 }
 TEST_CONSTEXPR(match_v8qi(_mm_set1_pi8(99), 99, 99, 99, 99, 99, 99, 99, 99));
@@ -816,7 +840,7 @@ TEST_CONSTEXPR(_m_to_int64((__m64)(__v4hi){0, -2, 0, -1}) == -281470681874432LL)
 
 __m64 test_mm_unpackhi_pi8(__m64 a, __m64 b) {
   // CHECK-LABEL: test_mm_unpackhi_pi8
-  // CHECK: shufflevector <8 x i8> {{%.*}}, <8 x i8> {{%.*}}, <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
+  // CHECK: shufflevector <8 x b8> {{%.*}}, <8 x b8> {{%.*}}, <8 x i32> <i32 4, i32 12, i32 5, i32 13, i32 6, i32 14, i32 7, i32 15>
   return _mm_unpackhi_pi8(a, b);
 }
 TEST_CONSTEXPR(match_v8qi(_mm_unpackhi_pi8((__m64)(__v8qi){0, 1, 2, 3, 4, 5, 6, 7}, (__m64)(__v8qi){8, 9, 10, 11, 12, 13, 14, 15}), 4, 12, 5, 13, 6, 14, 7, 15));
@@ -837,7 +861,7 @@ TEST_CONSTEXPR(match_v2si(_mm_unpackhi_pi32((__m64)(__v2si){0, 1}, (__m64)(__v2s
 
 __m64 test_mm_unpacklo_pi8(__m64 a, __m64 b) {
   // CHECK-LABEL: test_mm_unpacklo_pi8
-  // CHECK: shufflevector <8 x i8> {{%.*}}, <8 x i8> {{%.*}}, <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
+  // CHECK: shufflevector <8 x b8> {{%.*}}, <8 x b8> {{%.*}}, <8 x i32> <i32 0, i32 8, i32 1, i32 9, i32 2, i32 10, i32 3, i32 11>
   return _mm_unpacklo_pi8(a, b);
 }
 TEST_CONSTEXPR(match_v8qi(_mm_unpacklo_pi8((__m64)(__v8qi){0, 1, 2, 3, 4, 5, 6, 7}, (__m64)(__v8qi){8, 9, 10, 11, 12, 13, 14, 15}), 0, 8, 1, 9, 2, 10, 3, 11));

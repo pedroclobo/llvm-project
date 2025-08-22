@@ -1050,22 +1050,22 @@ __m128i test_mm_set_epi8(char A, char B, char C, char D,
                          char I, char J, char K, char L,
                          char M, char N, char O, char P) {
   // CHECK-LABEL: test_mm_set_epi8
-  // CHECK: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK: insertelement <16 x b8> poison, b8 %{{.*}}, i32 0
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 1
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 2
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 3
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 4
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 5
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 6
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 7
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 8
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 9
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 10
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 11
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 12
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 13
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 14
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 15
   return _mm_set_epi8(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_set_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0));
@@ -1137,22 +1137,22 @@ TEST_CONSTEXPR(match_m128d(_mm_set_sd(+1.0), +1.0, +0.0));
 
 __m128i test_mm_set1_epi8(char A) {
   // CHECK-LABEL: test_mm_set1_epi8
-  // CHECK: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK: insertelement <16 x b8> poison, b8 %{{.*}}, i32 0
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 1
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 2
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 3
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 4
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 5
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 6
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 7
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 8
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 9
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 10
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 11
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 12
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 13
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 14
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 15
   return _mm_set1_epi8(A);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_set1_epi8(99), 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99));
@@ -1210,22 +1210,22 @@ __m128i test_mm_setr_epi8(char A, char B, char C, char D,
                           char I, char J, char K, char L,
                           char M, char N, char O, char P) {
   // CHECK-LABEL: test_mm_setr_epi8
-  // CHECK: insertelement <16 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <16 x i8> %{{.*}}, i8 %{{.*}}, i32 15
+  // CHECK: insertelement <16 x b8> poison, b8 %{{.*}}, i32 0
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 1
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 2
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 3
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 4
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 5
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 6
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 7
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 8
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 9
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 10
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 11
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 12
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 13
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 14
+  // CHECK: insertelement <16 x b8> %{{.*}}, b8 %{{.*}}, i32 15
   return _mm_setr_epi8(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_setr_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15));
@@ -1835,7 +1835,7 @@ __m128i test_mm_undefined_si128(void) {
 
 __m128i test_mm_unpackhi_epi8(__m128i A, __m128i B) {
   // CHECK-LABEL: test_mm_unpackhi_epi8
-  // CHECK: shufflevector <16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
+  // CHECK: shufflevector <16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x i32> <i32 8, i32 24, i32 9, i32 25, i32 10, i32 26, i32 11, i32 27, i32 12, i32 28, i32 13, i32 29, i32 14, i32 30, i32 15, i32 31>
   return _mm_unpackhi_epi8(A, B);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_unpackhi_epi8((__m128i)(__v16qi){0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, (__m128i)(__v16qi){16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31}), 8, 24, 9, 25, 10, 26, 11, 27, 12, 28, 13, 29, 14, 30, 15, 31));
@@ -1870,7 +1870,7 @@ TEST_CONSTEXPR(match_m128d(_mm_unpackhi_pd((__m128d){+2.0, +8.0}, (__m128d){-4.0
 
 __m128i test_mm_unpacklo_epi8(__m128i A, __m128i B) {
   // CHECK-LABEL: test_mm_unpacklo_epi8
-  // CHECK: shufflevector <16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
+  // CHECK: shufflevector <16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x i32> <i32 0, i32 16, i32 1, i32 17, i32 2, i32 18, i32 3, i32 19, i32 4, i32 20, i32 5, i32 21, i32 6, i32 22, i32 7, i32 23>
   return _mm_unpacklo_epi8(A, B);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_unpacklo_epi8((__m128i)(__v16qi){0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, (__m128i)(__v16qi){16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31}), 0, 16, 1, 17, 2, 18, 3, 19, 4, 20, 5, 21, 6, 22, 7, 23));

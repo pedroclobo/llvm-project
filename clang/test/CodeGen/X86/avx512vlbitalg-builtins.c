@@ -68,7 +68,7 @@ TEST_CONSTEXPR(match_v32qi(_mm256_popcnt_epi8((__m256i)(__v32qi){+5, -3, -10, +8
 __m256i test_mm256_mask_popcnt_epi8(__m256i __A, __mmask32 __U, __m256i __B) {
   // CHECK-LABEL: test_mm256_mask_popcnt_epi8
   // CHECK: @llvm.ctpop.v32i8
-  // CHECK: select <32 x i1> %{{[0-9]+}}, <32 x i8> %{{.*}}, <32 x i8> %{{.*}}
+  // CHECK: select <32 x i1> %{{[0-9]+}}, <32 x b8> %{{.*}}, <32 x b8> %{{.*}}
   return _mm256_mask_popcnt_epi8(__A, __U, __B);
 }
 TEST_CONSTEXPR(match_v32qi(_mm256_mask_popcnt_epi8(_mm256_set1_epi8(-1), 0xF00F, (__m256i)(__v32qi){+5, -3, -10, +8, 0, -16, +16, -16, +3, +9, +15, +33, +63, +33, +53, +73, +5, -3, -10, +8, 0, -16, +16, -16, +3, +9, +15, +33, +63, +33, +53, +73}), 2, 7, 6, 1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 2, 4, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1));
@@ -76,7 +76,7 @@ TEST_CONSTEXPR(match_v32qi(_mm256_mask_popcnt_epi8(_mm256_set1_epi8(-1), 0xF00F,
 __m256i test_mm256_maskz_popcnt_epi8(__mmask32 __U, __m256i __B) {
   // CHECK-LABEL: test_mm256_maskz_popcnt_epi8
   // CHECK: @llvm.ctpop.v32i8
-  // CHECK: select <32 x i1> %{{[0-9]+}}, <32 x i8> %{{.*}}, <32 x i8> %{{.*}}
+  // CHECK: select <32 x i1> %{{[0-9]+}}, <32 x b8> %{{.*}}, <32 x b8> %{{.*}}
   return _mm256_maskz_popcnt_epi8(__U, __B);
 }
 TEST_CONSTEXPR(match_v32qi(_mm256_maskz_popcnt_epi8(0x0FF0, (__m256i)(__v32qi){+5, -3, -10, +8, 0, -16, +16, -16, +3, +9, +15, +33, +63, +33, +53, +73, +5, -3, -10, +8, 0, -16, +16, -16, +3, +9, +15, +33, +63, +33, +53, +73}), 0, 0, 0, 0, 0, 4, 1, 4, 2, 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
@@ -91,7 +91,7 @@ TEST_CONSTEXPR(match_v16qi(_mm_popcnt_epi8((__m128i)(__v16qi){+5, -3, -10, +8, 0
 __m128i test_mm_mask_popcnt_epi8(__m128i __A, __mmask16 __U, __m128i __B) {
   // CHECK-LABEL: test_mm_mask_popcnt_epi8
   // CHECK: @llvm.ctpop.v16i8
-  // CHECK: select <16 x i1> %{{[0-9]+}}, <16 x i8> %{{.*}}, <16 x i8> %{{.*}}
+  // CHECK: select <16 x i1> %{{[0-9]+}}, <16 x b8> %{{.*}}, <16 x b8> %{{.*}}
   return _mm_mask_popcnt_epi8(__A, __U, __B);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_mask_popcnt_epi8(_mm_set1_epi8(-1), 0xF00F, (__m128i)(__v16qi){+5, -3, -10, +8, 0, -16, +16, -16, +3, +9, +15, +33, +63, +33, +53, +73}), 2, 7, 6, 1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 2, 4, 3));
@@ -99,7 +99,7 @@ TEST_CONSTEXPR(match_v16qi(_mm_mask_popcnt_epi8(_mm_set1_epi8(-1), 0xF00F, (__m1
 __m128i test_mm_maskz_popcnt_epi8(__mmask16 __U, __m128i __B) {
   // CHECK-LABEL: test_mm_maskz_popcnt_epi8
   // CHECK: @llvm.ctpop.v16i8
-  // CHECK: select <16 x i1> %{{[0-9]+}}, <16 x i8> %{{.*}}, <16 x i8> %{{.*}}
+  // CHECK: select <16 x i1> %{{[0-9]+}}, <16 x b8> %{{.*}}, <16 x b8> %{{.*}}
   return _mm_maskz_popcnt_epi8(__U, __B);
 }
 TEST_CONSTEXPR(match_v16qi(_mm_maskz_popcnt_epi8(0x0FF0, (__m128i)(__v16qi){+5, -3, -10, +8, 0, -16, +16, -16, +3, +9, +15, +33, +63, +33, +53, +73}), 0, 0, 0, 0, 0, 4, 1, 4, 2, 2, 4, 2, 0, 0, 0, 0));

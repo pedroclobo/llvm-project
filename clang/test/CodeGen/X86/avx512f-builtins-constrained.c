@@ -30,7 +30,7 @@ __m512d test_mm512_mask_sqrt_pd (__m512d __W, __mmask8 __U, __m512d __A)
   // UNCONSTRAINED: call <8 x double> @llvm.sqrt.v8f64(<8 x double> %{{.*}})
   // CONSTRAINED: call <8 x double> @llvm.experimental.constrained.sqrt.v8f64(<8 x double> %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtpd
-  // COMMONIR: bitcast i8 %{{.*}} to <8 x i1>
+  // COMMONIR: bytecast b8 %{{.*}} to <8 x i1>
   // COMMONIR: select <8 x i1> %{{.*}}, <8 x double> %{{.*}}, <8 x double> %{{.*}}
   return _mm512_mask_sqrt_pd (__W,__U,__A);
 }
@@ -41,7 +41,7 @@ __m512d test_mm512_maskz_sqrt_pd (__mmask8 __U, __m512d __A)
   // UNCONSTRAINED: call <8 x double> @llvm.sqrt.v8f64(<8 x double> %{{.*}})
   // CONSTRAINED: call <8 x double> @llvm.experimental.constrained.sqrt.v8f64(<8 x double> %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtpd
-  // COMMONIR: bitcast i8 %{{.*}} to <8 x i1>
+  // COMMONIR: bytecast b8 %{{.*}} to <8 x i1>
   // COMMONIR: select <8 x i1> %{{.*}}, <8 x double> %{{.*}}, <8 x double> {{.*}}
   return _mm512_maskz_sqrt_pd (__U,__A);
 }
@@ -126,7 +126,7 @@ __m128d test_mm_mask_sqrt_sd(__m128d __W, __mmask8 __U, __m128d __A, __m128d __B
   // CONSTRAINED-NEXT: call double @llvm.experimental.constrained.sqrt.f64(double %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtsd
   // COMMONIR-NEXT: extractelement <2 x double> %{{.*}}, i64 0
-  // COMMONIR-NEXT: bitcast i8 %{{.*}} to <8 x i1>
+  // COMMONIR-NEXT: bytecast b8 %{{.*}} to <8 x i1>
   // COMMONIR-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // COMMONIR-NEXT: select i1 {{.*}}, double {{.*}}, double {{.*}}
   // COMMONIR-NEXT: insertelement <2 x double> %{{.*}}, double {{.*}}, i64 0
@@ -140,7 +140,7 @@ __m128d test_mm_maskz_sqrt_sd(__mmask8 __U, __m128d __A, __m128d __B){
   // CONSTRAINED-NEXT: call double @llvm.experimental.constrained.sqrt.f64(double %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtsd
   // COMMONIR-NEXT: extractelement <2 x double> %{{.*}}, i64 0
-  // COMMONIR-NEXT: bitcast i8 %{{.*}} to <8 x i1>
+  // COMMONIR-NEXT: bytecast b8 %{{.*}} to <8 x i1>
   // COMMONIR-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // COMMONIR-NEXT: select i1 {{.*}}, double {{.*}}, double {{.*}}
   // COMMONIR-NEXT: insertelement <2 x double> %{{.*}}, double {{.*}}, i64 0
@@ -154,7 +154,7 @@ __m128 test_mm_mask_sqrt_ss(__m128 __W, __mmask8 __U, __m128 __A, __m128 __B){
   // CONSTRAINED-NEXT: call float @llvm.experimental.constrained.sqrt.f32(float %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtss
   // COMMONIR-NEXT: extractelement <4 x float> %{{.*}}, i64 0
-  // COMMONIR-NEXT: bitcast i8 %{{.*}} to <8 x i1>
+  // COMMONIR-NEXT: bytecast b8 %{{.*}} to <8 x i1>
   // COMMONIR-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // COMMONIR-NEXT: select i1 {{.*}}, float {{.*}}, float {{.*}}
   // COMMONIR-NEXT: insertelement <4 x float> %{{.*}}, float {{.*}}, i64 0
@@ -168,7 +168,7 @@ __m128 test_mm_maskz_sqrt_ss(__mmask8 __U, __m128 __A, __m128 __B){
   // CONSTRAINED-NEXT: call float @llvm.experimental.constrained.sqrt.f32(float %{{.*}}, metadata !{{.*}})
   // CHECK-ASM: vsqrtss
   // COMMONIR-NEXT: extractelement <4 x float> %{{.*}}, i64 0
-  // COMMONIR-NEXT: bitcast i8 %{{.*}} to <8 x i1>
+  // COMMONIR-NEXT: bytecast b8 %{{.*}} to <8 x i1>
   // COMMONIR-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // COMMONIR-NEXT: select i1 {{.*}}, float {{.*}}, float {{.*}}
   // COMMONIR-NEXT: insertelement <4 x float> %{{.*}}, float {{.*}}, i64 0
