@@ -45,13 +45,13 @@ TEST_CONSTEXPR(match_v4si(_mm_abs_epi32((__m128i)(__v4si){-5, -1, 0, 1}), 5, 1, 
 
 __m128i test_mm_alignr_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_alignr_epi8
-  // CHECK: shufflevector <16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
+  // CHECK: shufflevector <16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
   return _mm_alignr_epi8(a, b, 2);
 }
 
 __m128i test2_mm_alignr_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test2_mm_alignr_epi8
-  // CHECK: shufflevector <16 x i8> %{{.*}}, <16 x i8> zeroinitializer, <16 x i32> <i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16>
+  // CHECK: shufflevector <16 x b8> %{{.*}}, <16 x b8> zeroinitializer, <16 x i32> <i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16>
   return _mm_alignr_epi8(a, b, 17);
 }
 
