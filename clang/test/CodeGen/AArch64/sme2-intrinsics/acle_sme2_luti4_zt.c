@@ -9,33 +9,181 @@
 
 #include <arm_sme.h>
 
-// CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_luti4_zt_u8_x4(
-// CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_luti4_zt_u8_x4(
+// CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sme.luti4.zt.x4.nxv16i8(i32 0, <vscale x 16 x i8> [[OP_COERCE0]], <vscale x 16 x i8> [[OP_COERCE1]])
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[OP_COERCE0]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP_COERCE1]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sme.luti4.zt.x4.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    [[DOTELT:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
+// CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP4:%.*]] = shl nuw nsw i64 [[TMP3]], 4
+// CHECK-NEXT:    [[RETVAL_REPACK1:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP4]]
+// CHECK-NEXT:    [[DOTELT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
+// CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT2]], ptr [[RETVAL_REPACK1]], align 16
+// CHECK-NEXT:    [[TMP5:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP6:%.*]] = shl nuw nsw i64 [[TMP5]], 5
+// CHECK-NEXT:    [[RETVAL_REPACK3:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP6]]
+// CHECK-NEXT:    [[DOTELT4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
+// CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT4]], ptr [[RETVAL_REPACK3]], align 16
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP8:%.*]] = mul nuw nsw i64 [[TMP7]], 48
+// CHECK-NEXT:    [[RETVAL_REPACK5:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP8]]
+// CHECK-NEXT:    [[DOTELT6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 3
+// CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT6]], ptr [[RETVAL_REPACK5]], align 16
+// CHECK-NEXT:    [[DOTUNPACK:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[DOTUNPACK]], 0
+// CHECK-NEXT:    [[TMP10:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP11:%.*]] = shl nuw nsw i64 [[TMP10]], 4
+// CHECK-NEXT:    [[DOTELT8:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP11]]
+// CHECK-NEXT:    [[DOTUNPACK9:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT8]], align 16
+// CHECK-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[DOTUNPACK9]], 1
+// CHECK-NEXT:    [[TMP13:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP14:%.*]] = shl nuw nsw i64 [[TMP13]], 5
+// CHECK-NEXT:    [[DOTELT10:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP14]]
+// CHECK-NEXT:    [[DOTUNPACK11:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT10]], align 16
+// CHECK-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[DOTUNPACK11]], 2
+// CHECK-NEXT:    [[TMP16:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP17:%.*]] = mul nuw nsw i64 [[TMP16]], 48
+// CHECK-NEXT:    [[DOTELT12:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP17]]
+// CHECK-NEXT:    [[DOTUNPACK13:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT12]], align 16
+// CHECK-NEXT:    [[TMP18:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]], <vscale x 16 x b8> [[DOTUNPACK13]], 3
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP18]]
 //
-// CPP-CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z19test_luti4_zt_u8_x411svuint8x2_t(
-// CPP-CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0:[0-9]+]] {
+// CPP-CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @_Z19test_luti4_zt_u8_x411svuint8x2_t(
+// CPP-CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]]) #[[ATTR0:[0-9]+]] {
 // CPP-CHECK-NEXT:  [[ENTRY:.*:]]
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sme.luti4.zt.x4.nxv16i8(i32 0, <vscale x 16 x i8> [[OP_COERCE0]], <vscale x 16 x i8> [[OP_COERCE1]])
-// CPP-CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[OP_COERCE0]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP_COERCE1]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sme.luti4.zt.x4.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    [[DOTELT:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = shl nuw nsw i64 [[TMP3]], 4
+// CPP-CHECK-NEXT:    [[RETVAL_REPACK1:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP4]]
+// CPP-CHECK-NEXT:    [[DOTELT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT2]], ptr [[RETVAL_REPACK1]], align 16
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = shl nuw nsw i64 [[TMP5]], 5
+// CPP-CHECK-NEXT:    [[RETVAL_REPACK3:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP6]]
+// CPP-CHECK-NEXT:    [[DOTELT4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT4]], ptr [[RETVAL_REPACK3]], align 16
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP8:%.*]] = mul nuw nsw i64 [[TMP7]], 48
+// CPP-CHECK-NEXT:    [[RETVAL_REPACK5:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP8]]
+// CPP-CHECK-NEXT:    [[DOTELT6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 3
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT6]], ptr [[RETVAL_REPACK5]], align 16
+// CPP-CHECK-NEXT:    [[DOTUNPACK:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[DOTUNPACK]], 0
+// CPP-CHECK-NEXT:    [[TMP10:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP11:%.*]] = shl nuw nsw i64 [[TMP10]], 4
+// CPP-CHECK-NEXT:    [[DOTELT8:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP11]]
+// CPP-CHECK-NEXT:    [[DOTUNPACK9:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT8]], align 16
+// CPP-CHECK-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[DOTUNPACK9]], 1
+// CPP-CHECK-NEXT:    [[TMP13:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP14:%.*]] = shl nuw nsw i64 [[TMP13]], 5
+// CPP-CHECK-NEXT:    [[DOTELT10:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP14]]
+// CPP-CHECK-NEXT:    [[DOTUNPACK11:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT10]], align 16
+// CPP-CHECK-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[DOTUNPACK11]], 2
+// CPP-CHECK-NEXT:    [[TMP16:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP17:%.*]] = mul nuw nsw i64 [[TMP16]], 48
+// CPP-CHECK-NEXT:    [[DOTELT12:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP17]]
+// CPP-CHECK-NEXT:    [[DOTUNPACK13:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT12]], align 16
+// CPP-CHECK-NEXT:    [[TMP18:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]], <vscale x 16 x b8> [[DOTUNPACK13]], 3
+// CPP-CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP18]]
 //
 svuint8x4_t test_luti4_zt_u8_x4(svuint8x2_t op)  __arm_streaming __arm_in("zt0") {
   return svluti4_zt_u8_x4(0, op);
 }
 
-// CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @test_luti4_zt_s8_x4(
-// CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @test_luti4_zt_s8_x4(
+// CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sme.luti4.zt.x4.nxv16i8(i32 0, <vscale x 16 x i8> [[OP_COERCE0]], <vscale x 16 x i8> [[OP_COERCE1]])
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[OP_COERCE0]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP_COERCE1]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sme.luti4.zt.x4.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    [[DOTELT:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
+// CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP4:%.*]] = shl nuw nsw i64 [[TMP3]], 4
+// CHECK-NEXT:    [[RETVAL_REPACK1:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP4]]
+// CHECK-NEXT:    [[DOTELT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
+// CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT2]], ptr [[RETVAL_REPACK1]], align 16
+// CHECK-NEXT:    [[TMP5:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP6:%.*]] = shl nuw nsw i64 [[TMP5]], 5
+// CHECK-NEXT:    [[RETVAL_REPACK3:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP6]]
+// CHECK-NEXT:    [[DOTELT4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
+// CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT4]], ptr [[RETVAL_REPACK3]], align 16
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP8:%.*]] = mul nuw nsw i64 [[TMP7]], 48
+// CHECK-NEXT:    [[RETVAL_REPACK5:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP8]]
+// CHECK-NEXT:    [[DOTELT6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 3
+// CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT6]], ptr [[RETVAL_REPACK5]], align 16
+// CHECK-NEXT:    [[DOTUNPACK:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[DOTUNPACK]], 0
+// CHECK-NEXT:    [[TMP10:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP11:%.*]] = shl nuw nsw i64 [[TMP10]], 4
+// CHECK-NEXT:    [[DOTELT8:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP11]]
+// CHECK-NEXT:    [[DOTUNPACK9:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT8]], align 16
+// CHECK-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[DOTUNPACK9]], 1
+// CHECK-NEXT:    [[TMP13:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP14:%.*]] = shl nuw nsw i64 [[TMP13]], 5
+// CHECK-NEXT:    [[DOTELT10:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP14]]
+// CHECK-NEXT:    [[DOTUNPACK11:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT10]], align 16
+// CHECK-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[DOTUNPACK11]], 2
+// CHECK-NEXT:    [[TMP16:%.*]] = tail call i64 @llvm.vscale.i64()
+// CHECK-NEXT:    [[TMP17:%.*]] = mul nuw nsw i64 [[TMP16]], 48
+// CHECK-NEXT:    [[DOTELT12:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP17]]
+// CHECK-NEXT:    [[DOTUNPACK13:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT12]], align 16
+// CHECK-NEXT:    [[TMP18:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]], <vscale x 16 x b8> [[DOTUNPACK13]], 3
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP18]]
 //
-// CPP-CHECK-LABEL: define dso_local { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @_Z19test_luti4_zt_s8_x411svuint8x2_t(
-// CPP-CHECK-SAME: <vscale x 16 x i8> [[OP_COERCE0:%.*]], <vscale x 16 x i8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
+// CPP-CHECK-LABEL: define dso_local { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } @_Z19test_luti4_zt_s8_x411svuint8x2_t(
+// CPP-CHECK-SAME: <vscale x 16 x b8> [[OP_COERCE0:%.*]], <vscale x 16 x b8> [[OP_COERCE1:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  [[ENTRY:.*:]]
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sme.luti4.zt.x4.nxv16i8(i32 0, <vscale x 16 x i8> [[OP_COERCE0]], <vscale x 16 x i8> [[OP_COERCE1]])
-// CPP-CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> }, align 16
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[OP_COERCE0]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[OP_COERCE1]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } @llvm.aarch64.sme.luti4.zt.x4.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    [[DOTELT:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 0
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = shl nuw nsw i64 [[TMP3]], 4
+// CPP-CHECK-NEXT:    [[RETVAL_REPACK1:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP4]]
+// CPP-CHECK-NEXT:    [[DOTELT2:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 1
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT2]], ptr [[RETVAL_REPACK1]], align 16
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = shl nuw nsw i64 [[TMP5]], 5
+// CPP-CHECK-NEXT:    [[RETVAL_REPACK3:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP6]]
+// CPP-CHECK-NEXT:    [[DOTELT4:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 2
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT4]], ptr [[RETVAL_REPACK3]], align 16
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP8:%.*]] = mul nuw nsw i64 [[TMP7]], 48
+// CPP-CHECK-NEXT:    [[RETVAL_REPACK5:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP8]]
+// CPP-CHECK-NEXT:    [[DOTELT6:%.*]] = extractvalue { <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP2]], 3
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[DOTELT6]], ptr [[RETVAL_REPACK5]], align 16
+// CPP-CHECK-NEXT:    [[DOTUNPACK:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP9:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[DOTUNPACK]], 0
+// CPP-CHECK-NEXT:    [[TMP10:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP11:%.*]] = shl nuw nsw i64 [[TMP10]], 4
+// CPP-CHECK-NEXT:    [[DOTELT8:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP11]]
+// CPP-CHECK-NEXT:    [[DOTUNPACK9:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT8]], align 16
+// CPP-CHECK-NEXT:    [[TMP12:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP9]], <vscale x 16 x b8> [[DOTUNPACK9]], 1
+// CPP-CHECK-NEXT:    [[TMP13:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP14:%.*]] = shl nuw nsw i64 [[TMP13]], 5
+// CPP-CHECK-NEXT:    [[DOTELT10:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP14]]
+// CPP-CHECK-NEXT:    [[DOTUNPACK11:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT10]], align 16
+// CPP-CHECK-NEXT:    [[TMP15:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP12]], <vscale x 16 x b8> [[DOTUNPACK11]], 2
+// CPP-CHECK-NEXT:    [[TMP16:%.*]] = tail call i64 @llvm.vscale.i64()
+// CPP-CHECK-NEXT:    [[TMP17:%.*]] = mul nuw nsw i64 [[TMP16]], 48
+// CPP-CHECK-NEXT:    [[DOTELT12:%.*]] = getelementptr inbounds nuw i8, ptr [[RETVAL]], i64 [[TMP17]]
+// CPP-CHECK-NEXT:    [[DOTUNPACK13:%.*]] = load <vscale x 16 x b8>, ptr [[DOTELT12]], align 16
+// CPP-CHECK-NEXT:    [[TMP18:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP15]], <vscale x 16 x b8> [[DOTUNPACK13]], 3
+// CPP-CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP18]]
 //
 svint8x4_t test_luti4_zt_s8_x4(svuint8x2_t op)  __arm_streaming __arm_in("zt0") {
   return svluti4_zt_s8_x4(0, op);

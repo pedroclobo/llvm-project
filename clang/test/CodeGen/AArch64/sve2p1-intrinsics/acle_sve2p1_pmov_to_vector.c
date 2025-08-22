@@ -148,33 +148,37 @@ svint64_t test_svpmov_lane_s64_m(svint64_t zn, svbool_t pn) ATTR {
 
 // _z
 
-// CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svpmov_lane_u8_z
+// CHECK-LABEL: define dso_local <vscale x 16 x b8> @test_svpmov_lane_u8_z
 // CHECK-SAME: (<vscale x 16 x i1> [[PN:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.pmov.to.vector.lane.zeroing.nxv16i8(<vscale x 16 x i1> [[PN]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CPP-CHECK-LABEL: define dso_local <vscale x 16 x i8> @_Z21test_svpmov_lane_u8_zu10__SVBool_t
+// CPP-CHECK-LABEL: define dso_local <vscale x 16 x b8> @_Z21test_svpmov_lane_u8_zu10__SVBool_t
 // CPP-CHECK-SAME: (<vscale x 16 x i1> [[PN:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.pmov.to.vector.lane.zeroing.nxv16i8(<vscale x 16 x i1> [[PN]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svpmov_lane_u8_z(svbool_t pn) ATTR {
   return SVE_ACLE_FUNC(svpmov_u8, , _z)(pn);
 }
 
-// CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svpmov_lane_s8_z
+// CHECK-LABEL: define dso_local <vscale x 16 x b8> @test_svpmov_lane_s8_z
 // CHECK-SAME: (<vscale x 16 x i1> [[PN:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.pmov.to.vector.lane.zeroing.nxv16i8(<vscale x 16 x i1> [[PN]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CPP-CHECK-LABEL: define dso_local <vscale x 16 x i8> @_Z21test_svpmov_lane_s8_zu10__SVBool_t
+// CPP-CHECK-LABEL: define dso_local <vscale x 16 x b8> @_Z21test_svpmov_lane_s8_zu10__SVBool_t
 // CPP-CHECK-SAME: (<vscale x 16 x i1> [[PN:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.pmov.to.vector.lane.zeroing.nxv16i8(<vscale x 16 x i1> [[PN]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svint8_t test_svpmov_lane_s8_z(svbool_t pn) ATTR {
   return SVE_ACLE_FUNC(svpmov_s8, , _z)(pn);

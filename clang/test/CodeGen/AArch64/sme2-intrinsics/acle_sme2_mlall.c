@@ -23,12 +23,16 @@
 
 // CHECK-LABEL: @test_svmla_single_x1_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmla_single_x1_s8ju10__SVInt8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmla_single_x1_s8(uint32_t slice_base, svint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -53,12 +57,16 @@ void test_svmla_single_x1_s16(uint32_t slice_base, svint16_t zn, svint16_t zm) _
 
 // CHECK-LABEL: @test_uvmlal_single_x1_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z24test_uvmlal_single_x1_u8ju11__SVUint8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_uvmlal_single_x1_u8(uint32_t slice_base, svuint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -85,12 +93,16 @@ void test_uvmlal_single_x1_u16(uint32_t slice_base, svuint16_t zn, svuint16_t zm
 
 // CHECK-LABEL: @test_svmls_single_x1_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmls_single_x1_s8ju10__SVInt8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmls_single_x1_s8(uint32_t slice_base, svint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -115,12 +127,16 @@ void test_svmls_single_x1_s16(uint32_t slice_base, svint16_t zn, svint16_t zm) _
 
 // CHECK-LABEL: @test_uvmlsl_single_x1_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z24test_uvmlsl_single_x1_u8ju11__SVUint8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_uvmlsl_single_x1_u8(uint32_t slice_base, svuint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -147,12 +163,16 @@ void test_uvmlsl_single_x1_u16(uint32_t slice_base, svuint16_t zn, svuint16_t zm
 
 // CHECK-LABEL: @test_sumlall_single_x1_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZN:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z25test_sumlall_single_x1_s8ju10__SVInt8_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZN:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_sumlall_single_x1_s8(uint32_t slice_base, svint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -164,12 +184,16 @@ void test_sumlall_single_x1_s8(uint32_t slice_base, svint8_t zn, svuint8_t zm) _
 
 // CHECK-LABEL: @test_usmlall_single_x1_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z25test_usmlall_single_x1_u8ju11__SVUint8_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_usmlall_single_x1_u8(uint32_t slice_base, svuint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -185,12 +209,18 @@ void test_usmlall_single_x1_u8(uint32_t slice_base, svuint8_t zn, svint8_t zm) _
 
 // CHECK-LABEL: @test_svmla_single_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmla_single_x2_s8j10svint8x2_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmla_single_x2_s8(uint32_t slice_base, svint8x2_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -215,12 +245,18 @@ void test_svmla_single_x2_s16(uint32_t slice_base, svint16x2_t zn, svint16_t zm)
 
 // CHECK-LABEL: @test_svmla_single_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmla_single_x2_u8j11svuint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmla_single_x2_u8(uint32_t slice_base, svuint8x2_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -247,12 +283,18 @@ void test_svmla_single_x2_u16(uint32_t slice_base, svuint16x2_t zn, svuint16_t z
 
 // CHECK-LABEL: @test_svmls_single_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmls_single_x2_s8j10svint8x2_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmls_single_x2_s8(uint32_t slice_base, svint8x2_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -277,12 +319,18 @@ void test_svmls_single_x2_s16(uint32_t slice_base, svint16x2_t zn, svint16_t zm)
 
 // CHECK-LABEL: @test_svmls_single_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmls_single_x2_u8j11svuint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmls_single_x2_u8(uint32_t slice_base, svuint8x2_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -309,12 +357,18 @@ void test_svmls_single_x2_u16(uint32_t slice_base, svuint16x2_t zn, svuint16_t z
 
 // CHECK-LABEL: @test_svsumla_single_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z25test_svsumla_single_x2_s8j10svint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svsumla_single_x2_s8(uint32_t slice_base, svint8x2_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -326,12 +380,18 @@ void test_svsumla_single_x2_s8(uint32_t slice_base, svint8x2_t zn, svuint8_t zm)
 
 // CHECK-LABEL: @test_usmlall_single_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z25test_usmlall_single_x2_u8j11svuint8x2_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_usmlall_single_x2_u8(uint32_t slice_base, svuint8x2_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -347,12 +407,22 @@ void test_usmlall_single_x2_u8(uint32_t slice_base, svuint8x2_t zn, svint8_t zm)
 
 // CHECK-LABEL: @test_svmla_single_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmla_single_x4_s8j10svint8x4_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmla_single_x4_s8(uint32_t slice_base, svint8x4_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -377,12 +447,22 @@ void test_svmla_single_x4_s16(uint32_t slice_base, svint16x4_t zn, svint16_t zm)
 
 // CHECK-LABEL: @test_svmla_single_x4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmla_single_x4_u8j11svuint8x4_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmla_single_x4_u8(uint32_t slice_base, svuint8x4_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -409,12 +489,22 @@ void test_svmla_single_x4_u16(uint32_t slice_base, svuint16x4_t zn, svuint16_t z
 
 // CHECK-LABEL: @test_svmls_single_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmls_single_x4_s8j10svint8x4_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmls_single_x4_s8(uint32_t slice_base, svint8x4_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -439,12 +529,22 @@ void test_svmls_single_x4_s16(uint32_t slice_base, svint16x4_t zn, svint16_t zm)
 
 // CHECK-LABEL: @test_svmls_single_x4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_svmls_single_x4_u8j11svuint8x4_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svmls_single_x4_u8(uint32_t slice_base, svuint8x4_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -471,12 +571,22 @@ void test_svmls_single_x4_u16(uint32_t slice_base, svuint16x4_t zn, svuint16_t z
 
 // CHECK-LABEL: @test_svsumla_single_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z25test_svsumla_single_x4_s8j10svint8x4_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svsumla_single_x4_s8(uint32_t slice_base, svint8x4_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -488,12 +598,22 @@ void test_svsumla_single_x4_s8(uint32_t slice_base, svint8x4_t zn, svuint8_t zm)
 
 // CHECK-LABEL: @test_usmlall_single_x4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z25test_usmlall_single_x4_u8j11svuint8x4_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.single.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_usmlall_single_x4_u8(uint32_t slice_base, svuint8x4_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -509,12 +629,20 @@ void test_usmlall_single_x4_u8(uint32_t slice_base, svuint8x4_t zn, svint8_t zm)
 
 // CHECK-LABEL: @test_mlal_multi_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_mlal_multi_x2_s8j10svint8x2_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_mlal_multi_x2_s8(uint32_t slice_base, svint8x2_t zn, svint8x2_t zm) __arm_streaming __arm_inout("za")
@@ -539,12 +667,20 @@ void test_mlal_multi_x2_s16(uint32_t slice_base, svint16x2_t zn, svint16x2_t zm)
 
 // CHECK-LABEL: @test_mlal_multi_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_mlal_multi_x2_u8j11svuint8x2_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_mlal_multi_x2_u8(uint32_t slice_base, svuint8x2_t zn, svuint8x2_t zm) __arm_streaming __arm_inout("za")
@@ -571,12 +707,20 @@ void test_mlal_multi_x2_u16(uint32_t slice_base, svuint16x2_t zn, svuint16x2_t z
 
 // CHECK-LABEL: @test_mlsl_multi_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_mlsl_multi_x2_s8j10svint8x2_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_mlsl_multi_x2_s8(uint32_t slice_base, svint8x2_t zn, svint8x2_t zm) __arm_streaming __arm_inout("za")
@@ -601,12 +745,20 @@ void test_mlsl_multi_x2_s16(uint32_t slice_base, svint16x2_t zn, svint16x2_t zm)
 
 // CHECK-LABEL: @test_mlsl_multi_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_mlsl_multi_x2_u8j11svuint8x2_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_mlsl_multi_x2_u8(uint32_t slice_base, svuint8x2_t zn, svuint8x2_t zm) __arm_streaming __arm_inout("za")
@@ -633,12 +785,20 @@ void test_mlsl_multi_x2_u16(uint32_t slice_base, svuint16x2_t zn, svuint16x2_t z
 
 // CHECK-LABEL: @test_sumlal_multi_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_sumlal_multi_x2_s8j10svint8x2_t11svuint8x2_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_sumlal_multi_x2_s8(uint32_t slice_base, svint8x2_t zn, svuint8x2_t zm) __arm_streaming __arm_inout("za")
@@ -650,12 +810,20 @@ void test_sumlal_multi_x2_s8(uint32_t slice_base, svint8x2_t zn, svuint8x2_t zm)
 
 // CHECK-LABEL: @test_usmlal_multi_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_usmlal_multi_x2_u8j11svuint8x2_t10svint8x2_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_usmlal_multi_x2_u8(uint32_t slice_base, svuint8x2_t zn, svint8x2_t zm) __arm_streaming __arm_inout("za")
@@ -671,12 +839,28 @@ void test_usmlal_multi_x2_u8(uint32_t slice_base, svuint8x2_t zn, svint8x2_t zm)
 
 // CHECK-LABEL: @test_mlal_multi_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_mlal_multi_x4_s8j10svint8x4_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_mlal_multi_x4_s8(uint32_t slice_base, svint8x4_t zn, svint8x4_t zm) __arm_streaming __arm_inout("za")
@@ -701,12 +885,28 @@ void test_mlal_multi_x4_s16(uint32_t slice_base, svint16x4_t zn, svint16x4_t zm)
 
 // CHECK-LABEL: @test_mlal_multi_x4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_mlal_multi_x4_u8j11svuint8x4_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_mlal_multi_x4_u8(uint32_t slice_base, svuint8x4_t zn, svuint8x4_t zm) __arm_streaming __arm_inout("za")
@@ -733,12 +933,28 @@ void test_mlal_multi_x4_u16(uint32_t slice_base, svuint16x4_t zn, svuint16x4_t z
 
 // CHECK-LABEL: @test_mlsl_multi_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_mlsl_multi_x4_s8j10svint8x4_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_mlsl_multi_x4_s8(uint32_t slice_base, svint8x4_t zn, svint8x4_t zm) __arm_streaming __arm_inout("za")
@@ -763,12 +979,28 @@ void test_mlsl_multi_x4_s16(uint32_t slice_base, svint16x4_t zn, svint16x4_t zm)
 
 // CHECK-LABEL: @test_mlsl_multi_x4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_mlsl_multi_x4_u8j11svuint8x4_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_mlsl_multi_x4_u8(uint32_t slice_base, svuint8x4_t zn, svuint8x4_t zm) __arm_streaming __arm_inout("za")
@@ -795,12 +1027,28 @@ void test_mlsl_multi_x4_u16(uint32_t slice_base, svuint16x4_t zn, svuint16x4_t z
 
 // CHECK-LABEL: @test_sumlal_multi_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_sumlal_multi_x4_s8j10svint8x4_t11svuint8x4_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_sumlal_multi_x4_s8(uint32_t slice_base, svint8x4_t zn, svuint8x4_t zm) __arm_streaming __arm_inout("za")
@@ -812,12 +1060,28 @@ void test_sumlal_multi_x4_s8(uint32_t slice_base, svint8x4_t zn, svuint8x4_t zm)
 
 // CHECK-LABEL: @test_usmlal_multi_x4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_usmlal_multi_x4_u8j11svuint8x4_t10svint8x4_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM_COERCE0:%.*]], <vscale x 16 x i8> [[ZM_COERCE1:%.*]], <vscale x 16 x i8> [[ZM_COERCE2:%.*]], <vscale x 16 x i8> [[ZM_COERCE3:%.*]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = bytecast <vscale x 16 x b8> [[ZM_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], <vscale x 16 x i8> [[TMP5]], <vscale x 16 x i8> [[TMP6]], <vscale x 16 x i8> [[TMP7]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_usmlal_multi_x4_u8(uint32_t slice_base, svuint8x4_t zn, svint8x4_t zm) __arm_streaming __arm_inout("za")
@@ -833,12 +1097,16 @@ void test_usmlal_multi_x4_u8(uint32_t slice_base, svuint8x4_t zn, svint8x4_t zm)
 
 // CHECK-LABEL: @test_smlal_lane_x1_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlal_lane_x1_s8ju10__SVInt8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlal_lane_x1_s8(uint32_t slice_base, svint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -863,12 +1131,16 @@ void test_smlal_lane_x1_s16(uint32_t slice_base, svint16_t zn, svint16_t zm) __a
 
 // CHECK-LABEL: @test_smlal_lane_x1_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlal_lane_x1_u8ju11__SVUint8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlal_lane_x1_u8(uint32_t slice_base, svuint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -895,12 +1167,16 @@ void test_smlal_lane_x1_u16(uint32_t slice_base, svuint16_t zn, svuint16_t zm) _
 
 // CHECK-LABEL: @test_smlsl_lane_x1_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlsl_lane_x1_s8ju10__SVInt8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlsl_lane_x1_s8(uint32_t slice_base, svint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -925,12 +1201,16 @@ void test_smlsl_lane_x1_s16(uint32_t slice_base, svint16_t zn, svint16_t zm) __a
 
 // CHECK-LABEL: @test_smlsl_lane_x1_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlsl_lane_x1_u8ju11__SVUint8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlsl_lane_x1_u8(uint32_t slice_base, svuint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -957,12 +1237,16 @@ void test_smlsl_lane_x1_u16(uint32_t slice_base, svuint16_t zn, svuint16_t zm) _
 
 // CHECK-LABEL: @test_sumlall_lane_x1_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_sumlall_lane_x1_s8ju10__SVInt8_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_sumlall_lane_x1_s8(uint32_t slice_base, svint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -974,12 +1258,16 @@ void test_sumlall_lane_x1_s8(uint32_t slice_base, svint8_t zn, svuint8_t zm) __a
 
 // CHECK-LABEL: @test_usmlall_lane_x1_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_usmlall_lane_x1_u8ju11__SVUint8_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x1.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_usmlall_lane_x1_u8(uint32_t slice_base, svuint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -995,12 +1283,18 @@ void test_usmlall_lane_x1_u8(uint32_t slice_base, svuint8_t zn, svint8_t zm) __a
 
 // CHECK-LABEL: @test_smlal_lane_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlal_lane_x2_s8j10svint8x2_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlal_lane_x2_s8(uint32_t slice_base, svint8x2_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -1025,12 +1319,18 @@ void test_smlal_lane_x2_s16(uint32_t slice_base, svint16x2_t zn, svint16_t zm) _
 
 // CHECK-LABEL: @test_smlal_lane_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlal_lane_x2_u8j11svuint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlal_lane_x2_u8(uint32_t slice_base, svuint8x2_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -1057,12 +1357,18 @@ void test_smlal_lane_x2_u16(uint32_t slice_base, svuint16x2_t zn, svuint16_t zm)
 
 // CHECK-LABEL: @test_smlsl_lane_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlsl_lane_x2_s8j10svint8x2_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlsl_lane_x2_s8(uint32_t slice_base, svint8x2_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -1087,12 +1393,18 @@ void test_smlsl_lane_x2_s16(uint32_t slice_base, svint16x2_t zn, svint16_t zm) _
 
 // CHECK-LABEL: @test_smlsl_lane_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlsl_lane_x2_u8j11svuint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlsl_lane_x2_u8(uint32_t slice_base, svuint8x2_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -1119,12 +1431,18 @@ void test_smlsl_lane_x2_u16(uint32_t slice_base, svuint16x2_t zn, svuint16_t zm)
 
 // CHECK-LABEL: @test_sumlall_lane_x2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_sumlall_lane_x2_s8j10svint8x2_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_sumlall_lane_x2_s8(uint32_t slice_base, svint8x2_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -1134,12 +1452,18 @@ void test_sumlall_lane_x2_s8(uint32_t slice_base, svint8x2_t zn, svuint8_t zm) _
 
 // CHECK-LABEL: @test_usmlall_lane_x2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_usmlall_lane_x2_u8j11svuint8x2_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x2.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_usmlall_lane_x2_u8(uint32_t slice_base, svuint8x2_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -1155,12 +1479,22 @@ void test_usmlall_lane_x2_u8(uint32_t slice_base, svuint8x2_t zn, svint8_t zm) _
 
 // CHECK-LABEL: @test_smlal_lane_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlal_lane_x4_s8j10svint8x4_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlal_lane_x4_s8(uint32_t slice_base, svint8x4_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -1185,12 +1519,22 @@ void test_smlal_lane_x4_s16(uint32_t slice_base, svint16x4_t zn, svint16_t zm) _
 
 // CHECK-LABEL: @test_smlal_lane_x4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlal_lane_x4_u8j11svuint8x4_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlal_lane_x4_u8(uint32_t slice_base, svuint8x4_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -1217,12 +1561,22 @@ void test_smlal_lane_x4_u16(uint32_t slice_base, svuint16x4_t zn, svuint16_t zm)
 
 // CHECK-LABEL: @test_smlsl_lane_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlsl_lane_x4_s8j10svint8x4_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.smls.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlsl_lane_x4_s8(uint32_t slice_base, svint8x4_t zn, svint8_t zm) __arm_streaming __arm_inout("za")
@@ -1247,12 +1601,22 @@ void test_smlsl_lane_x4_s16(uint32_t slice_base, svint16x4_t zn, svint16_t zm) _
 
 // CHECK-LABEL: @test_smlsl_lane_x4_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z21test_smlsl_lane_x4_u8j11svuint8x4_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.umls.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_smlsl_lane_x4_u8(uint32_t slice_base, svuint8x4_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -1279,12 +1643,22 @@ void test_smlsl_lane_x4_u16(uint32_t slice_base, svuint16x4_t zn, svuint16_t zm)
 
 // CHECK-LABEL: @test_sumlall_lane_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_sumlall_lane_x4_s8j10svint8x4_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sumla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_sumlall_lane_x4_s8(uint32_t slice_base, svint8x4_t zn, svuint8_t zm) __arm_streaming __arm_inout("za")
@@ -1296,12 +1670,22 @@ void test_sumlall_lane_x4_s8(uint32_t slice_base, svint8x4_t zn, svuint8_t zm) _
 
 // CHECK-LABEL: @test_usmlall_lane_x4_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z23test_usmlall_lane_x4_s8j11svuint8x4_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZN_COERCE2:%.*]], <vscale x 16 x i8> [[ZN_COERCE3:%.*]], <vscale x 16 x i8> [[ZM:%.*]], i32 15)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE2:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast <vscale x 16 x b8> [[ZN_COERCE3:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = bytecast <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.usmla.za32.lane.vg4x4.nxv16i8(i32 [[SLICE_BASE:%.*]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], <vscale x 16 x i8> [[TMP4]], i32 15)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_usmlall_lane_x4_s8(uint32_t slice_base, svuint8x4_t zn, svint8_t zm) __arm_streaming __arm_inout("za")

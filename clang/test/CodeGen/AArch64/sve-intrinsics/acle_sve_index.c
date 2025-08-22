@@ -15,13 +15,23 @@
 
 // CHECK-LABEL: @test_svindex_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.index.nxv16i8(i8 [[BASE:%.*]], i8 [[STEP:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast b8 [[BASE:%.*]] to i8
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast b8 [[STEP:%.*]] to i8
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.index.nxv16i8(i8 [[TMP0]], i8 [[TMP1]])
+// CHECK-NEXT:    store <vscale x 16 x i8> [[TMP2]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP3]]
 //
 // CPP-CHECK-LABEL: @_Z15test_svindex_s8aa(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.index.nxv16i8(i8 [[BASE:%.*]], i8 [[STEP:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast b8 [[BASE:%.*]] to i8
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast b8 [[STEP:%.*]] to i8
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.index.nxv16i8(i8 [[TMP0]], i8 [[TMP1]])
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[TMP2]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP3]]
 //
 svint8_t test_svindex_s8(int8_t base, int8_t step) MODE_ATTR
 {
@@ -75,13 +85,23 @@ svint64_t test_svindex_s64(int64_t base, int64_t step) MODE_ATTR
 
 // CHECK-LABEL: @test_svindex_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.index.nxv16i8(i8 [[BASE:%.*]], i8 [[STEP:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast b8 [[BASE:%.*]] to i8
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast b8 [[STEP:%.*]] to i8
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.index.nxv16i8(i8 [[TMP0]], i8 [[TMP1]])
+// CHECK-NEXT:    store <vscale x 16 x i8> [[TMP2]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP3:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP3]]
 //
 // CPP-CHECK-LABEL: @_Z15test_svindex_u8hh(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.index.nxv16i8(i8 [[BASE:%.*]], i8 [[STEP:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast b8 [[BASE:%.*]] to i8
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast b8 [[STEP:%.*]] to i8
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.index.nxv16i8(i8 [[TMP0]], i8 [[TMP1]])
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[TMP2]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP3]]
 //
 svuint8_t test_svindex_u8(uint8_t base, uint8_t step) MODE_ATTR
 {
