@@ -1360,10 +1360,11 @@ static llvm::Value *CreateCoercedLoad(Address Src, llvm::Type *Ty,
   // conversion.
   if (auto *ScalableDstTy = dyn_cast<llvm::ScalableVectorType>(Ty)) {
     if (auto *FixedSrcTy = dyn_cast<llvm::FixedVectorType>(SrcTy)) {
-      // If we are casting a fixed i8 vector to a scalable i1 predicate
+      // If we are casting a fixed i8/b8 vector to a scalable i1 predicate
       // vector, use a vector insert and bitcast the result.
       if (ScalableDstTy->getElementType()->isIntegerTy(1) &&
-          FixedSrcTy->getElementType()->isIntegerTy(8)) {
+          (FixedSrcTy->getElementType()->isIntegerTy(8) ||
+           FixedSrcTy->getElementType()->isByteTy(8))) {
         ScalableDstTy = llvm::ScalableVectorType::get(
             FixedSrcTy->getElementType(),
             llvm::divideCeil(
@@ -1377,7 +1378,9 @@ static llvm::Value *CreateCoercedLoad(Address Src, llvm::Type *Ty,
         ScalableDstTy = cast<llvm::ScalableVectorType>(
             llvm::VectorType::getWithSizeAndScalar(ScalableDstTy, Ty));
         if (Result->getType() != ScalableDstTy)
-          Result = CGF.Builder.CreateBitCast(Result, ScalableDstTy);
+          Result = Result->getType()->isByteOrByteVectorTy()
+              ? CGF.Builder.CreateByteCast(Result, ScalableDstTy)
+              : CGF.Builder.CreateBitCast(Result, ScalableDstTy);
         if (Result->getType() != Ty)
           Result = CGF.Builder.CreateExtractVector(Ty, Result, uint64_t(0));
         return Result;
@@ -1481,7 +1484,7 @@ static std::pair<llvm::Value *, bool>
 CoerceScalableToFixed(CodeGenFunction &CGF, llvm::FixedVectorType *ToTy,
                       llvm::ScalableVectorType *FromTy, llvm::Value *V,
                       StringRef Name = "") {
-  // If we are casting a scalable i1 predicate vector to a fixed i8
+  // If we are casting a scalable i1 predicate vector to a fixed i8/b8
   // vector, first bitcast the source.
   if (FromTy->getElementType()->isIntegerTy(1) &&
       ToTy->getElementType() == CGF.Builder.getInt8Ty()) {
@@ -5538,9 +5541,17 @@ RValue CodeGenFunction::EmitCall(const CGFunctionInfo &CallInfo,
         }
 
         // We might have to widen integers, but we should never truncate.
+        // We might also need to convert to bytes.
         if (ArgInfo.getCoerceToType() != V->getType() &&
-            V->getType()->isIntegerTy())
-          V = Builder.CreateZExt(V, ArgInfo.getCoerceToType());
+            V->getType()->isIntOrIntVectorTy()) {
+          if (ArgInfo.getCoerceToType()->isByteOrByteVectorTy()) {
+            const llvm::DataLayout &DL = CGM.getDataLayout();
+            llvm::Type *IntermTy = DL.getIntByteType(ArgInfo.getCoerceToType());
+            V = Builder.CreateZExt(V, IntermTy);
+            V = Builder.CreateBitCast(V, ArgInfo.getCoerceToType());
+          } else
+            V = Builder.CreateZExt(V, ArgInfo.getCoerceToType());
+        }
 
         // The only plausible mismatch here would be for pointer address spaces.
         // We assume that the target has a reasonable mapping for the DefaultAS

@@ -65,22 +65,22 @@ typedef int __attribute__((mode(V8HI)))       IntVecTy1;
 void test() {
 
   // CHECK: define {{.*}} void @_Z19CheckIntScalarTypesIiEvv()
-  // CHECK: %{{.+}} = alloca i8
+  // CHECK: %{{.+}} = alloca b8
   // CHECK: %{{.+}} = alloca i16
   // CHECK: %{{.+}} = alloca i32
   // CHECK: %{{.+}} = alloca i64
   CheckIntScalarTypes<int>();
 
   // CHECK: define {{.*}} void @_Z19CheckIntScalarTypesI6EnumTyEvv()
-  // CHECK: %{{.+}} = alloca i8
+  // CHECK: %{{.+}} = alloca b8
   // CHECK: %{{.+}} = alloca i16
   // CHECK: %{{.+}} = alloca i32
   // CHECK: %{{.+}} = alloca i64
   CheckIntScalarTypes<EnumTy>();
 
   // CHECK: define {{.*}} void @_Z19CheckIntVectorTypesIiEvv()
-  // CHECK: %{{.+}} = alloca <8 x i8>
-  // CHECK: %{{.+}} = alloca <8 x i8>
+  // CHECK: %{{.+}} = alloca <8 x b8>
+  // CHECK: %{{.+}} = alloca <8 x b8>
   // CHECK: %{{.+}} = alloca <4 x i32>
   // CHECK: %{{.+}} = alloca <4 x i32>
   // CHECK: %{{.+}} = alloca <8 x i64>

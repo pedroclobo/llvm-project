@@ -28,6 +28,7 @@ void foo2(int x) {
   // CHECK: store i8 %{{.*}}
   // CHECK-NEXT: [[BFRESULTSHL:%.*]] = shl i8 {{.*}}, 6
   // CHECK-NEXT: [[BFRESULTASHR:%.*]] = ashr i8 [[BFRESULTSHL]], 6
+  // CHECK-NEXT: [[BFRESULTCAST:%.*]] = bitcast i8 [[BFRESULTASHR]] to b8
   // CHECK-BITFIELD-CONVERSION: call void @__ubsan_handle_implicit_conversion
   // CHECK-BITFIELD-CONVERSION-NEXT: br label %[[CONT:.*]], !nosanitize
   // CHECK-BITFIELD-CONVERSION: [[CONT]]:

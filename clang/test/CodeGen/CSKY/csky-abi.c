@@ -17,10 +17,10 @@ void f_void(void) {}
 // CHECK-LABEL: define{{.*}} zeroext i1 @f_scalar_0(i1 noundef zeroext %x)
 _Bool f_scalar_0(_Bool x) { return x; }
 
-// CHECK-LABEL: define{{.*}} signext i8 @f_scalar_1(i8 noundef signext %x)
+// CHECK-LABEL: define{{.*}} signext b8 @f_scalar_1(b8 noundef signext %x)
 int8_t f_scalar_1(int8_t x) { return x; }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @f_scalar_2(i8 noundef zeroext %x)
+// CHECK-LABEL: define{{.*}} zeroext b8 @f_scalar_2(b8 noundef zeroext %x)
 uint8_t f_scalar_2(uint8_t x) { return x; }
 
 // CHECK-LABEL: define{{.*}} i32 @f_scalar_3(i32 noundef %x)
@@ -117,24 +117,24 @@ void f_agg_large(struct large x) {
 
 // The address where the struct should be written to will be the first
 // argument
-// CHECK-LABEL: define{{.*}} void @f_agg_large_ret(ptr dead_on_unwind noalias writable sret(%struct.large) align 4 %agg.result, i32 noundef %i, i8 noundef signext %j)
+// CHECK-LABEL: define{{.*}} void @f_agg_large_ret(ptr dead_on_unwind noalias writable sret(%struct.large) align 4 %agg.result, i32 noundef %i, b8 noundef signext %j)
 struct large f_agg_large_ret(int32_t i, int8_t j) {
   return (struct large){1, 2, 3, 4};
 }
 
 typedef unsigned char v16i8 __attribute__((vector_size(16)));
 
-// CHECK-LABEL: define{{.*}} void @f_vec_large_v16i8(<16 x i8> noundef %x)
+// CHECK-LABEL: define{{.*}} void @f_vec_large_v16i8(<16 x b8> noundef %x)
 void f_vec_large_v16i8(v16i8 x) {
   x[0] = x[7];
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @f_vec_large_v16i8_ret()
+// CHECK-LABEL: define{{.*}} <16 x b8> @f_vec_large_v16i8_ret()
 v16i8 f_vec_large_v16i8_ret(void) {
   return (v16i8){1, 2, 3, 4, 5, 6, 7, 8};
 }
 
-// CHECK-LABEL: define{{.*}} i32 @f_scalar_stack_1(i32 %a.coerce, [2 x i32] %b.coerce, i64 %c.coerce, [4 x i32] %d.coerce, i8 noundef zeroext %e, i8 noundef signext %f, i8 noundef zeroext %g, i8 noundef signext %h)
+// CHECK-LABEL: define{{.*}} i32 @f_scalar_stack_1(i32 %a.coerce, [2 x i32] %b.coerce, i64 %c.coerce, [4 x i32] %d.coerce, b8 noundef zeroext %e, b8 noundef signext %f, b8 noundef zeroext %g, b8 noundef signext %h)
 int f_scalar_stack_1(struct tiny a, struct small b, struct small_aligned c,
                      struct large d, uint8_t e, int8_t f, uint8_t g, int8_t h) {
   return g + h;
@@ -144,13 +144,13 @@ int f_scalar_stack_1(struct tiny a, struct small b, struct small_aligned c,
 // the presence of large return values that consume a register due to the need
 // to pass a pointer.
 
-// CHECK-LABEL: define{{.*}} void @f_scalar_stack_2(ptr dead_on_unwind noalias writable sret(%struct.large) align 4 %agg.result, i32 noundef %a, i64 noundef %b, i64 noundef %c, double noundef %d, i8 noundef zeroext %e, i8 noundef signext %f, i8 noundef zeroext %g)
+// CHECK-LABEL: define{{.*}} void @f_scalar_stack_2(ptr dead_on_unwind noalias writable sret(%struct.large) align 4 %agg.result, i32 noundef %a, i64 noundef %b, i64 noundef %c, double noundef %d, b8 noundef zeroext %e, b8 noundef signext %f, b8 noundef zeroext %g)
 struct large f_scalar_stack_2(int32_t a, int64_t b, int64_t c, long double d,
                               uint8_t e, int8_t f, uint8_t g) {
   return (struct large){a, e, f, g};
 }
 
-// CHECK-LABEL: define{{.*}} double @f_scalar_stack_4(i32 noundef %a, i64 noundef %b, i64 noundef %c, double noundef %d, i8 noundef zeroext %e, i8 noundef signext %f, i8 noundef zeroext %g)
+// CHECK-LABEL: define{{.*}} double @f_scalar_stack_4(i32 noundef %a, i64 noundef %b, i64 noundef %c, double noundef %d, b8 noundef zeroext %e, b8 noundef signext %f, b8 noundef zeroext %g)
 long double f_scalar_stack_4(int32_t a, int64_t b, int64_t c, long double d,
                              uint8_t e, int8_t f, uint8_t g) {
   return d;

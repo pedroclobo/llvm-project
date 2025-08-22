@@ -4140,7 +4140,9 @@ static void emitDependData(CodeGenFunction &CGF, QualType &KmpDependInfoTy,
         *std::next(KmpDependInfoRD->field_begin(),
                    static_cast<unsigned int>(RTLDependInfoFields::Flags)));
     CGF.EmitStoreOfScalar(
-        llvm::ConstantInt::get(LLVMFlagsTy, static_cast<unsigned int>(DepKind)),
+        LLVMFlagsTy->isIntegerTy() ?
+          llvm::ConstantInt::get(LLVMFlagsTy, static_cast<unsigned int>(DepKind)) :
+          llvm::ConstantByte::get(LLVMFlagsTy, static_cast<unsigned int>(DepKind)),
         FlagsLVal);
     if (unsigned *P = dyn_cast<unsigned *>(Pos)) {
       ++(*P);
@@ -6758,6 +6760,8 @@ llvm::Value *CGOpenMPRuntime::emitNumThreadsForTargetDirective(
     NumThreadsVal = CGF.Builder.getInt32(UpperBound);
   } else if (NT) {
     NumThreadsVal = CGF.EmitScalarExpr(NT, /*IgnoreResultAssign=*/true);
+    if (NumThreadsVal->getType()->isByteOrByteVectorTy())
+      NumThreadsVal = CGF.Builder.CreateByteCastToInt(NumThreadsVal);
     NumThreadsVal = CGF.Builder.CreateIntCast(NumThreadsVal, CGF.Int32Ty,
                                               /*isSigned=*/false);
   } else if (ThreadLimitVal) {
@@ -12048,8 +12052,11 @@ void CGOpenMPRuntime::checkAndEmitLastprivateConditional(CodeGenFunction &CGF,
     LValue BaseLVal =
         CGF.MakeAddrLValue(StructAddr, StructTy, AlignmentSource::Decl);
     LValue FiredLVal = CGF.EmitLValueForField(BaseLVal, FiredDecl);
-    CGF.EmitAtomicStore(RValue::get(llvm::ConstantInt::get(
-                            CGF.ConvertTypeForMem(FiredDecl->getType()), 1)),
+    llvm::Type *Ty = CGF.ConvertTypeForMem(FiredDecl->getType());
+    llvm::Constant *C = Ty->isByteOrByteVectorTy()
+      ? llvm::ConstantByte::get(Ty, 1)
+      : llvm::ConstantInt::get(Ty, 1);
+    CGF.EmitAtomicStore(RValue::get(C),
                         FiredLVal, llvm::AtomicOrdering::Unordered,
                         /*IsVolatile=*/true, /*isInit=*/false);
     return;

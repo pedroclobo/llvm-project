@@ -6,7 +6,7 @@ struct FOO {
 
 #pragma pack(push, 2)
 
-// CHECK: %struct.BAR = type <{ %struct.FOO, i8, i8 }>
+// CHECK: %struct.BAR = type <{ %struct.FOO, b8, i8 }>
 struct BAR : FOO {
 	char y;
 };

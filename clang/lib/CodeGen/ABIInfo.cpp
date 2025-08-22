@@ -276,6 +276,9 @@ bool SwiftABIInfo::occupiesMoreThan(ArrayRef<llvm::Type *> scalarTypes,
     } else if (auto intTy = dyn_cast<llvm::IntegerType>(type)) {
       auto ptrWidth = CGT.getTarget().getPointerWidth(LangAS::Default);
       intCount += (intTy->getBitWidth() + ptrWidth - 1) / ptrWidth;
+    } else if (auto byteTy = dyn_cast<llvm::ByteType>(type)) {
+      auto ptrWidth = CGT.getTarget().getPointerWidth(LangAS::Default);
+      intCount += (byteTy->getBitWidth() + ptrWidth - 1) / ptrWidth;
     } else {
       assert(type->isVectorTy() || type->isFloatingPointTy());
       fpCount++;

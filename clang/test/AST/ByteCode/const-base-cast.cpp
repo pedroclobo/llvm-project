@@ -9,11 +9,11 @@ struct A : X { char x, y, z; };
 struct B { char y; };
 struct C : A,B {};
 unsigned char x = ((char*)(X*)(C*)0x1000) - (char*)0x1000;
-// CHECK: @x = {{(dso_local )?}}global i8 0
+// CHECK: @x = {{(dso_local )?}}global b8 0
 
 unsigned char y = ((char*)(B*)(C*)0x1000) - (char*)0x1000;
-// CHECK: @y = {{(dso_local )?}}global i8 51
+// CHECK: @y = {{(dso_local )?}}global b8 51
 
 unsigned char z = ((char*)(A*)(C*)0x1000) - (char*)0x1000;
-// CHECK: @z = {{(dso_local )?}}global i8 0
+// CHECK: @z = {{(dso_local )?}}global b8 0
 

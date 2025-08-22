@@ -398,7 +398,7 @@ int size_a_ld = sizeof(_Atomic(long double));
 
 // Check types
 
-// CHECK: zeroext i8 @check_char()
+// CHECK: zeroext b8 @check_char()
 char check_char(void) { return 0; }
 
 // CHECK: define dso_local signext i16 @check_short()
@@ -416,7 +416,7 @@ long check_long(void) { return 0; }
 // CHECK: define dso_local i64 @check_longlong()
 long long check_longlong(void) { return 0; }
 
-// CHECK: define dso_local zeroext i8 @check_uchar()
+// CHECK: define dso_local zeroext b8 @check_uchar()
 unsigned char check_uchar(void) { return 0; }
 
 // CHECK: define dso_local zeroext i16 @check_ushort()

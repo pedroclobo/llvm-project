@@ -38,9 +38,10 @@ float32x4_t test_vdupq_n_f32(float32_t w) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x double> [[V]] to i64
 // CHECK-NEXT:    [[__S0_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP0]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x double>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <1 x double> [[TMP2]], <1 x double> [[TMP2]], <2 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <1 x double> [[TMP3]], <1 x double> [[TMP3]], <2 x i32> zeroinitializer
 // CHECK-NEXT:    ret <2 x double> [[LANE]]
 //
 float64x2_t test_vdupq_lane_f64(float64x1_t V) {

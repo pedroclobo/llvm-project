@@ -45,8 +45,8 @@ void testva (int n, ...) {
   // CHECK: [[I:%[a-z0-9]+]] = load ptr, ptr [[AP]]
   // CHECK: [[IN:%[a-z0-9]+]] = getelementptr inbounds i8, ptr [[I]], i32 4
   // CHECK: store ptr [[IN]], ptr [[AP]]
-  // CHECK: [[V1:%[a-z0-9]+]] = load i8, ptr [[I]]
-  // CHECK: store i8 [[V1]], ptr [[V:%[a-z0-9]+]], align 1
+  // CHECK: [[V1:%[a-z0-9]+]] = load b8, ptr [[I]]
+  // CHECK: store b8 [[V1]], ptr [[V:%[a-z0-9]+]], align 1
   // CHECK: call void @f(ptr noundef [[V]])
 
   int v3 = va_arg (ap, int);
@@ -119,8 +119,8 @@ void testbuiltin (void) {
   res = __builtin_eh_return_data_regno(2);
 }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @testchar()
-// CHECK: ret i8 -1
+// CHECK-LABEL: define{{.*}} zeroext b8 @testchar()
+// CHECK: ret b8 -1
 char testchar (void) {
   return (char)-1;
 }

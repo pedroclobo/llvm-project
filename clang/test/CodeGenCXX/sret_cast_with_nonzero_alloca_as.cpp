@@ -4,21 +4,21 @@
 struct X { int z[17]; };
 
 // CHECK-LABEL: define dso_local void @_Z3foocc(
-// CHECK-SAME: ptr addrspace(5) dead_on_unwind noalias writable sret([[STRUCT_X:%.*]]) align 4 [[AGG_RESULT:%.*]], i8 noundef signext [[X:%.*]], i8 noundef signext [[Y:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: ptr addrspace(5) dead_on_unwind noalias writable sret([[STRUCT_X:%.*]]) align 4 [[AGG_RESULT:%.*]], b8 noundef signext [[X:%.*]], b8 noundef signext [[Y:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[X_ADDR:%.*]] = alloca i8, align 1, addrspace(5)
-// CHECK-NEXT:    [[Y_ADDR:%.*]] = alloca i8, align 1, addrspace(5)
+// CHECK-NEXT:    [[X_ADDR:%.*]] = alloca b8, align 1, addrspace(5)
+// CHECK-NEXT:    [[Y_ADDR:%.*]] = alloca b8, align 1, addrspace(5)
 // CHECK-NEXT:    [[X_ADDR_ASCAST:%.*]] = addrspacecast ptr addrspace(5) [[X_ADDR]] to ptr
 // CHECK-NEXT:    [[Y_ADDR_ASCAST:%.*]] = addrspacecast ptr addrspace(5) [[Y_ADDR]] to ptr
 // CHECK-NEXT:    [[AGG_RESULT_ASCAST:%.*]] = addrspacecast ptr addrspace(5) [[AGG_RESULT]] to ptr
-// CHECK-NEXT:    store i8 [[X]], ptr [[X_ADDR_ASCAST]], align 1
-// CHECK-NEXT:    store i8 [[Y]], ptr [[Y_ADDR_ASCAST]], align 1
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X_ADDR_ASCAST]], align 1
-// CHECK-NEXT:    [[ADD_PTR:%.*]] = getelementptr inbounds i8, ptr [[AGG_RESULT_ASCAST]], i64 1
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[ADD_PTR]], align 1
-// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr [[Y_ADDR_ASCAST]], align 1
-// CHECK-NEXT:    [[ADD_PTR1:%.*]] = getelementptr inbounds i8, ptr [[AGG_RESULT_ASCAST]], i64 2
-// CHECK-NEXT:    store i8 [[TMP1]], ptr [[ADD_PTR1]], align 2
+// CHECK-NEXT:    store b8 [[X]], ptr [[X_ADDR_ASCAST]], align 1
+// CHECK-NEXT:    store b8 [[Y]], ptr [[Y_ADDR_ASCAST]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X_ADDR_ASCAST]], align 1
+// CHECK-NEXT:    [[ADD_PTR:%.*]] = getelementptr inbounds b8, ptr [[AGG_RESULT_ASCAST]], i64 1
+// CHECK-NEXT:    store b8 [[TMP0]], ptr [[ADD_PTR]], align 1
+// CHECK-NEXT:    [[TMP1:%.*]] = load b8, ptr [[Y_ADDR_ASCAST]], align 1
+// CHECK-NEXT:    [[ADD_PTR1:%.*]] = getelementptr inbounds b8, ptr [[AGG_RESULT_ASCAST]], i64 2
+// CHECK-NEXT:    store b8 [[TMP1]], ptr [[ADD_PTR1]], align 1
 // CHECK-NEXT:    ret void
 //
 X foo(char x, char y) {

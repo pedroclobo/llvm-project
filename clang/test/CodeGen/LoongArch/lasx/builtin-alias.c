@@ -4,12 +4,16 @@
 #include <lasxintrin.h>
 
 // CHECK-LABEL: define dso_local void @xvsll_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2:![0-9]+]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsll.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2:![0-9]+]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsll.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsll_b(v32i8 _1, v32i8 _2) { return __lasx_xvsll_b(_1, _2); }
@@ -44,11 +48,12 @@ v8i32 xvsll_w(v8i32 _1, v8i32 _2) { return __lasx_xvsll_w(_1, _2); }
 //
 v4i64 xvsll_d(v4i64 _1, v4i64 _2) { return __lasx_xvsll_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvslli_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslli.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslli.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvslli_b(v32i8 _1) { return __lasx_xvslli_b(_1, 1); }
@@ -80,12 +85,16 @@ v8i32 xvslli_w(v8i32 _1) { return __lasx_xvslli_w(_1, 1); }
 //
 v4i64 xvslli_d(v4i64 _1) { return __lasx_xvslli_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsra_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsra.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsra.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsra_b(v32i8 _1, v32i8 _2) { return __lasx_xvsra_b(_1, _2); }
@@ -120,11 +129,12 @@ v8i32 xvsra_w(v8i32 _1, v8i32 _2) { return __lasx_xvsra_w(_1, _2); }
 //
 v4i64 xvsra_d(v4i64 _1, v4i64 _2) { return __lasx_xvsra_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsrai_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrai.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrai.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrai_b(v32i8 _1) { return __lasx_xvsrai_b(_1, 1); }
@@ -156,12 +166,16 @@ v8i32 xvsrai_w(v8i32 _1) { return __lasx_xvsrai_w(_1, 1); }
 //
 v4i64 xvsrai_d(v4i64 _1) { return __lasx_xvsrai_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsrar_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrar.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrar.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrar_b(v32i8 _1, v32i8 _2) { return __lasx_xvsrar_b(_1, _2); }
@@ -196,11 +210,12 @@ v8i32 xvsrar_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrar_w(_1, _2); }
 //
 v4i64 xvsrar_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrar_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsrari_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrari.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrari.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrari_b(v32i8 _1) { return __lasx_xvsrari_b(_1, 1); }
@@ -232,12 +247,16 @@ v8i32 xvsrari_w(v8i32 _1) { return __lasx_xvsrari_w(_1, 1); }
 //
 v4i64 xvsrari_d(v4i64 _1) { return __lasx_xvsrari_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsrl_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrl.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrl.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrl_b(v32i8 _1, v32i8 _2) { return __lasx_xvsrl_b(_1, _2); }
@@ -272,11 +291,12 @@ v8i32 xvsrl_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrl_w(_1, _2); }
 //
 v4i64 xvsrl_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrl_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsrli_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrli.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrli.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrli_b(v32i8 _1) { return __lasx_xvsrli_b(_1, 1); }
@@ -308,12 +328,16 @@ v8i32 xvsrli_w(v8i32 _1) { return __lasx_xvsrli_w(_1, 1); }
 //
 v4i64 xvsrli_d(v4i64 _1) { return __lasx_xvsrli_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsrlr_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlr.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlr.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrlr_b(v32i8 _1, v32i8 _2) { return __lasx_xvsrlr_b(_1, _2); }
@@ -348,11 +372,12 @@ v8i32 xvsrlr_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrlr_w(_1, _2); }
 //
 v4i64 xvsrlr_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrlr_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsrlri_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlri.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlri.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrlri_b(v32i8 _1) { return __lasx_xvsrlri_b(_1, 1); }
@@ -384,12 +409,16 @@ v8i32 xvsrlri_w(v8i32 _1) { return __lasx_xvsrlri_w(_1, 1); }
 //
 v4i64 xvsrlri_d(v4i64 _1) { return __lasx_xvsrlri_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvbitclr_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitclr.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitclr.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitclr_b(v32u8 _1, v32u8 _2) { return __lasx_xvbitclr_b(_1, _2); }
@@ -424,11 +453,12 @@ v8u32 xvbitclr_w(v8u32 _1, v8u32 _2) { return __lasx_xvbitclr_w(_1, _2); }
 //
 v4u64 xvbitclr_d(v4u64 _1, v4u64 _2) { return __lasx_xvbitclr_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvbitclri_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitclri.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitclri.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitclri_b(v32u8 _1) { return __lasx_xvbitclri_b(_1, 1); }
@@ -460,12 +490,16 @@ v8u32 xvbitclri_w(v8u32 _1) { return __lasx_xvbitclri_w(_1, 1); }
 //
 v4u64 xvbitclri_d(v4u64 _1) { return __lasx_xvbitclri_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvbitset_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitset.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitset.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitset_b(v32u8 _1, v32u8 _2) { return __lasx_xvbitset_b(_1, _2); }
@@ -500,11 +534,12 @@ v8u32 xvbitset_w(v8u32 _1, v8u32 _2) { return __lasx_xvbitset_w(_1, _2); }
 //
 v4u64 xvbitset_d(v4u64 _1, v4u64 _2) { return __lasx_xvbitset_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvbitseti_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitseti.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitseti.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitseti_b(v32u8 _1) { return __lasx_xvbitseti_b(_1, 1); }
@@ -536,12 +571,16 @@ v8u32 xvbitseti_w(v8u32 _1) { return __lasx_xvbitseti_w(_1, 1); }
 //
 v4u64 xvbitseti_d(v4u64 _1) { return __lasx_xvbitseti_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvbitrev_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitrev.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitrev.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitrev_b(v32u8 _1, v32u8 _2) { return __lasx_xvbitrev_b(_1, _2); }
@@ -576,11 +615,12 @@ v8u32 xvbitrev_w(v8u32 _1, v8u32 _2) { return __lasx_xvbitrev_w(_1, _2); }
 //
 v4u64 xvbitrev_d(v4u64 _1, v4u64 _2) { return __lasx_xvbitrev_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvbitrevi_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitrevi.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitrevi.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitrevi_b(v32u8 _1) { return __lasx_xvbitrevi_b(_1, 1); }
@@ -612,12 +652,16 @@ v8u32 xvbitrevi_w(v8u32 _1) { return __lasx_xvbitrevi_w(_1, 1); }
 //
 v4u64 xvbitrevi_d(v4u64 _1) { return __lasx_xvbitrevi_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvadd_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvadd.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvadd.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvadd_b(v32i8 _1, v32i8 _2) { return __lasx_xvadd_b(_1, _2); }
@@ -652,11 +696,12 @@ v8i32 xvadd_w(v8i32 _1, v8i32 _2) { return __lasx_xvadd_w(_1, _2); }
 //
 v4i64 xvadd_d(v4i64 _1, v4i64 _2) { return __lasx_xvadd_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvaddi_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvaddi.bu(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvaddi.bu(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvaddi_bu(v32i8 _1) { return __lasx_xvaddi_bu(_1, 1); }
@@ -688,12 +733,16 @@ v8i32 xvaddi_wu(v8i32 _1) { return __lasx_xvaddi_wu(_1, 1); }
 //
 v4i64 xvaddi_du(v4i64 _1) { return __lasx_xvaddi_du(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsub_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsub.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsub.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsub_b(v32i8 _1, v32i8 _2) { return __lasx_xvsub_b(_1, _2); }
@@ -728,11 +777,12 @@ v8i32 xvsub_w(v8i32 _1, v8i32 _2) { return __lasx_xvsub_w(_1, _2); }
 //
 v4i64 xvsub_d(v4i64 _1, v4i64 _2) { return __lasx_xvsub_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsubi_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsubi.bu(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsubi.bu(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsubi_bu(v32i8 _1) { return __lasx_xvsubi_bu(_1, 1); }
@@ -764,12 +814,16 @@ v8i32 xvsubi_wu(v8i32 _1) { return __lasx_xvsubi_wu(_1, 1); }
 //
 v4i64 xvsubi_du(v4i64 _1) { return __lasx_xvsubi_du(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvmax_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmax.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmax.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmax_b(v32i8 _1, v32i8 _2) { return __lasx_xvmax_b(_1, _2); }
@@ -804,11 +858,12 @@ v8i32 xvmax_w(v8i32 _1, v8i32 _2) { return __lasx_xvmax_w(_1, _2); }
 //
 v4i64 xvmax_d(v4i64 _1, v4i64 _2) { return __lasx_xvmax_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmaxi_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmaxi.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmaxi.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmaxi_b(v32i8 _1) { return __lasx_xvmaxi_b(_1, 1); }
@@ -840,12 +895,16 @@ v8i32 xvmaxi_w(v8i32 _1) { return __lasx_xvmaxi_w(_1, 1); }
 //
 v4i64 xvmaxi_d(v4i64 _1) { return __lasx_xvmaxi_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvmax_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmax.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmax.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvmax_bu(v32u8 _1, v32u8 _2) { return __lasx_xvmax_bu(_1, _2); }
@@ -880,11 +939,12 @@ v8u32 xvmax_wu(v8u32 _1, v8u32 _2) { return __lasx_xvmax_wu(_1, _2); }
 //
 v4u64 xvmax_du(v4u64 _1, v4u64 _2) { return __lasx_xvmax_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmaxi_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmaxi.bu(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmaxi.bu(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvmaxi_bu(v32u8 _1) { return __lasx_xvmaxi_bu(_1, 1); }
@@ -916,12 +976,16 @@ v8u32 xvmaxi_wu(v8u32 _1) { return __lasx_xvmaxi_wu(_1, 1); }
 //
 v4u64 xvmaxi_du(v4u64 _1) { return __lasx_xvmaxi_du(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvmin_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmin.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmin.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmin_b(v32i8 _1, v32i8 _2) { return __lasx_xvmin_b(_1, _2); }
@@ -956,11 +1020,12 @@ v8i32 xvmin_w(v8i32 _1, v8i32 _2) { return __lasx_xvmin_w(_1, _2); }
 //
 v4i64 xvmin_d(v4i64 _1, v4i64 _2) { return __lasx_xvmin_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmini_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmini.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmini.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmini_b(v32i8 _1) { return __lasx_xvmini_b(_1, 1); }
@@ -992,12 +1057,16 @@ v8i32 xvmini_w(v8i32 _1) { return __lasx_xvmini_w(_1, 1); }
 //
 v4i64 xvmini_d(v4i64 _1) { return __lasx_xvmini_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvmin_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmin.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmin.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvmin_bu(v32u8 _1, v32u8 _2) { return __lasx_xvmin_bu(_1, _2); }
@@ -1032,11 +1101,12 @@ v8u32 xvmin_wu(v8u32 _1, v8u32 _2) { return __lasx_xvmin_wu(_1, _2); }
 //
 v4u64 xvmin_du(v4u64 _1, v4u64 _2) { return __lasx_xvmin_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmini_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmini.bu(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmini.bu(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvmini_bu(v32u8 _1) { return __lasx_xvmini_bu(_1, 1); }
@@ -1068,12 +1138,16 @@ v8u32 xvmini_wu(v8u32 _1) { return __lasx_xvmini_wu(_1, 1); }
 //
 v4u64 xvmini_du(v4u64 _1) { return __lasx_xvmini_du(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvseq_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvseq.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvseq.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvseq_b(v32i8 _1, v32i8 _2) { return __lasx_xvseq_b(_1, _2); }
@@ -1108,11 +1182,12 @@ v8i32 xvseq_w(v8i32 _1, v8i32 _2) { return __lasx_xvseq_w(_1, _2); }
 //
 v4i64 xvseq_d(v4i64 _1, v4i64 _2) { return __lasx_xvseq_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvseqi_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvseqi.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvseqi.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvseqi_b(v32i8 _1) { return __lasx_xvseqi_b(_1, 1); }
@@ -1144,12 +1219,16 @@ v8i32 xvseqi_w(v8i32 _1) { return __lasx_xvseqi_w(_1, 1); }
 //
 v4i64 xvseqi_d(v4i64 _1) { return __lasx_xvseqi_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvslt_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslt.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslt.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvslt_b(v32i8 _1, v32i8 _2) { return __lasx_xvslt_b(_1, _2); }
@@ -1184,11 +1263,12 @@ v8i32 xvslt_w(v8i32 _1, v8i32 _2) { return __lasx_xvslt_w(_1, _2); }
 //
 v4i64 xvslt_d(v4i64 _1, v4i64 _2) { return __lasx_xvslt_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvslti_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslti.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslti.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvslti_b(v32i8 _1) { return __lasx_xvslti_b(_1, 1); }
@@ -1220,12 +1300,16 @@ v8i32 xvslti_w(v8i32 _1) { return __lasx_xvslti_w(_1, 1); }
 //
 v4i64 xvslti_d(v4i64 _1) { return __lasx_xvslti_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvslt_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslt.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslt.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvslt_bu(v32u8 _1, v32u8 _2) { return __lasx_xvslt_bu(_1, _2); }
@@ -1260,11 +1344,12 @@ v8i32 xvslt_wu(v8u32 _1, v8u32 _2) { return __lasx_xvslt_wu(_1, _2); }
 //
 v4i64 xvslt_du(v4u64 _1, v4u64 _2) { return __lasx_xvslt_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvslti_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslti.bu(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslti.bu(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvslti_bu(v32u8 _1) { return __lasx_xvslti_bu(_1, 1); }
@@ -1296,12 +1381,16 @@ v8i32 xvslti_wu(v8u32 _1) { return __lasx_xvslti_wu(_1, 1); }
 //
 v4i64 xvslti_du(v4u64 _1) { return __lasx_xvslti_du(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsle_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsle.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsle.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsle_b(v32i8 _1, v32i8 _2) { return __lasx_xvsle_b(_1, _2); }
@@ -1336,11 +1425,12 @@ v8i32 xvsle_w(v8i32 _1, v8i32 _2) { return __lasx_xvsle_w(_1, _2); }
 //
 v4i64 xvsle_d(v4i64 _1, v4i64 _2) { return __lasx_xvsle_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvslei_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslei.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslei.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvslei_b(v32i8 _1) { return __lasx_xvslei_b(_1, 1); }
@@ -1372,12 +1462,16 @@ v8i32 xvslei_w(v8i32 _1) { return __lasx_xvslei_w(_1, 1); }
 //
 v4i64 xvslei_d(v4i64 _1) { return __lasx_xvslei_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsle_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsle.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsle.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsle_bu(v32u8 _1, v32u8 _2) { return __lasx_xvsle_bu(_1, _2); }
@@ -1412,11 +1506,12 @@ v8i32 xvsle_wu(v8u32 _1, v8u32 _2) { return __lasx_xvsle_wu(_1, _2); }
 //
 v4i64 xvsle_du(v4u64 _1, v4u64 _2) { return __lasx_xvsle_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvslei_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslei.bu(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvslei.bu(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvslei_bu(v32u8 _1) { return __lasx_xvslei_bu(_1, 1); }
@@ -1448,11 +1543,12 @@ v8i32 xvslei_wu(v8u32 _1) { return __lasx_xvslei_wu(_1, 1); }
 //
 v4i64 xvslei_du(v4u64 _1) { return __lasx_xvslei_du(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsat_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsat.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsat.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsat_b(v32i8 _1) { return __lasx_xvsat_b(_1, 1); }
@@ -1484,11 +1580,12 @@ v8i32 xvsat_w(v8i32 _1) { return __lasx_xvsat_w(_1, 1); }
 //
 v4i64 xvsat_d(v4i64 _1) { return __lasx_xvsat_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsat_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsat.bu(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsat.bu(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvsat_bu(v32u8 _1) { return __lasx_xvsat_bu(_1, 1); }
@@ -1520,12 +1617,16 @@ v8u32 xvsat_wu(v8u32 _1) { return __lasx_xvsat_wu(_1, 1); }
 //
 v4u64 xvsat_du(v4u64 _1) { return __lasx_xvsat_du(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvadda_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvadda.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvadda.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvadda_b(v32i8 _1, v32i8 _2) { return __lasx_xvadda_b(_1, _2); }
@@ -1560,12 +1661,16 @@ v8i32 xvadda_w(v8i32 _1, v8i32 _2) { return __lasx_xvadda_w(_1, _2); }
 //
 v4i64 xvadda_d(v4i64 _1, v4i64 _2) { return __lasx_xvadda_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsadd_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsadd.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsadd.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsadd_b(v32i8 _1, v32i8 _2) { return __lasx_xvsadd_b(_1, _2); }
@@ -1600,12 +1705,16 @@ v8i32 xvsadd_w(v8i32 _1, v8i32 _2) { return __lasx_xvsadd_w(_1, _2); }
 //
 v4i64 xvsadd_d(v4i64 _1, v4i64 _2) { return __lasx_xvsadd_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsadd_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsadd.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsadd.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvsadd_bu(v32u8 _1, v32u8 _2) { return __lasx_xvsadd_bu(_1, _2); }
@@ -1640,12 +1749,16 @@ v8u32 xvsadd_wu(v8u32 _1, v8u32 _2) { return __lasx_xvsadd_wu(_1, _2); }
 //
 v4u64 xvsadd_du(v4u64 _1, v4u64 _2) { return __lasx_xvsadd_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvavg_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvavg.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvavg.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvavg_b(v32i8 _1, v32i8 _2) { return __lasx_xvavg_b(_1, _2); }
@@ -1680,12 +1793,16 @@ v8i32 xvavg_w(v8i32 _1, v8i32 _2) { return __lasx_xvavg_w(_1, _2); }
 //
 v4i64 xvavg_d(v4i64 _1, v4i64 _2) { return __lasx_xvavg_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvavg_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvavg.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvavg.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvavg_bu(v32u8 _1, v32u8 _2) { return __lasx_xvavg_bu(_1, _2); }
@@ -1720,12 +1837,16 @@ v8u32 xvavg_wu(v8u32 _1, v8u32 _2) { return __lasx_xvavg_wu(_1, _2); }
 //
 v4u64 xvavg_du(v4u64 _1, v4u64 _2) { return __lasx_xvavg_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvavgr_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvavgr.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvavgr.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvavgr_b(v32i8 _1, v32i8 _2) { return __lasx_xvavgr_b(_1, _2); }
@@ -1760,12 +1881,16 @@ v8i32 xvavgr_w(v8i32 _1, v8i32 _2) { return __lasx_xvavgr_w(_1, _2); }
 //
 v4i64 xvavgr_d(v4i64 _1, v4i64 _2) { return __lasx_xvavgr_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvavgr_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvavgr.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvavgr.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvavgr_bu(v32u8 _1, v32u8 _2) { return __lasx_xvavgr_bu(_1, _2); }
@@ -1800,12 +1925,16 @@ v8u32 xvavgr_wu(v8u32 _1, v8u32 _2) { return __lasx_xvavgr_wu(_1, _2); }
 //
 v4u64 xvavgr_du(v4u64 _1, v4u64 _2) { return __lasx_xvavgr_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssub_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssub.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssub.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvssub_b(v32i8 _1, v32i8 _2) { return __lasx_xvssub_b(_1, _2); }
@@ -1840,12 +1969,16 @@ v8i32 xvssub_w(v8i32 _1, v8i32 _2) { return __lasx_xvssub_w(_1, _2); }
 //
 v4i64 xvssub_d(v4i64 _1, v4i64 _2) { return __lasx_xvssub_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssub_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssub.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssub.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvssub_bu(v32u8 _1, v32u8 _2) { return __lasx_xvssub_bu(_1, _2); }
@@ -1880,12 +2013,16 @@ v8u32 xvssub_wu(v8u32 _1, v8u32 _2) { return __lasx_xvssub_wu(_1, _2); }
 //
 v4u64 xvssub_du(v4u64 _1, v4u64 _2) { return __lasx_xvssub_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvabsd_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvabsd.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvabsd.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvabsd_b(v32i8 _1, v32i8 _2) { return __lasx_xvabsd_b(_1, _2); }
@@ -1920,12 +2057,16 @@ v8i32 xvabsd_w(v8i32 _1, v8i32 _2) { return __lasx_xvabsd_w(_1, _2); }
 //
 v4i64 xvabsd_d(v4i64 _1, v4i64 _2) { return __lasx_xvabsd_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvabsd_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvabsd.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvabsd.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvabsd_bu(v32u8 _1, v32u8 _2) { return __lasx_xvabsd_bu(_1, _2); }
@@ -1960,12 +2101,16 @@ v8u32 xvabsd_wu(v8u32 _1, v8u32 _2) { return __lasx_xvabsd_wu(_1, _2); }
 //
 v4u64 xvabsd_du(v4u64 _1, v4u64 _2) { return __lasx_xvabsd_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmul_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmul.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmul.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmul_b(v32i8 _1, v32i8 _2) { return __lasx_xvmul_b(_1, _2); }
@@ -2000,13 +2145,19 @@ v8i32 xvmul_w(v8i32 _1, v8i32 _2) { return __lasx_xvmul_w(_1, _2); }
 //
 v4i64 xvmul_d(v4i64 _1, v4i64 _2) { return __lasx_xvmul_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmadd_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_136:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmadd.b(<32 x i8> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_13:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_13]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x i64> [[TMP5]] to <32 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmadd.b(<32 x i8> [[TMP6]], <32 x i8> [[TMP7]], <32 x i8> [[TMP8]])
+// CHECK-NEXT:    store <32 x i8> [[TMP9]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmadd_b(v32i8 _1, v32i8 _2, v32i8 _3) { return __lasx_xvmadd_b(_1, _2, _3); }
@@ -2044,13 +2195,19 @@ v8i32 xvmadd_w(v8i32 _1, v8i32 _2, v8i32 _3) { return __lasx_xvmadd_w(_1, _2, _3
 //
 v4i64 xvmadd_d(v4i64 _1, v4i64 _2, v4i64 _3) { return __lasx_xvmadd_d(_1, _2, _3); }
 // CHECK-LABEL: define dso_local void @xvmsub_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_136:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmsub.b(<32 x i8> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_13:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_13]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x i64> [[TMP5]] to <32 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmsub.b(<32 x i8> [[TMP6]], <32 x i8> [[TMP7]], <32 x i8> [[TMP8]])
+// CHECK-NEXT:    store <32 x i8> [[TMP9]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmsub_b(v32i8 _1, v32i8 _2, v32i8 _3) { return __lasx_xvmsub_b(_1, _2, _3); }
@@ -2088,12 +2245,16 @@ v8i32 xvmsub_w(v8i32 _1, v8i32 _2, v8i32 _3) { return __lasx_xvmsub_w(_1, _2, _3
 //
 v4i64 xvmsub_d(v4i64 _1, v4i64 _2, v4i64 _3) { return __lasx_xvmsub_d(_1, _2, _3); }
 // CHECK-LABEL: define dso_local void @xvdiv_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvdiv.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvdiv.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvdiv_b(v32i8 _1, v32i8 _2) { return __lasx_xvdiv_b(_1, _2); }
@@ -2128,12 +2289,16 @@ v8i32 xvdiv_w(v8i32 _1, v8i32 _2) { return __lasx_xvdiv_w(_1, _2); }
 //
 v4i64 xvdiv_d(v4i64 _1, v4i64 _2) { return __lasx_xvdiv_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvdiv_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvdiv.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvdiv.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvdiv_bu(v32u8 _1, v32u8 _2) { return __lasx_xvdiv_bu(_1, _2); }
@@ -2170,10 +2335,14 @@ v4u64 xvdiv_du(v4u64 _1, v4u64 _2) { return __lasx_xvdiv_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvhaddw_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvhaddw.h.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvhaddw.h.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvhaddw_h_b(v32i8 _1, v32i8 _2) { return __lasx_xvhaddw_h_b(_1, _2); }
@@ -2200,10 +2369,14 @@ v4i64 xvhaddw_d_w(v8i32 _1, v8i32 _2) { return __lasx_xvhaddw_d_w(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvhaddw_hu_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvhaddw.hu.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvhaddw.hu.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16u16 xvhaddw_hu_bu(v32u8 _1, v32u8 _2) { return __lasx_xvhaddw_hu_bu(_1, _2); }
@@ -2230,10 +2403,14 @@ v4u64 xvhaddw_du_wu(v8u32 _1, v8u32 _2) { return __lasx_xvhaddw_du_wu(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvhsubw_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvhsubw.h.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvhsubw.h.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvhsubw_h_b(v32i8 _1, v32i8 _2) { return __lasx_xvhsubw_h_b(_1, _2); }
@@ -2260,10 +2437,14 @@ v4i64 xvhsubw_d_w(v8i32 _1, v8i32 _2) { return __lasx_xvhsubw_d_w(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvhsubw_hu_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvhsubw.hu.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvhsubw.hu.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvhsubw_hu_bu(v32u8 _1, v32u8 _2) { return __lasx_xvhsubw_hu_bu(_1, _2); }
@@ -2288,12 +2469,16 @@ v8i32 xvhsubw_wu_hu(v16u16 _1, v16u16 _2) { return __lasx_xvhsubw_wu_hu(_1, _2);
 //
 v4i64 xvhsubw_du_wu(v8u32 _1, v8u32 _2) { return __lasx_xvhsubw_du_wu(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmod_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmod.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmod.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmod_b(v32i8 _1, v32i8 _2) { return __lasx_xvmod_b(_1, _2); }
@@ -2328,12 +2513,16 @@ v8i32 xvmod_w(v8i32 _1, v8i32 _2) { return __lasx_xvmod_w(_1, _2); }
 //
 v4i64 xvmod_d(v4i64 _1, v4i64 _2) { return __lasx_xvmod_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmod_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmod.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmod.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvmod_bu(v32u8 _1, v32u8 _2) { return __lasx_xvmod_bu(_1, _2); }
@@ -2368,11 +2557,12 @@ v8u32 xvmod_wu(v8u32 _1, v8u32 _2) { return __lasx_xvmod_wu(_1, _2); }
 //
 v4u64 xvmod_du(v4u64 _1, v4u64 _2) { return __lasx_xvmod_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvrepl128vei_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrepl128vei.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrepl128vei.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvrepl128vei_b(v32i8 _1) { return __lasx_xvrepl128vei_b(_1, 1); }
@@ -2404,12 +2594,16 @@ v8i32 xvrepl128vei_w(v8i32 _1) { return __lasx_xvrepl128vei_w(_1, 1); }
 //
 v4i64 xvrepl128vei_d(v4i64 _1) { return __lasx_xvrepl128vei_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvpickev_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpickev.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpickev.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvpickev_b(v32i8 _1, v32i8 _2) { return __lasx_xvpickev_b(_1, _2); }
@@ -2444,12 +2638,16 @@ v8i32 xvpickev_w(v8i32 _1, v8i32 _2) { return __lasx_xvpickev_w(_1, _2); }
 //
 v4i64 xvpickev_d(v4i64 _1, v4i64 _2) { return __lasx_xvpickev_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvpickod_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpickod.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpickod.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvpickod_b(v32i8 _1, v32i8 _2) { return __lasx_xvpickod_b(_1, _2); }
@@ -2484,12 +2682,16 @@ v8i32 xvpickod_w(v8i32 _1, v8i32 _2) { return __lasx_xvpickod_w(_1, _2); }
 //
 v4i64 xvpickod_d(v4i64 _1, v4i64 _2) { return __lasx_xvpickod_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvilvh_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvilvh.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvilvh.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvilvh_b(v32i8 _1, v32i8 _2) { return __lasx_xvilvh_b(_1, _2); }
@@ -2524,12 +2726,16 @@ v8i32 xvilvh_w(v8i32 _1, v8i32 _2) { return __lasx_xvilvh_w(_1, _2); }
 //
 v4i64 xvilvh_d(v4i64 _1, v4i64 _2) { return __lasx_xvilvh_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvilvl_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvilvl.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvilvl.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvilvl_b(v32i8 _1, v32i8 _2) { return __lasx_xvilvl_b(_1, _2); }
@@ -2564,12 +2770,16 @@ v8i32 xvilvl_w(v8i32 _1, v8i32 _2) { return __lasx_xvilvl_w(_1, _2); }
 //
 v4i64 xvilvl_d(v4i64 _1, v4i64 _2) { return __lasx_xvilvl_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvpackev_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpackev.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpackev.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvpackev_b(v32i8 _1, v32i8 _2) { return __lasx_xvpackev_b(_1, _2); }
@@ -2604,12 +2814,16 @@ v8i32 xvpackev_w(v8i32 _1, v8i32 _2) { return __lasx_xvpackev_w(_1, _2); }
 //
 v4i64 xvpackev_d(v4i64 _1, v4i64 _2) { return __lasx_xvpackev_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvpackod_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpackod.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpackod.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvpackod_b(v32i8 _1, v32i8 _2) { return __lasx_xvpackod_b(_1, _2); }
@@ -2644,13 +2858,19 @@ v8i32 xvpackod_w(v8i32 _1, v8i32 _2) { return __lasx_xvpackod_w(_1, _2); }
 //
 v4i64 xvpackod_d(v4i64 _1, v4i64 _2) { return __lasx_xvpackod_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvshuf_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_136:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvshuf.b(<32 x i8> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_13:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_13]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x i64> [[TMP5]] to <32 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvshuf.b(<32 x i8> [[TMP6]], <32 x i8> [[TMP7]], <32 x i8> [[TMP8]])
+// CHECK-NEXT:    store <32 x i8> [[TMP9]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvshuf_b(v32i8 _1, v32i8 _2, v32i8 _3) { return __lasx_xvshuf_b(_1, _2, _3); }
@@ -2688,108 +2908,137 @@ v8i32 xvshuf_w(v8i32 _1, v8i32 _2, v8i32 _3) { return __lasx_xvshuf_w(_1, _2, _3
 //
 v4i64 xvshuf_d(v4i64 _1, v4i64 _2, v4i64 _3) { return __lasx_xvshuf_d(_1, _2, _3); }
 // CHECK-LABEL: define dso_local void @xvand_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvand.v(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvand.v(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvand_v(v32u8 _1, v32u8 _2) { return __lasx_xvand_v(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvandi_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvandi.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvandi.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvandi_b(v32u8 _1) { return __lasx_xvandi_b(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvor_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvor.v(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvor.v(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvor_v(v32u8 _1, v32u8 _2) { return __lasx_xvor_v(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvori_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvori.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvori.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvori_b(v32u8 _1) { return __lasx_xvori_b(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvnor_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvnor.v(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvnor.v(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvnor_v(v32u8 _1, v32u8 _2) { return __lasx_xvnor_v(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvnori_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvnori.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvnori.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvnori_b(v32u8 _1) { return __lasx_xvnori_b(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvxor_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvxor.v(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvxor.v(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvxor_v(v32u8 _1, v32u8 _2) { return __lasx_xvxor_v(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvxori_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvxori.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvxori.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvxori_b(v32u8 _1) { return __lasx_xvxori_b(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvbitsel_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_136:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitsel.v(<32 x i8> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_13:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_13]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x i64> [[TMP5]] to <32 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitsel.v(<32 x i8> [[TMP6]], <32 x i8> [[TMP7]], <32 x i8> [[TMP8]])
+// CHECK-NEXT:    store <32 x i8> [[TMP9]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitsel_v(v32u8 _1, v32u8 _2, v32u8 _3) { return __lasx_xvbitsel_v(_1, _2, _3); }
 // CHECK-LABEL: define dso_local void @xvbitseli_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitseli.b(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbitseli.b(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvbitseli_b(v32u8 _1, v32u8 _2) { return __lasx_xvbitseli_b(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvshuf4i_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvshuf4i.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvshuf4i.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvshuf4i_b(v32i8 _1) { return __lasx_xvshuf4i_b(_1, 1); }
@@ -2812,7 +3061,7 @@ v16i16 xvshuf4i_h(v16i16 _1) { return __lasx_xvshuf4i_h(_1, 1); }
 //
 v8i32 xvshuf4i_w(v8i32 _1) { return __lasx_xvshuf4i_w(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvreplgr2vr_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], i32 noundef signext [[_1:%.*]]) local_unnamed_addr #[[ATTR2:[0-9]+]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], i32 noundef signext [[_1:%.*]]) local_unnamed_addr #[[ATTR2:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvreplgr2vr.b(i32 [[_1]])
 // CHECK-NEXT:    store <32 x i8> [[TMP0]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -2845,11 +3094,13 @@ v8i32 xvreplgr2vr_w(int _1) { return __lasx_xvreplgr2vr_w(_1); }
 //
 v4i64 xvreplgr2vr_d(int _1) { return __lasx_xvreplgr2vr_d(_1); }
 // CHECK-LABEL: define dso_local void @xvpcnt_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpcnt.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpcnt.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvpcnt_b(v32i8 _1) { return __lasx_xvpcnt_b(_1); }
@@ -2881,11 +3132,13 @@ v8i32 xvpcnt_w(v8i32 _1) { return __lasx_xvpcnt_w(_1); }
 //
 v4i64 xvpcnt_d(v4i64 _1) { return __lasx_xvpcnt_d(_1); }
 // CHECK-LABEL: define dso_local void @xvclo_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvclo.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvclo.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvclo_b(v32i8 _1) { return __lasx_xvclo_b(_1); }
@@ -2917,11 +3170,13 @@ v8i32 xvclo_w(v8i32 _1) { return __lasx_xvclo_w(_1); }
 //
 v4i64 xvclo_d(v4i64 _1) { return __lasx_xvclo_d(_1); }
 // CHECK-LABEL: define dso_local void @xvclz_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvclz.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvclz.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvclz_b(v32i8 _1) { return __lasx_xvclz_b(_1); }
@@ -3385,11 +3640,13 @@ v8f32 xvffint_s_wu(v8u32 _1) { return __lasx_xvffint_s_wu(_1); }
 //
 v4f64 xvffint_d_lu(v4u64 _1) { return __lasx_xvffint_d_lu(_1); }
 // CHECK-LABEL: define dso_local void @xvreplve_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], i32 noundef signext [[_2:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], i32 noundef signext [[_2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvreplve.b(<32 x i8> [[_112]], i32 [[_2]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvreplve.b(<32 x i8> [[TMP2]], i32 [[_2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvreplve_b(v32i8 _1, int _2) { return __lasx_xvreplve_b(_1, _2); }
@@ -3431,21 +3688,27 @@ v4i64 xvreplve_d(v4i64 _1, int _2) { return __lasx_xvreplve_d(_1, _2); }
 //
 v8i32 xvpermi_w(v8i32 _1, v8i32 _2) { return __lasx_xvpermi_w(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvandn_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvandn.v(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvandn.v(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvandn_v(v32u8 _1, v32u8 _2) { return __lasx_xvandn_v(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvneg_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvneg.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvneg.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvneg_b(v32i8 _1) { return __lasx_xvneg_b(_1); }
@@ -3477,12 +3740,16 @@ v8i32 xvneg_w(v8i32 _1) { return __lasx_xvneg_w(_1); }
 //
 v4i64 xvneg_d(v4i64 _1) { return __lasx_xvneg_d(_1); }
 // CHECK-LABEL: define dso_local void @xvmuh_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmuh.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmuh.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmuh_b(v32i8 _1, v32i8 _2) { return __lasx_xvmuh_b(_1, _2); }
@@ -3517,12 +3784,16 @@ v8i32 xvmuh_w(v8i32 _1, v8i32 _2) { return __lasx_xvmuh_w(_1, _2); }
 //
 v4i64 xvmuh_d(v4i64 _1, v4i64 _2) { return __lasx_xvmuh_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmuh_bu(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmuh.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmuh.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvmuh_bu(v32u8 _1, v32u8 _2) { return __lasx_xvmuh_bu(_1, _2); }
@@ -3559,9 +3830,10 @@ v4u64 xvmuh_du(v4u64 _1, v4u64 _2) { return __lasx_xvmuh_du(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsllwil_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsllwil.h.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <16 x i16> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsllwil.h.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvsllwil_h_b(v32i8 _1) { return __lasx_xvsllwil_h_b(_1, 1); }
@@ -3586,9 +3858,10 @@ v4i64 xvsllwil_d_w(v8i32 _1) { return __lasx_xvsllwil_d_w(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsllwil_hu_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsllwil.hu.bu(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <16 x i16> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsllwil.hu.bu(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16u16 xvsllwil_hu_bu(v32u8 _1) { return __lasx_xvsllwil_hu_bu(_1, 1); }
@@ -3611,7 +3884,7 @@ v8u32 xvsllwil_wu_hu(v16u16 _1) { return __lasx_xvsllwil_wu_hu(_1, 1); }
 //
 v4u64 xvsllwil_du_wu(v8u32 _1) { return __lasx_xvsllwil_du_wu(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvsran_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3641,7 +3914,7 @@ v16i16 xvsran_h_w(v8i32 _1, v8i32 _2) { return __lasx_xvsran_h_w(_1, _2); }
 //
 v8i32 xvsran_w_d(v4i64 _1, v4i64 _2) { return __lasx_xvsran_w_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssran_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3671,7 +3944,7 @@ v16i16 xvssran_h_w(v8i32 _1, v8i32 _2) { return __lasx_xvssran_h_w(_1, _2); }
 //
 v8i32 xvssran_w_d(v4i64 _1, v4i64 _2) { return __lasx_xvssran_w_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssran_bu_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3701,7 +3974,7 @@ v16u16 xvssran_hu_w(v8u32 _1, v8u32 _2) { return __lasx_xvssran_hu_w(_1, _2); }
 //
 v8u32 xvssran_wu_d(v4u64 _1, v4u64 _2) { return __lasx_xvssran_wu_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsrarn_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3731,7 +4004,7 @@ v16i16 xvsrarn_h_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrarn_h_w(_1, _2); }
 //
 v8i32 xvsrarn_w_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrarn_w_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssrarn_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3761,7 +4034,7 @@ v16i16 xvssrarn_h_w(v8i32 _1, v8i32 _2) { return __lasx_xvssrarn_h_w(_1, _2); }
 //
 v8i32 xvssrarn_w_d(v4i64 _1, v4i64 _2) { return __lasx_xvssrarn_w_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssrarn_bu_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3791,7 +4064,7 @@ v16u16 xvssrarn_hu_w(v8u32 _1, v8u32 _2) { return __lasx_xvssrarn_hu_w(_1, _2); 
 //
 v8u32 xvssrarn_wu_d(v4u64 _1, v4u64 _2) { return __lasx_xvssrarn_wu_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsrln_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3821,7 +4094,7 @@ v16i16 xvsrln_h_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrln_h_w(_1, _2); }
 //
 v8i32 xvsrln_w_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrln_w_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssrln_bu_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3851,7 +4124,7 @@ v16u16 xvssrln_hu_w(v8u32 _1, v8u32 _2) { return __lasx_xvssrln_hu_w(_1, _2); }
 //
 v8u32 xvssrln_wu_d(v4u64 _1, v4u64 _2) { return __lasx_xvssrln_wu_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsrlrn_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3881,7 +4154,7 @@ v16i16 xvsrlrn_h_w(v8i32 _1, v8i32 _2) { return __lasx_xvsrlrn_h_w(_1, _2); }
 //
 v8i32 xvsrlrn_w_d(v4i64 _1, v4i64 _2) { return __lasx_xvsrlrn_w_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssrlrn_bu_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -3911,12 +4184,14 @@ v16u16 xvssrlrn_hu_w(v8u32 _1, v8u32 _2) { return __lasx_xvssrlrn_hu_w(_1, _2); 
 //
 v8u32 xvssrlrn_wu_d(v4u64 _1, v4u64 _2) { return __lasx_xvssrlrn_wu_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvfrstpi_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvfrstpi.b(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvfrstpi.b(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvfrstpi_b(v32i8 _1, v32i8 _2) { return __lasx_xvfrstpi_b(_1, _2, 1); }
@@ -3931,13 +4206,19 @@ v32i8 xvfrstpi_b(v32i8 _1, v32i8 _2) { return __lasx_xvfrstpi_b(_1, _2, 1); }
 //
 v16i16 xvfrstpi_h(v16i16 _1, v16i16 _2) { return __lasx_xvfrstpi_h(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvfrstp_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_136:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvfrstp.b(<32 x i8> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_13:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_13]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <4 x i64> [[TMP5]] to <32 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvfrstp.b(<32 x i8> [[TMP6]], <32 x i8> [[TMP7]], <32 x i8> [[TMP8]])
+// CHECK-NEXT:    store <32 x i8> [[TMP9]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvfrstp_b(v32i8 _1, v32i8 _2, v32i8 _3) { return __lasx_xvfrstp_b(_1, _2, _3); }
@@ -3963,30 +4244,34 @@ v16i16 xvfrstp_h(v16i16 _1, v16i16 _2, v16i16 _3) { return __lasx_xvfrstp_h(_1, 
 //
 v4i64 xvshuf4i_d(v4i64 _1, v4i64 _2) { return __lasx_xvshuf4i_d(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvbsrl_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbsrl.v(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbsrl.v(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvbsrl_v(v32i8 _1) { return __lasx_xvbsrl_v(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvbsll_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbsll.v(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvbsll.v(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvbsll_v(v32i8 _1) { return __lasx_xvbsll_v(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvextrins_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvextrins.b(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvextrins.b(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvextrins_b(v32i8 _1, v32i8 _2) { return __lasx_xvextrins_b(_1, _2, 1); }
@@ -4021,11 +4306,13 @@ v8i32 xvextrins_w(v8i32 _1, v8i32 _2) { return __lasx_xvextrins_w(_1, _2, 1); }
 //
 v4i64 xvextrins_d(v4i64 _1, v4i64 _2) { return __lasx_xvextrins_d(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvmskltz_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmskltz.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmskltz.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmskltz_b(v32i8 _1) { return __lasx_xvmskltz_b(_1); }
@@ -4057,12 +4344,16 @@ v8i32 xvmskltz_w(v8i32 _1) { return __lasx_xvmskltz_w(_1); }
 //
 v4i64 xvmskltz_d(v4i64 _1) { return __lasx_xvmskltz_d(_1); }
 // CHECK-LABEL: define dso_local void @xvsigncov_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsigncov.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsigncov.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsigncov_b(v32i8 _1, v32i8 _2) { return __lasx_xvsigncov_b(_1, _2); }
@@ -4479,7 +4770,7 @@ v8i32 xvfrintrm_s(v8f32 _1) { return __lasx_xvfrintrm_s(_1); }
 //
 v4i64 xvfrintrm_d(v4f64 _1) { return __lasx_xvfrintrm_d(_1); }
 // CHECK-LABEL: define dso_local void @xvld(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr noundef [[_1:%.*]]) local_unnamed_addr #[[ATTR3:[0-9]+]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr noundef [[_1:%.*]]) local_unnamed_addr #[[ATTR3:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvld(ptr [[_1]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP0]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -4489,16 +4780,18 @@ v32i8 xvld(void * _1) { return __lasx_xvld(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvst(
 // CHECK-SAME: ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr noundef [[_2:%.*]]) local_unnamed_addr #[[ATTR5:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvst(<32 x i8> [[_1]], ptr [[_2]], i32 1)
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvst(<32 x i8> [[TMP1]], ptr [[_2]], i32 1)
 // CHECK-NEXT:    ret void
 //
 void xvst(v32i8 _1, void * _2) { return __lasx_xvst(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvstelm_b(
 // CHECK-SAME: ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr noundef [[_2:%.*]]) local_unnamed_addr #[[ATTR5]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvstelm.b(<32 x i8> [[_1]], ptr [[_2]], i32 1, i32 1)
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvstelm.b(<32 x i8> [[TMP1]], ptr [[_2]], i32 1, i32 1)
 // CHECK-NEXT:    ret void
 //
 void xvstelm_b(v32i8 _1, void * _2) { return __lasx_xvstelm_b(_1, _2, 1, 1); }
@@ -4565,7 +4858,7 @@ v8i32 xvpickve_w(v8i32 _1) { return __lasx_xvpickve_w(_1, 1); }
 //
 v4i64 xvpickve_d(v4i64 _1) { return __lasx_xvpickve_d(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvssrlrn_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -4595,7 +4888,7 @@ v16i16 xvssrlrn_h_w(v8i32 _1, v8i32 _2) { return __lasx_xvssrlrn_h_w(_1, _2); }
 //
 v8i32 xvssrlrn_w_d(v4i64 _1, v4i64 _2) { return __lasx_xvssrlrn_w_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvssrln_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_124:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    [[_235:%.*]] = load <16 x i16>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -4625,12 +4918,16 @@ v16i16 xvssrln_h_w(v8i32 _1, v8i32 _2) { return __lasx_xvssrln_h_w(_1, _2); }
 //
 v8i32 xvssrln_w_d(v4i64 _1, v4i64 _2) { return __lasx_xvssrln_w_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvorn_v(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvorn.v(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvorn.v(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvorn_v(v32i8 _1, v32i8 _2) { return __lasx_xvorn_v(_1, _2); }
@@ -4643,7 +4940,7 @@ v32i8 xvorn_v(v32i8 _1, v32i8 _2) { return __lasx_xvorn_v(_1, _2); }
 //
 v4i64 xvldi() { return __lasx_xvldi(1); }
 // CHECK-LABEL: define dso_local void @xvldx(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr noundef [[_1:%.*]]) local_unnamed_addr #[[ATTR3]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr noundef [[_1:%.*]]) local_unnamed_addr #[[ATTR3]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvldx(ptr [[_1]], i64 1), !noalias [[META5:![0-9]+]]
 // CHECK-NEXT:    store <32 x i8> [[TMP0]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -4653,8 +4950,10 @@ v32i8 xvldx(void * _1) { return __lasx_xvldx(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvstx(
 // CHECK-SAME: ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr noundef [[_2:%.*]]) local_unnamed_addr #[[ATTR5]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvstx(<32 x i8> [[_112]], ptr [[_2]], i64 1)
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    tail call void @llvm.loongarch.lasx.xvstx(<32 x i8> [[TMP2]], ptr [[_2]], i64 1)
 // CHECK-NEXT:    ret void
 //
 void xvstx(v32i8 _1, void * _2) { return __lasx_xvstx(_1, _2, 1); }
@@ -4686,11 +4985,13 @@ v8i32 xvinsgr2vr_w(v8i32 _1) { return __lasx_xvinsgr2vr_w(_1, 1, 1); }
 //
 v4i64 xvinsgr2vr_d(v4i64 _1) { return __lasx_xvinsgr2vr_d(_1, 1, 1); }
 // CHECK-LABEL: define dso_local void @xvreplve0_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvreplve0.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvreplve0.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvreplve0_b(v32i8 _1) { return __lasx_xvreplve0_b(_1); }
@@ -4722,20 +5023,24 @@ v8i32 xvreplve0_w(v8i32 _1) { return __lasx_xvreplve0_w(_1); }
 //
 v4i64 xvreplve0_d(v4i64 _1) { return __lasx_xvreplve0_d(_1); }
 // CHECK-LABEL: define dso_local void @xvreplve0_q(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvreplve0.q(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvreplve0.q(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvreplve0_q(v32i8 _1) { return __lasx_xvreplve0_q(_1); }
 // CHECK-LABEL: define dso_local void @vext2xv_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.vext2xv.h.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <16 x i16> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.vext2xv.h.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 vext2xv_h_b(v32i8 _1) { return __lasx_vext2xv_h_b(_1); }
@@ -4760,9 +5065,11 @@ v4i64 vext2xv_d_w(v8i32 _1) { return __lasx_vext2xv_d_w(_1); }
 // CHECK-LABEL: define dso_local void @vext2xv_w_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<8 x i32>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <8 x i32> @llvm.loongarch.lasx.vext2xv.w.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <8 x i32> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <8 x i32> @llvm.loongarch.lasx.vext2xv.w.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <8 x i32> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v8i32 vext2xv_w_b(v32i8 _1) { return __lasx_vext2xv_w_b(_1); }
@@ -4778,18 +5085,22 @@ v4i64 vext2xv_d_h(v16i16 _1) { return __lasx_vext2xv_d_h(_1); }
 // CHECK-LABEL: define dso_local void @vext2xv_d_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<4 x i64>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <4 x i64> @llvm.loongarch.lasx.vext2xv.d.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <4 x i64> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <4 x i64> @llvm.loongarch.lasx.vext2xv.d.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <4 x i64> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v4i64 vext2xv_d_b(v32i8 _1) { return __lasx_vext2xv_d_b(_1); }
 // CHECK-LABEL: define dso_local void @vext2xv_hu_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.vext2xv.hu.bu(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <16 x i16> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.vext2xv.hu.bu(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 vext2xv_hu_bu(v32i8 _1) { return __lasx_vext2xv_hu_bu(_1); }
@@ -4814,9 +5125,11 @@ v4i64 vext2xv_du_wu(v8i32 _1) { return __lasx_vext2xv_du_wu(_1); }
 // CHECK-LABEL: define dso_local void @vext2xv_wu_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<8 x i32>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <8 x i32> @llvm.loongarch.lasx.vext2xv.wu.bu(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <8 x i32> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <8 x i32> @llvm.loongarch.lasx.vext2xv.wu.bu(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <8 x i32> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v8i32 vext2xv_wu_bu(v32i8 _1) { return __lasx_vext2xv_wu_bu(_1); }
@@ -4832,19 +5145,23 @@ v4i64 vext2xv_du_hu(v16i16 _1) { return __lasx_vext2xv_du_hu(_1); }
 // CHECK-LABEL: define dso_local void @vext2xv_du_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<4 x i64>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <4 x i64> @llvm.loongarch.lasx.vext2xv.du.bu(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <4 x i64> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <4 x i64> @llvm.loongarch.lasx.vext2xv.du.bu(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <4 x i64> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v4i64 vext2xv_du_bu(v32i8 _1) { return __lasx_vext2xv_du_bu(_1); }
 // CHECK-LABEL: define dso_local void @xvpermi_q(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpermi.q(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvpermi.q(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvpermi_q(v32i8 _1, v32i8 _2) { return __lasx_xvpermi_q(_1, _2, 1); }
@@ -4868,7 +5185,7 @@ v4i64 xvpermi_d(v4i64 _1) { return __lasx_xvpermi_d(_1, 1); }
 //
 v8i32 xvperm_w(v8i32 _1, v8i32 _2) { return __lasx_xvperm_w(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvldrepl_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr noundef [[_1:%.*]]) local_unnamed_addr #[[ATTR3]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr noundef [[_1:%.*]]) local_unnamed_addr #[[ATTR3]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvldrepl.b(ptr [[_1]], i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP0]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
@@ -4964,10 +5281,14 @@ v8i32 xvaddwev_w_h(v16i16 _1, v16i16 _2) { return __lasx_xvaddwev_w_h(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvaddwev_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwev.h.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwev.h.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvaddwev_h_b(v32i8 _1, v32i8 _2) { return __lasx_xvaddwev_h_b(_1, _2); }
@@ -5004,10 +5325,14 @@ v8i32 xvaddwev_w_hu(v16u16 _1, v16u16 _2) { return __lasx_xvaddwev_w_hu(_1, _2);
 // CHECK-LABEL: define dso_local void @xvaddwev_h_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwev.h.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwev.h.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvaddwev_h_bu(v32u8 _1, v32u8 _2) { return __lasx_xvaddwev_h_bu(_1, _2); }
@@ -5044,10 +5369,14 @@ v8i32 xvsubwev_w_h(v16i16 _1, v16i16 _2) { return __lasx_xvsubwev_w_h(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsubwev_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsubwev.h.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsubwev.h.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvsubwev_h_b(v32i8 _1, v32i8 _2) { return __lasx_xvsubwev_h_b(_1, _2); }
@@ -5084,10 +5413,14 @@ v8i32 xvsubwev_w_hu(v16u16 _1, v16u16 _2) { return __lasx_xvsubwev_w_hu(_1, _2);
 // CHECK-LABEL: define dso_local void @xvsubwev_h_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsubwev.h.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsubwev.h.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvsubwev_h_bu(v32u8 _1, v32u8 _2) { return __lasx_xvsubwev_h_bu(_1, _2); }
@@ -5124,10 +5457,14 @@ v8i32 xvmulwev_w_h(v16i16 _1, v16i16 _2) { return __lasx_xvmulwev_w_h(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmulwev_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwev.h.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwev.h.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmulwev_h_b(v32i8 _1, v32i8 _2) { return __lasx_xvmulwev_h_b(_1, _2); }
@@ -5164,10 +5501,14 @@ v8i32 xvmulwev_w_hu(v16u16 _1, v16u16 _2) { return __lasx_xvmulwev_w_hu(_1, _2);
 // CHECK-LABEL: define dso_local void @xvmulwev_h_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwev.h.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwev.h.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmulwev_h_bu(v32u8 _1, v32u8 _2) { return __lasx_xvmulwev_h_bu(_1, _2); }
@@ -5204,10 +5545,14 @@ v8i32 xvaddwod_w_h(v16i16 _1, v16i16 _2) { return __lasx_xvaddwod_w_h(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvaddwod_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwod.h.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwod.h.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvaddwod_h_b(v32i8 _1, v32i8 _2) { return __lasx_xvaddwod_h_b(_1, _2); }
@@ -5244,10 +5589,14 @@ v8i32 xvaddwod_w_hu(v16u16 _1, v16u16 _2) { return __lasx_xvaddwod_w_hu(_1, _2);
 // CHECK-LABEL: define dso_local void @xvaddwod_h_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwod.h.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwod.h.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvaddwod_h_bu(v32u8 _1, v32u8 _2) { return __lasx_xvaddwod_h_bu(_1, _2); }
@@ -5284,10 +5633,14 @@ v8i32 xvsubwod_w_h(v16i16 _1, v16i16 _2) { return __lasx_xvsubwod_w_h(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvsubwod_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsubwod.h.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsubwod.h.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvsubwod_h_b(v32i8 _1, v32i8 _2) { return __lasx_xvsubwod_h_b(_1, _2); }
@@ -5324,10 +5677,14 @@ v8i32 xvsubwod_w_hu(v16u16 _1, v16u16 _2) { return __lasx_xvsubwod_w_hu(_1, _2);
 // CHECK-LABEL: define dso_local void @xvsubwod_h_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsubwod.h.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvsubwod.h.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvsubwod_h_bu(v32u8 _1, v32u8 _2) { return __lasx_xvsubwod_h_bu(_1, _2); }
@@ -5364,10 +5721,14 @@ v8i32 xvmulwod_w_h(v16i16 _1, v16i16 _2) { return __lasx_xvmulwod_w_h(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmulwod_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwod.h.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwod.h.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmulwod_h_b(v32i8 _1, v32i8 _2) { return __lasx_xvmulwod_h_b(_1, _2); }
@@ -5404,10 +5765,14 @@ v8i32 xvmulwod_w_hu(v16u16 _1, v16u16 _2) { return __lasx_xvmulwod_w_hu(_1, _2);
 // CHECK-LABEL: define dso_local void @xvmulwod_h_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwod.h.bu(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwod.h.bu(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmulwod_h_bu(v32u8 _1, v32u8 _2) { return __lasx_xvmulwod_h_bu(_1, _2); }
@@ -5434,10 +5799,14 @@ v8i32 xvaddwev_w_hu_h(v16u16 _1, v16i16 _2) { return __lasx_xvaddwev_w_hu_h(_1, 
 // CHECK-LABEL: define dso_local void @xvaddwev_h_bu_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwev.h.bu.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwev.h.bu.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvaddwev_h_bu_b(v32u8 _1, v32i8 _2) { return __lasx_xvaddwev_h_bu_b(_1, _2); }
@@ -5464,10 +5833,14 @@ v8i32 xvmulwev_w_hu_h(v16u16 _1, v16i16 _2) { return __lasx_xvmulwev_w_hu_h(_1, 
 // CHECK-LABEL: define dso_local void @xvmulwev_h_bu_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwev.h.bu.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwev.h.bu.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmulwev_h_bu_b(v32u8 _1, v32i8 _2) { return __lasx_xvmulwev_h_bu_b(_1, _2); }
@@ -5494,10 +5867,14 @@ v8i32 xvaddwod_w_hu_h(v16u16 _1, v16i16 _2) { return __lasx_xvaddwod_w_hu_h(_1, 
 // CHECK-LABEL: define dso_local void @xvaddwod_h_bu_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwod.h.bu.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvaddwod.h.bu.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvaddwod_h_bu_b(v32u8 _1, v32i8 _2) { return __lasx_xvaddwod_h_bu_b(_1, _2); }
@@ -5524,10 +5901,14 @@ v8i32 xvmulwod_w_hu_h(v16u16 _1, v16i16 _2) { return __lasx_xvmulwod_w_hu_h(_1, 
 // CHECK-LABEL: define dso_local void @xvmulwod_h_bu_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwod.h.bu.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <16 x i16> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmulwod.h.bu.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <16 x i16> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmulwod_h_bu_b(v32u8 _1, v32i8 _2) { return __lasx_xvmulwod_h_bu_b(_1, _2); }
@@ -5608,10 +5989,14 @@ v8i32 xvmaddwev_w_h(v8i32 _1, v16i16 _2, v16i16 _3) { return __lasx_xvmaddwev_w_
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_136:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwev.h.b(<16 x i16> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwev.h.b(<16 x i16> [[_136]], <32 x i8> [[TMP5]], <32 x i8> [[TMP6]])
+// CHECK-NEXT:    store <16 x i16> [[TMP7]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmaddwev_h_b(v16i16 _1, v32i8 _2, v32i8 _3) { return __lasx_xvmaddwev_h_b(_1, _2, _3); }
@@ -5652,10 +6037,14 @@ v8u32 xvmaddwev_w_hu(v8u32 _1, v16u16 _2, v16u16 _3) { return __lasx_xvmaddwev_w
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_136:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwev.h.bu(<16 x i16> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwev.h.bu(<16 x i16> [[_136]], <32 x i8> [[TMP5]], <32 x i8> [[TMP6]])
+// CHECK-NEXT:    store <16 x i16> [[TMP7]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16u16 xvmaddwev_h_bu(v16u16 _1, v32u8 _2, v32u8 _3) { return __lasx_xvmaddwev_h_bu(_1, _2, _3); }
@@ -5696,10 +6085,14 @@ v8i32 xvmaddwod_w_h(v8i32 _1, v16i16 _2, v16i16 _3) { return __lasx_xvmaddwod_w_
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_136:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwod.h.b(<16 x i16> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwod.h.b(<16 x i16> [[_136]], <32 x i8> [[TMP5]], <32 x i8> [[TMP6]])
+// CHECK-NEXT:    store <16 x i16> [[TMP7]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmaddwod_h_b(v16i16 _1, v32i8 _2, v32i8 _3) { return __lasx_xvmaddwod_h_b(_1, _2, _3); }
@@ -5740,10 +6133,14 @@ v8u32 xvmaddwod_w_hu(v8u32 _1, v16u16 _2, v16u16 _3) { return __lasx_xvmaddwod_w
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_136:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwod.h.bu(<16 x i16> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwod.h.bu(<16 x i16> [[_136]], <32 x i8> [[TMP5]], <32 x i8> [[TMP6]])
+// CHECK-NEXT:    store <16 x i16> [[TMP7]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16u16 xvmaddwod_h_bu(v16u16 _1, v32u8 _2, v32u8 _3) { return __lasx_xvmaddwod_h_bu(_1, _2, _3); }
@@ -5784,10 +6181,14 @@ v8i32 xvmaddwev_w_hu_h(v8i32 _1, v16u16 _2, v16i16 _3) { return __lasx_xvmaddwev
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_136:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwev.h.bu.b(<16 x i16> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwev.h.bu.b(<16 x i16> [[_136]], <32 x i8> [[TMP5]], <32 x i8> [[TMP6]])
+// CHECK-NEXT:    store <16 x i16> [[TMP7]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmaddwev_h_bu_b(v16i16 _1, v32u8 _2, v32i8 _3) { return __lasx_xvmaddwev_h_bu_b(_1, _2, _3); }
@@ -5828,20 +6229,28 @@ v8i32 xvmaddwod_w_hu_h(v8i32 _1, v16u16 _2, v16i16 _3) { return __lasx_xvmaddwod
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP2:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[_136:%.*]] = load <16 x i16>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_247:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_358:%.*]] = load <32 x i8>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwod.h.bu.b(<16 x i16> [[_136]], <32 x i8> [[_247]], <32 x i8> [[_358]])
-// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_24:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_35:%.*]] = load <4 x b64>, ptr [[TMP2]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_24]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <4 x b64> [[_35]] to <4 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i64> [[TMP4]] to <32 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvmaddwod.h.bu.b(<16 x i16> [[_136]], <32 x i8> [[TMP5]], <32 x i8> [[TMP6]])
+// CHECK-NEXT:    store <16 x i16> [[TMP7]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvmaddwod_h_bu_b(v16i16 _1, v32u8 _2, v32i8 _3) { return __lasx_xvmaddwod_h_bu_b(_1, _2, _3); }
 // CHECK-LABEL: define dso_local void @xvrotr_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_124:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_235:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrotr.b(<32 x i8> [[_124]], <32 x i8> [[_235]])
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_12:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_23:%.*]] = load <4 x b64>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <4 x b64> [[_12]] to <4 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <4 x b64> [[_23]] to <4 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i64> [[TMP2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i64> [[TMP3]] to <32 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrotr.b(<32 x i8> [[TMP4]], <32 x i8> [[TMP5]])
+// CHECK-NEXT:    store <32 x i8> [[TMP6]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvrotr_b(v32i8 _1, v32i8 _2) { return __lasx_xvrotr_b(_1, _2); }
@@ -5936,29 +6345,35 @@ v4i64 xvmulwev_q_du_d(v4u64 _1, v4i64 _2) { return __lasx_xvmulwev_q_du_d(_1, _2
 //
 v4i64 xvmulwod_q_du_d(v4u64 _1, v4i64 _2) { return __lasx_xvmulwod_q_du_d(_1, _2); }
 // CHECK-LABEL: define dso_local void @xvmskgez_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmskgez.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmskgez.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmskgez_b(v32i8 _1) { return __lasx_xvmskgez_b(_1); }
 // CHECK-LABEL: define dso_local void @xvmsknz_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmsknz.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvmsknz.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <32 x i8> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvmsknz_b(v32i8 _1) { return __lasx_xvmsknz_b(_1); }
 // CHECK-LABEL: define dso_local void @xvexth_h_b(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvexth.h.b(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <16 x i16> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvexth.h.b(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16i16 xvexth_h_b(v32i8 _1) { return __lasx_xvexth_h_b(_1); }
@@ -5992,9 +6407,11 @@ v4i64 xvexth_q_d(v4i64 _1) { return __lasx_xvexth_q_d(_1); }
 // CHECK-LABEL: define dso_local void @xvexth_hu_bu(
 // CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<16 x i16>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_112:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvexth.hu.bu(<32 x i8> [[_112]])
-// CHECK-NEXT:    store <16 x i16> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_11:%.*]] = load <4 x b64>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <4 x b64> [[_11]] to <4 x i64>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i64> [[TMP1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <16 x i16> @llvm.loongarch.lasx.xvexth.hu.bu(<32 x i8> [[TMP2]])
+// CHECK-NEXT:    store <16 x i16> [[TMP3]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v16u16 xvexth_hu_bu(v32u8 _1) { return __lasx_xvexth_hu_bu(_1); }
@@ -6026,11 +6443,12 @@ v4u64 xvexth_du_wu(v8u32 _1) { return __lasx_xvexth_du_wu(_1); }
 //
 v4u64 xvexth_qu_du(v4u64 _1) { return __lasx_xvexth_qu_du(_1); }
 // CHECK-LABEL: define dso_local void @xvrotri_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrotri.b(<32 x i8> [[_1]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP1]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrotri.b(<32 x i8> [[TMP1]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvrotri_b(v32i8 _1) { return __lasx_xvrotri_b(_1, 1); }
@@ -6071,12 +6489,14 @@ v4i64 xvrotri_d(v4i64 _1) { return __lasx_xvrotri_d(_1, 1); }
 //
 v4i64 xvextl_q_d(v4i64 _1) { return __lasx_xvextl_q_d(_1); }
 // CHECK-LABEL: define dso_local void @xvsrlni_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlni.b.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrlni_b_h(v32i8 _1, v32i8 _2) { return __lasx_xvsrlni_b_h(_1, _2, 1); }
@@ -6111,12 +6531,14 @@ v8i32 xvsrlni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvsrlni_w_d(_1, _2, 1); }
 //
 v4i64 xvsrlni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvsrlni_d_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvsrlrni_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlrni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrlrni.b.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrlrni_b_h(v32i8 _1, v32i8 _2) { return __lasx_xvsrlrni_b_h(_1, _2, 1); }
@@ -6151,12 +6573,14 @@ v8i32 xvsrlrni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvsrlrni_w_d(_1, _2, 1); 
 //
 v4i64 xvsrlrni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvsrlrni_d_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvssrlni_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlni.b.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvssrlni_b_h(v32i8 _1, v32i8 _2) { return __lasx_xvssrlni_b_h(_1, _2, 1); }
@@ -6191,12 +6615,14 @@ v8i32 xvssrlni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvssrlni_w_d(_1, _2, 1); 
 //
 v4i64 xvssrlni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvssrlni_d_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvssrlni_bu_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlni.bu.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlni.bu.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvssrlni_bu_h(v32u8 _1, v32i8 _2) { return __lasx_xvssrlni_bu_h(_1, _2, 1); }
@@ -6231,12 +6657,14 @@ v8u32 xvssrlni_wu_d(v8u32 _1, v8i32 _2) { return __lasx_xvssrlni_wu_d(_1, _2, 1)
 //
 v4u64 xvssrlni_du_q(v4u64 _1, v4i64 _2) { return __lasx_xvssrlni_du_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvssrlrni_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlrni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlrni.b.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvssrlrni_b_h(v32i8 _1, v32i8 _2) { return __lasx_xvssrlrni_b_h(_1, _2, 1); }
@@ -6271,12 +6699,14 @@ v8i32 xvssrlrni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvssrlrni_w_d(_1, _2, 1)
 //
 v4i64 xvssrlrni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvssrlrni_d_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvssrlrni_bu_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlrni.bu.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrlrni.bu.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvssrlrni_bu_h(v32u8 _1, v32i8 _2) { return __lasx_xvssrlrni_bu_h(_1, _2, 1); }
@@ -6311,12 +6741,14 @@ v8u32 xvssrlrni_wu_d(v8u32 _1, v8i32 _2) { return __lasx_xvssrlrni_wu_d(_1, _2, 
 //
 v4u64 xvssrlrni_du_q(v4u64 _1, v4i64 _2) { return __lasx_xvssrlrni_du_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvsrani_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrani.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrani.b.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrani_b_h(v32i8 _1, v32i8 _2) { return __lasx_xvsrani_b_h(_1, _2, 1); }
@@ -6351,12 +6783,14 @@ v8i32 xvsrani_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvsrani_w_d(_1, _2, 1); }
 //
 v4i64 xvsrani_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvsrani_d_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvsrarni_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrarni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvsrarni.b.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvsrarni_b_h(v32i8 _1, v32i8 _2) { return __lasx_xvsrarni_b_h(_1, _2, 1); }
@@ -6391,12 +6825,14 @@ v8i32 xvsrarni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvsrarni_w_d(_1, _2, 1); 
 //
 v4i64 xvsrarni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvsrarni_d_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvssrani_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrani.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrani.b.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvssrani_b_h(v32i8 _1, v32i8 _2) { return __lasx_xvssrani_b_h(_1, _2, 1); }
@@ -6431,12 +6867,14 @@ v8i32 xvssrani_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvssrani_w_d(_1, _2, 1); 
 //
 v4i64 xvssrani_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvssrani_d_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvssrani_bu_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrani.bu.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrani.bu.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvssrani_bu_h(v32u8 _1, v32i8 _2) { return __lasx_xvssrani_bu_h(_1, _2, 1); }
@@ -6471,12 +6909,14 @@ v8u32 xvssrani_wu_d(v8u32 _1, v8i32 _2) { return __lasx_xvssrani_wu_d(_1, _2, 1)
 //
 v4u64 xvssrani_du_q(v4u64 _1, v4i64 _2) { return __lasx_xvssrani_du_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvssrarni_b_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrarni.b.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrarni.b.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32i8 xvssrarni_b_h(v32i8 _1, v32i8 _2) { return __lasx_xvssrarni_b_h(_1, _2, 1); }
@@ -6511,12 +6951,14 @@ v8i32 xvssrarni_w_d(v8i32 _1, v8i32 _2) { return __lasx_xvssrarni_w_d(_1, _2, 1)
 //
 v4i64 xvssrarni_d_q(v4i64 _1, v4i64 _2) { return __lasx_xvssrarni_d_q(_1, _2, 1); }
 // CHECK-LABEL: define dso_local void @xvssrarni_bu_h(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]], ptr dead_on_return noundef readonly captures(none) [[TMP1:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[_2:%.*]] = load <32 x i8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrarni.bu.h(<32 x i8> [[_1]], <32 x i8> [[_2]], i32 1)
-// CHECK-NEXT:    store <32 x i8> [[TMP2]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[_2:%.*]] = load <32 x b8>, ptr [[TMP1]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <32 x b8> [[_2]] to <32 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvssrarni.bu.h(<32 x i8> [[TMP2]], <32 x i8> [[TMP3]], i32 1)
+// CHECK-NEXT:    store <32 x i8> [[TMP4]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]
 // CHECK-NEXT:    ret void
 //
 v32u8 xvssrarni_bu_h(v32u8 _1, v32i8 _2) { return __lasx_xvssrarni_bu_h(_1, _2, 1); }
@@ -6553,9 +6995,10 @@ v4u64 xvssrarni_du_q(v4u64 _1, v4i64 _2) { return __lasx_xvssrarni_du_q(_1, _2, 
 // CHECK-LABEL: define dso_local signext i32 @xbnz_b(
 // CHECK-SAME: ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR7]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbnz.b(<32 x i8> [[_1]])
-// CHECK-NEXT:    ret i32 [[TMP1]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @llvm.loongarch.lasx.xbnz.b(<32 x i8> [[TMP1]])
+// CHECK-NEXT:    ret i32 [[TMP2]]
 //
 int xbnz_b(v32u8 _1) { return __lasx_xbnz_b(_1); }
 // CHECK-LABEL: define dso_local signext i32 @xbnz_d(
@@ -6577,9 +7020,10 @@ int xbnz_h(v16u16 _1) { return __lasx_xbnz_h(_1); }
 // CHECK-LABEL: define dso_local signext i32 @xbnz_v(
 // CHECK-SAME: ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR7]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbnz.v(<32 x i8> [[_1]])
-// CHECK-NEXT:    ret i32 [[TMP1]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @llvm.loongarch.lasx.xbnz.v(<32 x i8> [[TMP1]])
+// CHECK-NEXT:    ret i32 [[TMP2]]
 //
 int xbnz_v(v32u8 _1) { return __lasx_xbnz_v(_1); }
 // CHECK-LABEL: define dso_local signext i32 @xbnz_w(
@@ -6593,9 +7037,10 @@ int xbnz_w(v8u32 _1) { return __lasx_xbnz_w(_1); }
 // CHECK-LABEL: define dso_local signext i32 @xbz_b(
 // CHECK-SAME: ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR7]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbz.b(<32 x i8> [[_1]])
-// CHECK-NEXT:    ret i32 [[TMP1]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @llvm.loongarch.lasx.xbz.b(<32 x i8> [[TMP1]])
+// CHECK-NEXT:    ret i32 [[TMP2]]
 //
 int xbz_b(v32u8 _1) { return __lasx_xbz_b(_1); }
 // CHECK-LABEL: define dso_local signext i32 @xbz_d(
@@ -6617,9 +7062,10 @@ int xbz_h(v16u16 _1) { return __lasx_xbz_h(_1); }
 // CHECK-LABEL: define dso_local signext i32 @xbz_v(
 // CHECK-SAME: ptr dead_on_return noundef readonly captures(none) [[TMP0:%.*]]) local_unnamed_addr #[[ATTR7]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[_1:%.*]] = load <32 x i8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.lasx.xbz.v(<32 x i8> [[_1]])
-// CHECK-NEXT:    ret i32 [[TMP1]]
+// CHECK-NEXT:    [[_1:%.*]] = load <32 x b8>, ptr [[TMP0]], align 32, !tbaa [[CHAR_TBAA2]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <32 x b8> [[_1]] to <32 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @llvm.loongarch.lasx.xbz.v(<32 x i8> [[TMP1]])
+// CHECK-NEXT:    ret i32 [[TMP2]]
 //
 int xbz_v(v32u8 _1) { return __lasx_xbz_v(_1); }
 // CHECK-LABEL: define dso_local signext i32 @xbz_w(
@@ -7089,7 +7535,7 @@ v4f64 xvpickve_d_f(v4f64 _1) { return __lasx_xvpickve_d_f(_1, 1); }
 //
 v8f32 xvpickve_w_f(v8f32 _1) { return __lasx_xvpickve_w_f(_1, 1); }
 // CHECK-LABEL: define dso_local void @xvrepli_b(
-// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x i8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]]) local_unnamed_addr #[[ATTR2]] {
+// CHECK-SAME: ptr dead_on_unwind noalias writable writeonly sret(<32 x b8>) align 32 captures(none) initializes((0, 32)) [[AGG_RESULT:%.*]]) local_unnamed_addr #[[ATTR2]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <32 x i8> @llvm.loongarch.lasx.xvrepli.b(i32 1)
 // CHECK-NEXT:    store <32 x i8> [[TMP0]], ptr [[AGG_RESULT]], align 32, !tbaa [[CHAR_TBAA2]]

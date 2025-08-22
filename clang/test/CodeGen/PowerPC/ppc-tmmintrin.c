@@ -40,7 +40,7 @@ test_abs() {
 // CHECK: call <4 x i32> @vec_abs(int vector[4])
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_abs_epi8
-// CHECK: call <16 x i8> @vec_abs(signed char vector[16])
+// CHECK: call <16 x b8> @vec_abs(signed char vector[16])
 
 // CHECK-LABEL: define available_externally i64 @_mm_abs_pi16
 // CHECK: %[[ABS:[0-9a-zA-Z_.]+]] = call <8 x i16> @vec_abs(short vector[8])
@@ -53,9 +53,10 @@ test_abs() {
 // CHECK: extractelement <2 x i64> %[[CAST]], i32 0
 
 // CHECK-LABEL: define available_externally i64 @_mm_abs_pi8
-// CHECK: %[[ABS:[0-9a-zA-Z_.]+]] = call <16 x i8> @vec_abs(signed char vector[16])
-// CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <16 x i8> %[[ABS]] to <2 x i64>
-// CHECK: extractelement <2 x i64> %[[CAST]], i32 0
+// CHECK: %[[ABS:[0-9a-zA-Z_.]+]] = call <16 x b8> @vec_abs(signed char vector[16])
+// CHECK: %[[CAST1:[0-9a-zA-Z_.]+]] = bitcast <16 x b8> %[[ABS]] to <2 x b64>
+// CHECK: %[[CAST2:[0-9a-zA-Z_.]+]] = bytecast <2 x b64> %[[CAST1]] to <2 x i64>
+// CHECK: extractelement <2 x i64> %[[CAST2]], i32 0
 
 void __attribute__((noinline))
 test_alignr() {
@@ -68,39 +69,41 @@ test_alignr() {
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_alignr_epi8
 // CHECK: %[[CONST:[0-9a-zA-Z_.]+]] = call i1 @llvm.is.constant.i32(i32 %0)
 // CHECK: br i1 %[[CONST]]
-// CHECK-BE: call <16 x i8> @vec_sld(unsigned char vector[16], unsigned char vector[16], unsigned int)
-// CHECK-LE: call <16 x i8> @vec_reve(unsigned char vector[16])
-// CHECK-LE: call <16 x i8> @vec_reve(unsigned char vector[16])
-// CHECK-LE: call <16 x i8> @vec_sld(unsigned char vector[16], unsigned char vector[16], unsigned int)
-// CHECK-LE: call <16 x i8> @vec_reve(unsigned char vector[16])
-// CHECK: store <16 x i8> zeroinitializer, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK-BE: call <16 x b8> @vec_sld(unsigned char vector[16], unsigned char vector[16], unsigned int)
+// CHECK-LE: call <16 x b8> @vec_reve(unsigned char vector[16])
+// CHECK-LE: call <16 x b8> @vec_reve(unsigned char vector[16])
+// CHECk-LE: call <16 x b8> @vec_sld(unsigned char vector[16], unsigned char vector[16], unsigned int)
+// CHECK-LE: call <16 x b8> @vec_reve(unsigned char vector[16])
+// CHECK: store <16 x b8> zeroinitializer, ptr %{{[0-9a-zA-Z_.]+}}, align 16
 // CHECK: store <2 x i64> zeroinitializer, ptr %{{[0-9a-zA-Z_.]+}}, align 16
 // CHECK: %[[SUB:[0-9a-zA-Z_.]+]] = sub i32 %{{[0-9a-zA-Z_.]+}}, 16
 // CHECK: %[[MUL:[0-9a-zA-Z_.]+]] = mul i32 %[[SUB]], 8
 // CHECK: %[[TRUNC:[0-9a-zA-Z_.]+]] = trunc i32 %[[MUL]] to i8
-// CHECK: call <16 x i8> @vec_splats(unsigned char)(i8 noundef zeroext %[[TRUNC]])
-// CHECK-BE: call <16 x i8> @vec_slo(unsigned char vector[16], unsigned char vector[16])
-// CHECK-LE: call <16 x i8> @vec_sro(unsigned char vector[16], unsigned char vector[16])
+// CHECK: %[[CONV:[0-9a-zA-Z_.]+]] = bitcast i8 %[[TRUNC]] to b8
+// CHECK: call <16 x b8> @vec_splats(unsigned char)(b8 noundef zeroext %[[CONV]])
+// CHECK-BE: call <16 x b8> @vec_slo(unsigned char vector[16], unsigned char vector[16])
+// CHECK-LE: call <16 x b8> @vec_sro(unsigned char vector[16], unsigned char vector[16])
 // CHECK: %[[SUB2:[0-9a-zA-Z_.]+]] = sub i32 16, %{{[0-9a-zA-Z_.]+}}
 // CHECK: %[[MUL2:[0-9a-zA-Z_.]+]] = mul i32 %[[SUB2]], 8
 // CHECK-BE: %[[TRUNC:[0-9a-zA-Z_.]+]] = trunc i32 %[[MUL2]] to i8
-// CHECK-BE: call <16 x i8> @vec_splats(unsigned char)(i8 noundef zeroext %[[TRUNC]])
+// CHECK-BE: %[[CONV:[0-9a-zA-Z_.]+]] = bitcast i8 %[[TRUNC]] to b8
+// CHECK-BE: call <16 x b8> @vec_splats(unsigned char)(b8 noundef zeroext %[[CONV]])
 // CHECK-BE: mul i32 %{{[0-9a-zA-Z_.]+}}, 8
-// CHECK-BE: call <16 x i8> @vec_sro(unsigned char vector[16], unsigned char vector[16])
-// CHECK-BE: call <16 x i8> @vec_slo(unsigned char vector[16], unsigned char vector[16])
-// CHECK-BE: call <16 x i8> @vec_or(unsigned char vector[16], unsigned char vector[16])
+// CHECK-BE: call <16 x b8> @vec_sro(unsigned char vector[16], unsigned char vector[16])
+// CHECK-BE: call <16 x b8> @vec_slo(unsigned char vector[16], unsigned char vector[16])
+// CHECK-BE: call <16 x b8> @vec_or(unsigned char vector[16], unsigned char vector[16])
 // CHECK-LE: %[[MUL3:[0-9a-zA-Z_.]+]] = mul i32 %{{[0-9a-zA-Z_.]+}}, 8
 // CHECK-LE: trunc i32 %[[MUL3]] to i8
-// CHECK-LE: call <16 x i8> @vec_splats(unsigned char)
-// CHECK-LE: call <16 x i8> @vec_slo(unsigned char vector[16], unsigned char vector[16])
-// CHECK-LE: call <16 x i8> @vec_sro(unsigned char vector[16], unsigned char vector[16])
-// CHECK-LE: call <16 x i8> @vec_or(unsigned char vector[16], unsigned char vector[16])
+// CHECK-LE: call <16 x b8> @vec_splats(unsigned char)
+// CHECK-LE: call <16 x b8> @vec_slo(unsigned char vector[16], unsigned char vector[16])
+// CHECK-LE: call <16 x b8> @vec_sro(unsigned char vector[16], unsigned char vector[16])
+// CHECK-LE: call <16 x b8> @vec_or(unsigned char vector[16], unsigned char vector[16])
 
 // CHECK-LABEL: define available_externally i64 @_mm_alignr_pi8
 // CHECK: %[[CMP:[0-9a-zA-Z_.]+]] = icmp ult i32 %{{[0-9a-zA-Z_.]+}}, 16
 // CHECK: br i1 %[[CMP]]
-// CHECK-BE: call <16 x i8> @vec_slo(unsigned char vector[16], unsigned char vector[16])
-// CHECK-LE: call <16 x i8> @vec_sro(unsigned char vector[16], unsigned char vector[16])
+// CHECK-BE: call <16 x b8> @vec_slo(unsigned char vector[16], unsigned char vector[16])
+// CHECK-LE: call <16 x b8> @vec_sro(unsigned char vector[16], unsigned char vector[16])
 // CHECK: extractelement <2 x i64> %{{[0-9a-zA-Z_.]+}}, i32 0
 // CHECK: store i64 0, ptr %{{[0-9a-zA-Z_.]+}}, align 8
 // CHECK: store i64 0, ptr %{{[0-9a-zA-Z_.]+}}, align 8
@@ -118,33 +121,33 @@ test_hadd() {
 // CHECK-LABEL: @test_hadd
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_hadd_epi16
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>)
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>)
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>)
 // CHECK: call <8 x i16> @vec_add(short vector[8], short vector[8])
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_hadd_epi32
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 16, i8 17, i8 18, i8 19, i8 24, i8 25, i8 26, i8 27>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 20, i8 21, i8 22, i8 23, i8 28, i8 29, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 16, i8 17, i8 18, i8 19, i8 24, i8 25, i8 26, i8 27>)
-// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 20, i8 21, i8 22, i8 23, i8 28, i8 29, i8 30, i8 31>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 16, b8 17, b8 18, b8 19, b8 24, b8 25, b8 26, b8 27>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 20, b8 21, b8 22, b8 23, b8 28, b8 29, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 16, b8 17, b8 18, b8 19, b8 24, b8 25, b8 26, b8 27>)
+// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 20, b8 21, b8 22, b8 23, b8 28, b8 29, b8 30, b8 31>)
 // CHECK: call <4 x i32> @vec_add(int vector[4], int vector[4])
 
 // CHECK-LABEL: define available_externally i64 @_mm_hadd_pi16
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15>)
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15>)
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13>)
 // CHECK: call <8 x i16> @vec_add(short vector[8], short vector[8])
 // CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <8 x i16> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
 // CHECK: extractelement <2 x i64> %[[CAST]], i32 1
 
 // CHECK-LABEL: define available_externally i64 @_mm_hadd_pi32
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15>)
-// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15>)
+// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11>)
 // CHECK: call <4 x i32> @vec_add(int vector[4], int vector[4])
 // CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <4 x i32> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
 // CHECK: extractelement <2 x i64> %[[CAST]], i32 1
@@ -175,49 +178,49 @@ test_hsub() {
 // CHECK-LABEL: @test_hsub
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_hsub_epi16
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>)
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>)
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>)
 // CHECK: call <8 x i16> @vec_sub(short vector[8], short vector[8])
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_hsub_epi32
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 16, i8 17, i8 18, i8 19, i8 24, i8 25, i8 26, i8 27>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 20, i8 21, i8 22, i8 23, i8 28, i8 29, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 16, i8 17, i8 18, i8 19, i8 24, i8 25, i8 26, i8 27>)
-// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 20, i8 21, i8 22, i8 23, i8 28, i8 29, i8 30, i8 31>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 16, b8 17, b8 18, b8 19, b8 24, b8 25, b8 26, b8 27>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 20, b8 21, b8 22, b8 23, b8 28, b8 29, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 16, b8 17, b8 18, b8 19, b8 24, b8 25, b8 26, b8 27>)
+// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 20, b8 21, b8 22, b8 23, b8 28, b8 29, b8 30, b8 31>)
 // CHECK: call <4 x i32> @vec_sub(int vector[4], int vector[4])
 
 // CHECK-LABEL: define available_externally i64 @_mm_hsub_pi16
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15>)
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15>)
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13>)
 // CHECK: call <8 x i16> @vec_sub(short vector[8], short vector[8])
 // CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <8 x i16> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
 // CHECK: extractelement <2 x i64> %[[CAST]], i32 1
 
 // CHECK-LABEL: define available_externally i64 @_mm_hsub_pi32
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15, i8 4, i8 5, i8 6, i8 7, i8 12, i8 13, i8 14, i8 15>)
-// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11, i8 0, i8 1, i8 2, i8 3, i8 8, i8 9, i8 10, i8 11>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15, b8 4, b8 5, b8 6, b8 7, b8 12, b8 13, b8 14, b8 15>)
+// CHECK: call <4 x i32> @vec_perm(int vector[4], int vector[4], unsigned char vector[16])(<4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <4 x i32> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11, b8 0, b8 1, b8 2, b8 3, b8 8, b8 9, b8 10, b8 11>)
 // CHECK: call <4 x i32> @vec_sub(int vector[4], int vector[4])
 // CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <4 x i32> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
 // CHECK: extractelement <2 x i64> %[[CAST]], i32 1
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_hsubs_epi16
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>)
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>)
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>)
 // CHECK: call <8 x i16> @vec_subs(short vector[8], short vector[8])
 
 // CHECK-LABEL: define available_externally i64 @_mm_hsubs_pi16
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13>)
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13>)
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15>)
 // CHECK: call <8 x i16> @vec_subs(short vector[8], short vector[8])
 // CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <8 x i16> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
 // CHECK: extractelement <2 x i64> %[[CAST]], i32 1
@@ -231,17 +234,18 @@ test_shuffle() {
 // CHECK-LABEL: @test_shuffle
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_shuffle_epi8
-// CHECK: store <16 x i8> zeroinitializer, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <16 x i8> @vec_cmplt(signed char vector[16], signed char vector[16])(<16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef zeroinitializer)
-// CHECK: call <16 x i8> @vec_perm(signed char vector[16], signed char vector[16], unsigned char vector[16])
-// CHECK: call <16 x i8> @vec_sel(signed char vector[16], signed char vector[16], bool vector[16])(<16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef zeroinitializer, <16 x i8> noundef %{{[0-9a-zA-Z_.]+}})
+// CHECK: store <16 x b8> zeroinitializer, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <16 x b8> @vec_cmplt(signed char vector[16], signed char vector[16])(<16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef zeroinitializer)
+// CHECK: call <16 x b8> @vec_perm(signed char vector[16], signed char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_sel(signed char vector[16], signed char vector[16], bool vector[16])(<16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef zeroinitializer, <16 x b8> noundef %{{[0-9a-zA-Z_.]+}})
 
 // CHECK-LABEL: define available_externally i64 @_mm_shuffle_pi8
-// CHECK: call <16 x i8> @vec_cmplt(signed char vector[16], signed char vector[16])(<16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef zeroinitializer)
-// CHECK: call <16 x i8> @vec_perm(signed char vector[16], signed char vector[16], unsigned char vector[16])
-// CHECK: call <16 x i8> @vec_sel(signed char vector[16], signed char vector[16], bool vector[16])(<16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef zeroinitializer, <16 x i8> noundef %{{[0-9a-zA-Z_.]+}})
-// CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <16 x i8> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
-// CHECK: extractelement <2 x i64> %[[CAST]], i32 0
+// CHECK: call <16 x b8> @vec_cmplt(signed char vector[16], signed char vector[16])(<16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef zeroinitializer)
+// CHECK: call <16 x b8> @vec_perm(signed char vector[16], signed char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_sel(signed char vector[16], signed char vector[16], bool vector[16])(<16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef zeroinitializer, <16 x b8> noundef %{{[0-9a-zA-Z_.]+}})
+// CHECK: %[[CAST1:[0-9a-zA-Z_.]+]] = bitcast <16 x b8> %{{[0-9a-zA-Z_.]+}} to <2 x b64>
+// CHECK: %[[CAST2:[0-9a-zA-Z_.]+]] = bytecast <2 x b64> %[[CAST1]] to <2 x i64>
+// CHECK: extractelement <2 x i64> %[[CAST2]], i32 0
 
 void __attribute__((noinline))
 test_sign() {
@@ -256,11 +260,11 @@ test_sign() {
 // CHECK-LABEL: @test_sign
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_sign_epi8
-// CHECK: call <16 x i8> @vec_cmplt(signed char vector[16], signed char vector[16])(<16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef zeroinitializer)
-// CHECK: call <16 x i8> @vec_cmpgt(signed char vector[16], signed char vector[16])(<16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef zeroinitializer)
-// CHECK: call <16 x i8> @vec_neg(signed char vector[16])
-// CHECK: call <16 x i8> @vec_add(signed char vector[16], signed char vector[16])
-// CHECK: call <16 x i8> @vec_mul(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_cmplt(signed char vector[16], signed char vector[16])(<16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef zeroinitializer)
+// CHECK: call <16 x b8> @vec_cmpgt(signed char vector[16], signed char vector[16])(<16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef zeroinitializer)
+// CHECK: call <16 x b8> @vec_neg(signed char vector[16])
+// CHECK: call <16 x b8> @vec_add(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_mul(signed char vector[16], signed char vector[16])
 
 // CHECK-LABEL: define available_externally <2 x i64> @_mm_sign_epi16
 // CHECK: call <8 x i16> @vec_cmplt(short vector[8], short vector[8])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef zeroinitializer)
@@ -278,10 +282,11 @@ test_sign() {
 // CHECK: call <4 x i32> @vec_mul(int vector[4], int vector[4])
 
 // CHECK-LABEL: define available_externally i64 @_mm_sign_pi8
-// CHECK: store <16 x i8> zeroinitializer, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> zeroinitializer, ptr %{{[0-9a-zA-Z_.]+}}, align 16
 // CHECK: call <2 x i64> @_mm_sign_epi8
-// CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <16 x i8> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
-// CHECK: extractelement <2 x i64> %[[CAST]], i32 0
+// CHECK: %[[CAST1:[0-9a-zA-Z_.]+]] = bitcast <16 x b8> %{{[0-9a-zA-Z_.]+}} to <2 x b64>
+// CHECK: %[[CAST2:[0-9a-zA-Z_.]+]] = bytecast <2 x b64> %[[CAST1]] to <2 x i64>
+// CHECK: extractelement <2 x i64> %[[CAST2]], i32 0
 
 // CHECK-LABEL: define available_externally i64 @_mm_sign_pi16
 // CHECK: store <8 x i16> zeroinitializer, ptr %{{[0-9a-zA-Z_.]+}}, align 16
@@ -313,10 +318,10 @@ test_maddubs() {
 // CHECK: call <8 x i16> @vec_unpackl(signed char vector[16])
 // CHECK: call <8 x i16> @vec_mul(short vector[8], short vector[8])
 // CHECK: call <8 x i16> @vec_mul(short vector[8], short vector[8])
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>)
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>)
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>)
 // CHECK: call <8 x i16> @vec_adds(short vector[8], short vector[8])
 
 // CHECK-LABEL: define available_externally i64 @_mm_maddubs_pi16
@@ -325,10 +330,10 @@ test_maddubs() {
 // CHECK: call <8 x i16> @vec_and(short vector[8], short vector[8])
 // CHECK: call <8 x i16> @vec_unpackl(signed char vector[16])
 // CHECK: call <8 x i16> @vec_mul(short vector[8], short vector[8])
-// CHECK: store <16 x i8> <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: store <16 x i8> <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 0, i8 1, i8 4, i8 5, i8 8, i8 9, i8 12, i8 13, i8 16, i8 17, i8 20, i8 21, i8 24, i8 25, i8 28, i8 29>)
-// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef <i8 2, i8 3, i8 6, i8 7, i8 10, i8 11, i8 14, i8 15, i8 18, i8 19, i8 22, i8 23, i8 26, i8 27, i8 30, i8 31>)
+// CHECK: store <16 x b8> <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: store <16 x b8> <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>, ptr %{{[0-9a-zA-Z_.]+}}, align 16
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 0, b8 1, b8 4, b8 5, b8 8, b8 9, b8 12, b8 13, b8 16, b8 17, b8 20, b8 21, b8 24, b8 25, b8 28, b8 29>)
+// CHECK: call <8 x i16> @vec_perm(short vector[8], short vector[8], unsigned char vector[16])(<8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <8 x i16> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef <b8 2, b8 3, b8 6, b8 7, b8 10, b8 11, b8 14, b8 15, b8 18, b8 19, b8 22, b8 23, b8 26, b8 27, b8 30, b8 31>)
 // CHECK: call <8 x i16> @vec_adds(short vector[8], short vector[8])
 // CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <8 x i16> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
 // CHECK: extractelement <2 x i64> %[[CAST]], i32 0
