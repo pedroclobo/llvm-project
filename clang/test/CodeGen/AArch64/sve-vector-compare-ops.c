@@ -20,9 +20,12 @@ svbool_t eq_bool(svbool_t a, svbool_t b) {
 
 // CHECK-LABEL: @eq_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t eq_i8(svint8_t a, svint8_t b) {
   return a == b;
@@ -60,9 +63,12 @@ svint64_t eq_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @eq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp eq <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t eq_u8(svuint8_t a, svuint8_t b) {
   return a == b;
@@ -141,9 +147,12 @@ svbool_t neq_bool(svbool_t a, svbool_t b) {
 
 // CHECK-LABEL: @neq_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ne <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ne <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t neq_i8(svint8_t a, svint8_t b) {
   return a != b;
@@ -181,9 +190,12 @@ svint64_t neq_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @neq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ne <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ne <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t neq_u8(svuint8_t a, svuint8_t b) {
   return a != b;
@@ -262,9 +274,12 @@ svbool_t lt_bool(svbool_t a, svbool_t b) {
 
 // CHECK-LABEL: @lt_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ult <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ult <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t lt_i8(svint8_t a, svint8_t b) {
   return a < b;
@@ -302,9 +317,12 @@ svint64_t lt_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @lt_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ult <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ult <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t lt_u8(svuint8_t a, svuint8_t b) {
   return a < b;
@@ -383,9 +401,12 @@ svbool_t leq_bool(svbool_t a, svbool_t b) {
 
 // CHECK-LABEL: @leq_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ule <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ule <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t leq_i8(svint8_t a, svint8_t b) {
   return a <= b;
@@ -423,9 +444,12 @@ svint64_t leq_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @leq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ule <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ule <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t leq_u8(svuint8_t a, svuint8_t b) {
   return a <= b;
@@ -504,9 +528,12 @@ svbool_t gt_bool(svbool_t a, svbool_t b) {
 
 // CHECK-LABEL: @gt_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ugt <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ugt <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t gt_i8(svint8_t a, svint8_t b) {
   return a > b;
@@ -544,9 +571,12 @@ svint64_t gt_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @gt_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp ugt <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp ugt <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t gt_u8(svuint8_t a, svuint8_t b) {
   return a > b;
@@ -625,9 +655,12 @@ svbool_t geq_bool(svbool_t a, svbool_t b) {
 
 // CHECK-LABEL: @geq_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp uge <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp uge <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t geq_i8(svint8_t a, svint8_t b) {
   return a >= b;
@@ -665,9 +698,12 @@ svint64_t geq_i64(svint64_t a, svint64_t b) {
 
 // CHECK-LABEL: @geq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CMP:%.*]] = icmp uge <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[CMP:%.*]] = icmp uge <vscale x 16 x i8> [[TMP0]], [[TMP1]]
 // CHECK-NEXT:    [[CONV:%.*]] = zext <vscale x 16 x i1> [[CMP]] to <vscale x 16 x i8>
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[CONV]]
+// CHECK-NEXT:    [[CONV1:%.*]] = bitcast <vscale x 16 x i8> [[CONV]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[CONV1]]
 //
 svint8_t geq_u8(svuint8_t a, svuint8_t b) {
   return a >= b;

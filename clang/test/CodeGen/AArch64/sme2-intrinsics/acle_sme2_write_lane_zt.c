@@ -17,15 +17,17 @@
 #include <arm_sme.h>
 
 // CHECK-LABEL: define dso_local void @test_write_lane_zt_u8_1(
-// CHECK-SAME: <vscale x 16 x i8> [[V:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: <vscale x 16 x b8> [[V:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.lane.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[V]], i32 1)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.lane.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]], i32 1)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z23test_write_lane_zt_u8_1u11__SVUint8_t(
-// CPP-CHECK-SAME: <vscale x 16 x i8> [[V:%.*]]) #[[ATTR0:[0-9]+]] {
+// CPP-CHECK-SAME: <vscale x 16 x b8> [[V:%.*]]) #[[ATTR0:[0-9]+]] {
 // CPP-CHECK-NEXT:  [[ENTRY:.*:]]
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.lane.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[V]], i32 1)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.lane.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]], i32 1)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_write_lane_zt_u8_1(svuint8_t v) __arm_streaming __arm_inout("zt0") {
@@ -33,15 +35,17 @@ void test_write_lane_zt_u8_1(svuint8_t v) __arm_streaming __arm_inout("zt0") {
 }
 
 // CHECK-LABEL: define dso_local void @test_write_lane_zt_s8_2(
-// CHECK-SAME: <vscale x 16 x i8> [[V:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <vscale x 16 x b8> [[V:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.lane.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[V]], i32 2)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.lane.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]], i32 2)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z23test_write_lane_zt_s8_2u10__SVInt8_t(
-// CPP-CHECK-SAME: <vscale x 16 x i8> [[V:%.*]]) #[[ATTR0]] {
+// CPP-CHECK-SAME: <vscale x 16 x b8> [[V:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  [[ENTRY:.*:]]
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.lane.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[V]], i32 2)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.lane.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]], i32 2)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_write_lane_zt_s8_2(svint8_t v) __arm_streaming __arm_inout("zt0") {
@@ -210,15 +214,17 @@ void test_write_lane_zt_f64_1(svfloat64_t v) __arm_streaming __arm_inout("zt0") 
 
 //ALIAS
 // CHECK-LABEL: define dso_local void @test_write_zt_u8(
-// CHECK-SAME: <vscale x 16 x i8> [[V:%.*]]) #[[ATTR2:[0-9]+]] {
+// CHECK-SAME: <vscale x 16 x b8> [[V:%.*]]) #[[ATTR2:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[V]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z16test_write_zt_u8u11__SVUint8_t(
-// CPP-CHECK-SAME: <vscale x 16 x i8> [[V:%.*]]) #[[ATTR2:[0-9]+]] {
+// CPP-CHECK-SAME: <vscale x 16 x b8> [[V:%.*]]) #[[ATTR2:[0-9]+]] {
 // CPP-CHECK-NEXT:  [[ENTRY:.*:]]
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[V]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_write_zt_u8(svuint8_t v) __arm_streaming __arm_out("zt0") {
@@ -226,15 +232,17 @@ void test_write_zt_u8(svuint8_t v) __arm_streaming __arm_out("zt0") {
 }
 
 // CHECK-LABEL: define dso_local void @test_write_zt_s8(
-// CHECK-SAME: <vscale x 16 x i8> [[V:%.*]]) #[[ATTR2]] {
+// CHECK-SAME: <vscale x 16 x b8> [[V:%.*]]) #[[ATTR2]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[V]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]])
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: define dso_local void @_Z16test_write_zt_s8u10__SVInt8_t(
-// CPP-CHECK-SAME: <vscale x 16 x i8> [[V:%.*]]) #[[ATTR2]] {
+// CPP-CHECK-SAME: <vscale x 16 x b8> [[V:%.*]]) #[[ATTR2]] {
 // CPP-CHECK-NEXT:  [[ENTRY:.*:]]
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[V]])
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[V]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.write.zt.nxv16i8(i32 0, <vscale x 16 x i8> [[TMP0]])
 // CPP-CHECK-NEXT:    ret void
 //
 void test_write_zt_s8(svint8_t v) __arm_streaming __arm_out("zt0") {

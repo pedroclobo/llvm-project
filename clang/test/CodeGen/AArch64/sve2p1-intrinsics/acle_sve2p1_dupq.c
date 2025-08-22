@@ -34,33 +34,41 @@
 #define ATTR
 #endif
 
-// CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svdup_laneq_s8
-// CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-LABEL: define dso_local <vscale x 16 x b8> @test_svdup_laneq_s8
+// CHECK-SAME: (<vscale x 16 x b8> [[ZN:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dup.laneq.nxv16i8(<vscale x 16 x i8> [[ZN]], i32 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dup.laneq.nxv16i8(<vscale x 16 x i8> [[TMP0]], i32 0)
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CPP-CHECK-LABEL: define dso_local <vscale x 16 x i8> @_Z19test_svdup_laneq_s8u10__SVInt8_t
-// CPP-CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]]) #[[ATTR0:[0-9]+]] {
+// CPP-CHECK-LABEL: define dso_local <vscale x 16 x b8> @_Z19test_svdup_laneq_s8u10__SVInt8_t
+// CPP-CHECK-SAME: (<vscale x 16 x b8> [[ZN:%.*]]) #[[ATTR0:[0-9]+]] {
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dup.laneq.nxv16i8(<vscale x 16 x i8> [[ZN]], i32 0)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dup.laneq.nxv16i8(<vscale x 16 x i8> [[TMP0]], i32 0)
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svint8_t test_svdup_laneq_s8(svint8_t zn) ATTR {
     return SVE_ACLE_FUNC(svdup_laneq, _s8)(zn, 0);
 }
 
-// CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svdup_laneq_u8
-// CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <vscale x 16 x b8> @test_svdup_laneq_u8
+// CHECK-SAME: (<vscale x 16 x b8> [[ZN:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dup.laneq.nxv16i8(<vscale x 16 x i8> [[ZN]], i32 15)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dup.laneq.nxv16i8(<vscale x 16 x i8> [[TMP0]], i32 15)
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CPP-CHECK-LABEL: define dso_local <vscale x 16 x i8> @_Z19test_svdup_laneq_u8u11__SVUint8_t
-// CPP-CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]]) #[[ATTR0]] {
+// CPP-CHECK-LABEL: define dso_local <vscale x 16 x b8> @_Z19test_svdup_laneq_u8u11__SVUint8_t
+// CPP-CHECK-SAME: (<vscale x 16 x b8> [[ZN:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dup.laneq.nxv16i8(<vscale x 16 x i8> [[ZN]], i32 15)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dup.laneq.nxv16i8(<vscale x 16 x i8> [[TMP0]], i32 15)
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP1]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svdup_laneq_u8(svuint8_t zn) ATTR {
     return SVE_ACLE_FUNC(svdup_laneq, _u8)(zn, 15);

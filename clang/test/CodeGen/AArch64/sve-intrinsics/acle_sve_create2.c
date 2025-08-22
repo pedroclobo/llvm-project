@@ -24,15 +24,15 @@
 
 // CHECK-LABEL: @test_svcreate2_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[X0:%.*]], 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[X1:%.*]], 1
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[X0:%.*]], 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[X1:%.*]], 1
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z17test_svcreate2_s8u10__SVInt8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[X0:%.*]], 0
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[X1:%.*]], 1
-// CPP-CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[X0:%.*]], 0
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[X1:%.*]], 1
+// CPP-CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]]
 //
 svint8x2_t test_svcreate2_s8(svint8_t x0, svint8_t x1) ATTR
 {
@@ -92,15 +92,15 @@ svint64x2_t test_svcreate2_s64(svint64_t x0, svint64_t x1) ATTR
 
 // CHECK-LABEL: @test_svcreate2_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[X0:%.*]], 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[X1:%.*]], 1
-// CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[X0:%.*]], 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[X1:%.*]], 1
+// CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z17test_svcreate2_u8u11__SVUint8_tS_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } poison, <vscale x 16 x i8> [[X0:%.*]], 0
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP0]], <vscale x 16 x i8> [[X1:%.*]], 1
-// CPP-CHECK-NEXT:    ret { <vscale x 16 x i8>, <vscale x 16 x i8> } [[TMP1]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } poison, <vscale x 16 x b8> [[X0:%.*]], 0
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = insertvalue { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP0]], <vscale x 16 x b8> [[X1:%.*]], 1
+// CPP-CHECK-NEXT:    ret { <vscale x 16 x b8>, <vscale x 16 x b8> } [[TMP1]]
 //
 svuint8x2_t test_svcreate2_u8(svuint8_t x0, svuint8_t x1) ATTR
 {

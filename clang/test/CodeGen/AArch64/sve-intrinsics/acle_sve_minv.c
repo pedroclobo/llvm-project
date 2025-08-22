@@ -25,13 +25,21 @@
 
 // CHECK-LABEL: @test_svminv_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call i8 @llvm.aarch64.sve.sminv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP:%.*]])
-// CHECK-NEXT:    ret i8 [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca b8, align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i8 @llvm.aarch64.sve.sminv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[RETVAL]], align 1
+// CHECK-NEXT:    [[TMP2:%.*]] = load b8, ptr [[RETVAL]], align 1
+// CHECK-NEXT:    ret b8 [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svminv_s8u10__SVBool_tu10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call i8 @llvm.aarch64.sve.sminv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP:%.*]])
-// CPP-CHECK-NEXT:    ret i8 [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca b8, align 1
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call i8 @llvm.aarch64.sve.sminv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    store i8 [[TMP1]], ptr [[RETVAL]], align 1
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = load b8, ptr [[RETVAL]], align 1
+// CPP-CHECK-NEXT:    ret b8 [[TMP2]]
 //
 int8_t test_svminv_s8(svbool_t pg, svint8_t op) MODE_ATTR
 {
@@ -91,13 +99,21 @@ int64_t test_svminv_s64(svbool_t pg, svint64_t op) MODE_ATTR
 
 // CHECK-LABEL: @test_svminv_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call i8 @llvm.aarch64.sve.uminv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP:%.*]])
-// CHECK-NEXT:    ret i8 [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca b8, align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i8 @llvm.aarch64.sve.uminv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[RETVAL]], align 1
+// CHECK-NEXT:    [[TMP2:%.*]] = load b8, ptr [[RETVAL]], align 1
+// CHECK-NEXT:    ret b8 [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z14test_svminv_u8u10__SVBool_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call i8 @llvm.aarch64.sve.uminv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[OP:%.*]])
-// CPP-CHECK-NEXT:    ret i8 [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca b8, align 1
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[OP:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call i8 @llvm.aarch64.sve.uminv.nxv16i8(<vscale x 16 x i1> [[PG:%.*]], <vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    store i8 [[TMP1]], ptr [[RETVAL]], align 1
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = load b8, ptr [[RETVAL]], align 1
+// CPP-CHECK-NEXT:    ret b8 [[TMP2]]
 //
 uint8_t test_svminv_u8(svbool_t pg, svuint8_t op) MODE_ATTR
 {

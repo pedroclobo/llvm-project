@@ -17,12 +17,20 @@
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_s8_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.stmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.stmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z28test_svtmopa_lane_za32_s8_s810svint8x2_tu10__SVInt8_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.stmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.stmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_s8_s8(svint8x2_t zn, svint8_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -31,12 +39,20 @@ void test_svtmopa_lane_za32_s8_s8(svint8x2_t zn, svint8_t zm, svuint8_t zk) __ar
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_u8_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.utmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.utmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z28test_svtmopa_lane_za32_u8_u811svuint8x2_tu11__SVUint8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.utmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.utmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_u8_u8(svuint8x2_t zn, svuint8_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -45,12 +61,20 @@ void test_svtmopa_lane_za32_u8_u8(svuint8x2_t zn, svuint8_t zm, svuint8_t zk) __
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_s8_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sutmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.sutmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z28test_svtmopa_lane_za32_s8_u810svint8x2_tu11__SVUint8_tS0_(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sutmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.sutmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_s8_u8(svint8x2_t zn, svuint8_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -59,12 +83,20 @@ void test_svtmopa_lane_za32_s8_u8(svint8x2_t zn, svuint8_t zm, svuint8_t zk) __a
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_u8_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ustmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ustmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z28test_svtmopa_lane_za32_u8_s811svuint8x2_tu10__SVInt8_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ustmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE0:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN_COERCE1:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ustmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]], <vscale x 16 x i8> [[TMP2]], <vscale x 16 x i8> [[TMP3]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_u8_s8(svuint8x2_t zn, svint8_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -73,12 +105,14 @@ void test_svtmopa_lane_za32_u8_s8(svuint8x2_t zn, svint8_t zm, svuint8_t zk) __a
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_s16_s16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.stmopa.za32.nxv8i16(i32 1, <vscale x 8 x i16> [[ZN_COERCE0:%.*]], <vscale x 8 x i16> [[ZN_COERCE1:%.*]], <vscale x 8 x i16> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.stmopa.za32.nxv8i16(i32 1, <vscale x 8 x i16> [[ZN_COERCE0:%.*]], <vscale x 8 x i16> [[ZN_COERCE1:%.*]], <vscale x 8 x i16> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z30test_svtmopa_lane_za32_s16_s1611svint16x2_tu11__SVInt16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.stmopa.za32.nxv8i16(i32 1, <vscale x 8 x i16> [[ZN_COERCE0:%.*]], <vscale x 8 x i16> [[ZN_COERCE1:%.*]], <vscale x 8 x i16> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.stmopa.za32.nxv8i16(i32 1, <vscale x 8 x i16> [[ZN_COERCE0:%.*]], <vscale x 8 x i16> [[ZN_COERCE1:%.*]], <vscale x 8 x i16> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_s16_s16(svint16x2_t zn, svint16_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -87,12 +121,14 @@ void test_svtmopa_lane_za32_s16_s16(svint16x2_t zn, svint16_t zm, svuint8_t zk) 
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_u16_u16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.utmopa.za32.nxv8i16(i32 1, <vscale x 8 x i16> [[ZN_COERCE0:%.*]], <vscale x 8 x i16> [[ZN_COERCE1:%.*]], <vscale x 8 x i16> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.utmopa.za32.nxv8i16(i32 1, <vscale x 8 x i16> [[ZN_COERCE0:%.*]], <vscale x 8 x i16> [[ZN_COERCE1:%.*]], <vscale x 8 x i16> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z30test_svtmopa_lane_za32_u16_u1612svuint16x2_tu12__SVUint16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.utmopa.za32.nxv8i16(i32 1, <vscale x 8 x i16> [[ZN_COERCE0:%.*]], <vscale x 8 x i16> [[ZN_COERCE1:%.*]], <vscale x 8 x i16> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.utmopa.za32.nxv8i16(i32 1, <vscale x 8 x i16> [[ZN_COERCE0:%.*]], <vscale x 8 x i16> [[ZN_COERCE1:%.*]], <vscale x 8 x i16> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_u16_u16(svuint16x2_t zn, svuint16_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -101,12 +137,14 @@ void test_svtmopa_lane_za32_u16_u16(svuint16x2_t zn, svuint16_t zm, svuint8_t zk
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_f16_f16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv8f16(i32 1, <vscale x 8 x half> [[ZN_COERCE0:%.*]], <vscale x 8 x half> [[ZN_COERCE1:%.*]], <vscale x 8 x half> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv8f16(i32 1, <vscale x 8 x half> [[ZN_COERCE0:%.*]], <vscale x 8 x half> [[ZN_COERCE1:%.*]], <vscale x 8 x half> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z30test_svtmopa_lane_za32_f16_f1613svfloat16x2_tu13__SVFloat16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv8f16(i32 1, <vscale x 8 x half> [[ZN_COERCE0:%.*]], <vscale x 8 x half> [[ZN_COERCE1:%.*]], <vscale x 8 x half> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv8f16(i32 1, <vscale x 8 x half> [[ZN_COERCE0:%.*]], <vscale x 8 x half> [[ZN_COERCE1:%.*]], <vscale x 8 x half> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_f16_f16(svfloat16x2_t zn, svfloat16_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -115,12 +153,14 @@ void test_svtmopa_lane_za32_f16_f16(svfloat16x2_t zn, svfloat16_t zm, svuint8_t 
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_f32_f32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv4f32(i32 1, <vscale x 4 x float> [[ZN_COERCE0:%.*]], <vscale x 4 x float> [[ZN_COERCE1:%.*]], <vscale x 4 x float> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv4f32(i32 1, <vscale x 4 x float> [[ZN_COERCE0:%.*]], <vscale x 4 x float> [[ZN_COERCE1:%.*]], <vscale x 4 x float> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z30test_svtmopa_lane_za32_f32_f3213svfloat32x2_tu13__SVFloat32_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv4f32(i32 1, <vscale x 4 x float> [[ZN_COERCE0:%.*]], <vscale x 4 x float> [[ZN_COERCE1:%.*]], <vscale x 4 x float> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv4f32(i32 1, <vscale x 4 x float> [[ZN_COERCE0:%.*]], <vscale x 4 x float> [[ZN_COERCE1:%.*]], <vscale x 4 x float> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_f32_f32(svfloat32x2_t zn, svfloat32_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -129,12 +169,14 @@ void test_svtmopa_lane_za32_f32_f32(svfloat32x2_t zn, svfloat32_t zm, svuint8_t 
 
 // CHECK-LABEL: @test_svtmopa_lane_za32_bf16_bf16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv8bf16(i32 1, <vscale x 8 x bfloat> [[ZN_COERCE0:%.*]], <vscale x 8 x bfloat> [[ZN_COERCE1:%.*]], <vscale x 8 x bfloat> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv8bf16(i32 1, <vscale x 8 x bfloat> [[ZN_COERCE0:%.*]], <vscale x 8 x bfloat> [[ZN_COERCE1:%.*]], <vscale x 8 x bfloat> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z32test_svtmopa_lane_za32_bf16_bf1614svbfloat16x2_tu14__SVBfloat16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv8bf16(i32 1, <vscale x 8 x bfloat> [[ZN_COERCE0:%.*]], <vscale x 8 x bfloat> [[ZN_COERCE1:%.*]], <vscale x 8 x bfloat> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv8bf16(i32 1, <vscale x 8 x bfloat> [[ZN_COERCE0:%.*]], <vscale x 8 x bfloat> [[ZN_COERCE1:%.*]], <vscale x 8 x bfloat> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_bf16_bf16(svbfloat16x2_t zn, svbfloat16_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -143,12 +185,14 @@ void test_svtmopa_lane_za32_bf16_bf16(svbfloat16x2_t zn, svbfloat16_t zm, svuint
 
 // CHECK-LABEL: @test_svtmopa_lane_za16_f16_f16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv8f16(i32 1, <vscale x 8 x half> [[ZN_COERCE0:%.*]], <vscale x 8 x half> [[ZN_COERCE1:%.*]], <vscale x 8 x half> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv8f16(i32 1, <vscale x 8 x half> [[ZN_COERCE0:%.*]], <vscale x 8 x half> [[ZN_COERCE1:%.*]], <vscale x 8 x half> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z30test_svtmopa_lane_za16_f16_f1613svfloat16x2_tu13__SVFloat16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv8f16(i32 1, <vscale x 8 x half> [[ZN_COERCE0:%.*]], <vscale x 8 x half> [[ZN_COERCE1:%.*]], <vscale x 8 x half> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv8f16(i32 1, <vscale x 8 x half> [[ZN_COERCE0:%.*]], <vscale x 8 x half> [[ZN_COERCE1:%.*]], <vscale x 8 x half> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za16_f16_f16(svfloat16x2_t zn, svfloat16_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -157,12 +201,14 @@ void test_svtmopa_lane_za16_f16_f16(svfloat16x2_t zn, svfloat16_t zm, svuint8_t 
 
 // CHECK-LABEL: @test_svtmopa_lane_za16_bf16_bf16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv8bf16(i32 1, <vscale x 8 x bfloat> [[ZN_COERCE0:%.*]], <vscale x 8 x bfloat> [[ZN_COERCE1:%.*]], <vscale x 8 x bfloat> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv8bf16(i32 1, <vscale x 8 x bfloat> [[ZN_COERCE0:%.*]], <vscale x 8 x bfloat> [[ZN_COERCE1:%.*]], <vscale x 8 x bfloat> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z32test_svtmopa_lane_za16_bf16_bf1614svbfloat16x2_tu14__SVBfloat16_tu11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv8bf16(i32 1, <vscale x 8 x bfloat> [[ZN_COERCE0:%.*]], <vscale x 8 x bfloat> [[ZN_COERCE1:%.*]], <vscale x 8 x bfloat> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv8bf16(i32 1, <vscale x 8 x bfloat> [[ZN_COERCE0:%.*]], <vscale x 8 x bfloat> [[ZN_COERCE1:%.*]], <vscale x 8 x bfloat> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za16_bf16_bf16(svbfloat16x2_t zn, svbfloat16_t zm, svuint8_t zk) __arm_streaming __arm_inout("za") {
@@ -172,13 +218,15 @@ void test_svtmopa_lane_za16_bf16_bf16(svbfloat16x2_t zn, svbfloat16_t zm, svuint
 // CHECK-LABEL: @test_svtmopa_lane_za16_mf8_mf8_fpm(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR:%.*]])
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z34test_svtmopa_lane_za16_mf8_mf8_fpm13svmfloat8x2_tu13__SVMfloat8_tu11__SVUint8_tm(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR:%.*]])
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za16.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za16_mf8_mf8_fpm(svmfloat8x2_t zn, svmfloat8_t zm, svuint8_t zk, fpm_t fpmr) __arm_streaming __arm_inout("za") {
@@ -188,13 +236,15 @@ void test_svtmopa_lane_za16_mf8_mf8_fpm(svmfloat8x2_t zn, svmfloat8_t zm, svuint
 // CHECK-LABEL: @test_svtmopa_lane_za32_mf8_mf8_fpm(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR:%.*]])
-// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CHECK-NEXT:    ret void
 //
 // CPP-CHECK-LABEL: @_Z34test_svtmopa_lane_za32_mf8_mf8_fpm13svmfloat8x2_tu13__SVMfloat8_tu11__SVUint8_tm(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    tail call void @llvm.aarch64.set.fpmr(i64 [[FPMR:%.*]])
-// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[ZK:%.*]], i32 3)
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZK:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    tail call void @llvm.aarch64.sme.ftmopa.za32.nxv16i8(i32 1, <vscale x 16 x i8> [[ZN_COERCE0:%.*]], <vscale x 16 x i8> [[ZN_COERCE1:%.*]], <vscale x 16 x i8> [[ZM:%.*]], <vscale x 16 x i8> [[TMP0]], i32 3)
 // CPP-CHECK-NEXT:    ret void
 //
 void test_svtmopa_lane_za32_mf8_mf8_fpm(svmfloat8x2_t zn, svmfloat8_t zm, svuint8_t zk, fpm_t fpmr) __arm_streaming __arm_inout("za") {
