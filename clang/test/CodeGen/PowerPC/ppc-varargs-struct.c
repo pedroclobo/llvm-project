@@ -20,16 +20,17 @@ void testva (int n, ...)
 
 // CHECK-PPC:  [[ARRAYDECAY:%.+]] = getelementptr inbounds [1 x %struct.__va_list_tag], ptr %ap, i32 0, i32 0
 // CHECK-PPC-NEXT:  [[GPRPTR:%.+]] = getelementptr inbounds nuw %struct.__va_list_tag, ptr [[ARRAYDECAY]], i32 0, i32 0
-// CHECK-PPC-NEXT:  [[GPR:%.+]] = load i8, ptr [[GPRPTR]], align 4
-// CHECK-PPC-NEXT:  [[COND:%.+]] = icmp ult i8 [[GPR]], 8
+// CHECK-PPC-NEXT:  [[GPR:%.+]] = load b8, ptr [[GPRPTR]], align 4
+// CHECK-PPC-NEXT:  [[CONV:%.+]] = bytecast b8 [[GPR]] to i8
+// CHECK-PPC-NEXT:  [[COND:%.+]] = icmp ult i8 [[CONV]], 8
 // CHECK-PPC-NEXT:  br i1 [[COND]], label %[[USING_REGS:[a-z_0-9]+]], label %[[USING_OVERFLOW:[a-z_0-9]+]]
 //
 // CHECK-PPC:[[USING_REGS]]
 // CHECK-PPC-NEXT:  [[REGSAVE_AREA_P:%.+]] = getelementptr inbounds nuw %struct.__va_list_tag, ptr [[ARRAYDECAY]], i32 0, i32 4
 // CHECK-PPC-NEXT:  [[REGSAVE_AREA:%.+]] = load ptr, ptr [[REGSAVE_AREA_P]], align 4
-// CHECK-PPC-NEXT:  [[OFFSET:%.+]] = mul i8 [[GPR]], 4
+// CHECK-PPC-NEXT:  [[OFFSET:%.+]] = mul i8 [[CONV]], 4
 // CHECK-PPC-NEXT:  [[RAW_REGADDR:%.+]] = getelementptr inbounds i8, ptr [[REGSAVE_AREA]], i8 [[OFFSET]]
-// CHECK-PPC-NEXT:  [[USED_GPR:%[0-9]+]] = add i8 [[GPR]], 1
+// CHECK-PPC-NEXT:  [[USED_GPR:%[0-9]+]] = add i8 [[CONV]], 1
 // CHECK-PPC-NEXT:  store i8 [[USED_GPR]], ptr [[GPRPTR]], align 4
 // CHECK-PPC-NEXT:  br label %[[CONT:[a-z0-9]+]]
 //
@@ -53,16 +54,17 @@ void testva (int n, ...)
 // CHECK: getelementptr inbounds i8, ptr %{{[a-z.0-9]*}}, i64 4
 // CHECK-PPC:       [[ARRAYDECAY:%[a-z0-9]+]] = getelementptr inbounds [1 x %struct.__va_list_tag], ptr %ap, i32 0, i32 0
 // CHECK-PPC-NEXT:  [[GPRPTR:%.+]] = getelementptr inbounds nuw %struct.__va_list_tag, ptr [[ARRAYDECAY]], i32 0, i32 0
-// CHECK-PPC-NEXT:  [[GPR:%.+]] = load i8, ptr [[GPRPTR]], align 4
-// CHECK-PPC-NEXT:  [[COND:%.+]] = icmp ult i8 [[GPR]], 8
+// CHECK-PPC-NEXT:  [[GPR:%.+]] = load b8, ptr [[GPRPTR]], align 4
+// CHECK-PPC-NEXT:  [[CONV:%.+]] = bytecast b8 [[GPR]] to i8
+// CHECK-PPC-NEXT:  [[COND:%.+]] = icmp ult i8 [[CONV]], 8
 // CHECK-PPC-NEXT:  br i1 [[COND]], label %[[USING_REGS:.+]], label %[[USING_OVERFLOW:.+]]{{$}}
 //
 // CHECK-PPC:[[USING_REGS]]
 // CHECK-PPC-NEXT:  [[REGSAVE_AREA_P:%.+]] = getelementptr inbounds nuw %struct.__va_list_tag, ptr [[ARRAYDECAY]], i32 0, i32 4
 // CHECK-PPC-NEXT:  [[REGSAVE_AREA:%.+]] = load ptr, ptr [[REGSAVE_AREA_P]], align 4
-// CHECK-PPC-NEXT:  [[OFFSET:%.+]] = mul i8 [[GPR]], 4
+// CHECK-PPC-NEXT:  [[OFFSET:%.+]] = mul i8 [[CONV]], 4
 // CHECK-PPC-NEXT:  [[RAW_REGADDR:%.+]] = getelementptr inbounds i8, ptr [[REGSAVE_AREA]], i8 [[OFFSET]]
-// CHECK-PPC-NEXT:  [[USED_GPR:%[0-9]+]] = add i8 [[GPR]], 1
+// CHECK-PPC-NEXT:  [[USED_GPR:%[0-9]+]] = add i8 [[CONV]], 1
 // CHECK-PPC-NEXT:  store i8 [[USED_GPR]], ptr [[GPRPTR]], align 4
 // CHECK-PPC-NEXT:  br label %[[CONT:[a-z0-9]+]]
 //

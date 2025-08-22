@@ -13,7 +13,7 @@
 #define ASYNC_CONTEXT __attribute__((swift_async_context))
 
 // CHECK-DAG: %struct.atomic_padded = type { { %struct.packed, [7 x i8] } }
-// CHECK-DAG: %struct.packed = type <{ i64, i8 }>
+// CHECK-DAG: %struct.packed = type <{ i64, b8 }>
 
 /*****************************************************************************/
 /****************************** PARAMETER ABIS *******************************/
@@ -527,8 +527,8 @@ typedef struct {
   char c0;
 } struct_c1;
 TEST(struct_c1)
-// CHECK-LABEL: define{{.*}} swiftcc i8 @return_struct_c1()
-// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_c1(i8 %0)
+// CHECK-LABEL: define{{.*}} swiftcc b8 @return_struct_c1()
+// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_c1(b8 %0)
 
 typedef struct {
   char c0;
@@ -581,8 +581,8 @@ typedef struct {
   char c8;
 } struct_c9;
 TEST(struct_c9)
-// CHECK-LABEL: define{{.*}} swiftcc { i64, i8 } @return_struct_c9()
-// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_c9(i64 %0, i8 %1)
+// CHECK-LABEL: define{{.*}} swiftcc { i64, b8 } @return_struct_c9()
+// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_c9(i64 %0, b8 %1)
 
 typedef struct {
   short s0;
@@ -714,16 +714,16 @@ typedef struct {
   char16 c0;
 } struct_vc1;
 TEST(struct_vc1)
-// CHECK-LABEL: define{{.*}} swiftcc <16 x i8> @return_struct_vc1()
-// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_vc1(<16 x i8> %0)
+// CHECK-LABEL: define{{.*}} swiftcc <16 x b8> @return_struct_vc1()
+// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_vc1(<16 x b8> %0)
 
 typedef struct {
   char16 c0;
   char16 c1;
 } struct_vc2;
 TEST(struct_vc2)
-// CHECK-LABEL: define{{.*}} swiftcc { <16 x i8>, <16 x i8> } @return_struct_vc2()
-// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_vc2(<16 x i8> %0, <16 x i8> %1)
+// CHECK-LABEL: define{{.*}} swiftcc { <16 x b8>, <16 x b8> } @return_struct_vc2()
+// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_vc2(<16 x b8> %0, <16 x b8> %1)
 
 typedef struct {
   char16 c0;
@@ -731,8 +731,8 @@ typedef struct {
   char16 c2;
 } struct_vc3;
 TEST(struct_vc3)
-// CHECK-LABEL: define{{.*}} swiftcc { <16 x i8>, <16 x i8>, <16 x i8> } @return_struct_vc3()
-// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_vc3(<16 x i8> %0, <16 x i8> %1, <16 x i8> %2)
+// CHECK-LABEL: define{{.*}} swiftcc { <16 x b8>, <16 x b8>, <16 x b8> } @return_struct_vc3()
+// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_vc3(<16 x b8> %0, <16 x b8> %1, <16 x b8> %2)
 
 typedef struct {
   char16 c0;
@@ -741,8 +741,8 @@ typedef struct {
   char16 c3;
 } struct_vc4;
 TEST(struct_vc4)
-// CHECK-LABEL: define{{.*}} swiftcc { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @return_struct_vc4()
-// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_vc4(<16 x i8> %0, <16 x i8> %1, <16 x i8> %2, <16 x i8> %3)
+// CHECK-LABEL: define{{.*}} swiftcc { <16 x b8>, <16 x b8>, <16 x b8>, <16 x b8> } @return_struct_vc4()
+// CHECK-LABEL: define{{.*}} swiftcc void @take_struct_vc4(<16 x b8> %0, <16 x b8> %1, <16 x b8> %2, <16 x b8> %3)
 
 typedef struct {
   char16 c0;

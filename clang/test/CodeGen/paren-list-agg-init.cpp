@@ -13,7 +13,7 @@ struct IsChar<char> {
 template <typename T>
 concept SameAsChar = (bool)IsInt<T>();
 
-// CHECK-DAG: [[STRUCT_A:%.*]] = type { i8, double }
+// CHECK-DAG: [[STRUCT_A:%.*]] = type { b8, double }
 struct A {
   char i;
   double j;
@@ -82,7 +82,7 @@ namespace gh61145 {
     Vec v;
   };
 
-  // CHECK-DAG: [[STRUCT_S2:%.*]] = type { i8, i8 }
+  // CHECK-DAG: [[STRUCT_S2:%.*]] = type { i8, b8 }
   struct S2 {
     Vec v;
     char c;
@@ -106,17 +106,17 @@ namespace gh61567 {
   };
 }
 
-// CHECK-DAG: [[A1:@.*a1.*]] = internal constant [[STRUCT_A]] { i8 3, double 2.000000e+00 }, align 8
+// CHECK-DAG: [[A1:@.*a1.*]] = internal constant [[STRUCT_A]] { b8 3, double 2.000000e+00 }, align 8
 constexpr A a1(3.1, 2.0);
-// CHECK-DAG: [[A2:@.*a2.*]] = internal constant [[STRUCT_A]] { i8 99, double 0.000000e+00 }, align 8
+// CHECK-DAG: [[A2:@.*a2.*]] = internal constant [[STRUCT_A]] { b8 99, double 0.000000e+00 }, align 8
 constexpr auto a2 = static_cast<A>('c');
-// CHECK-DAG: [[B1:@.*b1.*]] = internal constant [[STRUCT_B]] { [[STRUCT_A]] { i8 99, double 0.000000e+00 }, i32 0 }, align 8
+// CHECK-DAG: [[B1:@.*b1.*]] = internal constant [[STRUCT_B]] { [[STRUCT_A]] { b8 99, double 0.000000e+00 }, i32 0 }, align 8
 constexpr B b1(A('c'));
-// CHECK-DAG: [[C1:@.*c1.*]] = internal constant { [[STRUCT_A]], i32, [4 x i8], i8, double, i32 } { [[STRUCT_A]] { i8 99, double 0.000000e+00 }, i32 0, [4 x i8] undef, i8 3, double 2.000000e+00, i32 0 }, align
+// CHECK-DAG: [[C1:@.*c1.*]] = internal constant { [[STRUCT_A]], i32, [4 x i8], b8, double, i32 } { [[STRUCT_A]] { b8 99, double 0.000000e+00 }, i32 0, [4 x i8] undef, b8 3, double 2.000000e+00, i32 0 }, align
 constexpr C c1(b1, a1);
-// CHECK-DAG: [[U1:@.*u1.*]] = internal constant [[UNION_U]] { [[STRUCT_A]] { i8 1, double 1.000000e+00 } }, align 8
+// CHECK-DAG: [[U1:@.*u1.*]] = internal constant [[UNION_U]] { [[STRUCT_A]] { b8 1, double 1.000000e+00 } }, align 8
 constexpr U u1(A(1, 1));
-// CHECK-DAG: [[D1:@.*d1.*]] = internal constant { [[STRUCT_A]], [[STRUCT_A]], [8 x i8], [[STRUCT_A]] } { [[STRUCT_A]] { i8 2, double 2.000000e+00 }, [[STRUCT_A]] { i8 2, double 2.000000e+00 }, [8 x i8] undef, [[STRUCT_A]] zeroinitializer }, align 8
+// CHECK-DAG: [[D1:@.*d1.*]] = internal constant { [[STRUCT_A]], [[STRUCT_A]], [8 x i8], [[STRUCT_A]] } { [[STRUCT_A]] { b8 2, double 2.000000e+00 }, [[STRUCT_A]] { b8 2, double 2.000000e+00 }, [8 x i8] undef, [[STRUCT_A]] zeroinitializer }, align 8
 constexpr D d1(A(2, 2));
 // CHECK-DAG: [[ARR1:@.*arr1.*]] = internal constant [3 x i32] [i32 1, i32 2, i32 0], align 4
 constexpr int arr1[3](1, 2);
@@ -125,12 +125,12 @@ constexpr int arr4[](1);
 // CHECK-DAG: [[ARR5:@.*arr5.*]] = internal constant [2 x i32] [i32 2, i32 0], align 4
 constexpr int arr5[2](2);
 
-// CHECK: define dso_local { i8, double } @{{.*foo1.*}}
+// CHECK: define dso_local { b8, double } @{{.*foo1.*}}
 // CHECK-NEXT: entry:
 // CHECK-NEXT: [[RETVAL:%.*]] = alloca [[STRUCT_A]], align 8
 // CHECK-NEXT: call void @llvm.memcpy.p0.p0.i64(ptr align 8 [[RETVAL]], ptr align 8 [[A1]], i64 16, i1 false)
-// CHECK-NEXT: [[TMP_0:%.*]] = load { i8, double }, ptr [[RETVAL]], align 8
-// CHECK-NEXT: ret { i8, double } [[TMP_0]]
+// CHECK-NEXT: [[TMP_0:%.*]] = load { b8, double }, ptr [[RETVAL]], align 8
+// CHECK-NEXT: ret { b8, double } [[TMP_0]]
 A foo1() {
   return a1;
 }

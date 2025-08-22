@@ -12,7 +12,8 @@ typedef unsigned int v4u32 __attribute__((ext_vector_type(4)));
 // CHECK-LABEL: @test_amdgcn_raw_ptr_buffer_load_b8(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call i8 @llvm.amdgcn.raw.ptr.buffer.load.i8(ptr addrspace(8) [[RSRC:%.*]], i32 0, i32 0, i32 0)
-// CHECK-NEXT:    ret i8 [[TMP0]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i8 [[TMP0]] to b8
+// CHECK-NEXT:    ret b8 [[TMP1]]
 //
 u8 test_amdgcn_raw_ptr_buffer_load_b8(__amdgpu_buffer_rsrc_t rsrc, int offset, int soffset) {
   return __builtin_amdgcn_raw_buffer_load_b8(rsrc, /*offset=*/0, /*soffset=*/0, /*aux=*/0);
@@ -66,7 +67,8 @@ v4u32 test_amdgcn_raw_ptr_buffer_load_b128(__amdgpu_buffer_rsrc_t rsrc, int offs
 // CHECK-LABEL: @test_amdgcn_raw_ptr_buffer_load_b8_non_const_offset(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call i8 @llvm.amdgcn.raw.ptr.buffer.load.i8(ptr addrspace(8) [[RSRC:%.*]], i32 [[OFFSET:%.*]], i32 0, i32 0)
-// CHECK-NEXT:    ret i8 [[TMP0]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i8 [[TMP0]] to b8
+// CHECK-NEXT:    ret b8 [[TMP1]]
 //
 u8 test_amdgcn_raw_ptr_buffer_load_b8_non_const_offset(__amdgpu_buffer_rsrc_t rsrc, int offset, int soffset) {
   return __builtin_amdgcn_raw_buffer_load_b8(rsrc, offset, /*soffset=*/0, /*aux=*/0);
@@ -120,7 +122,8 @@ v4u32 test_amdgcn_raw_ptr_buffer_load_b128_non_const_offset(__amdgpu_buffer_rsrc
 // CHECK-LABEL: @test_amdgcn_raw_ptr_buffer_load_b8_non_const_soffset(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call i8 @llvm.amdgcn.raw.ptr.buffer.load.i8(ptr addrspace(8) [[RSRC:%.*]], i32 0, i32 [[SOFFSET:%.*]], i32 0)
-// CHECK-NEXT:    ret i8 [[TMP0]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast i8 [[TMP0]] to b8
+// CHECK-NEXT:    ret b8 [[TMP1]]
 //
 u8 test_amdgcn_raw_ptr_buffer_load_b8_non_const_soffset(__amdgpu_buffer_rsrc_t rsrc, int offset, int soffset) {
   return __builtin_amdgcn_raw_buffer_load_b8(rsrc, /*offset=*/0, soffset, /*aux=*/0);

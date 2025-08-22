@@ -18,7 +18,7 @@ typedef __attribute__(( ext_vector_type(3) ))  double __double3;
 // Passing legal vector types as varargs. Check that we've allocated the appropriate size
 double varargs_vec_2c(int fixed, ...) {
 // ANDROID: varargs_vec_2c
-// ANDROID: [[VAR:%.*]] = alloca <2 x i8>, align 2
+// ANDROID: [[VAR:%.*]] = alloca <2 x b8>, align 2
 // ANDROID: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP_CUR:%.*]], i64 8
   va_list ap;
   double sum = fixed;
@@ -36,7 +36,7 @@ double test_2c(__char2 *in) {
 
 double varargs_vec_3c(int fixed, ...) {
 // CHECK: varargs_vec_3c
-// CHECK: alloca <3 x i8>, align 4
+// CHECK: alloca <3 x b8>, align 4
 // CHECK: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP_CUR:%.*]], i64 8
   va_list ap;
   double sum = fixed;
@@ -55,7 +55,7 @@ double test_3c(__char3 *in) {
 
 double varargs_vec_4c(int fixed, ...) {
 // CHECK: varargs_vec_4c
-// CHECK: alloca <4 x i8>, align 4
+// CHECK: alloca <4 x b8>, align 4
 // CHECK: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP_CUR:%.*]], i64 8
   va_list ap;
   double sum = fixed;
@@ -74,7 +74,7 @@ double test_4c(__char4 *in) {
 
 double varargs_vec_5c(int fixed, ...) {
 // CHECK: varargs_vec_5c
-// CHECK: alloca <5 x i8>, align 8
+// CHECK: alloca <5 x b8>, align 8
 // CHECK: [[AP_NEXT:%.*]] = getelementptr inbounds i8, ptr [[AP_CUR:%.*]], i64 8
   va_list ap;
   double sum = fixed;
@@ -93,7 +93,7 @@ double test_5c(__char5 *in) {
 
 double varargs_vec_9c(int fixed, ...) {
 // CHECK: varargs_vec_9c
-// CHECK: alloca <9 x i8>, align 16
+// CHECK: alloca <9 x b8>, align 16
 // CHECK: [[AP:%.*]] = load ptr, ptr %ap, align 8
 // CHECK: [[AP_ADD:%.*]] = getelementptr inbounds i8, ptr [[AP]], i32 15
 // CHECK: [[AP_ALIGN:%.*]] = call ptr @llvm.ptrmask.p0.i64(ptr [[AP_ADD]], i64 -16)
@@ -297,7 +297,7 @@ double test(__char3 *c3, __char5 *c5, __char9 *c9, __char19 *c19,
 
 __attribute__((noinline)) double args_vec_3c(int fixed, __char3 c3) {
 // CHECK: args_vec_3c
-// CHECK: [[C3:%.*]] = alloca <3 x i8>, align 4
+// CHECK: [[C3:%.*]] = alloca <3 x b8>, align 4
 // CHECK: store i32 {{%.*}}, ptr [[C3]]
   double sum = fixed;
   sum = sum + c3.x + c3.y;
@@ -312,7 +312,7 @@ double fixed_3c(__char3 *in) {
 
 __attribute__((noinline)) double args_vec_5c(int fixed, __char5 c5) {
 // CHECK: args_vec_5c
-// CHECK: [[C5:%.*]] = alloca <5 x i8>, align 8
+// CHECK: [[C5:%.*]] = alloca <5 x b8>, align 8
 // CHECK: store <2 x i32> {{%.*}}, ptr [[C5]], align 8
   double sum = fixed;
   sum = sum + c5.x + c5.y;
@@ -327,7 +327,7 @@ double fixed_5c(__char5 *in) {
 
 __attribute__((noinline)) double args_vec_9c(int fixed, __char9 c9) {
 // CHECK: args_vec_9c
-// CHECK: [[C9:%.*]] = alloca <9 x i8>, align 16
+// CHECK: [[C9:%.*]] = alloca <9 x b8>, align 16
 // CHECK: store <4 x i32> {{%.*}}, ptr [[C9]], align 16
   double sum = fixed;
   sum = sum + c9.x + c9.y;
@@ -342,7 +342,7 @@ double fixed_9c(__char9 *in) {
 
 __attribute__((noinline)) double args_vec_19c(int fixed, __char19 c19) {
 // CHECK: args_vec_19c
-// CHECK: [[C19:%.*]] = load <19 x i8>, ptr {{.*}}, align 16
+// CHECK: [[C19:%.*]] = load <19 x b8>, ptr {{.*}}, align 16
   double sum = fixed;
   sum = sum + c19.x + c19.y;
   return sum;

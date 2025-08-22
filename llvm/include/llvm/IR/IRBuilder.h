@@ -2733,11 +2733,15 @@ public:
 
   /// Return a boolean value testing if \p Arg == 0.
   Value *CreateIsNull(Value *Arg, const Twine &Name = "") {
+    if (Arg->getType()->isByteOrByteVectorTy())
+      Arg = CreateByteCastToInt(Arg, Name, /*IsExact*/ true);
     return CreateICmpEQ(Arg, Constant::getNullValue(Arg->getType()), Name);
   }
 
   /// Return a boolean value testing if \p Arg != 0.
   Value *CreateIsNotNull(Value *Arg, const Twine &Name = "") {
+    if (Arg->getType()->isByteOrByteVectorTy())
+      Arg = CreateByteCastToInt(Arg, Name, /*IsExact*/ true);
     return CreateICmpNE(Arg, Constant::getNullValue(Arg->getType()), Name);
   }
 

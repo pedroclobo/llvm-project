@@ -67,14 +67,15 @@ struct S {
 // CHECK-NEXT:    br label %[[OMP_IF_END]]
 // CHECK:       [[OMP_IF_END]]:
 // CHECK-NEXT:    [[TMP13:%.*]] = tail call i32 @__kmpc_master(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
-// CHECK-NEXT:    [[DOTNOT22:%.*]] = icmp eq i32 [[TMP13]], 0
-// CHECK-NEXT:    br i1 [[DOTNOT22]], label %[[OMP_IF_END17:.*]], label %[[OMP_IF_THEN2:.*]]
+// CHECK-NEXT:    [[DOTNOT23:%.*]] = icmp eq i32 [[TMP13]], 0
+// CHECK-NEXT:    br i1 [[DOTNOT23]], label %[[OMP_IF_END18:.*]], label %[[OMP_IF_THEN2:.*]]
 // CHECK:       [[OMP_IF_THEN2]]:
 // CHECK-NEXT:    tail call void @__kmpc_taskgroup(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
 // CHECK-NEXT:    [[TMP14:%.*]] = load i32, ptr [[ARGC_ADDR]], align 4, !tbaa [[TBAA3]]
 // CHECK-NEXT:    [[TMP15:%.*]] = load ptr, ptr [[ARGV_ADDR]], align 8, !tbaa [[TBAA7]]
 // CHECK-NEXT:    [[IDXPROM:%.*]] = sext i32 [[TMP14]] to i64
 // CHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds ptr, ptr [[TMP15]], i64 [[IDXPROM]]
+<<<<<<< HEAD
 // CHECK-NEXT:    [[TMP16:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8, !tbaa [[TBAA17:![0-9]+]]
 // CHECK-NEXT:    [[ARRAYIDX9:%.*]] = getelementptr inbounds i8, ptr [[TMP16]], i64 [[IDXPROM]]
 // CHECK-NEXT:    [[TMP17:%.*]] = load i8, ptr [[ARRAYIDX9]], align 1, !tbaa [[TBAA19:![0-9]+]]
@@ -83,6 +84,17 @@ struct S {
 // CHECK-NEXT:    [[CONV15:%.*]] = zext i32 [[SUB12]] to i64
 // CHECK-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV15]], [[IDXPROM]]
 // CHECK-NEXT:    [[SUB16:%.*]] = add nsw i64 [[MUL]], -1
+=======
+// CHECK-NEXT:    [[TMP16:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8, !tbaa [[CHARPTR_TBAA17:![0-9]+]]
+// CHECK-NEXT:    [[ARRAYIDX9:%.*]] = getelementptr inbounds b8, ptr [[TMP16]], i64 [[IDXPROM]]
+// CHECK-NEXT:    [[TMP17:%.*]] = load b8, ptr [[ARRAYIDX9]], align 1, !tbaa [[CHAR_TBAA19:![0-9]+]]
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP17]] to i8
+// CHECK-NEXT:    [[CONV10:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[SUB13:%.*]] = sub i32 [[CONV10]], [[TMP14]]
+// CHECK-NEXT:    [[CONV16:%.*]] = zext i32 [[SUB13]] to i64
+// CHECK-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV16]], [[IDXPROM]]
+// CHECK-NEXT:    [[SUB17:%.*]] = add nsw i64 [[MUL]], -1
+>>>>>>> 51b37814d108 (remaining tests)
 // CHECK-NEXT:    [[TMP18:%.*]] = tail call ptr @__kmpc_omp_task_alloc(ptr nonnull @[[GLOB1]], i32 [[TMP0]], i32 1, i64 80, i64 16, ptr nonnull @.omp_task_entry..6)
 // CHECK-NEXT:    [[TMP19:%.*]] = load ptr, ptr [[TMP18]], align 8, !tbaa [[TBAA20:![0-9]+]]
 // CHECK-NEXT:    store ptr [[ARGC_ADDR]], ptr [[TMP19]], align 8, !tbaa [[TBAA23:![0-9]+]]
@@ -94,7 +106,11 @@ struct S {
 // CHECK-NEXT:    [[TMP22:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP18]], i64 40
 // CHECK-NEXT:    store i64 0, ptr [[TMP22]], align 8, !tbaa [[TBAA15]]
 // CHECK-NEXT:    [[TMP23:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP18]], i64 48
+<<<<<<< HEAD
 // CHECK-NEXT:    store i64 [[SUB16]], ptr [[TMP23]], align 8, !tbaa [[TBAA15]]
+=======
+// CHECK-NEXT:    store i64 [[SUB17]], ptr [[TMP23]], align 8, !tbaa [[LONG_TBAA15]]
+>>>>>>> 51b37814d108 (remaining tests)
 // CHECK-NEXT:    [[TMP24:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP18]], i64 56
 // CHECK-NEXT:    store i64 1, ptr [[TMP24]], align 8, !tbaa [[TBAA15]]
 // CHECK-NEXT:    [[TMP25:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP18]], i64 72
@@ -102,12 +118,12 @@ struct S {
 // CHECK-NEXT:    call void @__kmpc_taskloop_5(ptr nonnull @[[GLOB1]], i32 [[TMP0]], ptr nonnull [[TMP18]], i32 [[TMP21]], ptr nonnull [[TMP22]], ptr nonnull [[TMP23]], i64 1, i32 1, i32 2, i64 4, i32 1, ptr null) #[[ATTR1]]
 // CHECK-NEXT:    call void @__kmpc_end_taskgroup(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
 // CHECK-NEXT:    call void @__kmpc_end_master(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
-// CHECK-NEXT:    br label %[[OMP_IF_END17]]
-// CHECK:       [[OMP_IF_END17]]:
+// CHECK-NEXT:    br label %[[OMP_IF_END18]]
+// CHECK:       [[OMP_IF_END18]]:
 // CHECK-NEXT:    [[TMP26:%.*]] = call i32 @__kmpc_master(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
-// CHECK-NEXT:    [[DOTNOT23:%.*]] = icmp eq i32 [[TMP26]], 0
-// CHECK-NEXT:    br i1 [[DOTNOT23]], label %[[OMP_IF_END21:.*]], label %[[OMP_IF_THEN18:.*]]
-// CHECK:       [[OMP_IF_THEN18]]:
+// CHECK-NEXT:    [[DOTNOT24:%.*]] = icmp eq i32 [[TMP26]], 0
+// CHECK-NEXT:    br i1 [[DOTNOT24]], label %[[OMP_IF_END22:.*]], label %[[OMP_IF_THEN19:.*]]
+// CHECK:       [[OMP_IF_THEN19]]:
 // CHECK-NEXT:    call void @__kmpc_taskgroup(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
 // CHECK-NEXT:    [[TMP27:%.*]] = call ptr @__kmpc_omp_task_alloc(ptr nonnull @[[GLOB1]], i32 [[TMP0]], i32 1, i64 80, i64 1, ptr nonnull @.omp_task_entry..8)
 // CHECK-NEXT:    [[TMP28:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP27]], i64 40
@@ -121,11 +137,142 @@ struct S {
 // CHECK-NEXT:    call void @__kmpc_taskloop(ptr nonnull @[[GLOB1]], i32 [[TMP0]], ptr [[TMP27]], i32 1, ptr nonnull [[TMP28]], ptr nonnull [[TMP29]], i64 1, i32 1, i32 0, i64 0, ptr null)
 // CHECK-NEXT:    call void @__kmpc_end_taskgroup(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
 // CHECK-NEXT:    call void @__kmpc_end_master(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
-// CHECK-NEXT:    br label %[[OMP_IF_END21]]
-// CHECK:       [[OMP_IF_END21]]:
+// CHECK-NEXT:    br label %[[OMP_IF_END22]]
+// CHECK:       [[OMP_IF_END22]]:
 // CHECK-NEXT:    ret i32 0
 //
 //
+<<<<<<< HEAD
+=======
+// CHECK-LABEL: define internal noundef i32 @.omp_task_entry.(
+// CHECK-SAME: i32 [[TMP0:%.*]], ptr noalias noundef readonly captures(none) [[TMP1:%.*]]) #[[ATTR3:[0-9]+]] {
+// CHECK-NEXT:  [[ENTRY:.*]]:
+// CHECK-NEXT:    [[TMP2:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 40
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[TMP2]], align 8, !tbaa [[LONG_TBAA28:![0-9]+]]
+// CHECK-NEXT:    [[TMP4:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 48
+// CHECK-NEXT:    [[TMP5:%.*]] = load i64, ptr [[TMP4]], align 8, !tbaa [[LONG_TBAA29:![0-9]+]]
+// CHECK-NEXT:    [[SEXT:%.*]] = shl i64 [[TMP3]], 32
+// CHECK-NEXT:    [[TMP6:%.*]] = ashr exact i64 [[SEXT]], 32
+// CHECK-NEXT:    br label %[[OMP_INNER_FOR_COND_I:.*]]
+// CHECK:       [[OMP_INNER_FOR_COND_I]]:
+// CHECK-NEXT:    [[INDVARS_IV:%.*]] = phi i64 [ [[INDVARS_IV_NEXT:%.*]], %[[OMP_INNER_FOR_COND_I]] ], [ [[TMP6]], %[[ENTRY]] ]
+// CHECK-NEXT:    [[CMP_NOT_I:%.*]] = icmp ult i64 [[TMP5]], [[INDVARS_IV]]
+// CHECK-NEXT:    [[INDVARS_IV_NEXT]] = add nsw i64 [[INDVARS_IV]], 1
+// CHECK-NEXT:    br i1 [[CMP_NOT_I]], [[DOTOMP_OUTLINED__1_EXIT:label %.*]], label %[[OMP_INNER_FOR_COND_I]]
+// CHECK:       [[_OMP_OUTLINED__1_EXIT:.*:]]
+// CHECK-NEXT:    ret i32 0
+//
+//
+// CHECK-LABEL: define internal noundef i32 @.omp_task_entry..2(
+// CHECK-SAME: i32 noundef [[TMP0:%.*]], ptr noalias noundef readonly captures(none) [[TMP1:%.*]]) #[[ATTR4:[0-9]+]] {
+// CHECK-NEXT:  [[ENTRY:.*:]]
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @__kmpc_master(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
+// CHECK-NEXT:    [[DOTNOT_I:%.*]] = icmp eq i32 [[TMP2]], 0
+// CHECK-NEXT:    br i1 [[DOTNOT_I]], [[DOTOMP_OUTLINED__EXIT:label %.*]], label %[[OMP_IF_THEN_I:.*]]
+// CHECK:       [[OMP_IF_THEN_I]]:
+// CHECK-NEXT:    [[TMP3:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 40
+// CHECK-NEXT:    tail call void @__kmpc_taskgroup(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
+// CHECK-NEXT:    [[TMP4:%.*]] = load i32, ptr [[TMP3]], align 4, !tbaa [[INT_TBAA3]]
+// CHECK-NEXT:    [[TMP5:%.*]] = tail call ptr @__kmpc_omp_task_alloc(ptr nonnull @[[GLOB1]], i32 [[TMP0]], i32 33, i64 80, i64 1, ptr nonnull @.omp_task_entry.)
+// CHECK-NEXT:    [[TMP6:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP5]], i64 32
+// CHECK-NEXT:    store i32 [[TMP4]], ptr [[TMP6]], align 8, !tbaa [[CHAR_TBAA19]]
+// CHECK-NEXT:    [[TMP7:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP5]], i64 40
+// CHECK-NEXT:    store i64 0, ptr [[TMP7]], align 8, !tbaa [[LONG_TBAA15]]
+// CHECK-NEXT:    [[TMP8:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP5]], i64 48
+// CHECK-NEXT:    store i64 9, ptr [[TMP8]], align 8, !tbaa [[LONG_TBAA15]]
+// CHECK-NEXT:    [[TMP9:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP5]], i64 56
+// CHECK-NEXT:    store i64 1, ptr [[TMP9]], align 8, !tbaa [[LONG_TBAA15]]
+// CHECK-NEXT:    [[TMP10:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP5]], i64 72
+// CHECK-NEXT:    store i64 0, ptr [[TMP10]], align 8
+// CHECK-NEXT:    tail call void @__kmpc_taskloop(ptr nonnull @[[GLOB1]], i32 [[TMP0]], ptr [[TMP5]], i32 1, ptr nonnull [[TMP7]], ptr nonnull [[TMP8]], i64 1, i32 1, i32 0, i64 0, ptr null)
+// CHECK-NEXT:    tail call void @__kmpc_end_taskgroup(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
+// CHECK-NEXT:    tail call void @__kmpc_end_master(ptr nonnull @[[GLOB1]], i32 [[TMP0]])
+// CHECK-NEXT:    br [[DOTOMP_OUTLINED__EXIT]]
+// CHECK:       [[_OMP_OUTLINED__EXIT:.*:]]
+// CHECK-NEXT:    ret i32 0
+//
+//
+// CHECK-LABEL: define internal noundef i32 @.omp_task_entry..4(
+// CHECK-SAME: i32 [[TMP0:%.*]], ptr noalias noundef readonly captures(none) [[TMP1:%.*]]) #[[ATTR3]] {
+// CHECK-NEXT:  [[ENTRY:.*]]:
+// CHECK-NEXT:    [[TMP2:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 40
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[TMP2]], align 8, !tbaa [[LONG_TBAA28]]
+// CHECK-NEXT:    [[TMP4:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 48
+// CHECK-NEXT:    [[TMP5:%.*]] = load i64, ptr [[TMP4]], align 8, !tbaa [[LONG_TBAA29]]
+// CHECK-NEXT:    [[SEXT:%.*]] = shl i64 [[TMP3]], 32
+// CHECK-NEXT:    [[TMP6:%.*]] = ashr exact i64 [[SEXT]], 32
+// CHECK-NEXT:    br label %[[OMP_INNER_FOR_COND_I:.*]]
+// CHECK:       [[OMP_INNER_FOR_COND_I]]:
+// CHECK-NEXT:    [[INDVARS_IV:%.*]] = phi i64 [ [[INDVARS_IV_NEXT:%.*]], %[[OMP_INNER_FOR_COND_I]] ], [ [[TMP6]], %[[ENTRY]] ]
+// CHECK-NEXT:    [[CMP_NOT_I:%.*]] = icmp ult i64 [[TMP5]], [[INDVARS_IV]]
+// CHECK-NEXT:    [[INDVARS_IV_NEXT]] = add nsw i64 [[INDVARS_IV]], 1
+// CHECK-NEXT:    br i1 [[CMP_NOT_I]], [[DOTOMP_OUTLINED__3_EXIT:label %.*]], label %[[OMP_INNER_FOR_COND_I]]
+// CHECK:       [[_OMP_OUTLINED__3_EXIT:.*:]]
+// CHECK-NEXT:    ret i32 0
+//
+//
+// CHECK-LABEL: define internal noundef i32 @.omp_task_entry..6(
+// CHECK-SAME: i32 [[TMP0:%.*]], ptr noalias noundef readonly captures(none) [[TMP1:%.*]]) #[[ATTR5:[0-9]+]] {
+// CHECK-NEXT:  [[ENTRY:.*:]]
+// CHECK-NEXT:    [[TMP2:%.*]] = load ptr, ptr [[TMP1]], align 8, !tbaa [[ANYPTR_TBAA20]]
+// CHECK-NEXT:    [[TMP3:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 40
+// CHECK-NEXT:    [[TMP4:%.*]] = load i64, ptr [[TMP3]], align 8, !tbaa [[LONG_TBAA28]]
+// CHECK-NEXT:    [[TMP5:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 48
+// CHECK-NEXT:    [[TMP6:%.*]] = load i64, ptr [[TMP5]], align 8, !tbaa [[LONG_TBAA29]]
+// CHECK-NEXT:    tail call void @llvm.experimental.noalias.scope.decl(metadata [[META30:![0-9]+]])
+// CHECK-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[TMP2]], align 8, !tbaa [[INTPTR_TBAA33:![0-9]+]], !alias.scope [[META30]], !nonnull [[META35:![0-9]+]], !align [[META36:![0-9]+]]
+// CHECK-NEXT:    [[TMP8:%.*]] = load i32, ptr [[TMP7]], align 4, !tbaa [[INT_TBAA3]], !noalias [[META30]]
+// CHECK-NEXT:    [[CMP_I:%.*]] = icmp sgt i32 [[TMP8]], 0
+// CHECK-NEXT:    br i1 [[CMP_I]], label %[[LAND_LHS_TRUE_I:.*]], [[DOTOMP_OUTLINED__5_EXIT:label %.*]]
+// CHECK:       [[LAND_LHS_TRUE_I]]:
+// CHECK-NEXT:    [[TMP9:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP2]], i64 8
+// CHECK-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[TMP9]], align 8, !tbaa [[CHARPTR_TBAA37:![0-9]+]], !alias.scope [[META30]], !nonnull [[META35]], !align [[META38:![0-9]+]]
+// CHECK-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[TMP10]], align 8, !tbaa [[CHARPTR_TBAA7]], !noalias [[META30]]
+// CHECK-NEXT:    [[IDXPROM_I:%.*]] = zext nneg i32 [[TMP8]] to i64
+// CHECK-NEXT:    [[ARRAYIDX_I:%.*]] = getelementptr inbounds nuw ptr, ptr [[TMP11]], i64 [[IDXPROM_I]]
+// CHECK-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[ARRAYIDX_I]], align 8, !tbaa [[CHARPTR_TBAA17]], !noalias [[META30]]
+// CHECK-NEXT:    [[ARRAYIDX5_I:%.*]] = getelementptr inbounds nuw b8, ptr [[TMP12]], i64 [[IDXPROM_I]]
+// CHECK-NEXT:    [[TMP13:%.*]] = load b8, ptr [[ARRAYIDX5_I]], align 1, !tbaa [[CHAR_TBAA19]], !noalias [[META30]]
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 [[TMP13]] to i8
+// CHECK-NEXT:    [[CONV6_I:%.*]] = sext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[CMP14_I:%.*]] = icmp slt i32 [[TMP8]], [[CONV6_I]]
+// CHECK-NEXT:    br i1 [[CMP14_I]], label %[[OMP_INNER_FOR_COND_I:.*]], [[DOTOMP_OUTLINED__5_EXIT]]
+// CHECK:       [[OMP_INNER_FOR_COND_I]]:
+// CHECK-NEXT:    [[DOTOMP_IV_0_I:%.*]] = phi i64 [ [[ADD47_I:%.*]], %[[OMP_INNER_FOR_COND_I]] ], [ [[TMP4]], %[[LAND_LHS_TRUE_I]] ]
+// CHECK-NEXT:    [[CMP17_NOT_I:%.*]] = icmp ugt i64 [[DOTOMP_IV_0_I]], [[TMP6]]
+// CHECK-NEXT:    [[ADD47_I]] = add nsw i64 [[DOTOMP_IV_0_I]], 1
+// CHECK-NEXT:    br i1 [[CMP17_NOT_I]], [[DOTOMP_OUTLINED__5_EXIT]], label %[[OMP_INNER_FOR_COND_I]]
+// CHECK:       [[_OMP_OUTLINED__5_EXIT:.*:]]
+// CHECK-NEXT:    ret i32 0
+//
+//
+// CHECK-LABEL: define internal noundef i32 @.omp_task_entry..8(
+// CHECK-SAME: i32 noundef [[TMP0:%.*]], ptr noalias noundef readonly captures(none) [[TMP1:%.*]]) #[[ATTR4]] {
+// CHECK-NEXT:  [[ENTRY:.*]]:
+// CHECK-NEXT:    [[TMP2:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 40
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[TMP2]], align 8, !tbaa [[LONG_TBAA28]]
+// CHECK-NEXT:    [[TMP4:%.*]] = getelementptr inbounds nuw i8, ptr [[TMP1]], i64 48
+// CHECK-NEXT:    [[TMP5:%.*]] = load i64, ptr [[TMP4]], align 8, !tbaa [[LONG_TBAA29]]
+// CHECK-NEXT:    [[SEXT:%.*]] = shl i64 [[TMP3]], 32
+// CHECK-NEXT:    [[CONV1_I2:%.*]] = ashr exact i64 [[SEXT]], 32
+// CHECK-NEXT:    [[CMP_NOT_I3:%.*]] = icmp ult i64 [[TMP5]], [[CONV1_I2]]
+// CHECK-NEXT:    br i1 [[CMP_NOT_I3]], [[DOTOMP_OUTLINED__7_EXIT:label %.*]], label %[[OMP_INNER_FOR_BODY_I:.*]]
+// CHECK:       [[OMP_INNER_FOR_BODY_I]]:
+// CHECK-NEXT:    [[INDVARS_IV:%.*]] = phi i64 [ [[INDVARS_IV_NEXT:%.*]], %[[DOTCANCEL_CONTINUE_I:.*]] ], [ [[CONV1_I2]], %[[ENTRY]] ]
+// CHECK-NEXT:    [[TMP6:%.*]] = tail call i32 @__kmpc_cancel(ptr nonnull @[[GLOB1]], i32 [[TMP0]], i32 4)
+// CHECK-NEXT:    [[DOTNOT_I:%.*]] = icmp eq i32 [[TMP6]], 0
+// CHECK-NEXT:    br i1 [[DOTNOT_I]], label %[[DOTCANCEL_CONTINUE_I]], [[DOTOMP_OUTLINED__7_EXIT]]
+// CHECK:       [[_CANCEL_CONTINUE_I:.*:]]
+// CHECK-NEXT:    [[TMP7:%.*]] = tail call i32 @__kmpc_cancellationpoint(ptr nonnull @[[GLOB1]], i32 [[TMP0]], i32 4)
+// CHECK-NEXT:    [[DOTNOT12_I:%.*]] = icmp ne i32 [[TMP7]], 0
+// CHECK-NEXT:    [[INDVARS_IV_NEXT]] = add nsw i64 [[INDVARS_IV]], 1
+// CHECK-NEXT:    [[CMP_NOT_I:%.*]] = icmp ult i64 [[TMP5]], [[INDVARS_IV_NEXT]]
+// CHECK-NEXT:    [[OR_COND:%.*]] = select i1 [[DOTNOT12_I]], i1 true, i1 [[CMP_NOT_I]]
+// CHECK-NEXT:    br i1 [[OR_COND]], [[DOTOMP_OUTLINED__7_EXIT]], label %[[OMP_INNER_FOR_BODY_I]]
+// CHECK:       [[_OMP_OUTLINED__7_EXIT:.*:]]
+// CHECK-NEXT:    ret i32 0
+//
+>>>>>>> 51b37814d108 (remaining tests)
 //
 // CHECK-LABEL: define linkonce_odr void @_ZN1SC2Ei(
 // CHECK-SAME: ptr noundef nonnull align 4 dereferenceable(4) [[THIS:%.*]], i32 noundef [[C:%.*]]) unnamed_addr #[[ATTR6:[0-9]+]] align 2 {
