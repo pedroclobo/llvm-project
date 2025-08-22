@@ -6,7 +6,7 @@ typedef __attribute__((__ext_vector_type__(3))) float float32x3_t;
 // CHECK: %struct.HFAv3 = type { [4 x <3 x float>] }
 typedef struct { float32x3_t arr[4]; } HFAv3;
 
-// CHECK: %struct.MixedHFAv3 = type { [3 x <3 x float>], <16 x i8> }
+// CHECK: %struct.MixedHFAv3 = type { [3 x <3 x float>], <16 x b8> }
 typedef struct { float32x3_t arr[3]; int8x16_t b; } MixedHFAv3;
 
 // CHECK: define{{.*}} %struct.HFAv3 @test([4 x <4 x float>] %{{.*}}, [4 x <4 x float>] %{{.*}}, [4 x <4 x float>] %{{.*}})
