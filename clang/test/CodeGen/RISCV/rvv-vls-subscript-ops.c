@@ -35,9 +35,9 @@ typedef vfloat64m1_t fixed_float64m1_t __attribute__((riscv_rvv_vector_bits(__ri
 
 // CHECK-LABEL: @subscript_int8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[VECEXT:%.*]] = extractelement <32 x i8> [[A]], i64 [[B:%.*]]
-// CHECK-NEXT:    ret i8 [[VECEXT]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[VECEXT:%.*]] = extractelement <32 x b8> [[A]], i64 [[B:%.*]]
+// CHECK-NEXT:    ret b8 [[VECEXT]]
 //
 int8_t subscript_int8(fixed_int8m1_t a, size_t b) {
   return a[b];
@@ -45,9 +45,9 @@ int8_t subscript_int8(fixed_int8m1_t a, size_t b) {
 
 // CHECK-LABEL: @subscript_uint8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[A:%.*]] = call <32 x i8> @llvm.vector.extract.v32i8.nxv8i8(<vscale x 8 x i8> [[A_COERCE:%.*]], i64 0)
-// CHECK-NEXT:    [[VECEXT:%.*]] = extractelement <32 x i8> [[A]], i64 [[B:%.*]]
-// CHECK-NEXT:    ret i8 [[VECEXT]]
+// CHECK-NEXT:    [[A:%.*]] = call <32 x b8> @llvm.vector.extract.v32b8.nxv8b8(<vscale x 8 x b8> [[A_COERCE:%.*]], i64 0)
+// CHECK-NEXT:    [[VECEXT:%.*]] = extractelement <32 x b8> [[A]], i64 [[B:%.*]]
+// CHECK-NEXT:    ret b8 [[VECEXT]]
 //
 uint8_t subscript_uint8(fixed_uint8m1_t a, size_t b) {
   return a[b];

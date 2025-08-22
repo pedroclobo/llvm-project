@@ -26,14 +26,14 @@ void f_void(void) {}
 //
 _Bool f_scalar_0(_Bool x) { return x; }
 
-// LP64-LP64F-LP64D-LABEL: define dso_local signext i8 @f_scalar_1
-// LP64-LP64F-LP64D-SAME: (i8 noundef signext [[X:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-LABEL: define dso_local signext b8 @f_scalar_1
+// LP64-LP64F-LP64D-SAME: (b8 noundef signext [[X:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 int8_t f_scalar_1(int8_t x) { return x; }
 
-// LP64-LP64F-LP64D-LABEL: define dso_local zeroext i8 @f_scalar_2
-// LP64-LP64F-LP64D-SAME: (i8 noundef zeroext [[X:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-LABEL: define dso_local zeroext b8 @f_scalar_2
+// LP64-LP64F-LP64D-SAME: (b8 noundef zeroext [[X:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 uint8_t f_scalar_2(uint8_t x) { return x; }
@@ -252,7 +252,7 @@ void f_agg_large(struct large x) {
 // The address where the struct should be written to will be the first
 // argument
 // LP64-LP64F-LP64D-LABEL: define dso_local void @f_agg_large_ret
-// LP64-LP64F-LP64D-SAME: (ptr dead_on_unwind noalias writable sret([[STRUCT_LARGE:%.*]]) align 8 [[AGG_RESULT:%.*]], i32 noundef signext [[I:%.*]], i8 noundef signext [[J:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (ptr dead_on_unwind noalias writable sret([[STRUCT_LARGE:%.*]]) align 8 [[AGG_RESULT:%.*]], i32 noundef signext [[I:%.*]], b8 noundef signext [[J:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 struct large f_agg_large_ret(int32_t i, int8_t j) {
@@ -270,7 +270,7 @@ void f_vec_large_v32i8(v32i8 x) {
 }
 
 // LP64-LP64F-LP64D-LABEL: define dso_local void @f_vec_large_v32i8_ret
-// LP64-LP64F-LP64D-SAME: (ptr dead_on_unwind noalias writable sret(<32 x i8>) align 32 [[AGG_RESULT:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (ptr dead_on_unwind noalias writable sret(<32 x b8>) align 32 [[AGG_RESULT:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 v32i8 f_vec_large_v32i8_ret(void) {
@@ -281,7 +281,7 @@ v32i8 f_vec_large_v32i8_ret(void) {
 // if they were passed in registers.
 
 // LP64-LP64F-LP64D-LABEL: define dso_local signext i32 @f_scalar_stack_1
-// LP64-LP64F-LP64D-SAME: (i64 [[A_COERCE:%.*]], [2 x i64] [[B_COERCE:%.*]], i128 [[C_COERCE:%.*]], ptr dead_on_return noundef [[D:%.*]], i8 noundef zeroext [[E:%.*]], i8 noundef signext [[F:%.*]], i8 noundef zeroext [[G:%.*]], i8 noundef signext [[H:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (i64 [[A_COERCE:%.*]], [2 x i64] [[B_COERCE:%.*]], i128 [[C_COERCE:%.*]], ptr dead_on_return noundef [[D:%.*]], b8 noundef zeroext [[E:%.*]], b8 noundef signext [[F:%.*]], b8 noundef zeroext [[G:%.*]], b8 noundef signext [[H:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 int f_scalar_stack_1(struct tiny a, struct small b, struct small_aligned c,
@@ -290,7 +290,7 @@ int f_scalar_stack_1(struct tiny a, struct small b, struct small_aligned c,
 }
 
 // LP64-LP64F-LP64D-LABEL: define dso_local signext i32 @f_scalar_stack_2
-// LP64-LP64F-LP64D-SAME: (i32 noundef signext [[A:%.*]], i128 noundef [[B:%.*]], i64 noundef [[C:%.*]], fp128 noundef [[D:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], i8 noundef zeroext [[F:%.*]], i8 noundef signext [[G:%.*]], i8 noundef zeroext [[H:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (i32 noundef signext [[A:%.*]], i128 noundef [[B:%.*]], i64 noundef [[C:%.*]], fp128 noundef [[D:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], b8 noundef zeroext [[F:%.*]], b8 noundef signext [[G:%.*]], b8 noundef zeroext [[H:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 int f_scalar_stack_2(int32_t a, __int128_t b, int64_t c, long double d, v32i8 e,
@@ -299,7 +299,7 @@ int f_scalar_stack_2(int32_t a, __int128_t b, int64_t c, long double d, v32i8 e,
 }
 
 // LP64-LP64F-LP64D-LABEL: define dso_local signext i32 @f_scalar_stack_3
-// LP64-LP64F-LP64D-SAME: (i32 noundef signext [[A:%.*]], i128 noundef [[B:%.*]], double noundef [[C:%.*]], fp128 noundef [[D:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], i8 noundef zeroext [[F:%.*]], i8 noundef signext [[G:%.*]], i8 noundef zeroext [[H:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (i32 noundef signext [[A:%.*]], i128 noundef [[B:%.*]], double noundef [[C:%.*]], fp128 noundef [[D:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], b8 noundef zeroext [[F:%.*]], b8 noundef signext [[G:%.*]], b8 noundef zeroext [[H:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 int f_scalar_stack_3(int32_t a, __int128_t b, double c, long double d, v32i8 e,
@@ -312,7 +312,7 @@ int f_scalar_stack_3(int32_t a, __int128_t b, double c, long double d, v32i8 e,
 // to pass a pointer.
 
 // LP64-LP64F-LP64D-LABEL: define dso_local void @f_scalar_stack_4
-// LP64-LP64F-LP64D-SAME: (ptr dead_on_unwind noalias writable sret([[STRUCT_LARGE:%.*]]) align 8 [[AGG_RESULT:%.*]], i32 noundef signext [[A:%.*]], i128 noundef [[B:%.*]], fp128 noundef [[C:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], i8 noundef zeroext [[E:%.*]], i8 noundef signext [[F:%.*]], i8 noundef zeroext [[G:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (ptr dead_on_unwind noalias writable sret([[STRUCT_LARGE:%.*]]) align 8 [[AGG_RESULT:%.*]], i32 noundef signext [[A:%.*]], i128 noundef [[B:%.*]], fp128 noundef [[C:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], b8 noundef zeroext [[E:%.*]], b8 noundef signext [[F:%.*]], b8 noundef zeroext [[G:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 struct large f_scalar_stack_4(uint32_t a, __int128_t b, long double c, v32i8 d,
@@ -321,7 +321,7 @@ struct large f_scalar_stack_4(uint32_t a, __int128_t b, long double c, v32i8 d,
 }
 
 // LP64-LP64F-LP64D-LABEL: define dso_local void @f_scalar_stack_5
-// LP64-LP64F-LP64D-SAME: (ptr dead_on_unwind noalias writable sret([[STRUCT_LARGE:%.*]]) align 8 [[AGG_RESULT:%.*]], double noundef [[A:%.*]], i128 noundef [[B:%.*]], fp128 noundef [[C:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], i8 noundef zeroext [[E:%.*]], i8 noundef signext [[F:%.*]], i8 noundef zeroext [[G:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (ptr dead_on_unwind noalias writable sret([[STRUCT_LARGE:%.*]]) align 8 [[AGG_RESULT:%.*]], double noundef [[A:%.*]], i128 noundef [[B:%.*]], fp128 noundef [[C:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], b8 noundef zeroext [[E:%.*]], b8 noundef signext [[F:%.*]], b8 noundef zeroext [[G:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 struct large f_scalar_stack_5(double a, __int128_t b, long double c, v32i8 d,
@@ -330,7 +330,7 @@ struct large f_scalar_stack_5(double a, __int128_t b, long double c, v32i8 d,
 }
 
 // LP64-LP64F-LP64D-LABEL: define dso_local signext i32 @f_scalar_stack_6
-// LP64-LP64F-LP64D-SAME: (i32 noundef signext [[A:%.*]], i128 noundef [[B:%.*]], float noundef [[C:%.*]], fp128 noundef [[D:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], i8 noundef zeroext [[F:%.*]], i8 noundef signext [[G:%.*]], i8 noundef zeroext [[H:%.*]], half noundef [[I:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (i32 noundef signext [[A:%.*]], i128 noundef [[B:%.*]], float noundef [[C:%.*]], fp128 noundef [[D:%.*]], ptr dead_on_return noundef [[TMP0:%.*]], b8 noundef zeroext [[F:%.*]], b8 noundef signext [[G:%.*]], b8 noundef zeroext [[H:%.*]], half noundef [[I:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 int f_scalar_stack_6(int32_t a, __int128_t b, float c, long double d, v32i8 e,
@@ -339,7 +339,7 @@ int f_scalar_stack_6(int32_t a, __int128_t b, float c, long double d, v32i8 e,
 }
 
 // LP64-LP64F-LP64D-LABEL: define dso_local void @f_fpr_tracking
-// LP64-LP64F-LP64D-SAME: (float noundef [[A:%.*]], float noundef [[B:%.*]], float noundef [[C:%.*]], float noundef [[D:%.*]], float noundef [[E:%.*]], float noundef [[F:%.*]], float noundef [[G:%.*]], float noundef [[H:%.*]], i8 noundef zeroext [[I:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (float noundef [[A:%.*]], float noundef [[B:%.*]], float noundef [[C:%.*]], float noundef [[D:%.*]], float noundef [[E:%.*]], float noundef [[F:%.*]], float noundef [[G:%.*]], float noundef [[H:%.*]], b8 noundef zeroext [[I:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 void f_fpr_tracking(float a, float b, float c, float d, float e, float f,
@@ -479,7 +479,7 @@ struct float_int8_zbf_s { float f; int8_t i; int : 0; };
 // LP64:  entry:
 //
 // LP64F-LP64D-LABEL: define dso_local void @f_float_int8_s_arg
-// LP64F-LP64D-SAME: (float [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64F-LP64D-SAME: (float [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
 void f_float_int8_s_arg(struct float_int8_s a) {}
@@ -488,7 +488,7 @@ void f_float_int8_s_arg(struct float_int8_s a) {}
 // LP64-SAME: () #[[ATTR0]] {
 // LP64:  entry:
 //
-// LP64F-LP64D-LABEL: define dso_local { float, i8 } @f_ret_float_int8_s
+// LP64F-LP64D-LABEL: define dso_local { float, b8 } @f_ret_float_int8_s
 // LP64F-LP64D-SAME: () #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
@@ -501,7 +501,7 @@ struct float_int8_s f_ret_float_int8_s(void) {
 // LP64:  entry:
 //
 // LP64F-LP64D-LABEL: define dso_local void @f_float_uint8_s_arg
-// LP64F-LP64D-SAME: (float [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64F-LP64D-SAME: (float [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
 void f_float_uint8_s_arg(struct float_uint8_s a) {}
@@ -510,7 +510,7 @@ void f_float_uint8_s_arg(struct float_uint8_s a) {}
 // LP64-SAME: () #[[ATTR0]] {
 // LP64:  entry:
 //
-// LP64F-LP64D-LABEL: define dso_local { float, i8 } @f_ret_float_uint8_s
+// LP64F-LP64D-LABEL: define dso_local { float, b8 } @f_ret_float_uint8_s
 // LP64F-LP64D-SAME: () #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
@@ -592,7 +592,7 @@ struct float_int128bf_s f_ret_float_int128bf_s(void) {
 // LP64:  entry:
 //
 // LP64F-LP64D-LABEL: define dso_local void @f_float_int8_zbf_s
-// LP64F-LP64D-SAME: (float [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64F-LP64D-SAME: (float [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
 void f_float_int8_zbf_s(struct float_int8_zbf_s a) {}
@@ -601,7 +601,7 @@ void f_float_int8_zbf_s(struct float_int8_zbf_s a) {}
 // LP64-SAME: () #[[ATTR0]] {
 // LP64:  entry:
 //
-// LP64F-LP64D-LABEL: define dso_local { float, i8 } @f_ret_float_int8_zbf_s
+// LP64F-LP64D-LABEL: define dso_local { float, b8 } @f_ret_float_int8_zbf_s
 // LP64F-LP64D-SAME: () #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
@@ -931,7 +931,7 @@ union float_u f_ret_float_u(void) {
 }
 
 // LP64-LP64F-LP64D-LABEL: define dso_local void @f_fpr_tracking2
-// LP64-LP64F-LP64D-SAME: (double noundef [[A:%.*]], double noundef [[B:%.*]], double noundef [[C:%.*]], double noundef [[D:%.*]], double noundef [[E:%.*]], double noundef [[F:%.*]], double noundef [[G:%.*]], double noundef [[H:%.*]], i8 noundef zeroext [[I:%.*]]) #[[ATTR0]] {
+// LP64-LP64F-LP64D-SAME: (double noundef [[A:%.*]], double noundef [[B:%.*]], double noundef [[C:%.*]], double noundef [[D:%.*]], double noundef [[E:%.*]], double noundef [[F:%.*]], double noundef [[G:%.*]], double noundef [[H:%.*]], b8 noundef zeroext [[I:%.*]]) #[[ATTR0]] {
 // LP64-LP64F-LP64D:  entry:
 //
 void f_fpr_tracking2(double a, double b, double c, double d, double e, double f,
@@ -1094,7 +1094,7 @@ struct double_int8_zbf_s { double f; int8_t i; int : 0; };
 // LP64-LP64F:  entry:
 //
 // LP64D-LABEL: define dso_local void @f_double_int8_s_arg
-// LP64D-SAME: (double [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64D-SAME: (double [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64D:  entry:
 //
 void f_double_int8_s_arg(struct double_int8_s a) {}
@@ -1103,7 +1103,7 @@ void f_double_int8_s_arg(struct double_int8_s a) {}
 // LP64-LP64F-SAME: () #[[ATTR0]] {
 // LP64-LP64F:  entry:
 //
-// LP64D-LABEL: define dso_local { double, i8 } @f_ret_double_int8_s
+// LP64D-LABEL: define dso_local { double, b8 } @f_ret_double_int8_s
 // LP64D-SAME: () #[[ATTR0]] {
 // LP64D:  entry:
 //
@@ -1116,7 +1116,7 @@ struct double_int8_s f_ret_double_int8_s(void) {
 // LP64-LP64F:  entry:
 //
 // LP64D-LABEL: define dso_local void @f_double_uint8_s_arg
-// LP64D-SAME: (double [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64D-SAME: (double [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64D:  entry:
 //
 void f_double_uint8_s_arg(struct double_uint8_s a) {}
@@ -1125,7 +1125,7 @@ void f_double_uint8_s_arg(struct double_uint8_s a) {}
 // LP64-LP64F-SAME: () #[[ATTR0]] {
 // LP64-LP64F:  entry:
 //
-// LP64D-LABEL: define dso_local { double, i8 } @f_ret_double_uint8_s
+// LP64D-LABEL: define dso_local { double, b8 } @f_ret_double_uint8_s
 // LP64D-SAME: () #[[ATTR0]] {
 // LP64D:  entry:
 //
@@ -1207,7 +1207,7 @@ struct double_int128bf_s f_ret_double_int128bf_s(void) {
 // LP64-LP64F:  entry:
 //
 // LP64D-LABEL: define dso_local void @f_double_int8_zbf_s
-// LP64D-SAME: (double [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64D-SAME: (double [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64D:  entry:
 //
 void f_double_int8_zbf_s(struct double_int8_zbf_s a) {}
@@ -1216,7 +1216,7 @@ void f_double_int8_zbf_s(struct double_int8_zbf_s a) {}
 // LP64-LP64F-SAME: () #[[ATTR0]] {
 // LP64-LP64F:  entry:
 //
-// LP64D-LABEL: define dso_local { double, i8 } @f_ret_double_int8_zbf_s
+// LP64D-LABEL: define dso_local { double, b8 } @f_ret_double_int8_zbf_s
 // LP64D-SAME: () #[[ATTR0]] {
 // LP64D:  entry:
 //
@@ -1622,7 +1622,7 @@ struct float16_int8_zbf_s { _Float16 f; int8_t i; int : 0; };
 // LP64:  entry:
 //
 // LP64F-LP64D-LABEL: define dso_local void @f_float16_int8_s_arg
-// LP64F-LP64D-SAME: (half [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64F-LP64D-SAME: (half [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
 void f_float16_int8_s_arg(struct float16_int8_s a) {}
@@ -1631,7 +1631,7 @@ void f_float16_int8_s_arg(struct float16_int8_s a) {}
 // LP64-SAME: () #[[ATTR0]] {
 // LP64:  entry:
 //
-// LP64F-LP64D-LABEL: define dso_local { half, i8 } @f_ret_float16_int8_s
+// LP64F-LP64D-LABEL: define dso_local { half, b8 } @f_ret_float16_int8_s
 // LP64F-LP64D-SAME: () #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
@@ -1644,7 +1644,7 @@ struct float16_int8_s f_ret_float16_int8_s(void) {
 // LP64:  entry:
 //
 // LP64F-LP64D-LABEL: define dso_local void @f_float16_uint8_s_arg
-// LP64F-LP64D-SAME: (half [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64F-LP64D-SAME: (half [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
 void f_float16_uint8_s_arg(struct float16_uint8_s a) {}
@@ -1653,7 +1653,7 @@ void f_float16_uint8_s_arg(struct float16_uint8_s a) {}
 // LP64-SAME: () #[[ATTR0]] {
 // LP64:  entry:
 //
-// LP64F-LP64D-LABEL: define dso_local { half, i8 } @f_ret_float16_uint8_s
+// LP64F-LP64D-LABEL: define dso_local { half, b8 } @f_ret_float16_uint8_s
 // LP64F-LP64D-SAME: () #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
@@ -1735,7 +1735,7 @@ struct float16_int64bf_s f_ret_float16_int64bf_s(void) {
 // LP64:  entry:
 //
 // LP64F-LP64D-LABEL: define dso_local void @f_float16_int8_zbf_s
-// LP64F-LP64D-SAME: (half [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64F-LP64D-SAME: (half [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
 void f_float16_int8_zbf_s(struct float16_int8_zbf_s a) {}
@@ -1744,7 +1744,7 @@ void f_float16_int8_zbf_s(struct float16_int8_zbf_s a) {}
 // LP64-SAME: () #[[ATTR0]] {
 // LP64:  entry:
 //
-// LP64F-LP64D-LABEL: define dso_local { half, i8 } @f_ret_float16_int8_zbf_s
+// LP64F-LP64D-LABEL: define dso_local { half, b8 } @f_ret_float16_int8_zbf_s
 // LP64F-LP64D-SAME: () #[[ATTR0]] {
 // LP64F-LP64D:  entry:
 //
@@ -1764,7 +1764,7 @@ void f_float16_int8_s_arg_insufficient_gprs(int a, int b, int c, int d, int e,
 // LP64:  entry:
 //
 // LP64F-LABEL: define dso_local void @f_struct_float16_int8_insufficient_fprs
-// LP64F-SAME: (float noundef [[A:%.*]], double noundef [[B:%.*]], double noundef [[C:%.*]], double noundef [[D:%.*]], double noundef [[E:%.*]], double noundef [[F:%.*]], double noundef [[G:%.*]], double noundef [[H:%.*]], half [[TMP0:%.*]], i8 [[TMP1:%.*]]) #[[ATTR0]] {
+// LP64F-SAME: (float noundef [[A:%.*]], double noundef [[B:%.*]], double noundef [[C:%.*]], double noundef [[D:%.*]], double noundef [[E:%.*]], double noundef [[F:%.*]], double noundef [[G:%.*]], double noundef [[H:%.*]], half [[TMP0:%.*]], b8 [[TMP1:%.*]]) #[[ATTR0]] {
 // LP64F:  entry:
 //
 // LP64D-LABEL: define dso_local void @f_struct_float16_int8_insufficient_fprs
