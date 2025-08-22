@@ -83,8 +83,9 @@ int test_alu_exthz(uint16_t a) {
 
 // CHECK-LABEL: @test_alu_extbs(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = sext i8 [[A:%.*]] to i32
-// CHECK-NEXT:    [[EXTBS_I:%.*]] = sext i8 [[A]] to i32
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 [[A:%.*]] to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = sext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[EXTBS_I:%.*]] = sext i8 [[CONV_I]] to i32
 // CHECK-NEXT:    ret i32 [[EXTBS_I]]
 //
 int test_alu_extbs(int8_t a) {
@@ -93,8 +94,9 @@ int test_alu_extbs(int8_t a) {
 
 // CHECK-LABEL: @test_alu_extbz(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 [[A:%.*]] to i32
-// CHECK-NEXT:    [[EXTBZ_I:%.*]] = zext i8 [[A]] to i32
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 [[A:%.*]] to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[EXTBZ_I:%.*]] = zext i8 [[CONV_I]] to i32
 // CHECK-NEXT:    ret i32 [[EXTBZ_I]]
 //
 int test_alu_extbz(uint8_t a) {
@@ -121,8 +123,9 @@ int test_alu_clipu(uint32_t a) {
 
 // CHECK-LABEL: @test_alu_addN(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 0 to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.addN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV_I]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 0 to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.addN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV1_I]])
 // CHECK-NEXT:    ret i32 [[TMP0]]
 //
 int test_alu_addN(int32_t a, int32_t b) {
@@ -131,8 +134,9 @@ int test_alu_addN(int32_t a, int32_t b) {
 
 // CHECK-LABEL: @test_alu_adduN(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 0 to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.adduN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV_I]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 0 to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.adduN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV1_I]])
 // CHECK-NEXT:    ret i32 [[TMP0]]
 //
 int test_alu_adduN(uint32_t a, uint32_t b) {
@@ -141,8 +145,9 @@ int test_alu_adduN(uint32_t a, uint32_t b) {
 
 // CHECK-LABEL: @test_alu_addRN(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 0 to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.addRN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV_I]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 0 to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.addRN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV1_I]])
 // CHECK-NEXT:    ret i32 [[TMP0]]
 //
 int test_alu_addRN(int32_t a, int32_t b) {
@@ -151,8 +156,9 @@ int test_alu_addRN(int32_t a, int32_t b) {
 
 // CHECK-LABEL: @test_alu_adduRN(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 0 to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.adduRN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV_I]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 0 to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.adduRN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV1_I]])
 // CHECK-NEXT:    ret i32 [[TMP0]]
 //
 int test_alu_adduRN(uint32_t a, uint32_t b) {
@@ -161,8 +167,9 @@ int test_alu_adduRN(uint32_t a, uint32_t b) {
 
 // CHECK-LABEL: @test_alu_subN(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 0 to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.subN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV_I]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 0 to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.subN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV1_I]])
 // CHECK-NEXT:    ret i32 [[TMP0]]
 //
 int test_alu_subN(int32_t a, int32_t b) {
@@ -171,8 +178,9 @@ int test_alu_subN(int32_t a, int32_t b) {
 
 // CHECK-LABEL: @test_alu_subuN(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 0 to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.subuN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV_I]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 0 to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.subuN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV1_I]])
 // CHECK-NEXT:    ret i32 [[TMP0]]
 //
 int test_alu_subuN(uint32_t a, uint32_t b) {
@@ -181,8 +189,9 @@ int test_alu_subuN(uint32_t a, uint32_t b) {
 
 // CHECK-LABEL: @test_alu_subRN(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 0 to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.subRN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV_I]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 0 to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.subRN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV1_I]])
 // CHECK-NEXT:    ret i32 [[TMP0]]
 //
 int test_alu_subRN(int32_t a, int32_t b) {
@@ -191,8 +200,9 @@ int test_alu_subRN(int32_t a, int32_t b) {
 
 // CHECK-LABEL: @test_alu_subuRN(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 0 to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.subuRN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV_I]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 0 to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = call i32 @llvm.riscv.cv.alu.subuRN(i32 [[A:%.*]], i32 [[B:%.*]], i32 [[CONV1_I]])
 // CHECK-NEXT:    ret i32 [[TMP0]]
 //
 int test_alu_subuRN(uint32_t a, uint32_t b) {

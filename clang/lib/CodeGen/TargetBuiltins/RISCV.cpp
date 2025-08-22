@@ -866,8 +866,10 @@ emitRVVReinterpretBuiltin(CodeGenFunction *CGF, const CallExpr *E,
       // Ex: <vscale x 8 x i8>
       //     --(bitcast)--------> <vscale x 64 x i1>
       //     --(vector_extract)-> <vscale x  8 x i1>
-      llvm::Value *BitCast = Builder.CreateBitCast(Ops[0], Boolean64Ty);
-      return Builder.CreateExtractVector(ResultType, BitCast,
+      llvm::Value *Cast = Ops[0]->getType()->isByteOrByteVectorTy()
+        ? Builder.CreateByteCast(Ops[0], Boolean64Ty)
+        : Builder.CreateBitCast(Ops[0], Boolean64Ty);
+      return Builder.CreateExtractVector(ResultType, Cast,
                                          ConstantInt::get(CGF->Int64Ty, 0));
     } else {
       // Casting from vector boolean -> m1 vector integer
@@ -880,7 +882,9 @@ emitRVVReinterpretBuiltin(CodeGenFunction *CGF, const CallExpr *E,
       return Builder.CreateBitCast(Boolean64Val, ResultType);
     }
   }
-  return Builder.CreateBitCast(Ops[0], ResultType);
+  return Ops[0]->getType()->isByteOrByteVectorTy() && !ResultType->isByteOrByteVectorTy()?
+    Builder.CreateByteCast(Ops[0], ResultType) :
+    Builder.CreateBitCast(Ops[0], ResultType);
 }
 
 static LLVM_ATTRIBUTE_NOINLINE Value *

@@ -330,45 +330,49 @@ double f_va_3(char *fmt, ...) {
 // CHECK-ILP32F-NEXT:    store i32 [[CONV9]], ptr [[RET]], align 4
 // CHECK-ILP32F-NEXT:    [[TMP6:%.*]] = load i32, ptr [[RET]], align 4
 // CHECK-ILP32F-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 0
-// CHECK-ILP32F-NEXT:    [[TMP7:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-ILP32F-NEXT:    [[CONV10:%.*]] = zext i8 [[TMP7]] to i32
-// CHECK-ILP32F-NEXT:    [[ADD11:%.*]] = add nsw i32 [[TMP6]], [[CONV10]]
+// CHECK-ILP32F-NEXT:    [[TMP7:%.*]] = load b8, ptr [[A]], align 1
+// CHECK-ILP32F-NEXT:    [[CONV10:%.*]] = bytecast b8 [[TMP7]] to i8
+// CHECK-ILP32F-NEXT:    [[CONV11:%.*]] = zext i8 [[CONV10]] to i32
+// CHECK-ILP32F-NEXT:    [[ADD12:%.*]] = add nsw i32 [[TMP6]], [[CONV11]]
 // CHECK-ILP32F-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 1
-// CHECK-ILP32F-NEXT:    [[TMP8:%.*]] = load i8, ptr [[B]], align 1
-// CHECK-ILP32F-NEXT:    [[CONV12:%.*]] = zext i8 [[TMP8]] to i32
-// CHECK-ILP32F-NEXT:    [[ADD13:%.*]] = add nsw i32 [[ADD11]], [[CONV12]]
+// CHECK-ILP32F-NEXT:    [[TMP8:%.*]] = load b8, ptr [[B]], align 1
+// CHECK-ILP32F-NEXT:    [[CONV13:%.*]] = bytecast b8 [[TMP8]] to i8
+// CHECK-ILP32F-NEXT:    [[CONV14:%.*]] = zext i8 [[CONV13]] to i32
+// CHECK-ILP32F-NEXT:    [[ADD15:%.*]] = add nsw i32 [[ADD12]], [[CONV14]]
 // CHECK-ILP32F-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 2
-// CHECK-ILP32F-NEXT:    [[TMP9:%.*]] = load i8, ptr [[C]], align 1
-// CHECK-ILP32F-NEXT:    [[CONV14:%.*]] = zext i8 [[TMP9]] to i32
-// CHECK-ILP32F-NEXT:    [[ADD15:%.*]] = add nsw i32 [[ADD13]], [[CONV14]]
+// CHECK-ILP32F-NEXT:    [[TMP9:%.*]] = load b8, ptr [[C]], align 1
+// CHECK-ILP32F-NEXT:    [[CONV16:%.*]] = bytecast b8 [[TMP9]] to i8
+// CHECK-ILP32F-NEXT:    [[CONV17:%.*]] = zext i8 [[CONV16]] to i32
+// CHECK-ILP32F-NEXT:    [[ADD18:%.*]] = add nsw i32 [[ADD15]], [[CONV17]]
 // CHECK-ILP32F-NEXT:    [[D:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 3
-// CHECK-ILP32F-NEXT:    [[TMP10:%.*]] = load i8, ptr [[D]], align 1
-// CHECK-ILP32F-NEXT:    [[CONV16:%.*]] = zext i8 [[TMP10]] to i32
-// CHECK-ILP32F-NEXT:    [[ADD17:%.*]] = add nsw i32 [[ADD15]], [[CONV16]]
-// CHECK-ILP32F-NEXT:    store i32 [[ADD17]], ptr [[RET]], align 4
-// CHECK-ILP32F-NEXT:    [[TMP11:%.*]] = load i32, ptr [[RET]], align 4
-// CHECK-ILP32F-NEXT:    [[A18:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 0
-// CHECK-ILP32F-NEXT:    [[TMP12:%.*]] = load i32, ptr [[A18]], align 4
-// CHECK-ILP32F-NEXT:    [[ADD19:%.*]] = add nsw i32 [[TMP11]], [[TMP12]]
-// CHECK-ILP32F-NEXT:    [[B20:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 1
-// CHECK-ILP32F-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[B20]], align 4
-// CHECK-ILP32F-NEXT:    [[TMP14:%.*]] = ptrtoint ptr [[TMP13]] to i32
-// CHECK-ILP32F-NEXT:    [[ADD21:%.*]] = add nsw i32 [[ADD19]], [[TMP14]]
+// CHECK-ILP32F-NEXT:    [[TMP10:%.*]] = load b8, ptr [[D]], align 1
+// CHECK-ILP32F-NEXT:    [[CONV19:%.*]] = bytecast b8 [[TMP10]] to i8
+// CHECK-ILP32F-NEXT:    [[CONV20:%.*]] = zext i8 [[CONV19]] to i32
+// CHECK-ILP32F-NEXT:    [[ADD21:%.*]] = add nsw i32 [[ADD18]], [[CONV20]]
 // CHECK-ILP32F-NEXT:    store i32 [[ADD21]], ptr [[RET]], align 4
+// CHECK-ILP32F-NEXT:    [[TMP11:%.*]] = load i32, ptr [[RET]], align 4
+// CHECK-ILP32F-NEXT:    [[A22:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 0
+// CHECK-ILP32F-NEXT:    [[TMP12:%.*]] = load i32, ptr [[A22]], align 4
+// CHECK-ILP32F-NEXT:    [[ADD23:%.*]] = add nsw i32 [[TMP11]], [[TMP12]]
+// CHECK-ILP32F-NEXT:    [[B24:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 1
+// CHECK-ILP32F-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[B24]], align 4
+// CHECK-ILP32F-NEXT:    [[TMP14:%.*]] = ptrtoint ptr [[TMP13]] to i32
+// CHECK-ILP32F-NEXT:    [[ADD25:%.*]] = add nsw i32 [[ADD23]], [[TMP14]]
+// CHECK-ILP32F-NEXT:    store i32 [[ADD25]], ptr [[RET]], align 4
 // CHECK-ILP32F-NEXT:    [[TMP15:%.*]] = load i32, ptr [[RET]], align 4
-// CHECK-ILP32F-NEXT:    [[A22:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 0
-// CHECK-ILP32F-NEXT:    [[TMP16:%.*]] = load i32, ptr [[A22]], align 4
-// CHECK-ILP32F-NEXT:    [[ADD23:%.*]] = add nsw i32 [[TMP15]], [[TMP16]]
-// CHECK-ILP32F-NEXT:    [[B24:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 1
-// CHECK-ILP32F-NEXT:    [[TMP17:%.*]] = load i32, ptr [[B24]], align 4
-// CHECK-ILP32F-NEXT:    [[ADD25:%.*]] = add nsw i32 [[ADD23]], [[TMP17]]
-// CHECK-ILP32F-NEXT:    [[C26:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 2
-// CHECK-ILP32F-NEXT:    [[TMP18:%.*]] = load i32, ptr [[C26]], align 4
-// CHECK-ILP32F-NEXT:    [[ADD27:%.*]] = add nsw i32 [[ADD25]], [[TMP18]]
-// CHECK-ILP32F-NEXT:    [[D28:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 3
-// CHECK-ILP32F-NEXT:    [[TMP19:%.*]] = load i32, ptr [[D28]], align 4
-// CHECK-ILP32F-NEXT:    [[ADD29:%.*]] = add nsw i32 [[ADD27]], [[TMP19]]
-// CHECK-ILP32F-NEXT:    store i32 [[ADD29]], ptr [[RET]], align 4
+// CHECK-ILP32F-NEXT:    [[A26:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 0
+// CHECK-ILP32F-NEXT:    [[TMP16:%.*]] = load i32, ptr [[A26]], align 4
+// CHECK-ILP32F-NEXT:    [[ADD27:%.*]] = add nsw i32 [[TMP15]], [[TMP16]]
+// CHECK-ILP32F-NEXT:    [[B28:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 1
+// CHECK-ILP32F-NEXT:    [[TMP17:%.*]] = load i32, ptr [[B28]], align 4
+// CHECK-ILP32F-NEXT:    [[ADD29:%.*]] = add nsw i32 [[ADD27]], [[TMP17]]
+// CHECK-ILP32F-NEXT:    [[C30:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 2
+// CHECK-ILP32F-NEXT:    [[TMP18:%.*]] = load i32, ptr [[C30]], align 4
+// CHECK-ILP32F-NEXT:    [[ADD31:%.*]] = add nsw i32 [[ADD29]], [[TMP18]]
+// CHECK-ILP32F-NEXT:    [[D32:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 3
+// CHECK-ILP32F-NEXT:    [[TMP19:%.*]] = load i32, ptr [[D32]], align 4
+// CHECK-ILP32F-NEXT:    [[ADD33:%.*]] = add nsw i32 [[ADD31]], [[TMP19]]
+// CHECK-ILP32F-NEXT:    store i32 [[ADD33]], ptr [[RET]], align 4
 // CHECK-ILP32F-NEXT:    [[TMP20:%.*]] = load i32, ptr [[RET]], align 4
 // CHECK-ILP32F-NEXT:    ret i32 [[TMP20]]
 //
@@ -418,45 +422,49 @@ double f_va_3(char *fmt, ...) {
 // CHECK-ILP32D-NEXT:    store i32 [[CONV9]], ptr [[RET]], align 4
 // CHECK-ILP32D-NEXT:    [[TMP6:%.*]] = load i32, ptr [[RET]], align 4
 // CHECK-ILP32D-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 0
-// CHECK-ILP32D-NEXT:    [[TMP7:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-ILP32D-NEXT:    [[CONV10:%.*]] = zext i8 [[TMP7]] to i32
-// CHECK-ILP32D-NEXT:    [[ADD11:%.*]] = add nsw i32 [[TMP6]], [[CONV10]]
+// CHECK-ILP32D-NEXT:    [[TMP7:%.*]] = load b8, ptr [[A]], align 1
+// CHECK-ILP32D-NEXT:    [[CONV10:%.*]] = bytecast b8 [[TMP7]] to i8
+// CHECK-ILP32D-NEXT:    [[CONV11:%.*]] = zext i8 [[CONV10]] to i32
+// CHECK-ILP32D-NEXT:    [[ADD12:%.*]] = add nsw i32 [[TMP6]], [[CONV11]]
 // CHECK-ILP32D-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 1
-// CHECK-ILP32D-NEXT:    [[TMP8:%.*]] = load i8, ptr [[B]], align 1
-// CHECK-ILP32D-NEXT:    [[CONV12:%.*]] = zext i8 [[TMP8]] to i32
-// CHECK-ILP32D-NEXT:    [[ADD13:%.*]] = add nsw i32 [[ADD11]], [[CONV12]]
+// CHECK-ILP32D-NEXT:    [[TMP8:%.*]] = load b8, ptr [[B]], align 1
+// CHECK-ILP32D-NEXT:    [[CONV13:%.*]] = bytecast b8 [[TMP8]] to i8
+// CHECK-ILP32D-NEXT:    [[CONV14:%.*]] = zext i8 [[CONV13]] to i32
+// CHECK-ILP32D-NEXT:    [[ADD15:%.*]] = add nsw i32 [[ADD12]], [[CONV14]]
 // CHECK-ILP32D-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 2
-// CHECK-ILP32D-NEXT:    [[TMP9:%.*]] = load i8, ptr [[C]], align 1
-// CHECK-ILP32D-NEXT:    [[CONV14:%.*]] = zext i8 [[TMP9]] to i32
-// CHECK-ILP32D-NEXT:    [[ADD15:%.*]] = add nsw i32 [[ADD13]], [[CONV14]]
+// CHECK-ILP32D-NEXT:    [[TMP9:%.*]] = load b8, ptr [[C]], align 1
+// CHECK-ILP32D-NEXT:    [[CONV16:%.*]] = bytecast b8 [[TMP9]] to i8
+// CHECK-ILP32D-NEXT:    [[CONV17:%.*]] = zext i8 [[CONV16]] to i32
+// CHECK-ILP32D-NEXT:    [[ADD18:%.*]] = add nsw i32 [[ADD15]], [[CONV17]]
 // CHECK-ILP32D-NEXT:    [[D:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 3
-// CHECK-ILP32D-NEXT:    [[TMP10:%.*]] = load i8, ptr [[D]], align 1
-// CHECK-ILP32D-NEXT:    [[CONV16:%.*]] = zext i8 [[TMP10]] to i32
-// CHECK-ILP32D-NEXT:    [[ADD17:%.*]] = add nsw i32 [[ADD15]], [[CONV16]]
-// CHECK-ILP32D-NEXT:    store i32 [[ADD17]], ptr [[RET]], align 4
-// CHECK-ILP32D-NEXT:    [[TMP11:%.*]] = load i32, ptr [[RET]], align 4
-// CHECK-ILP32D-NEXT:    [[A18:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 0
-// CHECK-ILP32D-NEXT:    [[TMP12:%.*]] = load i32, ptr [[A18]], align 4
-// CHECK-ILP32D-NEXT:    [[ADD19:%.*]] = add nsw i32 [[TMP11]], [[TMP12]]
-// CHECK-ILP32D-NEXT:    [[B20:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 1
-// CHECK-ILP32D-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[B20]], align 4
-// CHECK-ILP32D-NEXT:    [[TMP14:%.*]] = ptrtoint ptr [[TMP13]] to i32
-// CHECK-ILP32D-NEXT:    [[ADD21:%.*]] = add nsw i32 [[ADD19]], [[TMP14]]
+// CHECK-ILP32D-NEXT:    [[TMP10:%.*]] = load b8, ptr [[D]], align 1
+// CHECK-ILP32D-NEXT:    [[CONV19:%.*]] = bytecast b8 [[TMP10]] to i8
+// CHECK-ILP32D-NEXT:    [[CONV20:%.*]] = zext i8 [[CONV19]] to i32
+// CHECK-ILP32D-NEXT:    [[ADD21:%.*]] = add nsw i32 [[ADD18]], [[CONV20]]
 // CHECK-ILP32D-NEXT:    store i32 [[ADD21]], ptr [[RET]], align 4
+// CHECK-ILP32D-NEXT:    [[TMP11:%.*]] = load i32, ptr [[RET]], align 4
+// CHECK-ILP32D-NEXT:    [[A22:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 0
+// CHECK-ILP32D-NEXT:    [[TMP12:%.*]] = load i32, ptr [[A22]], align 4
+// CHECK-ILP32D-NEXT:    [[ADD23:%.*]] = add nsw i32 [[TMP11]], [[TMP12]]
+// CHECK-ILP32D-NEXT:    [[B24:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 1
+// CHECK-ILP32D-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[B24]], align 4
+// CHECK-ILP32D-NEXT:    [[TMP14:%.*]] = ptrtoint ptr [[TMP13]] to i32
+// CHECK-ILP32D-NEXT:    [[ADD25:%.*]] = add nsw i32 [[ADD23]], [[TMP14]]
+// CHECK-ILP32D-NEXT:    store i32 [[ADD25]], ptr [[RET]], align 4
 // CHECK-ILP32D-NEXT:    [[TMP15:%.*]] = load i32, ptr [[RET]], align 4
-// CHECK-ILP32D-NEXT:    [[A22:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 0
-// CHECK-ILP32D-NEXT:    [[TMP16:%.*]] = load i32, ptr [[A22]], align 4
-// CHECK-ILP32D-NEXT:    [[ADD23:%.*]] = add nsw i32 [[TMP15]], [[TMP16]]
-// CHECK-ILP32D-NEXT:    [[B24:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 1
-// CHECK-ILP32D-NEXT:    [[TMP17:%.*]] = load i32, ptr [[B24]], align 4
-// CHECK-ILP32D-NEXT:    [[ADD25:%.*]] = add nsw i32 [[ADD23]], [[TMP17]]
-// CHECK-ILP32D-NEXT:    [[C26:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 2
-// CHECK-ILP32D-NEXT:    [[TMP18:%.*]] = load i32, ptr [[C26]], align 4
-// CHECK-ILP32D-NEXT:    [[ADD27:%.*]] = add nsw i32 [[ADD25]], [[TMP18]]
-// CHECK-ILP32D-NEXT:    [[D28:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 3
-// CHECK-ILP32D-NEXT:    [[TMP19:%.*]] = load i32, ptr [[D28]], align 4
-// CHECK-ILP32D-NEXT:    [[ADD29:%.*]] = add nsw i32 [[ADD27]], [[TMP19]]
-// CHECK-ILP32D-NEXT:    store i32 [[ADD29]], ptr [[RET]], align 4
+// CHECK-ILP32D-NEXT:    [[A26:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 0
+// CHECK-ILP32D-NEXT:    [[TMP16:%.*]] = load i32, ptr [[A26]], align 4
+// CHECK-ILP32D-NEXT:    [[ADD27:%.*]] = add nsw i32 [[TMP15]], [[TMP16]]
+// CHECK-ILP32D-NEXT:    [[B28:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 1
+// CHECK-ILP32D-NEXT:    [[TMP17:%.*]] = load i32, ptr [[B28]], align 4
+// CHECK-ILP32D-NEXT:    [[ADD29:%.*]] = add nsw i32 [[ADD27]], [[TMP17]]
+// CHECK-ILP32D-NEXT:    [[C30:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 2
+// CHECK-ILP32D-NEXT:    [[TMP18:%.*]] = load i32, ptr [[C30]], align 4
+// CHECK-ILP32D-NEXT:    [[ADD31:%.*]] = add nsw i32 [[ADD29]], [[TMP18]]
+// CHECK-ILP32D-NEXT:    [[D32:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 3
+// CHECK-ILP32D-NEXT:    [[TMP19:%.*]] = load i32, ptr [[D32]], align 4
+// CHECK-ILP32D-NEXT:    [[ADD33:%.*]] = add nsw i32 [[ADD31]], [[TMP19]]
+// CHECK-ILP32D-NEXT:    store i32 [[ADD33]], ptr [[RET]], align 4
 // CHECK-ILP32D-NEXT:    [[TMP20:%.*]] = load i32, ptr [[RET]], align 4
 // CHECK-ILP32D-NEXT:    ret i32 [[TMP20]]
 //
@@ -506,45 +514,49 @@ double f_va_3(char *fmt, ...) {
 // CHECK-ILP32E-NEXT:    store i32 [[CONV9]], ptr [[RET]], align 4
 // CHECK-ILP32E-NEXT:    [[TMP6:%.*]] = load i32, ptr [[RET]], align 4
 // CHECK-ILP32E-NEXT:    [[A:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 0
-// CHECK-ILP32E-NEXT:    [[TMP7:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-ILP32E-NEXT:    [[CONV10:%.*]] = zext i8 [[TMP7]] to i32
-// CHECK-ILP32E-NEXT:    [[ADD11:%.*]] = add nsw i32 [[TMP6]], [[CONV10]]
+// CHECK-ILP32E-NEXT:    [[TMP7:%.*]] = load b8, ptr [[A]], align 1
+// CHECK-ILP32E-NEXT:    [[CONV10:%.*]] = bytecast b8 [[TMP7]] to i8
+// CHECK-ILP32E-NEXT:    [[CONV11:%.*]] = zext i8 [[CONV10]] to i32
+// CHECK-ILP32E-NEXT:    [[ADD12:%.*]] = add nsw i32 [[TMP6]], [[CONV11]]
 // CHECK-ILP32E-NEXT:    [[B:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 1
-// CHECK-ILP32E-NEXT:    [[TMP8:%.*]] = load i8, ptr [[B]], align 1
-// CHECK-ILP32E-NEXT:    [[CONV12:%.*]] = zext i8 [[TMP8]] to i32
-// CHECK-ILP32E-NEXT:    [[ADD13:%.*]] = add nsw i32 [[ADD11]], [[CONV12]]
+// CHECK-ILP32E-NEXT:    [[TMP8:%.*]] = load b8, ptr [[B]], align 1
+// CHECK-ILP32E-NEXT:    [[CONV13:%.*]] = bytecast b8 [[TMP8]] to i8
+// CHECK-ILP32E-NEXT:    [[CONV14:%.*]] = zext i8 [[CONV13]] to i32
+// CHECK-ILP32E-NEXT:    [[ADD15:%.*]] = add nsw i32 [[ADD12]], [[CONV14]]
 // CHECK-ILP32E-NEXT:    [[C:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 2
-// CHECK-ILP32E-NEXT:    [[TMP9:%.*]] = load i8, ptr [[C]], align 1
-// CHECK-ILP32E-NEXT:    [[CONV14:%.*]] = zext i8 [[TMP9]] to i32
-// CHECK-ILP32E-NEXT:    [[ADD15:%.*]] = add nsw i32 [[ADD13]], [[CONV14]]
+// CHECK-ILP32E-NEXT:    [[TMP9:%.*]] = load b8, ptr [[C]], align 1
+// CHECK-ILP32E-NEXT:    [[CONV16:%.*]] = bytecast b8 [[TMP9]] to i8
+// CHECK-ILP32E-NEXT:    [[CONV17:%.*]] = zext i8 [[CONV16]] to i32
+// CHECK-ILP32E-NEXT:    [[ADD18:%.*]] = add nsw i32 [[ADD15]], [[CONV17]]
 // CHECK-ILP32E-NEXT:    [[D:%.*]] = getelementptr inbounds nuw [[STRUCT_TINY]], ptr [[TS]], i32 0, i32 3
-// CHECK-ILP32E-NEXT:    [[TMP10:%.*]] = load i8, ptr [[D]], align 1
-// CHECK-ILP32E-NEXT:    [[CONV16:%.*]] = zext i8 [[TMP10]] to i32
-// CHECK-ILP32E-NEXT:    [[ADD17:%.*]] = add nsw i32 [[ADD15]], [[CONV16]]
-// CHECK-ILP32E-NEXT:    store i32 [[ADD17]], ptr [[RET]], align 4
-// CHECK-ILP32E-NEXT:    [[TMP11:%.*]] = load i32, ptr [[RET]], align 4
-// CHECK-ILP32E-NEXT:    [[A18:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 0
-// CHECK-ILP32E-NEXT:    [[TMP12:%.*]] = load i32, ptr [[A18]], align 4
-// CHECK-ILP32E-NEXT:    [[ADD19:%.*]] = add nsw i32 [[TMP11]], [[TMP12]]
-// CHECK-ILP32E-NEXT:    [[B20:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 1
-// CHECK-ILP32E-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[B20]], align 4
-// CHECK-ILP32E-NEXT:    [[TMP14:%.*]] = ptrtoint ptr [[TMP13]] to i32
-// CHECK-ILP32E-NEXT:    [[ADD21:%.*]] = add nsw i32 [[ADD19]], [[TMP14]]
+// CHECK-ILP32E-NEXT:    [[TMP10:%.*]] = load b8, ptr [[D]], align 1
+// CHECK-ILP32E-NEXT:    [[CONV19:%.*]] = bytecast b8 [[TMP10]] to i8
+// CHECK-ILP32E-NEXT:    [[CONV20:%.*]] = zext i8 [[CONV19]] to i32
+// CHECK-ILP32E-NEXT:    [[ADD21:%.*]] = add nsw i32 [[ADD18]], [[CONV20]]
 // CHECK-ILP32E-NEXT:    store i32 [[ADD21]], ptr [[RET]], align 4
+// CHECK-ILP32E-NEXT:    [[TMP11:%.*]] = load i32, ptr [[RET]], align 4
+// CHECK-ILP32E-NEXT:    [[A22:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 0
+// CHECK-ILP32E-NEXT:    [[TMP12:%.*]] = load i32, ptr [[A22]], align 4
+// CHECK-ILP32E-NEXT:    [[ADD23:%.*]] = add nsw i32 [[TMP11]], [[TMP12]]
+// CHECK-ILP32E-NEXT:    [[B24:%.*]] = getelementptr inbounds nuw [[STRUCT_SMALL]], ptr [[SS]], i32 0, i32 1
+// CHECK-ILP32E-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[B24]], align 4
+// CHECK-ILP32E-NEXT:    [[TMP14:%.*]] = ptrtoint ptr [[TMP13]] to i32
+// CHECK-ILP32E-NEXT:    [[ADD25:%.*]] = add nsw i32 [[ADD23]], [[TMP14]]
+// CHECK-ILP32E-NEXT:    store i32 [[ADD25]], ptr [[RET]], align 4
 // CHECK-ILP32E-NEXT:    [[TMP15:%.*]] = load i32, ptr [[RET]], align 4
-// CHECK-ILP32E-NEXT:    [[A22:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 0
-// CHECK-ILP32E-NEXT:    [[TMP16:%.*]] = load i32, ptr [[A22]], align 4
-// CHECK-ILP32E-NEXT:    [[ADD23:%.*]] = add nsw i32 [[TMP15]], [[TMP16]]
-// CHECK-ILP32E-NEXT:    [[B24:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 1
-// CHECK-ILP32E-NEXT:    [[TMP17:%.*]] = load i32, ptr [[B24]], align 4
-// CHECK-ILP32E-NEXT:    [[ADD25:%.*]] = add nsw i32 [[ADD23]], [[TMP17]]
-// CHECK-ILP32E-NEXT:    [[C26:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 2
-// CHECK-ILP32E-NEXT:    [[TMP18:%.*]] = load i32, ptr [[C26]], align 4
-// CHECK-ILP32E-NEXT:    [[ADD27:%.*]] = add nsw i32 [[ADD25]], [[TMP18]]
-// CHECK-ILP32E-NEXT:    [[D28:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 3
-// CHECK-ILP32E-NEXT:    [[TMP19:%.*]] = load i32, ptr [[D28]], align 4
-// CHECK-ILP32E-NEXT:    [[ADD29:%.*]] = add nsw i32 [[ADD27]], [[TMP19]]
-// CHECK-ILP32E-NEXT:    store i32 [[ADD29]], ptr [[RET]], align 4
+// CHECK-ILP32E-NEXT:    [[A26:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 0
+// CHECK-ILP32E-NEXT:    [[TMP16:%.*]] = load i32, ptr [[A26]], align 4
+// CHECK-ILP32E-NEXT:    [[ADD27:%.*]] = add nsw i32 [[TMP15]], [[TMP16]]
+// CHECK-ILP32E-NEXT:    [[B28:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 1
+// CHECK-ILP32E-NEXT:    [[TMP17:%.*]] = load i32, ptr [[B28]], align 4
+// CHECK-ILP32E-NEXT:    [[ADD29:%.*]] = add nsw i32 [[ADD27]], [[TMP17]]
+// CHECK-ILP32E-NEXT:    [[C30:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 2
+// CHECK-ILP32E-NEXT:    [[TMP18:%.*]] = load i32, ptr [[C30]], align 4
+// CHECK-ILP32E-NEXT:    [[ADD31:%.*]] = add nsw i32 [[ADD29]], [[TMP18]]
+// CHECK-ILP32E-NEXT:    [[D32:%.*]] = getelementptr inbounds nuw [[STRUCT_LARGE]], ptr [[LS]], i32 0, i32 3
+// CHECK-ILP32E-NEXT:    [[TMP19:%.*]] = load i32, ptr [[D32]], align 4
+// CHECK-ILP32E-NEXT:    [[ADD33:%.*]] = add nsw i32 [[ADD31]], [[TMP19]]
+// CHECK-ILP32E-NEXT:    store i32 [[ADD33]], ptr [[RET]], align 4
 // CHECK-ILP32E-NEXT:    [[TMP20:%.*]] = load i32, ptr [[RET]], align 4
 // CHECK-ILP32E-NEXT:    ret i32 [[TMP20]]
 //

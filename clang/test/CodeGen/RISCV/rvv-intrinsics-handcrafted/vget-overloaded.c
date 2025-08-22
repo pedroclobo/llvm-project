@@ -7,8 +7,8 @@
 
 // CHECK-RV64-LABEL: @test_vget_v_i8m2_i8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv16i8(<vscale x 16 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv16b8(<vscale x 16 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vget_v_i8m2_i8m1(vint8m2_t src, size_t index) {
   return __riscv_vget_i8m1(src, 0);
@@ -16,8 +16,8 @@ vint8m1_t test_vget_v_i8m2_i8m1(vint8m2_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_i8m4_i8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv32i8(<vscale x 32 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv32b8(<vscale x 32 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vget_v_i8m4_i8m1(vint8m4_t src, size_t index) {
   return __riscv_vget_i8m1(src, 0);
@@ -25,8 +25,8 @@ vint8m1_t test_vget_v_i8m4_i8m1(vint8m4_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_i8m8_i8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv64i8(<vscale x 64 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv64b8(<vscale x 64 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vget_v_i8m8_i8m1(vint8m8_t src, size_t index) {
   return __riscv_vget_i8m1(src, 0);
@@ -34,8 +34,8 @@ vint8m1_t test_vget_v_i8m8_i8m1(vint8m8_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_i8m4_i8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv32b8(<vscale x 32 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vint8m2_t test_vget_v_i8m4_i8m2(vint8m4_t src, size_t index) {
   return __riscv_vget_i8m2(src, 0);
@@ -43,8 +43,8 @@ vint8m2_t test_vget_v_i8m4_i8m2(vint8m4_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_i8m8_i8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv64i8(<vscale x 64 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv64b8(<vscale x 64 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vint8m2_t test_vget_v_i8m8_i8m2(vint8m8_t src, size_t index) {
   return __riscv_vget_i8m2(src, 0);
@@ -52,8 +52,8 @@ vint8m2_t test_vget_v_i8m8_i8m2(vint8m8_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_i8m8_i8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.vector.extract.nxv32i8.nxv64i8(<vscale x 64 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.vector.extract.nxv32b8.nxv64b8(<vscale x 64 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vint8m4_t test_vget_v_i8m8_i8m4(vint8m8_t src, size_t index) {
   return __riscv_vget_i8m4(src, 0);
@@ -61,8 +61,8 @@ vint8m4_t test_vget_v_i8m8_i8m4(vint8m8_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_u8m2_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv16i8(<vscale x 16 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv16b8(<vscale x 16 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m2_u8m1(vuint8m2_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
@@ -70,8 +70,8 @@ vuint8m1_t test_vget_v_u8m2_u8m1(vuint8m2_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_u8m4_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv32i8(<vscale x 32 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv32b8(<vscale x 32 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m4_u8m1(vuint8m4_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
@@ -79,8 +79,8 @@ vuint8m1_t test_vget_v_u8m4_u8m1(vuint8m4_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_u8m8_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.vector.extract.nxv8i8.nxv64i8(<vscale x 64 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.vector.extract.nxv8b8.nxv64b8(<vscale x 64 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vget_v_u8m8_u8m1(vuint8m8_t src, size_t index) {
   return __riscv_vget_u8m1(src, 0);
@@ -88,8 +88,8 @@ vuint8m1_t test_vget_v_u8m8_u8m1(vuint8m8_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_u8m4_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv32i8(<vscale x 32 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv32b8(<vscale x 32 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vget_v_u8m4_u8m2(vuint8m4_t src, size_t index) {
   return __riscv_vget_u8m2(src, 0);
@@ -97,8 +97,8 @@ vuint8m2_t test_vget_v_u8m4_u8m2(vuint8m4_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_u8m8_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.vector.extract.nxv16i8.nxv64i8(<vscale x 64 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.vector.extract.nxv16b8.nxv64b8(<vscale x 64 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vget_v_u8m8_u8m2(vuint8m8_t src, size_t index) {
   return __riscv_vget_u8m2(src, 0);
@@ -106,8 +106,8 @@ vuint8m2_t test_vget_v_u8m8_u8m2(vuint8m8_t src, size_t index) {
 
 // CHECK-RV64-LABEL: @test_vget_v_u8m8_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.vector.extract.nxv32i8.nxv64i8(<vscale x 64 x i8> [[SRC:%.*]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.vector.extract.nxv32b8.nxv64b8(<vscale x 64 x b8> [[SRC:%.*]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vget_v_u8m8_u8m4(vuint8m8_t src, size_t index) {
   return __riscv_vget_u8m4(src, 0);

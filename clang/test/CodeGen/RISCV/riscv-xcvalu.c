@@ -57,8 +57,9 @@ int test_alu_exthz(uint16_t a) {
 
 // CHECK-LABEL: @test_alu_extbs(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[A:%.*]] to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = trunc i32 [[CONV]] to i8
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[A:%.*]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = trunc i32 [[CONV1]] to i8
 // CHECK-NEXT:    [[EXTBS:%.*]] = sext i8 [[TMP0]] to i32
 // CHECK-NEXT:    ret i32 [[EXTBS]]
 //
@@ -68,8 +69,9 @@ int test_alu_extbs(int8_t a) {
 
 // CHECK-LABEL: @test_alu_extbz(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV:%.*]] = zext i8 [[A:%.*]] to i32
-// CHECK-NEXT:    [[TMP0:%.*]] = trunc i32 [[CONV]] to i8
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[A:%.*]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = zext i8 [[CONV]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = trunc i32 [[CONV1]] to i8
 // CHECK-NEXT:    [[EXTBZ:%.*]] = zext i8 [[TMP0]] to i32
 // CHECK-NEXT:    ret i32 [[EXTBZ]]
 //
