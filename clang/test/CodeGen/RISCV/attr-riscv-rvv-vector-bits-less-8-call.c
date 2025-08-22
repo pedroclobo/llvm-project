@@ -15,12 +15,27 @@ typedef vbool64_t fixed_bool64_t __attribute__((riscv_rvv_vector_bits(__riscv_v_
 
 // CHECK-64-LABEL: @call_bool32_ff(
 // CHECK-64-NEXT:  entry:
-// CHECK-64-NEXT:    [[TMP2:%.*]] = tail call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP0:%.*]], <vscale x 2 x i1> [[TMP1:%.*]], i64 2)
-// CHECK-64-NEXT:    ret <vscale x 2 x i1> [[TMP2]]
+// CHECK-64-NEXT:    [[OP1:%.*]] = alloca <1 x b8>, align 1
+// CHECK-64-NEXT:    [[OP2:%.*]] = alloca <1 x b8>, align 1
+// CHECK-64-NEXT:    store <vscale x 2 x i1> [[OP1_COERCE:%.*]], ptr [[OP1]], align 1
+// CHECK-64-NEXT:    [[OP1_0_OP1_0_OP1_0_OP1_0_OP11:%.*]] = load <1 x b8>, ptr [[OP1]], align 1, !tbaa [[TBAA6:![0-9]+]]
+// CHECK-64-NEXT:    store <vscale x 2 x i1> [[OP2_COERCE:%.*]], ptr [[OP2]], align 1
+// CHECK-64-NEXT:    [[OP2_0_OP2_0_OP2_0_OP2_0_OP22:%.*]] = load <1 x b8>, ptr [[OP2]], align 1, !tbaa [[TBAA6]]
+// CHECK-64-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> [[OP1_0_OP1_0_OP1_0_OP1_0_OP11]], i64 0)
+// CHECK-64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-64-NEXT:    [[TMP1:%.*]] = tail call <vscale x 2 x i1> @llvm.vector.extract.nxv2i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-64-NEXT:    [[CAST_SCALABLE3:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> [[OP2_0_OP2_0_OP2_0_OP2_0_OP22]], i64 0)
+// CHECK-64-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE3]] to <vscale x 8 x i1>
+// CHECK-64-NEXT:    [[TMP3:%.*]] = tail call <vscale x 2 x i1> @llvm.vector.extract.nxv2i1.nxv8i1(<vscale x 8 x i1> [[TMP2]], i64 0)
+// CHECK-64-NEXT:    [[TMP4:%.*]] = tail call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP1]], <vscale x 2 x i1> [[TMP3]], i64 2)
+// CHECK-64-NEXT:    ret <vscale x 2 x i1> [[TMP4]]
 //
 // CHECK-128-LABEL: @call_bool32_ff(
 // CHECK-128-NEXT:  entry:
-// CHECK-128-NEXT:    [[TMP2:%.*]] = tail call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP0:%.*]], <vscale x 2 x i1> [[TMP1:%.*]], i64 4)
+// CHECK-128-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> undef, i64 0)
+// CHECK-128-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-128-NEXT:    [[TMP1:%.*]] = tail call <vscale x 2 x i1> @llvm.vector.extract.nxv2i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-128-NEXT:    [[TMP2:%.*]] = tail call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP1]], <vscale x 2 x i1> [[TMP1]], i64 4)
 // CHECK-128-NEXT:    ret <vscale x 2 x i1> [[TMP2]]
 //
 fixed_bool32_t call_bool32_ff(fixed_bool32_t op1, fixed_bool32_t op2) {
@@ -29,12 +44,27 @@ fixed_bool32_t call_bool32_ff(fixed_bool32_t op1, fixed_bool32_t op2) {
 
 // CHECK-64-LABEL: @call_bool64_ff(
 // CHECK-64-NEXT:  entry:
-// CHECK-64-NEXT:    [[TMP2:%.*]] = tail call <vscale x 1 x i1> @llvm.riscv.vmand.nxv1i1.i64(<vscale x 1 x i1> [[TMP0:%.*]], <vscale x 1 x i1> [[TMP1:%.*]], i64 1)
-// CHECK-64-NEXT:    ret <vscale x 1 x i1> [[TMP2]]
+// CHECK-64-NEXT:    [[OP1:%.*]] = alloca <1 x b8>, align 1
+// CHECK-64-NEXT:    [[OP2:%.*]] = alloca <1 x b8>, align 1
+// CHECK-64-NEXT:    store <vscale x 1 x i1> [[OP1_COERCE:%.*]], ptr [[OP1]], align 1
+// CHECK-64-NEXT:    [[OP1_0_OP1_0_OP1_0_OP1_0_OP11:%.*]] = load <1 x b8>, ptr [[OP1]], align 1, !tbaa [[TBAA6]]
+// CHECK-64-NEXT:    store <vscale x 1 x i1> [[OP2_COERCE:%.*]], ptr [[OP2]], align 1
+// CHECK-64-NEXT:    [[OP2_0_OP2_0_OP2_0_OP2_0_OP22:%.*]] = load <1 x b8>, ptr [[OP2]], align 1, !tbaa [[TBAA6]]
+// CHECK-64-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> [[OP1_0_OP1_0_OP1_0_OP1_0_OP11]], i64 0)
+// CHECK-64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-64-NEXT:    [[TMP1:%.*]] = tail call <vscale x 1 x i1> @llvm.vector.extract.nxv1i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-64-NEXT:    [[CAST_SCALABLE3:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> [[OP2_0_OP2_0_OP2_0_OP2_0_OP22]], i64 0)
+// CHECK-64-NEXT:    [[TMP2:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE3]] to <vscale x 8 x i1>
+// CHECK-64-NEXT:    [[TMP3:%.*]] = tail call <vscale x 1 x i1> @llvm.vector.extract.nxv1i1.nxv8i1(<vscale x 8 x i1> [[TMP2]], i64 0)
+// CHECK-64-NEXT:    [[TMP4:%.*]] = tail call <vscale x 1 x i1> @llvm.riscv.vmand.nxv1i1.i64(<vscale x 1 x i1> [[TMP1]], <vscale x 1 x i1> [[TMP3]], i64 1)
+// CHECK-64-NEXT:    ret <vscale x 1 x i1> [[TMP4]]
 //
 // CHECK-128-LABEL: @call_bool64_ff(
 // CHECK-128-NEXT:  entry:
-// CHECK-128-NEXT:    [[TMP2:%.*]] = tail call <vscale x 1 x i1> @llvm.riscv.vmand.nxv1i1.i64(<vscale x 1 x i1> [[TMP0:%.*]], <vscale x 1 x i1> [[TMP1:%.*]], i64 2)
+// CHECK-128-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> undef, i64 0)
+// CHECK-128-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-128-NEXT:    [[TMP1:%.*]] = tail call <vscale x 1 x i1> @llvm.vector.extract.nxv1i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-128-NEXT:    [[TMP2:%.*]] = tail call <vscale x 1 x i1> @llvm.riscv.vmand.nxv1i1.i64(<vscale x 1 x i1> [[TMP1]], <vscale x 1 x i1> [[TMP1]], i64 2)
 // CHECK-128-NEXT:    ret <vscale x 1 x i1> [[TMP2]]
 //
 fixed_bool64_t call_bool64_ff(fixed_bool64_t op1, fixed_bool64_t op2) {
@@ -47,13 +77,22 @@ fixed_bool64_t call_bool64_ff(fixed_bool64_t op1, fixed_bool64_t op2) {
 
 // CHECK-64-LABEL: @call_bool32_fs(
 // CHECK-64-NEXT:  entry:
-// CHECK-64-NEXT:    [[TMP1:%.*]] = tail call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP0:%.*]], <vscale x 2 x i1> [[OP2:%.*]], i64 2)
-// CHECK-64-NEXT:    ret <vscale x 2 x i1> [[TMP1]]
+// CHECK-64-NEXT:    [[OP1:%.*]] = alloca <1 x b8>, align 1
+// CHECK-64-NEXT:    store <vscale x 2 x i1> [[OP1_COERCE:%.*]], ptr [[OP1]], align 1
+// CHECK-64-NEXT:    [[OP1_0_OP1_0_OP1_0_OP1_0_OP11:%.*]] = load <1 x b8>, ptr [[OP1]], align 1, !tbaa [[TBAA6]]
+// CHECK-64-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> [[OP1_0_OP1_0_OP1_0_OP1_0_OP11]], i64 0)
+// CHECK-64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-64-NEXT:    [[TMP1:%.*]] = tail call <vscale x 2 x i1> @llvm.vector.extract.nxv2i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-64-NEXT:    [[TMP2:%.*]] = tail call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP1]], <vscale x 2 x i1> [[OP2:%.*]], i64 2)
+// CHECK-64-NEXT:    ret <vscale x 2 x i1> [[TMP2]]
 //
 // CHECK-128-LABEL: @call_bool32_fs(
 // CHECK-128-NEXT:  entry:
-// CHECK-128-NEXT:    [[TMP1:%.*]] = tail call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP0:%.*]], <vscale x 2 x i1> [[OP2:%.*]], i64 4)
-// CHECK-128-NEXT:    ret <vscale x 2 x i1> [[TMP1]]
+// CHECK-128-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> undef, i64 0)
+// CHECK-128-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-128-NEXT:    [[TMP1:%.*]] = tail call <vscale x 2 x i1> @llvm.vector.extract.nxv2i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-128-NEXT:    [[TMP2:%.*]] = tail call <vscale x 2 x i1> @llvm.riscv.vmand.nxv2i1.i64(<vscale x 2 x i1> [[TMP1]], <vscale x 2 x i1> [[OP2:%.*]], i64 4)
+// CHECK-128-NEXT:    ret <vscale x 2 x i1> [[TMP2]]
 //
 fixed_bool32_t call_bool32_fs(fixed_bool32_t op1, vbool32_t op2) {
   return __riscv_vmand(op1, op2, __riscv_v_fixed_vlen / 32);
@@ -61,13 +100,22 @@ fixed_bool32_t call_bool32_fs(fixed_bool32_t op1, vbool32_t op2) {
 
 // CHECK-64-LABEL: @call_bool64_fs(
 // CHECK-64-NEXT:  entry:
-// CHECK-64-NEXT:    [[TMP1:%.*]] = tail call <vscale x 1 x i1> @llvm.riscv.vmand.nxv1i1.i64(<vscale x 1 x i1> [[TMP0:%.*]], <vscale x 1 x i1> [[OP2:%.*]], i64 1)
-// CHECK-64-NEXT:    ret <vscale x 1 x i1> [[TMP1]]
+// CHECK-64-NEXT:    [[OP1:%.*]] = alloca <1 x b8>, align 1
+// CHECK-64-NEXT:    store <vscale x 1 x i1> [[OP1_COERCE:%.*]], ptr [[OP1]], align 1
+// CHECK-64-NEXT:    [[OP1_0_OP1_0_OP1_0_OP1_0_OP11:%.*]] = load <1 x b8>, ptr [[OP1]], align 1, !tbaa [[TBAA6]]
+// CHECK-64-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> [[OP1_0_OP1_0_OP1_0_OP1_0_OP11]], i64 0)
+// CHECK-64-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-64-NEXT:    [[TMP1:%.*]] = tail call <vscale x 1 x i1> @llvm.vector.extract.nxv1i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-64-NEXT:    [[TMP2:%.*]] = tail call <vscale x 1 x i1> @llvm.riscv.vmand.nxv1i1.i64(<vscale x 1 x i1> [[TMP1]], <vscale x 1 x i1> [[OP2:%.*]], i64 1)
+// CHECK-64-NEXT:    ret <vscale x 1 x i1> [[TMP2]]
 //
 // CHECK-128-LABEL: @call_bool64_fs(
 // CHECK-128-NEXT:  entry:
-// CHECK-128-NEXT:    [[TMP1:%.*]] = tail call <vscale x 1 x i1> @llvm.riscv.vmand.nxv1i1.i64(<vscale x 1 x i1> [[TMP0:%.*]], <vscale x 1 x i1> [[OP2:%.*]], i64 2)
-// CHECK-128-NEXT:    ret <vscale x 1 x i1> [[TMP1]]
+// CHECK-128-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> undef, i64 0)
+// CHECK-128-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-128-NEXT:    [[TMP1:%.*]] = tail call <vscale x 1 x i1> @llvm.vector.extract.nxv1i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-128-NEXT:    [[TMP2:%.*]] = tail call <vscale x 1 x i1> @llvm.riscv.vmand.nxv1i1.i64(<vscale x 1 x i1> [[TMP1]], <vscale x 1 x i1> [[OP2:%.*]], i64 2)
+// CHECK-128-NEXT:    ret <vscale x 1 x i1> [[TMP2]]
 //
 fixed_bool64_t call_bool64_fs(fixed_bool64_t op1, vbool64_t op2) {
   return __riscv_vmand(op1, op2, __riscv_v_fixed_vlen / 64);
