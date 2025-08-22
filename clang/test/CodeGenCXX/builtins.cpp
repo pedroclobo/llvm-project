@@ -24,7 +24,7 @@ long y = __builtin_abs(-2l);
 extern "C" char memmove();
 
 int main() {
-  // CHECK: call {{signext i8|i8}} @memmove()
+  // CHECK: call {{signext b8|b8}} @memmove()
   return memmove();
 }
 

@@ -7,7 +7,7 @@ struct P1 {
     } q;
 };
 
-// CHECK: { [6 x i8] c"foo\00\00\00", [6 x i8] c"\00x\00\00\00\00" }
+// CHECK: { [6 x i8] c"foo\00\00\00", [6 x b8] c"\00x\00\00\00\00" }
 struct P1 l1 = {
     (struct Q1){ "foo", "bar" },
                .q.b = { "boo" },

@@ -46,7 +46,7 @@ int test4(int argc, char *argv[]) {
 
 unsigned long test_epi8(__m128i x) { return _mm_extract_epi8(x, 4); }
 // CHECK: @test_epi8
-// CHECK: extractelement <16 x i8> {{.*}}, {{i32|i64}} 4
+// CHECK: extractelement <16 x b8> {{.*}}, {{i32|i64}} 4
 // CHECK: zext i8 {{.*}} to i32
 
 unsigned long test_epi16(__m128i x) { return _mm_extract_epi16(x, 3); }

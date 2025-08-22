@@ -10,11 +10,13 @@
 
 void test_i8_atomics(_Atomic(int8_t) * a, int8_t b) {
   // LA32: load atomic i8, ptr %a seq_cst, align 1
-  // LA32: store atomic i8 %b, ptr %a seq_cst, align 1
-  // LA32: atomicrmw add ptr %a, i8 %b seq_cst, align 1
+  // LA32: bytecast b8 %b to i8
+  // LA32: store atomic i8 %1, ptr %a seq_cst, align 1
+  // LA32: atomicrmw add ptr %a, i8 %1 seq_cst, align 1
   // LA64: load atomic i8, ptr %a seq_cst, align 1
-  // LA64: store atomic i8 %b, ptr %a seq_cst, align 1
-  // LA64: atomicrmw add ptr %a, i8 %b seq_cst, align 1
+  // LA64: bytecast b8 %b to i8
+  // LA64: store atomic i8 %1, ptr %a seq_cst, align 1
+  // LA64: atomicrmw add ptr %a, i8 %1 seq_cst, align 1
   __c11_atomic_load(a, memory_order_seq_cst);
   __c11_atomic_store(a, b, memory_order_seq_cst);
   __c11_atomic_fetch_add(a, b, memory_order_seq_cst);

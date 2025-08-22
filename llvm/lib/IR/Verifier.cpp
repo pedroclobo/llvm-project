@@ -4516,8 +4516,8 @@ void Verifier::visitAllocaInst(AllocaInst &AI) {
 
 void Verifier::visitAtomicCmpXchgInst(AtomicCmpXchgInst &CXI) {
   Type *ElTy = CXI.getOperand(1)->getType();
-  Check(ElTy->isIntOrPtrTy(),
-        "cmpxchg operand must have integer or pointer type", ElTy, &CXI);
+  Check(ElTy->isIntOrPtrTy() || ElTy->isByteTy(),
+        "cmpxchg operand must have integer, pointer or byte type", ElTy, &CXI);
   checkAtomicMemAccessSize(ElTy, &CXI);
   visitInstruction(CXI);
 }
@@ -4540,9 +4540,9 @@ void Verifier::visitAtomicRMWInst(AtomicRMWInst &RMWI) {
               "type!",
           &RMWI, ElTy);
   } else {
-    Check(ElTy->isIntegerTy(),
+    Check(ElTy->isIntegerTy() || ElTy->isByteTy(),
           "atomicrmw " + AtomicRMWInst::getOperationName(Op) +
-              " operand must have integer type!",
+              " operand must have integer/byte type!",
           &RMWI, ElTy);
   }
   checkAtomicMemAccessSize(ElTy, &RMWI);

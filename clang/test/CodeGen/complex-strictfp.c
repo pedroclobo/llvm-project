@@ -119,7 +119,7 @@ void t2(void) {
 
 // CHECK-LABEL: @t91(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[C:%.*]] = alloca [0 x i8], align 1
+// CHECK-NEXT:    [[C:%.*]] = alloca [0 x b8], align 1
 // CHECK-NEXT:    br i1 false, label [[COND_TRUE:%.*]], label [[COND_FALSE:%.*]]
 // CHECK:       cond.true:
 // CHECK-NEXT:    [[CONV:%.*]] = call double @llvm.experimental.constrained.fpext.f64.f32(float 2.000000e+00, metadata !"fpexcept.strict") #[[ATTR2]]
@@ -141,7 +141,7 @@ void t91(void) {
 
 // CHECK-LABEL: @t92(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[C:%.*]] = alloca [0 x i8], align 1
+// CHECK-NEXT:    [[C:%.*]] = alloca [0 x b8], align 1
 // CHECK-NEXT:    br i1 false, label [[COND_TRUE:%.*]], label [[COND_FALSE:%.*]]
 // CHECK:       cond.true:
 // CHECK-NEXT:    [[CONV:%.*]] = call double @llvm.experimental.constrained.fpext.f64.f32(float 2.000000e+00, metadata !"fpexcept.strict") #[[ATTR2]]

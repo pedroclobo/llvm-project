@@ -218,7 +218,7 @@ extern "C" {
 
 TEST_UNINIT(char, char);
 // CHECK-LABEL: @test_char_uninit()
-// CHECK:       %uninit = alloca i8, align
+// CHECK:       %uninit = alloca b8, align
 // CHECK-NEXT:  call void @{{.*}}used{{.*}}%uninit)
 // PATTERN-LABEL: @test_char_uninit()
 // PATTERN: store i8 [[I8]], ptr %uninit, align 1, !annotation [[AUTO_INIT:!.+]]
@@ -227,28 +227,30 @@ TEST_UNINIT(char, char);
 
 TEST_BRACES(char, char);
 // CHECK-LABEL: @test_char_braces()
-// CHECK:       %braces = alloca i8, align [[ALIGN:[0-9]*]]
+// CHECK:       %braces = alloca b8, align [[ALIGN:[0-9]*]]
 // CHECK-NEXT:  store i8 0, ptr %braces, align [[ALIGN]]
 // CHECK-NEXT:  call void @{{.*}}used{{.*}}%braces)
 
 TEST_UNINIT(uchar, unsigned char);
 // CHECK-LABEL: @test_uchar_uninit()
-// CHECK:       %uninit = alloca i8, align
+// CHECK:       %uninit = alloca b8, align
 // CHECK-NEXT:  call void @{{.*}}used{{.*}}%uninit)
 // PATTERN-LABEL: @test_uchar_uninit()
-// PATTERN: store i8 [[I8]], ptr %uninit, align 1, !annotation [[AUTO_INIT]]
+// PATTERN-O0: store b8 [[I8]], ptr %uninit, align 1, !annotation [[AUTO_INIT]]
+// PATTERN-O1: store i8 [[I8]], ptr %uninit, align 1, !annotation [[AUTO_INIT]]
 // ZERO-LABEL: @test_uchar_uninit()
-// ZERO: store i8 0, ptr %uninit, align 1, !annotation [[AUTO_INIT]]
+// ZERO-O0: store b8 0, ptr %uninit, align 1, !annotation [[AUTO_INIT]]
+// ZERO-O1: store i8 0, ptr %uninit, align 1, !annotation [[AUTO_INIT]]
 
 TEST_BRACES(uchar, unsigned char);
 // CHECK-LABEL: @test_uchar_braces()
-// CHECK:       %braces = alloca i8, align [[ALIGN:[0-9]*]]
+// CHECK:       %braces = alloca b8, align [[ALIGN:[0-9]*]]
 // CHECK-NEXT:  store i8 0, ptr %braces, align [[ALIGN]]
 // CHECK-NEXT:  call void @{{.*}}used{{.*}}%braces)
 
 TEST_UNINIT(schar, signed char);
 // CHECK-LABEL: @test_schar_uninit()
-// CHECK:       %uninit = alloca i8, align
+// CHECK:       %uninit = alloca b8, align
 // CHECK-NEXT:  call void @{{.*}}used{{.*}}%uninit)
 // PATTERN-LABEL: @test_schar_uninit()
 // PATTERN: store i8 [[I8]], ptr %uninit, align 1, !annotation [[AUTO_INIT]]
@@ -257,7 +259,7 @@ TEST_UNINIT(schar, signed char);
 
 TEST_BRACES(schar, signed char);
 // CHECK-LABEL: @test_schar_braces()
-// CHECK:       %braces = alloca i8, align [[ALIGN:[0-9]*]]
+// CHECK:       %braces = alloca b8, align [[ALIGN:[0-9]*]]
 // CHECK-NEXT:  store i8 0, ptr %braces, align [[ALIGN]]
 // CHECK-NOT:   !annotation
 // CHECK-NEXT:  call void @{{.*}}used{{.*}}%braces)

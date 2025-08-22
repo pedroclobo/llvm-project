@@ -90,12 +90,12 @@ extern "C" void nested_finally() {
 // CHECK-LABEL: define dso_local void @nested_finally() #{{[0-9]+}}
 // CHECK-SAME:  personality ptr @__C_specific_handler
 // CHECK: invoke void @might_throw()
-// CHECK: call void @"?fin$0@0@nested_finally@@"(i8 noundef 1, ptr {{.*}})
+// CHECK: call void @"?fin$0@0@nested_finally@@"(b8 noundef 1, ptr {{.*}})
 
 // CHECK-LABEL: define internal void @"?fin$0@0@nested_finally@@"
 // CHECK-SAME:  personality ptr @__C_specific_handler
 // CHECK: invoke void @might_throw()
-// CHECK: call void @"?fin$1@0@nested_finally@@"(i8 noundef 1, ptr {{.*}})
+// CHECK: call void @"?fin$1@0@nested_finally@@"(b8 noundef 1, ptr {{.*}})
 
 void use_seh_in_lambda() {
   ([]() {
@@ -157,19 +157,19 @@ void use_inline() {
 // CHECK: invoke void @might_throw()
 //
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@use_seh_in_inline_func@@"(i8 noundef 0, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@use_seh_in_inline_func@@"(b8 noundef 0, ptr noundef %[[fp]])
 // CHECK: ret void
 //
 // CHECK: cleanuppad
 // CHECK: %[[fp:[^ ]*]] = call ptr @llvm.localaddress()
-// CHECK: call void @"?fin$0@0@use_seh_in_inline_func@@"(i8 noundef 1, ptr noundef %[[fp]])
+// CHECK: call void @"?fin$0@0@use_seh_in_inline_func@@"(b8 noundef 1, ptr noundef %[[fp]])
 
 // CHECK-LABEL: define internal noundef i32 @"?filt$0@0@use_seh_in_inline_func@@"(ptr noundef %exception_pointers, ptr noundef %frame_pointer) #{{[0-9]+}}
 // CHECK: icmp eq i32 %{{.*}}, 424242
 // CHECK: zext i1 %{{.*}} to i32
 // CHECK: ret i32
 
-// CHECK-LABEL: define internal void @"?fin$0@0@use_seh_in_inline_func@@"(i8 noundef %abnormal_termination, ptr noundef %frame_pointer) #{{[0-9]+}}
+// CHECK-LABEL: define internal void @"?fin$0@0@use_seh_in_inline_func@@"(b8 noundef %abnormal_termination, ptr noundef %frame_pointer) #{{[0-9]+}}
 // CHECK: store i32 1234, ptr @my_unique_global
 
 // CHECK: attributes #[[NOINLINE]] = { {{.*noinline.*}} }

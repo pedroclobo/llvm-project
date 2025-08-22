@@ -30,7 +30,7 @@ char *add_unsigned(char *base, unsigned long offset) {
   // CHECK-NEXT:                        store i64 %[[OFFSET]], ptr %[[OFFSET_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[OFFSET_RELOADED:.*]] = load i64, ptr %[[OFFSET_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr %[[BASE_RELOADED]], i64 %[[OFFSET_RELOADED]]
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr %[[BASE_RELOADED]], i64 %[[OFFSET_RELOADED]]
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_AGGREGATE:.*]] = call { i64, i1 } @llvm.smul.with.overflow.i64(i64 1, i64 %[[OFFSET_RELOADED]]), !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_OVERFLOWED:.*]] = extractvalue { i64, i1 } %[[COMPUTED_OFFSET_AGGREGATE]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[OR_OV:.+]] = or i1 %[[COMPUTED_OFFSET_OVERFLOWED]], false, !nosanitize
@@ -66,7 +66,7 @@ char *sub_unsigned(char *base, unsigned long offset) {
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[OFFSET_RELOADED:.*]] = load i64, ptr %[[OFFSET_ADDR]], align 8
   // CHECK-NEXT:                        %[[IDX_NEG:.*]] = sub i64 0, %[[OFFSET_RELOADED]]
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds i8, ptr %[[BASE_RELOADED]], i64 %[[IDX_NEG]]
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds b8, ptr %[[BASE_RELOADED]], i64 %[[IDX_NEG]]
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_AGGREGATE:.*]] = call { i64, i1 } @llvm.smul.with.overflow.i64(i64 1, i64 %[[IDX_NEG]]), !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_OVERFLOWED:.*]] = extractvalue { i64, i1 } %[[COMPUTED_OFFSET_AGGREGATE]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[OR_OV:.+]] = or i1 %[[COMPUTED_OFFSET_OVERFLOWED]], false, !nosanitize
@@ -101,7 +101,7 @@ char *add_signed(char *base, signed long offset) {
   // CHECK-NEXT:                        store i64 %[[OFFSET]], ptr %[[OFFSET_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[OFFSET_RELOADED:.*]] = load i64, ptr %[[OFFSET_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds i8, ptr %[[BASE_RELOADED]], i64 %[[OFFSET_RELOADED]]
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds b8, ptr %[[BASE_RELOADED]], i64 %[[OFFSET_RELOADED]]
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_AGGREGATE:.*]] = call { i64, i1 } @llvm.smul.with.overflow.i64(i64 1, i64 %[[OFFSET_RELOADED]]), !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_OVERFLOWED:.*]] = extractvalue { i64, i1 } %[[COMPUTED_OFFSET_AGGREGATE]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[OR_OV:.+]] = or i1 %[[COMPUTED_OFFSET_OVERFLOWED]], false, !nosanitize
@@ -140,7 +140,7 @@ char *sub_signed(char *base, signed long offset) {
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[OFFSET_RELOADED:.*]] = load i64, ptr %[[OFFSET_ADDR]], align 8
   // CHECK-NEXT:                        %[[IDX_NEG:.*]] = sub i64 0, %[[OFFSET_RELOADED]]
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds i8, ptr %[[BASE_RELOADED]], i64 %[[IDX_NEG]]
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds b8, ptr %[[BASE_RELOADED]], i64 %[[IDX_NEG]]
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_AGGREGATE:.*]] = call { i64, i1 } @llvm.smul.with.overflow.i64(i64 1, i64 %[[IDX_NEG]]), !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_OVERFLOWED:.*]] = extractvalue { i64, i1 } %[[COMPUTED_OFFSET_AGGREGATE]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[OR_OV:.+]] = or i1 %[[COMPUTED_OFFSET_OVERFLOWED]], false, !nosanitize
@@ -175,7 +175,7 @@ char *postinc(char *base) {
   // CHECK-NEXT:                        %[[BASE_ADDR:.*]] = alloca ptr, align 8
   // CHECK-NEXT:                        store ptr %[[BASE]], ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr %[[BASE_RELOADED]], i32 1
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr %[[BASE_RELOADED]], i32 1
   // CHECK-SANITIZE-NEXT:               %[[BASE_RELOADED_INT:.*]] = ptrtoint ptr %[[BASE_RELOADED]] to i64, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_GEP:.*]] = add i64 %[[BASE_RELOADED_INT]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[BASE_IS_NOT_NULLPTR:.*]] = icmp ne ptr %[[BASE_RELOADED]], null, !nosanitize
@@ -205,7 +205,7 @@ char *postdec(char *base) {
   // CHECK-NEXT:                        %[[BASE_ADDR:.*]] = alloca ptr, align 8
   // CHECK-NEXT:                        store ptr %[[BASE]], ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds i8, ptr %[[BASE_RELOADED]], i32 -1
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds b8, ptr %[[BASE_RELOADED]], i32 -1
   // CHECK-SANITIZE-NEXT:               %[[BASE_RELOADED_INT:.*]] = ptrtoint ptr %[[BASE_RELOADED]] to i64, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_GEP:.*]] = add i64 %[[BASE_RELOADED_INT]], -1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[BASE_IS_NOT_NULLPTR:.*]] = icmp ne ptr %[[BASE_RELOADED]], null, !nosanitize
@@ -235,7 +235,7 @@ char *preinc(char *base) {
   // CHECK-NEXT:                        %[[BASE_ADDR:.*]] = alloca ptr, align 8
   // CHECK-NEXT:                        store ptr %[[BASE]], ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr %[[BASE_RELOADED]], i32 1
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr %[[BASE_RELOADED]], i32 1
   // CHECK-SANITIZE-NEXT:               %[[BASE_RELOADED_INT:.*]] = ptrtoint ptr %[[BASE_RELOADED]] to i64, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_GEP:.*]] = add i64 %[[BASE_RELOADED_INT]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[BASE_IS_NOT_NULLPTR:.*]] = icmp ne ptr %[[BASE_RELOADED]], null, !nosanitize
@@ -265,7 +265,7 @@ char *predec(char *base) {
   // CHECK-NEXT:                        %[[BASE_ADDR:.*]] = alloca ptr, align 8
   // CHECK-NEXT:                        store ptr %[[BASE]], ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds i8, ptr %[[BASE_RELOADED]], i32 -1
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds b8, ptr %[[BASE_RELOADED]], i32 -1
   // CHECK-SANITIZE-NEXT:               %[[BASE_RELOADED_INT:.*]] = ptrtoint ptr %[[BASE_RELOADED]] to i64, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_GEP:.*]] = add i64 %[[BASE_RELOADED_INT]], -1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[BASE_IS_NOT_NULLPTR:.*]] = icmp ne ptr %[[BASE_RELOADED]], null, !nosanitize
