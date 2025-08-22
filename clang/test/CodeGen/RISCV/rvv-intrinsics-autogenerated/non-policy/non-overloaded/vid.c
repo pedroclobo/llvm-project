@@ -6,71 +6,71 @@
 
 #include <riscv_vector.h>
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vid_v_u8mf8
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vid_v_u8mf8
 // CHECK-RV64-SAME: (i64 noundef [[VL:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vid.nxv1i8.i64(<vscale x 1 x i8> poison, i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vid.nxv1b8.i64(<vscale x 1 x b8> poison, i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vid_v_u8mf8(size_t vl) {
   return __riscv_vid_v_u8mf8(vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vid_v_u8mf4
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vid_v_u8mf4
 // CHECK-RV64-SAME: (i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vid.nxv2i8.i64(<vscale x 2 x i8> poison, i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vid.nxv2b8.i64(<vscale x 2 x b8> poison, i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vid_v_u8mf4(size_t vl) {
   return __riscv_vid_v_u8mf4(vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vid_v_u8mf2
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vid_v_u8mf2
 // CHECK-RV64-SAME: (i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vid.nxv4i8.i64(<vscale x 4 x i8> poison, i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vid.nxv4b8.i64(<vscale x 4 x b8> poison, i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vid_v_u8mf2(size_t vl) {
   return __riscv_vid_v_u8mf2(vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vid_v_u8m1
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vid_v_u8m1
 // CHECK-RV64-SAME: (i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vid.nxv8i8.i64(<vscale x 8 x i8> poison, i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vid.nxv8b8.i64(<vscale x 8 x b8> poison, i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vid_v_u8m1(size_t vl) {
   return __riscv_vid_v_u8m1(vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vid_v_u8m2
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vid_v_u8m2
 // CHECK-RV64-SAME: (i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vid.nxv16i8.i64(<vscale x 16 x i8> poison, i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vid.nxv16b8.i64(<vscale x 16 x b8> poison, i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vid_v_u8m2(size_t vl) {
   return __riscv_vid_v_u8m2(vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vid_v_u8m4
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vid_v_u8m4
 // CHECK-RV64-SAME: (i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vid.nxv32i8.i64(<vscale x 32 x i8> poison, i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vid.nxv32b8.i64(<vscale x 32 x b8> poison, i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vid_v_u8m4(size_t vl) {
   return __riscv_vid_v_u8m4(vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vid_v_u8m8
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vid_v_u8m8
 // CHECK-RV64-SAME: (i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vid.nxv64i8.i64(<vscale x 64 x i8> poison, i64 [[VL]])
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vid.nxv64b8.i64(<vscale x 64 x b8> poison, i64 [[VL]])
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vid_v_u8m8(size_t vl) {
   return __riscv_vid_v_u8m8(vl);
@@ -226,71 +226,71 @@ vuint64m8_t test_vid_v_u64m8(size_t vl) {
   return __riscv_vid_v_u64m8(vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vid_v_u8mf8_m
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vid_v_u8mf8_m
 // CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vid.mask.nxv1i8.i64(<vscale x 1 x i8> poison, <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vid.mask.nxv1b8.i64(<vscale x 1 x b8> poison, <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vid_v_u8mf8_m(vbool64_t mask, size_t vl) {
   return __riscv_vid_v_u8mf8_m(mask, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vid_v_u8mf4_m
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vid_v_u8mf4_m
 // CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vid.mask.nxv2i8.i64(<vscale x 2 x i8> poison, <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vid.mask.nxv2b8.i64(<vscale x 2 x b8> poison, <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vid_v_u8mf4_m(vbool32_t mask, size_t vl) {
   return __riscv_vid_v_u8mf4_m(mask, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vid_v_u8mf2_m
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vid_v_u8mf2_m
 // CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vid.mask.nxv4i8.i64(<vscale x 4 x i8> poison, <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vid.mask.nxv4b8.i64(<vscale x 4 x b8> poison, <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vid_v_u8mf2_m(vbool16_t mask, size_t vl) {
   return __riscv_vid_v_u8mf2_m(mask, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vid_v_u8m1_m
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vid_v_u8m1_m
 // CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vid.mask.nxv8i8.i64(<vscale x 8 x i8> poison, <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vid.mask.nxv8b8.i64(<vscale x 8 x b8> poison, <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vid_v_u8m1_m(vbool8_t mask, size_t vl) {
   return __riscv_vid_v_u8m1_m(mask, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vid_v_u8m2_m
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vid_v_u8m2_m
 // CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vid.mask.nxv16i8.i64(<vscale x 16 x i8> poison, <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vid.mask.nxv16b8.i64(<vscale x 16 x b8> poison, <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vid_v_u8m2_m(vbool4_t mask, size_t vl) {
   return __riscv_vid_v_u8m2_m(mask, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vid_v_u8m4_m
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vid_v_u8m4_m
 // CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vid.mask.nxv32i8.i64(<vscale x 32 x i8> poison, <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vid.mask.nxv32b8.i64(<vscale x 32 x b8> poison, <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vid_v_u8m4_m(vbool2_t mask, size_t vl) {
   return __riscv_vid_v_u8m4_m(mask, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vid_v_u8m8_m
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vid_v_u8m8_m
 // CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vid.mask.nxv64i8.i64(<vscale x 64 x i8> poison, <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 3)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vid.mask.nxv64b8.i64(<vscale x 64 x b8> poison, <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 3)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vid_v_u8m8_m(vbool1_t mask, size_t vl) {
   return __riscv_vid_v_u8m8_m(mask, vl);
