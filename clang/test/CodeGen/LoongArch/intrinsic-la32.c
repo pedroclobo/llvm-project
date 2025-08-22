@@ -88,7 +88,7 @@ unsigned int csrxchg_w(unsigned int a, unsigned int b) {
 // LA32-NEXT:  entry:
 // LA32-NEXT:    [[TMP0:%.*]] = tail call i32 @llvm.loongarch.iocsrrd.b(i32 [[A:%.*]])
 // LA32-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.iocsrrd.b(i32 [[A]])
-// LA32-NEXT:    ret i8 0
+// LA32-NEXT:    ret b8 0
 //
 unsigned char iocsrrd_b(unsigned int a) {
   unsigned char b = __iocsrrd_b(a);
@@ -122,9 +122,10 @@ unsigned int iocsrrd_w(unsigned int a) {
 
 // LA32-LABEL: @iocsrwr_b(
 // LA32-NEXT:  entry:
-// LA32-NEXT:    [[CONV_I:%.*]] = zext i8 [[A:%.*]] to i32
-// LA32-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV_I]], i32 [[B:%.*]])
-// LA32-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV_I]], i32 [[B]])
+// LA32-NEXT:    [[CONV_I:%.*]] = bytecast b8 [[A:%.*]] to i8
+// LA32-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// LA32-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV1_I]], i32 [[B:%.*]])
+// LA32-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV1_I]], i32 [[B]])
 // LA32-NEXT:    ret void
 //
 void iocsrwr_b(unsigned char a, unsigned int b) {

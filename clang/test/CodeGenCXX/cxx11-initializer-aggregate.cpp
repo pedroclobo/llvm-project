@@ -27,11 +27,11 @@ namespace PR37560 {
   // FIXME: [dcl.init]p2, the padding bits of the union object should be
   // initialized to 0, not undef, which would allow us to collapse the tail
   // of these arrays to zeroinitializer.
-  // CHECK-DAG: @_ZN7PR375601cE ={{.*}} global <{ { i8, [3 x i8] } }> <{ { i8, [3 x i8] } { i8 0, [3 x i8] undef } }>
+  // CHECK-DAG: @_ZN7PR375601cE ={{.*}} global <{ { b8, [3 x i8] } }> <{ { b8, [3 x i8] } { b8 0, [3 x i8] undef } }>
   U c[1] = {};
-  // CHECK-DAG: @_ZN7PR375601dE ={{.*}} global {{.*}} <{ { i8, [3 x i8] } { i8 97, [3 x i8] undef }, %"{{[^"]*}}" { i32 123 }, { i8, [3 x i8] } { i8 98, [3 x i8] undef }, { i8, [3 x i8] } { i8 0, [3 x i8] undef },
+  // CHECK-DAG: @_ZN7PR375601dE ={{.*}} global {{.*}} <{ { b8, [3 x i8] } { b8 97, [3 x i8] undef }, %"{{[^"]*}}" { i32 123 }, { b8, [3 x i8] } { b8 98, [3 x i8] undef }, { b8, [3 x i8] } { b8 0, [3 x i8] undef },
   U d[16] = {'a', {.a = 123}, 'b'};
-  // CHECK-DAG: @_ZN7PR375601eE ={{.*}} global {{.*}} <{ %"{{[^"]*}}" { i32 123 }, %"{{[^"]*}}" { i32 456 }, { i8, [3 x i8] } { i8 0, [3 x i8] undef },
+  // CHECK-DAG: @_ZN7PR375601eE ={{.*}} global {{.*}} <{ %"{{[^"]*}}" { i32 123 }, %"{{[^"]*}}" { i32 456 }, { b8, [3 x i8] } { b8 0, [3 x i8] undef },
   U e[16] = {{.a = 123}, {.a = 456}};
 
   union V {
@@ -40,7 +40,7 @@ namespace PR37560 {
   };
   // CHECK-DAG: @_ZN7PR375601fE ={{.*}} global [1 x %"{{[^"]*}}"] zeroinitializer
   V f[1] = {};
-  // CHECK-DAG: @_ZN7PR375601gE ={{.*}} global {{.*}} <{ { i8, [3 x i8] } { i8 97, [3 x i8] undef }, %"{{[^"]*}}" { i32 123 }, { i8, [3 x i8] } { i8 98, [3 x i8] undef }, [13 x %"{{[^"]*}}"] zeroinitializer }>
+  // CHECK-DAG: @_ZN7PR375601gE ={{.*}} global {{.*}} <{ { b8, [3 x i8] } { b8 97, [3 x i8] undef }, %"{{[^"]*}}" { i32 123 }, { b8, [3 x i8] } { b8 98, [3 x i8] undef }, [13 x %"{{[^"]*}}"] zeroinitializer }>
   V g[16] = {{.x = 'a'}, {.a = 123}, {.x = 'b'}};
   // CHECK-DAG: @_ZN7PR375601hE ={{.*}} global {{.*}} <{ %"{{[^"]*}}" { i32 123 }, %"{{[^"]*}}" { i32 456 }, [14 x %"{{[^"]*}}"] zeroinitializer }>
   V h[16] = {{.a = 123}, {.a = 456}};

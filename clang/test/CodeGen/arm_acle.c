@@ -326,8 +326,8 @@ unsigned test_clz(uint32_t t) {
 // AArch64-LABEL: @test_clzl(
 // AArch64-NEXT:  entry:
 // AArch64-NEXT:    [[TMP0:%.*]] = call i64 @llvm.ctlz.i64(i64 [[T:%.*]], i1 false)
-// AArch64-NEXT:    [[CAST_I:%.*]] = trunc i64 [[TMP0]] to i32
-// AArch64-NEXT:    ret i32 [[CAST_I]]
+// AArch64-NEXT:    [[TMP1:%.*]] = trunc i64 [[TMP0]] to i32
+// AArch64-NEXT:    ret i32 [[TMP1]]
 //
 unsigned test_clzl(unsigned long t) {
   return __clzl(t);
@@ -336,8 +336,8 @@ unsigned test_clzl(unsigned long t) {
 // ARM-LABEL: @test_clzll(
 // ARM-NEXT:  entry:
 // ARM-NEXT:    [[TMP0:%.*]] = call i64 @llvm.ctlz.i64(i64 [[T:%.*]], i1 false)
-// ARM-NEXT:    [[CAST_I:%.*]] = trunc i64 [[TMP0]] to i32
-// ARM-NEXT:    ret i32 [[CAST_I]]
+// ARM-NEXT:    [[TMP1:%.*]] = trunc i64 [[TMP0]] to i32
+// ARM-NEXT:    ret i32 [[TMP1]]
 //
 unsigned test_clzll(uint64_t t) {
   return __clzll(t);
@@ -1008,10 +1008,13 @@ uint32_t test_usad8(uint8x4_t a, uint8x4_t b) {
 
 // AArch32-LABEL: @test_usada8(
 // AArch32-NEXT:  entry:
-// AArch32-NEXT:    [[CONV:%.*]] = zext i8 [[A:%.*]] to i32
-// AArch32-NEXT:    [[CONV1:%.*]] = zext i8 [[B:%.*]] to i32
-// AArch32-NEXT:    [[CONV2:%.*]] = zext i8 [[C:%.*]] to i32
-// AArch32-NEXT:    [[TMP0:%.*]] = call i32 @llvm.arm.usada8(i32 [[CONV]], i32 [[CONV1]], i32 [[CONV2]])
+// AArch32-NEXT:    [[CONV:%.*]] = bytecast b8 [[A:%.*]] to i8
+// AArch32-NEXT:    [[CONV1:%.*]] = zext i8 [[CONV]] to i32
+// AArch32-NEXT:    [[CONV2:%.*]] = bytecast b8 [[B:%.*]] to i8
+// AArch32-NEXT:    [[CONV3:%.*]] = zext i8 [[CONV2]] to i32
+// AArch32-NEXT:    [[CONV4:%.*]] = bytecast b8 [[C:%.*]] to i8
+// AArch32-NEXT:    [[CONV5:%.*]] = zext i8 [[CONV4]] to i32
+// AArch32-NEXT:    [[TMP0:%.*]] = call i32 @llvm.arm.usada8(i32 [[CONV1]], i32 [[CONV3]], i32 [[CONV5]])
 // AArch32-NEXT:    ret i32 [[TMP0]]
 //
 uint32_t test_usada8(uint8_t a, uint8_t b, uint8_t c) {
@@ -1352,15 +1355,17 @@ int32_t test_smusdx(int16x2_t a, int16x2_t b) {
 /* 9.7 CRC32 intrinsics */
 // AArch32-LABEL: @test_crc32b(
 // AArch32-NEXT:  entry:
-// AArch32-NEXT:    [[TMP0:%.*]] = zext i8 [[B:%.*]] to i32
-// AArch32-NEXT:    [[TMP1:%.*]] = call i32 @llvm.arm.crc32b(i32 [[A:%.*]], i32 [[TMP0]])
-// AArch32-NEXT:    ret i32 [[TMP1]]
+// AArch32-NEXT:    [[TMP0:%.*]] = bytecast b8 [[B:%.*]] to i8
+// AArch32-NEXT:    [[TMP1:%.*]] = zext i8 [[TMP0]] to i32
+// AArch32-NEXT:    [[TMP2:%.*]] = call i32 @llvm.arm.crc32b(i32 [[A:%.*]], i32 [[TMP1]])
+// AArch32-NEXT:    ret i32 [[TMP2]]
 //
 // AArch64-LABEL: @test_crc32b(
 // AArch64-NEXT:  entry:
-// AArch64-NEXT:    [[TMP0:%.*]] = zext i8 [[B:%.*]] to i32
-// AArch64-NEXT:    [[TMP1:%.*]] = call i32 @llvm.aarch64.crc32b(i32 [[A:%.*]], i32 [[TMP0]])
-// AArch64-NEXT:    ret i32 [[TMP1]]
+// AArch64-NEXT:    [[TMP0:%.*]] = bytecast b8 [[B:%.*]] to i8
+// AArch64-NEXT:    [[TMP1:%.*]] = zext i8 [[TMP0]] to i32
+// AArch64-NEXT:    [[TMP2:%.*]] = call i32 @llvm.aarch64.crc32b(i32 [[A:%.*]], i32 [[TMP1]])
+// AArch64-NEXT:    ret i32 [[TMP2]]
 //
 #ifndef __ARM_FEATURE_CRC32
 __attribute__((target("crc")))
@@ -1428,15 +1433,17 @@ uint32_t test_crc32d(uint32_t a, uint64_t b) {
 
 // AArch32-LABEL: @test_crc32cb(
 // AArch32-NEXT:  entry:
-// AArch32-NEXT:    [[TMP0:%.*]] = zext i8 [[B:%.*]] to i32
-// AArch32-NEXT:    [[TMP1:%.*]] = call i32 @llvm.arm.crc32cb(i32 [[A:%.*]], i32 [[TMP0]])
-// AArch32-NEXT:    ret i32 [[TMP1]]
+// AArch32-NEXT:    [[TMP0:%.*]] = bytecast b8 [[B:%.*]] to i8
+// AArch32-NEXT:    [[TMP1:%.*]] = zext i8 [[TMP0]] to i32
+// AArch32-NEXT:    [[TMP2:%.*]] = call i32 @llvm.arm.crc32cb(i32 [[A:%.*]], i32 [[TMP1]])
+// AArch32-NEXT:    ret i32 [[TMP2]]
 //
 // AArch64-LABEL: @test_crc32cb(
 // AArch64-NEXT:  entry:
-// AArch64-NEXT:    [[TMP0:%.*]] = zext i8 [[B:%.*]] to i32
-// AArch64-NEXT:    [[TMP1:%.*]] = call i32 @llvm.aarch64.crc32cb(i32 [[A:%.*]], i32 [[TMP0]])
-// AArch64-NEXT:    ret i32 [[TMP1]]
+// AArch64-NEXT:    [[TMP0:%.*]] = bytecast b8 [[B:%.*]] to i8
+// AArch64-NEXT:    [[TMP1:%.*]] = zext i8 [[TMP0]] to i32
+// AArch64-NEXT:    [[TMP2:%.*]] = call i32 @llvm.aarch64.crc32cb(i32 [[A:%.*]], i32 [[TMP1]])
+// AArch64-NEXT:    ret i32 [[TMP2]]
 //
 #ifndef __ARM_FEATURE_CRC32
 __attribute__((target("crc")))
@@ -1745,14 +1752,18 @@ int32_t test_jcvt(double v) {
 
 // AArch64-LABEL: @test_rintn(
 // AArch64-NEXT:  entry:
-// AArch64-NEXT:    call double @llvm.roundeven.f64(double [[TMP0:%.*]])
+// AArch64-NEXT:    [[TMP0:%.*]] = call double @llvm.roundeven.f64(double [[A:%.*]])
+// AArch64-NEXT:    ret double [[TMP0]]
+//
 double test_rintn(double a) {
   return __rintn(a);
 }
 
 // AArch64-LABEL: @test_rintnf(
-// AArch64-NEXT: entry:
-// AArch64-NEXT:      call float @llvm.roundeven.f32(float [[TMP0:%.*]])
+// AArch64-NEXT:  entry:
+// AArch64-NEXT:    [[TMP0:%.*]] = call float @llvm.roundeven.f32(float [[B:%.*]])
+// AArch64-NEXT:    ret float [[TMP0]]
+//
 float test_rintnf(float b) {
   return __rintnf(b);
 }

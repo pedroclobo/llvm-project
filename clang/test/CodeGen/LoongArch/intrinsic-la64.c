@@ -85,10 +85,10 @@ unsigned int csrxchg_w(unsigned int a, unsigned int b) {
 
 // CHECK-LABEL: @crc_w_b_w(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shl i32 [[A:%.*]], 24
-// CHECK-NEXT:    [[CONV_I:%.*]] = ashr exact i32 [[TMP0]], 24
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.crc.w.b.w(i32 [[CONV_I]], i32 [[B:%.*]])
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @llvm.loongarch.crc.w.b.w(i32 [[A]], i32 [[B]])
+// CHECK-NEXT:    [[SEXT:%.*]] = shl i32 [[A:%.*]], 24
+// CHECK-NEXT:    [[CONV1_I:%.*]] = ashr exact i32 [[SEXT]], 24
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call i32 @llvm.loongarch.crc.w.b.w(i32 [[CONV1_I]], i32 [[B:%.*]])
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.crc.w.b.w(i32 [[A]], i32 [[B]])
 // CHECK-NEXT:    ret i32 0
 //
 int crc_w_b_w(int a, int b) {
@@ -99,10 +99,10 @@ int crc_w_b_w(int a, int b) {
 
 // CHECK-LABEL: @crc_w_h_w(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shl i32 [[A:%.*]], 16
-// CHECK-NEXT:    [[CONV_I:%.*]] = ashr exact i32 [[TMP0]], 16
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.crc.w.h.w(i32 [[CONV_I]], i32 [[B:%.*]])
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @llvm.loongarch.crc.w.h.w(i32 [[A]], i32 [[B]])
+// CHECK-NEXT:    [[SEXT:%.*]] = shl i32 [[A:%.*]], 16
+// CHECK-NEXT:    [[CONV_I:%.*]] = ashr exact i32 [[SEXT]], 16
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call i32 @llvm.loongarch.crc.w.h.w(i32 [[CONV_I]], i32 [[B:%.*]])
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.crc.w.h.w(i32 [[A]], i32 [[B]])
 // CHECK-NEXT:    ret i32 0
 //
 int crc_w_h_w(int a, int b) {
@@ -148,10 +148,10 @@ int crc_w_d_w(long int a, int b) {
 
 // CHECK-LABEL: @crcc_w_b_w(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shl i32 [[A:%.*]], 24
-// CHECK-NEXT:    [[CONV_I:%.*]] = ashr exact i32 [[TMP0]], 24
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.crcc.w.b.w(i32 [[CONV_I]], i32 [[B:%.*]])
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @llvm.loongarch.crcc.w.b.w(i32 [[A]], i32 [[B]])
+// CHECK-NEXT:    [[SEXT:%.*]] = shl i32 [[A:%.*]], 24
+// CHECK-NEXT:    [[CONV1_I:%.*]] = ashr exact i32 [[SEXT]], 24
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call i32 @llvm.loongarch.crcc.w.b.w(i32 [[CONV1_I]], i32 [[B:%.*]])
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.crcc.w.b.w(i32 [[A]], i32 [[B]])
 // CHECK-NEXT:    ret i32 0
 //
 int crcc_w_b_w(int a, int b) {
@@ -162,10 +162,10 @@ int crcc_w_b_w(int a, int b) {
 
 // CHECK-LABEL: @crcc_w_h_w(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = shl i32 [[A:%.*]], 16
-// CHECK-NEXT:    [[CONV_I:%.*]] = ashr exact i32 [[TMP0]], 16
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.crcc.w.h.w(i32 [[CONV_I]], i32 [[B:%.*]])
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call i32 @llvm.loongarch.crcc.w.h.w(i32 [[A]], i32 [[B]])
+// CHECK-NEXT:    [[SEXT:%.*]] = shl i32 [[A:%.*]], 16
+// CHECK-NEXT:    [[CONV_I:%.*]] = ashr exact i32 [[SEXT]], 16
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call i32 @llvm.loongarch.crcc.w.h.w(i32 [[CONV_I]], i32 [[B:%.*]])
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.crcc.w.h.w(i32 [[A]], i32 [[B]])
 // CHECK-NEXT:    ret i32 0
 //
 int crcc_w_h_w(int a, int b) {
@@ -238,7 +238,7 @@ unsigned long int csrxchg_d(unsigned long int a, unsigned long int b) {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call i32 @llvm.loongarch.iocsrrd.b(i32 [[A:%.*]])
 // CHECK-NEXT:    [[TMP1:%.*]] = tail call i32 @llvm.loongarch.iocsrrd.b(i32 [[A]])
-// CHECK-NEXT:    ret i8 0
+// CHECK-NEXT:    ret b8 0
 //
 unsigned char iocsrrd_b(unsigned int a) {
   unsigned char b = __iocsrrd_b(a);
@@ -272,9 +272,10 @@ unsigned int iocsrrd_w(unsigned int a) {
 
 // CHECK-LABEL: @iocsrwr_b(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CONV_I:%.*]] = zext i8 [[A:%.*]] to i32
-// CHECK-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV_I]], i32 [[B:%.*]])
-// CHECK-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV_I]], i32 [[B]])
+// CHECK-NEXT:    [[CONV_I:%.*]] = bytecast b8 [[A:%.*]] to i8
+// CHECK-NEXT:    [[CONV1_I:%.*]] = zext i8 [[CONV_I]] to i32
+// CHECK-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV1_I]], i32 [[B:%.*]])
+// CHECK-NEXT:    tail call void @llvm.loongarch.iocsrwr.b(i32 [[CONV1_I]], i32 [[B]])
 // CHECK-NEXT:    ret void
 //
 void iocsrwr_b(unsigned char a, unsigned int b) {

@@ -6613,7 +6613,7 @@ int bar(int n, double *ptr) {
 // CHECK0-NEXT:  entry:
 // CHECK0-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // CHECK0-NEXT:    [[A:%.*]] = alloca i32, align 4
-// CHECK0-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// CHECK0-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // CHECK0-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // CHECK0-NEXT:    [[A_CASTED:%.*]] = alloca i64, align 8
 // CHECK0-NEXT:    [[AAA_CASTED:%.*]] = alloca i64, align 8
@@ -6627,8 +6627,8 @@ int bar(int n, double *ptr) {
 // CHECK0-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // CHECK0-NEXT:    store i32 [[TMP0]], ptr [[A_CASTED]], align 4
 // CHECK0-NEXT:    [[TMP1:%.*]] = load i64, ptr [[A_CASTED]], align 8
-// CHECK0-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA]], align 1
-// CHECK0-NEXT:    store i8 [[TMP2]], ptr [[AAA_CASTED]], align 1
+// CHECK0-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA]], align 1
+// CHECK0-NEXT:    store b8 [[TMP2]], ptr [[AAA_CASTED]], align 1
 // CHECK0-NEXT:    [[TMP3:%.*]] = load i64, ptr [[AAA_CASTED]], align 8
 // CHECK0-NEXT:    [[TMP4:%.*]] = getelementptr inbounds [3 x ptr], ptr [[DOTOFFLOAD_BASEPTRS]], i32 0, i32 0
 // CHECK0-NEXT:    store i64 [[TMP1]], ptr [[TMP4]], align 8
@@ -6817,15 +6817,17 @@ int bar(int n, double *ptr) {
 // CHECK0-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_ADDR]], align 4
 // CHECK0-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP1]], 1
 // CHECK0-NEXT:    store i32 [[ADD]], ptr [[A_ADDR]], align 4
-// CHECK0-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// CHECK0-NEXT:    [[CONV:%.*]] = sext i8 [[TMP2]] to i32
-// CHECK0-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV]], 1
-// CHECK0-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
-// CHECK0-NEXT:    store i8 [[CONV3]], ptr [[AAA_ADDR]], align 1
+// CHECK0-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// CHECK0-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP2]] to i8
+// CHECK0-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// CHECK0-NEXT:    [[ADD3:%.*]] = add nsw i32 [[CONV2]], 1
+// CHECK0-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD3]] to i8
+// CHECK0-NEXT:    [[TMP3:%.*]] = bitcast i8 [[CONV4]] to b8
+// CHECK0-NEXT:    store b8 [[TMP3]], ptr [[AAA_ADDR]], align 1
 // CHECK0-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B1]], i64 0, i64 2
-// CHECK0-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// CHECK0-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
-// CHECK0-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// CHECK0-NEXT:    [[TMP4:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// CHECK0-NEXT:    [[ADD5:%.*]] = add nsw i32 [[TMP4]], 1
+// CHECK0-NEXT:    store i32 [[ADD5]], ptr [[ARRAYIDX]], align 4
 // CHECK0-NEXT:    ret void
 //
 //
@@ -7384,7 +7386,7 @@ int bar(int n, double *ptr) {
 // CHECK1-NEXT:  entry:
 // CHECK1-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[A:%.*]] = alloca i32, align 4
-// CHECK1-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// CHECK1-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // CHECK1-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // CHECK1-NEXT:    [[A_CASTED:%.*]] = alloca i64, align 8
 // CHECK1-NEXT:    [[AAA_CASTED:%.*]] = alloca i64, align 8
@@ -7398,8 +7400,8 @@ int bar(int n, double *ptr) {
 // CHECK1-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // CHECK1-NEXT:    store i32 [[TMP0]], ptr [[A_CASTED]], align 4
 // CHECK1-NEXT:    [[TMP1:%.*]] = load i64, ptr [[A_CASTED]], align 8
-// CHECK1-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA]], align 1
-// CHECK1-NEXT:    store i8 [[TMP2]], ptr [[AAA_CASTED]], align 1
+// CHECK1-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA]], align 1
+// CHECK1-NEXT:    store b8 [[TMP2]], ptr [[AAA_CASTED]], align 1
 // CHECK1-NEXT:    [[TMP3:%.*]] = load i64, ptr [[AAA_CASTED]], align 8
 // CHECK1-NEXT:    [[TMP4:%.*]] = getelementptr inbounds [3 x ptr], ptr [[DOTOFFLOAD_BASEPTRS]], i32 0, i32 0
 // CHECK1-NEXT:    store i64 [[TMP1]], ptr [[TMP4]], align 8
@@ -7588,15 +7590,17 @@ int bar(int n, double *ptr) {
 // CHECK1-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_ADDR]], align 4
 // CHECK1-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP1]], 1
 // CHECK1-NEXT:    store i32 [[ADD]], ptr [[A_ADDR]], align 4
-// CHECK1-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// CHECK1-NEXT:    [[CONV:%.*]] = sext i8 [[TMP2]] to i32
-// CHECK1-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV]], 1
-// CHECK1-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
-// CHECK1-NEXT:    store i8 [[CONV3]], ptr [[AAA_ADDR]], align 1
+// CHECK1-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// CHECK1-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP2]] to i8
+// CHECK1-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// CHECK1-NEXT:    [[ADD3:%.*]] = add nsw i32 [[CONV2]], 1
+// CHECK1-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD3]] to i8
+// CHECK1-NEXT:    [[TMP3:%.*]] = bitcast i8 [[CONV4]] to b8
+// CHECK1-NEXT:    store b8 [[TMP3]], ptr [[AAA_ADDR]], align 1
 // CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B1]], i64 0, i64 2
-// CHECK1-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// CHECK1-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
-// CHECK1-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// CHECK1-NEXT:    [[TMP4:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// CHECK1-NEXT:    [[ADD5:%.*]] = add nsw i32 [[TMP4]], 1
+// CHECK1-NEXT:    store i32 [[ADD5]], ptr [[ARRAYIDX]], align 4
 // CHECK1-NEXT:    ret void
 //
 //
@@ -8155,7 +8159,7 @@ int bar(int n, double *ptr) {
 // CHECK2-NEXT:  entry:
 // CHECK2-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // CHECK2-NEXT:    [[A:%.*]] = alloca i32, align 4
-// CHECK2-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// CHECK2-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // CHECK2-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // CHECK2-NEXT:    [[A_CASTED:%.*]] = alloca i32, align 4
 // CHECK2-NEXT:    [[AAA_CASTED:%.*]] = alloca i32, align 4
@@ -8169,8 +8173,8 @@ int bar(int n, double *ptr) {
 // CHECK2-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // CHECK2-NEXT:    store i32 [[TMP0]], ptr [[A_CASTED]], align 4
 // CHECK2-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_CASTED]], align 4
-// CHECK2-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA]], align 1
-// CHECK2-NEXT:    store i8 [[TMP2]], ptr [[AAA_CASTED]], align 1
+// CHECK2-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA]], align 1
+// CHECK2-NEXT:    store b8 [[TMP2]], ptr [[AAA_CASTED]], align 1
 // CHECK2-NEXT:    [[TMP3:%.*]] = load i32, ptr [[AAA_CASTED]], align 4
 // CHECK2-NEXT:    [[TMP4:%.*]] = getelementptr inbounds [3 x ptr], ptr [[DOTOFFLOAD_BASEPTRS]], i32 0, i32 0
 // CHECK2-NEXT:    store i32 [[TMP1]], ptr [[TMP4]], align 4
@@ -8359,15 +8363,17 @@ int bar(int n, double *ptr) {
 // CHECK2-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_ADDR]], align 4
 // CHECK2-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP1]], 1
 // CHECK2-NEXT:    store i32 [[ADD]], ptr [[A_ADDR]], align 4
-// CHECK2-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// CHECK2-NEXT:    [[CONV:%.*]] = sext i8 [[TMP2]] to i32
-// CHECK2-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV]], 1
-// CHECK2-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
-// CHECK2-NEXT:    store i8 [[CONV3]], ptr [[AAA_ADDR]], align 1
+// CHECK2-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// CHECK2-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP2]] to i8
+// CHECK2-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// CHECK2-NEXT:    [[ADD3:%.*]] = add nsw i32 [[CONV2]], 1
+// CHECK2-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD3]] to i8
+// CHECK2-NEXT:    [[TMP3:%.*]] = bitcast i8 [[CONV4]] to b8
+// CHECK2-NEXT:    store b8 [[TMP3]], ptr [[AAA_ADDR]], align 1
 // CHECK2-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B1]], i32 0, i32 2
-// CHECK2-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// CHECK2-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
-// CHECK2-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// CHECK2-NEXT:    [[TMP4:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// CHECK2-NEXT:    [[ADD5:%.*]] = add nsw i32 [[TMP4]], 1
+// CHECK2-NEXT:    store i32 [[ADD5]], ptr [[ARRAYIDX]], align 4
 // CHECK2-NEXT:    ret void
 //
 //
@@ -8926,7 +8932,7 @@ int bar(int n, double *ptr) {
 // CHECK3-NEXT:  entry:
 // CHECK3-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[A:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// CHECK3-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // CHECK3-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // CHECK3-NEXT:    [[A_CASTED:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[AAA_CASTED:%.*]] = alloca i32, align 4
@@ -8940,8 +8946,8 @@ int bar(int n, double *ptr) {
 // CHECK3-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // CHECK3-NEXT:    store i32 [[TMP0]], ptr [[A_CASTED]], align 4
 // CHECK3-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_CASTED]], align 4
-// CHECK3-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA]], align 1
-// CHECK3-NEXT:    store i8 [[TMP2]], ptr [[AAA_CASTED]], align 1
+// CHECK3-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA]], align 1
+// CHECK3-NEXT:    store b8 [[TMP2]], ptr [[AAA_CASTED]], align 1
 // CHECK3-NEXT:    [[TMP3:%.*]] = load i32, ptr [[AAA_CASTED]], align 4
 // CHECK3-NEXT:    [[TMP4:%.*]] = getelementptr inbounds [3 x ptr], ptr [[DOTOFFLOAD_BASEPTRS]], i32 0, i32 0
 // CHECK3-NEXT:    store i32 [[TMP1]], ptr [[TMP4]], align 4
@@ -9130,15 +9136,17 @@ int bar(int n, double *ptr) {
 // CHECK3-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_ADDR]], align 4
 // CHECK3-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP1]], 1
 // CHECK3-NEXT:    store i32 [[ADD]], ptr [[A_ADDR]], align 4
-// CHECK3-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// CHECK3-NEXT:    [[CONV:%.*]] = sext i8 [[TMP2]] to i32
-// CHECK3-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV]], 1
-// CHECK3-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
-// CHECK3-NEXT:    store i8 [[CONV3]], ptr [[AAA_ADDR]], align 1
+// CHECK3-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// CHECK3-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP2]] to i8
+// CHECK3-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// CHECK3-NEXT:    [[ADD3:%.*]] = add nsw i32 [[CONV2]], 1
+// CHECK3-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD3]] to i8
+// CHECK3-NEXT:    [[TMP3:%.*]] = bitcast i8 [[CONV4]] to b8
+// CHECK3-NEXT:    store b8 [[TMP3]], ptr [[AAA_ADDR]], align 1
 // CHECK3-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B1]], i32 0, i32 2
-// CHECK3-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// CHECK3-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
-// CHECK3-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// CHECK3-NEXT:    [[TMP4:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// CHECK3-NEXT:    [[ADD5:%.*]] = add nsw i32 [[TMP4]], 1
+// CHECK3-NEXT:    store i32 [[ADD5]], ptr [[ARRAYIDX]], align 4
 // CHECK3-NEXT:    ret void
 //
 //
@@ -9323,7 +9331,7 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY0-NEXT:  entry:
 // SIMD-ONLY0-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // SIMD-ONLY0-NEXT:    [[A:%.*]] = alloca i32, align 4
-// SIMD-ONLY0-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// SIMD-ONLY0-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // SIMD-ONLY0-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // SIMD-ONLY0-NEXT:    store i32 [[N]], ptr [[N_ADDR]], align 4
 // SIMD-ONLY0-NEXT:    store i32 0, ptr [[A]], align 4
@@ -9331,17 +9339,19 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY0-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // SIMD-ONLY0-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP0]], 1
 // SIMD-ONLY0-NEXT:    store i32 [[ADD]], ptr [[A]], align 4
-// SIMD-ONLY0-NEXT:    [[TMP1:%.*]] = load i8, ptr [[AAA]], align 1
-// SIMD-ONLY0-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// SIMD-ONLY0-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
-// SIMD-ONLY0-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i8
-// SIMD-ONLY0-NEXT:    store i8 [[CONV2]], ptr [[AAA]], align 1
+// SIMD-ONLY0-NEXT:    [[TMP1:%.*]] = load b8, ptr [[AAA]], align 1
+// SIMD-ONLY0-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// SIMD-ONLY0-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// SIMD-ONLY0-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV1]], 1
+// SIMD-ONLY0-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
+// SIMD-ONLY0-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV3]] to b8
+// SIMD-ONLY0-NEXT:    store b8 [[TMP2]], ptr [[AAA]], align 1
 // SIMD-ONLY0-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B]], i64 0, i64 2
-// SIMD-ONLY0-NEXT:    [[TMP2:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY0-NEXT:    [[ADD3:%.*]] = add nsw i32 [[TMP2]], 1
-// SIMD-ONLY0-NEXT:    store i32 [[ADD3]], ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY0-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
-// SIMD-ONLY0-NEXT:    ret i32 [[TMP3]]
+// SIMD-ONLY0-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY0-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
+// SIMD-ONLY0-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY0-NEXT:    [[TMP4:%.*]] = load i32, ptr [[A]], align 4
+// SIMD-ONLY0-NEXT:    ret i32 [[TMP4]]
 //
 //
 // SIMD-ONLY0-LABEL: define {{[^@]+}}@_Z9ftemplateIiET_i
@@ -9524,7 +9534,7 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY01-NEXT:  entry:
 // SIMD-ONLY01-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // SIMD-ONLY01-NEXT:    [[A:%.*]] = alloca i32, align 4
-// SIMD-ONLY01-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// SIMD-ONLY01-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // SIMD-ONLY01-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // SIMD-ONLY01-NEXT:    store i32 [[N]], ptr [[N_ADDR]], align 4
 // SIMD-ONLY01-NEXT:    store i32 0, ptr [[A]], align 4
@@ -9532,17 +9542,19 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY01-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // SIMD-ONLY01-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP0]], 1
 // SIMD-ONLY01-NEXT:    store i32 [[ADD]], ptr [[A]], align 4
-// SIMD-ONLY01-NEXT:    [[TMP1:%.*]] = load i8, ptr [[AAA]], align 1
-// SIMD-ONLY01-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// SIMD-ONLY01-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
-// SIMD-ONLY01-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i8
-// SIMD-ONLY01-NEXT:    store i8 [[CONV2]], ptr [[AAA]], align 1
+// SIMD-ONLY01-NEXT:    [[TMP1:%.*]] = load b8, ptr [[AAA]], align 1
+// SIMD-ONLY01-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// SIMD-ONLY01-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// SIMD-ONLY01-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV1]], 1
+// SIMD-ONLY01-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
+// SIMD-ONLY01-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV3]] to b8
+// SIMD-ONLY01-NEXT:    store b8 [[TMP2]], ptr [[AAA]], align 1
 // SIMD-ONLY01-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B]], i64 0, i64 2
-// SIMD-ONLY01-NEXT:    [[TMP2:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY01-NEXT:    [[ADD3:%.*]] = add nsw i32 [[TMP2]], 1
-// SIMD-ONLY01-NEXT:    store i32 [[ADD3]], ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY01-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
-// SIMD-ONLY01-NEXT:    ret i32 [[TMP3]]
+// SIMD-ONLY01-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY01-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
+// SIMD-ONLY01-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY01-NEXT:    [[TMP4:%.*]] = load i32, ptr [[A]], align 4
+// SIMD-ONLY01-NEXT:    ret i32 [[TMP4]]
 //
 //
 // SIMD-ONLY01-LABEL: define {{[^@]+}}@_Z9ftemplateIiET_i
@@ -9722,7 +9734,7 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY02-NEXT:  entry:
 // SIMD-ONLY02-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // SIMD-ONLY02-NEXT:    [[A:%.*]] = alloca i32, align 4
-// SIMD-ONLY02-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// SIMD-ONLY02-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // SIMD-ONLY02-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // SIMD-ONLY02-NEXT:    store i32 [[N]], ptr [[N_ADDR]], align 4
 // SIMD-ONLY02-NEXT:    store i32 0, ptr [[A]], align 4
@@ -9730,17 +9742,19 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY02-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // SIMD-ONLY02-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP0]], 1
 // SIMD-ONLY02-NEXT:    store i32 [[ADD]], ptr [[A]], align 4
-// SIMD-ONLY02-NEXT:    [[TMP1:%.*]] = load i8, ptr [[AAA]], align 1
-// SIMD-ONLY02-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// SIMD-ONLY02-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
-// SIMD-ONLY02-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i8
-// SIMD-ONLY02-NEXT:    store i8 [[CONV2]], ptr [[AAA]], align 1
+// SIMD-ONLY02-NEXT:    [[TMP1:%.*]] = load b8, ptr [[AAA]], align 1
+// SIMD-ONLY02-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// SIMD-ONLY02-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// SIMD-ONLY02-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV1]], 1
+// SIMD-ONLY02-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
+// SIMD-ONLY02-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV3]] to b8
+// SIMD-ONLY02-NEXT:    store b8 [[TMP2]], ptr [[AAA]], align 1
 // SIMD-ONLY02-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B]], i32 0, i32 2
-// SIMD-ONLY02-NEXT:    [[TMP2:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY02-NEXT:    [[ADD3:%.*]] = add nsw i32 [[TMP2]], 1
-// SIMD-ONLY02-NEXT:    store i32 [[ADD3]], ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY02-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
-// SIMD-ONLY02-NEXT:    ret i32 [[TMP3]]
+// SIMD-ONLY02-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY02-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
+// SIMD-ONLY02-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY02-NEXT:    [[TMP4:%.*]] = load i32, ptr [[A]], align 4
+// SIMD-ONLY02-NEXT:    ret i32 [[TMP4]]
 //
 //
 // SIMD-ONLY02-LABEL: define {{[^@]+}}@_Z9ftemplateIiET_i
@@ -9920,7 +9934,7 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY03-NEXT:  entry:
 // SIMD-ONLY03-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // SIMD-ONLY03-NEXT:    [[A:%.*]] = alloca i32, align 4
-// SIMD-ONLY03-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// SIMD-ONLY03-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // SIMD-ONLY03-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // SIMD-ONLY03-NEXT:    store i32 [[N]], ptr [[N_ADDR]], align 4
 // SIMD-ONLY03-NEXT:    store i32 0, ptr [[A]], align 4
@@ -9928,17 +9942,19 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY03-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // SIMD-ONLY03-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP0]], 1
 // SIMD-ONLY03-NEXT:    store i32 [[ADD]], ptr [[A]], align 4
-// SIMD-ONLY03-NEXT:    [[TMP1:%.*]] = load i8, ptr [[AAA]], align 1
-// SIMD-ONLY03-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// SIMD-ONLY03-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
-// SIMD-ONLY03-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i8
-// SIMD-ONLY03-NEXT:    store i8 [[CONV2]], ptr [[AAA]], align 1
+// SIMD-ONLY03-NEXT:    [[TMP1:%.*]] = load b8, ptr [[AAA]], align 1
+// SIMD-ONLY03-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// SIMD-ONLY03-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// SIMD-ONLY03-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV1]], 1
+// SIMD-ONLY03-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
+// SIMD-ONLY03-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV3]] to b8
+// SIMD-ONLY03-NEXT:    store b8 [[TMP2]], ptr [[AAA]], align 1
 // SIMD-ONLY03-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B]], i32 0, i32 2
-// SIMD-ONLY03-NEXT:    [[TMP2:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY03-NEXT:    [[ADD3:%.*]] = add nsw i32 [[TMP2]], 1
-// SIMD-ONLY03-NEXT:    store i32 [[ADD3]], ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY03-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
-// SIMD-ONLY03-NEXT:    ret i32 [[TMP3]]
+// SIMD-ONLY03-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY03-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
+// SIMD-ONLY03-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY03-NEXT:    [[TMP4:%.*]] = load i32, ptr [[A]], align 4
+// SIMD-ONLY03-NEXT:    ret i32 [[TMP4]]
 //
 //
 // SIMD-ONLY03-LABEL: define {{[^@]+}}@_Z9ftemplateIiET_i
@@ -10094,15 +10110,17 @@ int bar(int n, double *ptr) {
 // TCHECK-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_ADDR]], align 4
 // TCHECK-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP1]], 1
 // TCHECK-NEXT:    store i32 [[ADD]], ptr [[A_ADDR]], align 4
-// TCHECK-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// TCHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP2]] to i32
-// TCHECK-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV]], 1
-// TCHECK-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
-// TCHECK-NEXT:    store i8 [[CONV3]], ptr [[AAA_ADDR]], align 1
+// TCHECK-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// TCHECK-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP2]] to i8
+// TCHECK-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// TCHECK-NEXT:    [[ADD3:%.*]] = add nsw i32 [[CONV2]], 1
+// TCHECK-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD3]] to i8
+// TCHECK-NEXT:    [[TMP3:%.*]] = bitcast i8 [[CONV4]] to b8
+// TCHECK-NEXT:    store b8 [[TMP3]], ptr [[AAA_ADDR]], align 1
 // TCHECK-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B1]], i64 0, i64 2
-// TCHECK-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// TCHECK-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
-// TCHECK-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// TCHECK-NEXT:    [[TMP4:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// TCHECK-NEXT:    [[ADD5:%.*]] = add nsw i32 [[TMP4]], 1
+// TCHECK-NEXT:    store i32 [[ADD5]], ptr [[ARRAYIDX]], align 4
 // TCHECK-NEXT:    ret void
 //
 //
@@ -10312,15 +10330,17 @@ int bar(int n, double *ptr) {
 // TCHECK1-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_ADDR]], align 4
 // TCHECK1-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP1]], 1
 // TCHECK1-NEXT:    store i32 [[ADD]], ptr [[A_ADDR]], align 4
-// TCHECK1-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// TCHECK1-NEXT:    [[CONV:%.*]] = sext i8 [[TMP2]] to i32
-// TCHECK1-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV]], 1
-// TCHECK1-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
-// TCHECK1-NEXT:    store i8 [[CONV3]], ptr [[AAA_ADDR]], align 1
+// TCHECK1-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// TCHECK1-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP2]] to i8
+// TCHECK1-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// TCHECK1-NEXT:    [[ADD3:%.*]] = add nsw i32 [[CONV2]], 1
+// TCHECK1-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD3]] to i8
+// TCHECK1-NEXT:    [[TMP3:%.*]] = bitcast i8 [[CONV4]] to b8
+// TCHECK1-NEXT:    store b8 [[TMP3]], ptr [[AAA_ADDR]], align 1
 // TCHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B1]], i64 0, i64 2
-// TCHECK1-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// TCHECK1-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
-// TCHECK1-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// TCHECK1-NEXT:    [[TMP4:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// TCHECK1-NEXT:    [[ADD5:%.*]] = add nsw i32 [[TMP4]], 1
+// TCHECK1-NEXT:    store i32 [[ADD5]], ptr [[ARRAYIDX]], align 4
 // TCHECK1-NEXT:    ret void
 //
 //
@@ -10530,15 +10550,17 @@ int bar(int n, double *ptr) {
 // TCHECK2-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_ADDR]], align 4
 // TCHECK2-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP1]], 1
 // TCHECK2-NEXT:    store i32 [[ADD]], ptr [[A_ADDR]], align 4
-// TCHECK2-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// TCHECK2-NEXT:    [[CONV:%.*]] = sext i8 [[TMP2]] to i32
-// TCHECK2-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV]], 1
-// TCHECK2-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
-// TCHECK2-NEXT:    store i8 [[CONV3]], ptr [[AAA_ADDR]], align 1
+// TCHECK2-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// TCHECK2-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP2]] to i8
+// TCHECK2-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// TCHECK2-NEXT:    [[ADD3:%.*]] = add nsw i32 [[CONV2]], 1
+// TCHECK2-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD3]] to i8
+// TCHECK2-NEXT:    [[TMP3:%.*]] = bitcast i8 [[CONV4]] to b8
+// TCHECK2-NEXT:    store b8 [[TMP3]], ptr [[AAA_ADDR]], align 1
 // TCHECK2-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B1]], i32 0, i32 2
-// TCHECK2-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// TCHECK2-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
-// TCHECK2-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// TCHECK2-NEXT:    [[TMP4:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// TCHECK2-NEXT:    [[ADD5:%.*]] = add nsw i32 [[TMP4]], 1
+// TCHECK2-NEXT:    store i32 [[ADD5]], ptr [[ARRAYIDX]], align 4
 // TCHECK2-NEXT:    ret void
 //
 //
@@ -10748,15 +10770,17 @@ int bar(int n, double *ptr) {
 // TCHECK3-NEXT:    [[TMP1:%.*]] = load i32, ptr [[A_ADDR]], align 4
 // TCHECK3-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP1]], 1
 // TCHECK3-NEXT:    store i32 [[ADD]], ptr [[A_ADDR]], align 4
-// TCHECK3-NEXT:    [[TMP2:%.*]] = load i8, ptr [[AAA_ADDR]], align 1
-// TCHECK3-NEXT:    [[CONV:%.*]] = sext i8 [[TMP2]] to i32
-// TCHECK3-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV]], 1
-// TCHECK3-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
-// TCHECK3-NEXT:    store i8 [[CONV3]], ptr [[AAA_ADDR]], align 1
+// TCHECK3-NEXT:    [[TMP2:%.*]] = load b8, ptr [[AAA_ADDR]], align 1
+// TCHECK3-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP2]] to i8
+// TCHECK3-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV]] to i32
+// TCHECK3-NEXT:    [[ADD3:%.*]] = add nsw i32 [[CONV2]], 1
+// TCHECK3-NEXT:    [[CONV4:%.*]] = trunc i32 [[ADD3]] to i8
+// TCHECK3-NEXT:    [[TMP3:%.*]] = bitcast i8 [[CONV4]] to b8
+// TCHECK3-NEXT:    store b8 [[TMP3]], ptr [[AAA_ADDR]], align 1
 // TCHECK3-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B1]], i32 0, i32 2
-// TCHECK3-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// TCHECK3-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
-// TCHECK3-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// TCHECK3-NEXT:    [[TMP4:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// TCHECK3-NEXT:    [[ADD5:%.*]] = add nsw i32 [[TMP4]], 1
+// TCHECK3-NEXT:    store i32 [[ADD5]], ptr [[ARRAYIDX]], align 4
 // TCHECK3-NEXT:    ret void
 //
 //
@@ -10993,7 +11017,7 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY1-NEXT:  entry:
 // SIMD-ONLY1-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // SIMD-ONLY1-NEXT:    [[A:%.*]] = alloca i32, align 4
-// SIMD-ONLY1-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// SIMD-ONLY1-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // SIMD-ONLY1-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // SIMD-ONLY1-NEXT:    store i32 [[N]], ptr [[N_ADDR]], align 4
 // SIMD-ONLY1-NEXT:    store i32 0, ptr [[A]], align 4
@@ -11001,17 +11025,19 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY1-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // SIMD-ONLY1-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP0]], 1
 // SIMD-ONLY1-NEXT:    store i32 [[ADD]], ptr [[A]], align 4
-// SIMD-ONLY1-NEXT:    [[TMP1:%.*]] = load i8, ptr [[AAA]], align 1
-// SIMD-ONLY1-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// SIMD-ONLY1-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
-// SIMD-ONLY1-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i8
-// SIMD-ONLY1-NEXT:    store i8 [[CONV2]], ptr [[AAA]], align 1
+// SIMD-ONLY1-NEXT:    [[TMP1:%.*]] = load b8, ptr [[AAA]], align 1
+// SIMD-ONLY1-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// SIMD-ONLY1-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// SIMD-ONLY1-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV1]], 1
+// SIMD-ONLY1-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
+// SIMD-ONLY1-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV3]] to b8
+// SIMD-ONLY1-NEXT:    store b8 [[TMP2]], ptr [[AAA]], align 1
 // SIMD-ONLY1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B]], i64 0, i64 2
-// SIMD-ONLY1-NEXT:    [[TMP2:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY1-NEXT:    [[ADD3:%.*]] = add nsw i32 [[TMP2]], 1
-// SIMD-ONLY1-NEXT:    store i32 [[ADD3]], ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY1-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
-// SIMD-ONLY1-NEXT:    ret i32 [[TMP3]]
+// SIMD-ONLY1-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY1-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
+// SIMD-ONLY1-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY1-NEXT:    [[TMP4:%.*]] = load i32, ptr [[A]], align 4
+// SIMD-ONLY1-NEXT:    ret i32 [[TMP4]]
 //
 //
 // SIMD-ONLY1-LABEL: define {{[^@]+}}@_Z9ftemplateIiET_i
@@ -11194,7 +11220,7 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY11-NEXT:  entry:
 // SIMD-ONLY11-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // SIMD-ONLY11-NEXT:    [[A:%.*]] = alloca i32, align 4
-// SIMD-ONLY11-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// SIMD-ONLY11-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // SIMD-ONLY11-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // SIMD-ONLY11-NEXT:    store i32 [[N]], ptr [[N_ADDR]], align 4
 // SIMD-ONLY11-NEXT:    store i32 0, ptr [[A]], align 4
@@ -11202,17 +11228,19 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY11-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // SIMD-ONLY11-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP0]], 1
 // SIMD-ONLY11-NEXT:    store i32 [[ADD]], ptr [[A]], align 4
-// SIMD-ONLY11-NEXT:    [[TMP1:%.*]] = load i8, ptr [[AAA]], align 1
-// SIMD-ONLY11-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// SIMD-ONLY11-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
-// SIMD-ONLY11-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i8
-// SIMD-ONLY11-NEXT:    store i8 [[CONV2]], ptr [[AAA]], align 1
+// SIMD-ONLY11-NEXT:    [[TMP1:%.*]] = load b8, ptr [[AAA]], align 1
+// SIMD-ONLY11-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// SIMD-ONLY11-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// SIMD-ONLY11-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV1]], 1
+// SIMD-ONLY11-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
+// SIMD-ONLY11-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV3]] to b8
+// SIMD-ONLY11-NEXT:    store b8 [[TMP2]], ptr [[AAA]], align 1
 // SIMD-ONLY11-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B]], i64 0, i64 2
-// SIMD-ONLY11-NEXT:    [[TMP2:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY11-NEXT:    [[ADD3:%.*]] = add nsw i32 [[TMP2]], 1
-// SIMD-ONLY11-NEXT:    store i32 [[ADD3]], ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY11-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
-// SIMD-ONLY11-NEXT:    ret i32 [[TMP3]]
+// SIMD-ONLY11-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY11-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
+// SIMD-ONLY11-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY11-NEXT:    [[TMP4:%.*]] = load i32, ptr [[A]], align 4
+// SIMD-ONLY11-NEXT:    ret i32 [[TMP4]]
 //
 //
 // SIMD-ONLY11-LABEL: define {{[^@]+}}@_Z9ftemplateIiET_i
@@ -11392,7 +11420,7 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY12-NEXT:  entry:
 // SIMD-ONLY12-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // SIMD-ONLY12-NEXT:    [[A:%.*]] = alloca i32, align 4
-// SIMD-ONLY12-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// SIMD-ONLY12-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // SIMD-ONLY12-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // SIMD-ONLY12-NEXT:    store i32 [[N]], ptr [[N_ADDR]], align 4
 // SIMD-ONLY12-NEXT:    store i32 0, ptr [[A]], align 4
@@ -11400,17 +11428,19 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY12-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // SIMD-ONLY12-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP0]], 1
 // SIMD-ONLY12-NEXT:    store i32 [[ADD]], ptr [[A]], align 4
-// SIMD-ONLY12-NEXT:    [[TMP1:%.*]] = load i8, ptr [[AAA]], align 1
-// SIMD-ONLY12-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// SIMD-ONLY12-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
-// SIMD-ONLY12-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i8
-// SIMD-ONLY12-NEXT:    store i8 [[CONV2]], ptr [[AAA]], align 1
+// SIMD-ONLY12-NEXT:    [[TMP1:%.*]] = load b8, ptr [[AAA]], align 1
+// SIMD-ONLY12-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// SIMD-ONLY12-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// SIMD-ONLY12-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV1]], 1
+// SIMD-ONLY12-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
+// SIMD-ONLY12-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV3]] to b8
+// SIMD-ONLY12-NEXT:    store b8 [[TMP2]], ptr [[AAA]], align 1
 // SIMD-ONLY12-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B]], i32 0, i32 2
-// SIMD-ONLY12-NEXT:    [[TMP2:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY12-NEXT:    [[ADD3:%.*]] = add nsw i32 [[TMP2]], 1
-// SIMD-ONLY12-NEXT:    store i32 [[ADD3]], ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY12-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
-// SIMD-ONLY12-NEXT:    ret i32 [[TMP3]]
+// SIMD-ONLY12-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY12-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
+// SIMD-ONLY12-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY12-NEXT:    [[TMP4:%.*]] = load i32, ptr [[A]], align 4
+// SIMD-ONLY12-NEXT:    ret i32 [[TMP4]]
 //
 //
 // SIMD-ONLY12-LABEL: define {{[^@]+}}@_Z9ftemplateIiET_i
@@ -11590,7 +11620,7 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY13-NEXT:  entry:
 // SIMD-ONLY13-NEXT:    [[N_ADDR:%.*]] = alloca i32, align 4
 // SIMD-ONLY13-NEXT:    [[A:%.*]] = alloca i32, align 4
-// SIMD-ONLY13-NEXT:    [[AAA:%.*]] = alloca i8, align 1
+// SIMD-ONLY13-NEXT:    [[AAA:%.*]] = alloca b8, align 1
 // SIMD-ONLY13-NEXT:    [[B:%.*]] = alloca [10 x i32], align 4
 // SIMD-ONLY13-NEXT:    store i32 [[N]], ptr [[N_ADDR]], align 4
 // SIMD-ONLY13-NEXT:    store i32 0, ptr [[A]], align 4
@@ -11598,17 +11628,19 @@ int bar(int n, double *ptr) {
 // SIMD-ONLY13-NEXT:    [[TMP0:%.*]] = load i32, ptr [[A]], align 4
 // SIMD-ONLY13-NEXT:    [[ADD:%.*]] = add nsw i32 [[TMP0]], 1
 // SIMD-ONLY13-NEXT:    store i32 [[ADD]], ptr [[A]], align 4
-// SIMD-ONLY13-NEXT:    [[TMP1:%.*]] = load i8, ptr [[AAA]], align 1
-// SIMD-ONLY13-NEXT:    [[CONV:%.*]] = sext i8 [[TMP1]] to i32
-// SIMD-ONLY13-NEXT:    [[ADD1:%.*]] = add nsw i32 [[CONV]], 1
-// SIMD-ONLY13-NEXT:    [[CONV2:%.*]] = trunc i32 [[ADD1]] to i8
-// SIMD-ONLY13-NEXT:    store i8 [[CONV2]], ptr [[AAA]], align 1
+// SIMD-ONLY13-NEXT:    [[TMP1:%.*]] = load b8, ptr [[AAA]], align 1
+// SIMD-ONLY13-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP1]] to i8
+// SIMD-ONLY13-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
+// SIMD-ONLY13-NEXT:    [[ADD2:%.*]] = add nsw i32 [[CONV1]], 1
+// SIMD-ONLY13-NEXT:    [[CONV3:%.*]] = trunc i32 [[ADD2]] to i8
+// SIMD-ONLY13-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV3]] to b8
+// SIMD-ONLY13-NEXT:    store b8 [[TMP2]], ptr [[AAA]], align 1
 // SIMD-ONLY13-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds [10 x i32], ptr [[B]], i32 0, i32 2
-// SIMD-ONLY13-NEXT:    [[TMP2:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY13-NEXT:    [[ADD3:%.*]] = add nsw i32 [[TMP2]], 1
-// SIMD-ONLY13-NEXT:    store i32 [[ADD3]], ptr [[ARRAYIDX]], align 4
-// SIMD-ONLY13-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
-// SIMD-ONLY13-NEXT:    ret i32 [[TMP3]]
+// SIMD-ONLY13-NEXT:    [[TMP3:%.*]] = load i32, ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY13-NEXT:    [[ADD4:%.*]] = add nsw i32 [[TMP3]], 1
+// SIMD-ONLY13-NEXT:    store i32 [[ADD4]], ptr [[ARRAYIDX]], align 4
+// SIMD-ONLY13-NEXT:    [[TMP4:%.*]] = load i32, ptr [[A]], align 4
+// SIMD-ONLY13-NEXT:    ret i32 [[TMP4]]
 //
 //
 // SIMD-ONLY13-LABEL: define {{[^@]+}}@_Z9ftemplateIiET_i

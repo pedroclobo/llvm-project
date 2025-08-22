@@ -39,7 +39,7 @@ class Positive1 {
 
 Positive1 positive1;
 // Positive1 with extra paddings
-// CHECK: type { i32, [12 x i8], i8, [15 x i8], i32, [12 x i8], [6 x i16], [12 x i8], i64, [8 x i8] }
+// CHECK: type { i32, [12 x i8], b8, [15 x i8], i32, [12 x i8], [6 x i16], [12 x i8], i64, [8 x i8] }
 
 struct VirtualBase {
   int foo;
@@ -68,7 +68,7 @@ class WithFlexibleArray1 {
 };
 
 WithFlexibleArray1 with_flexible_array1;
-// CHECK: %class.WithFlexibleArray1 = type { i32, [12 x i8], [33 x i8], [15 x i8], [0 x i32] }
+// CHECK: %class.WithFlexibleArray1 = type { i32, [12 x i8], [33 x b8], [15 x i8], [0 x i32] }
 
 class WithFlexibleArray2 {
  public:
@@ -77,7 +77,7 @@ class WithFlexibleArray2 {
 };
 
 WithFlexibleArray2 with_flexible_array2;
-// CHECK: %class.WithFlexibleArray2 = type { [21 x i8], [11 x i8], %class.WithFlexibleArray1 }
+// CHECK: %class.WithFlexibleArray2 = type { [21 x b8], [11 x i8], %class.WithFlexibleArray1 }
 
 class WithFlexibleArray3 {
  public:
@@ -124,7 +124,7 @@ class Negative4 {
 };
 
 Negative4 negative4;
-// CHECK: type { i32, i8, i32 }
+// CHECK: type { i32, b8, i32 }
 
 class __attribute__((packed)) Negative5 {
  public:
@@ -137,7 +137,7 @@ class __attribute__((packed)) Negative5 {
 };
 
 Negative5 negative5;
-// CHECK: type <{ i32, i8, i32 }>
+// CHECK: type <{ i32, b8, i32 }>
 
 
 namespace SomeNamespace {

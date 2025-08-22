@@ -13,13 +13,13 @@
 // UNCONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // UNCONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // UNCONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[VRNDZ_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// UNCONSTRAINED-NEXT:    [[VRNDZ_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // UNCONSTRAINED-NEXT:    [[VRNDZ1_I:%.*]] = call <2 x double> @llvm.trunc.v2f64(<2 x double> [[VRNDZ_I]])
 // UNCONSTRAINED-NEXT:    store <2 x double> [[VRNDZ1_I]], ptr [[REF_TMP_I]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -32,13 +32,13 @@
 // CONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // CONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[VRNDZ_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CONSTRAINED-NEXT:    [[VRNDZ_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // CONSTRAINED-NEXT:    [[VRNDZ1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.trunc.v2f64(<2 x double> [[VRNDZ_I]], metadata !"fpexcept.strict") #[[ATTR2:[0-9]+]]
 // CONSTRAINED-NEXT:    store <2 x double> [[VRNDZ1_I]], ptr [[REF_TMP_I]], align 16
 // CONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -53,13 +53,13 @@ float64x2_t rnd5(float64x2_t a) { return vrndq_f64(a); }
 // UNCONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // UNCONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // UNCONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[VRNDM_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// UNCONSTRAINED-NEXT:    [[VRNDM_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // UNCONSTRAINED-NEXT:    [[VRNDM1_I:%.*]] = call <2 x double> @llvm.floor.v2f64(<2 x double> [[VRNDM_I]])
 // UNCONSTRAINED-NEXT:    store <2 x double> [[VRNDM1_I]], ptr [[REF_TMP_I]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -72,13 +72,13 @@ float64x2_t rnd5(float64x2_t a) { return vrndq_f64(a); }
 // CONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // CONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[VRNDM_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CONSTRAINED-NEXT:    [[VRNDM_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // CONSTRAINED-NEXT:    [[VRNDM1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.floor.v2f64(<2 x double> [[VRNDM_I]], metadata !"fpexcept.strict") #[[ATTR2]]
 // CONSTRAINED-NEXT:    store <2 x double> [[VRNDM1_I]], ptr [[REF_TMP_I]], align 16
 // CONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -93,13 +93,13 @@ float64x2_t rnd13(float64x2_t a) { return vrndmq_f64(a); }
 // UNCONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // UNCONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // UNCONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[VRNDP_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// UNCONSTRAINED-NEXT:    [[VRNDP_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // UNCONSTRAINED-NEXT:    [[VRNDP1_I:%.*]] = call <2 x double> @llvm.ceil.v2f64(<2 x double> [[VRNDP_I]])
 // UNCONSTRAINED-NEXT:    store <2 x double> [[VRNDP1_I]], ptr [[REF_TMP_I]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -112,13 +112,13 @@ float64x2_t rnd13(float64x2_t a) { return vrndmq_f64(a); }
 // CONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // CONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[VRNDP_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CONSTRAINED-NEXT:    [[VRNDP_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // CONSTRAINED-NEXT:    [[VRNDP1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.ceil.v2f64(<2 x double> [[VRNDP_I]], metadata !"fpexcept.strict") #[[ATTR2]]
 // CONSTRAINED-NEXT:    store <2 x double> [[VRNDP1_I]], ptr [[REF_TMP_I]], align 16
 // CONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -133,13 +133,13 @@ float64x2_t rnd18(float64x2_t a) { return vrndpq_f64(a); }
 // UNCONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // UNCONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // UNCONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[VRNDA_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// UNCONSTRAINED-NEXT:    [[VRNDA_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // UNCONSTRAINED-NEXT:    [[VRNDA1_I:%.*]] = call <2 x double> @llvm.round.v2f64(<2 x double> [[VRNDA_I]])
 // UNCONSTRAINED-NEXT:    store <2 x double> [[VRNDA1_I]], ptr [[REF_TMP_I]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -152,13 +152,13 @@ float64x2_t rnd18(float64x2_t a) { return vrndpq_f64(a); }
 // CONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // CONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[VRNDA_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CONSTRAINED-NEXT:    [[VRNDA_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // CONSTRAINED-NEXT:    [[VRNDA1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.round.v2f64(<2 x double> [[VRNDA_I]], metadata !"fpexcept.strict") #[[ATTR2]]
 // CONSTRAINED-NEXT:    store <2 x double> [[VRNDA1_I]], ptr [[REF_TMP_I]], align 16
 // CONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -173,13 +173,13 @@ float64x2_t rnd22(float64x2_t a) { return vrndaq_f64(a); }
 // UNCONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // UNCONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// UNCONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // UNCONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // UNCONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// UNCONSTRAINED-NEXT:    [[VRNDX_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// UNCONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// UNCONSTRAINED-NEXT:    [[VRNDX_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // UNCONSTRAINED-NEXT:    [[VRNDX1_I:%.*]] = call <2 x double> @llvm.rint.v2f64(<2 x double> [[VRNDX_I]])
 // UNCONSTRAINED-NEXT:    store <2 x double> [[VRNDX1_I]], ptr [[REF_TMP_I]], align 16
 // UNCONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -192,13 +192,13 @@ float64x2_t rnd22(float64x2_t a) { return vrndaq_f64(a); }
 // CONSTRAINED-NEXT:  [[ENTRY:.*:]]
 // CONSTRAINED-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CONSTRAINED-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CONSTRAINED-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CONSTRAINED-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CONSTRAINED-NEXT:    [[VRNDX_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CONSTRAINED-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CONSTRAINED-NEXT:    [[VRNDX_I:%.*]] = bytecast <16 x b8> [[TMP1]] to <2 x double>
 // CONSTRAINED-NEXT:    [[VRNDX1_I:%.*]] = call <2 x double> @llvm.experimental.constrained.rint.v2f64(<2 x double> [[VRNDX_I]], metadata !"round.tonearest", metadata !"fpexcept.strict") #[[ATTR2]]
 // CONSTRAINED-NEXT:    store <2 x double> [[VRNDX1_I]], ptr [[REF_TMP_I]], align 16
 // CONSTRAINED-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16

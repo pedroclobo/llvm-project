@@ -65,7 +65,7 @@ test_add() {
 // CHECK-LABEL: define available_externally i64 @_mm_add_pi8
 // CHECK: call <2 x i64> @vec_splats
 // CHECK: call <2 x i64> @vec_splats
-// CHECK: call <16 x i8> @vec_add(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_add(signed char vector[16], signed char vector[16])
 
 // CHECK-LABEL: define available_externally i64 @_mm_adds_pu16
 // CHECK: call <2 x i64> @vec_splats
@@ -75,7 +75,7 @@ test_add() {
 // CHECK-LABEL: define available_externally i64 @_mm_adds_pu8
 // CHECK: call <2 x i64> @vec_splats
 // CHECK: call <2 x i64> @vec_splats
-// CHECK: call <16 x i8> @vec_adds(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_adds(unsigned char vector[16], unsigned char vector[16])
 
 // CHECK-LABEL: define available_externally i64 @_mm_adds_pi16
 // CHECK: call <2 x i64> @vec_splats
@@ -85,7 +85,7 @@ test_add() {
 // CHECK-LABEL: define available_externally i64 @_mm_adds_pi8
 // CHECK: call <2 x i64> @vec_splats
 // CHECK: call <2 x i64> @vec_splats
-// CHECK: call <16 x i8> @vec_adds(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_adds(signed char vector[16], signed char vector[16])
 
 void __attribute__((noinline))
 test_alt_name_add() {
@@ -167,7 +167,7 @@ test_cmp() {
 // CHECK-LABEL: define available_externally i64 @_mm_cmpgt_pi8
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
-// CHECK: call <16 x i8> @vec_cmpgt(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_cmpgt(signed char vector[16], signed char vector[16])
 
 void __attribute__((noinline))
 test_alt_name_cmp() {
@@ -337,8 +337,8 @@ test_mul() {
 // CHECK-LABEL: @test_mul
 
 // CHECK-LABEL: define available_externally i64 @_mm_mulhi_pi16
-// CHECK-BE: store <16 x i8> <i8 0, i8 1, i8 16, i8 17, i8 4, i8 5, i8 20, i8 21, i8 0, i8 1, i8 16, i8 17, i8 4, i8 5, i8 20, i8 21>
-// CHECK-LE: store <16 x i8> <i8 2, i8 3, i8 18, i8 19, i8 6, i8 7, i8 22, i8 23, i8 10, i8 11, i8 26, i8 27, i8 14, i8 15, i8 30, i8 31>
+// CHECK-BE: store <16 x b8> <b8 0, b8 1, b8 16, b8 17, b8 4, b8 5, b8 20, b8 21, b8 0, b8 1, b8 16, b8 17, b8 4, b8 5, b8 20, b8 21>
+// CHECK-LE: store <16 x b8> <b8 2, b8 3, b8 18, b8 19, b8 6, b8 7, b8 22, b8 23, b8 10, b8 11, b8 26, b8 27, b8 14, b8 15, b8 30, b8 31>
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
 // CHECK: call <4 x i32> @vec_vmulesh
@@ -375,12 +375,12 @@ test_packs() {
 
 // CHECK-LABEL: define available_externally i64 @_mm_packs_pu16
 // CHECK: call <8 x i16> @vec_cmplt
-// CHECK: call <16 x i8> @vec_packs(unsigned short vector[8], unsigned short vector[8])
-// CHECK: call <16 x i8> @vec_pack(bool vector[8], bool vector[8])
-// CHECK: call <16 x i8> @vec_sel(unsigned char vector[16], unsigned char vector[16], bool vector[16])(<16 x i8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x i8> noundef zeroinitializer, <16 x i8> noundef %{{[0-9a-zA-Z_.]+}})
+// CHECK: call <16 x b8> @vec_packs(unsigned short vector[8], unsigned short vector[8])
+// CHECK: call <16 x b8> @vec_pack(bool vector[8], bool vector[8])
+// CHECK: call <16 x b8> @vec_sel(unsigned char vector[16], unsigned char vector[16], bool vector[16])(<16 x b8> noundef %{{[0-9a-zA-Z_.]+}}, <16 x b8> noundef zeroinitializer, <16 x b8> noundef %{{[0-9a-zA-Z_.]+}})
 
 // CHECK-LABEL: define available_externally i64 @_mm_packs_pi16
-// CHECK: call <16 x i8> @vec_packs(short vector[8], short vector[8])
+// CHECK: call <16 x b8> @vec_packs(short vector[8], short vector[8])
 
 // CHECK-LABEL: define available_externally i64 @_mm_packs_pi32
 // CHECK: call <8 x i16> @vec_packs(int vector[4], int vector[4])
@@ -419,7 +419,7 @@ test_set() {
 // CHECK-COUNT-4: store i16 %{{[0-9a-zA-Z_.]+}}, ptr
 
 // CHECK-LABEL: define available_externally i64 @_mm_set_pi8
-// CHECK-COUNT-8: store i8 %{{[0-9a-zA-Z_.]+}}, ptr
+// CHECK-COUNT-8: store b8 %{{[0-9a-zA-Z_.]+}}, ptr
 
 void __attribute__((noinline))
 test_set1() {
@@ -447,8 +447,8 @@ test_set1() {
 
 
 // CHECK-LABEL: define available_externally i64 @_mm_set1_pi8
-// CHECK: call <16 x i8> @vec_splats(signed char)
-// CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bitcast <16 x i8> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
+// CHECK: call <16 x b8> @vec_splats(signed char)
+// CHECK: %[[CAST:[0-9a-zA-Z_.]+]] = bytecast <2 x b64> %{{[0-9a-zA-Z_.]+}} to <2 x i64>
 // CHECK: extractelement <2 x i64> %[[CAST]], i32 0
 
 void __attribute__((noinline))
@@ -712,7 +712,7 @@ test_sub() {
 // CHECK-LABEL: define available_externally i64 @_mm_sub_pi8
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
-// CHECK: call <16 x i8> @vec_sub(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_sub(signed char vector[16], signed char vector[16])
 
 // CHECK-LABEL: define available_externally i64 @_mm_subs_pi16
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
@@ -722,7 +722,7 @@ test_sub() {
 // CHECK-LABEL: define available_externally i64 @_mm_subs_pi8
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
-// CHECK: call <16 x i8> @vec_subs(signed char vector[16], signed char vector[16])
+// CHECK: call <16 x b8> @vec_subs(signed char vector[16], signed char vector[16])
 
 // CHECK-LABEL: define available_externally i64 @_mm_subs_pu16
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
@@ -732,7 +732,7 @@ test_sub() {
 // CHECK-LABEL: define available_externally i64 @_mm_subs_pu8
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
-// CHECK: call <16 x i8> @vec_subs(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_subs(unsigned char vector[16], unsigned char vector[16])
 
 void __attribute__((noinline))
 test_alt_name_sub() {
@@ -805,7 +805,7 @@ test_unpack() {
 // CHECK-LABEL: define available_externally i64 @_mm_unpackhi_pi8
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
-// CHECK: call <16 x i8> @vec_mergel(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_mergel(unsigned char vector[16], unsigned char vector[16])
 
 // CHECK-LABEL: define available_externally i64 @_mm_unpacklo_pi32
 // CHECK: getelementptr inbounds [2 x i32], ptr %{{[0-9a-zA-Z_.]+}}, i64 0, i64 0
@@ -832,7 +832,7 @@ test_unpack() {
 // CHECK-LABEL: define available_externally i64 @_mm_unpacklo_pi8
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
 // CHECK: call <2 x i64> @vec_splats(unsigned long long)
-// CHECK: call <16 x i8> @vec_mergel(unsigned char vector[16], unsigned char vector[16])
+// CHECK: call <16 x b8> @vec_mergel(unsigned char vector[16], unsigned char vector[16])
 
 void __attribute__((noinline))
 test_alt_name_unpack() {

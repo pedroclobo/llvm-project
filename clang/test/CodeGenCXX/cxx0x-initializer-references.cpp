@@ -1,7 +1,7 @@
 // RUN: %clang_cc1 -std=c++11 -triple armv7-none-eabi -fmerge-all-constants -emit-llvm -o - %s | FileCheck %s
 
 // This creates and lifetime-extends a 'const char[5]' temporary.
-// CHECK: @_ZGR19extended_string_ref_ = internal constant [5 x i8] c"hi\00\00\00",
+// CHECK: @_ZGR19extended_string_ref_ = internal constant [5 x b8] c"hi\00\00\00",
 // CHECK: @extended_string_ref ={{.*}} constant ptr @_ZGR19extended_string_ref_,
 const char (&extended_string_ref)[5] = {"hi"};
 

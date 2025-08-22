@@ -16,25 +16,31 @@ uint8x16_t test_vaeseq_u8(uint8x16_t data, uint8x16_t key) {
   // CHECK-LABEL: @test_vaeseq_u8
   // CHECK-NO-CRYPTO: error: always_inline function 'vaeseq_u8' requires target feature 'aes'
   return vaeseq_u8(data, key);
-  // CHECK: call <16 x i8> @llvm.{{arm.neon|aarch64.crypto}}.aese(<16 x i8> %data, <16 x i8> %key)
+  // CHECK: [[CONV1:%.*]] = bytecast <16 x b8> %data to <16 x i8>
+  // CHECK: [[CONV2:%.*]] = bytecast <16 x b8> %key to <16 x i8>
+  // CHECK: call <16 x i8> @llvm.{{arm.neon|aarch64.crypto}}.aese(<16 x i8> [[CONV1]], <16 x i8> [[CONV2]])
 }
 
 uint8x16_t test_vaesdq_u8(uint8x16_t data, uint8x16_t key) {
   // CHECK-LABEL: @test_vaesdq_u8
   return vaesdq_u8(data, key);
-  // CHECK: call <16 x i8> @llvm.{{arm.neon|aarch64.crypto}}.aesd(<16 x i8> %data, <16 x i8> %key)
+  // CHECK: [[CONV1:%.*]] = bytecast <16 x b8> %data to <16 x i8>
+  // CHECK: [[CONV2:%.*]] = bytecast <16 x b8> %key to <16 x i8>
+  // CHECK: call <16 x i8> @llvm.{{arm.neon|aarch64.crypto}}.aesd(<16 x i8> [[CONV1]], <16 x i8> [[CONV2]])
 }
 
 uint8x16_t test_vaesmcq_u8(uint8x16_t data) {
   // CHECK-LABEL: @test_vaesmcq_u8
   return vaesmcq_u8(data);
-  // CHECK: call <16 x i8> @llvm.{{arm.neon|aarch64.crypto}}.aesmc(<16 x i8> %data)
+  // CHECK: [[CONV1:%.*]] = bytecast <16 x b8> %data to <16 x i8>
+  // CHECK: call <16 x i8> @llvm.{{arm.neon|aarch64.crypto}}.aesmc(<16 x i8> [[CONV1]])
 }
 
 uint8x16_t test_vaesimcq_u8(uint8x16_t data) {
   // CHECK-LABEL: @test_vaesimcq_u8
   return vaesimcq_u8(data);
-  // CHECK: call <16 x i8> @llvm.{{arm.neon|aarch64.crypto}}.aesimc(<16 x i8> %data)
+  // CHECK: [[CONV1:%.*]] = bytecast <16 x b8> %data to <16 x i8>
+  // CHECK: call <16 x i8> @llvm.{{arm.neon|aarch64.crypto}}.aesimc(<16 x i8> [[CONV1]])
 }
 
 uint32_t test_vsha1h_u32(uint32_t hash_e) {

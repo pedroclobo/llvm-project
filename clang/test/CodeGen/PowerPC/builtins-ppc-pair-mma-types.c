@@ -7,13 +7,13 @@
 // CHECK-LABEL: @testVQLocal(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[VC_ADDR:%.*]] = alloca <16 x i8>, align 16
+// CHECK-NEXT:    [[VC_ADDR:%.*]] = alloca <16 x b8>, align 16
 // CHECK-NEXT:    [[VQP:%.*]] = alloca ptr, align 8
 // CHECK-NEXT:    [[VQ1:%.*]] = alloca <512 x i1>, align 64
 // CHECK-NEXT:    [[VQ2:%.*]] = alloca <512 x i1>, align 64
 // CHECK-NEXT:    [[VQ3:%.*]] = alloca <512 x i1>, align 64
 // CHECK-NEXT:    store ptr [[PTR:%.*]], ptr [[PTR_ADDR]], align 8
-// CHECK-NEXT:    store <16 x i8> [[VC:%.*]], ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    store <16 x b8> [[VC:%.*]], ptr [[VC_ADDR]], align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    store ptr [[TMP0]], ptr [[VQP]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = load ptr, ptr [[VQP]], align 8
@@ -21,25 +21,27 @@
 // CHECK-NEXT:    store <512 x i1> [[TMP2]], ptr [[VQ1]], align 64
 // CHECK-NEXT:    [[TMP3:%.*]] = call <512 x i1> @llvm.ppc.mma.xxsetaccz()
 // CHECK-NEXT:    store <512 x i1> [[TMP3]], ptr [[VQ2]], align 64
-// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-NEXT:    [[TMP6:%.*]] = call <512 x i1> @llvm.ppc.mma.xvi4ger8(<16 x i8> [[TMP4]], <16 x i8> [[TMP5]])
-// CHECK-NEXT:    store <512 x i1> [[TMP6]], ptr [[VQ3]], align 64
-// CHECK-NEXT:    [[TMP7:%.*]] = load <512 x i1>, ptr [[VQ3]], align 64
-// CHECK-NEXT:    [[TMP8:%.*]] = load ptr, ptr [[VQP]], align 8
-// CHECK-NEXT:    store <512 x i1> [[TMP7]], ptr [[TMP8]], align 64
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = call <512 x i1> @llvm.ppc.mma.xvi4ger8(<16 x i8> [[TMP6]], <16 x i8> [[TMP7]])
+// CHECK-NEXT:    store <512 x i1> [[TMP8]], ptr [[VQ3]], align 64
+// CHECK-NEXT:    [[TMP9:%.*]] = load <512 x i1>, ptr [[VQ3]], align 64
+// CHECK-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[VQP]], align 8
+// CHECK-NEXT:    store <512 x i1> [[TMP9]], ptr [[TMP10]], align 64
 // CHECK-NEXT:    ret void
 //
 // CHECK-BE-LABEL: @testVQLocal(
 // CHECK-BE-NEXT:  entry:
 // CHECK-BE-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-BE-NEXT:    [[VC_ADDR:%.*]] = alloca <16 x i8>, align 16
+// CHECK-BE-NEXT:    [[VC_ADDR:%.*]] = alloca <16 x b8>, align 16
 // CHECK-BE-NEXT:    [[VQP:%.*]] = alloca ptr, align 8
 // CHECK-BE-NEXT:    [[VQ1:%.*]] = alloca <512 x i1>, align 64
 // CHECK-BE-NEXT:    [[VQ2:%.*]] = alloca <512 x i1>, align 64
 // CHECK-BE-NEXT:    [[VQ3:%.*]] = alloca <512 x i1>, align 64
 // CHECK-BE-NEXT:    store ptr [[PTR:%.*]], ptr [[PTR_ADDR]], align 8
-// CHECK-BE-NEXT:    store <16 x i8> [[VC:%.*]], ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    store <16 x b8> [[VC:%.*]], ptr [[VC_ADDR]], align 16
 // CHECK-BE-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-BE-NEXT:    store ptr [[TMP0]], ptr [[VQP]], align 8
 // CHECK-BE-NEXT:    [[TMP1:%.*]] = load ptr, ptr [[VQP]], align 8
@@ -47,13 +49,15 @@
 // CHECK-BE-NEXT:    store <512 x i1> [[TMP2]], ptr [[VQ1]], align 64
 // CHECK-BE-NEXT:    [[TMP3:%.*]] = call <512 x i1> @llvm.ppc.mma.xxsetaccz()
 // CHECK-BE-NEXT:    store <512 x i1> [[TMP3]], ptr [[VQ2]], align 64
-// CHECK-BE-NEXT:    [[TMP4:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-BE-NEXT:    [[TMP5:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-BE-NEXT:    [[TMP6:%.*]] = call <512 x i1> @llvm.ppc.mma.xvi4ger8(<16 x i8> [[TMP4]], <16 x i8> [[TMP5]])
-// CHECK-BE-NEXT:    store <512 x i1> [[TMP6]], ptr [[VQ3]], align 64
-// CHECK-BE-NEXT:    [[TMP7:%.*]] = load <512 x i1>, ptr [[VQ3]], align 64
-// CHECK-BE-NEXT:    [[TMP8:%.*]] = load ptr, ptr [[VQP]], align 8
-// CHECK-BE-NEXT:    store <512 x i1> [[TMP7]], ptr [[TMP8]], align 64
+// CHECK-BE-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    [[TMP5:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    [[TMP6:%.*]] = bytecast <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP7:%.*]] = bytecast <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP8:%.*]] = call <512 x i1> @llvm.ppc.mma.xvi4ger8(<16 x i8> [[TMP6]], <16 x i8> [[TMP7]])
+// CHECK-BE-NEXT:    store <512 x i1> [[TMP8]], ptr [[VQ3]], align 64
+// CHECK-BE-NEXT:    [[TMP9:%.*]] = load <512 x i1>, ptr [[VQ3]], align 64
+// CHECK-BE-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[VQP]], align 8
+// CHECK-BE-NEXT:    store <512 x i1> [[TMP9]], ptr [[TMP10]], align 64
 // CHECK-BE-NEXT:    ret void
 //
 void testVQLocal(int *ptr, vector unsigned char vc) {
@@ -69,67 +73,77 @@ void testVQLocal(int *ptr, vector unsigned char vc) {
 // CHECK-LABEL: @testVPLocal(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[VC_ADDR:%.*]] = alloca <16 x i8>, align 16
+// CHECK-NEXT:    [[VC_ADDR:%.*]] = alloca <16 x b8>, align 16
 // CHECK-NEXT:    [[VPP:%.*]] = alloca ptr, align 8
 // CHECK-NEXT:    [[VP1:%.*]] = alloca <256 x i1>, align 32
 // CHECK-NEXT:    [[VP2:%.*]] = alloca <256 x i1>, align 32
 // CHECK-NEXT:    [[VP3:%.*]] = alloca <256 x i1>, align 32
 // CHECK-NEXT:    [[VQ:%.*]] = alloca <512 x i1>, align 64
 // CHECK-NEXT:    store ptr [[PTR:%.*]], ptr [[PTR_ADDR]], align 8
-// CHECK-NEXT:    store <16 x i8> [[VC:%.*]], ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    store <16 x b8> [[VC:%.*]], ptr [[VC_ADDR]], align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-NEXT:    store ptr [[TMP0]], ptr [[VPP]], align 8
 // CHECK-NEXT:    [[TMP1:%.*]] = load ptr, ptr [[VPP]], align 8
 // CHECK-NEXT:    [[TMP2:%.*]] = load <256 x i1>, ptr [[TMP1]], align 32
 // CHECK-NEXT:    store <256 x i1> [[TMP2]], ptr [[VP1]], align 32
-// CHECK-NEXT:    [[TMP3:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-NEXT:    [[TMP5:%.*]] = call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP3]], <16 x i8> [[TMP4]])
-// CHECK-NEXT:    store <256 x i1> [[TMP5]], ptr [[VP2]], align 32
-// CHECK-NEXT:    [[TMP6:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-NEXT:    [[TMP7:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-NEXT:    [[TMP8:%.*]] = call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP7]], <16 x i8> [[TMP6]])
-// CHECK-NEXT:    store <256 x i1> [[TMP8]], ptr [[VP2]], align 32
-// CHECK-NEXT:    [[TMP9:%.*]] = load <256 x i1>, ptr [[VP3]], align 32
-// CHECK-NEXT:    [[TMP10:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-NEXT:    [[TMP11:%.*]] = call <512 x i1> @llvm.ppc.mma.xvf64ger(<256 x i1> [[TMP9]], <16 x i8> [[TMP10]])
-// CHECK-NEXT:    store <512 x i1> [[TMP11]], ptr [[VQ]], align 64
-// CHECK-NEXT:    [[TMP12:%.*]] = load <256 x i1>, ptr [[VP3]], align 32
-// CHECK-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[VPP]], align 8
-// CHECK-NEXT:    store <256 x i1> [[TMP12]], ptr [[TMP13]], align 32
+// CHECK-NEXT:    [[TMP3:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP5]], <16 x i8> [[TMP6]])
+// CHECK-NEXT:    store <256 x i1> [[TMP7]], ptr [[VP2]], align 32
+// CHECK-NEXT:    [[TMP8:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    [[TMP9:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast <16 x b8> [[TMP9]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast <16 x b8> [[TMP8]] to <16 x i8>
+// CHECK-NEXT:    [[TMP12:%.*]] = call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP10]], <16 x i8> [[TMP11]])
+// CHECK-NEXT:    store <256 x i1> [[TMP12]], ptr [[VP2]], align 32
+// CHECK-NEXT:    [[TMP13:%.*]] = load <256 x i1>, ptr [[VP3]], align 32
+// CHECK-NEXT:    [[TMP14:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-NEXT:    [[TMP15:%.*]] = bytecast <16 x b8> [[TMP14]] to <16 x i8>
+// CHECK-NEXT:    [[TMP16:%.*]] = call <512 x i1> @llvm.ppc.mma.xvf64ger(<256 x i1> [[TMP13]], <16 x i8> [[TMP15]])
+// CHECK-NEXT:    store <512 x i1> [[TMP16]], ptr [[VQ]], align 64
+// CHECK-NEXT:    [[TMP17:%.*]] = load <256 x i1>, ptr [[VP3]], align 32
+// CHECK-NEXT:    [[TMP18:%.*]] = load ptr, ptr [[VPP]], align 8
+// CHECK-NEXT:    store <256 x i1> [[TMP17]], ptr [[TMP18]], align 32
 // CHECK-NEXT:    ret void
 //
 // CHECK-BE-LABEL: @testVPLocal(
 // CHECK-BE-NEXT:  entry:
 // CHECK-BE-NEXT:    [[PTR_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-BE-NEXT:    [[VC_ADDR:%.*]] = alloca <16 x i8>, align 16
+// CHECK-BE-NEXT:    [[VC_ADDR:%.*]] = alloca <16 x b8>, align 16
 // CHECK-BE-NEXT:    [[VPP:%.*]] = alloca ptr, align 8
 // CHECK-BE-NEXT:    [[VP1:%.*]] = alloca <256 x i1>, align 32
 // CHECK-BE-NEXT:    [[VP2:%.*]] = alloca <256 x i1>, align 32
 // CHECK-BE-NEXT:    [[VP3:%.*]] = alloca <256 x i1>, align 32
 // CHECK-BE-NEXT:    [[VQ:%.*]] = alloca <512 x i1>, align 64
 // CHECK-BE-NEXT:    store ptr [[PTR:%.*]], ptr [[PTR_ADDR]], align 8
-// CHECK-BE-NEXT:    store <16 x i8> [[VC:%.*]], ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    store <16 x b8> [[VC:%.*]], ptr [[VC_ADDR]], align 16
 // CHECK-BE-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[PTR_ADDR]], align 8
 // CHECK-BE-NEXT:    store ptr [[TMP0]], ptr [[VPP]], align 8
 // CHECK-BE-NEXT:    [[TMP1:%.*]] = load ptr, ptr [[VPP]], align 8
 // CHECK-BE-NEXT:    [[TMP2:%.*]] = load <256 x i1>, ptr [[TMP1]], align 32
 // CHECK-BE-NEXT:    store <256 x i1> [[TMP2]], ptr [[VP1]], align 32
-// CHECK-BE-NEXT:    [[TMP3:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-BE-NEXT:    [[TMP4:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-BE-NEXT:    [[TMP5:%.*]] = call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP3]], <16 x i8> [[TMP4]])
-// CHECK-BE-NEXT:    store <256 x i1> [[TMP5]], ptr [[VP2]], align 32
-// CHECK-BE-NEXT:    [[TMP6:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-BE-NEXT:    [[TMP7:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-BE-NEXT:    [[TMP8:%.*]] = call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP6]], <16 x i8> [[TMP7]])
-// CHECK-BE-NEXT:    store <256 x i1> [[TMP8]], ptr [[VP2]], align 32
-// CHECK-BE-NEXT:    [[TMP9:%.*]] = load <256 x i1>, ptr [[VP3]], align 32
-// CHECK-BE-NEXT:    [[TMP10:%.*]] = load <16 x i8>, ptr [[VC_ADDR]], align 16
-// CHECK-BE-NEXT:    [[TMP11:%.*]] = call <512 x i1> @llvm.ppc.mma.xvf64ger(<256 x i1> [[TMP9]], <16 x i8> [[TMP10]])
-// CHECK-BE-NEXT:    store <512 x i1> [[TMP11]], ptr [[VQ]], align 64
-// CHECK-BE-NEXT:    [[TMP12:%.*]] = load <256 x i1>, ptr [[VP3]], align 32
-// CHECK-BE-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[VPP]], align 8
-// CHECK-BE-NEXT:    store <256 x i1> [[TMP12]], ptr [[TMP13]], align 32
+// CHECK-BE-NEXT:    [[TMP3:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    [[TMP4:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    [[TMP5:%.*]] = bytecast <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP6:%.*]] = bytecast <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP7:%.*]] = call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP5]], <16 x i8> [[TMP6]])
+// CHECK-BE-NEXT:    store <256 x i1> [[TMP7]], ptr [[VP2]], align 32
+// CHECK-BE-NEXT:    [[TMP8:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    [[TMP9:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    [[TMP10:%.*]] = bytecast <16 x b8> [[TMP8]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP11:%.*]] = bytecast <16 x b8> [[TMP9]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP12:%.*]] = call <256 x i1> @llvm.ppc.vsx.assemble.pair(<16 x i8> [[TMP10]], <16 x i8> [[TMP11]])
+// CHECK-BE-NEXT:    store <256 x i1> [[TMP12]], ptr [[VP2]], align 32
+// CHECK-BE-NEXT:    [[TMP13:%.*]] = load <256 x i1>, ptr [[VP3]], align 32
+// CHECK-BE-NEXT:    [[TMP14:%.*]] = load <16 x b8>, ptr [[VC_ADDR]], align 16
+// CHECK-BE-NEXT:    [[TMP15:%.*]] = bytecast <16 x b8> [[TMP14]] to <16 x i8>
+// CHECK-BE-NEXT:    [[TMP16:%.*]] = call <512 x i1> @llvm.ppc.mma.xvf64ger(<256 x i1> [[TMP13]], <16 x i8> [[TMP15]])
+// CHECK-BE-NEXT:    store <512 x i1> [[TMP16]], ptr [[VQ]], align 64
+// CHECK-BE-NEXT:    [[TMP17:%.*]] = load <256 x i1>, ptr [[VP3]], align 32
+// CHECK-BE-NEXT:    [[TMP18:%.*]] = load ptr, ptr [[VPP]], align 8
+// CHECK-BE-NEXT:    store <256 x i1> [[TMP17]], ptr [[TMP18]], align 32
 // CHECK-BE-NEXT:    ret void
 //
 void testVPLocal(int *ptr, vector unsigned char vc) {

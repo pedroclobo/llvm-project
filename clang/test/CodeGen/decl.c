@@ -45,8 +45,8 @@ void test4(void) {
   char a[10] = "asdf";
   char b[10] = { "asdf" };
   // CHECK: @test4()
-  // CHECK: %a = alloca [10 x i8]
-  // CHECK: %b = alloca [10 x i8]
+  // CHECK: %a = alloca [10 x b8]
+  // CHECK: %b = alloca [10 x b8]
   // CHECK: call void @llvm.memcpy
   // CHECK: call void @llvm.memcpy
 }

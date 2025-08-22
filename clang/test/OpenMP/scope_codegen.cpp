@@ -245,16 +245,16 @@ int main() {
 // CHECK1-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 {
 // CHECK1-NEXT:  entry:
 // CHECK1-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK1-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK1-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK1-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK1-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK1-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK1-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK1-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
-// CHECK1-NEXT:    [[A1:%.*]] = alloca i8, align 1
+// CHECK1-NEXT:    [[A1:%.*]] = alloca b8, align 1
 // CHECK1-NEXT:    [[C2:%.*]] = alloca [[CLASS_TESTCLASS:%.*]], align 4
 // CHECK1-NEXT:    [[TMP:%.*]] = alloca ptr, align 8
 // CHECK1-NEXT:    [[TC:%.*]] = alloca [[CLASS_TESTCLASS]], align 4
-// CHECK1-NEXT:    [[A24:%.*]] = alloca [2 x i8], align 1
+// CHECK1-NEXT:    [[A24:%.*]] = alloca [2 x b8], align 1
 // CHECK1-NEXT:    [[TC2:%.*]] = alloca [2 x %class.TestClass], align 4
 // CHECK1-NEXT:    [[TMP0:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB2:[0-9]+]])
 // CHECK1-NEXT:    store i32 0, ptr [[RETVAL]], align 4
@@ -264,8 +264,8 @@ int main() {
 // CHECK1-NEXT:    store i8 2, ptr [[A]], align 1
 // CHECK1-NEXT:    store i8 2, ptr [[A]], align 1
 // CHECK1-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB1:[0-9]+]], i32 [[TMP0]])
-// CHECK1-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1
-// CHECK1-NEXT:    store i8 [[TMP1]], ptr [[A1]], align 1
+// CHECK1-NEXT:    [[TMP1:%.*]] = load b8, ptr [[A]], align 1
+// CHECK1-NEXT:    store b8 [[TMP1]], ptr [[A1]], align 1
 // CHECK1-NEXT:    invoke void @_ZN9TestClassC1ERKS_(ptr noundef nonnull align 4 dereferenceable(4) [[C2]], ptr noundef nonnull align 4 dereferenceable(4) @tc)
 // CHECK1-NEXT:            to label [[INVOKE_CONT:%.*]] unwind label [[TERMINATE_LPAD:%.*]]
 // CHECK1:       invoke.cont:
@@ -301,9 +301,10 @@ int main() {
 // CHECK1-NEXT:    call void @_ZN9TestClassD1Ev(ptr noundef nonnull align 4 dereferenceable(4) [[TC]]) #[[ATTR3]]
 // CHECK1-NEXT:    call void @_ZN9TestClassD1Ev(ptr noundef nonnull align 4 dereferenceable(4) [[C2]]) #[[ATTR3]]
 // CHECK1-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK1-NEXT:    [[TMP3:%.*]] = load i8, ptr [[A]], align 1
-// CHECK1-NEXT:    [[CONV:%.*]] = sext i8 [[TMP3]] to i32
-// CHECK1-NEXT:    ret i32 [[CONV]]
+// CHECK1-NEXT:    [[TMP3:%.*]] = load b8, ptr [[A]], align 1
+// CHECK1-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP3]] to i8
+// CHECK1-NEXT:    [[CONV9:%.*]] = sext i8 [[CONV]] to i32
+// CHECK1-NEXT:    ret i32 [[CONV9]]
 // CHECK1:       terminate.lpad:
 // CHECK1-NEXT:    [[TMP4:%.*]] = landingpad { ptr, i32 }
 // CHECK1-NEXT:            catch ptr null
@@ -743,16 +744,16 @@ int main() {
 // CHECK4-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 {
 // CHECK4-NEXT:  entry:
 // CHECK4-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK4-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK4-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK4-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK4-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK4-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK4-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK4-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
-// CHECK4-NEXT:    [[A1:%.*]] = alloca i8, align 1
+// CHECK4-NEXT:    [[A1:%.*]] = alloca b8, align 1
 // CHECK4-NEXT:    [[C2:%.*]] = alloca [[CLASS_TESTCLASS:%.*]], align 4
 // CHECK4-NEXT:    [[TMP:%.*]] = alloca ptr, align 8
 // CHECK4-NEXT:    [[TC:%.*]] = alloca [[CLASS_TESTCLASS]], align 4
-// CHECK4-NEXT:    [[A24:%.*]] = alloca [2 x i8], align 1
+// CHECK4-NEXT:    [[A24:%.*]] = alloca [2 x b8], align 1
 // CHECK4-NEXT:    [[TC2:%.*]] = alloca [2 x %class.TestClass], align 4
 // CHECK4-NEXT:    [[TMP0:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB2:[0-9]+]])
 // CHECK4-NEXT:    store i32 0, ptr [[RETVAL]], align 4
@@ -762,8 +763,8 @@ int main() {
 // CHECK4-NEXT:    store i8 2, ptr [[A]], align 1
 // CHECK4-NEXT:    store i8 2, ptr [[A]], align 1
 // CHECK4-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB1:[0-9]+]], i32 [[TMP0]])
-// CHECK4-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1
-// CHECK4-NEXT:    store i8 [[TMP1]], ptr [[A1]], align 1
+// CHECK4-NEXT:    [[TMP1:%.*]] = load b8, ptr [[A]], align 1
+// CHECK4-NEXT:    store b8 [[TMP1]], ptr [[A1]], align 1
 // CHECK4-NEXT:    invoke void @_ZN9TestClassC1ERKS_(ptr noundef nonnull align 4 dereferenceable(4) [[C2]], ptr noundef nonnull align 4 dereferenceable(4) @tc)
 // CHECK4-NEXT:            to label [[INVOKE_CONT:%.*]] unwind label [[TERMINATE_LPAD:%.*]]
 // CHECK4:       invoke.cont:
@@ -799,9 +800,10 @@ int main() {
 // CHECK4-NEXT:    call void @_ZN9TestClassD1Ev(ptr noundef nonnull align 4 dereferenceable(4) [[TC]]) #[[ATTR3]]
 // CHECK4-NEXT:    call void @_ZN9TestClassD1Ev(ptr noundef nonnull align 4 dereferenceable(4) [[C2]]) #[[ATTR3]]
 // CHECK4-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK4-NEXT:    [[TMP3:%.*]] = load i8, ptr [[A]], align 1
-// CHECK4-NEXT:    [[CONV:%.*]] = sext i8 [[TMP3]] to i32
-// CHECK4-NEXT:    ret i32 [[CONV]]
+// CHECK4-NEXT:    [[TMP3:%.*]] = load b8, ptr [[A]], align 1
+// CHECK4-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP3]] to i8
+// CHECK4-NEXT:    [[CONV9:%.*]] = sext i8 [[CONV]] to i32
+// CHECK4-NEXT:    ret i32 [[CONV9]]
 // CHECK4:       terminate.lpad:
 // CHECK4-NEXT:    [[TMP4:%.*]] = landingpad { ptr, i32 }
 // CHECK4-NEXT:            catch ptr null
@@ -1562,16 +1564,16 @@ int main() {
 // CHECK5-SAME: () #[[ATTR5:[0-9]+]] personality ptr @__gxx_personality_v0 !dbg [[DBG34:![0-9]+]] {
 // CHECK5-NEXT:  entry:
 // CHECK5-NEXT:    [[RETVAL:%.*]] = alloca i32, align 4
-// CHECK5-NEXT:    [[A:%.*]] = alloca i8, align 1
-// CHECK5-NEXT:    [[A2:%.*]] = alloca [2 x i8], align 1
+// CHECK5-NEXT:    [[A:%.*]] = alloca b8, align 1
+// CHECK5-NEXT:    [[A2:%.*]] = alloca [2 x b8], align 1
 // CHECK5-NEXT:    [[C:%.*]] = alloca ptr, align 8
 // CHECK5-NEXT:    [[SST:%.*]] = alloca [[STRUCT_SST:%.*]], align 8
 // CHECK5-NEXT:    [[SS:%.*]] = alloca [[STRUCT_SS:%.*]], align 8
-// CHECK5-NEXT:    [[A1:%.*]] = alloca i8, align 1
+// CHECK5-NEXT:    [[A1:%.*]] = alloca b8, align 1
 // CHECK5-NEXT:    [[C2:%.*]] = alloca [[CLASS_TESTCLASS:%.*]], align 4
 // CHECK5-NEXT:    [[TMP:%.*]] = alloca ptr, align 8
 // CHECK5-NEXT:    [[TC:%.*]] = alloca [[CLASS_TESTCLASS]], align 4
-// CHECK5-NEXT:    [[A24:%.*]] = alloca [2 x i8], align 1
+// CHECK5-NEXT:    [[A24:%.*]] = alloca [2 x b8], align 1
 // CHECK5-NEXT:    [[TC2:%.*]] = alloca [2 x %class.TestClass], align 4
 // CHECK5-NEXT:    [[TMP0:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB2:[0-9]+]]), !dbg [[DBG35:![0-9]+]]
 // CHECK5-NEXT:    store i32 0, ptr [[RETVAL]], align 4
@@ -1581,8 +1583,8 @@ int main() {
 // CHECK5-NEXT:    store i8 2, ptr [[A]], align 1, !dbg [[DBG39:![0-9]+]]
 // CHECK5-NEXT:    store i8 2, ptr [[A]], align 1, !dbg [[DBG40:![0-9]+]]
 // CHECK5-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB1:[0-9]+]], i32 [[TMP0]]), !dbg [[DBG41:![0-9]+]]
-// CHECK5-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1, !dbg [[DBG42:![0-9]+]]
-// CHECK5-NEXT:    store i8 [[TMP1]], ptr [[A1]], align 1, !dbg [[DBG42]]
+// CHECK5-NEXT:    [[TMP1:%.*]] = load b8, ptr [[A]], align 1, !dbg [[DBG42:![0-9]+]]
+// CHECK5-NEXT:    store b8 [[TMP1]], ptr [[A1]], align 1, !dbg [[DBG42]]
 // CHECK5-NEXT:    invoke void @_ZN9TestClassC1ERKS_(ptr noundef nonnull align 4 dereferenceable(4) [[C2]], ptr noundef nonnull align 4 dereferenceable(4) @tc)
 // CHECK5-NEXT:            to label [[INVOKE_CONT:%.*]] unwind label [[TERMINATE_LPAD:%.*]], !dbg [[DBG43:![0-9]+]]
 // CHECK5:       invoke.cont:
@@ -1618,9 +1620,10 @@ int main() {
 // CHECK5-NEXT:    call void @_ZN9TestClassD1Ev(ptr noundef nonnull align 4 dereferenceable(4) [[TC]]) #[[ATTR3]], !dbg [[DBG47]]
 // CHECK5-NEXT:    call void @_ZN9TestClassD1Ev(ptr noundef nonnull align 4 dereferenceable(4) [[C2]]) #[[ATTR3]], !dbg [[DBG47]]
 // CHECK5-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4:[0-9]+]], i32 [[TMP0]]), !dbg [[DBG48:![0-9]+]]
-// CHECK5-NEXT:    [[TMP3:%.*]] = load i8, ptr [[A]], align 1, !dbg [[DBG49:![0-9]+]]
-// CHECK5-NEXT:    [[CONV:%.*]] = sext i8 [[TMP3]] to i32, !dbg [[DBG49]]
-// CHECK5-NEXT:    ret i32 [[CONV]], !dbg [[DBG50:![0-9]+]]
+// CHECK5-NEXT:    [[TMP3:%.*]] = load b8, ptr [[A]], align 1, !dbg [[DBG49:![0-9]+]]
+// CHECK5-NEXT:    [[CONV:%.*]] = bytecast b8 [[TMP3]] to i8, !dbg [[DBG49]]
+// CHECK5-NEXT:    [[CONV9:%.*]] = sext i8 [[CONV]] to i32, !dbg [[DBG49]]
+// CHECK5-NEXT:    ret i32 [[CONV9]], !dbg [[DBG50:![0-9]+]]
 // CHECK5:       terminate.lpad:
 // CHECK5-NEXT:    [[TMP4:%.*]] = landingpad { ptr, i32 }
 // CHECK5-NEXT:            catch ptr null, !dbg [[DBG43]]

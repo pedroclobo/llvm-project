@@ -9,8 +9,11 @@
 
 // CHECK-LABEL: @test_vadd_p8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = xor <8 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <8 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <8 x b8> [[A:%.*]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[B:%.*]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = xor <8 x i8> [[TMP0:%.*]], [[TMP1:%.*]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2:%.*]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP3]]
 //
 poly8x8_t test_vadd_p8(poly8x8_t a, poly8x8_t b) {
   return vadd_p8 (a, b);
@@ -18,11 +21,13 @@ poly8x8_t test_vadd_p8(poly8x8_t a, poly8x8_t b) {
 
 // CHECK-LABEL: @test_vadd_p16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = xor <8 x i8> [[TMP0]], [[TMP1]]
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    ret <4 x i16> [[TMP3]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0:%.*]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <8 x b8> [[TMP1:%.*]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = xor <8 x i8> [[TMP2]], [[TMP3]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    ret <4 x i16> [[TMP5]]
 //
 poly16x4_t test_vadd_p16(poly16x4_t a, poly16x4_t b) {
   return vadd_p16 (a, b);
@@ -30,11 +35,13 @@ poly16x4_t test_vadd_p16(poly16x4_t a, poly16x4_t b) {
 
 // CHECK-LABEL: @test_vadd_p64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[A:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = xor <8 x i8> [[TMP0]], [[TMP1]]
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    ret <1 x i64> [[TMP3]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[A:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0:%.*]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <8 x b8> [[TMP1:%.*]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = xor <8 x i8> [[TMP2]], [[TMP3]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    ret <1 x i64> [[TMP5]]
 //
 poly64x1_t test_vadd_p64(poly64x1_t a, poly64x1_t b) {
   return vadd_p64(a, b);
@@ -42,8 +49,11 @@ poly64x1_t test_vadd_p64(poly64x1_t a, poly64x1_t b) {
 
 // CHECK-LABEL: @test_vaddq_p8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = xor <16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = xor <16 x i8> [[TMP0:%.*]], [[TMP1:%.*]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP3]]
 //
 poly8x16_t test_vaddq_p8(poly8x16_t a, poly8x16_t b){
   return vaddq_p8(a, b);
@@ -51,11 +61,13 @@ poly8x16_t test_vaddq_p8(poly8x16_t a, poly8x16_t b){
 
 // CHECK-LABEL: @test_vaddq_p16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = xor <16 x i8> [[TMP0]], [[TMP1]]
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    ret <8 x i16> [[TMP3]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[TMP1:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = xor <16 x i8> [[TMP2]], [[TMP3]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    ret <8 x i16> [[TMP5]]
 //
 poly16x8_t test_vaddq_p16(poly16x8_t a, poly16x8_t b){
   return vaddq_p16(a, b);
@@ -63,11 +75,13 @@ poly16x8_t test_vaddq_p16(poly16x8_t a, poly16x8_t b){
 
 // CHECK-LABEL: @test_vaddq_p64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[A:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = xor <16 x i8> [[TMP0]], [[TMP1]]
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    ret <2 x i64> [[TMP3]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[A:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast <16 x b8> [[TMP1:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = xor <16 x i8> [[TMP2]], [[TMP3]]
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    ret <2 x i64> [[TMP5]]
 //
 poly64x2_t test_vaddq_p64(poly64x2_t a, poly64x2_t b){
   return vaddq_p64(a, b);

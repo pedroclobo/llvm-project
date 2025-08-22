@@ -9,7 +9,7 @@
 // RUN: %clang_cc1 -Werror -triple powerpc64-unknown-aix -emit-llvm -o - %s \
 // RUN:   -target-cpu pwr8 | FileCheck %s --check-prefixes=PPC,AIX64
 
-// PPC: @c = global i8 0, align 1{{$}}
+// PPC: @c = global b8 0, align 1{{$}}
 _Atomic(char) c;
 
 // PPC: @s = global i16 0, align 2{{$}}
