@@ -157,71 +157,71 @@ vfloat64m8_t test_vslidedown_vx_f64m8_tu(vfloat64m8_t maskedoff, vfloat64m8_t sr
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vslidedown_vx_i8mf8_tu
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[MASKEDOFF:%.*]], <vscale x 1 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vslidedown_vx_i8mf8_tu
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[MASKEDOFF:%.*]], <vscale x 1 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vslidedown.nxv1i8.i64(<vscale x 1 x i8> [[MASKEDOFF]], <vscale x 1 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vslidedown.nxv1b8.i64(<vscale x 1 x b8> [[MASKEDOFF]], <vscale x 1 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vint8mf8_t test_vslidedown_vx_i8mf8_tu(vint8mf8_t maskedoff, vint8mf8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vslidedown_vx_i8mf4_tu
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[MASKEDOFF:%.*]], <vscale x 2 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vslidedown_vx_i8mf4_tu
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[MASKEDOFF:%.*]], <vscale x 2 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vslidedown.nxv2i8.i64(<vscale x 2 x i8> [[MASKEDOFF]], <vscale x 2 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vslidedown.nxv2b8.i64(<vscale x 2 x b8> [[MASKEDOFF]], <vscale x 2 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vint8mf4_t test_vslidedown_vx_i8mf4_tu(vint8mf4_t maskedoff, vint8mf4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vslidedown_vx_i8mf2_tu
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[MASKEDOFF:%.*]], <vscale x 4 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vslidedown_vx_i8mf2_tu
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[MASKEDOFF:%.*]], <vscale x 4 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vslidedown.nxv4i8.i64(<vscale x 4 x i8> [[MASKEDOFF]], <vscale x 4 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vslidedown.nxv4b8.i64(<vscale x 4 x b8> [[MASKEDOFF]], <vscale x 4 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vint8mf2_t test_vslidedown_vx_i8mf2_tu(vint8mf2_t maskedoff, vint8mf2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vslidedown_vx_i8m1_tu
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[MASKEDOFF:%.*]], <vscale x 8 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vslidedown_vx_i8m1_tu
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[MASKEDOFF:%.*]], <vscale x 8 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vslidedown.nxv8i8.i64(<vscale x 8 x i8> [[MASKEDOFF]], <vscale x 8 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vslidedown.nxv8b8.i64(<vscale x 8 x b8> [[MASKEDOFF]], <vscale x 8 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vslidedown_vx_i8m1_tu(vint8m1_t maskedoff, vint8m1_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vslidedown_vx_i8m2_tu
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[MASKEDOFF:%.*]], <vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vslidedown_vx_i8m2_tu
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[MASKEDOFF:%.*]], <vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vslidedown.nxv16i8.i64(<vscale x 16 x i8> [[MASKEDOFF]], <vscale x 16 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vslidedown.nxv16b8.i64(<vscale x 16 x b8> [[MASKEDOFF]], <vscale x 16 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vint8m2_t test_vslidedown_vx_i8m2_tu(vint8m2_t maskedoff, vint8m2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vslidedown_vx_i8m4_tu
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[MASKEDOFF:%.*]], <vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vslidedown_vx_i8m4_tu
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[MASKEDOFF:%.*]], <vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vslidedown.nxv32i8.i64(<vscale x 32 x i8> [[MASKEDOFF]], <vscale x 32 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vslidedown.nxv32b8.i64(<vscale x 32 x b8> [[MASKEDOFF]], <vscale x 32 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vint8m4_t test_vslidedown_vx_i8m4_tu(vint8m4_t maskedoff, vint8m4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vslidedown_vx_i8m8_tu
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[MASKEDOFF:%.*]], <vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vslidedown_vx_i8m8_tu
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[MASKEDOFF:%.*]], <vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vslidedown.nxv64i8.i64(<vscale x 64 x i8> [[MASKEDOFF]], <vscale x 64 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vslidedown.nxv64b8.i64(<vscale x 64 x b8> [[MASKEDOFF]], <vscale x 64 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vint8m8_t test_vslidedown_vx_i8m8_tu(vint8m8_t maskedoff, vint8m8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
@@ -377,71 +377,71 @@ vint64m8_t test_vslidedown_vx_i64m8_tu(vint64m8_t maskedoff, vint64m8_t src, siz
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vslidedown_vx_u8mf8_tu
-// CHECK-RV64-SAME: (<vscale x 1 x i8> [[MASKEDOFF:%.*]], <vscale x 1 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vslidedown_vx_u8mf8_tu
+// CHECK-RV64-SAME: (<vscale x 1 x b8> [[MASKEDOFF:%.*]], <vscale x 1 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vslidedown.nxv1i8.i64(<vscale x 1 x i8> [[MASKEDOFF]], <vscale x 1 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vslidedown.nxv1b8.i64(<vscale x 1 x b8> [[MASKEDOFF]], <vscale x 1 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vslidedown_vx_u8mf8_tu(vuint8mf8_t maskedoff, vuint8mf8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vslidedown_vx_u8mf4_tu
-// CHECK-RV64-SAME: (<vscale x 2 x i8> [[MASKEDOFF:%.*]], <vscale x 2 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vslidedown_vx_u8mf4_tu
+// CHECK-RV64-SAME: (<vscale x 2 x b8> [[MASKEDOFF:%.*]], <vscale x 2 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vslidedown.nxv2i8.i64(<vscale x 2 x i8> [[MASKEDOFF]], <vscale x 2 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vslidedown.nxv2b8.i64(<vscale x 2 x b8> [[MASKEDOFF]], <vscale x 2 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vslidedown_vx_u8mf4_tu(vuint8mf4_t maskedoff, vuint8mf4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vslidedown_vx_u8mf2_tu
-// CHECK-RV64-SAME: (<vscale x 4 x i8> [[MASKEDOFF:%.*]], <vscale x 4 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vslidedown_vx_u8mf2_tu
+// CHECK-RV64-SAME: (<vscale x 4 x b8> [[MASKEDOFF:%.*]], <vscale x 4 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vslidedown.nxv4i8.i64(<vscale x 4 x i8> [[MASKEDOFF]], <vscale x 4 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vslidedown.nxv4b8.i64(<vscale x 4 x b8> [[MASKEDOFF]], <vscale x 4 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vslidedown_vx_u8mf2_tu(vuint8mf2_t maskedoff, vuint8mf2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vslidedown_vx_u8m1_tu
-// CHECK-RV64-SAME: (<vscale x 8 x i8> [[MASKEDOFF:%.*]], <vscale x 8 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vslidedown_vx_u8m1_tu
+// CHECK-RV64-SAME: (<vscale x 8 x b8> [[MASKEDOFF:%.*]], <vscale x 8 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vslidedown.nxv8i8.i64(<vscale x 8 x i8> [[MASKEDOFF]], <vscale x 8 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vslidedown.nxv8b8.i64(<vscale x 8 x b8> [[MASKEDOFF]], <vscale x 8 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vslidedown_vx_u8m1_tu(vuint8m1_t maskedoff, vuint8m1_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vslidedown_vx_u8m2_tu
-// CHECK-RV64-SAME: (<vscale x 16 x i8> [[MASKEDOFF:%.*]], <vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vslidedown_vx_u8m2_tu
+// CHECK-RV64-SAME: (<vscale x 16 x b8> [[MASKEDOFF:%.*]], <vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vslidedown.nxv16i8.i64(<vscale x 16 x i8> [[MASKEDOFF]], <vscale x 16 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vslidedown.nxv16b8.i64(<vscale x 16 x b8> [[MASKEDOFF]], <vscale x 16 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vslidedown_vx_u8m2_tu(vuint8m2_t maskedoff, vuint8m2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vslidedown_vx_u8m4_tu
-// CHECK-RV64-SAME: (<vscale x 32 x i8> [[MASKEDOFF:%.*]], <vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vslidedown_vx_u8m4_tu
+// CHECK-RV64-SAME: (<vscale x 32 x b8> [[MASKEDOFF:%.*]], <vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vslidedown.nxv32i8.i64(<vscale x 32 x i8> [[MASKEDOFF]], <vscale x 32 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vslidedown.nxv32b8.i64(<vscale x 32 x b8> [[MASKEDOFF]], <vscale x 32 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vslidedown_vx_u8m4_tu(vuint8m4_t maskedoff, vuint8m4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vslidedown_vx_u8m8_tu
-// CHECK-RV64-SAME: (<vscale x 64 x i8> [[MASKEDOFF:%.*]], <vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vslidedown_vx_u8m8_tu
+// CHECK-RV64-SAME: (<vscale x 64 x b8> [[MASKEDOFF:%.*]], <vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vslidedown.nxv64i8.i64(<vscale x 64 x i8> [[MASKEDOFF]], <vscale x 64 x i8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vslidedown.nxv64b8.i64(<vscale x 64 x b8> [[MASKEDOFF]], <vscale x 64 x b8> [[SRC]], i64 [[OFFSET]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vslidedown_vx_u8m8_tu(vuint8m8_t maskedoff, vuint8m8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tu(maskedoff, src, offset, vl);
@@ -747,71 +747,71 @@ vfloat64m8_t test_vslidedown_vx_f64m8_tum(vbool8_t mask, vfloat64m8_t maskedoff,
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vslidedown_vx_i8mf8_tum
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x i8> [[MASKEDOFF:%.*]], <vscale x 1 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vslidedown_vx_i8mf8_tum
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x b8> [[MASKEDOFF:%.*]], <vscale x 1 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vslidedown.mask.nxv1i8.i64(<vscale x 1 x i8> [[MASKEDOFF]], <vscale x 1 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vslidedown.mask.nxv1b8.i64(<vscale x 1 x b8> [[MASKEDOFF]], <vscale x 1 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vint8mf8_t test_vslidedown_vx_i8mf8_tum(vbool64_t mask, vint8mf8_t maskedoff, vint8mf8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vslidedown_vx_i8mf4_tum
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x i8> [[MASKEDOFF:%.*]], <vscale x 2 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vslidedown_vx_i8mf4_tum
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x b8> [[MASKEDOFF:%.*]], <vscale x 2 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vslidedown.mask.nxv2i8.i64(<vscale x 2 x i8> [[MASKEDOFF]], <vscale x 2 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vslidedown.mask.nxv2b8.i64(<vscale x 2 x b8> [[MASKEDOFF]], <vscale x 2 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vint8mf4_t test_vslidedown_vx_i8mf4_tum(vbool32_t mask, vint8mf4_t maskedoff, vint8mf4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vslidedown_vx_i8mf2_tum
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x i8> [[MASKEDOFF:%.*]], <vscale x 4 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vslidedown_vx_i8mf2_tum
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x b8> [[MASKEDOFF:%.*]], <vscale x 4 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vslidedown.mask.nxv4i8.i64(<vscale x 4 x i8> [[MASKEDOFF]], <vscale x 4 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vslidedown.mask.nxv4b8.i64(<vscale x 4 x b8> [[MASKEDOFF]], <vscale x 4 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vint8mf2_t test_vslidedown_vx_i8mf2_tum(vbool16_t mask, vint8mf2_t maskedoff, vint8mf2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vslidedown_vx_i8m1_tum
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x i8> [[MASKEDOFF:%.*]], <vscale x 8 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vslidedown_vx_i8m1_tum
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x b8> [[MASKEDOFF:%.*]], <vscale x 8 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vslidedown.mask.nxv8i8.i64(<vscale x 8 x i8> [[MASKEDOFF]], <vscale x 8 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vslidedown.mask.nxv8b8.i64(<vscale x 8 x b8> [[MASKEDOFF]], <vscale x 8 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vslidedown_vx_i8m1_tum(vbool8_t mask, vint8m1_t maskedoff, vint8m1_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vslidedown_vx_i8m2_tum
-// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x i8> [[MASKEDOFF:%.*]], <vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vslidedown_vx_i8m2_tum
+// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x b8> [[MASKEDOFF:%.*]], <vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vslidedown.mask.nxv16i8.i64(<vscale x 16 x i8> [[MASKEDOFF]], <vscale x 16 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vslidedown.mask.nxv16b8.i64(<vscale x 16 x b8> [[MASKEDOFF]], <vscale x 16 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vint8m2_t test_vslidedown_vx_i8m2_tum(vbool4_t mask, vint8m2_t maskedoff, vint8m2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vslidedown_vx_i8m4_tum
-// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x i8> [[MASKEDOFF:%.*]], <vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vslidedown_vx_i8m4_tum
+// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x b8> [[MASKEDOFF:%.*]], <vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vslidedown.mask.nxv32i8.i64(<vscale x 32 x i8> [[MASKEDOFF]], <vscale x 32 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vslidedown.mask.nxv32b8.i64(<vscale x 32 x b8> [[MASKEDOFF]], <vscale x 32 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vint8m4_t test_vslidedown_vx_i8m4_tum(vbool2_t mask, vint8m4_t maskedoff, vint8m4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vslidedown_vx_i8m8_tum
-// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x i8> [[MASKEDOFF:%.*]], <vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vslidedown_vx_i8m8_tum
+// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x b8> [[MASKEDOFF:%.*]], <vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vslidedown.mask.nxv64i8.i64(<vscale x 64 x i8> [[MASKEDOFF]], <vscale x 64 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vslidedown.mask.nxv64b8.i64(<vscale x 64 x b8> [[MASKEDOFF]], <vscale x 64 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vint8m8_t test_vslidedown_vx_i8m8_tum(vbool1_t mask, vint8m8_t maskedoff, vint8m8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
@@ -967,71 +967,71 @@ vint64m8_t test_vslidedown_vx_i64m8_tum(vbool8_t mask, vint64m8_t maskedoff, vin
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vslidedown_vx_u8mf8_tum
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x i8> [[MASKEDOFF:%.*]], <vscale x 1 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vslidedown_vx_u8mf8_tum
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x b8> [[MASKEDOFF:%.*]], <vscale x 1 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vslidedown.mask.nxv1i8.i64(<vscale x 1 x i8> [[MASKEDOFF]], <vscale x 1 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vslidedown.mask.nxv1b8.i64(<vscale x 1 x b8> [[MASKEDOFF]], <vscale x 1 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vslidedown_vx_u8mf8_tum(vbool64_t mask, vuint8mf8_t maskedoff, vuint8mf8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vslidedown_vx_u8mf4_tum
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x i8> [[MASKEDOFF:%.*]], <vscale x 2 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vslidedown_vx_u8mf4_tum
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x b8> [[MASKEDOFF:%.*]], <vscale x 2 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vslidedown.mask.nxv2i8.i64(<vscale x 2 x i8> [[MASKEDOFF]], <vscale x 2 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vslidedown.mask.nxv2b8.i64(<vscale x 2 x b8> [[MASKEDOFF]], <vscale x 2 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vslidedown_vx_u8mf4_tum(vbool32_t mask, vuint8mf4_t maskedoff, vuint8mf4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vslidedown_vx_u8mf2_tum
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x i8> [[MASKEDOFF:%.*]], <vscale x 4 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vslidedown_vx_u8mf2_tum
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x b8> [[MASKEDOFF:%.*]], <vscale x 4 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vslidedown.mask.nxv4i8.i64(<vscale x 4 x i8> [[MASKEDOFF]], <vscale x 4 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vslidedown.mask.nxv4b8.i64(<vscale x 4 x b8> [[MASKEDOFF]], <vscale x 4 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vslidedown_vx_u8mf2_tum(vbool16_t mask, vuint8mf2_t maskedoff, vuint8mf2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vslidedown_vx_u8m1_tum
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x i8> [[MASKEDOFF:%.*]], <vscale x 8 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vslidedown_vx_u8m1_tum
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x b8> [[MASKEDOFF:%.*]], <vscale x 8 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vslidedown.mask.nxv8i8.i64(<vscale x 8 x i8> [[MASKEDOFF]], <vscale x 8 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vslidedown.mask.nxv8b8.i64(<vscale x 8 x b8> [[MASKEDOFF]], <vscale x 8 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vslidedown_vx_u8m1_tum(vbool8_t mask, vuint8m1_t maskedoff, vuint8m1_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vslidedown_vx_u8m2_tum
-// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x i8> [[MASKEDOFF:%.*]], <vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vslidedown_vx_u8m2_tum
+// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x b8> [[MASKEDOFF:%.*]], <vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vslidedown.mask.nxv16i8.i64(<vscale x 16 x i8> [[MASKEDOFF]], <vscale x 16 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vslidedown.mask.nxv16b8.i64(<vscale x 16 x b8> [[MASKEDOFF]], <vscale x 16 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vslidedown_vx_u8m2_tum(vbool4_t mask, vuint8m2_t maskedoff, vuint8m2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vslidedown_vx_u8m4_tum
-// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x i8> [[MASKEDOFF:%.*]], <vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vslidedown_vx_u8m4_tum
+// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x b8> [[MASKEDOFF:%.*]], <vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vslidedown.mask.nxv32i8.i64(<vscale x 32 x i8> [[MASKEDOFF]], <vscale x 32 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vslidedown.mask.nxv32b8.i64(<vscale x 32 x b8> [[MASKEDOFF]], <vscale x 32 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vslidedown_vx_u8m4_tum(vbool2_t mask, vuint8m4_t maskedoff, vuint8m4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vslidedown_vx_u8m8_tum
-// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x i8> [[MASKEDOFF:%.*]], <vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vslidedown_vx_u8m8_tum
+// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x b8> [[MASKEDOFF:%.*]], <vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vslidedown.mask.nxv64i8.i64(<vscale x 64 x i8> [[MASKEDOFF]], <vscale x 64 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 2)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vslidedown.mask.nxv64b8.i64(<vscale x 64 x b8> [[MASKEDOFF]], <vscale x 64 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 2)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vslidedown_vx_u8m8_tum(vbool1_t mask, vuint8m8_t maskedoff, vuint8m8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tum(mask, maskedoff, src, offset, vl);
@@ -1337,71 +1337,71 @@ vfloat64m8_t test_vslidedown_vx_f64m8_tumu(vbool8_t mask, vfloat64m8_t maskedoff
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vslidedown_vx_i8mf8_tumu
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x i8> [[MASKEDOFF:%.*]], <vscale x 1 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vslidedown_vx_i8mf8_tumu
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x b8> [[MASKEDOFF:%.*]], <vscale x 1 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vslidedown.mask.nxv1i8.i64(<vscale x 1 x i8> [[MASKEDOFF]], <vscale x 1 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vslidedown.mask.nxv1b8.i64(<vscale x 1 x b8> [[MASKEDOFF]], <vscale x 1 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vint8mf8_t test_vslidedown_vx_i8mf8_tumu(vbool64_t mask, vint8mf8_t maskedoff, vint8mf8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vslidedown_vx_i8mf4_tumu
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x i8> [[MASKEDOFF:%.*]], <vscale x 2 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vslidedown_vx_i8mf4_tumu
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x b8> [[MASKEDOFF:%.*]], <vscale x 2 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vslidedown.mask.nxv2i8.i64(<vscale x 2 x i8> [[MASKEDOFF]], <vscale x 2 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vslidedown.mask.nxv2b8.i64(<vscale x 2 x b8> [[MASKEDOFF]], <vscale x 2 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vint8mf4_t test_vslidedown_vx_i8mf4_tumu(vbool32_t mask, vint8mf4_t maskedoff, vint8mf4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vslidedown_vx_i8mf2_tumu
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x i8> [[MASKEDOFF:%.*]], <vscale x 4 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vslidedown_vx_i8mf2_tumu
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x b8> [[MASKEDOFF:%.*]], <vscale x 4 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vslidedown.mask.nxv4i8.i64(<vscale x 4 x i8> [[MASKEDOFF]], <vscale x 4 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vslidedown.mask.nxv4b8.i64(<vscale x 4 x b8> [[MASKEDOFF]], <vscale x 4 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vint8mf2_t test_vslidedown_vx_i8mf2_tumu(vbool16_t mask, vint8mf2_t maskedoff, vint8mf2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vslidedown_vx_i8m1_tumu
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x i8> [[MASKEDOFF:%.*]], <vscale x 8 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vslidedown_vx_i8m1_tumu
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x b8> [[MASKEDOFF:%.*]], <vscale x 8 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vslidedown.mask.nxv8i8.i64(<vscale x 8 x i8> [[MASKEDOFF]], <vscale x 8 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vslidedown.mask.nxv8b8.i64(<vscale x 8 x b8> [[MASKEDOFF]], <vscale x 8 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vslidedown_vx_i8m1_tumu(vbool8_t mask, vint8m1_t maskedoff, vint8m1_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vslidedown_vx_i8m2_tumu
-// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x i8> [[MASKEDOFF:%.*]], <vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vslidedown_vx_i8m2_tumu
+// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x b8> [[MASKEDOFF:%.*]], <vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vslidedown.mask.nxv16i8.i64(<vscale x 16 x i8> [[MASKEDOFF]], <vscale x 16 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vslidedown.mask.nxv16b8.i64(<vscale x 16 x b8> [[MASKEDOFF]], <vscale x 16 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vint8m2_t test_vslidedown_vx_i8m2_tumu(vbool4_t mask, vint8m2_t maskedoff, vint8m2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vslidedown_vx_i8m4_tumu
-// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x i8> [[MASKEDOFF:%.*]], <vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vslidedown_vx_i8m4_tumu
+// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x b8> [[MASKEDOFF:%.*]], <vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vslidedown.mask.nxv32i8.i64(<vscale x 32 x i8> [[MASKEDOFF]], <vscale x 32 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vslidedown.mask.nxv32b8.i64(<vscale x 32 x b8> [[MASKEDOFF]], <vscale x 32 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vint8m4_t test_vslidedown_vx_i8m4_tumu(vbool2_t mask, vint8m4_t maskedoff, vint8m4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vslidedown_vx_i8m8_tumu
-// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x i8> [[MASKEDOFF:%.*]], <vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vslidedown_vx_i8m8_tumu
+// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x b8> [[MASKEDOFF:%.*]], <vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vslidedown.mask.nxv64i8.i64(<vscale x 64 x i8> [[MASKEDOFF]], <vscale x 64 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vslidedown.mask.nxv64b8.i64(<vscale x 64 x b8> [[MASKEDOFF]], <vscale x 64 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vint8m8_t test_vslidedown_vx_i8m8_tumu(vbool1_t mask, vint8m8_t maskedoff, vint8m8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
@@ -1557,71 +1557,71 @@ vint64m8_t test_vslidedown_vx_i64m8_tumu(vbool8_t mask, vint64m8_t maskedoff, vi
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vslidedown_vx_u8mf8_tumu
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x i8> [[MASKEDOFF:%.*]], <vscale x 1 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vslidedown_vx_u8mf8_tumu
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x b8> [[MASKEDOFF:%.*]], <vscale x 1 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vslidedown.mask.nxv1i8.i64(<vscale x 1 x i8> [[MASKEDOFF]], <vscale x 1 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vslidedown.mask.nxv1b8.i64(<vscale x 1 x b8> [[MASKEDOFF]], <vscale x 1 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vslidedown_vx_u8mf8_tumu(vbool64_t mask, vuint8mf8_t maskedoff, vuint8mf8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vslidedown_vx_u8mf4_tumu
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x i8> [[MASKEDOFF:%.*]], <vscale x 2 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vslidedown_vx_u8mf4_tumu
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x b8> [[MASKEDOFF:%.*]], <vscale x 2 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vslidedown.mask.nxv2i8.i64(<vscale x 2 x i8> [[MASKEDOFF]], <vscale x 2 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vslidedown.mask.nxv2b8.i64(<vscale x 2 x b8> [[MASKEDOFF]], <vscale x 2 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vslidedown_vx_u8mf4_tumu(vbool32_t mask, vuint8mf4_t maskedoff, vuint8mf4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vslidedown_vx_u8mf2_tumu
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x i8> [[MASKEDOFF:%.*]], <vscale x 4 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vslidedown_vx_u8mf2_tumu
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x b8> [[MASKEDOFF:%.*]], <vscale x 4 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vslidedown.mask.nxv4i8.i64(<vscale x 4 x i8> [[MASKEDOFF]], <vscale x 4 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vslidedown.mask.nxv4b8.i64(<vscale x 4 x b8> [[MASKEDOFF]], <vscale x 4 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vslidedown_vx_u8mf2_tumu(vbool16_t mask, vuint8mf2_t maskedoff, vuint8mf2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vslidedown_vx_u8m1_tumu
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x i8> [[MASKEDOFF:%.*]], <vscale x 8 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vslidedown_vx_u8m1_tumu
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x b8> [[MASKEDOFF:%.*]], <vscale x 8 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vslidedown.mask.nxv8i8.i64(<vscale x 8 x i8> [[MASKEDOFF]], <vscale x 8 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vslidedown.mask.nxv8b8.i64(<vscale x 8 x b8> [[MASKEDOFF]], <vscale x 8 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vslidedown_vx_u8m1_tumu(vbool8_t mask, vuint8m1_t maskedoff, vuint8m1_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vslidedown_vx_u8m2_tumu
-// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x i8> [[MASKEDOFF:%.*]], <vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vslidedown_vx_u8m2_tumu
+// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x b8> [[MASKEDOFF:%.*]], <vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vslidedown.mask.nxv16i8.i64(<vscale x 16 x i8> [[MASKEDOFF]], <vscale x 16 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vslidedown.mask.nxv16b8.i64(<vscale x 16 x b8> [[MASKEDOFF]], <vscale x 16 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vslidedown_vx_u8m2_tumu(vbool4_t mask, vuint8m2_t maskedoff, vuint8m2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vslidedown_vx_u8m4_tumu
-// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x i8> [[MASKEDOFF:%.*]], <vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vslidedown_vx_u8m4_tumu
+// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x b8> [[MASKEDOFF:%.*]], <vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vslidedown.mask.nxv32i8.i64(<vscale x 32 x i8> [[MASKEDOFF]], <vscale x 32 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vslidedown.mask.nxv32b8.i64(<vscale x 32 x b8> [[MASKEDOFF]], <vscale x 32 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vslidedown_vx_u8m4_tumu(vbool2_t mask, vuint8m4_t maskedoff, vuint8m4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vslidedown_vx_u8m8_tumu
-// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x i8> [[MASKEDOFF:%.*]], <vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vslidedown_vx_u8m8_tumu
+// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x b8> [[MASKEDOFF:%.*]], <vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vslidedown.mask.nxv64i8.i64(<vscale x 64 x i8> [[MASKEDOFF]], <vscale x 64 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 0)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vslidedown.mask.nxv64b8.i64(<vscale x 64 x b8> [[MASKEDOFF]], <vscale x 64 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 0)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vslidedown_vx_u8m8_tumu(vbool1_t mask, vuint8m8_t maskedoff, vuint8m8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_tumu(mask, maskedoff, src, offset, vl);
@@ -1927,71 +1927,71 @@ vfloat64m8_t test_vslidedown_vx_f64m8_mu(vbool8_t mask, vfloat64m8_t maskedoff, 
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vslidedown_vx_i8mf8_mu
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x i8> [[MASKEDOFF:%.*]], <vscale x 1 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vslidedown_vx_i8mf8_mu
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x b8> [[MASKEDOFF:%.*]], <vscale x 1 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vslidedown.mask.nxv1i8.i64(<vscale x 1 x i8> [[MASKEDOFF]], <vscale x 1 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vslidedown.mask.nxv1b8.i64(<vscale x 1 x b8> [[MASKEDOFF]], <vscale x 1 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vint8mf8_t test_vslidedown_vx_i8mf8_mu(vbool64_t mask, vint8mf8_t maskedoff, vint8mf8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vslidedown_vx_i8mf4_mu
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x i8> [[MASKEDOFF:%.*]], <vscale x 2 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vslidedown_vx_i8mf4_mu
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x b8> [[MASKEDOFF:%.*]], <vscale x 2 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vslidedown.mask.nxv2i8.i64(<vscale x 2 x i8> [[MASKEDOFF]], <vscale x 2 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vslidedown.mask.nxv2b8.i64(<vscale x 2 x b8> [[MASKEDOFF]], <vscale x 2 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vint8mf4_t test_vslidedown_vx_i8mf4_mu(vbool32_t mask, vint8mf4_t maskedoff, vint8mf4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vslidedown_vx_i8mf2_mu
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x i8> [[MASKEDOFF:%.*]], <vscale x 4 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vslidedown_vx_i8mf2_mu
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x b8> [[MASKEDOFF:%.*]], <vscale x 4 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vslidedown.mask.nxv4i8.i64(<vscale x 4 x i8> [[MASKEDOFF]], <vscale x 4 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vslidedown.mask.nxv4b8.i64(<vscale x 4 x b8> [[MASKEDOFF]], <vscale x 4 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vint8mf2_t test_vslidedown_vx_i8mf2_mu(vbool16_t mask, vint8mf2_t maskedoff, vint8mf2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vslidedown_vx_i8m1_mu
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x i8> [[MASKEDOFF:%.*]], <vscale x 8 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vslidedown_vx_i8m1_mu
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x b8> [[MASKEDOFF:%.*]], <vscale x 8 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vslidedown.mask.nxv8i8.i64(<vscale x 8 x i8> [[MASKEDOFF]], <vscale x 8 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vslidedown.mask.nxv8b8.i64(<vscale x 8 x b8> [[MASKEDOFF]], <vscale x 8 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vint8m1_t test_vslidedown_vx_i8m1_mu(vbool8_t mask, vint8m1_t maskedoff, vint8m1_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vslidedown_vx_i8m2_mu
-// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x i8> [[MASKEDOFF:%.*]], <vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vslidedown_vx_i8m2_mu
+// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x b8> [[MASKEDOFF:%.*]], <vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vslidedown.mask.nxv16i8.i64(<vscale x 16 x i8> [[MASKEDOFF]], <vscale x 16 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vslidedown.mask.nxv16b8.i64(<vscale x 16 x b8> [[MASKEDOFF]], <vscale x 16 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vint8m2_t test_vslidedown_vx_i8m2_mu(vbool4_t mask, vint8m2_t maskedoff, vint8m2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vslidedown_vx_i8m4_mu
-// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x i8> [[MASKEDOFF:%.*]], <vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vslidedown_vx_i8m4_mu
+// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x b8> [[MASKEDOFF:%.*]], <vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vslidedown.mask.nxv32i8.i64(<vscale x 32 x i8> [[MASKEDOFF]], <vscale x 32 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vslidedown.mask.nxv32b8.i64(<vscale x 32 x b8> [[MASKEDOFF]], <vscale x 32 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vint8m4_t test_vslidedown_vx_i8m4_mu(vbool2_t mask, vint8m4_t maskedoff, vint8m4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vslidedown_vx_i8m8_mu
-// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x i8> [[MASKEDOFF:%.*]], <vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vslidedown_vx_i8m8_mu
+// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x b8> [[MASKEDOFF:%.*]], <vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vslidedown.mask.nxv64i8.i64(<vscale x 64 x i8> [[MASKEDOFF]], <vscale x 64 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vslidedown.mask.nxv64b8.i64(<vscale x 64 x b8> [[MASKEDOFF]], <vscale x 64 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vint8m8_t test_vslidedown_vx_i8m8_mu(vbool1_t mask, vint8m8_t maskedoff, vint8m8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
@@ -2147,71 +2147,71 @@ vint64m8_t test_vslidedown_vx_i64m8_mu(vbool8_t mask, vint64m8_t maskedoff, vint
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 1 x i8> @test_vslidedown_vx_u8mf8_mu
-// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x i8> [[MASKEDOFF:%.*]], <vscale x 1 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 1 x b8> @test_vslidedown_vx_u8mf8_mu
+// CHECK-RV64-SAME: (<vscale x 1 x i1> [[MASK:%.*]], <vscale x 1 x b8> [[MASKEDOFF:%.*]], <vscale x 1 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.vslidedown.mask.nxv1i8.i64(<vscale x 1 x i8> [[MASKEDOFF]], <vscale x 1 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.vslidedown.mask.nxv1b8.i64(<vscale x 1 x b8> [[MASKEDOFF]], <vscale x 1 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 1 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_vslidedown_vx_u8mf8_mu(vbool64_t mask, vuint8mf8_t maskedoff, vuint8mf8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 2 x i8> @test_vslidedown_vx_u8mf4_mu
-// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x i8> [[MASKEDOFF:%.*]], <vscale x 2 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 2 x b8> @test_vslidedown_vx_u8mf4_mu
+// CHECK-RV64-SAME: (<vscale x 2 x i1> [[MASK:%.*]], <vscale x 2 x b8> [[MASKEDOFF:%.*]], <vscale x 2 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.vslidedown.mask.nxv2i8.i64(<vscale x 2 x i8> [[MASKEDOFF]], <vscale x 2 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.vslidedown.mask.nxv2b8.i64(<vscale x 2 x b8> [[MASKEDOFF]], <vscale x 2 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 2 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_vslidedown_vx_u8mf4_mu(vbool32_t mask, vuint8mf4_t maskedoff, vuint8mf4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 4 x i8> @test_vslidedown_vx_u8mf2_mu
-// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x i8> [[MASKEDOFF:%.*]], <vscale x 4 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 4 x b8> @test_vslidedown_vx_u8mf2_mu
+// CHECK-RV64-SAME: (<vscale x 4 x i1> [[MASK:%.*]], <vscale x 4 x b8> [[MASKEDOFF:%.*]], <vscale x 4 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.vslidedown.mask.nxv4i8.i64(<vscale x 4 x i8> [[MASKEDOFF]], <vscale x 4 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.vslidedown.mask.nxv4b8.i64(<vscale x 4 x b8> [[MASKEDOFF]], <vscale x 4 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 4 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_vslidedown_vx_u8mf2_mu(vbool16_t mask, vuint8mf2_t maskedoff, vuint8mf2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 8 x i8> @test_vslidedown_vx_u8m1_mu
-// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x i8> [[MASKEDOFF:%.*]], <vscale x 8 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 8 x b8> @test_vslidedown_vx_u8m1_mu
+// CHECK-RV64-SAME: (<vscale x 8 x i1> [[MASK:%.*]], <vscale x 8 x b8> [[MASKEDOFF:%.*]], <vscale x 8 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.vslidedown.mask.nxv8i8.i64(<vscale x 8 x i8> [[MASKEDOFF]], <vscale x 8 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.vslidedown.mask.nxv8b8.i64(<vscale x 8 x b8> [[MASKEDOFF]], <vscale x 8 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 8 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_vslidedown_vx_u8m1_mu(vbool8_t mask, vuint8m1_t maskedoff, vuint8m1_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 16 x i8> @test_vslidedown_vx_u8m2_mu
-// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x i8> [[MASKEDOFF:%.*]], <vscale x 16 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 16 x b8> @test_vslidedown_vx_u8m2_mu
+// CHECK-RV64-SAME: (<vscale x 16 x i1> [[MASK:%.*]], <vscale x 16 x b8> [[MASKEDOFF:%.*]], <vscale x 16 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.vslidedown.mask.nxv16i8.i64(<vscale x 16 x i8> [[MASKEDOFF]], <vscale x 16 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.vslidedown.mask.nxv16b8.i64(<vscale x 16 x b8> [[MASKEDOFF]], <vscale x 16 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 16 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_vslidedown_vx_u8m2_mu(vbool4_t mask, vuint8m2_t maskedoff, vuint8m2_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 32 x i8> @test_vslidedown_vx_u8m4_mu
-// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x i8> [[MASKEDOFF:%.*]], <vscale x 32 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 32 x b8> @test_vslidedown_vx_u8m4_mu
+// CHECK-RV64-SAME: (<vscale x 32 x i1> [[MASK:%.*]], <vscale x 32 x b8> [[MASKEDOFF:%.*]], <vscale x 32 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.vslidedown.mask.nxv32i8.i64(<vscale x 32 x i8> [[MASKEDOFF]], <vscale x 32 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.vslidedown.mask.nxv32b8.i64(<vscale x 32 x b8> [[MASKEDOFF]], <vscale x 32 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 32 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_vslidedown_vx_u8m4_mu(vbool2_t mask, vuint8m4_t maskedoff, vuint8m4_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
 }
 
-// CHECK-RV64-LABEL: define dso_local <vscale x 64 x i8> @test_vslidedown_vx_u8m8_mu
-// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x i8> [[MASKEDOFF:%.*]], <vscale x 64 x i8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
+// CHECK-RV64-LABEL: define dso_local <vscale x 64 x b8> @test_vslidedown_vx_u8m8_mu
+// CHECK-RV64-SAME: (<vscale x 64 x i1> [[MASK:%.*]], <vscale x 64 x b8> [[MASKEDOFF:%.*]], <vscale x 64 x b8> [[SRC:%.*]], i64 noundef [[OFFSET:%.*]], i64 noundef [[VL:%.*]]) #[[ATTR0]] {
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.vslidedown.mask.nxv64i8.i64(<vscale x 64 x i8> [[MASKEDOFF]], <vscale x 64 x i8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 1)
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.vslidedown.mask.nxv64b8.i64(<vscale x 64 x b8> [[MASKEDOFF]], <vscale x 64 x b8> [[SRC]], i64 [[OFFSET]], <vscale x 64 x i1> [[MASK]], i64 [[VL]], i64 1)
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_vslidedown_vx_u8m8_mu(vbool1_t mask, vuint8m8_t maskedoff, vuint8m8_t src, size_t offset, size_t vl) {
   return __riscv_vslidedown_mu(mask, maskedoff, src, offset, vl);
