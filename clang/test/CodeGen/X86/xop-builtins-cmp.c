@@ -10,7 +10,7 @@
 
 __m128i test_mm_comlt_epu8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comlt_epu8
-  // CHECK: icmp ult <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp ult <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comlt_epu8(a, b);
 }
@@ -38,7 +38,7 @@ __m128i test_mm_comlt_epu64(__m128i a, __m128i b) {
 
 __m128i test_mm_comlt_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comlt_epi8
-  // CHECK: icmp slt <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp slt <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comlt_epi8(a, b);
 }
@@ -68,7 +68,7 @@ __m128i test_mm_comlt_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_comle_epu8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comle_epu8
-  // CHECK: icmp ule <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp ule <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comle_epu8(a, b);
 }
@@ -96,7 +96,7 @@ __m128i test_mm_comle_epu64(__m128i a, __m128i b) {
 
 __m128i test_mm_comle_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comle_epi8
-  // CHECK: icmp sle <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp sle <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comle_epi8(a, b);
 }
@@ -126,7 +126,7 @@ __m128i test_mm_comle_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_comgt_epu8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comgt_epu8
-  // CHECK: icmp ugt <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp ugt <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comgt_epu8(a, b);
 }
@@ -154,7 +154,7 @@ __m128i test_mm_comgt_epu64(__m128i a, __m128i b) {
 
 __m128i test_mm_comgt_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comgt_epi8
-  // CHECK: icmp sgt <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp sgt <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comgt_epi8(a, b);
 }
@@ -184,7 +184,7 @@ __m128i test_mm_comgt_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_comge_epu8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comge_epu8
-  // CHECK: icmp uge <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp uge <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comge_epu8(a, b);
 }
@@ -212,7 +212,7 @@ __m128i test_mm_comge_epu64(__m128i a, __m128i b) {
 
 __m128i test_mm_comge_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comge_epi8
-  // CHECK: icmp sge <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp sge <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comge_epi8(a, b);
 }
@@ -242,7 +242,7 @@ __m128i test_mm_comge_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_comeq_epu8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comeq_epu8
-  // CHECK: icmp eq <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp eq <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comeq_epu8(a, b);
 }
@@ -270,7 +270,7 @@ __m128i test_mm_comeq_epu64(__m128i a, __m128i b) {
 
 __m128i test_mm_comeq_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comeq_epi8
-  // CHECK: icmp eq <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp eq <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comeq_epi8(a, b);
 }
@@ -300,7 +300,7 @@ __m128i test_mm_comeq_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_comneq_epu8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comneq_epu8
-  // CHECK: icmp ne <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp ne <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comneq_epu8(a, b);
 }
@@ -328,7 +328,7 @@ __m128i test_mm_comneq_epu64(__m128i a, __m128i b) {
 
 __m128i test_mm_comneq_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comneq_epi8
-  // CHECK: icmp ne <16 x i8> %{{.*}}, %{{.*}}
+  // CHECK: icmp ne <16 x b8> %{{.*}}, %{{.*}}
   // CHECK: sext <16 x i1> %{{.*}} to <16 x i8>
   return _mm_comneq_epi8(a, b);
 }
@@ -408,7 +408,7 @@ __m128i test_mm_comfalse_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_comtrue_epu8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comtrue_epu8
-  // CHECK: ret <2 x i64> splat (i64 -1)
+  // CHECK: ret <2 x i64> bytecast exact (<16 x b8> splat (b8 -1) to <2 x i64>)
   return _mm_comtrue_epu8(a, b);
 }
 
@@ -432,7 +432,7 @@ __m128i test_mm_comtrue_epu64(__m128i a, __m128i b) {
 
 __m128i test_mm_comtrue_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_comtrue_epi8
-  // CHECK: ret <2 x i64> splat (i64 -1)
+  // CHECK: ret <2 x i64> bytecast exact (<16 x b8> splat (b8 -1) to <2 x i64>)
   return _mm_comtrue_epi8(a, b);
 }
 

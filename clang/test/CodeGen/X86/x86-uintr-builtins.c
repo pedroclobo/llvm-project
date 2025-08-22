@@ -19,7 +19,8 @@ void test_stui(void) {
 unsigned char test_testui(void) {
 // CHECK-LABEL: @test_testui
 // CHECK: %[[TMP0:.+]] = call i8 @llvm.x86.testui()
-// CHECK: ret i8 %[[TMP0]]
+// CHECK: %[[TMP1:.+]] = bitcast i8 %[[TMP0]] to b8
+// CHECK: ret b8 %[[TMP1]]
   return _testui();
 }
 

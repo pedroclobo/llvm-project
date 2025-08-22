@@ -71,10 +71,12 @@ unsigned char test_kortestz_mask8_u8(__m512i __A, __m512i __B, __m512i __C, __m5
   // CHECK: [[LHS:%.*]] = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK: [[RHS:%.*]] = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK: [[OR:%.*]] = or <8 x i1> [[LHS]], [[RHS]]
-  // CHECK: [[CAST:%.*]] = bitcast <8 x i1> [[OR]] to i8
-  // CHECK: [[CMP:%.*]] = icmp eq i8 [[CAST]], 0
+  // CHECK: [[CAST:%.*]] = bitcast <8 x i1> [[OR]] to b8
+  // CHECK: [[CAST1:%.*]] = bytecast exact b8 [[CAST]] to i8
+  // CHECK: [[CMP:%.*]] = icmp eq i8 [[CAST1]], 0
   // CHECK: [[ZEXT:%.*]] = zext i1 [[CMP]] to i32
-  // CHECK: trunc i32 [[ZEXT]] to i8
+  // CHECK: [[CONV:%.*]] = trunc i32 [[ZEXT]] to i8
+  // CHECK: [[CAST2:%.*]] = bitcast i8 [[CONV]] to b8
   return _kortestz_mask8_u8(_mm512_cmpneq_epu64_mask(__A, __B),
                             _mm512_cmpneq_epu64_mask(__C, __D));
 }
@@ -84,10 +86,12 @@ unsigned char test_kortestc_mask8_u8(__m512i __A, __m512i __B, __m512i __C, __m5
   // CHECK: [[LHS:%.*]] = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK: [[RHS:%.*]] = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK: [[OR:%.*]] = or <8 x i1> [[LHS]], [[RHS]]
-  // CHECK: [[CAST:%.*]] = bitcast <8 x i1> [[OR]] to i8
-  // CHECK: [[CMP:%.*]] = icmp eq i8 [[CAST]], -1
+  // CHECK: [[CAST:%.*]] = bitcast <8 x i1> [[OR]] to b8
+  // CHECK: [[CAST1:%.*]] = bytecast exact b8 [[CAST]] to i8
+  // CHECK: [[CMP:%.*]] = icmp eq i8 [[CAST1]], -1
   // CHECK: [[ZEXT:%.*]] = zext i1 [[CMP]] to i32
-  // CHECK: trunc i32 [[ZEXT]] to i8
+  // CHECK: [[CONV:%.*]] = trunc i32 [[ZEXT]] to i8
+  // CHECK: [[CAST2:%.*]] = bitcast i8 [[CONV]] to b8
   return _kortestc_mask8_u8(_mm512_cmpneq_epu64_mask(__A, __B),
                             _mm512_cmpneq_epu64_mask(__C, __D));
 }
@@ -97,17 +101,21 @@ unsigned char test_kortest_mask8_u8(__m512i __A, __m512i __B, __m512i __C, __m51
   // CHECK: [[LHS:%.*]] = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK: [[RHS:%.*]] = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK: [[OR:%.*]] = or <8 x i1> [[LHS]], [[RHS]]
-  // CHECK: [[CAST:%.*]] = bitcast <8 x i1> [[OR]] to i8
-  // CHECK: [[CMP:%.*]] = icmp eq i8 [[CAST]], -1
+  // CHECK: [[CAST:%.*]] = bitcast <8 x i1> [[OR]] to b8
+  // CHECK: [[CAST1:%.*]] = bytecast exact b8 [[CAST]] to i8
+  // CHECK: [[CMP:%.*]] = icmp eq i8 [[CAST1]], -1
   // CHECK: [[ZEXT:%.*]] = zext i1 [[CMP]] to i32
-  // CHECK: trunc i32 [[ZEXT]] to i8
+  // CHECK: [[CONV0:%.*]] = trunc i32 [[ZEXT]] to i8
+  // CHECK: [[CAST2:%.*]] = bitcast i8 [[CONV0]] to b8
   // CHECK: [[LHS2:%.*]] = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK: [[RHS2:%.*]] = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK: [[OR2:%.*]] = or <8 x i1> [[LHS2]], [[RHS2]]
-  // CHECK: [[CAST2:%.*]] = bitcast <8 x i1> [[OR2]] to i8
-  // CHECK: [[CMP2:%.*]] = icmp eq i8 [[CAST2]], 0
+  // CHECK: [[CAST3:%.*]] = bitcast <8 x i1> [[OR2]] to b8
+  // CHECK: [[CAST4:%.*]] = bytecast exact b8 [[CAST3]] to i8
+  // CHECK: [[CMP2:%.*]] = icmp eq i8 [[CAST4]], 0
   // CHECK: [[ZEXT2:%.*]] = zext i1 [[CMP2]] to i32
-  // CHECK: trunc i32 [[ZEXT2]] to i8
+  // CHECK: [[CONV1:%.*]] = trunc i32 [[ZEXT2]] to i8
+  // CHECK: [[CAST2:%.*]] = bitcast i8 [[CONV1]] to b8
   return _kortest_mask8_u8(_mm512_cmpneq_epu64_mask(__A, __B),
                            _mm512_cmpneq_epu64_mask(__C, __D), CF);
 }
@@ -228,13 +236,13 @@ __mmask8 test_cvtu32_mask8(__m512i A, __m512i B, unsigned int C) {
 
 __mmask8 test_load_mask8(__mmask8 *A, __m512i B, __m512i C) {
   // CHECK-LABEL: test_load_mask8
-  // CHECK: [[LOAD:%.*]] = load i8, ptr %{{.*}}
+  // CHECK: [[LOAD:%.*]] = load b8, ptr %{{.*}}
   return _mm512_mask_cmpneq_epu64_mask(_load_mask8(A), B, C);
 }
 
 void test_store_mask8(__mmask8 *A, __m512i B, __m512i C) {
   // CHECK-LABEL: test_store_mask8
-  // CHECK: store i8 %{{.*}}, ptr %{{.*}}
+  // CHECK: store b8 %{{.*}}, ptr %{{.*}}
   _store_mask8(A, _mm512_cmpneq_epu64_mask(B, C));
 }
 

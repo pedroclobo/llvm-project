@@ -775,6 +775,7 @@ __m128h test_mm_mask_add_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h __B)
   // CHECK: %{{.*}} = insertelement <8 x half> %{{.*}}, half %{{.*}}, i32 0
   // CHECK: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -789,6 +790,7 @@ __m128h test_mm_maskz_add_sh(__mmask8 __U, __m128h __A, __m128h __B) {
   // CHECK: %{{.*}} = insertelement <8 x half> %{{.*}}, half %{{.*}}, i32 0
   // CHECK: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -828,6 +830,7 @@ __m128h test_mm_mask_sub_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h __B)
   // CHECK: %{{.*}} = insertelement <8 x half> %{{.*}}, half %{{.*}}, i32 0
   // CHECK: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -842,6 +845,7 @@ __m128h test_mm_maskz_sub_sh(__mmask8 __U, __m128h __A, __m128h __B) {
   // CHECK: %{{.*}} = insertelement <8 x half> %{{.*}}, half %{{.*}}, i32 0
   // CHECK: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -881,6 +885,7 @@ __m128h test_mm_mask_mul_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h __B)
   // CHECK: %{{.*}} = insertelement <8 x half> %{{.*}}, half %{{.*}}, i32 0
   // CHECK: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -895,6 +900,7 @@ __m128h test_mm_maskz_mul_sh(__mmask8 __U, __m128h __A, __m128h __B) {
   // CHECK: %{{.*}} = insertelement <8 x half> %{{.*}}, half %{{.*}}, i32 0
   // CHECK: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -934,6 +940,7 @@ __m128h test_mm_mask_div_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h __B)
   // CHECK: %{{.*}} = insertelement <8 x half> %{{.*}}, half %{{.*}}, i32 0
   // CHECK: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -948,6 +955,7 @@ __m128h test_mm_maskz_div_sh(__mmask8 __U, __m128h __A, __m128h __B) {
   // CHECK: %{{.*}} = insertelement <8 x half> %{{.*}}, half %{{.*}}, i32 0
   // CHECK: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -1601,6 +1609,7 @@ __m128h test_mm_mask_move_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h __B
   // CHECK: insertelement <8 x half> %{{.*}}, half [[EXT]], i32 0
   // CHECK: [[A:%.*]] = extractelement <8 x half> [[VEC:%.*]], i64 0
   // CHECK-NEXT: [[B:%.*]] = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.*]] = select i1 %{{.*}}, half [[A]], half [[B]]
@@ -1614,6 +1623,7 @@ __m128h test_mm_maskz_move_sh(__mmask8 __U, __m128h __A, __m128h __B) {
   // CHECK: insertelement <8 x half> %{{.*}}, half [[EXT]], i32 0
   // CHECK: [[A:%.*]] = extractelement <8 x half> [[VEC:%.*]], i64 0
   // CHECK-NEXT: [[B:%.*]] = extractelement <8 x half> %{{.*}}, i64 0
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.*]] = select i1 %{{.*}}, half [[A]], half [[B]]
@@ -3674,6 +3684,7 @@ __m128h test_mm_mask_fmadd_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h __
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[A]]
@@ -3697,6 +3708,7 @@ __m128h test_mm_mask_fmadd_round_sh(__m128h __W, __mmask8 __U, __m128h __A, __m1
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[A]]
@@ -3710,6 +3722,7 @@ __m128h test_mm_maskz_fmadd_sh(__mmask8 __U, __m128h __A, __m128h __B, __m128h _
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half 0xH0000
@@ -3723,6 +3736,7 @@ __m128h test_mm_maskz_fmadd_round_sh(__mmask8 __U, __m128h __A, __m128h __B, __m
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half 0xH0000
@@ -3736,6 +3750,7 @@ __m128h test_mm_mask3_fmadd_sh(__m128h __W, __m128h __X, __m128h __Y, __mmask8 _
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> [[ORIGC:%.+]], i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[C]]
@@ -3749,6 +3764,7 @@ __m128h test_mm_mask3_fmadd_round_sh(__m128h __W, __m128h __X, __m128h __Y, __mm
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> [[ORIGC:%.+]], i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[C]]
@@ -3775,6 +3791,7 @@ __m128h test_mm_mask_fmsub_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h __
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = call half @llvm.fma.f16(half %{{.*}}, half %{{.*}}, half %{{.*}})
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -3802,6 +3819,7 @@ __m128h test_mm_mask_fmsub_round_sh(__m128h __W, __mmask8 __U, __m128h __A, __m1
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = call half @llvm.x86.avx512fp16.vfmadd.f16(half %{{.*}}, half %{{.*}}, half %{{.*}}, i32 11)
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half %{{.*}}
@@ -3817,6 +3835,7 @@ __m128h test_mm_maskz_fmsub_sh(__mmask8 __U, __m128h __A, __m128h __B, __m128h _
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = call half @llvm.fma.f16(half %{{.*}}, half %{{.*}}, half %{{.*}})
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half 0xH0000
@@ -3832,6 +3851,7 @@ __m128h test_mm_maskz_fmsub_round_sh(__mmask8 __U, __m128h __A, __m128h __B, __m
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = call half @llvm.x86.avx512fp16.vfmadd.f16(half %{{.*}}, half %{{.*}}, half %{{.*}}, i32 11)
+  // CHECK-NEXT: %{{.*}} = bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: %{{.*}} = bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: %{{.*}} = extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: %{{.*}} = select i1 %{{.*}}, half %{{.*}}, half 0xH0000
@@ -3848,6 +3868,7 @@ __m128h test_mm_mask3_fmsub_sh(__m128h __W, __m128h __X, __m128h __Y, __mmask8 _
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
   // CHECK-NEXT: [[C2:%.+]] = extractelement <8 x half> [[ORIGC:%.+]], i64 0
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[C2]]
@@ -3863,6 +3884,7 @@ __m128h test_mm_mask3_fmsub_round_sh(__m128h __W, __m128h __X, __m128h __Y, __mm
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
   // CHECK-NEXT: [[C2:%.+]] = extractelement <8 x half> [[ORIGC:%.+]], i64 0
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[C2]]
@@ -3887,6 +3909,7 @@ __m128h test_mm_mask_fnmadd_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h _
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[A]]
@@ -3912,6 +3935,7 @@ __m128h test_mm_mask_fnmadd_round_sh(__m128h __W, __mmask8 __U, __m128h __A, __m
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[A]]
@@ -3926,6 +3950,7 @@ __m128h test_mm_maskz_fnmadd_sh(__mmask8 __U, __m128h __A, __m128h __B, __m128h 
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half 0xH0000
@@ -3940,6 +3965,7 @@ __m128h test_mm_maskz_fnmadd_round_sh(__mmask8 __U, __m128h __A, __m128h __B, __
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half 0xH0000
@@ -3954,6 +3980,7 @@ __m128h test_mm_mask3_fnmadd_sh(__m128h __W, __m128h __X, __m128h __Y, __mmask8 
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> [[ORIGC:%.+]], i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[C]]
@@ -3968,6 +3995,7 @@ __m128h test_mm_mask3_fnmadd_round_sh(__m128h __W, __m128h __X, __m128h __Y, __m
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> [[ORIGC:%.+]], i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[C]]
@@ -3994,6 +4022,7 @@ __m128h test_mm_mask_fnmsub_sh(__m128h __W, __mmask8 __U, __m128h __A, __m128h _
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[A]]
@@ -4021,6 +4050,7 @@ __m128h test_mm_mask_fnmsub_round_sh(__m128h __W, __mmask8 __U, __m128h __A, __m
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[A]]
@@ -4036,6 +4066,7 @@ __m128h test_mm_maskz_fnmsub_sh(__mmask8 __U, __m128h __A, __m128h __B, __m128h 
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half 0xH0000
@@ -4051,6 +4082,7 @@ __m128h test_mm_maskz_fnmsub_round_sh(__mmask8 __U, __m128h __A, __m128h __B, __
   // CHECK-NEXT: [[B:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half 0xH0000
@@ -4067,6 +4099,7 @@ __m128h test_mm_mask3_fnmsub_sh(__m128h __W, __m128h __X, __m128h __Y, __mmask8 
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.fma.f16(half [[A]], half [[B]], half [[C]])
   // CHECK-NEXT: [[C2:%.+]] = extractelement <8 x half> [[ORIGC:%.+]], i64 0
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[C2]]
@@ -4083,6 +4116,7 @@ __m128h test_mm_mask3_fnmsub_round_sh(__m128h __W, __m128h __X, __m128h __Y, __m
   // CHECK-NEXT: [[C:%.+]] = extractelement <8 x half> %{{.*}}, i64 0
   // CHECK-NEXT: [[FMA:%.+]] = call half @llvm.x86.avx512fp16.vfmadd.f16(half [[A]], half [[B]], half [[C]], i32 11)
   // CHECK-NEXT: [[C2:%.+]] = extractelement <8 x half> [[ORIGC:%.+]], i64 0
+  // CHECK-NEXT: bytecast exact b8 %{{.*}} to i8
   // CHECK-NEXT: bitcast i8 %{{.*}} to <8 x i1>
   // CHECK-NEXT: extractelement <8 x i1> %{{.*}}, i64 0
   // CHECK-NEXT: [[SEL:%.+]] = select i1 %{{.*}}, half [[FMA]], half [[C2]]

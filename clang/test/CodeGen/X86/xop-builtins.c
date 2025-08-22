@@ -203,7 +203,7 @@ __m128i test_mm_perm_epi8(__m128i a, __m128i b, __m128i c) {
 
 __m128i test_mm_rot_epi8(__m128i a, __m128i b) {
   // CHECK-LABEL: test_mm_rot_epi8
-  // CHECK: call <16 x i8> @llvm.fshl.v16i8(<16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> %{{.*}})
+  // CHECK: call <16 x b8> @llvm.fshl.v16b8(<16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x b8> %{{.*}})
   return _mm_rot_epi8(a, b);
 }
 
@@ -227,7 +227,7 @@ __m128i test_mm_rot_epi64(__m128i a, __m128i b) {
 
 __m128i test_mm_roti_epi8(__m128i a) {
   // CHECK-LABEL: test_mm_roti_epi8
-  // CHECK: call <16 x i8> @llvm.fshl.v16i8(<16 x i8> %{{.*}}, <16 x i8> %{{.*}}, <16 x i8> splat (i8 1))
+  // CHECK: call <16 x b8> @llvm.fshl.v16b8(<16 x b8> %{{.*}}, <16 x b8> %{{.*}}, <16 x b8> splat (b8 1))
   return _mm_roti_epi8(a, 1);
 }
 

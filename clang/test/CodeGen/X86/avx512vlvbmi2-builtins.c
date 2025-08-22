@@ -37,7 +37,7 @@ void test_mm_mask_compressstoreu_epi16(void *__P, __mmask8 __U, __m128i __D) {
 
 void test_mm_mask_compressstoreu_epi8(void *__P, __mmask16 __U, __m128i __D) {
   // CHECK-LABEL: test_mm_mask_compressstoreu_epi8
-  // CHECK: call void @llvm.masked.compressstore.v16i8(<16 x i8> %{{.*}}, ptr %{{.*}}, <16 x i1> %{{.*}})
+  // CHECK: call void @llvm.masked.compressstore.v16b8(<16 x b8> %{{.*}}, ptr %{{.*}}, <16 x i1> %{{.*}})
   _mm_mask_compressstoreu_epi8(__P, __U, __D);
 }
 
@@ -79,13 +79,13 @@ __m128i test_mm_maskz_expandloadu_epi16(__mmask8 __U, void const* __P) {
 
 __m128i test_mm_mask_expandloadu_epi8(__m128i __S, __mmask16 __U, void const* __P) {
   // CHECK-LABEL: test_mm_mask_expandloadu_epi8
-  // CHECK: call <16 x i8> @llvm.masked.expandload.v16i8(ptr %{{.*}}, <16 x i1> %{{.*}}, <16 x i8> %{{.*}})
+  // CHECK: call <16 x i8> @llvm.masked.expandload.v16b8(ptr %{{.*}}, <16 x i1> %{{.*}}, <16 x b8> %{{.*}})
   return _mm_mask_expandloadu_epi8(__S, __U, __P);
 }
 
 __m128i test_mm_maskz_expandloadu_epi8(__mmask16 __U, void const* __P) {
   // CHECK-LABEL: test_mm_maskz_expandloadu_epi8
-  // CHECK: call <16 x i8> @llvm.masked.expandload.v16i8(ptr %{{.*}}, <16 x i1> %{{.*}}, <16 x i8> %{{.*}})
+  // CHECK: call <16 x i8> @llvm.masked.expandload.v16b8(ptr %{{.*}}, <16 x i1> %{{.*}}, <16 x b8> %{{.*}})
   return _mm_maskz_expandloadu_epi8(__U, __P);
 }
 
@@ -121,7 +121,7 @@ void test_mm256_mask_compressstoreu_epi16(void *__P, __mmask16 __U, __m256i __D)
 
 void test_mm256_mask_compressstoreu_epi8(void *__P, __mmask32 __U, __m256i __D) {
   // CHECK-LABEL: test_mm256_mask_compressstoreu_epi8
-  // CHECK: call void @llvm.masked.compressstore.v32i8(<32 x i8> %{{.*}}, ptr %{{.*}}, <32 x i1> %{{.*}})
+  // CHECK: call void @llvm.masked.compressstore.v32b8(<32 x b8> %{{.*}}, ptr %{{.*}}, <32 x i1> %{{.*}})
   _mm256_mask_compressstoreu_epi8(__P, __U, __D);
 }
 
@@ -163,13 +163,13 @@ __m256i test_mm256_maskz_expandloadu_epi16(__mmask16 __U, void const* __P) {
 
 __m256i test_mm256_mask_expandloadu_epi8(__m256i __S, __mmask32 __U, void const* __P) {
   // CHECK-LABEL: test_mm256_mask_expandloadu_epi8
-  // CHECK: call <32 x  i8> @llvm.masked.expandload.v32i8(ptr %{{.*}}, <32 x i1> %{{.*}}, <32 x i8> %{{.*}})
+  // CHECK: call <32 x  i8> @llvm.masked.expandload.v32b8(ptr %{{.*}}, <32 x i1> %{{.*}}, <32 x b8> %{{.*}})
   return _mm256_mask_expandloadu_epi8(__S, __U, __P);
 }
 
 __m256i test_mm256_maskz_expandloadu_epi8(__mmask32 __U, void const* __P) {
   // CHECK-LABEL: test_mm256_maskz_expandloadu_epi8
-  // CHECK: call <32 x i8> @llvm.masked.expandload.v32i8(ptr %{{.*}}, <32 x i1> %{{.*}}, <32 x i8> %{{.*}})
+  // CHECK: call <32 x i8> @llvm.masked.expandload.v32b8(ptr %{{.*}}, <32 x i1> %{{.*}}, <32 x b8> %{{.*}})
   return _mm256_maskz_expandloadu_epi8(__U, __P);
 }
 
@@ -652,4 +652,3 @@ __m128i test_mm_shrdv_epi16(__m128i __S, __m128i __A, __m128i __B) {
   // CHECK: call <8 x i16> @llvm.fshr.v8i16(<8 x i16> %{{.*}}, <8 x i16> %{{.*}}, <8 x i16> %{{.*}})
   return _mm_shrdv_epi16(__S, __A, __B);
 }
-
