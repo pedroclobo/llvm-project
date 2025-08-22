@@ -9,8 +9,13 @@
 
 // CHECK-LABEL: @lshift_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHL]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svint8_t lshift_i8(svint8_t a, svint8_t b) {
   return a << b;
@@ -18,8 +23,13 @@ svint8_t lshift_i8(svint8_t a, svint8_t b) {
 
 // CHECK-LABEL: @rshift_i8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SHR:%.*]] = ashr <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHR]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = ashr <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHR]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svint8_t rshift_i8(svint8_t a, svint8_t b) {
   return a >> b;
@@ -27,8 +37,13 @@ svint8_t rshift_i8(svint8_t a, svint8_t b) {
 
 // CHECK-LABEL: @lshift_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHL]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t lshift_u8(svuint8_t a, svuint8_t b) {
   return a << b;
@@ -36,8 +51,13 @@ svuint8_t lshift_u8(svuint8_t a, svuint8_t b) {
 
 // CHECK-LABEL: @rshift_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SHR:%.*]] = lshr <vscale x 16 x i8> [[A:%.*]], [[B:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHR]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[B:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHR]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t rshift_u8(svuint8_t a, svuint8_t b) {
   return a >> b;
@@ -153,10 +173,15 @@ svuint64_t rshift_u64(svuint64_t a, svuint64_t b) {
 
 // CHECK-LABEL: @lshift_i8_rsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHL]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svint8_t lshift_i8_rsplat(svint8_t a, int8_t b) {
   return a << b;
@@ -164,10 +189,15 @@ svint8_t lshift_i8_rsplat(svint8_t a, int8_t b) {
 
 // CHECK-LABEL: @lshift_i8_lsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[SPLAT_SPLAT]], [[A:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHL]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svint8_t lshift_i8_lsplat(svint8_t a, int8_t b) {
   return b << a;
@@ -175,10 +205,15 @@ svint8_t lshift_i8_lsplat(svint8_t a, int8_t b) {
 
 // CHECK-LABEL: @rshift_i8_rsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHR:%.*]] = ashr <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHR]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = ashr <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHR]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svint8_t rshift_i8_rsplat(svint8_t a, int8_t b) {
   return a >> b;
@@ -186,10 +221,15 @@ svint8_t rshift_i8_rsplat(svint8_t a, int8_t b) {
 
 // CHECK-LABEL: @rshift_i8_lsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHR:%.*]] = ashr <vscale x 16 x i8> [[SPLAT_SPLAT]], [[A:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHR]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = ashr <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHR]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svint8_t rshift_i8_lsplat(svint8_t a, int8_t b) {
   return b >> a;
@@ -197,10 +237,15 @@ svint8_t rshift_i8_lsplat(svint8_t a, int8_t b) {
 
 // CHECK-LABEL: @lshift_u8_rsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHL]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t lshift_u8_rsplat(svuint8_t a, uint8_t b) {
   return a << b;
@@ -208,10 +253,15 @@ svuint8_t lshift_u8_rsplat(svuint8_t a, uint8_t b) {
 
 // CHECK-LABEL: @lshift_u8_lsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[SPLAT_SPLAT]], [[A:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHL]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHL:%.*]] = shl <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHL]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t lshift_u8_lsplat(svuint8_t a, uint8_t b) {
   return b << a;
@@ -219,10 +269,15 @@ svuint8_t lshift_u8_lsplat(svuint8_t a, uint8_t b) {
 
 // CHECK-LABEL: @rshift_u8_rsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHR:%.*]] = lshr <vscale x 16 x i8> [[A:%.*]], [[SPLAT_SPLAT]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHR]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHR]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t rshift_u8_rsplat(svuint8_t a, uint8_t b) {
   return a >> b;
@@ -230,10 +285,15 @@ svuint8_t rshift_u8_rsplat(svuint8_t a, uint8_t b) {
 
 // CHECK-LABEL: @rshift_u8_lsplat(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x i8> poison, i8 [[B:%.*]], i64 0
-// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x i8> [[SPLAT_SPLATINSERT]], <vscale x 16 x i8> poison, <vscale x 16 x i32> zeroinitializer
-// CHECK-NEXT:    [[SHR:%.*]] = lshr <vscale x 16 x i8> [[SPLAT_SPLAT]], [[A:%.*]]
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[SHR]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[SPLAT_SPLATINSERT:%.*]] = insertelement <vscale x 16 x b8> poison, b8 [[B:%.*]], i64 0
+// CHECK-NEXT:    [[SPLAT_SPLAT:%.*]] = shufflevector <vscale x 16 x b8> [[SPLAT_SPLATINSERT]], <vscale x 16 x b8> poison, <vscale x 16 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[A:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[SPLAT_SPLAT]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[SHR:%.*]] = lshr <vscale x 16 x i8> [[TMP1]], [[TMP0]]
+// CHECK-NEXT:    store <vscale x 16 x i8> [[SHR]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t rshift_u8_lsplat(svuint8_t a, uint8_t b) {
   return b >> a;

@@ -4,16 +4,22 @@
 
 #include <arm_neon.h>
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vand_s8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[AND_I:%.*]] = and <8 x i8> %a, %b
-// CHECK:   ret <8 x i8> [[AND_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vand_s8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[AND_I:%.*]] = and <8 x i8> [[TMP0]], [[TMP1]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <8 x i8> [[AND_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPROM]]
 int8x8_t test_vand_s8(int8x8_t a, int8x8_t b) {
   return vand_s8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vandq_s8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[AND_I:%.*]] = and <16 x i8> %a, %b
-// CHECK:   ret <16 x i8> [[AND_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vandq_s8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[AND_I:%.*]] = and <16 x i8> [[TMP0]], [[TMP1]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <16 x i8> [[AND_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPROM]]
 int8x16_t test_vandq_s8(int8x16_t a, int8x16_t b) {
   return vandq_s8(a, b);
 }
@@ -60,16 +66,22 @@ int64x2_t test_vandq_s64(int64x2_t a, int64x2_t b) {
   return vandq_s64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vand_u8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[AND_I:%.*]] = and <8 x i8> %a, %b
-// CHECK:   ret <8 x i8> [[AND_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vand_u8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[AND_I:%.*]] = and <8 x i8> [[EXT_A]], [[EXT_B]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <8 x i8> [[AND_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPR]]
 uint8x8_t test_vand_u8(uint8x8_t a, uint8x8_t b) {
   return vand_u8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vandq_u8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[AND_I:%.*]] = and <16 x i8> %a, %b
-// CHECK:   ret <16 x i8> [[AND_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vandq_u8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[AND_I:%.*]] = and <16 x i8> [[EXT_A]], [[EXT_B]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <16 x i8> [[AND_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPR]]
 uint8x16_t test_vandq_u8(uint8x16_t a, uint8x16_t b) {
   return vandq_u8(a, b);
 }
@@ -116,16 +128,22 @@ uint64x2_t test_vandq_u64(uint64x2_t a, uint64x2_t b) {
   return vandq_u64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vorr_s8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[OR_I:%.*]] = or <8 x i8> %a, %b
-// CHECK:   ret <8 x i8> [[OR_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vorr_s8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[OR_I:%.*]] = or <8 x i8> [[TMP0]], [[TMP1]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <8 x i8> [[OR_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPROM]]
 int8x8_t test_vorr_s8(int8x8_t a, int8x8_t b) {
   return vorr_s8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vorrq_s8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[OR_I:%.*]] = or <16 x i8> %a, %b
-// CHECK:   ret <16 x i8> [[OR_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vorrq_s8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[OR_I:%.*]] = or <16 x i8> [[TMP0]], [[TMP1]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <16 x i8> [[OR_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPROM]]
 int8x16_t test_vorrq_s8(int8x16_t a, int8x16_t b) {
   return vorrq_s8(a, b);
 }
@@ -172,16 +190,22 @@ int64x2_t test_vorrq_s64(int64x2_t a, int64x2_t b) {
   return vorrq_s64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vorr_u8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[OR_I:%.*]] = or <8 x i8> %a, %b
-// CHECK:   ret <8 x i8> [[OR_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vorr_u8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[OR_I:%.*]] = or <8 x i8> [[EXT_A]], [[EXT_B]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <8 x i8> [[OR_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPR]]
 uint8x8_t test_vorr_u8(uint8x8_t a, uint8x8_t b) {
   return vorr_u8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vorrq_u8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[OR_I:%.*]] = or <16 x i8> %a, %b
-// CHECK:   ret <16 x i8> [[OR_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vorrq_u8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[OR_I:%.*]] = or <16 x i8> [[EXT_A]], [[EXT_B]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <16 x i8> [[OR_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPR]]
 uint8x16_t test_vorrq_u8(uint8x16_t a, uint8x16_t b) {
   return vorrq_u8(a, b);
 }
@@ -228,16 +252,22 @@ uint64x2_t test_vorrq_u64(uint64x2_t a, uint64x2_t b) {
   return vorrq_u64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_veor_s8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[XOR_I:%.*]] = xor <8 x i8> %a, %b
-// CHECK:   ret <8 x i8> [[XOR_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_veor_s8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[XOR_I:%.*]] = xor <8 x i8> [[TMP0]], [[TMP1]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <8 x i8> [[XOR_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPROM]]
 int8x8_t test_veor_s8(int8x8_t a, int8x8_t b) {
   return veor_s8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_veorq_s8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[XOR_I:%.*]] = xor <16 x i8> %a, %b
-// CHECK:   ret <16 x i8> [[XOR_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_veorq_s8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[XOR_I:%.*]] = xor <16 x i8> [[TMP0]], [[TMP1]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <16 x i8> [[XOR_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPROM]]
 int8x16_t test_veorq_s8(int8x16_t a, int8x16_t b) {
   return veorq_s8(a, b);
 }
@@ -284,16 +314,22 @@ int64x2_t test_veorq_s64(int64x2_t a, int64x2_t b) {
   return veorq_s64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_veor_u8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[XOR_I:%.*]] = xor <8 x i8> %a, %b
-// CHECK:   ret <8 x i8> [[XOR_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_veor_u8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[XOR_I:%.*]] = xor <8 x i8> [[EXT_A]], [[EXT_B]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <8 x i8> [[XOR_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPR]]
 uint8x8_t test_veor_u8(uint8x8_t a, uint8x8_t b) {
   return veor_u8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_veorq_u8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[XOR_I:%.*]] = xor <16 x i8> %a, %b
-// CHECK:   ret <16 x i8> [[XOR_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_veorq_u8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[XOR_I:%.*]] = xor <16 x i8> [[EXT_A]], [[EXT_B]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <16 x i8> [[XOR_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPR]]
 uint8x16_t test_veorq_u8(uint8x16_t a, uint8x16_t b) {
   return veorq_u8(a, b);
 }
@@ -340,18 +376,24 @@ uint64x2_t test_veorq_u64(uint64x2_t a, uint64x2_t b) {
   return veorq_u64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vbic_s8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[NEG_I:%.*]] = xor <8 x i8> %b, splat (i8 -1)
-// CHECK:   [[AND_I:%.*]] = and <8 x i8> %a, [[NEG_I]]
-// CHECK:   ret <8 x i8> [[AND_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vbic_s8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[NEG_I:%.*]] = xor <8 x i8> [[TMP1]], splat (i8 -1)
+// CHECK:   [[AND_I:%.*]] = and <8 x i8> [[TMP0]], [[NEG_I]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <8 x i8> [[AND_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPROM]]
 int8x8_t test_vbic_s8(int8x8_t a, int8x8_t b) {
   return vbic_s8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vbicq_s8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[NEG_I:%.*]] = xor <16 x i8> %b, splat (i8 -1)
-// CHECK:   [[AND_I:%.*]] = and <16 x i8> %a, [[NEG_I]]
-// CHECK:   ret <16 x i8> [[AND_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vbicq_s8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[NEG_I:%.*]] = xor <16 x i8> [[TMP1]], splat (i8 -1)
+// CHECK:   [[AND_I:%.*]] = and <16 x i8> [[TMP0]], [[NEG_I]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <16 x i8> [[AND_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPROM]]
 int8x16_t test_vbicq_s8(int8x16_t a, int8x16_t b) {
   return vbicq_s8(a, b);
 }
@@ -404,18 +446,24 @@ int64x2_t test_vbicq_s64(int64x2_t a, int64x2_t b) {
   return vbicq_s64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vbic_u8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[NEG_I:%.*]] = xor <8 x i8> %b, splat (i8 -1)
-// CHECK:   [[AND_I:%.*]] = and <8 x i8> %a, [[NEG_I]]
-// CHECK:   ret <8 x i8> [[AND_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vbic_u8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[NEG_I:%.*]] = xor <8 x i8> [[EXT_B]], splat (i8 -1)
+// CHECK:   [[AND_I:%.*]] = and <8 x i8> [[EXT_A]], [[NEG_I]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <8 x i8> [[AND_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPR]]
 uint8x8_t test_vbic_u8(uint8x8_t a, uint8x8_t b) {
   return vbic_u8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vbicq_u8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[NEG_I:%.*]] = xor <16 x i8> %b, splat (i8 -1)
-// CHECK:   [[AND_I:%.*]] = and <16 x i8> %a, [[NEG_I]]
-// CHECK:   ret <16 x i8> [[AND_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vbicq_u8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[NEG_I:%.*]] = xor <16 x i8> [[EXT_B]], splat (i8 -1)
+// CHECK:   [[AND_I:%.*]] = and <16 x i8> [[EXT_A]], [[NEG_I]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <16 x i8> [[AND_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPR]]
 uint8x16_t test_vbicq_u8(uint8x16_t a, uint8x16_t b) {
   return vbicq_u8(a, b);
 }
@@ -468,18 +516,24 @@ uint64x2_t test_vbicq_u64(uint64x2_t a, uint64x2_t b) {
   return vbicq_u64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vorn_s8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[NEG_I:%.*]] = xor <8 x i8> %b, splat (i8 -1)
-// CHECK:   [[OR_I:%.*]] = or <8 x i8> %a, [[NEG_I]]
-// CHECK:   ret <8 x i8> [[OR_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vorn_s8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[NEG_I:%.*]] = xor <8 x i8> [[TMP1]], splat (i8 -1)
+// CHECK:   [[OR_I:%.*]] = or <8 x i8> [[TMP0]], [[NEG_I]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <8 x i8> [[OR_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPROM]]
 int8x8_t test_vorn_s8(int8x8_t a, int8x8_t b) {
   return vorn_s8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vornq_s8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[NEG_I:%.*]] = xor <16 x i8> %b, splat (i8 -1)
-// CHECK:   [[OR_I:%.*]] = or <16 x i8> %a, [[NEG_I]]
-// CHECK:   ret <16 x i8> [[OR_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vornq_s8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[TMP0:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[TMP1:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[NEG_I:%.*]] = xor <16 x i8> [[TMP1]], splat (i8 -1)
+// CHECK:   [[OR_I:%.*]] = or <16 x i8> [[TMP0]], [[NEG_I]]
+// CHECK:   [[UNPROM:%.*]] = bitcast <16 x i8> [[OR_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPROM]]
 int8x16_t test_vornq_s8(int8x16_t a, int8x16_t b) {
   return vornq_s8(a, b);
 }
@@ -532,18 +586,24 @@ int64x2_t test_vornq_s64(int64x2_t a, int64x2_t b) {
   return vornq_s64(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <8 x i8> @test_vorn_u8(<8 x i8> noundef %a, <8 x i8> noundef %b) #0 {
-// CHECK:   [[NEG_I:%.*]] = xor <8 x i8> %b, splat (i8 -1)
-// CHECK:   [[OR_I:%.*]] = or <8 x i8> %a, [[NEG_I]]
-// CHECK:   ret <8 x i8> [[OR_I]]
+// CHECK-LABEL: define{{.*}} <8 x b8> @test_vorn_u8(<8 x b8> noundef %a, <8 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <8 x b8> %a to <8 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <8 x b8> %b to <8 x i8>
+// CHECK:   [[NEG_I:%.*]] = xor <8 x i8> [[EXT_B]], splat (i8 -1)
+// CHECK:   [[OR_I:%.*]]  = or <8 x i8> [[EXT_A]], [[NEG_I]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <8 x i8> [[OR_I]] to <8 x b8>
+// CHECK:   ret <8 x b8> [[UNPR]]
 uint8x8_t test_vorn_u8(uint8x8_t a, uint8x8_t b) {
   return vorn_u8(a, b);
 }
 
-// CHECK-LABEL: define{{.*}} <16 x i8> @test_vornq_u8(<16 x i8> noundef %a, <16 x i8> noundef %b) #0 {
-// CHECK:   [[NEG_I:%.*]] = xor <16 x i8> %b, splat (i8 -1)
-// CHECK:   [[OR_I:%.*]] = or <16 x i8> %a, [[NEG_I]]
-// CHECK:   ret <16 x i8> [[OR_I]]
+// CHECK-LABEL: define{{.*}} <16 x b8> @test_vornq_u8(<16 x b8> noundef %a, <16 x b8> noundef %b) #0 {
+// CHECK:   [[EXT_A:%.*]] = bytecast <16 x b8> %a to <16 x i8>
+// CHECK:   [[EXT_B:%.*]] = bytecast <16 x b8> %b to <16 x i8>
+// CHECK:   [[NEG_I:%.*]] = xor <16 x i8> [[EXT_B]], splat (i8 -1)
+// CHECK:   [[OR_I:%.*]]  = or <16 x i8> [[EXT_A]], [[NEG_I]]
+// CHECK:   [[UNPR:%.*]]  = bitcast <16 x i8> [[OR_I]] to <16 x b8>
+// CHECK:   ret <16 x b8> [[UNPR]]
 uint8x16_t test_vornq_u8(uint8x16_t a, uint8x16_t b) {
   return vornq_u8(a, b);
 }

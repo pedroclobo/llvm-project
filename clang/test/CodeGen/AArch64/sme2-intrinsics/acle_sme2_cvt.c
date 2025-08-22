@@ -205,12 +205,14 @@ svuint16_t test_qcvt_u16_s32_x2(svint32x2_t zn) __arm_streaming {
 // CHECK-LABEL: @test_qcvt_u8_u32_x4(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.uqcvt.x4.nxv4i32(<vscale x 4 x i32> [[ZN_COERCE0:%.*]], <vscale x 4 x i32> [[ZN_COERCE1:%.*]], <vscale x 4 x i32> [[ZN_COERCE2:%.*]], <vscale x 4 x i32> [[ZN_COERCE3:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z19test_qcvt_u8_u32_x412svuint32x4_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.uqcvt.x4.nxv4i32(<vscale x 4 x i32> [[ZN_COERCE0:%.*]], <vscale x 4 x i32> [[ZN_COERCE1:%.*]], <vscale x 4 x i32> [[ZN_COERCE2:%.*]], <vscale x 4 x i32> [[ZN_COERCE3:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_qcvt_u8_u32_x4(svuint32x4_t zn) __arm_streaming {
   return SVE_ACLE_FUNC(svqcvt_u8,_u32_x4,,)(zn);
@@ -233,12 +235,14 @@ svuint16_t test_qcvt_u16_u64_x4(svuint64x4_t zn) __arm_streaming {
 // CHECK-LABEL: @test_qcvt_s8_s32_x4(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.sqcvt.x4.nxv4i32(<vscale x 4 x i32> [[ZN_COERCE0:%.*]], <vscale x 4 x i32> [[ZN_COERCE1:%.*]], <vscale x 4 x i32> [[ZN_COERCE2:%.*]], <vscale x 4 x i32> [[ZN_COERCE3:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z19test_qcvt_s8_s32_x411svint32x4_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.sqcvt.x4.nxv4i32(<vscale x 4 x i32> [[ZN_COERCE0:%.*]], <vscale x 4 x i32> [[ZN_COERCE1:%.*]], <vscale x 4 x i32> [[ZN_COERCE2:%.*]], <vscale x 4 x i32> [[ZN_COERCE3:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svint8_t test_qcvt_s8_s32_x4(svint32x4_t zn) __arm_streaming {
   return SVE_ACLE_FUNC(svqcvt_s8,_s32_x4,,)(zn);
@@ -261,12 +265,14 @@ svint16_t test_qcvt_s16_s64_x4(svint64x4_t zn) __arm_streaming {
 // CHECK-LABEL: @test_qcvt_u8_s32_x4(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.sqcvtu.x4.nxv4i32(<vscale x 4 x i32> [[ZN_COERCE0:%.*]], <vscale x 4 x i32> [[ZN_COERCE1:%.*]], <vscale x 4 x i32> [[ZN_COERCE2:%.*]], <vscale x 4 x i32> [[ZN_COERCE3:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 // CPP-CHECK-LABEL: @_Z19test_qcvt_u8_s32_x411svint32x4_t(
 // CPP-CHECK-NEXT:  entry:
 // CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.sqcvtu.x4.nxv4i32(<vscale x 4 x i32> [[ZN_COERCE0:%.*]], <vscale x 4 x i32> [[ZN_COERCE1:%.*]], <vscale x 4 x i32> [[ZN_COERCE2:%.*]], <vscale x 4 x i32> [[ZN_COERCE3:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP0]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_qcvt_u8_s32_x4(svint32x4_t zn) __arm_streaming {
   return SVE_ACLE_FUNC(svqcvt_u8,_s32_x4,,)(zn);

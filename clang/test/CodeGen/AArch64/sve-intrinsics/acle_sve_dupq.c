@@ -24,13 +24,21 @@
 
 // CHECK-LABEL: @test_svdupq_lane_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[DATA:%.*]], i64 [[INDEX:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[DATA:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP0]], i64 [[INDEX:%.*]])
+// CHECK-NEXT:    store <vscale x 16 x i8> [[TMP1]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svdupq_lane_s8u10__SVInt8_tm(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[DATA:%.*]], i64 [[INDEX:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[DATA:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP0]], i64 [[INDEX:%.*]])
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[TMP1]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svint8_t test_svdupq_lane_s8(svint8_t data, uint64_t index) MODE_ATTR
 {
@@ -84,13 +92,21 @@ svint64_t test_svdupq_lane_s64(svint64_t data, uint64_t index) MODE_ATTR
 
 // CHECK-LABEL: @test_svdupq_lane_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[DATA:%.*]], i64 [[INDEX:%.*]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[DATA:%.*]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP0]], i64 [[INDEX:%.*]])
+// CHECK-NEXT:    store <vscale x 16 x i8> [[TMP1]], ptr [[RETVAL]], align 16
+// CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svdupq_lane_u8u11__SVUint8_tm(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[DATA:%.*]], i64 [[INDEX:%.*]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[RETVAL:%.*]] = alloca <vscale x 16 x b8>, align 16
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[DATA:%.*]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP0]], i64 [[INDEX:%.*]])
+// CPP-CHECK-NEXT:    store <vscale x 16 x i8> [[TMP1]], ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = load <vscale x 16 x b8>, ptr [[RETVAL]], align 16
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP2]]
 //
 svuint8_t test_svdupq_lane_u8(svuint8_t data, uint64_t index) MODE_ATTR
 {
@@ -189,47 +205,47 @@ svfloat64_t test_svdupq_lane_f64(svfloat64_t data, uint64_t index) MODE_ATTR
 
 // CHECK-LABEL: @test_svdupq_n_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x i8> poison, i8 [[X0:%.*]], i64 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[X1:%.*]], i64 1
-// CHECK-NEXT:    [[TMP2:%.*]] = insertelement <16 x i8> [[TMP1]], i8 [[X2:%.*]], i64 2
-// CHECK-NEXT:    [[TMP3:%.*]] = insertelement <16 x i8> [[TMP2]], i8 [[X3:%.*]], i64 3
-// CHECK-NEXT:    [[TMP4:%.*]] = insertelement <16 x i8> [[TMP3]], i8 [[X4:%.*]], i64 4
-// CHECK-NEXT:    [[TMP5:%.*]] = insertelement <16 x i8> [[TMP4]], i8 [[X5:%.*]], i64 5
-// CHECK-NEXT:    [[TMP6:%.*]] = insertelement <16 x i8> [[TMP5]], i8 [[X6:%.*]], i64 6
-// CHECK-NEXT:    [[TMP7:%.*]] = insertelement <16 x i8> [[TMP6]], i8 [[X7:%.*]], i64 7
-// CHECK-NEXT:    [[TMP8:%.*]] = insertelement <16 x i8> [[TMP7]], i8 [[X8:%.*]], i64 8
-// CHECK-NEXT:    [[TMP9:%.*]] = insertelement <16 x i8> [[TMP8]], i8 [[X9:%.*]], i64 9
-// CHECK-NEXT:    [[TMP10:%.*]] = insertelement <16 x i8> [[TMP9]], i8 [[X10:%.*]], i64 10
-// CHECK-NEXT:    [[TMP11:%.*]] = insertelement <16 x i8> [[TMP10]], i8 [[X11:%.*]], i64 11
-// CHECK-NEXT:    [[TMP12:%.*]] = insertelement <16 x i8> [[TMP11]], i8 [[X12:%.*]], i64 12
-// CHECK-NEXT:    [[TMP13:%.*]] = insertelement <16 x i8> [[TMP12]], i8 [[X13:%.*]], i64 13
-// CHECK-NEXT:    [[TMP14:%.*]] = insertelement <16 x i8> [[TMP13]], i8 [[X14:%.*]], i64 14
-// CHECK-NEXT:    [[TMP15:%.*]] = insertelement <16 x i8> [[TMP14]], i8 [[X15:%.*]], i64 15
-// CHECK-NEXT:    [[TMP16:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> [[TMP15]], i64 0)
-// CHECK-NEXT:    [[TMP17:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP16]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP17]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x b8> poison, b8 [[X0:%.*]], i64 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x b8> [[TMP0]], b8 [[X1:%.*]], i64 1
+// CHECK-NEXT:    [[TMP2:%.*]] = insertelement <16 x b8> [[TMP1]], b8 [[X2:%.*]], i64 2
+// CHECK-NEXT:    [[TMP3:%.*]] = insertelement <16 x b8> [[TMP2]], b8 [[X3:%.*]], i64 3
+// CHECK-NEXT:    [[TMP4:%.*]] = insertelement <16 x b8> [[TMP3]], b8 [[X4:%.*]], i64 4
+// CHECK-NEXT:    [[TMP5:%.*]] = insertelement <16 x b8> [[TMP4]], b8 [[X5:%.*]], i64 5
+// CHECK-NEXT:    [[TMP6:%.*]] = insertelement <16 x b8> [[TMP5]], b8 [[X6:%.*]], i64 6
+// CHECK-NEXT:    [[TMP7:%.*]] = insertelement <16 x b8> [[TMP6]], b8 [[X7:%.*]], i64 7
+// CHECK-NEXT:    [[TMP8:%.*]] = insertelement <16 x b8> [[TMP7]], b8 [[X8:%.*]], i64 8
+// CHECK-NEXT:    [[TMP9:%.*]] = insertelement <16 x b8> [[TMP8]], b8 [[X9:%.*]], i64 9
+// CHECK-NEXT:    [[TMP10:%.*]] = insertelement <16 x b8> [[TMP9]], b8 [[X10:%.*]], i64 10
+// CHECK-NEXT:    [[TMP11:%.*]] = insertelement <16 x b8> [[TMP10]], b8 [[X11:%.*]], i64 11
+// CHECK-NEXT:    [[TMP12:%.*]] = insertelement <16 x b8> [[TMP11]], b8 [[X12:%.*]], i64 12
+// CHECK-NEXT:    [[TMP13:%.*]] = insertelement <16 x b8> [[TMP12]], b8 [[X13:%.*]], i64 13
+// CHECK-NEXT:    [[TMP14:%.*]] = insertelement <16 x b8> [[TMP13]], b8 [[X14:%.*]], i64 14
+// CHECK-NEXT:    [[TMP15:%.*]] = insertelement <16 x b8> [[TMP14]], b8 [[X15:%.*]], i64 15
+// CHECK-NEXT:    [[TMP16:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> poison, <16 x b8> [[TMP15]], i64 0)
+// CHECK-NEXT:    [[TMP17:%.*]] = tail call <vscale x 16 x b8> @llvm.aarch64.sve.dupq.lane.nxv16b8(<vscale x 16 x b8> [[TMP16]], i64 0)
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP17]]
 //
 // CPP-CHECK-LABEL: @_Z16test_svdupq_n_s8aaaaaaaaaaaaaaaa(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x i8> poison, i8 [[X0:%.*]], i64 0
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[X1:%.*]], i64 1
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = insertelement <16 x i8> [[TMP1]], i8 [[X2:%.*]], i64 2
-// CPP-CHECK-NEXT:    [[TMP3:%.*]] = insertelement <16 x i8> [[TMP2]], i8 [[X3:%.*]], i64 3
-// CPP-CHECK-NEXT:    [[TMP4:%.*]] = insertelement <16 x i8> [[TMP3]], i8 [[X4:%.*]], i64 4
-// CPP-CHECK-NEXT:    [[TMP5:%.*]] = insertelement <16 x i8> [[TMP4]], i8 [[X5:%.*]], i64 5
-// CPP-CHECK-NEXT:    [[TMP6:%.*]] = insertelement <16 x i8> [[TMP5]], i8 [[X6:%.*]], i64 6
-// CPP-CHECK-NEXT:    [[TMP7:%.*]] = insertelement <16 x i8> [[TMP6]], i8 [[X7:%.*]], i64 7
-// CPP-CHECK-NEXT:    [[TMP8:%.*]] = insertelement <16 x i8> [[TMP7]], i8 [[X8:%.*]], i64 8
-// CPP-CHECK-NEXT:    [[TMP9:%.*]] = insertelement <16 x i8> [[TMP8]], i8 [[X9:%.*]], i64 9
-// CPP-CHECK-NEXT:    [[TMP10:%.*]] = insertelement <16 x i8> [[TMP9]], i8 [[X10:%.*]], i64 10
-// CPP-CHECK-NEXT:    [[TMP11:%.*]] = insertelement <16 x i8> [[TMP10]], i8 [[X11:%.*]], i64 11
-// CPP-CHECK-NEXT:    [[TMP12:%.*]] = insertelement <16 x i8> [[TMP11]], i8 [[X12:%.*]], i64 12
-// CPP-CHECK-NEXT:    [[TMP13:%.*]] = insertelement <16 x i8> [[TMP12]], i8 [[X13:%.*]], i64 13
-// CPP-CHECK-NEXT:    [[TMP14:%.*]] = insertelement <16 x i8> [[TMP13]], i8 [[X14:%.*]], i64 14
-// CPP-CHECK-NEXT:    [[TMP15:%.*]] = insertelement <16 x i8> [[TMP14]], i8 [[X15:%.*]], i64 15
-// CPP-CHECK-NEXT:    [[TMP16:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> [[TMP15]], i64 0)
-// CPP-CHECK-NEXT:    [[TMP17:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP16]], i64 0)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP17]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x b8> poison, b8 [[X0:%.*]], i64 0
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x b8> [[TMP0]], b8 [[X1:%.*]], i64 1
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = insertelement <16 x b8> [[TMP1]], b8 [[X2:%.*]], i64 2
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = insertelement <16 x b8> [[TMP2]], b8 [[X3:%.*]], i64 3
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = insertelement <16 x b8> [[TMP3]], b8 [[X4:%.*]], i64 4
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = insertelement <16 x b8> [[TMP4]], b8 [[X5:%.*]], i64 5
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = insertelement <16 x b8> [[TMP5]], b8 [[X6:%.*]], i64 6
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = insertelement <16 x b8> [[TMP6]], b8 [[X7:%.*]], i64 7
+// CPP-CHECK-NEXT:    [[TMP8:%.*]] = insertelement <16 x b8> [[TMP7]], b8 [[X8:%.*]], i64 8
+// CPP-CHECK-NEXT:    [[TMP9:%.*]] = insertelement <16 x b8> [[TMP8]], b8 [[X9:%.*]], i64 9
+// CPP-CHECK-NEXT:    [[TMP10:%.*]] = insertelement <16 x b8> [[TMP9]], b8 [[X10:%.*]], i64 10
+// CPP-CHECK-NEXT:    [[TMP11:%.*]] = insertelement <16 x b8> [[TMP10]], b8 [[X11:%.*]], i64 11
+// CPP-CHECK-NEXT:    [[TMP12:%.*]] = insertelement <16 x b8> [[TMP11]], b8 [[X12:%.*]], i64 12
+// CPP-CHECK-NEXT:    [[TMP13:%.*]] = insertelement <16 x b8> [[TMP12]], b8 [[X13:%.*]], i64 13
+// CPP-CHECK-NEXT:    [[TMP14:%.*]] = insertelement <16 x b8> [[TMP13]], b8 [[X14:%.*]], i64 14
+// CPP-CHECK-NEXT:    [[TMP15:%.*]] = insertelement <16 x b8> [[TMP14]], b8 [[X15:%.*]], i64 15
+// CPP-CHECK-NEXT:    [[TMP16:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> poison, <16 x b8> [[TMP15]], i64 0)
+// CPP-CHECK-NEXT:    [[TMP17:%.*]] = tail call <vscale x 16 x b8> @llvm.aarch64.sve.dupq.lane.nxv16b8(<vscale x 16 x b8> [[TMP16]], i64 0)
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP17]]
 //
 svint8_t test_svdupq_n_s8(int8_t x0, int8_t x1, int8_t x2, int8_t x3,
                           int8_t x4, int8_t x5, int8_t x6, int8_t x7,
@@ -324,47 +340,47 @@ svint64_t test_svdupq_n_s64(int64_t x0, int64_t x1) MODE_ATTR
 
 // CHECK-LABEL: @test_svdupq_n_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x i8> poison, i8 [[X0:%.*]], i64 0
-// CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[X1:%.*]], i64 1
-// CHECK-NEXT:    [[TMP2:%.*]] = insertelement <16 x i8> [[TMP1]], i8 [[X2:%.*]], i64 2
-// CHECK-NEXT:    [[TMP3:%.*]] = insertelement <16 x i8> [[TMP2]], i8 [[X3:%.*]], i64 3
-// CHECK-NEXT:    [[TMP4:%.*]] = insertelement <16 x i8> [[TMP3]], i8 [[X4:%.*]], i64 4
-// CHECK-NEXT:    [[TMP5:%.*]] = insertelement <16 x i8> [[TMP4]], i8 [[X5:%.*]], i64 5
-// CHECK-NEXT:    [[TMP6:%.*]] = insertelement <16 x i8> [[TMP5]], i8 [[X6:%.*]], i64 6
-// CHECK-NEXT:    [[TMP7:%.*]] = insertelement <16 x i8> [[TMP6]], i8 [[X7:%.*]], i64 7
-// CHECK-NEXT:    [[TMP8:%.*]] = insertelement <16 x i8> [[TMP7]], i8 [[X8:%.*]], i64 8
-// CHECK-NEXT:    [[TMP9:%.*]] = insertelement <16 x i8> [[TMP8]], i8 [[X9:%.*]], i64 9
-// CHECK-NEXT:    [[TMP10:%.*]] = insertelement <16 x i8> [[TMP9]], i8 [[X10:%.*]], i64 10
-// CHECK-NEXT:    [[TMP11:%.*]] = insertelement <16 x i8> [[TMP10]], i8 [[X11:%.*]], i64 11
-// CHECK-NEXT:    [[TMP12:%.*]] = insertelement <16 x i8> [[TMP11]], i8 [[X12:%.*]], i64 12
-// CHECK-NEXT:    [[TMP13:%.*]] = insertelement <16 x i8> [[TMP12]], i8 [[X13:%.*]], i64 13
-// CHECK-NEXT:    [[TMP14:%.*]] = insertelement <16 x i8> [[TMP13]], i8 [[X14:%.*]], i64 14
-// CHECK-NEXT:    [[TMP15:%.*]] = insertelement <16 x i8> [[TMP14]], i8 [[X15:%.*]], i64 15
-// CHECK-NEXT:    [[TMP16:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> [[TMP15]], i64 0)
-// CHECK-NEXT:    [[TMP17:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP16]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP17]]
+// CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x b8> poison, b8 [[X0:%.*]], i64 0
+// CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x b8> [[TMP0]], b8 [[X1:%.*]], i64 1
+// CHECK-NEXT:    [[TMP2:%.*]] = insertelement <16 x b8> [[TMP1]], b8 [[X2:%.*]], i64 2
+// CHECK-NEXT:    [[TMP3:%.*]] = insertelement <16 x b8> [[TMP2]], b8 [[X3:%.*]], i64 3
+// CHECK-NEXT:    [[TMP4:%.*]] = insertelement <16 x b8> [[TMP3]], b8 [[X4:%.*]], i64 4
+// CHECK-NEXT:    [[TMP5:%.*]] = insertelement <16 x b8> [[TMP4]], b8 [[X5:%.*]], i64 5
+// CHECK-NEXT:    [[TMP6:%.*]] = insertelement <16 x b8> [[TMP5]], b8 [[X6:%.*]], i64 6
+// CHECK-NEXT:    [[TMP7:%.*]] = insertelement <16 x b8> [[TMP6]], b8 [[X7:%.*]], i64 7
+// CHECK-NEXT:    [[TMP8:%.*]] = insertelement <16 x b8> [[TMP7]], b8 [[X8:%.*]], i64 8
+// CHECK-NEXT:    [[TMP9:%.*]] = insertelement <16 x b8> [[TMP8]], b8 [[X9:%.*]], i64 9
+// CHECK-NEXT:    [[TMP10:%.*]] = insertelement <16 x b8> [[TMP9]], b8 [[X10:%.*]], i64 10
+// CHECK-NEXT:    [[TMP11:%.*]] = insertelement <16 x b8> [[TMP10]], b8 [[X11:%.*]], i64 11
+// CHECK-NEXT:    [[TMP12:%.*]] = insertelement <16 x b8> [[TMP11]], b8 [[X12:%.*]], i64 12
+// CHECK-NEXT:    [[TMP13:%.*]] = insertelement <16 x b8> [[TMP12]], b8 [[X13:%.*]], i64 13
+// CHECK-NEXT:    [[TMP14:%.*]] = insertelement <16 x b8> [[TMP13]], b8 [[X14:%.*]], i64 14
+// CHECK-NEXT:    [[TMP15:%.*]] = insertelement <16 x b8> [[TMP14]], b8 [[X15:%.*]], i64 15
+// CHECK-NEXT:    [[TMP16:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> poison, <16 x b8> [[TMP15]], i64 0)
+// CHECK-NEXT:    [[TMP17:%.*]] = tail call <vscale x 16 x b8> @llvm.aarch64.sve.dupq.lane.nxv16b8(<vscale x 16 x b8> [[TMP16]], i64 0)
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP17]]
 //
 // CPP-CHECK-LABEL: @_Z16test_svdupq_n_u8hhhhhhhhhhhhhhhh(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x i8> poison, i8 [[X0:%.*]], i64 0
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[X1:%.*]], i64 1
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = insertelement <16 x i8> [[TMP1]], i8 [[X2:%.*]], i64 2
-// CPP-CHECK-NEXT:    [[TMP3:%.*]] = insertelement <16 x i8> [[TMP2]], i8 [[X3:%.*]], i64 3
-// CPP-CHECK-NEXT:    [[TMP4:%.*]] = insertelement <16 x i8> [[TMP3]], i8 [[X4:%.*]], i64 4
-// CPP-CHECK-NEXT:    [[TMP5:%.*]] = insertelement <16 x i8> [[TMP4]], i8 [[X5:%.*]], i64 5
-// CPP-CHECK-NEXT:    [[TMP6:%.*]] = insertelement <16 x i8> [[TMP5]], i8 [[X6:%.*]], i64 6
-// CPP-CHECK-NEXT:    [[TMP7:%.*]] = insertelement <16 x i8> [[TMP6]], i8 [[X7:%.*]], i64 7
-// CPP-CHECK-NEXT:    [[TMP8:%.*]] = insertelement <16 x i8> [[TMP7]], i8 [[X8:%.*]], i64 8
-// CPP-CHECK-NEXT:    [[TMP9:%.*]] = insertelement <16 x i8> [[TMP8]], i8 [[X9:%.*]], i64 9
-// CPP-CHECK-NEXT:    [[TMP10:%.*]] = insertelement <16 x i8> [[TMP9]], i8 [[X10:%.*]], i64 10
-// CPP-CHECK-NEXT:    [[TMP11:%.*]] = insertelement <16 x i8> [[TMP10]], i8 [[X11:%.*]], i64 11
-// CPP-CHECK-NEXT:    [[TMP12:%.*]] = insertelement <16 x i8> [[TMP11]], i8 [[X12:%.*]], i64 12
-// CPP-CHECK-NEXT:    [[TMP13:%.*]] = insertelement <16 x i8> [[TMP12]], i8 [[X13:%.*]], i64 13
-// CPP-CHECK-NEXT:    [[TMP14:%.*]] = insertelement <16 x i8> [[TMP13]], i8 [[X14:%.*]], i64 14
-// CPP-CHECK-NEXT:    [[TMP15:%.*]] = insertelement <16 x i8> [[TMP14]], i8 [[X15:%.*]], i64 15
-// CPP-CHECK-NEXT:    [[TMP16:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> [[TMP15]], i64 0)
-// CPP-CHECK-NEXT:    [[TMP17:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP16]], i64 0)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP17]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = insertelement <16 x b8> poison, b8 [[X0:%.*]], i64 0
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x b8> [[TMP0]], b8 [[X1:%.*]], i64 1
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = insertelement <16 x b8> [[TMP1]], b8 [[X2:%.*]], i64 2
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = insertelement <16 x b8> [[TMP2]], b8 [[X3:%.*]], i64 3
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = insertelement <16 x b8> [[TMP3]], b8 [[X4:%.*]], i64 4
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = insertelement <16 x b8> [[TMP4]], b8 [[X5:%.*]], i64 5
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = insertelement <16 x b8> [[TMP5]], b8 [[X6:%.*]], i64 6
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = insertelement <16 x b8> [[TMP6]], b8 [[X7:%.*]], i64 7
+// CPP-CHECK-NEXT:    [[TMP8:%.*]] = insertelement <16 x b8> [[TMP7]], b8 [[X8:%.*]], i64 8
+// CPP-CHECK-NEXT:    [[TMP9:%.*]] = insertelement <16 x b8> [[TMP8]], b8 [[X9:%.*]], i64 9
+// CPP-CHECK-NEXT:    [[TMP10:%.*]] = insertelement <16 x b8> [[TMP9]], b8 [[X10:%.*]], i64 10
+// CPP-CHECK-NEXT:    [[TMP11:%.*]] = insertelement <16 x b8> [[TMP10]], b8 [[X11:%.*]], i64 11
+// CPP-CHECK-NEXT:    [[TMP12:%.*]] = insertelement <16 x b8> [[TMP11]], b8 [[X12:%.*]], i64 12
+// CPP-CHECK-NEXT:    [[TMP13:%.*]] = insertelement <16 x b8> [[TMP12]], b8 [[X13:%.*]], i64 13
+// CPP-CHECK-NEXT:    [[TMP14:%.*]] = insertelement <16 x b8> [[TMP13]], b8 [[X14:%.*]], i64 14
+// CPP-CHECK-NEXT:    [[TMP15:%.*]] = insertelement <16 x b8> [[TMP14]], b8 [[X15:%.*]], i64 15
+// CPP-CHECK-NEXT:    [[TMP16:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> poison, <16 x b8> [[TMP15]], i64 0)
+// CPP-CHECK-NEXT:    [[TMP17:%.*]] = tail call <vscale x 16 x b8> @llvm.aarch64.sve.dupq.lane.nxv16b8(<vscale x 16 x b8> [[TMP16]], i64 0)
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP17]]
 //
 svuint8_t test_svdupq_n_u8(uint8_t x0, uint8_t x1, uint8_t x2, uint8_t x3,
                            uint8_t x4, uint8_t x5, uint8_t x6, uint8_t x7,
@@ -541,54 +557,54 @@ svfloat64_t test_svdupq_n_f64(float64_t x0, float64_t x1) MODE_ATTR
 
 // CHECK-LABEL: @test_svdupq_n_b8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[FROMBOOL:%.*]] = zext i1 [[X0:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL1:%.*]] = zext i1 [[X1:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL2:%.*]] = zext i1 [[X2:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL3:%.*]] = zext i1 [[X3:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL4:%.*]] = zext i1 [[X4:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL5:%.*]] = zext i1 [[X5:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL6:%.*]] = zext i1 [[X6:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL7:%.*]] = zext i1 [[X7:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL8:%.*]] = zext i1 [[X8:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL9:%.*]] = zext i1 [[X9:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL10:%.*]] = zext i1 [[X10:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL11:%.*]] = zext i1 [[X11:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL12:%.*]] = zext i1 [[X12:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL13:%.*]] = zext i1 [[X13:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL14:%.*]] = zext i1 [[X14:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL15:%.*]] = zext i1 [[X15:%.*]] to i8
-// CHECK-NEXT:    [[TOBOOL:%.*]] = trunc i8 [[FROMBOOL]] to i1
-// CHECK-NEXT:    [[TOBOOL16:%.*]] = trunc i8 [[FROMBOOL1]] to i1
-// CHECK-NEXT:    [[TOBOOL17:%.*]] = trunc i8 [[FROMBOOL2]] to i1
-// CHECK-NEXT:    [[TOBOOL18:%.*]] = trunc i8 [[FROMBOOL3]] to i1
-// CHECK-NEXT:    [[TOBOOL19:%.*]] = trunc i8 [[FROMBOOL4]] to i1
-// CHECK-NEXT:    [[TOBOOL20:%.*]] = trunc i8 [[FROMBOOL5]] to i1
-// CHECK-NEXT:    [[TOBOOL21:%.*]] = trunc i8 [[FROMBOOL6]] to i1
-// CHECK-NEXT:    [[TOBOOL22:%.*]] = trunc i8 [[FROMBOOL7]] to i1
-// CHECK-NEXT:    [[TOBOOL23:%.*]] = trunc i8 [[FROMBOOL8]] to i1
-// CHECK-NEXT:    [[TOBOOL24:%.*]] = trunc i8 [[FROMBOOL9]] to i1
-// CHECK-NEXT:    [[TOBOOL25:%.*]] = trunc i8 [[FROMBOOL10]] to i1
-// CHECK-NEXT:    [[TOBOOL26:%.*]] = trunc i8 [[FROMBOOL11]] to i1
-// CHECK-NEXT:    [[TOBOOL27:%.*]] = trunc i8 [[FROMBOOL12]] to i1
-// CHECK-NEXT:    [[TOBOOL28:%.*]] = trunc i8 [[FROMBOOL13]] to i1
-// CHECK-NEXT:    [[TOBOOL29:%.*]] = trunc i8 [[FROMBOOL14]] to i1
-// CHECK-NEXT:    [[TOBOOL30:%.*]] = trunc i8 [[FROMBOOL15]] to i1
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[TOBOOL]] to i8
-// CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[TOBOOL16]] to i8
-// CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[TOBOOL17]] to i8
-// CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[TOBOOL18]] to i8
-// CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[TOBOOL19]] to i8
-// CHECK-NEXT:    [[TMP5:%.*]] = zext i1 [[TOBOOL20]] to i8
-// CHECK-NEXT:    [[TMP6:%.*]] = zext i1 [[TOBOOL21]] to i8
-// CHECK-NEXT:    [[TMP7:%.*]] = zext i1 [[TOBOOL22]] to i8
-// CHECK-NEXT:    [[TMP8:%.*]] = zext i1 [[TOBOOL23]] to i8
-// CHECK-NEXT:    [[TMP9:%.*]] = zext i1 [[TOBOOL24]] to i8
-// CHECK-NEXT:    [[TMP10:%.*]] = zext i1 [[TOBOOL25]] to i8
-// CHECK-NEXT:    [[TMP11:%.*]] = zext i1 [[TOBOOL26]] to i8
-// CHECK-NEXT:    [[TMP12:%.*]] = zext i1 [[TOBOOL27]] to i8
-// CHECK-NEXT:    [[TMP13:%.*]] = zext i1 [[TOBOOL28]] to i8
-// CHECK-NEXT:    [[TMP14:%.*]] = zext i1 [[TOBOOL29]] to i8
-// CHECK-NEXT:    [[TMP15:%.*]] = zext i1 [[TOBOOL30]] to i8
+// CHECK-NEXT:    [[STOREDV:%.*]] = zext i1 [[X0:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV1:%.*]] = zext i1 [[X1:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV2:%.*]] = zext i1 [[X2:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV3:%.*]] = zext i1 [[X3:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV4:%.*]] = zext i1 [[X4:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV5:%.*]] = zext i1 [[X5:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV6:%.*]] = zext i1 [[X6:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV7:%.*]] = zext i1 [[X7:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV8:%.*]] = zext i1 [[X8:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV9:%.*]] = zext i1 [[X9:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV10:%.*]] = zext i1 [[X10:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV11:%.*]] = zext i1 [[X11:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV12:%.*]] = zext i1 [[X12:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV13:%.*]] = zext i1 [[X13:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV14:%.*]] = zext i1 [[X14:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV15:%.*]] = zext i1 [[X15:%.*]] to i8
+// CHECK-NEXT:    [[LOADEDV:%.*]] = trunc i8 [[STOREDV]] to i1
+// CHECK-NEXT:    [[LOADEDV16:%.*]] = trunc i8 [[STOREDV1]] to i1
+// CHECK-NEXT:    [[LOADEDV17:%.*]] = trunc i8 [[STOREDV2]] to i1
+// CHECK-NEXT:    [[LOADEDV18:%.*]] = trunc i8 [[STOREDV3]] to i1
+// CHECK-NEXT:    [[LOADEDV19:%.*]] = trunc i8 [[STOREDV4]] to i1
+// CHECK-NEXT:    [[LOADEDV20:%.*]] = trunc i8 [[STOREDV5]] to i1
+// CHECK-NEXT:    [[LOADEDV21:%.*]] = trunc i8 [[STOREDV6]] to i1
+// CHECK-NEXT:    [[LOADEDV22:%.*]] = trunc i8 [[STOREDV7]] to i1
+// CHECK-NEXT:    [[LOADEDV23:%.*]] = trunc i8 [[STOREDV8]] to i1
+// CHECK-NEXT:    [[LOADEDV24:%.*]] = trunc i8 [[STOREDV9]] to i1
+// CHECK-NEXT:    [[LOADEDV25:%.*]] = trunc i8 [[STOREDV10]] to i1
+// CHECK-NEXT:    [[LOADEDV26:%.*]] = trunc i8 [[STOREDV11]] to i1
+// CHECK-NEXT:    [[LOADEDV27:%.*]] = trunc i8 [[STOREDV12]] to i1
+// CHECK-NEXT:    [[LOADEDV28:%.*]] = trunc i8 [[STOREDV13]] to i1
+// CHECK-NEXT:    [[LOADEDV29:%.*]] = trunc i8 [[STOREDV14]] to i1
+// CHECK-NEXT:    [[LOADEDV30:%.*]] = trunc i8 [[STOREDV15]] to i1
+// CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[LOADEDV]] to i8
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[LOADEDV16]] to i8
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[LOADEDV17]] to i8
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[LOADEDV18]] to i8
+// CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[LOADEDV19]] to i8
+// CHECK-NEXT:    [[TMP5:%.*]] = zext i1 [[LOADEDV20]] to i8
+// CHECK-NEXT:    [[TMP6:%.*]] = zext i1 [[LOADEDV21]] to i8
+// CHECK-NEXT:    [[TMP7:%.*]] = zext i1 [[LOADEDV22]] to i8
+// CHECK-NEXT:    [[TMP8:%.*]] = zext i1 [[LOADEDV23]] to i8
+// CHECK-NEXT:    [[TMP9:%.*]] = zext i1 [[LOADEDV24]] to i8
+// CHECK-NEXT:    [[TMP10:%.*]] = zext i1 [[LOADEDV25]] to i8
+// CHECK-NEXT:    [[TMP11:%.*]] = zext i1 [[LOADEDV26]] to i8
+// CHECK-NEXT:    [[TMP12:%.*]] = zext i1 [[LOADEDV27]] to i8
+// CHECK-NEXT:    [[TMP13:%.*]] = zext i1 [[LOADEDV28]] to i8
+// CHECK-NEXT:    [[TMP14:%.*]] = zext i1 [[LOADEDV29]] to i8
+// CHECK-NEXT:    [[TMP15:%.*]] = zext i1 [[LOADEDV30]] to i8
 // CHECK-NEXT:    [[TMP16:%.*]] = insertelement <16 x i8> poison, i8 [[TMP0]], i64 0
 // CHECK-NEXT:    [[TMP17:%.*]] = insertelement <16 x i8> [[TMP16]], i8 [[TMP1]], i64 1
 // CHECK-NEXT:    [[TMP18:%.*]] = insertelement <16 x i8> [[TMP17]], i8 [[TMP2]], i64 2
@@ -613,54 +629,54 @@ svfloat64_t test_svdupq_n_f64(float64_t x0, float64_t x1) MODE_ATTR
 //
 // CPP-CHECK-LABEL: @_Z16test_svdupq_n_b8bbbbbbbbbbbbbbbb(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[FROMBOOL:%.*]] = zext i1 [[X0:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL1:%.*]] = zext i1 [[X1:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL2:%.*]] = zext i1 [[X2:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL3:%.*]] = zext i1 [[X3:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL4:%.*]] = zext i1 [[X4:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL5:%.*]] = zext i1 [[X5:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL6:%.*]] = zext i1 [[X6:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL7:%.*]] = zext i1 [[X7:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL8:%.*]] = zext i1 [[X8:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL9:%.*]] = zext i1 [[X9:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL10:%.*]] = zext i1 [[X10:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL11:%.*]] = zext i1 [[X11:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL12:%.*]] = zext i1 [[X12:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL13:%.*]] = zext i1 [[X13:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL14:%.*]] = zext i1 [[X14:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL15:%.*]] = zext i1 [[X15:%.*]] to i8
-// CPP-CHECK-NEXT:    [[TOBOOL:%.*]] = trunc i8 [[FROMBOOL]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL16:%.*]] = trunc i8 [[FROMBOOL1]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL17:%.*]] = trunc i8 [[FROMBOOL2]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL18:%.*]] = trunc i8 [[FROMBOOL3]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL19:%.*]] = trunc i8 [[FROMBOOL4]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL20:%.*]] = trunc i8 [[FROMBOOL5]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL21:%.*]] = trunc i8 [[FROMBOOL6]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL22:%.*]] = trunc i8 [[FROMBOOL7]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL23:%.*]] = trunc i8 [[FROMBOOL8]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL24:%.*]] = trunc i8 [[FROMBOOL9]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL25:%.*]] = trunc i8 [[FROMBOOL10]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL26:%.*]] = trunc i8 [[FROMBOOL11]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL27:%.*]] = trunc i8 [[FROMBOOL12]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL28:%.*]] = trunc i8 [[FROMBOOL13]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL29:%.*]] = trunc i8 [[FROMBOOL14]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL30:%.*]] = trunc i8 [[FROMBOOL15]] to i1
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[TOBOOL]] to i8
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[TOBOOL16]] to i8
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[TOBOOL17]] to i8
-// CPP-CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[TOBOOL18]] to i8
-// CPP-CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[TOBOOL19]] to i8
-// CPP-CHECK-NEXT:    [[TMP5:%.*]] = zext i1 [[TOBOOL20]] to i8
-// CPP-CHECK-NEXT:    [[TMP6:%.*]] = zext i1 [[TOBOOL21]] to i8
-// CPP-CHECK-NEXT:    [[TMP7:%.*]] = zext i1 [[TOBOOL22]] to i8
-// CPP-CHECK-NEXT:    [[TMP8:%.*]] = zext i1 [[TOBOOL23]] to i8
-// CPP-CHECK-NEXT:    [[TMP9:%.*]] = zext i1 [[TOBOOL24]] to i8
-// CPP-CHECK-NEXT:    [[TMP10:%.*]] = zext i1 [[TOBOOL25]] to i8
-// CPP-CHECK-NEXT:    [[TMP11:%.*]] = zext i1 [[TOBOOL26]] to i8
-// CPP-CHECK-NEXT:    [[TMP12:%.*]] = zext i1 [[TOBOOL27]] to i8
-// CPP-CHECK-NEXT:    [[TMP13:%.*]] = zext i1 [[TOBOOL28]] to i8
-// CPP-CHECK-NEXT:    [[TMP14:%.*]] = zext i1 [[TOBOOL29]] to i8
-// CPP-CHECK-NEXT:    [[TMP15:%.*]] = zext i1 [[TOBOOL30]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV:%.*]] = zext i1 [[X0:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV1:%.*]] = zext i1 [[X1:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV2:%.*]] = zext i1 [[X2:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV3:%.*]] = zext i1 [[X3:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV4:%.*]] = zext i1 [[X4:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV5:%.*]] = zext i1 [[X5:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV6:%.*]] = zext i1 [[X6:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV7:%.*]] = zext i1 [[X7:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV8:%.*]] = zext i1 [[X8:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV9:%.*]] = zext i1 [[X9:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV10:%.*]] = zext i1 [[X10:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV11:%.*]] = zext i1 [[X11:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV12:%.*]] = zext i1 [[X12:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV13:%.*]] = zext i1 [[X13:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV14:%.*]] = zext i1 [[X14:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV15:%.*]] = zext i1 [[X15:%.*]] to i8
+// CPP-CHECK-NEXT:    [[LOADEDV:%.*]] = trunc i8 [[STOREDV]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV16:%.*]] = trunc i8 [[STOREDV1]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV17:%.*]] = trunc i8 [[STOREDV2]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV18:%.*]] = trunc i8 [[STOREDV3]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV19:%.*]] = trunc i8 [[STOREDV4]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV20:%.*]] = trunc i8 [[STOREDV5]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV21:%.*]] = trunc i8 [[STOREDV6]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV22:%.*]] = trunc i8 [[STOREDV7]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV23:%.*]] = trunc i8 [[STOREDV8]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV24:%.*]] = trunc i8 [[STOREDV9]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV25:%.*]] = trunc i8 [[STOREDV10]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV26:%.*]] = trunc i8 [[STOREDV11]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV27:%.*]] = trunc i8 [[STOREDV12]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV28:%.*]] = trunc i8 [[STOREDV13]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV29:%.*]] = trunc i8 [[STOREDV14]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV30:%.*]] = trunc i8 [[STOREDV15]] to i1
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[LOADEDV]] to i8
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[LOADEDV16]] to i8
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[LOADEDV17]] to i8
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[LOADEDV18]] to i8
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[LOADEDV19]] to i8
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = zext i1 [[LOADEDV20]] to i8
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = zext i1 [[LOADEDV21]] to i8
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = zext i1 [[LOADEDV22]] to i8
+// CPP-CHECK-NEXT:    [[TMP8:%.*]] = zext i1 [[LOADEDV23]] to i8
+// CPP-CHECK-NEXT:    [[TMP9:%.*]] = zext i1 [[LOADEDV24]] to i8
+// CPP-CHECK-NEXT:    [[TMP10:%.*]] = zext i1 [[LOADEDV25]] to i8
+// CPP-CHECK-NEXT:    [[TMP11:%.*]] = zext i1 [[LOADEDV26]] to i8
+// CPP-CHECK-NEXT:    [[TMP12:%.*]] = zext i1 [[LOADEDV27]] to i8
+// CPP-CHECK-NEXT:    [[TMP13:%.*]] = zext i1 [[LOADEDV28]] to i8
+// CPP-CHECK-NEXT:    [[TMP14:%.*]] = zext i1 [[LOADEDV29]] to i8
+// CPP-CHECK-NEXT:    [[TMP15:%.*]] = zext i1 [[LOADEDV30]] to i8
 // CPP-CHECK-NEXT:    [[TMP16:%.*]] = insertelement <16 x i8> poison, i8 [[TMP0]], i64 0
 // CPP-CHECK-NEXT:    [[TMP17:%.*]] = insertelement <16 x i8> [[TMP16]], i8 [[TMP1]], i64 1
 // CPP-CHECK-NEXT:    [[TMP18:%.*]] = insertelement <16 x i8> [[TMP17]], i8 [[TMP2]], i64 2
@@ -694,30 +710,30 @@ svbool_t test_svdupq_n_b8(bool x0, bool x1, bool x2, bool x3,
 
 // CHECK-LABEL: @test_svdupq_n_b16(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[FROMBOOL:%.*]] = zext i1 [[X0:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL1:%.*]] = zext i1 [[X1:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL2:%.*]] = zext i1 [[X2:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL3:%.*]] = zext i1 [[X3:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL4:%.*]] = zext i1 [[X4:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL5:%.*]] = zext i1 [[X5:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL6:%.*]] = zext i1 [[X6:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL7:%.*]] = zext i1 [[X7:%.*]] to i8
-// CHECK-NEXT:    [[TOBOOL:%.*]] = trunc i8 [[FROMBOOL]] to i1
-// CHECK-NEXT:    [[TOBOOL8:%.*]] = trunc i8 [[FROMBOOL1]] to i1
-// CHECK-NEXT:    [[TOBOOL9:%.*]] = trunc i8 [[FROMBOOL2]] to i1
-// CHECK-NEXT:    [[TOBOOL10:%.*]] = trunc i8 [[FROMBOOL3]] to i1
-// CHECK-NEXT:    [[TOBOOL11:%.*]] = trunc i8 [[FROMBOOL4]] to i1
-// CHECK-NEXT:    [[TOBOOL12:%.*]] = trunc i8 [[FROMBOOL5]] to i1
-// CHECK-NEXT:    [[TOBOOL13:%.*]] = trunc i8 [[FROMBOOL6]] to i1
-// CHECK-NEXT:    [[TOBOOL14:%.*]] = trunc i8 [[FROMBOOL7]] to i1
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[TOBOOL]] to i16
-// CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[TOBOOL8]] to i16
-// CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[TOBOOL9]] to i16
-// CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[TOBOOL10]] to i16
-// CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[TOBOOL11]] to i16
-// CHECK-NEXT:    [[TMP5:%.*]] = zext i1 [[TOBOOL12]] to i16
-// CHECK-NEXT:    [[TMP6:%.*]] = zext i1 [[TOBOOL13]] to i16
-// CHECK-NEXT:    [[TMP7:%.*]] = zext i1 [[TOBOOL14]] to i16
+// CHECK-NEXT:    [[STOREDV:%.*]] = zext i1 [[X0:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV1:%.*]] = zext i1 [[X1:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV2:%.*]] = zext i1 [[X2:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV3:%.*]] = zext i1 [[X3:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV4:%.*]] = zext i1 [[X4:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV5:%.*]] = zext i1 [[X5:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV6:%.*]] = zext i1 [[X6:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV7:%.*]] = zext i1 [[X7:%.*]] to i8
+// CHECK-NEXT:    [[LOADEDV:%.*]] = trunc i8 [[STOREDV]] to i1
+// CHECK-NEXT:    [[LOADEDV8:%.*]] = trunc i8 [[STOREDV1]] to i1
+// CHECK-NEXT:    [[LOADEDV9:%.*]] = trunc i8 [[STOREDV2]] to i1
+// CHECK-NEXT:    [[LOADEDV10:%.*]] = trunc i8 [[STOREDV3]] to i1
+// CHECK-NEXT:    [[LOADEDV11:%.*]] = trunc i8 [[STOREDV4]] to i1
+// CHECK-NEXT:    [[LOADEDV12:%.*]] = trunc i8 [[STOREDV5]] to i1
+// CHECK-NEXT:    [[LOADEDV13:%.*]] = trunc i8 [[STOREDV6]] to i1
+// CHECK-NEXT:    [[LOADEDV14:%.*]] = trunc i8 [[STOREDV7]] to i1
+// CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[LOADEDV]] to i16
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[LOADEDV8]] to i16
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[LOADEDV9]] to i16
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[LOADEDV10]] to i16
+// CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[LOADEDV11]] to i16
+// CHECK-NEXT:    [[TMP5:%.*]] = zext i1 [[LOADEDV12]] to i16
+// CHECK-NEXT:    [[TMP6:%.*]] = zext i1 [[LOADEDV13]] to i16
+// CHECK-NEXT:    [[TMP7:%.*]] = zext i1 [[LOADEDV14]] to i16
 // CHECK-NEXT:    [[TMP8:%.*]] = insertelement <8 x i16> poison, i16 [[TMP0]], i64 0
 // CHECK-NEXT:    [[TMP9:%.*]] = insertelement <8 x i16> [[TMP8]], i16 [[TMP1]], i64 1
 // CHECK-NEXT:    [[TMP10:%.*]] = insertelement <8 x i16> [[TMP9]], i16 [[TMP2]], i64 2
@@ -735,30 +751,30 @@ svbool_t test_svdupq_n_b8(bool x0, bool x1, bool x2, bool x3,
 //
 // CPP-CHECK-LABEL: @_Z17test_svdupq_n_b16bbbbbbbb(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[FROMBOOL:%.*]] = zext i1 [[X0:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL1:%.*]] = zext i1 [[X1:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL2:%.*]] = zext i1 [[X2:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL3:%.*]] = zext i1 [[X3:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL4:%.*]] = zext i1 [[X4:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL5:%.*]] = zext i1 [[X5:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL6:%.*]] = zext i1 [[X6:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL7:%.*]] = zext i1 [[X7:%.*]] to i8
-// CPP-CHECK-NEXT:    [[TOBOOL:%.*]] = trunc i8 [[FROMBOOL]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL8:%.*]] = trunc i8 [[FROMBOOL1]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL9:%.*]] = trunc i8 [[FROMBOOL2]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL10:%.*]] = trunc i8 [[FROMBOOL3]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL11:%.*]] = trunc i8 [[FROMBOOL4]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL12:%.*]] = trunc i8 [[FROMBOOL5]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL13:%.*]] = trunc i8 [[FROMBOOL6]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL14:%.*]] = trunc i8 [[FROMBOOL7]] to i1
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[TOBOOL]] to i16
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[TOBOOL8]] to i16
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[TOBOOL9]] to i16
-// CPP-CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[TOBOOL10]] to i16
-// CPP-CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[TOBOOL11]] to i16
-// CPP-CHECK-NEXT:    [[TMP5:%.*]] = zext i1 [[TOBOOL12]] to i16
-// CPP-CHECK-NEXT:    [[TMP6:%.*]] = zext i1 [[TOBOOL13]] to i16
-// CPP-CHECK-NEXT:    [[TMP7:%.*]] = zext i1 [[TOBOOL14]] to i16
+// CPP-CHECK-NEXT:    [[STOREDV:%.*]] = zext i1 [[X0:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV1:%.*]] = zext i1 [[X1:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV2:%.*]] = zext i1 [[X2:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV3:%.*]] = zext i1 [[X3:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV4:%.*]] = zext i1 [[X4:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV5:%.*]] = zext i1 [[X5:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV6:%.*]] = zext i1 [[X6:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV7:%.*]] = zext i1 [[X7:%.*]] to i8
+// CPP-CHECK-NEXT:    [[LOADEDV:%.*]] = trunc i8 [[STOREDV]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV8:%.*]] = trunc i8 [[STOREDV1]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV9:%.*]] = trunc i8 [[STOREDV2]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV10:%.*]] = trunc i8 [[STOREDV3]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV11:%.*]] = trunc i8 [[STOREDV4]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV12:%.*]] = trunc i8 [[STOREDV5]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV13:%.*]] = trunc i8 [[STOREDV6]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV14:%.*]] = trunc i8 [[STOREDV7]] to i1
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[LOADEDV]] to i16
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[LOADEDV8]] to i16
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[LOADEDV9]] to i16
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[LOADEDV10]] to i16
+// CPP-CHECK-NEXT:    [[TMP4:%.*]] = zext i1 [[LOADEDV11]] to i16
+// CPP-CHECK-NEXT:    [[TMP5:%.*]] = zext i1 [[LOADEDV12]] to i16
+// CPP-CHECK-NEXT:    [[TMP6:%.*]] = zext i1 [[LOADEDV13]] to i16
+// CPP-CHECK-NEXT:    [[TMP7:%.*]] = zext i1 [[LOADEDV14]] to i16
 // CPP-CHECK-NEXT:    [[TMP8:%.*]] = insertelement <8 x i16> poison, i16 [[TMP0]], i64 0
 // CPP-CHECK-NEXT:    [[TMP9:%.*]] = insertelement <8 x i16> [[TMP8]], i16 [[TMP1]], i64 1
 // CPP-CHECK-NEXT:    [[TMP10:%.*]] = insertelement <8 x i16> [[TMP9]], i16 [[TMP2]], i64 2
@@ -783,18 +799,18 @@ svbool_t test_svdupq_n_b16(bool x0, bool x1, bool x2, bool x3,
 
 // CHECK-LABEL: @test_svdupq_n_b32(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[FROMBOOL:%.*]] = zext i1 [[X0:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL1:%.*]] = zext i1 [[X1:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL2:%.*]] = zext i1 [[X2:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL3:%.*]] = zext i1 [[X3:%.*]] to i8
-// CHECK-NEXT:    [[TOBOOL:%.*]] = trunc i8 [[FROMBOOL]] to i1
-// CHECK-NEXT:    [[TOBOOL4:%.*]] = trunc i8 [[FROMBOOL1]] to i1
-// CHECK-NEXT:    [[TOBOOL5:%.*]] = trunc i8 [[FROMBOOL2]] to i1
-// CHECK-NEXT:    [[TOBOOL6:%.*]] = trunc i8 [[FROMBOOL3]] to i1
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[TOBOOL]] to i32
-// CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[TOBOOL4]] to i32
-// CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[TOBOOL5]] to i32
-// CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[TOBOOL6]] to i32
+// CHECK-NEXT:    [[STOREDV:%.*]] = zext i1 [[X0:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV1:%.*]] = zext i1 [[X1:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV2:%.*]] = zext i1 [[X2:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV3:%.*]] = zext i1 [[X3:%.*]] to i8
+// CHECK-NEXT:    [[LOADEDV:%.*]] = trunc i8 [[STOREDV]] to i1
+// CHECK-NEXT:    [[LOADEDV4:%.*]] = trunc i8 [[STOREDV1]] to i1
+// CHECK-NEXT:    [[LOADEDV5:%.*]] = trunc i8 [[STOREDV2]] to i1
+// CHECK-NEXT:    [[LOADEDV6:%.*]] = trunc i8 [[STOREDV3]] to i1
+// CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[LOADEDV]] to i32
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[LOADEDV4]] to i32
+// CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[LOADEDV5]] to i32
+// CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[LOADEDV6]] to i32
 // CHECK-NEXT:    [[TMP4:%.*]] = insertelement <4 x i32> poison, i32 [[TMP0]], i64 0
 // CHECK-NEXT:    [[TMP5:%.*]] = insertelement <4 x i32> [[TMP4]], i32 [[TMP1]], i64 1
 // CHECK-NEXT:    [[TMP6:%.*]] = insertelement <4 x i32> [[TMP5]], i32 [[TMP2]], i64 2
@@ -808,18 +824,18 @@ svbool_t test_svdupq_n_b16(bool x0, bool x1, bool x2, bool x3,
 //
 // CPP-CHECK-LABEL: @_Z17test_svdupq_n_b32bbbb(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[FROMBOOL:%.*]] = zext i1 [[X0:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL1:%.*]] = zext i1 [[X1:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL2:%.*]] = zext i1 [[X2:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL3:%.*]] = zext i1 [[X3:%.*]] to i8
-// CPP-CHECK-NEXT:    [[TOBOOL:%.*]] = trunc i8 [[FROMBOOL]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL4:%.*]] = trunc i8 [[FROMBOOL1]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL5:%.*]] = trunc i8 [[FROMBOOL2]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL6:%.*]] = trunc i8 [[FROMBOOL3]] to i1
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[TOBOOL]] to i32
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[TOBOOL4]] to i32
-// CPP-CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[TOBOOL5]] to i32
-// CPP-CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[TOBOOL6]] to i32
+// CPP-CHECK-NEXT:    [[STOREDV:%.*]] = zext i1 [[X0:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV1:%.*]] = zext i1 [[X1:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV2:%.*]] = zext i1 [[X2:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV3:%.*]] = zext i1 [[X3:%.*]] to i8
+// CPP-CHECK-NEXT:    [[LOADEDV:%.*]] = trunc i8 [[STOREDV]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV4:%.*]] = trunc i8 [[STOREDV1]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV5:%.*]] = trunc i8 [[STOREDV2]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV6:%.*]] = trunc i8 [[STOREDV3]] to i1
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[LOADEDV]] to i32
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[LOADEDV4]] to i32
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = zext i1 [[LOADEDV5]] to i32
+// CPP-CHECK-NEXT:    [[TMP3:%.*]] = zext i1 [[LOADEDV6]] to i32
 // CPP-CHECK-NEXT:    [[TMP4:%.*]] = insertelement <4 x i32> poison, i32 [[TMP0]], i64 0
 // CPP-CHECK-NEXT:    [[TMP5:%.*]] = insertelement <4 x i32> [[TMP4]], i32 [[TMP1]], i64 1
 // CPP-CHECK-NEXT:    [[TMP6:%.*]] = insertelement <4 x i32> [[TMP5]], i32 [[TMP2]], i64 2
@@ -839,12 +855,12 @@ svbool_t test_svdupq_n_b32(bool x0, bool x1, bool x2, bool x3) MODE_ATTR
 
 // CHECK-LABEL: @test_svdupq_n_b64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[FROMBOOL:%.*]] = zext i1 [[X0:%.*]] to i8
-// CHECK-NEXT:    [[FROMBOOL1:%.*]] = zext i1 [[X1:%.*]] to i8
-// CHECK-NEXT:    [[TOBOOL:%.*]] = trunc i8 [[FROMBOOL]] to i1
-// CHECK-NEXT:    [[TOBOOL2:%.*]] = trunc i8 [[FROMBOOL1]] to i1
-// CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[TOBOOL]] to i64
-// CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[TOBOOL2]] to i64
+// CHECK-NEXT:    [[STOREDV:%.*]] = zext i1 [[X0:%.*]] to i8
+// CHECK-NEXT:    [[STOREDV1:%.*]] = zext i1 [[X1:%.*]] to i8
+// CHECK-NEXT:    [[LOADEDV:%.*]] = trunc i8 [[STOREDV]] to i1
+// CHECK-NEXT:    [[LOADEDV2:%.*]] = trunc i8 [[STOREDV1]] to i1
+// CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[LOADEDV]] to i64
+// CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[LOADEDV2]] to i64
 // CHECK-NEXT:    [[TMP2:%.*]] = insertelement <2 x i64> poison, i64 [[TMP0]], i64 0
 // CHECK-NEXT:    [[TMP3:%.*]] = insertelement <2 x i64> [[TMP2]], i64 [[TMP1]], i64 1
 // CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 2 x i64> @llvm.vector.insert.nxv2i64.v2i64(<vscale x 2 x i64> poison, <2 x i64> [[TMP3]], i64 0)
@@ -856,12 +872,12 @@ svbool_t test_svdupq_n_b32(bool x0, bool x1, bool x2, bool x3) MODE_ATTR
 //
 // CPP-CHECK-LABEL: @_Z17test_svdupq_n_b64bb(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[FROMBOOL:%.*]] = zext i1 [[X0:%.*]] to i8
-// CPP-CHECK-NEXT:    [[FROMBOOL1:%.*]] = zext i1 [[X1:%.*]] to i8
-// CPP-CHECK-NEXT:    [[TOBOOL:%.*]] = trunc i8 [[FROMBOOL]] to i1
-// CPP-CHECK-NEXT:    [[TOBOOL2:%.*]] = trunc i8 [[FROMBOOL1]] to i1
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[TOBOOL]] to i64
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[TOBOOL2]] to i64
+// CPP-CHECK-NEXT:    [[STOREDV:%.*]] = zext i1 [[X0:%.*]] to i8
+// CPP-CHECK-NEXT:    [[STOREDV1:%.*]] = zext i1 [[X1:%.*]] to i8
+// CPP-CHECK-NEXT:    [[LOADEDV:%.*]] = trunc i8 [[STOREDV]] to i1
+// CPP-CHECK-NEXT:    [[LOADEDV2:%.*]] = trunc i8 [[STOREDV1]] to i1
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = zext i1 [[LOADEDV]] to i64
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = zext i1 [[LOADEDV2]] to i64
 // CPP-CHECK-NEXT:    [[TMP2:%.*]] = insertelement <2 x i64> poison, i64 [[TMP0]], i64 0
 // CPP-CHECK-NEXT:    [[TMP3:%.*]] = insertelement <2 x i64> [[TMP2]], i64 [[TMP1]], i64 1
 // CPP-CHECK-NEXT:    [[TMP4:%.*]] = tail call <vscale x 2 x i64> @llvm.vector.insert.nxv2i64.v2i64(<vscale x 2 x i64> poison, <2 x i64> [[TMP3]], i64 0)

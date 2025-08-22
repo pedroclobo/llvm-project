@@ -6,11 +6,14 @@
 
 #include <arm_neon.h>
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vext_s8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vext_s8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
-// CHECK-NEXT:    ret <8 x i8> [[VEXT]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VEXT]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 int8x8_t test_vext_s8(int8x8_t a, int8x8_t b) {
   return vext_s8(a, b, 2);
@@ -19,11 +22,13 @@ int8x8_t test_vext_s8(int8x8_t a, int8x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i16> @test_vext_s16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 3, i32 4, i32 5, i32 6>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 3, i32 4, i32 5, i32 6>
 // CHECK-NEXT:    ret <4 x i16> [[VEXT]]
 //
 int16x4_t test_vext_s16(int16x4_t a, int16x4_t b) {
@@ -33,11 +38,13 @@ int16x4_t test_vext_s16(int16x4_t a, int16x4_t b) {
 // CHECK-LABEL: define dso_local <2 x i32> @test_vext_s32(
 // CHECK-SAME: <2 x i32> noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 1, i32 2>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 1, i32 2>
 // CHECK-NEXT:    ret <2 x i32> [[VEXT]]
 //
 int32x2_t test_vext_s32(int32x2_t a, int32x2_t b) {
@@ -47,22 +54,27 @@ int32x2_t test_vext_s32(int32x2_t a, int32x2_t b) {
 // CHECK-LABEL: define dso_local <1 x i64> @test_vext_s64(
 // CHECK-SAME: <1 x i64> noundef [[A:%.*]], <1 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <1 x i64> [[TMP2]], <1 x i64> [[TMP3]], <1 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <1 x i64> [[TMP3]], <1 x i64> [[TMP5]], <1 x i32> zeroinitializer
 // CHECK-NEXT:    ret <1 x i64> [[VEXT]]
 //
 int64x1_t test_vext_s64(int64x1_t a, int64x1_t b) {
   return vext_s64(a, b, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vextq_s8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vextq_s8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
-// CHECK-NEXT:    ret <16 x i8> [[VEXT]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VEXT]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 int8x16_t test_vextq_s8(int8x16_t a, int8x16_t b) {
   return vextq_s8(a, b, 2);
@@ -71,11 +83,13 @@ int8x16_t test_vextq_s8(int8x16_t a, int8x16_t b) {
 // CHECK-LABEL: define dso_local <8 x i16> @test_vextq_s16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10>
 // CHECK-NEXT:    ret <8 x i16> [[VEXT]]
 //
 int16x8_t test_vextq_s16(int16x8_t a, int16x8_t b) {
@@ -85,11 +99,13 @@ int16x8_t test_vextq_s16(int16x8_t a, int16x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i32> @test_vextq_s32(
 // CHECK-SAME: <4 x i32> noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 1, i32 2, i32 3, i32 4>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 1, i32 2, i32 3, i32 4>
 // CHECK-NEXT:    ret <4 x i32> [[VEXT]]
 //
 int32x4_t test_vextq_s32(int32x4_t a, int32x4_t b) {
@@ -99,22 +115,27 @@ int32x4_t test_vextq_s32(int32x4_t a, int32x4_t b) {
 // CHECK-LABEL: define dso_local <2 x i64> @test_vextq_s64(
 // CHECK-SAME: <2 x i64> noundef [[A:%.*]], <2 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x i64> [[TMP2]], <2 x i64> [[TMP3]], <2 x i32> <i32 1, i32 2>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x i64> [[TMP3]], <2 x i64> [[TMP5]], <2 x i32> <i32 1, i32 2>
 // CHECK-NEXT:    ret <2 x i64> [[VEXT]]
 //
 int64x2_t test_vextq_s64(int64x2_t a, int64x2_t b) {
   return vextq_s64(a, b, 1);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vext_u8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vext_u8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
-// CHECK-NEXT:    ret <8 x i8> [[VEXT]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VEXT]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 uint8x8_t test_vext_u8(uint8x8_t a, uint8x8_t b) {
   return vext_u8(a, b, 2);
@@ -123,11 +144,13 @@ uint8x8_t test_vext_u8(uint8x8_t a, uint8x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i16> @test_vext_u16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 3, i32 4, i32 5, i32 6>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 3, i32 4, i32 5, i32 6>
 // CHECK-NEXT:    ret <4 x i16> [[VEXT]]
 //
 uint16x4_t test_vext_u16(uint16x4_t a, uint16x4_t b) {
@@ -137,11 +160,13 @@ uint16x4_t test_vext_u16(uint16x4_t a, uint16x4_t b) {
 // CHECK-LABEL: define dso_local <2 x i32> @test_vext_u32(
 // CHECK-SAME: <2 x i32> noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x i32> [[TMP2]], <2 x i32> [[TMP3]], <2 x i32> <i32 1, i32 2>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x i32> [[TMP3]], <2 x i32> [[TMP5]], <2 x i32> <i32 1, i32 2>
 // CHECK-NEXT:    ret <2 x i32> [[VEXT]]
 //
 uint32x2_t test_vext_u32(uint32x2_t a, uint32x2_t b) {
@@ -151,22 +176,27 @@ uint32x2_t test_vext_u32(uint32x2_t a, uint32x2_t b) {
 // CHECK-LABEL: define dso_local <1 x i64> @test_vext_u64(
 // CHECK-SAME: <1 x i64> noundef [[A:%.*]], <1 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <1 x i64> [[TMP2]], <1 x i64> [[TMP3]], <1 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <1 x i64> [[TMP3]], <1 x i64> [[TMP5]], <1 x i32> zeroinitializer
 // CHECK-NEXT:    ret <1 x i64> [[VEXT]]
 //
 uint64x1_t test_vext_u64(uint64x1_t a, uint64x1_t b) {
   return vext_u64(a, b, 0);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vextq_u8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vextq_u8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
-// CHECK-NEXT:    ret <16 x i8> [[VEXT]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VEXT]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vextq_u8(uint8x16_t a, uint8x16_t b) {
   return vextq_u8(a, b, 2);
@@ -175,11 +205,13 @@ uint8x16_t test_vextq_u8(uint8x16_t a, uint8x16_t b) {
 // CHECK-LABEL: define dso_local <8 x i16> @test_vextq_u16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10>
 // CHECK-NEXT:    ret <8 x i16> [[VEXT]]
 //
 uint16x8_t test_vextq_u16(uint16x8_t a, uint16x8_t b) {
@@ -189,11 +221,13 @@ uint16x8_t test_vextq_u16(uint16x8_t a, uint16x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i32> @test_vextq_u32(
 // CHECK-SAME: <4 x i32> noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i32> [[TMP2]], <4 x i32> [[TMP3]], <4 x i32> <i32 1, i32 2, i32 3, i32 4>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i32> [[TMP3]], <4 x i32> [[TMP5]], <4 x i32> <i32 1, i32 2, i32 3, i32 4>
 // CHECK-NEXT:    ret <4 x i32> [[VEXT]]
 //
 uint32x4_t test_vextq_u32(uint32x4_t a, uint32x4_t b) {
@@ -203,11 +237,13 @@ uint32x4_t test_vextq_u32(uint32x4_t a, uint32x4_t b) {
 // CHECK-LABEL: define dso_local <2 x i64> @test_vextq_u64(
 // CHECK-SAME: <2 x i64> noundef [[A:%.*]], <2 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x i64> [[TMP2]], <2 x i64> [[TMP3]], <2 x i32> <i32 1, i32 2>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x i64> [[TMP3]], <2 x i64> [[TMP5]], <2 x i32> <i32 1, i32 2>
 // CHECK-NEXT:    ret <2 x i64> [[VEXT]]
 //
 uint64x2_t test_vextq_u64(uint64x2_t a, uint64x2_t b) {
@@ -219,11 +255,13 @@ uint64x2_t test_vextq_u64(uint64x2_t a, uint64x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[A]] to <2 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x float> [[TMP4]], <2 x float> [[TMP5]], <2 x i32> <i32 1, i32 2>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x float> [[TMP5]], <2 x float> [[TMP7]], <2 x i32> <i32 1, i32 2>
 // CHECK-NEXT:    ret <2 x float> [[VEXT]]
 //
 float32x2_t test_vext_f32(float32x2_t a, float32x2_t b) {
@@ -237,11 +275,13 @@ float32x2_t test_vext_f32(float32x2_t a, float32x2_t b) {
 // CHECK-NEXT:    [[__S0_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP0]], i32 0
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x double> [[B]] to i64
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP1]], i32 0
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <1 x double> [[TMP4]], <1 x double> [[TMP5]], <1 x i32> zeroinitializer
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x double>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x double>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <1 x double> [[TMP5]], <1 x double> [[TMP7]], <1 x i32> zeroinitializer
 // CHECK-NEXT:    ret <1 x double> [[VEXT]]
 //
 float64x1_t test_vext_f64(float64x1_t a, float64x1_t b) {
@@ -253,11 +293,13 @@ float64x1_t test_vext_f64(float64x1_t a, float64x1_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[A]] to <4 x i32>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x float> [[TMP4]], <4 x float> [[TMP5]], <4 x i32> <i32 1, i32 2, i32 3, i32 4>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x float> [[TMP5]], <4 x float> [[TMP7]], <4 x i32> <i32 1, i32 2, i32 3, i32 4>
 // CHECK-NEXT:    ret <4 x float> [[VEXT]]
 //
 float32x4_t test_vextq_f32(float32x4_t a, float32x4_t b) {
@@ -269,22 +311,27 @@ float32x4_t test_vextq_f32(float32x4_t a, float32x4_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[A]] to <2 x i64>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x double> [[B]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x double>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x double> [[TMP4]], <2 x double> [[TMP5]], <2 x i32> <i32 1, i32 2>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x double>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x double>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <2 x double> [[TMP5]], <2 x double> [[TMP7]], <2 x i32> <i32 1, i32 2>
 // CHECK-NEXT:    ret <2 x double> [[VEXT]]
 //
 float64x2_t test_vextq_f64(float64x2_t a, float64x2_t b) {
   return vextq_f64(a, b, 1);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vext_p8(
-// CHECK-SAME: <8 x i8> noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vext_p8(
+// CHECK-SAME: <8 x b8> noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i8> [[A]], <8 x i8> [[B]], <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
-// CHECK-NEXT:    ret <8 x i8> [[VEXT]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <8 x b8> [[A]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VEXT]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 poly8x8_t test_vext_p8(poly8x8_t a, poly8x8_t b) {
   return vext_p8(a, b, 2);
@@ -293,22 +340,27 @@ poly8x8_t test_vext_p8(poly8x8_t a, poly8x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i16> @test_vext_p16(
 // CHECK-SAME: <4 x i16> noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i16> [[TMP2]], <4 x i16> [[TMP3]], <4 x i32> <i32 3, i32 4, i32 5, i32 6>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[A]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <4 x i16> [[TMP3]], <4 x i16> [[TMP5]], <4 x i32> <i32 3, i32 4, i32 5, i32 6>
 // CHECK-NEXT:    ret <4 x i16> [[VEXT]]
 //
 poly16x4_t test_vext_p16(poly16x4_t a, poly16x4_t b) {
   return vext_p16(a, b, 3);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vextq_p8(
-// CHECK-SAME: <16 x i8> noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vextq_p8(
+// CHECK-SAME: <16 x b8> noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <16 x i8> [[A]], <16 x i8> [[B]], <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
-// CHECK-NEXT:    ret <16 x i8> [[VEXT]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[A]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VEXT]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 poly8x16_t test_vextq_p8(poly8x16_t a, poly8x16_t b) {
   return vextq_p8(a, b, 2);
@@ -317,11 +369,13 @@ poly8x16_t test_vextq_p8(poly8x16_t a, poly8x16_t b) {
 // CHECK-LABEL: define dso_local <8 x i16> @test_vextq_p16(
 // CHECK-SAME: <8 x i16> noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i16> [[TMP2]], <8 x i16> [[TMP3]], <8 x i32> <i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[A]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VEXT:%.*]] = shufflevector <8 x i16> [[TMP3]], <8 x i16> [[TMP5]], <8 x i32> <i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10>
 // CHECK-NEXT:    ret <8 x i16> [[VEXT]]
 //
 poly16x8_t test_vextq_p16(poly16x8_t a, poly16x8_t b) {

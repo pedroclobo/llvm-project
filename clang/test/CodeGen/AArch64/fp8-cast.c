@@ -39,56 +39,64 @@ mfloat8x16_t testq_f8_f8(mfloat8x16_t x) {
 
 // Bitcast between FP8 and int8 Neon vectors
 // CHECK-LABEL: define dso_local <8 x i8> @test_f8_s8(
-// CHECK-SAME: <8 x i8> noundef [[X:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <8 x b8> noundef [[X:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    ret <8 x i8> [[X]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <8 x b8> [[X]] to <8 x i8>
+// CHECK-NEXT:    ret <8 x i8> [[TMP0]]
 //
 // CHECK-CXX-LABEL: define dso_local <8 x i8> @_Z10test_f8_s810__Int8x8_t(
-// CHECK-CXX-SAME: <8 x i8> noundef [[X:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <8 x b8> noundef [[X:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    ret <8 x i8> [[X]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <8 x b8> [[X]] to <8 x i8>
+// CHECK-CXX-NEXT:    ret <8 x i8> [[TMP0]]
 //
 mfloat8x8_t test_f8_s8(int8x8_t x) {
     return (mfloat8x8_t) x;
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_s8_f8(
+// CHECK-LABEL: define dso_local <8 x b8> @test_s8_f8(
 // CHECK-SAME: <8 x i8> [[X:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    ret <8 x i8> [[X]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[X]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP0]]
 //
-// CHECK-CXX-LABEL: define dso_local noundef <8 x i8> @_Z10test_s8_f813__Mfloat8x8_t(
+// CHECK-CXX-LABEL: define dso_local noundef <8 x b8> @_Z10test_s8_f813__Mfloat8x8_t(
 // CHECK-CXX-SAME: <8 x i8> [[X:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    ret <8 x i8> [[X]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[X]] to <8 x b8>
+// CHECK-CXX-NEXT:    ret <8 x b8> [[TMP0]]
 //
 int8x8_t test_s8_f8(mfloat8x8_t x) {
     return (int8x8_t) x;
 }
 
 // CHECK-LABEL: define dso_local <16 x i8> @testq_f8_s8(
-// CHECK-SAME: <16 x i8> noundef [[X:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: <16 x b8> noundef [[X:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    ret <16 x i8> [[X]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[X]] to <16 x i8>
+// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
 //
 // CHECK-CXX-LABEL: define dso_local <16 x i8> @_Z11testq_f8_s811__Int8x16_t(
-// CHECK-CXX-SAME: <16 x i8> noundef [[X:%.*]]) #[[ATTR0]] {
+// CHECK-CXX-SAME: <16 x b8> noundef [[X:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    ret <16 x i8> [[X]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast <16 x b8> [[X]] to <16 x i8>
+// CHECK-CXX-NEXT:    ret <16 x i8> [[TMP0]]
 //
 mfloat8x16_t testq_f8_s8(int8x16_t x) {
     return (mfloat8x16_t) x;
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @testq_s8_f8(
+// CHECK-LABEL: define dso_local <16 x b8> @testq_s8_f8(
 // CHECK-SAME: <16 x i8> [[X:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    ret <16 x i8> [[X]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[X]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
-// CHECK-CXX-LABEL: define dso_local noundef <16 x i8> @_Z11testq_s8_f814__Mfloat8x16_t(
+// CHECK-CXX-LABEL: define dso_local noundef <16 x b8> @_Z11testq_s8_f814__Mfloat8x16_t(
 // CHECK-CXX-SAME: <16 x i8> [[X:%.*]]) #[[ATTR0]] {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
-// CHECK-CXX-NEXT:    ret <16 x i8> [[X]]
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[X]] to <16 x b8>
+// CHECK-CXX-NEXT:    ret <16 x b8> [[TMP0]]
 //
 int8x16_t testq_s8_f8(mfloat8x16_t x) {
     return (int8x16_t) x;

@@ -10,10 +10,11 @@
 
 // CHECK-LABEL: @test_vldap1q_lane_u64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
-// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <2 x i64> [[TMP1]], i64 [[TMP2]], i32 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
+// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <2 x i64> [[TMP2]], i64 [[TMP3]], i32 1
 // CHECK-NEXT:    ret <2 x i64> [[VLDAP1_LANE]]
 //
 uint64x2_t test_vldap1q_lane_u64(uint64_t  *a, uint64x2_t b) {
@@ -22,10 +23,11 @@ uint64x2_t test_vldap1q_lane_u64(uint64_t  *a, uint64x2_t b) {
 
 // CHECK-LABEL: @test_vldap1q_lane_s64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
-// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <2 x i64> [[TMP1]], i64 [[TMP2]], i32 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
+// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <2 x i64> [[TMP2]], i64 [[TMP3]], i32 1
 // CHECK-NEXT:    ret <2 x i64> [[VLDAP1_LANE]]
 //
 int64x2_t test_vldap1q_lane_s64(int64_t  *a, int64x2_t b) {
@@ -35,10 +37,11 @@ int64x2_t test_vldap1q_lane_s64(int64_t  *a, int64x2_t b) {
 // CHECK-LABEL: @test_vldap1q_lane_f64(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[B:%.*]] to <2 x i64>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
-// CHECK-NEXT:    [[TMP3:%.*]] = load atomic double, ptr [[A:%.*]] acquire, align 8
-// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <2 x double> [[TMP2]], double [[TMP3]], i32 1
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = load atomic double, ptr [[A:%.*]] acquire, align 8
+// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <2 x double> [[TMP3]], double [[TMP4]], i32 1
 // CHECK-NEXT:    ret <2 x double> [[VLDAP1_LANE]]
 //
 float64x2_t test_vldap1q_lane_f64(float64_t  *a, float64x2_t b) {
@@ -47,10 +50,11 @@ float64x2_t test_vldap1q_lane_f64(float64_t  *a, float64x2_t b) {
 
 // CHECK-LABEL: @test_vldap1q_lane_p64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
-// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <2 x i64> [[TMP1]], i64 [[TMP2]], i32 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
+// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <2 x i64> [[TMP2]], i64 [[TMP3]], i32 1
 // CHECK-NEXT:    ret <2 x i64> [[VLDAP1_LANE]]
 //
 poly64x2_t test_vldap1q_lane_p64(poly64_t  *a, poly64x2_t b) {
@@ -59,10 +63,11 @@ poly64x2_t test_vldap1q_lane_p64(poly64_t  *a, poly64x2_t b) {
 
 // CHECK-LABEL: @test_vldap1_lane_u64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
-// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <1 x i64> [[TMP1]], i64 [[TMP2]], i32 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
+// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <1 x i64> [[TMP2]], i64 [[TMP3]], i32 0
 // CHECK-NEXT:    ret <1 x i64> [[VLDAP1_LANE]]
 //
 uint64x1_t test_vldap1_lane_u64(uint64_t  *a, uint64x1_t b) {
@@ -71,10 +76,11 @@ uint64x1_t test_vldap1_lane_u64(uint64_t  *a, uint64x1_t b) {
 
 // CHECK-LABEL: @test_vldap1_lane_s64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
-// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <1 x i64> [[TMP1]], i64 [[TMP2]], i32 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
+// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <1 x i64> [[TMP2]], i64 [[TMP3]], i32 0
 // CHECK-NEXT:    ret <1 x i64> [[VLDAP1_LANE]]
 //
 int64x1_t test_vldap1_lane_s64(int64_t  *a, int64x1_t b) {
@@ -85,10 +91,11 @@ int64x1_t test_vldap1_lane_s64(int64_t  *a, int64x1_t b) {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x double> [[B:%.*]] to i64
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP0]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x double>
-// CHECK-NEXT:    [[TMP3:%.*]] = load atomic double, ptr [[A:%.*]] acquire, align 8
-// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <1 x double> [[TMP2]], double [[TMP3]], i32 0
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = load atomic double, ptr [[A:%.*]] acquire, align 8
+// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <1 x double> [[TMP3]], double [[TMP4]], i32 0
 // CHECK-NEXT:    ret <1 x double> [[VLDAP1_LANE]]
 //
 float64x1_t test_vldap1_lane_f64(float64_t  *a, float64x1_t b) {
@@ -97,10 +104,11 @@ float64x1_t test_vldap1_lane_f64(float64_t  *a, float64x1_t b) {
 
 // CHECK-LABEL: @test_vldap1_lane_p64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
-// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <1 x i64> [[TMP1]], i64 [[TMP2]], i32 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load atomic i64, ptr [[A:%.*]] acquire, align 8
+// CHECK-NEXT:    [[VLDAP1_LANE:%.*]] = insertelement <1 x i64> [[TMP2]], i64 [[TMP3]], i32 0
 // CHECK-NEXT:    ret <1 x i64> [[VLDAP1_LANE]]
 //
 poly64x1_t test_vldap1_lane_p64(poly64_t  *a, poly64x1_t b) {
@@ -109,10 +117,11 @@ poly64x1_t test_vldap1_lane_p64(poly64_t  *a, poly64x1_t b) {
 
 // CHECK-LABEL: @test_vstl1q_lane_u64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
-// CHECK-NEXT:    store atomic i64 [[TMP2]], ptr [[A:%.*]] release, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x i64> [[TMP2]], i32 1
+// CHECK-NEXT:    store atomic i64 [[TMP3]], ptr [[A:%.*]] release, align 8
 // CHECK-NEXT:    ret void
 //
 void test_vstl1q_lane_u64(uint64_t  *a, uint64x2_t b) {
@@ -121,10 +130,11 @@ void test_vstl1q_lane_u64(uint64_t  *a, uint64x2_t b) {
 
 // CHECK-LABEL: @test_vstl1q_lane_s64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
-// CHECK-NEXT:    store atomic i64 [[TMP2]], ptr [[A:%.*]] release, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x i64> [[TMP2]], i32 1
+// CHECK-NEXT:    store atomic i64 [[TMP3]], ptr [[A:%.*]] release, align 8
 // CHECK-NEXT:    ret void
 //
 void test_vstl1q_lane_s64(int64_t  *a, int64x2_t b) {
@@ -134,10 +144,11 @@ void test_vstl1q_lane_s64(int64_t  *a, int64x2_t b) {
 // CHECK-LABEL: @test_vstl1q_lane_f64(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[B:%.*]] to <2 x i64>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
-// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x double> [[TMP2]], i32 1
-// CHECK-NEXT:    store atomic double [[TMP3]], ptr [[A:%.*]] release, align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = extractelement <2 x double> [[TMP3]], i32 1
+// CHECK-NEXT:    store atomic double [[TMP4]], ptr [[A:%.*]] release, align 8
 // CHECK-NEXT:    ret void
 //
 void test_vstl1q_lane_f64(float64_t  *a, float64x2_t b) {
@@ -146,10 +157,11 @@ void test_vstl1q_lane_f64(float64_t  *a, float64x2_t b) {
 
 // CHECK-LABEL: @test_vstl1q_lane_p64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
-// CHECK-NEXT:    store atomic i64 [[TMP2]], ptr [[A:%.*]] release, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B:%.*]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x i64> [[TMP2]], i32 1
+// CHECK-NEXT:    store atomic i64 [[TMP3]], ptr [[A:%.*]] release, align 8
 // CHECK-NEXT:    ret void
 //
 void test_vstl1q_lane_p64(poly64_t  *a, poly64x2_t b) {
@@ -158,10 +170,11 @@ void test_vstl1q_lane_p64(poly64_t  *a, poly64x2_t b) {
 
 // CHECK-LABEL: @test_vstl1_lane_u64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
-// CHECK-NEXT:    store atomic i64 [[TMP2]], ptr [[A:%.*]] release, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <1 x i64> [[TMP2]], i32 0
+// CHECK-NEXT:    store atomic i64 [[TMP3]], ptr [[A:%.*]] release, align 8
 // CHECK-NEXT:    ret void
 //
 void test_vstl1_lane_u64(uint64_t  *a, uint64x1_t b) {
@@ -170,10 +183,11 @@ void test_vstl1_lane_u64(uint64_t  *a, uint64x1_t b) {
 
 // CHECK-LABEL: @test_vstl1_lane_s64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
-// CHECK-NEXT:    store atomic i64 [[TMP2]], ptr [[A:%.*]] release, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <1 x i64> [[TMP2]], i32 0
+// CHECK-NEXT:    store atomic i64 [[TMP3]], ptr [[A:%.*]] release, align 8
 // CHECK-NEXT:    ret void
 //
 void test_vstl1_lane_s64(int64_t  *a, int64x1_t b) {
@@ -184,10 +198,11 @@ void test_vstl1_lane_s64(int64_t  *a, int64x1_t b) {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x double> [[B:%.*]] to i64
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP0]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x double>
-// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <1 x double> [[TMP2]], i32 0
-// CHECK-NEXT:    store atomic double [[TMP3]], ptr [[A:%.*]] release, align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = extractelement <1 x double> [[TMP3]], i32 0
+// CHECK-NEXT:    store atomic double [[TMP4]], ptr [[A:%.*]] release, align 8
 // CHECK-NEXT:    ret void
 //
 void test_vstl1_lane_f64(float64_t  *a, float64x1_t b) {
@@ -196,10 +211,11 @@ void test_vstl1_lane_f64(float64_t  *a, float64x1_t b) {
 
 // CHECK-LABEL: @test_vstl1_lane_p64(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
-// CHECK-NEXT:    store atomic i64 [[TMP2]], ptr [[A:%.*]] release, align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B:%.*]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <1 x i64> [[TMP2]], i32 0
+// CHECK-NEXT:    store atomic i64 [[TMP3]], ptr [[A:%.*]] release, align 8
 // CHECK-NEXT:    ret void
 //
 void test_vstl1_lane_p64(poly64_t  *a, poly64x1_t b) {

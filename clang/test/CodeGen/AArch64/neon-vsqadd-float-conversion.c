@@ -25,11 +25,16 @@ uint64_t test_vsqaddd_u64() {
 
 // CHECK-LABEL: @test_vsqaddb_u8()
 // CHECK: entry:
-// CHECK-NEXT: [[T0:%.*]] = insertelement <8 x i8> poison, i8 1, i64 0
-// CHECK-NEXT: [[T1:%.*]] = insertelement <8 x i8> poison, i8 -1, i64 0
-// CHECK-NEXT: [[V:%.*]] = call <8 x i8> @llvm.aarch64.neon.usqadd.v8i8(<8 x i8> [[T0]], <8 x i8> [[T1]])
+// CHECK-NEXT: [[RET:%.*]] = alloca b8
+// CHECK-NEXT: [[T0:%.*]] = bytecast b8 1 to i8
+// CHECK-NEXT: [[T1:%.*]] = insertelement <8 x i8> poison, i8 [[T0]], i64 0
+// CHECK-NEXT: [[T2:%.*]] = bytecast b8 poison to i8
+// CHECK-NEXT: [[T3:%.*]] = insertelement <8 x i8> poison, i8 [[T2]], i64 0
+// CHECK-NEXT: [[V:%.*]] = call <8 x i8> @llvm.aarch64.neon.usqadd.v8i8(<8 x i8> [[T1]], <8 x i8> [[T3]])
 // CHECK-NEXT: [[R:%.*]] = extractelement <8 x i8> [[V]], i64 0
-// CHECK-NEXT: ret i8 [[R]]
+// CHECK-NEXT: store i8 [[R]], ptr [[RET]]
+// CHECK-NEXT: [[T4:%.*]] = load b8, ptr [[RET]]
+// CHECK-NEXT: ret b8 [[T4]]
 
 // CHECK-LABEL: @test_vsqaddh_u16()
 // CHECK: entry:
