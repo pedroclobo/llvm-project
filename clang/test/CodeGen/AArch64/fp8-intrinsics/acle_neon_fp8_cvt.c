@@ -276,11 +276,11 @@ mfloat8x16_t test_vcvt_high_mf8_f32_fpm(mfloat8x8_t vd, float32x4_t vn,
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x half> [[VN]] to <4 x i16>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x half> [[VM]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VFCVTN_I:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x half>
-// CHECK-NEXT:    [[VFCVTN1_I:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    [[VFCVTN_I:%.*]] = bytecast <8 x b8> [[TMP2]] to <4 x half>
+// CHECK-NEXT:    [[VFCVTN1_I:%.*]] = bytecast <8 x b8> [[TMP3]] to <4 x half>
 // CHECK-NEXT:    [[VFCVTN2_I:%.*]] = call <8 x i8> @llvm.aarch64.neon.fp8.fcvtn.v8i8.v4f16(<4 x half> [[VFCVTN_I]], <4 x half> [[VFCVTN1_I]])
 // CHECK-NEXT:    ret <8 x i8> [[VFCVTN2_I]]
 //
@@ -289,11 +289,11 @@ mfloat8x16_t test_vcvt_high_mf8_f32_fpm(mfloat8x8_t vd, float32x4_t vn,
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <4 x half> [[VN]] to <4 x i16>
 // CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <4 x half> [[VM]] to <4 x i16>
-// CHECK-CXX-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VFCVTN_I:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x half>
-// CHECK-CXX-NEXT:    [[VFCVTN1_I:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x half>
+// CHECK-CXX-NEXT:    [[VFCVTN_I:%.*]] = bytecast <8 x b8> [[TMP2]] to <4 x half>
+// CHECK-CXX-NEXT:    [[VFCVTN1_I:%.*]] = bytecast <8 x b8> [[TMP3]] to <4 x half>
 // CHECK-CXX-NEXT:    [[VFCVTN2_I:%.*]] = call <8 x i8> @llvm.aarch64.neon.fp8.fcvtn.v8i8.v4f16(<4 x half> [[VFCVTN_I]], <4 x half> [[VFCVTN1_I]])
 // CHECK-CXX-NEXT:    ret <8 x i8> [[VFCVTN2_I]]
 //
@@ -306,11 +306,11 @@ mfloat8x8_t test_vcvt_mf8_f16_fpm(float16x4_t vn, float16x4_t vm, fpm_t fpm) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VN]] to <8 x i16>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x half> [[VM]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
 // CHECK-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-NEXT:    [[VFCVTN_I:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x half>
-// CHECK-NEXT:    [[VFCVTN1_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x half>
+// CHECK-NEXT:    [[VFCVTN_I:%.*]] = bytecast <16 x b8> [[TMP2]] to <8 x half>
+// CHECK-NEXT:    [[VFCVTN1_I:%.*]] = bytecast <16 x b8> [[TMP3]] to <8 x half>
 // CHECK-NEXT:    [[VFCVTN2_I:%.*]] = call <16 x i8> @llvm.aarch64.neon.fp8.fcvtn.v16i8.v8f16(<8 x half> [[VFCVTN_I]], <8 x half> [[VFCVTN1_I]])
 // CHECK-NEXT:    ret <16 x i8> [[VFCVTN2_I]]
 //
@@ -319,11 +319,11 @@ mfloat8x8_t test_vcvt_mf8_f16_fpm(float16x4_t vn, float16x4_t vm, fpm_t fpm) {
 // CHECK-CXX-NEXT:  [[ENTRY:.*:]]
 // CHECK-CXX-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[VN]] to <8 x i16>
 // CHECK-CXX-NEXT:    [[TMP1:%.*]] = bitcast <8 x half> [[VM]] to <8 x i16>
-// CHECK-CXX-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-CXX-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
+// CHECK-CXX-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-CXX-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
 // CHECK-CXX-NEXT:    call void @llvm.aarch64.set.fpmr(i64 [[FPM]])
-// CHECK-CXX-NEXT:    [[VFCVTN_I:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x half>
-// CHECK-CXX-NEXT:    [[VFCVTN1_I:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VFCVTN_I:%.*]] = bytecast <16 x b8> [[TMP2]] to <8 x half>
+// CHECK-CXX-NEXT:    [[VFCVTN1_I:%.*]] = bytecast <16 x b8> [[TMP3]] to <8 x half>
 // CHECK-CXX-NEXT:    [[VFCVTN2_I:%.*]] = call <16 x i8> @llvm.aarch64.neon.fp8.fcvtn.v16i8.v8f16(<8 x half> [[VFCVTN_I]], <8 x half> [[VFCVTN1_I]])
 // CHECK-CXX-NEXT:    ret <16 x i8> [[VFCVTN2_I]]
 //

@@ -202,13 +202,14 @@ float32_t test_vfmss_lane_f32(float32_t a, float32_t b, float32x2_t c) {
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP1]], i32 0
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x double> [[V]] to i64
 // CHECK-NEXT:    [[__S2_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP2]], i32 0
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[__S2_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x double>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <1 x double> [[TMP6]], <1 x double> [[TMP6]], <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[FMLA:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x double>
-// CHECK-NEXT:    [[FMLA1:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[__S2_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x double>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <1 x double> [[TMP7]], <1 x double> [[TMP7]], <1 x i32> zeroinitializer
+// CHECK-NEXT:    [[FMLA:%.*]] = bytecast <8 x b8> [[TMP4]] to <1 x double>
+// CHECK-NEXT:    [[FMLA1:%.*]] = bytecast <8 x b8> [[TMP3]] to <1 x double>
 // CHECK-NEXT:    [[FMLA2:%.*]] = call <1 x double> @llvm.fma.v1f64(<1 x double> [[FMLA]], <1 x double> [[LANE]], <1 x double> [[FMLA1]])
 // CHECK-NEXT:    ret <1 x double> [[FMLA2]]
 //
@@ -226,13 +227,14 @@ float64x1_t test_vfma_lane_f64(float64x1_t a, float64x1_t b, float64x1_t v) {
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP1]], i32 0
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x double> [[V]] to i64
 // CHECK-NEXT:    [[__S2_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP2]], i32 0
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[__S2_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x double>
-// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <1 x double> [[TMP6]], <1 x double> [[TMP6]], <1 x i32> zeroinitializer
-// CHECK-NEXT:    [[FMLA:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x double>
-// CHECK-NEXT:    [[FMLA1:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[__S2_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x double>
+// CHECK-NEXT:    [[LANE:%.*]] = shufflevector <1 x double> [[TMP7]], <1 x double> [[TMP7]], <1 x i32> zeroinitializer
+// CHECK-NEXT:    [[FMLA:%.*]] = bytecast <8 x b8> [[TMP4]] to <1 x double>
+// CHECK-NEXT:    [[FMLA1:%.*]] = bytecast <8 x b8> [[TMP3]] to <1 x double>
 // CHECK-NEXT:    [[FMLA2:%.*]] = call <1 x double> @llvm.fma.v1f64(<1 x double> [[FMLA]], <1 x double> [[LANE]], <1 x double> [[FMLA1]])
 // CHECK-NEXT:    ret <1 x double> [[FMLA2]]
 //
@@ -248,16 +250,19 @@ float64x1_t test_vfms_lane_f64(float64x1_t a, float64x1_t b, float64x1_t v) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x double> [[B]] to i64
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP1]], i32 0
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x double> [[V]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to double
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to double
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x double>
-// CHECK-NEXT:    [[EXTRACT:%.*]] = extractelement <2 x double> [[TMP8]], i32 0
-// CHECK-NEXT:    [[TMP9:%.*]] = call double @llvm.fma.f64(double [[TMP7]], double [[EXTRACT]], double [[TMP6]])
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast double [[TMP9]] to <1 x double>
-// CHECK-NEXT:    ret <1 x double> [[TMP10]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to double
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to double
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x double>
+// CHECK-NEXT:    [[EXTRACT:%.*]] = extractelement <2 x double> [[TMP11]], i32 0
+// CHECK-NEXT:    [[TMP12:%.*]] = call double @llvm.fma.f64(double [[TMP9]], double [[EXTRACT]], double [[TMP7]])
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast double [[TMP12]] to <1 x double>
+// CHECK-NEXT:    ret <1 x double> [[TMP13]]
 //
 float64x1_t test_vfma_laneq_f64(float64x1_t a, float64x1_t b, float64x2_t v) {
   return vfma_laneq_f64(a, b, v, 0);
@@ -272,16 +277,19 @@ float64x1_t test_vfma_laneq_f64(float64x1_t a, float64x1_t b, float64x2_t v) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x double> [[FNEG]] to i64
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP1]], i32 0
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x double> [[V]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to double
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to double
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x double>
-// CHECK-NEXT:    [[EXTRACT:%.*]] = extractelement <2 x double> [[TMP8]], i32 0
-// CHECK-NEXT:    [[TMP9:%.*]] = call double @llvm.fma.f64(double [[TMP7]], double [[EXTRACT]], double [[TMP6]])
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast double [[TMP9]] to <1 x double>
-// CHECK-NEXT:    ret <1 x double> [[TMP10]]
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[__S0_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to double
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to double
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x double>
+// CHECK-NEXT:    [[EXTRACT:%.*]] = extractelement <2 x double> [[TMP11]], i32 0
+// CHECK-NEXT:    [[TMP12:%.*]] = call double @llvm.fma.f64(double [[TMP9]], double [[EXTRACT]], double [[TMP7]])
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast double [[TMP12]] to <1 x double>
+// CHECK-NEXT:    ret <1 x double> [[TMP13]]
 //
 float64x1_t test_vfms_laneq_f64(float64x1_t a, float64x1_t b, float64x2_t v) {
   return vfms_laneq_f64(a, b, v, 0);
