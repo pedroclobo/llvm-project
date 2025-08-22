@@ -15,15 +15,19 @@
 #endif
 
 // CHECK-C-LABEL: define dso_local void @test_svmops_za32_s8(
-// CHECK-C-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
+// CHECK-C-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    tail call void @llvm.aarch64.sme.smops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    tail call void @llvm.aarch64.sme.smops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-C-NEXT:    ret void
 //
 // CHECK-CXX-LABEL: define dso_local void @_Z19test_svmops_za32_s8u10__SVBool_tS_u10__SVInt8_tS0_(
-// CHECK-CXX-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
+// CHECK-CXX-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    tail call void @llvm.aarch64.sme.smops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    tail call void @llvm.aarch64.sme.smops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-CXX-NEXT:    ret void
 //
 void test_svmops_za32_s8(svbool_t pn, svbool_t pm, svint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za") {
@@ -31,15 +35,19 @@ void test_svmops_za32_s8(svbool_t pn, svbool_t pm, svint8_t zn, svint8_t zm) __a
 }
 
 // CHECK-C-LABEL: define dso_local void @test_svmops_za32_u8(
-// CHECK-C-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    tail call void @llvm.aarch64.sme.umops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    tail call void @llvm.aarch64.sme.umops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-C-NEXT:    ret void
 //
 // CHECK-CXX-LABEL: define dso_local void @_Z19test_svmops_za32_u8u10__SVBool_tS_u11__SVUint8_tS0_(
-// CHECK-CXX-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    tail call void @llvm.aarch64.sme.umops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    tail call void @llvm.aarch64.sme.umops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-CXX-NEXT:    ret void
 //
 void test_svmops_za32_u8(svbool_t pn, svbool_t pm, svuint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za") {
@@ -107,15 +115,19 @@ void test_svmops_za32_f32(svbool_t pn, svbool_t pm, svfloat32_t zn, svfloat32_t 
 }
 
 // CHECK-C-LABEL: define dso_local void @test_svsumops_za32_s8(
-// CHECK-C-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    tail call void @llvm.aarch64.sme.sumops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    tail call void @llvm.aarch64.sme.sumops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-C-NEXT:    ret void
 //
 // CHECK-CXX-LABEL: define dso_local void @_Z21test_svsumops_za32_s8u10__SVBool_tS_u10__SVInt8_tu11__SVUint8_t(
-// CHECK-CXX-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    tail call void @llvm.aarch64.sme.sumops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    tail call void @llvm.aarch64.sme.sumops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-CXX-NEXT:    ret void
 //
 void test_svsumops_za32_s8(svbool_t pn, svbool_t pm, svint8_t zn, svuint8_t zm) __arm_streaming __arm_inout("za") {
@@ -123,15 +135,19 @@ void test_svsumops_za32_s8(svbool_t pn, svbool_t pm, svint8_t zn, svuint8_t zm) 
 }
 
 // CHECK-C-LABEL: define dso_local void @test_svusmops_za32_u8(
-// CHECK-C-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-C-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-C-NEXT:  entry:
-// CHECK-C-NEXT:    tail call void @llvm.aarch64.sme.usmops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
+// CHECK-C-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-C-NEXT:    tail call void @llvm.aarch64.sme.usmops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-C-NEXT:    ret void
 //
 // CHECK-CXX-LABEL: define dso_local void @_Z21test_svusmops_za32_u8u10__SVBool_tS_u11__SVUint8_tu10__SVInt8_t(
-// CHECK-CXX-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-CXX-SAME: <vscale x 16 x i1> [[PN:%.*]], <vscale x 16 x i1> [[PM:%.*]], <vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-CXX-NEXT:  entry:
-// CHECK-CXX-NEXT:    tail call void @llvm.aarch64.sme.usmops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
+// CHECK-CXX-NEXT:    [[TMP0:%.*]] = bytecast exact <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    [[TMP1:%.*]] = bytecast exact <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-CXX-NEXT:    tail call void @llvm.aarch64.sme.usmops.wide.nxv16i8(i32 0, <vscale x 16 x i1> [[PN]], <vscale x 16 x i1> [[PM]], <vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
 // CHECK-CXX-NEXT:    ret void
 //
 void test_svusmops_za32_u8(svbool_t pn, svbool_t pm, svuint8_t zn, svint8_t zm) __arm_streaming __arm_inout("za") {

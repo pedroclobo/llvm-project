@@ -7,13 +7,14 @@
 
 #include <arm_neon.h>
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vld1q_dup_u8(
+// CHECK-LABEL: define dso_local <16 x b8> @test_vld1q_dup_u8(
 // CHECK-SAME: ptr noundef [[A:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x i8> poison, i8 [[TMP0]], i32 0
 // CHECK-NEXT:    [[LANE:%.*]] = shufflevector <16 x i8> [[TMP1]], <16 x i8> [[TMP1]], <16 x i32> zeroinitializer
-// CHECK-NEXT:    ret <16 x i8> [[LANE]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[LANE]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vld1q_dup_u8(uint8_t  *a) {
   return vld1q_dup_u8(a);
@@ -55,13 +56,14 @@ uint64x2_t test_vld1q_dup_u64(uint64_t  *a) {
   return vld1q_dup_u64(a);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vld1q_dup_s8(
+// CHECK-LABEL: define dso_local <16 x b8> @test_vld1q_dup_s8(
 // CHECK-SAME: ptr noundef [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x i8> poison, i8 [[TMP0]], i32 0
 // CHECK-NEXT:    [[LANE:%.*]] = shufflevector <16 x i8> [[TMP1]], <16 x i8> [[TMP1]], <16 x i32> zeroinitializer
-// CHECK-NEXT:    ret <16 x i8> [[LANE]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[LANE]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 int8x16_t test_vld1q_dup_s8(int8_t  *a) {
   return vld1q_dup_s8(a);
@@ -151,13 +153,14 @@ mfloat8x16_t test_vld1q_dup_mf8(mfloat8_t  *a) {
   return vld1q_dup_mf8(a);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vld1q_dup_p8(
+// CHECK-LABEL: define dso_local <16 x b8> @test_vld1q_dup_p8(
 // CHECK-SAME: ptr noundef [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = insertelement <16 x i8> poison, i8 [[TMP0]], i32 0
 // CHECK-NEXT:    [[LANE:%.*]] = shufflevector <16 x i8> [[TMP1]], <16 x i8> [[TMP1]], <16 x i32> zeroinitializer
-// CHECK-NEXT:    ret <16 x i8> [[LANE]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[LANE]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 poly8x16_t test_vld1q_dup_p8(poly8_t  *a) {
   return vld1q_dup_p8(a);
@@ -187,13 +190,14 @@ poly64x2_t test_vld1q_dup_p64(poly64_t  *a) {
   return vld1q_dup_p64(a);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vld1_dup_u8(
+// CHECK-LABEL: define dso_local <8 x b8> @test_vld1_dup_u8(
 // CHECK-SAME: ptr noundef [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = insertelement <8 x i8> poison, i8 [[TMP0]], i32 0
 // CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i8> [[TMP1]], <8 x i8> [[TMP1]], <8 x i32> zeroinitializer
-// CHECK-NEXT:    ret <8 x i8> [[LANE]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[LANE]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 uint8x8_t test_vld1_dup_u8(uint8_t  *a) {
   return vld1_dup_u8(a);
@@ -235,13 +239,14 @@ uint64x1_t test_vld1_dup_u64(uint64_t  *a) {
   return vld1_dup_u64(a);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vld1_dup_s8(
+// CHECK-LABEL: define dso_local <8 x b8> @test_vld1_dup_s8(
 // CHECK-SAME: ptr noundef [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = insertelement <8 x i8> poison, i8 [[TMP0]], i32 0
 // CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i8> [[TMP1]], <8 x i8> [[TMP1]], <8 x i32> zeroinitializer
-// CHECK-NEXT:    ret <8 x i8> [[LANE]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[LANE]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 int8x8_t test_vld1_dup_s8(int8_t  *a) {
   return vld1_dup_s8(a);
@@ -331,13 +336,14 @@ mfloat8x8_t test_vld1_dup_mf8(mfloat8_t  *a) {
   return vld1_dup_mf8(a);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vld1_dup_p8(
+// CHECK-LABEL: define dso_local <8 x b8> @test_vld1_dup_p8(
 // CHECK-SAME: ptr noundef [[A:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
 // CHECK-NEXT:    [[TMP1:%.*]] = insertelement <8 x i8> poison, i8 [[TMP0]], i32 0
 // CHECK-NEXT:    [[LANE:%.*]] = shufflevector <8 x i8> [[TMP1]], <8 x i8> [[TMP1]], <8 x i32> zeroinitializer
-// CHECK-NEXT:    ret <8 x i8> [[LANE]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[LANE]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 poly8x8_t test_vld1_dup_p8(poly8_t  *a) {
   return vld1_dup_p8(a);
@@ -757,12 +763,14 @@ poly64x1x4_t test_vld4_dup_p64(poly64_t  *a) {
   return vld4_dup_p64(a);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vld1q_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vld1q_lane_u8(
+// CHECK-SAME: ptr noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <16 x i8> [[B]], i8 [[TMP0]], i32 15
-// CHECK-NEXT:    ret <16 x i8> [[VLD1_LANE]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[TMP1]], i32 15
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VLD1_LANE]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 uint8x16_t test_vld1q_lane_u8(uint8_t  *a, uint8x16_t b) {
   return vld1q_lane_u8(a, b, 15);
@@ -771,10 +779,11 @@ uint8x16_t test_vld1q_lane_u8(uint8_t  *a, uint8x16_t b) {
 // CHECK-LABEL: define dso_local <8 x i16> @test_vld1q_lane_u16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[A]], align 2
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i16> [[TMP1]], i16 [[TMP2]], i32 7
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i16, ptr [[A]], align 2
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i16> [[TMP2]], i16 [[TMP3]], i32 7
 // CHECK-NEXT:    ret <8 x i16> [[VLD1_LANE]]
 //
 uint16x8_t test_vld1q_lane_u16(uint16_t  *a, uint16x8_t b) {
@@ -784,10 +793,11 @@ uint16x8_t test_vld1q_lane_u16(uint16_t  *a, uint16x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i32> @test_vld1q_lane_u32(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[A]], align 4
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i32> [[TMP1]], i32 [[TMP2]], i32 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i32> [[TMP2]], i32 [[TMP3]], i32 3
 // CHECK-NEXT:    ret <4 x i32> [[VLD1_LANE]]
 //
 uint32x4_t test_vld1q_lane_u32(uint32_t  *a, uint32x4_t b) {
@@ -797,22 +807,25 @@ uint32x4_t test_vld1q_lane_u32(uint32_t  *a, uint32x4_t b) {
 // CHECK-LABEL: define dso_local <2 x i64> @test_vld1q_lane_u64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[A]], align 8
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i64> [[TMP1]], i64 [[TMP2]], i32 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[A]], align 8
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i64> [[TMP2]], i64 [[TMP3]], i32 1
 // CHECK-NEXT:    ret <2 x i64> [[VLD1_LANE]]
 //
 uint64x2_t test_vld1q_lane_u64(uint64_t  *a, uint64x2_t b) {
   return vld1q_lane_u64(a, b, 1);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vld1q_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vld1q_lane_s8(
+// CHECK-SAME: ptr noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <16 x i8> [[B]], i8 [[TMP0]], i32 15
-// CHECK-NEXT:    ret <16 x i8> [[VLD1_LANE]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[TMP1]], i32 15
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VLD1_LANE]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 int8x16_t test_vld1q_lane_s8(int8_t  *a, int8x16_t b) {
   return vld1q_lane_s8(a, b, 15);
@@ -821,10 +834,11 @@ int8x16_t test_vld1q_lane_s8(int8_t  *a, int8x16_t b) {
 // CHECK-LABEL: define dso_local <8 x i16> @test_vld1q_lane_s16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[A]], align 2
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i16> [[TMP1]], i16 [[TMP2]], i32 7
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i16, ptr [[A]], align 2
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i16> [[TMP2]], i16 [[TMP3]], i32 7
 // CHECK-NEXT:    ret <8 x i16> [[VLD1_LANE]]
 //
 int16x8_t test_vld1q_lane_s16(int16_t  *a, int16x8_t b) {
@@ -834,10 +848,11 @@ int16x8_t test_vld1q_lane_s16(int16_t  *a, int16x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i32> @test_vld1q_lane_s32(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[A]], align 4
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i32> [[TMP1]], i32 [[TMP2]], i32 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i32> [[TMP2]], i32 [[TMP3]], i32 3
 // CHECK-NEXT:    ret <4 x i32> [[VLD1_LANE]]
 //
 int32x4_t test_vld1q_lane_s32(int32_t  *a, int32x4_t b) {
@@ -847,10 +862,11 @@ int32x4_t test_vld1q_lane_s32(int32_t  *a, int32x4_t b) {
 // CHECK-LABEL: define dso_local <2 x i64> @test_vld1q_lane_s64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[A]], align 8
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i64> [[TMP1]], i64 [[TMP2]], i32 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[A]], align 8
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i64> [[TMP2]], i64 [[TMP3]], i32 1
 // CHECK-NEXT:    ret <2 x i64> [[VLD1_LANE]]
 //
 int64x2_t test_vld1q_lane_s64(int64_t  *a, int64x2_t b) {
@@ -861,10 +877,11 @@ int64x2_t test_vld1q_lane_s64(int64_t  *a, int64x2_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x half> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[B]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
-// CHECK-NEXT:    [[TMP3:%.*]] = load half, ptr [[A]], align 2
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x half> [[TMP2]], half [[TMP3]], i32 7
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x half>
+// CHECK-NEXT:    [[TMP4:%.*]] = load half, ptr [[A]], align 2
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x half> [[TMP3]], half [[TMP4]], i32 7
 // CHECK-NEXT:    ret <8 x half> [[VLD1_LANE]]
 //
 float16x8_t test_vld1q_lane_f16(float16_t  *a, float16x8_t b) {
@@ -875,10 +892,11 @@ float16x8_t test_vld1q_lane_f16(float16_t  *a, float16x8_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x float> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[B]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[TMP3:%.*]] = load float, ptr [[A]], align 4
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x float> [[TMP2]], float [[TMP3]], i32 3
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[TMP4:%.*]] = load float, ptr [[A]], align 4
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x float> [[TMP3]], float [[TMP4]], i32 3
 // CHECK-NEXT:    ret <4 x float> [[VLD1_LANE]]
 //
 float32x4_t test_vld1q_lane_f32(float32_t  *a, float32x4_t b) {
@@ -889,10 +907,11 @@ float32x4_t test_vld1q_lane_f32(float32_t  *a, float32x4_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x double> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[B]] to <2 x i64>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
-// CHECK-NEXT:    [[TMP3:%.*]] = load double, ptr [[A]], align 8
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x double> [[TMP2]], double [[TMP3]], i32 1
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = load double, ptr [[A]], align 8
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x double> [[TMP3]], double [[TMP4]], i32 1
 // CHECK-NEXT:    ret <2 x double> [[VLD1_LANE]]
 //
 float64x2_t test_vld1q_lane_f64(float64_t  *a, float64x2_t b) {
@@ -902,20 +921,24 @@ float64x2_t test_vld1q_lane_f64(float64_t  *a, float64x2_t b) {
 // CHECK-LABEL: define dso_local <16 x i8> @test_vld1q_lane_mf8(
 // CHECK-SAME: ptr noundef [[A:%.*]], <16 x i8> [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <16 x i8> [[B]], i8 [[TMP0]], i32 15
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = load i8, ptr [[A]], align 1
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <16 x i8> [[TMP1]], i8 [[TMP2]], i32 15
 // CHECK-NEXT:    ret <16 x i8> [[VLD1_LANE]]
 //
 mfloat8x16_t test_vld1q_lane_mf8(mfloat8_t  *a, mfloat8x16_t b) {
   return vld1q_lane_mf8(a, b, 15);
 }
 
-// CHECK-LABEL: define dso_local <16 x i8> @test_vld1q_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <16 x b8> @test_vld1q_lane_p8(
+// CHECK-SAME: ptr noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <16 x i8> [[B]], i8 [[TMP0]], i32 15
-// CHECK-NEXT:    ret <16 x i8> [[VLD1_LANE]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <16 x i8> [[TMP0]], i8 [[TMP1]], i32 15
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VLD1_LANE]] to <16 x b8>
+// CHECK-NEXT:    ret <16 x b8> [[TMP2]]
 //
 poly8x16_t test_vld1q_lane_p8(poly8_t  *a, poly8x16_t b) {
   return vld1q_lane_p8(a, b, 15);
@@ -924,10 +947,11 @@ poly8x16_t test_vld1q_lane_p8(poly8_t  *a, poly8x16_t b) {
 // CHECK-LABEL: define dso_local <8 x i16> @test_vld1q_lane_p16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[A]], align 2
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i16> [[TMP1]], i16 [[TMP2]], i32 7
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i16, ptr [[A]], align 2
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i16> [[TMP2]], i16 [[TMP3]], i32 7
 // CHECK-NEXT:    ret <8 x i16> [[VLD1_LANE]]
 //
 poly16x8_t test_vld1q_lane_p16(poly16_t  *a, poly16x8_t b) {
@@ -937,22 +961,25 @@ poly16x8_t test_vld1q_lane_p16(poly16_t  *a, poly16x8_t b) {
 // CHECK-LABEL: define dso_local <2 x i64> @test_vld1q_lane_p64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[A]], align 8
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i64> [[TMP1]], i64 [[TMP2]], i32 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[A]], align 8
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i64> [[TMP2]], i64 [[TMP3]], i32 1
 // CHECK-NEXT:    ret <2 x i64> [[VLD1_LANE]]
 //
 poly64x2_t test_vld1q_lane_p64(poly64_t  *a, poly64x2_t b) {
   return vld1q_lane_p64(a, b, 1);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vld1_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vld1_lane_u8(
+// CHECK-SAME: ptr noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i8> [[B]], i8 [[TMP0]], i32 7
-// CHECK-NEXT:    ret <8 x i8> [[VLD1_LANE]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i8> [[TMP0]], i8 [[TMP1]], i32 7
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VLD1_LANE]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 uint8x8_t test_vld1_lane_u8(uint8_t  *a, uint8x8_t b) {
   return vld1_lane_u8(a, b, 7);
@@ -961,10 +988,11 @@ uint8x8_t test_vld1_lane_u8(uint8_t  *a, uint8x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i16> @test_vld1_lane_u16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[A]], align 2
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i16> [[TMP1]], i16 [[TMP2]], i32 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i16, ptr [[A]], align 2
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i16> [[TMP2]], i16 [[TMP3]], i32 3
 // CHECK-NEXT:    ret <4 x i16> [[VLD1_LANE]]
 //
 uint16x4_t test_vld1_lane_u16(uint16_t  *a, uint16x4_t b) {
@@ -974,10 +1002,11 @@ uint16x4_t test_vld1_lane_u16(uint16_t  *a, uint16x4_t b) {
 // CHECK-LABEL: define dso_local <2 x i32> @test_vld1_lane_u32(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[A]], align 4
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i32> [[TMP1]], i32 [[TMP2]], i32 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i32> [[TMP2]], i32 [[TMP3]], i32 1
 // CHECK-NEXT:    ret <2 x i32> [[VLD1_LANE]]
 //
 uint32x2_t test_vld1_lane_u32(uint32_t  *a, uint32x2_t b) {
@@ -987,22 +1016,25 @@ uint32x2_t test_vld1_lane_u32(uint32_t  *a, uint32x2_t b) {
 // CHECK-LABEL: define dso_local <1 x i64> @test_vld1_lane_u64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <1 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[A]], align 8
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <1 x i64> [[TMP1]], i64 [[TMP2]], i32 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[A]], align 8
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <1 x i64> [[TMP2]], i64 [[TMP3]], i32 0
 // CHECK-NEXT:    ret <1 x i64> [[VLD1_LANE]]
 //
 uint64x1_t test_vld1_lane_u64(uint64_t  *a, uint64x1_t b) {
   return vld1_lane_u64(a, b, 0);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vld1_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vld1_lane_s8(
+// CHECK-SAME: ptr noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i8> [[B]], i8 [[TMP0]], i32 7
-// CHECK-NEXT:    ret <8 x i8> [[VLD1_LANE]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i8> [[TMP0]], i8 [[TMP1]], i32 7
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VLD1_LANE]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 int8x8_t test_vld1_lane_s8(int8_t  *a, int8x8_t b) {
   return vld1_lane_s8(a, b, 7);
@@ -1011,10 +1043,11 @@ int8x8_t test_vld1_lane_s8(int8_t  *a, int8x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i16> @test_vld1_lane_s16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[A]], align 2
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i16> [[TMP1]], i16 [[TMP2]], i32 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i16, ptr [[A]], align 2
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i16> [[TMP2]], i16 [[TMP3]], i32 3
 // CHECK-NEXT:    ret <4 x i16> [[VLD1_LANE]]
 //
 int16x4_t test_vld1_lane_s16(int16_t  *a, int16x4_t b) {
@@ -1024,10 +1057,11 @@ int16x4_t test_vld1_lane_s16(int16_t  *a, int16x4_t b) {
 // CHECK-LABEL: define dso_local <2 x i32> @test_vld1_lane_s32(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[A]], align 4
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i32> [[TMP1]], i32 [[TMP2]], i32 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A]], align 4
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x i32> [[TMP2]], i32 [[TMP3]], i32 1
 // CHECK-NEXT:    ret <2 x i32> [[VLD1_LANE]]
 //
 int32x2_t test_vld1_lane_s32(int32_t  *a, int32x2_t b) {
@@ -1037,10 +1071,11 @@ int32x2_t test_vld1_lane_s32(int32_t  *a, int32x2_t b) {
 // CHECK-LABEL: define dso_local <1 x i64> @test_vld1_lane_s64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <1 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[A]], align 8
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <1 x i64> [[TMP1]], i64 [[TMP2]], i32 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[A]], align 8
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <1 x i64> [[TMP2]], i64 [[TMP3]], i32 0
 // CHECK-NEXT:    ret <1 x i64> [[VLD1_LANE]]
 //
 int64x1_t test_vld1_lane_s64(int64_t  *a, int64x1_t b) {
@@ -1051,10 +1086,11 @@ int64x1_t test_vld1_lane_s64(int64_t  *a, int64x1_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x half> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x half> [[B]] to <4 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x half>
-// CHECK-NEXT:    [[TMP3:%.*]] = load half, ptr [[A]], align 2
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x half> [[TMP2]], half [[TMP3]], i32 3
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x half>
+// CHECK-NEXT:    [[TMP4:%.*]] = load half, ptr [[A]], align 2
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x half> [[TMP3]], half [[TMP4]], i32 3
 // CHECK-NEXT:    ret <4 x half> [[VLD1_LANE]]
 //
 float16x4_t test_vld1_lane_f16(float16_t  *a, float16x4_t b) {
@@ -1065,10 +1101,11 @@ float16x4_t test_vld1_lane_f16(float16_t  *a, float16x4_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x float> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[B]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[TMP3:%.*]] = load float, ptr [[A]], align 4
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x float> [[TMP2]], float [[TMP3]], i32 1
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[TMP4:%.*]] = load float, ptr [[A]], align 4
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <2 x float> [[TMP3]], float [[TMP4]], i32 1
 // CHECK-NEXT:    ret <2 x float> [[VLD1_LANE]]
 //
 float32x2_t test_vld1_lane_f32(float32_t  *a, float32x2_t b) {
@@ -1080,10 +1117,11 @@ float32x2_t test_vld1_lane_f32(float32_t  *a, float32x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x double> [[B]] to i64
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP0]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x double>
-// CHECK-NEXT:    [[TMP3:%.*]] = load double, ptr [[A]], align 8
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <1 x double> [[TMP2]], double [[TMP3]], i32 0
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = load double, ptr [[A]], align 8
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <1 x double> [[TMP3]], double [[TMP4]], i32 0
 // CHECK-NEXT:    ret <1 x double> [[VLD1_LANE]]
 //
 float64x1_t test_vld1_lane_f64(float64_t  *a, float64x1_t b) {
@@ -1093,20 +1131,24 @@ float64x1_t test_vld1_lane_f64(float64_t  *a, float64x1_t b) {
 // CHECK-LABEL: define dso_local <8 x i8> @test_vld1_lane_mf8(
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x i8> [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i8> [[B]], i8 [[TMP0]], i32 7
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = load i8, ptr [[A]], align 1
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i8> [[TMP1]], i8 [[TMP2]], i32 7
 // CHECK-NEXT:    ret <8 x i8> [[VLD1_LANE]]
 //
 mfloat8x8_t test_vld1_lane_mf8(mfloat8_t  *a, mfloat8x8_t b) {
   return vld1_lane_mf8(a, b, 7);
 }
 
-// CHECK-LABEL: define dso_local <8 x i8> @test_vld1_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <8 x b8> @test_vld1_lane_p8(
+// CHECK-SAME: ptr noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[A]], align 1
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i8> [[B]], i8 [[TMP0]], i32 7
-// CHECK-NEXT:    ret <8 x i8> [[VLD1_LANE]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = load i8, ptr [[A]], align 1
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <8 x i8> [[TMP0]], i8 [[TMP1]], i32 7
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VLD1_LANE]] to <8 x b8>
+// CHECK-NEXT:    ret <8 x b8> [[TMP2]]
 //
 poly8x8_t test_vld1_lane_p8(poly8_t  *a, poly8x8_t b) {
   return vld1_lane_p8(a, b, 7);
@@ -1115,10 +1157,11 @@ poly8x8_t test_vld1_lane_p8(poly8_t  *a, poly8x8_t b) {
 // CHECK-LABEL: define dso_local <4 x i16> @test_vld1_lane_p16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i16, ptr [[A]], align 2
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i16> [[TMP1]], i16 [[TMP2]], i32 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i16, ptr [[A]], align 2
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <4 x i16> [[TMP2]], i16 [[TMP3]], i32 3
 // CHECK-NEXT:    ret <4 x i16> [[VLD1_LANE]]
 //
 poly16x4_t test_vld1_lane_p16(poly16_t  *a, poly16x4_t b) {
@@ -1128,10 +1171,11 @@ poly16x4_t test_vld1_lane_p16(poly16_t  *a, poly16x4_t b) {
 // CHECK-LABEL: define dso_local <1 x i64> @test_vld1_lane_p64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <1 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = load i64, ptr [[A]], align 8
-// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <1 x i64> [[TMP1]], i64 [[TMP2]], i32 0
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[A]], align 8
+// CHECK-NEXT:    [[VLD1_LANE:%.*]] = insertelement <1 x i64> [[TMP2]], i64 [[TMP3]], i32 0
 // CHECK-NEXT:    ret <1 x i64> [[VLD1_LANE]]
 //
 poly64x1_t test_vld1_lane_p64(poly64_t  *a, poly64x1_t b) {
@@ -1139,15 +1183,19 @@ poly64x1_t test_vld1_lane_p64(poly64_t  *a, poly64x1_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x16x2_t @test_vld2q_lane_s8(
-// CHECK-SAME: ptr noundef [[PTR:%.*]], [2 x <16 x i8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[PTR:%.*]], [2 x <16 x b8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[SRC_COERCE]], 0
-// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[SRC_COERCE]], 1
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld2lane.v16i8.p0(<16 x i8> [[SRC_COERCE_FCA_0_EXTRACT]], <16 x i8> [[SRC_COERCE_FCA_1_EXTRACT]], i64 15, ptr [[PTR]])
+// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[SRC_COERCE]], 0
+// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[SRC_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld2lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i64 15, ptr [[PTR]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8> } [[VLD2_LANE]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T:%.*]] poison, <16 x i8> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD2_LANE_FCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VLD2_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VLD2_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP3]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 int8x16x2_t test_vld2q_lane_s8(int8_t const * ptr, int8x16x2_t src) {
@@ -1155,15 +1203,19 @@ int8x16x2_t test_vld2q_lane_s8(int8_t const * ptr, int8x16x2_t src) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x16x2_t @test_vld2q_lane_u8(
-// CHECK-SAME: ptr noundef [[PTR:%.*]], [2 x <16 x i8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[PTR:%.*]], [2 x <16 x b8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[SRC_COERCE]], 0
-// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[SRC_COERCE]], 1
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld2lane.v16i8.p0(<16 x i8> [[SRC_COERCE_FCA_0_EXTRACT]], <16 x i8> [[SRC_COERCE_FCA_1_EXTRACT]], i64 15, ptr [[PTR]])
+// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[SRC_COERCE]], 0
+// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[SRC_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld2lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i64 15, ptr [[PTR]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8> } [[VLD2_LANE]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T:%.*]] poison, <16 x i8> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD2_LANE_FCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VLD2_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VLD2_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP3]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 uint8x16x2_t test_vld2q_lane_u8(uint8_t const * ptr, uint8x16x2_t src) {
@@ -1171,15 +1223,19 @@ uint8x16x2_t test_vld2q_lane_u8(uint8_t const * ptr, uint8x16x2_t src) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x16x2_t @test_vld2q_lane_p8(
-// CHECK-SAME: ptr noundef [[PTR:%.*]], [2 x <16 x i8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[PTR:%.*]], [2 x <16 x b8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[SRC_COERCE]], 0
-// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[SRC_COERCE]], 1
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld2lane.v16i8.p0(<16 x i8> [[SRC_COERCE_FCA_0_EXTRACT]], <16 x i8> [[SRC_COERCE_FCA_1_EXTRACT]], i64 15, ptr [[PTR]])
+// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[SRC_COERCE]], 0
+// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[SRC_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld2lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i64 15, ptr [[PTR]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8> } [[VLD2_LANE]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T:%.*]] poison, <16 x i8> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD2_LANE_FCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[VLD2_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T:%.*]] poison, <16 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VLD2_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP3]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY8X16X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 poly8x16x2_t test_vld2q_lane_p8(poly8_t const * ptr, poly8x16x2_t src) {
@@ -1187,18 +1243,24 @@ poly8x16x2_t test_vld2q_lane_p8(poly8_t const * ptr, poly8x16x2_t src) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x16x3_t @test_vld3q_lane_s8(
-// CHECK-SAME: ptr noundef [[PTR:%.*]], [3 x <16 x i8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[PTR:%.*]], [3 x <16 x b8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[SRC_COERCE]], 0
-// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[SRC_COERCE]], 1
-// CHECK-NEXT:    [[SRC_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[SRC_COERCE]], 2
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld3lane.v16i8.p0(<16 x i8> [[SRC_COERCE_FCA_0_EXTRACT]], <16 x i8> [[SRC_COERCE_FCA_1_EXTRACT]], <16 x i8> [[SRC_COERCE_FCA_2_EXTRACT]], i64 15, ptr [[PTR]])
+// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[SRC_COERCE]], 0
+// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[SRC_COERCE]], 1
+// CHECK-NEXT:    [[SRC_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[SRC_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld3lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i64 15, ptr [[PTR]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 2
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X3_T:%.*]] poison, <16 x i8> [[VLD3_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X3_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD3_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X3_T]] [[DOTFCA_0_1_INSERT]], <16 x i8> [[VLD3_LANE_FCA_2_EXTRACT]], 0, 2
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X3_T:%.*]] poison, <16 x b8> [[TMP3]], 0, 0
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X3_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP4]], 0, 1
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X3_T]] [[DOTFCA_0_1_INSERT]], <16 x b8> [[TMP5]], 0, 2
 // CHECK-NEXT:    ret [[STRUCT_INT8X16X3_T]] [[DOTFCA_0_2_INSERT]]
 //
 int8x16x3_t test_vld3q_lane_s8(int8_t const * ptr, int8x16x3_t src) {
@@ -1206,18 +1268,24 @@ int8x16x3_t test_vld3q_lane_s8(int8_t const * ptr, int8x16x3_t src) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x16x3_t @test_vld3q_lane_u8(
-// CHECK-SAME: ptr noundef [[PTR:%.*]], [3 x <16 x i8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[PTR:%.*]], [3 x <16 x b8>] alignstack(16) [[SRC_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[SRC_COERCE]], 0
-// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[SRC_COERCE]], 1
-// CHECK-NEXT:    [[SRC_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[SRC_COERCE]], 2
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld3lane.v16i8.p0(<16 x i8> [[SRC_COERCE_FCA_0_EXTRACT]], <16 x i8> [[SRC_COERCE_FCA_1_EXTRACT]], <16 x i8> [[SRC_COERCE_FCA_2_EXTRACT]], i64 15, ptr [[PTR]])
+// CHECK-NEXT:    [[SRC_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[SRC_COERCE]], 0
+// CHECK-NEXT:    [[SRC_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[SRC_COERCE]], 1
+// CHECK-NEXT:    [[SRC_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[SRC_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[SRC_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld3lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i64 15, ptr [[PTR]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 2
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X3_T:%.*]] poison, <16 x i8> [[VLD3_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X3_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD3_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X3_T]] [[DOTFCA_0_1_INSERT]], <16 x i8> [[VLD3_LANE_FCA_2_EXTRACT]], 0, 2
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X3_T:%.*]] poison, <16 x b8> [[TMP3]], 0, 0
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X3_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP4]], 0, 1
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X3_T]] [[DOTFCA_0_1_INSERT]], <16 x b8> [[TMP5]], 0, 2
 // CHECK-NEXT:    ret [[STRUCT_UINT8X16X3_T]] [[DOTFCA_0_2_INSERT]]
 //
 uint8x16x3_t test_vld3q_lane_u8(uint8_t const * ptr, uint8x16x3_t src) {
@@ -1229,11 +1297,13 @@ uint8x16x3_t test_vld3q_lane_u8(uint8_t const * ptr, uint8x16x3_t src) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld2lane.v8i16.p0(<8 x i16> [[TMP2]], <8 x i16> [[TMP3]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld2lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X8X2_T:%.*]] poison, <8 x i16> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1249,11 +1319,13 @@ uint16x8x2_t test_vld2q_lane_u16(uint16_t  *a, uint16x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld2lane.v4i32.p0(<4 x i32> [[TMP2]], <4 x i32> [[TMP3]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld2lane.v4i32.p0(<4 x i32> [[TMP3]], <4 x i32> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X4X2_T:%.*]] poison, <4 x i32> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1269,11 +1341,13 @@ uint32x4x2_t test_vld2q_lane_u32(uint32_t  *a, uint32x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld2lane.v2i64.p0(<2 x i64> [[TMP2]], <2 x i64> [[TMP3]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld2lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT64X2X2_T:%.*]] poison, <2 x i64> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1289,11 +1363,13 @@ uint64x2x2_t test_vld2q_lane_u64(uint64_t  *a, uint64x2x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld2lane.v8i16.p0(<8 x i16> [[TMP2]], <8 x i16> [[TMP3]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld2lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT16X8X2_T:%.*]] poison, <8 x i16> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1309,11 +1385,13 @@ int16x8x2_t test_vld2q_lane_s16(int16_t  *a, int16x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld2lane.v4i32.p0(<4 x i32> [[TMP2]], <4 x i32> [[TMP3]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld2lane.v4i32.p0(<4 x i32> [[TMP3]], <4 x i32> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT32X4X2_T:%.*]] poison, <4 x i32> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1329,11 +1407,13 @@ int32x4x2_t test_vld2q_lane_s32(int32_t  *a, int32x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld2lane.v2i64.p0(<2 x i64> [[TMP2]], <2 x i64> [[TMP3]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld2lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT64X2X2_T:%.*]] poison, <2 x i64> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1351,11 +1431,13 @@ int64x2x2_t test_vld2q_lane_s64(int64_t  *a, int64x2x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x half>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x half>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x half>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x half>, <8 x half> } @llvm.aarch64.neon.ld2lane.v8f16.p0(<8 x half> [[TMP4]], <8 x half> [[TMP5]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x half>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <8 x half>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x half>, <8 x half> } @llvm.aarch64.neon.ld2lane.v8f16.p0(<8 x half> [[TMP5]], <8 x half> [[TMP7]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x half>, <8 x half> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x half>, <8 x half> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT16X8X2_T:%.*]] poison, <8 x half> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1373,11 +1455,13 @@ float16x8x2_t test_vld2q_lane_f16(float16_t  *a, float16x8x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_0_EXTRACT]] to <4 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_1_EXTRACT]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x float>, <4 x float> } @llvm.aarch64.neon.ld2lane.v4f32.p0(<4 x float> [[TMP4]], <4 x float> [[TMP5]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x float>, <4 x float> } @llvm.aarch64.neon.ld2lane.v4f32.p0(<4 x float> [[TMP5]], <4 x float> [[TMP7]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x float>, <4 x float> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x float>, <4 x float> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X4X2_T:%.*]] poison, <4 x float> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1395,11 +1479,13 @@ float32x4x2_t test_vld2q_lane_f32(float32_t  *a, float32x4x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_0_EXTRACT]] to <2 x i64>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x double>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_1_EXTRACT]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x double>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x double>, <2 x double> } @llvm.aarch64.neon.ld2lane.v2f64.p0(<2 x double> [[TMP4]], <2 x double> [[TMP5]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x double>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x double>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x double>, <2 x double> } @llvm.aarch64.neon.ld2lane.v2f64.p0(<2 x double> [[TMP5]], <2 x double> [[TMP7]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x double>, <2 x double> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x double>, <2 x double> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT64X2X2_T:%.*]] poison, <2 x double> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1415,7 +1501,11 @@ float64x2x2_t test_vld2q_lane_f64(float64_t  *a, float64x2x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld2lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld2lane.v16i8.p0(<16 x i8> [[TMP2]], <16 x i8> [[TMP3]], i64 15, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_MFLOAT8X16X2_T:%.*]] poison, <16 x i8> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1431,11 +1521,13 @@ mfloat8x16x2_t test_vld2q_lane_mf8(mfloat8_t  *a, mfloat8x16x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld2lane.v8i16.p0(<8 x i16> [[TMP2]], <8 x i16> [[TMP3]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld2lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X8X2_T:%.*]] poison, <8 x i16> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1451,11 +1543,13 @@ poly16x8x2_t test_vld2q_lane_p16(poly16_t  *a, poly16x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld2lane.v2i64.p0(<2 x i64> [[TMP2]], <2 x i64> [[TMP3]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld2lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY64X2X2_T:%.*]] poison, <2 x i64> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1467,15 +1561,19 @@ poly64x2x2_t test_vld2q_lane_p64(poly64_t  *a, poly64x2x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x8x2_t @test_vld2_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld2lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld2lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8> } [[VLD2_LANE]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T:%.*]] poison, <8 x i8> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD2_LANE_FCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VLD2_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VLD2_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP3]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_UINT8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 uint8x8x2_t test_vld2_lane_u8(uint8_t  *a, uint8x8x2_t b) {
@@ -1487,11 +1585,13 @@ uint8x8x2_t test_vld2_lane_u8(uint8_t  *a, uint8x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld2lane.v4i16.p0(<4 x i16> [[TMP2]], <4 x i16> [[TMP3]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld2lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT16X4X2_T:%.*]] poison, <4 x i16> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1507,11 +1607,13 @@ uint16x4x2_t test_vld2_lane_u16(uint16_t  *a, uint16x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld2lane.v2i32.p0(<2 x i32> [[TMP2]], <2 x i32> [[TMP3]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld2lane.v2i32.p0(<2 x i32> [[TMP3]], <2 x i32> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT32X2X2_T:%.*]] poison, <2 x i32> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1527,11 +1629,13 @@ uint32x2x2_t test_vld2_lane_u32(uint32_t  *a, uint32x2x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld2lane.v1i64.p0(<1 x i64> [[TMP2]], <1 x i64> [[TMP3]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld2lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT64X1X2_T:%.*]] poison, <1 x i64> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1543,15 +1647,19 @@ uint64x1x2_t test_vld2_lane_u64(uint64_t  *a, uint64x1x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x8x2_t @test_vld2_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld2lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld2lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8> } [[VLD2_LANE]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T:%.*]] poison, <8 x i8> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD2_LANE_FCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VLD2_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VLD2_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP3]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_INT8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 int8x8x2_t test_vld2_lane_s8(int8_t  *a, int8x8x2_t b) {
@@ -1563,11 +1671,13 @@ int8x8x2_t test_vld2_lane_s8(int8_t  *a, int8x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld2lane.v4i16.p0(<4 x i16> [[TMP2]], <4 x i16> [[TMP3]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld2lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT16X4X2_T:%.*]] poison, <4 x i16> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1583,11 +1693,13 @@ int16x4x2_t test_vld2_lane_s16(int16_t  *a, int16x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld2lane.v2i32.p0(<2 x i32> [[TMP2]], <2 x i32> [[TMP3]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld2lane.v2i32.p0(<2 x i32> [[TMP3]], <2 x i32> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT32X2X2_T:%.*]] poison, <2 x i32> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1603,11 +1715,13 @@ int32x2x2_t test_vld2_lane_s32(int32_t  *a, int32x2x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld2lane.v1i64.p0(<1 x i64> [[TMP2]], <1 x i64> [[TMP3]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld2lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT64X1X2_T:%.*]] poison, <1 x i64> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1625,11 +1739,13 @@ int64x1x2_t test_vld2_lane_s64(int64_t  *a, int64x1x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_0_EXTRACT]] to <4 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x half>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_1_EXTRACT]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x half>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x half>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x half>, <4 x half> } @llvm.aarch64.neon.ld2lane.v4f16.p0(<4 x half> [[TMP4]], <4 x half> [[TMP5]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x half>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <4 x half>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x half>, <4 x half> } @llvm.aarch64.neon.ld2lane.v4f16.p0(<4 x half> [[TMP5]], <4 x half> [[TMP7]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x half>, <4 x half> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x half>, <4 x half> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT16X4X2_T:%.*]] poison, <4 x half> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1647,11 +1763,13 @@ float16x4x2_t test_vld2_lane_f16(float16_t  *a, float16x4x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_0_EXTRACT]] to <2 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_1_EXTRACT]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x float>, <2 x float> } @llvm.aarch64.neon.ld2lane.v2f32.p0(<2 x float> [[TMP4]], <2 x float> [[TMP5]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <2 x float>, <2 x float> } @llvm.aarch64.neon.ld2lane.v2f32.p0(<2 x float> [[TMP5]], <2 x float> [[TMP7]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x float>, <2 x float> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x float>, <2 x float> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT32X2X2_T:%.*]] poison, <2 x float> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1671,11 +1789,13 @@ float32x2x2_t test_vld2_lane_f32(float32_t  *a, float32x2x2_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <1 x double>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x double> [[B_COERCE_FCA_1_EXTRACT]] to i64
 // CHECK-NEXT:    [[B_SROA_2_8_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP1]], i32 0
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <1 x double>, <1 x double> } @llvm.aarch64.neon.ld2lane.v1f64.p0(<1 x double> [[TMP4]], <1 x double> [[TMP5]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x double>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x double>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <1 x double>, <1 x double> } @llvm.aarch64.neon.ld2lane.v1f64.p0(<1 x double> [[TMP5]], <1 x double> [[TMP7]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x double>, <1 x double> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x double>, <1 x double> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_FLOAT64X1X2_T:%.*]] poison, <1 x double> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1691,7 +1811,11 @@ float64x1x2_t test_vld2_lane_f64(float64_t  *a, float64x1x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld2lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld2lane.v8i8.p0(<8 x i8> [[TMP2]], <8 x i8> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_MFLOAT8X8X2_T:%.*]] poison, <8 x i8> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1703,15 +1827,19 @@ mfloat8x8x2_t test_vld2_lane_mf8(mfloat8_t  *a, mfloat8x8x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x8x2_t @test_vld2_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld2lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld2lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8> } [[VLD2_LANE]], 1
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T:%.*]] poison, <8 x i8> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD2_LANE_FCA_1_EXTRACT]], 0, 1
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[VLD2_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T:%.*]] poison, <8 x b8> [[TMP2]], 0, 0
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VLD2_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP3]], 0, 1
 // CHECK-NEXT:    ret [[STRUCT_POLY8X8X2_T]] [[DOTFCA_0_1_INSERT]]
 //
 poly8x8x2_t test_vld2_lane_p8(poly8_t  *a, poly8x8x2_t b) {
@@ -1723,11 +1851,13 @@ poly8x8x2_t test_vld2_lane_p8(poly8_t  *a, poly8x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld2lane.v4i16.p0(<4 x i16> [[TMP2]], <4 x i16> [[TMP3]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld2lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY16X4X2_T:%.*]] poison, <4 x i16> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1743,11 +1873,13 @@ poly16x4x2_t test_vld2_lane_p16(poly16_t  *a, poly16x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld2lane.v1i64.p0(<1 x i64> [[TMP2]], <1 x i64> [[TMP3]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    [[VLD2_LANE:%.*]] = call { <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld2lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD2_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64> } [[VLD2_LANE]], 0
 // CHECK-NEXT:    [[VLD2_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64> } [[VLD2_LANE]], 1
 // CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY64X1X2_T:%.*]] poison, <1 x i64> [[VLD2_LANE_FCA_0_EXTRACT]], 0, 0
@@ -1764,13 +1896,16 @@ poly64x1x2_t test_vld2_lane_p64(poly64_t  *a, poly64x1x2_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld3lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP4]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <8 x i16>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld3lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP6]], <8 x i16> [[TMP8]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 2
@@ -1789,13 +1924,16 @@ uint16x8x3_t test_vld3q_lane_u16(uint16_t  *a, uint16x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i32>, <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld3lane.v4i32.p0(<4 x i32> [[TMP3]], <4 x i32> [[TMP4]], <4 x i32> [[TMP5]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP5]] to <4 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <4 x i32>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i32>, <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld3lane.v4i32.p0(<4 x i32> [[TMP4]], <4 x i32> [[TMP6]], <4 x i32> [[TMP8]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32> } [[VLD3_LANE]], 2
@@ -1814,13 +1952,16 @@ uint32x4x3_t test_vld3q_lane_u32(uint32_t  *a, uint32x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld3lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP4]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <2 x i64>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld3lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP6]], <2 x i64> [[TMP8]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 2
@@ -1839,13 +1980,16 @@ uint64x2x3_t test_vld3q_lane_u64(uint64_t  *a, uint64x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld3lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP4]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <8 x i16>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld3lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP6]], <8 x i16> [[TMP8]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 2
@@ -1864,13 +2008,16 @@ int16x8x3_t test_vld3q_lane_s16(int16_t  *a, int16x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i32>, <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld3lane.v4i32.p0(<4 x i32> [[TMP3]], <4 x i32> [[TMP4]], <4 x i32> [[TMP5]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP5]] to <4 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <4 x i32>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i32>, <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld3lane.v4i32.p0(<4 x i32> [[TMP4]], <4 x i32> [[TMP6]], <4 x i32> [[TMP8]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32> } [[VLD3_LANE]], 2
@@ -1889,13 +2036,16 @@ int32x4x3_t test_vld3q_lane_s32(int32_t  *a, int32x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld3lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP4]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <2 x i64>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld3lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP6]], <2 x i64> [[TMP8]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 2
@@ -1917,13 +2067,16 @@ int64x2x3_t test_vld3q_lane_s64(int64_t  *a, int64x2x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x half>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x half>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x half>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x half>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x half>, <8 x half>, <8 x half> } @llvm.aarch64.neon.ld3lane.v8f16.p0(<8 x half> [[TMP6]], <8 x half> [[TMP7]], <8 x half> [[TMP8]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <8 x half>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <8 x half>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <8 x half>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x half>, <8 x half>, <8 x half> } @llvm.aarch64.neon.ld3lane.v8f16.p0(<8 x half> [[TMP7]], <8 x half> [[TMP9]], <8 x half> [[TMP11]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x half>, <8 x half>, <8 x half> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x half>, <8 x half>, <8 x half> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x half>, <8 x half>, <8 x half> } [[VLD3_LANE]], 2
@@ -1945,13 +2098,16 @@ float16x8x3_t test_vld3q_lane_f16(float16_t  *a, float16x8x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_1_EXTRACT]] to <4 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x float>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_2_EXTRACT]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <4 x float>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x float>, <4 x float>, <4 x float> } @llvm.aarch64.neon.ld3lane.v4f32.p0(<4 x float> [[TMP6]], <4 x float> [[TMP7]], <4 x float> [[TMP8]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <4 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <4 x float>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x float>, <4 x float>, <4 x float> } @llvm.aarch64.neon.ld3lane.v4f32.p0(<4 x float> [[TMP7]], <4 x float> [[TMP9]], <4 x float> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x float>, <4 x float>, <4 x float> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x float>, <4 x float>, <4 x float> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x float>, <4 x float>, <4 x float> } [[VLD3_LANE]], 2
@@ -1973,13 +2129,16 @@ float32x4x3_t test_vld3q_lane_f32(float32_t  *a, float32x4x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_1_EXTRACT]] to <2 x i64>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x double>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_2_EXTRACT]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x double>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x double>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x double>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x double>, <2 x double>, <2 x double> } @llvm.aarch64.neon.ld3lane.v2f64.p0(<2 x double> [[TMP6]], <2 x double> [[TMP7]], <2 x double> [[TMP8]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x double>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <2 x double>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x double>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x double>, <2 x double>, <2 x double> } @llvm.aarch64.neon.ld3lane.v2f64.p0(<2 x double> [[TMP7]], <2 x double> [[TMP9]], <2 x double> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x double>, <2 x double>, <2 x double> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x double>, <2 x double>, <2 x double> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x double>, <2 x double>, <2 x double> } [[VLD3_LANE]], 2
@@ -1998,7 +2157,13 @@ float64x2x3_t test_vld3q_lane_f64(float64_t  *a, float64x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld3lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld3lane.v16i8.p0(<16 x i8> [[TMP3]], <16 x i8> [[TMP4]], <16 x i8> [[TMP5]], i64 15, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 2
@@ -2013,18 +2178,24 @@ mfloat8x16x3_t test_vld3q_lane_mf8(mfloat8_t  *a, mfloat8x16x3_t b) {
 
 
 // CHECK-LABEL: define dso_local %struct.poly8x16x3_t @test_vld3q_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld3lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld3lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i64 15, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8> } [[VLD3_LANE]], 2
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X3_T:%.*]] poison, <16 x i8> [[VLD3_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X3_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD3_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X3_T]] [[DOTFCA_0_1_INSERT]], <16 x i8> [[VLD3_LANE_FCA_2_EXTRACT]], 0, 2
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X3_T:%.*]] poison, <16 x b8> [[TMP3]], 0, 0
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X3_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP4]], 0, 1
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[VLD3_LANE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X3_T]] [[DOTFCA_0_1_INSERT]], <16 x b8> [[TMP5]], 0, 2
 // CHECK-NEXT:    ret [[STRUCT_POLY8X16X3_T]] [[DOTFCA_0_2_INSERT]]
 //
 poly8x16x3_t test_vld3q_lane_p8(poly8_t  *a, poly8x16x3_t b) {
@@ -2037,13 +2208,16 @@ poly8x16x3_t test_vld3q_lane_p8(poly8_t  *a, poly8x16x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld3lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP4]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <8 x i16>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld3lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP6]], <8 x i16> [[TMP8]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16> } [[VLD3_LANE]], 2
@@ -2062,13 +2236,16 @@ poly16x8x3_t test_vld3q_lane_p16(poly16_t  *a, poly16x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld3lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP4]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP7]] to <2 x i64>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld3lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP6]], <2 x i64> [[TMP8]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64> } [[VLD3_LANE]], 2
@@ -2082,18 +2259,24 @@ poly64x2x3_t test_vld3q_lane_p64(poly64_t  *a, poly64x2x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x8x3_t @test_vld3_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld3lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld3lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 2
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X3_T:%.*]] poison, <8 x i8> [[VLD3_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X3_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD3_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X3_T]] [[DOTFCA_0_1_INSERT]], <8 x i8> [[VLD3_LANE_FCA_2_EXTRACT]], 0, 2
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X3_T:%.*]] poison, <8 x b8> [[TMP3]], 0, 0
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X3_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP4]], 0, 1
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X3_T]] [[DOTFCA_0_1_INSERT]], <8 x b8> [[TMP5]], 0, 2
 // CHECK-NEXT:    ret [[STRUCT_UINT8X8X3_T]] [[DOTFCA_0_2_INSERT]]
 //
 uint8x8x3_t test_vld3_lane_u8(uint8_t  *a, uint8x8x3_t b) {
@@ -2106,13 +2289,16 @@ uint8x8x3_t test_vld3_lane_u8(uint8_t  *a, uint8x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld3lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP4]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP7]] to <4 x i16>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld3lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP6]], <4 x i16> [[TMP8]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 2
@@ -2131,13 +2317,16 @@ uint16x4x3_t test_vld3_lane_u16(uint16_t  *a, uint16x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i32>, <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld3lane.v2i32.p0(<2 x i32> [[TMP3]], <2 x i32> [[TMP4]], <2 x i32> [[TMP5]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <2 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP7]] to <2 x i32>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i32>, <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld3lane.v2i32.p0(<2 x i32> [[TMP4]], <2 x i32> [[TMP6]], <2 x i32> [[TMP8]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32> } [[VLD3_LANE]], 2
@@ -2156,13 +2345,16 @@ uint32x2x3_t test_vld3_lane_u32(uint32_t  *a, uint32x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld3lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP4]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP7]] to <1 x i64>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld3lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP6]], <1 x i64> [[TMP8]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 2
@@ -2176,18 +2368,24 @@ uint64x1x3_t test_vld3_lane_u64(uint64_t  *a, uint64x1x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x8x3_t @test_vld3_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld3lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld3lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 2
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X3_T:%.*]] poison, <8 x i8> [[VLD3_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X3_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD3_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X3_T]] [[DOTFCA_0_1_INSERT]], <8 x i8> [[VLD3_LANE_FCA_2_EXTRACT]], 0, 2
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X3_T:%.*]] poison, <8 x b8> [[TMP3]], 0, 0
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X3_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP4]], 0, 1
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X3_T]] [[DOTFCA_0_1_INSERT]], <8 x b8> [[TMP5]], 0, 2
 // CHECK-NEXT:    ret [[STRUCT_INT8X8X3_T]] [[DOTFCA_0_2_INSERT]]
 //
 int8x8x3_t test_vld3_lane_s8(int8_t  *a, int8x8x3_t b) {
@@ -2200,13 +2398,16 @@ int8x8x3_t test_vld3_lane_s8(int8_t  *a, int8x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld3lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP4]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP7]] to <4 x i16>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld3lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP6]], <4 x i16> [[TMP8]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 2
@@ -2225,13 +2426,16 @@ int16x4x3_t test_vld3_lane_s16(int16_t  *a, int16x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i32>, <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld3lane.v2i32.p0(<2 x i32> [[TMP3]], <2 x i32> [[TMP4]], <2 x i32> [[TMP5]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <2 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP7]] to <2 x i32>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x i32>, <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld3lane.v2i32.p0(<2 x i32> [[TMP4]], <2 x i32> [[TMP6]], <2 x i32> [[TMP8]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32> } [[VLD3_LANE]], 2
@@ -2250,13 +2454,16 @@ int32x2x3_t test_vld3_lane_s32(int32_t  *a, int32x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld3lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP4]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP7]] to <1 x i64>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld3lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP6]], <1 x i64> [[TMP8]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 2
@@ -2278,13 +2485,16 @@ int64x1x3_t test_vld3_lane_s64(int64_t  *a, int64x1x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_1_EXTRACT]] to <4 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x half>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_2_EXTRACT]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x half>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x half>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x half>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x half>, <4 x half>, <4 x half> } @llvm.aarch64.neon.ld3lane.v4f16.p0(<4 x half> [[TMP6]], <4 x half> [[TMP7]], <4 x half> [[TMP8]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <4 x half>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <4 x half>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <4 x half>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x half>, <4 x half>, <4 x half> } @llvm.aarch64.neon.ld3lane.v4f16.p0(<4 x half> [[TMP7]], <4 x half> [[TMP9]], <4 x half> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x half>, <4 x half>, <4 x half> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x half>, <4 x half>, <4 x half> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x half>, <4 x half>, <4 x half> } [[VLD3_LANE]], 2
@@ -2306,13 +2516,16 @@ float16x4x3_t test_vld3_lane_f16(float16_t  *a, float16x4x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_1_EXTRACT]] to <2 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x float>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_2_EXTRACT]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP5]] to <2 x float>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x float>, <2 x float>, <2 x float> } @llvm.aarch64.neon.ld3lane.v2f32.p0(<2 x float> [[TMP6]], <2 x float> [[TMP7]], <2 x float> [[TMP8]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <2 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <2 x float>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <2 x float>, <2 x float>, <2 x float> } @llvm.aarch64.neon.ld3lane.v2f32.p0(<2 x float> [[TMP7]], <2 x float> [[TMP9]], <2 x float> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x float>, <2 x float>, <2 x float> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x float>, <2 x float>, <2 x float> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x float>, <2 x float>, <2 x float> } [[VLD3_LANE]], 2
@@ -2337,13 +2550,16 @@ float32x2x3_t test_vld3_lane_f32(float32_t  *a, float32x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <1 x double>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x double> [[B_COERCE_FCA_2_EXTRACT]] to i64
 // CHECK-NEXT:    [[B_SROA_4_16_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP2]], i32 0
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[B_SROA_4_16_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x double>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x double>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <1 x double>, <1 x double>, <1 x double> } @llvm.aarch64.neon.ld3lane.v1f64.p0(<1 x double> [[TMP6]], <1 x double> [[TMP7]], <1 x double> [[TMP8]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[B_SROA_4_16_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x double>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <1 x double>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <1 x double>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <1 x double>, <1 x double>, <1 x double> } @llvm.aarch64.neon.ld3lane.v1f64.p0(<1 x double> [[TMP7]], <1 x double> [[TMP9]], <1 x double> [[TMP11]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x double>, <1 x double>, <1 x double> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x double>, <1 x double>, <1 x double> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <1 x double>, <1 x double>, <1 x double> } [[VLD3_LANE]], 2
@@ -2362,7 +2578,13 @@ float64x1x3_t test_vld3_lane_f64(float64_t  *a, float64x1x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld3lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld3lane.v8i8.p0(<8 x i8> [[TMP3]], <8 x i8> [[TMP4]], <8 x i8> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 2
@@ -2376,18 +2598,24 @@ mfloat8x8x3_t test_vld3_lane_mf8(mfloat8_t  *a, mfloat8x8x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x8x3_t @test_vld3_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld3lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld3lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8> } [[VLD3_LANE]], 2
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X3_T:%.*]] poison, <8 x i8> [[VLD3_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X3_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD3_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X3_T]] [[DOTFCA_0_1_INSERT]], <8 x i8> [[VLD3_LANE_FCA_2_EXTRACT]], 0, 2
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X3_T:%.*]] poison, <8 x b8> [[TMP3]], 0, 0
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X3_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP4]], 0, 1
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[VLD3_LANE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X3_T]] [[DOTFCA_0_1_INSERT]], <8 x b8> [[TMP5]], 0, 2
 // CHECK-NEXT:    ret [[STRUCT_POLY8X8X3_T]] [[DOTFCA_0_2_INSERT]]
 //
 poly8x8x3_t test_vld3_lane_p8(poly8_t  *a, poly8x8x3_t b) {
@@ -2400,13 +2628,16 @@ poly8x8x3_t test_vld3_lane_p8(poly8_t  *a, poly8x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld3lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP4]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP7]] to <4 x i16>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld3lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP6]], <4 x i16> [[TMP8]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16> } [[VLD3_LANE]], 2
@@ -2425,13 +2656,16 @@ poly16x4x3_t test_vld3_lane_p16(poly16_t  *a, poly16x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld3lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP4]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP7]] to <1 x i64>
+// CHECK-NEXT:    [[VLD3_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld3lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP6]], <1 x i64> [[TMP8]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD3_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 0
 // CHECK-NEXT:    [[VLD3_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 1
 // CHECK-NEXT:    [[VLD3_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64> } [[VLD3_LANE]], 2
@@ -2445,21 +2679,29 @@ poly64x1x3_t test_vld3_lane_p64(poly64_t  *a, poly64x1x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x16x4_t @test_vld4q_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld4lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], <16 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld4lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]], i64 15, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 2
 // CHECK-NEXT:    [[VLD4_LANE_FCA_3_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 3
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T:%.*]] poison, <16 x i8> [[VLD4_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD4_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[DOTFCA_0_1_INSERT]], <16 x i8> [[VLD4_LANE_FCA_2_EXTRACT]], 0, 2
-// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[DOTFCA_0_2_INSERT]], <16 x i8> [[VLD4_LANE_FCA_3_EXTRACT]], 0, 3
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T:%.*]] poison, <16 x b8> [[TMP4]], 0, 0
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP5]], 0, 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[DOTFCA_0_1_INSERT]], <16 x b8> [[TMP6]], 0, 2
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X16X4_T]] [[DOTFCA_0_2_INSERT]], <16 x b8> [[TMP7]], 0, 3
 // CHECK-NEXT:    ret [[STRUCT_UINT8X16X4_T]] [[DOTFCA_0_3_INSERT]]
 //
 uint8x16x4_t test_vld4q_lane_u8(uint8_t  *a, uint8x16x4_t b) {
@@ -2473,15 +2715,19 @@ uint8x16x4_t test_vld4q_lane_u8(uint8_t  *a, uint8x16x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld4lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP5]], <8 x i16> [[TMP6]], <8 x i16> [[TMP7]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <8 x i16>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <8 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <8 x i16>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld4lane.v8i16.p0(<8 x i16> [[TMP5]], <8 x i16> [[TMP7]], <8 x i16> [[TMP9]], <8 x i16> [[TMP11]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 2
@@ -2503,15 +2749,19 @@ uint16x8x4_t test_vld4q_lane_u16(uint16_t  *a, uint16x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x i32>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld4lane.v4i32.p0(<4 x i32> [[TMP4]], <4 x i32> [[TMP5]], <4 x i32> [[TMP6]], <4 x i32> [[TMP7]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x i32>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <4 x i32>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <4 x i32>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld4lane.v4i32.p0(<4 x i32> [[TMP5]], <4 x i32> [[TMP7]], <4 x i32> [[TMP9]], <4 x i32> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } [[VLD4_LANE]], 2
@@ -2533,15 +2783,19 @@ uint32x4x4_t test_vld4q_lane_u32(uint32_t  *a, uint32x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld4lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP5]], <2 x i64> [[TMP6]], <2 x i64> [[TMP7]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x i64>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <2 x i64>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x i64>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld4lane.v2i64.p0(<2 x i64> [[TMP5]], <2 x i64> [[TMP7]], <2 x i64> [[TMP9]], <2 x i64> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 2
@@ -2557,21 +2811,29 @@ uint64x2x4_t test_vld4q_lane_u64(uint64_t  *a, uint64x2x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x16x4_t @test_vld4q_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld4lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], <16 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld4lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]], i64 15, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 2
 // CHECK-NEXT:    [[VLD4_LANE_FCA_3_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 3
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T:%.*]] poison, <16 x i8> [[VLD4_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD4_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_1_INSERT]], <16 x i8> [[VLD4_LANE_FCA_2_EXTRACT]], 0, 2
-// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_2_INSERT]], <16 x i8> [[VLD4_LANE_FCA_3_EXTRACT]], 0, 3
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T:%.*]] poison, <16 x b8> [[TMP4]], 0, 0
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP5]], 0, 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_1_INSERT]], <16 x b8> [[TMP6]], 0, 2
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_2_INSERT]], <16 x b8> [[TMP7]], 0, 3
 // CHECK-NEXT:    ret [[STRUCT_INT8X16X4_T]] [[DOTFCA_0_3_INSERT]]
 //
 int8x16x4_t test_vld4q_lane_s8(int8_t  *a, int8x16x4_t b) {
@@ -2585,15 +2847,19 @@ int8x16x4_t test_vld4q_lane_s8(int8_t  *a, int8x16x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld4lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP5]], <8 x i16> [[TMP6]], <8 x i16> [[TMP7]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <8 x i16>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <8 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <8 x i16>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld4lane.v8i16.p0(<8 x i16> [[TMP5]], <8 x i16> [[TMP7]], <8 x i16> [[TMP9]], <8 x i16> [[TMP11]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 2
@@ -2615,15 +2881,19 @@ int16x8x4_t test_vld4q_lane_s16(int16_t  *a, int16x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x i32>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld4lane.v4i32.p0(<4 x i32> [[TMP4]], <4 x i32> [[TMP5]], <4 x i32> [[TMP6]], <4 x i32> [[TMP7]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x i32>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x i32>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <4 x i32>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <4 x i32>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } @llvm.aarch64.neon.ld4lane.v4i32.p0(<4 x i32> [[TMP5]], <4 x i32> [[TMP7]], <4 x i32> [[TMP9]], <4 x i32> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i32>, <4 x i32>, <4 x i32>, <4 x i32> } [[VLD4_LANE]], 2
@@ -2645,15 +2915,19 @@ int32x4x4_t test_vld4q_lane_s32(int32_t  *a, int32x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld4lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP5]], <2 x i64> [[TMP6]], <2 x i64> [[TMP7]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x i64>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <2 x i64>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x i64>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld4lane.v2i64.p0(<2 x i64> [[TMP5]], <2 x i64> [[TMP7]], <2 x i64> [[TMP9]], <2 x i64> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 2
@@ -2679,15 +2953,19 @@ int64x2x4_t test_vld4q_lane_s64(int64_t  *a, int64x2x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x half>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i16> [[TMP3]] to <16 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x half>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x half>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <16 x i8> [[TMP6]] to <8 x half>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP7]] to <8 x half>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x half>, <8 x half>, <8 x half>, <8 x half> } @llvm.aarch64.neon.ld4lane.v8f16.p0(<8 x half> [[TMP8]], <8 x half> [[TMP9]], <8 x half> [[TMP10]], <8 x half> [[TMP11]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i16> [[TMP3]] to <16 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <8 x half>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <8 x half>
+// CHECK-NEXT:    [[TMP12:%.*]] = bytecast exact <16 x b8> [[TMP6]] to <16 x i8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <16 x i8> [[TMP12]] to <8 x half>
+// CHECK-NEXT:    [[TMP14:%.*]] = bytecast exact <16 x b8> [[TMP7]] to <16 x i8>
+// CHECK-NEXT:    [[TMP15:%.*]] = bitcast <16 x i8> [[TMP14]] to <8 x half>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x half>, <8 x half>, <8 x half>, <8 x half> } @llvm.aarch64.neon.ld4lane.v8f16.p0(<8 x half> [[TMP9]], <8 x half> [[TMP11]], <8 x half> [[TMP13]], <8 x half> [[TMP15]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x half>, <8 x half>, <8 x half>, <8 x half> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x half>, <8 x half>, <8 x half>, <8 x half> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x half>, <8 x half>, <8 x half>, <8 x half> } [[VLD4_LANE]], 2
@@ -2713,15 +2991,19 @@ float16x8x4_t test_vld4q_lane_f16(float16_t  *a, float16x8x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_2_EXTRACT]] to <4 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x float>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_3_EXTRACT]] to <4 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP3]] to <16 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP5]] to <4 x float>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP7]] to <4 x float>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x float>, <4 x float>, <4 x float>, <4 x float> } @llvm.aarch64.neon.ld4lane.v4f32.p0(<4 x float> [[TMP8]], <4 x float> [[TMP9]], <4 x float> [[TMP10]], <4 x float> [[TMP11]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP3]] to <16 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <4 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <4 x float>
+// CHECK-NEXT:    [[TMP12:%.*]] = bytecast exact <16 x b8> [[TMP6]] to <16 x i8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <16 x i8> [[TMP12]] to <4 x float>
+// CHECK-NEXT:    [[TMP14:%.*]] = bytecast exact <16 x b8> [[TMP7]] to <16 x i8>
+// CHECK-NEXT:    [[TMP15:%.*]] = bitcast <16 x i8> [[TMP14]] to <4 x float>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x float>, <4 x float>, <4 x float>, <4 x float> } @llvm.aarch64.neon.ld4lane.v4f32.p0(<4 x float> [[TMP9]], <4 x float> [[TMP11]], <4 x float> [[TMP13]], <4 x float> [[TMP15]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x float>, <4 x float>, <4 x float>, <4 x float> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x float>, <4 x float>, <4 x float>, <4 x float> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x float>, <4 x float>, <4 x float>, <4 x float> } [[VLD4_LANE]], 2
@@ -2747,15 +3029,19 @@ float32x4x4_t test_vld4q_lane_f32(float32_t  *a, float32x4x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_2_EXTRACT]] to <2 x i64>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x double>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_3_EXTRACT]] to <2 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i64> [[TMP3]] to <16 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x double>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x double>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x double>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP7]] to <2 x double>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x double>, <2 x double>, <2 x double>, <2 x double> } @llvm.aarch64.neon.ld4lane.v2f64.p0(<2 x double> [[TMP8]], <2 x double> [[TMP9]], <2 x double> [[TMP10]], <2 x double> [[TMP11]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i64> [[TMP3]] to <16 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <2 x double>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x double>
+// CHECK-NEXT:    [[TMP12:%.*]] = bytecast exact <16 x b8> [[TMP6]] to <16 x i8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <16 x i8> [[TMP12]] to <2 x double>
+// CHECK-NEXT:    [[TMP14:%.*]] = bytecast exact <16 x b8> [[TMP7]] to <16 x i8>
+// CHECK-NEXT:    [[TMP15:%.*]] = bitcast <16 x i8> [[TMP14]] to <2 x double>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x double>, <2 x double>, <2 x double>, <2 x double> } @llvm.aarch64.neon.ld4lane.v2f64.p0(<2 x double> [[TMP9]], <2 x double> [[TMP11]], <2 x double> [[TMP13]], <2 x double> [[TMP15]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x double>, <2 x double>, <2 x double>, <2 x double> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x double>, <2 x double>, <2 x double>, <2 x double> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x double>, <2 x double>, <2 x double>, <2 x double> } [[VLD4_LANE]], 2
@@ -2777,7 +3063,15 @@ float64x2x4_t test_vld4q_lane_f64(float64_t  *a, float64x2x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld4lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], <16 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld4lane.v16i8.p0(<16 x i8> [[TMP4]], <16 x i8> [[TMP5]], <16 x i8> [[TMP6]], <16 x i8> [[TMP7]], i64 15, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 2
@@ -2793,21 +3087,29 @@ mfloat8x16x4_t test_vld4q_lane_mf8(mfloat8_t  *a, mfloat8x16x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x16x4_t @test_vld4q_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld4lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], <16 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } @llvm.aarch64.neon.ld4lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]], i64 15, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 2
 // CHECK-NEXT:    [[VLD4_LANE_FCA_3_EXTRACT:%.*]] = extractvalue { <16 x i8>, <16 x i8>, <16 x i8>, <16 x i8> } [[VLD4_LANE]], 3
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X4_T:%.*]] poison, <16 x i8> [[VLD4_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X4_T]] [[DOTFCA_0_0_INSERT]], <16 x i8> [[VLD4_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X4_T]] [[DOTFCA_0_1_INSERT]], <16 x i8> [[VLD4_LANE_FCA_2_EXTRACT]], 0, 2
-// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X4_T]] [[DOTFCA_0_2_INSERT]], <16 x i8> [[VLD4_LANE_FCA_3_EXTRACT]], 0, 3
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X4_T:%.*]] poison, <16 x b8> [[TMP4]], 0, 0
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X4_T]] [[DOTFCA_0_0_INSERT]], <16 x b8> [[TMP5]], 0, 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X4_T]] [[DOTFCA_0_1_INSERT]], <16 x b8> [[TMP6]], 0, 2
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[VLD4_LANE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X16X4_T]] [[DOTFCA_0_2_INSERT]], <16 x b8> [[TMP7]], 0, 3
 // CHECK-NEXT:    ret [[STRUCT_POLY8X16X4_T]] [[DOTFCA_0_3_INSERT]]
 //
 poly8x16x4_t test_vld4q_lane_p8(poly8_t  *a, poly8x16x4_t b) {
@@ -2821,15 +3123,19 @@ poly8x16x4_t test_vld4q_lane_p8(poly8_t  *a, poly8x16x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld4lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP5]], <8 x i16> [[TMP6]], <8 x i16> [[TMP7]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <8 x i16>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <8 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <8 x i16>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } @llvm.aarch64.neon.ld4lane.v8i16.p0(<8 x i16> [[TMP5]], <8 x i16> [[TMP7]], <8 x i16> [[TMP9]], <8 x i16> [[TMP11]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i16>, <8 x i16>, <8 x i16>, <8 x i16> } [[VLD4_LANE]], 2
@@ -2851,15 +3157,19 @@ poly16x8x4_t test_vld4q_lane_p16(poly16_t  *a, poly16x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld4lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP5]], <2 x i64> [[TMP6]], <2 x i64> [[TMP7]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x i64>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP8]] to <2 x i64>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP10]] to <2 x i64>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } @llvm.aarch64.neon.ld4lane.v2i64.p0(<2 x i64> [[TMP5]], <2 x i64> [[TMP7]], <2 x i64> [[TMP9]], <2 x i64> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[VLD4_LANE]], 2
@@ -2875,21 +3185,29 @@ poly64x2x4_t test_vld4q_lane_p64(poly64_t  *a, poly64x2x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.uint8x8x4_t @test_vld4_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld4lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], <8 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld4lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], <8 x i8> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 2
 // CHECK-NEXT:    [[VLD4_LANE_FCA_3_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 3
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X4_T:%.*]] poison, <8 x i8> [[VLD4_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X4_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD4_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X4_T]] [[DOTFCA_0_1_INSERT]], <8 x i8> [[VLD4_LANE_FCA_2_EXTRACT]], 0, 2
-// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X4_T]] [[DOTFCA_0_2_INSERT]], <8 x i8> [[VLD4_LANE_FCA_3_EXTRACT]], 0, 3
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X4_T:%.*]] poison, <8 x b8> [[TMP4]], 0, 0
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X4_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP5]], 0, 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X4_T]] [[DOTFCA_0_1_INSERT]], <8 x b8> [[TMP6]], 0, 2
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_UINT8X8X4_T]] [[DOTFCA_0_2_INSERT]], <8 x b8> [[TMP7]], 0, 3
 // CHECK-NEXT:    ret [[STRUCT_UINT8X8X4_T]] [[DOTFCA_0_3_INSERT]]
 //
 uint8x8x4_t test_vld4_lane_u8(uint8_t  *a, uint8x8x4_t b) {
@@ -2903,15 +3221,19 @@ uint8x8x4_t test_vld4_lane_u8(uint8_t  *a, uint8x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld4lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP5]], <4 x i16> [[TMP6]], <4 x i16> [[TMP7]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <4 x i16>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <4 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <4 x i16>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld4lane.v4i16.p0(<4 x i16> [[TMP5]], <4 x i16> [[TMP7]], <4 x i16> [[TMP9]], <4 x i16> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 2
@@ -2933,15 +3255,19 @@ uint16x4x4_t test_vld4_lane_u16(uint16_t  *a, uint16x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x i32>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld4lane.v2i32.p0(<2 x i32> [[TMP4]], <2 x i32> [[TMP5]], <2 x i32> [[TMP6]], <2 x i32> [[TMP7]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x i32>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <2 x i32>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <2 x i32>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld4lane.v2i32.p0(<2 x i32> [[TMP5]], <2 x i32> [[TMP7]], <2 x i32> [[TMP9]], <2 x i32> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } [[VLD4_LANE]], 2
@@ -2963,15 +3289,19 @@ uint32x2x4_t test_vld4_lane_u32(uint32_t  *a, uint32x2x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld4lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP5]], <1 x i64> [[TMP6]], <1 x i64> [[TMP7]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x i64>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <1 x i64>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <1 x i64>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld4lane.v1i64.p0(<1 x i64> [[TMP5]], <1 x i64> [[TMP7]], <1 x i64> [[TMP9]], <1 x i64> [[TMP11]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 2
@@ -2987,21 +3317,29 @@ uint64x1x4_t test_vld4_lane_u64(uint64_t  *a, uint64x1x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.int8x8x4_t @test_vld4_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld4lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], <8 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld4lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], <8 x i8> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 2
 // CHECK-NEXT:    [[VLD4_LANE_FCA_3_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 3
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X4_T:%.*]] poison, <8 x i8> [[VLD4_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X4_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD4_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X4_T]] [[DOTFCA_0_1_INSERT]], <8 x i8> [[VLD4_LANE_FCA_2_EXTRACT]], 0, 2
-// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X4_T]] [[DOTFCA_0_2_INSERT]], <8 x i8> [[VLD4_LANE_FCA_3_EXTRACT]], 0, 3
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X4_T:%.*]] poison, <8 x b8> [[TMP4]], 0, 0
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X4_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP5]], 0, 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X4_T]] [[DOTFCA_0_1_INSERT]], <8 x b8> [[TMP6]], 0, 2
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_INT8X8X4_T]] [[DOTFCA_0_2_INSERT]], <8 x b8> [[TMP7]], 0, 3
 // CHECK-NEXT:    ret [[STRUCT_INT8X8X4_T]] [[DOTFCA_0_3_INSERT]]
 //
 int8x8x4_t test_vld4_lane_s8(int8_t  *a, int8x8x4_t b) {
@@ -3015,15 +3353,19 @@ int8x8x4_t test_vld4_lane_s8(int8_t  *a, int8x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld4lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP5]], <4 x i16> [[TMP6]], <4 x i16> [[TMP7]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <4 x i16>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <4 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <4 x i16>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld4lane.v4i16.p0(<4 x i16> [[TMP5]], <4 x i16> [[TMP7]], <4 x i16> [[TMP9]], <4 x i16> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 2
@@ -3045,15 +3387,19 @@ int16x4x4_t test_vld4_lane_s16(int16_t  *a, int16x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x i32>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld4lane.v2i32.p0(<2 x i32> [[TMP4]], <2 x i32> [[TMP5]], <2 x i32> [[TMP6]], <2 x i32> [[TMP7]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x i32>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x i32>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <2 x i32>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <2 x i32>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } @llvm.aarch64.neon.ld4lane.v2i32.p0(<2 x i32> [[TMP5]], <2 x i32> [[TMP7]], <2 x i32> [[TMP9]], <2 x i32> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x i32>, <2 x i32>, <2 x i32>, <2 x i32> } [[VLD4_LANE]], 2
@@ -3075,15 +3421,19 @@ int32x2x4_t test_vld4_lane_s32(int32_t  *a, int32x2x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld4lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP5]], <1 x i64> [[TMP6]], <1 x i64> [[TMP7]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x i64>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <1 x i64>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <1 x i64>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld4lane.v1i64.p0(<1 x i64> [[TMP5]], <1 x i64> [[TMP7]], <1 x i64> [[TMP9]], <1 x i64> [[TMP11]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 2
@@ -3109,15 +3459,19 @@ int64x1x4_t test_vld4_lane_s64(int64_t  *a, int64x1x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_2_EXTRACT]] to <4 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x half>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_3_EXTRACT]] to <4 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i16> [[TMP3]] to <8 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x half>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x half>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <8 x i8> [[TMP6]] to <4 x half>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP7]] to <4 x half>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x half>, <4 x half>, <4 x half>, <4 x half> } @llvm.aarch64.neon.ld4lane.v4f16.p0(<4 x half> [[TMP8]], <4 x half> [[TMP9]], <4 x half> [[TMP10]], <4 x half> [[TMP11]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i16> [[TMP3]] to <8 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <4 x half>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <4 x half>
+// CHECK-NEXT:    [[TMP12:%.*]] = bytecast exact <8 x b8> [[TMP6]] to <8 x i8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <8 x i8> [[TMP12]] to <4 x half>
+// CHECK-NEXT:    [[TMP14:%.*]] = bytecast exact <8 x b8> [[TMP7]] to <8 x i8>
+// CHECK-NEXT:    [[TMP15:%.*]] = bitcast <8 x i8> [[TMP14]] to <4 x half>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x half>, <4 x half>, <4 x half>, <4 x half> } @llvm.aarch64.neon.ld4lane.v4f16.p0(<4 x half> [[TMP9]], <4 x half> [[TMP11]], <4 x half> [[TMP13]], <4 x half> [[TMP15]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x half>, <4 x half>, <4 x half>, <4 x half> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x half>, <4 x half>, <4 x half>, <4 x half> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x half>, <4 x half>, <4 x half>, <4 x half> } [[VLD4_LANE]], 2
@@ -3143,15 +3497,19 @@ float16x4x4_t test_vld4_lane_f16(float16_t  *a, float16x4x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_2_EXTRACT]] to <2 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x float>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_3_EXTRACT]] to <2 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i32> [[TMP3]] to <8 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP5]] to <2 x float>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP7]] to <2 x float>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x float>, <2 x float>, <2 x float>, <2 x float> } @llvm.aarch64.neon.ld4lane.v2f32.p0(<2 x float> [[TMP8]], <2 x float> [[TMP9]], <2 x float> [[TMP10]], <2 x float> [[TMP11]], i64 1, ptr [[A]])
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i32> [[TMP3]] to <8 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <2 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <2 x float>
+// CHECK-NEXT:    [[TMP12:%.*]] = bytecast exact <8 x b8> [[TMP6]] to <8 x i8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <8 x i8> [[TMP12]] to <2 x float>
+// CHECK-NEXT:    [[TMP14:%.*]] = bytecast exact <8 x b8> [[TMP7]] to <8 x i8>
+// CHECK-NEXT:    [[TMP15:%.*]] = bitcast <8 x i8> [[TMP14]] to <2 x float>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <2 x float>, <2 x float>, <2 x float>, <2 x float> } @llvm.aarch64.neon.ld4lane.v2f32.p0(<2 x float> [[TMP9]], <2 x float> [[TMP11]], <2 x float> [[TMP13]], <2 x float> [[TMP15]], i64 1, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <2 x float>, <2 x float>, <2 x float>, <2 x float> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <2 x float>, <2 x float>, <2 x float>, <2 x float> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <2 x float>, <2 x float>, <2 x float>, <2 x float> } [[VLD4_LANE]], 2
@@ -3181,15 +3539,19 @@ float32x2x4_t test_vld4_lane_f32(float32_t  *a, float32x2x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <1 x double>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x double> [[B_COERCE_FCA_3_EXTRACT]] to i64
 // CHECK-NEXT:    [[B_SROA_6_24_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP3]], i32 0
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <1 x i64> [[B_SROA_4_16_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <1 x i64> [[B_SROA_6_24_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x double>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x double>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x double>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP7]] to <1 x double>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <1 x double>, <1 x double>, <1 x double>, <1 x double> } @llvm.aarch64.neon.ld4lane.v1f64.p0(<1 x double> [[TMP8]], <1 x double> [[TMP9]], <1 x double> [[TMP10]], <1 x double> [[TMP11]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <1 x i64> [[B_SROA_4_16_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <1 x i64> [[B_SROA_6_24_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <1 x double>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <1 x double>
+// CHECK-NEXT:    [[TMP12:%.*]] = bytecast exact <8 x b8> [[TMP6]] to <8 x i8>
+// CHECK-NEXT:    [[TMP13:%.*]] = bitcast <8 x i8> [[TMP12]] to <1 x double>
+// CHECK-NEXT:    [[TMP14:%.*]] = bytecast exact <8 x b8> [[TMP7]] to <8 x i8>
+// CHECK-NEXT:    [[TMP15:%.*]] = bitcast <8 x i8> [[TMP14]] to <1 x double>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <1 x double>, <1 x double>, <1 x double>, <1 x double> } @llvm.aarch64.neon.ld4lane.v1f64.p0(<1 x double> [[TMP9]], <1 x double> [[TMP11]], <1 x double> [[TMP13]], <1 x double> [[TMP15]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x double>, <1 x double>, <1 x double>, <1 x double> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x double>, <1 x double>, <1 x double>, <1 x double> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <1 x double>, <1 x double>, <1 x double>, <1 x double> } [[VLD4_LANE]], 2
@@ -3211,7 +3573,15 @@ float64x1x4_t test_vld4_lane_f64(float64_t  *a, float64x1x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld4lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], <8 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld4lane.v8i8.p0(<8 x i8> [[TMP4]], <8 x i8> [[TMP5]], <8 x i8> [[TMP6]], <8 x i8> [[TMP7]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 2
@@ -3227,21 +3597,29 @@ mfloat8x8x4_t test_vld4_lane_mf8(mfloat8_t  *a, mfloat8x8x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local %struct.poly8x8x4_t @test_vld4_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld4lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], <8 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } @llvm.aarch64.neon.ld4lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], <8 x i8> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 2
 // CHECK-NEXT:    [[VLD4_LANE_FCA_3_EXTRACT:%.*]] = extractvalue { <8 x i8>, <8 x i8>, <8 x i8>, <8 x i8> } [[VLD4_LANE]], 3
-// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X4_T:%.*]] poison, <8 x i8> [[VLD4_LANE_FCA_0_EXTRACT]], 0, 0
-// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X4_T]] [[DOTFCA_0_0_INSERT]], <8 x i8> [[VLD4_LANE_FCA_1_EXTRACT]], 0, 1
-// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X4_T]] [[DOTFCA_0_1_INSERT]], <8 x i8> [[VLD4_LANE_FCA_2_EXTRACT]], 0, 2
-// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X4_T]] [[DOTFCA_0_2_INSERT]], <8 x i8> [[VLD4_LANE_FCA_3_EXTRACT]], 0, 3
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_0_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X4_T:%.*]] poison, <8 x b8> [[TMP4]], 0, 0
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_1_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X4_T]] [[DOTFCA_0_0_INSERT]], <8 x b8> [[TMP5]], 0, 1
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_2_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X4_T]] [[DOTFCA_0_1_INSERT]], <8 x b8> [[TMP6]], 0, 2
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[VLD4_LANE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[DOTFCA_0_3_INSERT:%.*]] = insertvalue [[STRUCT_POLY8X8X4_T]] [[DOTFCA_0_2_INSERT]], <8 x b8> [[TMP7]], 0, 3
 // CHECK-NEXT:    ret [[STRUCT_POLY8X8X4_T]] [[DOTFCA_0_3_INSERT]]
 //
 poly8x8x4_t test_vld4_lane_p8(poly8_t  *a, poly8x8x4_t b) {
@@ -3255,15 +3633,19 @@ poly8x8x4_t test_vld4_lane_p8(poly8_t  *a, poly8x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld4lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP5]], <4 x i16> [[TMP6]], <4 x i16> [[TMP7]], i64 3, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <4 x i16>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <4 x i16>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <4 x i16>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } @llvm.aarch64.neon.ld4lane.v4i16.p0(<4 x i16> [[TMP5]], <4 x i16> [[TMP7]], <4 x i16> [[TMP9]], <4 x i16> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <4 x i16>, <4 x i16>, <4 x i16>, <4 x i16> } [[VLD4_LANE]], 2
@@ -3285,15 +3667,19 @@ poly16x4x4_t test_vld4_lane_p16(poly16_t  *a, poly16x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
-// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld4lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP5]], <1 x i64> [[TMP6]], <1 x i64> [[TMP7]], i64 0, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x i64>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP8]] to <1 x i64>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP10]] to <1 x i64>
+// CHECK-NEXT:    [[VLD4_LANE:%.*]] = call { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } @llvm.aarch64.neon.ld4lane.v1i64.p0(<1 x i64> [[TMP5]], <1 x i64> [[TMP7]], <1 x i64> [[TMP9]], <1 x i64> [[TMP11]], i64 0, ptr [[A]])
 // CHECK-NEXT:    [[VLD4_LANE_FCA_0_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 0
 // CHECK-NEXT:    [[VLD4_LANE_FCA_1_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 1
 // CHECK-NEXT:    [[VLD4_LANE_FCA_2_EXTRACT:%.*]] = extractvalue { <1 x i64>, <1 x i64>, <1 x i64>, <1 x i64> } [[VLD4_LANE]], 2
@@ -3309,10 +3695,11 @@ poly64x1x4_t test_vld4_lane_p64(poly64_t  *a, poly64x1x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <16 x i8> [[B]], i32 15
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = extractelement <16 x i8> [[TMP0]], i32 15
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[A]], align 1
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_u8(uint8_t  *a, uint8x16_t b) {
@@ -3322,10 +3709,11 @@ void test_vst1q_lane_u8(uint8_t  *a, uint8x16_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_u16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <8 x i16> [[TMP1]], i32 7
-// CHECK-NEXT:    store i16 [[TMP2]], ptr [[A]], align 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <8 x i16> [[TMP2]], i32 7
+// CHECK-NEXT:    store i16 [[TMP3]], ptr [[A]], align 2
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_u16(uint16_t  *a, uint16x8_t b) {
@@ -3335,10 +3723,11 @@ void test_vst1q_lane_u16(uint16_t  *a, uint16x8_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_u32(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
-// CHECK-NEXT:    store i32 [[TMP2]], ptr [[A]], align 4
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <4 x i32> [[TMP2]], i32 3
+// CHECK-NEXT:    store i32 [[TMP3]], ptr [[A]], align 4
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_u32(uint32_t  *a, uint32x4_t b) {
@@ -3348,10 +3737,11 @@ void test_vst1q_lane_u32(uint32_t  *a, uint32x4_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_u64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
-// CHECK-NEXT:    store i64 [[TMP2]], ptr [[A]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x i64> [[TMP2]], i32 1
+// CHECK-NEXT:    store i64 [[TMP3]], ptr [[A]], align 8
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_u64(uint64_t  *a, uint64x2_t b) {
@@ -3359,10 +3749,11 @@ void test_vst1q_lane_u64(uint64_t  *a, uint64x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <16 x i8> [[B]], i32 15
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = extractelement <16 x i8> [[TMP0]], i32 15
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[A]], align 1
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_s8(int8_t  *a, int8x16_t b) {
@@ -3372,10 +3763,11 @@ void test_vst1q_lane_s8(int8_t  *a, int8x16_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_s16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <8 x i16> [[TMP1]], i32 7
-// CHECK-NEXT:    store i16 [[TMP2]], ptr [[A]], align 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <8 x i16> [[TMP2]], i32 7
+// CHECK-NEXT:    store i16 [[TMP3]], ptr [[A]], align 2
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_s16(int16_t  *a, int16x8_t b) {
@@ -3385,10 +3777,11 @@ void test_vst1q_lane_s16(int16_t  *a, int16x8_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_s32(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <4 x i32> [[TMP1]], i32 3
-// CHECK-NEXT:    store i32 [[TMP2]], ptr [[A]], align 4
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <4 x i32> [[TMP2]], i32 3
+// CHECK-NEXT:    store i32 [[TMP3]], ptr [[A]], align 4
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_s32(int32_t  *a, int32x4_t b) {
@@ -3398,10 +3791,11 @@ void test_vst1q_lane_s32(int32_t  *a, int32x4_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_s64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
-// CHECK-NEXT:    store i64 [[TMP2]], ptr [[A]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x i64> [[TMP2]], i32 1
+// CHECK-NEXT:    store i64 [[TMP3]], ptr [[A]], align 8
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_s64(int64_t  *a, int64x2_t b) {
@@ -3411,8 +3805,10 @@ void test_vst1q_lane_s64(int64_t  *a, int64x2_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_mf8(
 // CHECK-SAME: ptr noundef [[A:%.*]], <16 x i8> [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <16 x i8> [[B]], i32 15
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <16 x i8> [[TMP1]], i32 15
+// CHECK-NEXT:    store i8 [[TMP2]], ptr [[A]], align 1
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_mf8(mfloat8_t *a, mfloat8x16_t b) {
@@ -3423,10 +3819,11 @@ void test_vst1q_lane_mf8(mfloat8_t *a, mfloat8x16_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x half> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[B]] to <8 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x half>
-// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <8 x half> [[TMP2]], i32 7
-// CHECK-NEXT:    store half [[TMP3]], ptr [[A]], align 2
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x half>
+// CHECK-NEXT:    [[TMP4:%.*]] = extractelement <8 x half> [[TMP3]], i32 7
+// CHECK-NEXT:    store half [[TMP4]], ptr [[A]], align 2
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_f16(float16_t  *a, float16x8_t b) {
@@ -3437,10 +3834,11 @@ void test_vst1q_lane_f16(float16_t  *a, float16x8_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x float> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[B]] to <4 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x float>
-// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <4 x float> [[TMP2]], i32 3
-// CHECK-NEXT:    store float [[TMP3]], ptr [[A]], align 4
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[TMP4:%.*]] = extractelement <4 x float> [[TMP3]], i32 3
+// CHECK-NEXT:    store float [[TMP4]], ptr [[A]], align 4
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_f32(float32_t  *a, float32x4_t b) {
@@ -3451,10 +3849,11 @@ void test_vst1q_lane_f32(float32_t  *a, float32x4_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x double> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[B]] to <2 x i64>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
-// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x double> [[TMP2]], i32 1
-// CHECK-NEXT:    store double [[TMP3]], ptr [[A]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = extractelement <2 x double> [[TMP3]], i32 1
+// CHECK-NEXT:    store double [[TMP4]], ptr [[A]], align 8
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_f64(float64_t  *a, float64x2_t b) {
@@ -3462,10 +3861,11 @@ void test_vst1q_lane_f64(float64_t  *a, float64x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <16 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], <16 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <16 x i8> [[B]], i32 15
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = extractelement <16 x i8> [[TMP0]], i32 15
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[A]], align 1
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_p8(poly8_t  *a, poly8x16_t b) {
@@ -3475,10 +3875,11 @@ void test_vst1q_lane_p8(poly8_t  *a, poly8x16_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_p16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <8 x i16> [[TMP1]], i32 7
-// CHECK-NEXT:    store i16 [[TMP2]], ptr [[A]], align 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <8 x i16> [[TMP2]], i32 7
+// CHECK-NEXT:    store i16 [[TMP3]], ptr [[A]], align 2
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_p16(poly16_t  *a, poly16x8_t b) {
@@ -3488,10 +3889,11 @@ void test_vst1q_lane_p16(poly16_t  *a, poly16x8_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1q_lane_p64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <2 x i64> [[TMP1]], i32 1
-// CHECK-NEXT:    store i64 [[TMP2]], ptr [[A]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x i64> [[TMP2]], i32 1
+// CHECK-NEXT:    store i64 [[TMP3]], ptr [[A]], align 8
 // CHECK-NEXT:    ret void
 //
 void test_vst1q_lane_p64(poly64_t  *a, poly64x2_t b) {
@@ -3499,10 +3901,11 @@ void test_vst1q_lane_p64(poly64_t  *a, poly64x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst1_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <8 x i8> [[B]], i32 7
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = extractelement <8 x i8> [[TMP0]], i32 7
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[A]], align 1
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_u8(uint8_t  *a, uint8x8_t b) {
@@ -3512,10 +3915,11 @@ void test_vst1_lane_u8(uint8_t  *a, uint8x8_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_u16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <4 x i16> [[TMP1]], i32 3
-// CHECK-NEXT:    store i16 [[TMP2]], ptr [[A]], align 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <4 x i16> [[TMP2]], i32 3
+// CHECK-NEXT:    store i16 [[TMP3]], ptr [[A]], align 2
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_u16(uint16_t  *a, uint16x4_t b) {
@@ -3525,10 +3929,11 @@ void test_vst1_lane_u16(uint16_t  *a, uint16x4_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_u32(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
-// CHECK-NEXT:    store i32 [[TMP2]], ptr [[A]], align 4
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x i32> [[TMP2]], i32 1
+// CHECK-NEXT:    store i32 [[TMP3]], ptr [[A]], align 4
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_u32(uint32_t  *a, uint32x2_t b) {
@@ -3538,10 +3943,11 @@ void test_vst1_lane_u32(uint32_t  *a, uint32x2_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_u64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <1 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
-// CHECK-NEXT:    store i64 [[TMP2]], ptr [[A]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <1 x i64> [[TMP2]], i32 0
+// CHECK-NEXT:    store i64 [[TMP3]], ptr [[A]], align 8
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_u64(uint64_t  *a, uint64x1_t b) {
@@ -3549,10 +3955,11 @@ void test_vst1_lane_u64(uint64_t  *a, uint64x1_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst1_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <8 x i8> [[B]], i32 7
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = extractelement <8 x i8> [[TMP0]], i32 7
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[A]], align 1
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_s8(int8_t  *a, int8x8_t b) {
@@ -3562,10 +3969,11 @@ void test_vst1_lane_s8(int8_t  *a, int8x8_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_s16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <4 x i16> [[TMP1]], i32 3
-// CHECK-NEXT:    store i16 [[TMP2]], ptr [[A]], align 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <4 x i16> [[TMP2]], i32 3
+// CHECK-NEXT:    store i16 [[TMP3]], ptr [[A]], align 2
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_s16(int16_t  *a, int16x4_t b) {
@@ -3575,10 +3983,11 @@ void test_vst1_lane_s16(int16_t  *a, int16x4_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_s32(
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x i32> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <2 x i32> [[TMP1]], i32 1
-// CHECK-NEXT:    store i32 [[TMP2]], ptr [[A]], align 4
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x i32> [[TMP2]], i32 1
+// CHECK-NEXT:    store i32 [[TMP3]], ptr [[A]], align 4
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_s32(int32_t  *a, int32x2_t b) {
@@ -3588,10 +3997,11 @@ void test_vst1_lane_s32(int32_t  *a, int32x2_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_s64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <1 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
-// CHECK-NEXT:    store i64 [[TMP2]], ptr [[A]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <1 x i64> [[TMP2]], i32 0
+// CHECK-NEXT:    store i64 [[TMP3]], ptr [[A]], align 8
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_s64(int64_t  *a, int64x1_t b) {
@@ -3601,8 +4011,10 @@ void test_vst1_lane_s64(int64_t  *a, int64x1_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_mf8(
 // CHECK-SAME: ptr noundef [[A:%.*]], <8 x i8> [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <8 x i8> [[B]], i32 7
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <8 x i8> [[TMP1]], i32 7
+// CHECK-NEXT:    store i8 [[TMP2]], ptr [[A]], align 1
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_mf8(mfloat8_t *a, mfloat8x8_t b) {
@@ -3613,10 +4025,11 @@ void test_vst1_lane_mf8(mfloat8_t *a, mfloat8x8_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x half> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x half> [[B]] to <4 x i16>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x half>
-// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <4 x half> [[TMP2]], i32 3
-// CHECK-NEXT:    store half [[TMP3]], ptr [[A]], align 2
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x half>
+// CHECK-NEXT:    [[TMP4:%.*]] = extractelement <4 x half> [[TMP3]], i32 3
+// CHECK-NEXT:    store half [[TMP4]], ptr [[A]], align 2
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_f16(float16_t  *a, float16x4_t b) {
@@ -3627,10 +4040,11 @@ void test_vst1_lane_f16(float16_t  *a, float16x4_t b) {
 // CHECK-SAME: ptr noundef [[A:%.*]], <2 x float> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[B]] to <2 x i32>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x float>
-// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <2 x float> [[TMP2]], i32 1
-// CHECK-NEXT:    store float [[TMP3]], ptr [[A]], align 4
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[TMP4:%.*]] = extractelement <2 x float> [[TMP3]], i32 1
+// CHECK-NEXT:    store float [[TMP4]], ptr [[A]], align 4
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_f32(float32_t  *a, float32x2_t b) {
@@ -3642,10 +4056,11 @@ void test_vst1_lane_f32(float32_t  *a, float32x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x double> [[B]] to i64
 // CHECK-NEXT:    [[__S1_SROA_0_0_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP0]], i32 0
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x double>
-// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <1 x double> [[TMP2]], i32 0
-// CHECK-NEXT:    store double [[TMP3]], ptr [[A]], align 8
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[__S1_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = extractelement <1 x double> [[TMP3]], i32 0
+// CHECK-NEXT:    store double [[TMP4]], ptr [[A]], align 8
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_f64(float64_t  *a, float64x1_t b) {
@@ -3653,10 +4068,11 @@ void test_vst1_lane_f64(float64_t  *a, float64x1_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst1_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], <8 x i8> noundef [[B:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], <8 x b8> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = extractelement <8 x i8> [[B]], i32 7
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[A]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = extractelement <8 x i8> [[TMP0]], i32 7
+// CHECK-NEXT:    store i8 [[TMP1]], ptr [[A]], align 1
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_p8(poly8_t  *a, poly8x8_t b) {
@@ -3666,10 +4082,11 @@ void test_vst1_lane_p8(poly8_t  *a, poly8x8_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_p16(
 // CHECK-SAME: ptr noundef [[A:%.*]], <4 x i16> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <4 x i16> [[TMP1]], i32 3
-// CHECK-NEXT:    store i16 [[TMP2]], ptr [[A]], align 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <4 x i16> [[TMP2]], i32 3
+// CHECK-NEXT:    store i16 [[TMP3]], ptr [[A]], align 2
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_p16(poly16_t  *a, poly16x4_t b) {
@@ -3679,10 +4096,11 @@ void test_vst1_lane_p16(poly16_t  *a, poly16x4_t b) {
 // CHECK-LABEL: define dso_local void @test_vst1_lane_p64(
 // CHECK-SAME: ptr noundef [[A:%.*]], <1 x i64> noundef [[B:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = extractelement <1 x i64> [[TMP1]], i32 0
-// CHECK-NEXT:    store i64 [[TMP2]], ptr [[A]], align 8
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = extractelement <1 x i64> [[TMP2]], i32 0
+// CHECK-NEXT:    store i64 [[TMP3]], ptr [[A]], align 8
 // CHECK-NEXT:    ret void
 //
 void test_vst1_lane_p64(poly64_t  *a, poly64x1_t b) {
@@ -3690,11 +4108,13 @@ void test_vst1_lane_p64(poly64_t  *a, poly64x1_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst2q_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst2q_lane_u8(uint8_t  *a, uint8x16x2_t b) {
@@ -3706,10 +4126,10 @@ void test_vst2q_lane_u8(uint8_t  *a, uint8x16x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i16.p0(<8 x i16> [[TMP2]], <8 x i16> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3722,10 +4142,10 @@ void test_vst2q_lane_u16(uint16_t  *a, uint16x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <4 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v4i32.p0(<4 x i32> [[TMP2]], <4 x i32> [[TMP3]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3738,10 +4158,10 @@ void test_vst2q_lane_u32(uint32_t  *a, uint32x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v2i64.p0(<2 x i64> [[TMP2]], <2 x i64> [[TMP3]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3750,11 +4170,13 @@ void test_vst2q_lane_u64(uint64_t  *a, uint64x2x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst2q_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst2q_lane_s8(int8_t  *a, int8x16x2_t b) {
@@ -3766,10 +4188,10 @@ void test_vst2q_lane_s8(int8_t  *a, int8x16x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i16.p0(<8 x i16> [[TMP2]], <8 x i16> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3782,10 +4204,10 @@ void test_vst2q_lane_s16(int16_t  *a, int16x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i32>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <4 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v4i32.p0(<4 x i32> [[TMP2]], <4 x i32> [[TMP3]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3798,10 +4220,10 @@ void test_vst2q_lane_s32(int32_t  *a, int32x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v2i64.p0(<2 x i64> [[TMP2]], <2 x i64> [[TMP3]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3814,7 +4236,11 @@ void test_vst2q_lane_s64(int64_t  *a, int64x2x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v16i8.p0(<16 x i8> [[TMP2]], <16 x i8> [[TMP3]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst2q_lane_mf8(mfloat8_t *a, mfloat8x16x2_t b) {
@@ -3828,10 +4254,10 @@ void test_vst2q_lane_mf8(mfloat8_t *a, mfloat8x16x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x half>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x half>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x half>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <8 x half>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <8 x half>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8f16.p0(<8 x half> [[TMP4]], <8 x half> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3846,10 +4272,10 @@ void test_vst2q_lane_f16(float16_t  *a, float16x8x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_0_EXTRACT]] to <4 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x float>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_1_EXTRACT]] to <4 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <4 x float>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v4f32.p0(<4 x float> [[TMP4]], <4 x float> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3864,10 +4290,10 @@ void test_vst2q_lane_f32(float32_t  *a, float32x4x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_0_EXTRACT]] to <2 x i64>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x double>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_1_EXTRACT]] to <2 x i64>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x double>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x double>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <2 x double>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <2 x double>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v2f64.p0(<2 x double> [[TMP4]], <2 x double> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3876,11 +4302,13 @@ void test_vst2q_lane_f64(float64_t  *a, float64x2x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst2q_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst2q_lane_p8(poly8_t  *a, poly8x16x2_t b) {
@@ -3892,10 +4320,10 @@ void test_vst2q_lane_p8(poly8_t  *a, poly8x16x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i16.p0(<8 x i16> [[TMP2]], <8 x i16> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3908,10 +4336,10 @@ void test_vst2q_lane_p16(poly16_t  *a, poly16x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v2i64.p0(<2 x i64> [[TMP2]], <2 x i64> [[TMP3]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3920,11 +4348,13 @@ void test_vst2q_lane_p64(poly64_t  *a, poly64x2x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst2_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst2_lane_u8(uint8_t  *a, uint8x8x2_t b) {
@@ -3936,10 +4366,10 @@ void test_vst2_lane_u8(uint8_t  *a, uint8x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v4i16.p0(<4 x i16> [[TMP2]], <4 x i16> [[TMP3]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3952,10 +4382,10 @@ void test_vst2_lane_u16(uint16_t  *a, uint16x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <2 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <2 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v2i32.p0(<2 x i32> [[TMP2]], <2 x i32> [[TMP3]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3968,10 +4398,10 @@ void test_vst2_lane_u32(uint32_t  *a, uint32x2x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v1i64.p0(<1 x i64> [[TMP2]], <1 x i64> [[TMP3]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -3980,11 +4410,13 @@ void test_vst2_lane_u64(uint64_t  *a, uint64x1x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst2_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst2_lane_s8(int8_t  *a, int8x8x2_t b) {
@@ -3996,10 +4428,10 @@ void test_vst2_lane_s8(int8_t  *a, int8x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v4i16.p0(<4 x i16> [[TMP2]], <4 x i16> [[TMP3]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4012,10 +4444,10 @@ void test_vst2_lane_s16(int16_t  *a, int16x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x i32>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <2 x i32>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <2 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v2i32.p0(<2 x i32> [[TMP2]], <2 x i32> [[TMP3]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4028,10 +4460,10 @@ void test_vst2_lane_s32(int32_t  *a, int32x2x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v1i64.p0(<1 x i64> [[TMP2]], <1 x i64> [[TMP3]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4044,7 +4476,11 @@ void test_vst2_lane_s64(int64_t  *a, int64x1x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i8.p0(<8 x i8> [[TMP2]], <8 x i8> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst2_lane_mf8(mfloat8_t *a, mfloat8x8x2_t b) {
@@ -4058,10 +4494,10 @@ void test_vst2_lane_mf8(mfloat8_t *a, mfloat8x8x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_0_EXTRACT]] to <4 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x half>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_1_EXTRACT]] to <4 x i16>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x half>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <4 x half>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <4 x half>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v4f16.p0(<4 x half> [[TMP4]], <4 x half> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4076,10 +4512,10 @@ void test_vst2_lane_f16(float16_t  *a, float16x4x2_t b) {
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_0_EXTRACT]] to <2 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <2 x float>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_1_EXTRACT]] to <2 x i32>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x float>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <2 x float>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <2 x float>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v2f32.p0(<2 x float> [[TMP4]], <2 x float> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4096,10 +4532,10 @@ void test_vst2_lane_f32(float32_t  *a, float32x2x2_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <1 x double>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x double> [[B_COERCE_FCA_1_EXTRACT]] to i64
 // CHECK-NEXT:    [[B_SROA_2_8_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP1]], i32 0
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x double>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <1 x double>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <1 x double>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v1f64.p0(<1 x double> [[TMP4]], <1 x double> [[TMP5]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4108,11 +4544,13 @@ void test_vst2_lane_f64(float64_t  *a, float64x1x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst2_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [2 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst2_lane_p8(poly8_t  *a, poly8x8x2_t b) {
@@ -4124,10 +4562,10 @@ void test_vst2_lane_p8(poly8_t  *a, poly8x8x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <4 x i16>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v4i16.p0(<4 x i16> [[TMP2]], <4 x i16> [[TMP3]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4140,10 +4578,10 @@ void test_vst2_lane_p16(poly16_t  *a, poly16x4x2_t b) {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [2 x <1 x i64>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st2lane.v1i64.p0(<1 x i64> [[TMP2]], <1 x i64> [[TMP3]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4152,12 +4590,15 @@ void test_vst2_lane_p64(poly64_t  *a, poly64x1x2_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst3q_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst3q_lane_u8(uint8_t  *a, uint8x16x3_t b) {
@@ -4170,12 +4611,12 @@ void test_vst3q_lane_u8(uint8_t  *a, uint8x16x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP4]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4189,12 +4630,12 @@ void test_vst3q_lane_u16(uint16_t  *a, uint16x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <4 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v4i32.p0(<4 x i32> [[TMP3]], <4 x i32> [[TMP4]], <4 x i32> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4208,12 +4649,12 @@ void test_vst3q_lane_u32(uint32_t  *a, uint32x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP4]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4222,12 +4663,15 @@ void test_vst3q_lane_u64(uint64_t  *a, uint64x2x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst3q_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst3q_lane_s8(int8_t  *a, int8x16x3_t b) {
@@ -4240,12 +4684,12 @@ void test_vst3q_lane_s8(int8_t  *a, int8x16x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP4]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4259,12 +4703,12 @@ void test_vst3q_lane_s16(int16_t  *a, int16x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i32>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <4 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <4 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v4i32.p0(<4 x i32> [[TMP3]], <4 x i32> [[TMP4]], <4 x i32> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4278,12 +4722,12 @@ void test_vst3q_lane_s32(int32_t  *a, int32x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP4]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4297,7 +4741,13 @@ void test_vst3q_lane_s64(int64_t  *a, int64x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v16i8.p0(<16 x i8> [[TMP3]], <16 x i8> [[TMP4]], <16 x i8> [[TMP5]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst3q_lane_mf8(mfloat8_t *a, mfloat8x16x3_t b) {
@@ -4313,12 +4763,12 @@ void test_vst3q_lane_mf8(mfloat8_t *a, mfloat8x16x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x half>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x half>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x half>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <8 x half>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x half>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x half>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8f16.p0(<8 x half> [[TMP6]], <8 x half> [[TMP7]], <8 x half> [[TMP8]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4335,12 +4785,12 @@ void test_vst3q_lane_f16(float16_t  *a, float16x8x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_1_EXTRACT]] to <4 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x float>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_2_EXTRACT]] to <4 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x float>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <4 x float>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x float>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <4 x float>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v4f32.p0(<4 x float> [[TMP6]], <4 x float> [[TMP7]], <4 x float> [[TMP8]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4357,12 +4807,12 @@ void test_vst3q_lane_f32(float32_t  *a, float32x4x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_1_EXTRACT]] to <2 x i64>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x double>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_2_EXTRACT]] to <2 x i64>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x double>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x double>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x double>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <2 x double>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <2 x double>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <2 x double>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v2f64.p0(<2 x double> [[TMP6]], <2 x double> [[TMP7]], <2 x double> [[TMP8]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4371,12 +4821,15 @@ void test_vst3q_lane_f64(float64_t  *a, float64x2x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst3q_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst3q_lane_p8(poly8_t  *a, poly8x16x3_t b) {
@@ -4389,12 +4842,12 @@ void test_vst3q_lane_p8(poly8_t  *a, poly8x16x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i16.p0(<8 x i16> [[TMP3]], <8 x i16> [[TMP4]], <8 x i16> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4408,12 +4861,12 @@ void test_vst3q_lane_p16(poly16_t  *a, poly16x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v2i64.p0(<2 x i64> [[TMP3]], <2 x i64> [[TMP4]], <2 x i64> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4422,12 +4875,15 @@ void test_vst3q_lane_p64(poly64_t  *a, poly64x2x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst3_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst3_lane_u8(uint8_t  *a, uint8x8x3_t b) {
@@ -4440,12 +4896,12 @@ void test_vst3_lane_u8(uint8_t  *a, uint8x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP4]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4459,12 +4915,12 @@ void test_vst3_lane_u16(uint16_t  *a, uint16x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <2 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v2i32.p0(<2 x i32> [[TMP3]], <2 x i32> [[TMP4]], <2 x i32> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4478,12 +4934,12 @@ void test_vst3_lane_u32(uint32_t  *a, uint32x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP4]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4492,12 +4948,15 @@ void test_vst3_lane_u64(uint64_t  *a, uint64x1x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst3_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst3_lane_s8(int8_t  *a, int8x8x3_t b) {
@@ -4510,12 +4969,12 @@ void test_vst3_lane_s8(int8_t  *a, int8x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP4]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4529,12 +4988,12 @@ void test_vst3_lane_s16(int16_t  *a, int16x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x i32>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <2 x i32>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <2 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v2i32.p0(<2 x i32> [[TMP3]], <2 x i32> [[TMP4]], <2 x i32> [[TMP5]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4548,12 +5007,12 @@ void test_vst3_lane_s32(int32_t  *a, int32x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP4]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4567,7 +5026,13 @@ void test_vst3_lane_s64(int64_t  *a, int64x1x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i8.p0(<8 x i8> [[TMP3]], <8 x i8> [[TMP4]], <8 x i8> [[TMP5]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst3_lane_mf8(mfloat8_t *a, mfloat8x8x3_t b) {
@@ -4583,12 +5048,12 @@ void test_vst3_lane_mf8(mfloat8_t *a, mfloat8x8x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_1_EXTRACT]] to <4 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x half>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_2_EXTRACT]] to <4 x i16>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x half>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x half>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x half>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <4 x half>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <4 x half>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <4 x half>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v4f16.p0(<4 x half> [[TMP6]], <4 x half> [[TMP7]], <4 x half> [[TMP8]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4605,12 +5070,12 @@ void test_vst3_lane_f16(float16_t  *a, float16x4x3_t b) {
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_1_EXTRACT]] to <2 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <2 x float>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_2_EXTRACT]] to <2 x i32>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x float>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP5]] to <2 x float>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <2 x float>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <2 x float>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v2f32.p0(<2 x float> [[TMP6]], <2 x float> [[TMP7]], <2 x float> [[TMP8]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4630,12 +5095,12 @@ void test_vst3_lane_f32(float32_t  *a, float32x2x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <1 x double>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x double> [[B_COERCE_FCA_2_EXTRACT]] to i64
 // CHECK-NEXT:    [[B_SROA_4_16_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP2]], i32 0
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[B_SROA_4_16_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x double>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x double>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x double>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[B_SROA_4_16_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <1 x double>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <1 x double>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <1 x double>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v1f64.p0(<1 x double> [[TMP6]], <1 x double> [[TMP7]], <1 x double> [[TMP8]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4644,12 +5109,15 @@ void test_vst3_lane_f64(float64_t  *a, float64x1x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst3_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [3 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst3_lane_p8(poly8_t  *a, poly8x8x3_t b) {
@@ -4662,12 +5130,12 @@ void test_vst3_lane_p8(poly8_t  *a, poly8x8x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <4 x i16>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v4i16.p0(<4 x i16> [[TMP3]], <4 x i16> [[TMP4]], <4 x i16> [[TMP5]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4681,12 +5149,12 @@ void test_vst3_lane_p16(poly16_t  *a, poly16x4x3_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 0
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [3 x <1 x i64>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st3lane.v1i64.p0(<1 x i64> [[TMP3]], <1 x i64> [[TMP4]], <1 x i64> [[TMP5]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4695,13 +5163,17 @@ void test_vst3_lane_p64(poly64_t  *a, poly64x1x3_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst4q_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], <16 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst4q_lane_u8(uint8_t  *a, uint8x16x4_t b) {
@@ -4715,14 +5187,14 @@ void test_vst4q_lane_u8(uint8_t  *a, uint8x16x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP5]], <8 x i16> [[TMP6]], <8 x i16> [[TMP7]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4737,14 +5209,14 @@ void test_vst4q_lane_u16(uint16_t  *a, uint16x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <4 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v4i32.p0(<4 x i32> [[TMP4]], <4 x i32> [[TMP5]], <4 x i32> [[TMP6]], <4 x i32> [[TMP7]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4759,14 +5231,14 @@ void test_vst4q_lane_u32(uint32_t  *a, uint32x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP5]], <2 x i64> [[TMP6]], <2 x i64> [[TMP7]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4775,13 +5247,17 @@ void test_vst4q_lane_u64(uint64_t  *a, uint64x2x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst4q_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], <16 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst4q_lane_s8(int8_t  *a, int8x16x4_t b) {
@@ -4795,14 +5271,14 @@ void test_vst4q_lane_s8(int8_t  *a, int8x16x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP5]], <8 x i16> [[TMP6]], <8 x i16> [[TMP7]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4817,14 +5293,14 @@ void test_vst4q_lane_s16(int16_t  *a, int16x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i32>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <4 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <4 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <4 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <4 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <4 x i32>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <4 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <4 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v4i32.p0(<4 x i32> [[TMP4]], <4 x i32> [[TMP5]], <4 x i32> [[TMP6]], <4 x i32> [[TMP7]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4839,14 +5315,14 @@ void test_vst4q_lane_s32(int32_t  *a, int32x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP5]], <2 x i64> [[TMP6]], <2 x i64> [[TMP7]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4861,7 +5337,15 @@ void test_vst4q_lane_s64(int64_t  *a, int64x2x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], <16 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <16 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <16 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <16 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v16i8.p0(<16 x i8> [[TMP4]], <16 x i8> [[TMP5]], <16 x i8> [[TMP6]], <16 x i8> [[TMP7]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst4q_lane_mf8(mfloat8_t *a, mfloat8x16x4_t b) {
@@ -4879,14 +5363,14 @@ void test_vst4q_lane_mf8(mfloat8_t *a, mfloat8x16x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x half>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x half> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i16> [[TMP3]] to <16 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP4]] to <8 x half>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP5]] to <8 x half>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <16 x i8> [[TMP6]] to <8 x half>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP7]] to <8 x half>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i16> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i16> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i16> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i16> [[TMP3]] to <16 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <8 x half>
+// CHECK-NEXT:    [[TMP9:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <8 x half>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP6]] to <8 x half>
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast exact <16 x b8> [[TMP7]] to <8 x half>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8f16.p0(<8 x half> [[TMP8]], <8 x half> [[TMP9]], <8 x half> [[TMP10]], <8 x half> [[TMP11]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4905,14 +5389,14 @@ void test_vst4q_lane_f16(float16_t  *a, float16x8x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_2_EXTRACT]] to <4 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x float>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x float> [[B_COERCE_FCA_3_EXTRACT]] to <4 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP3]] to <16 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP4]] to <4 x float>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP5]] to <4 x float>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <16 x i8> [[TMP6]] to <4 x float>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP7]] to <4 x float>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i32> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i32> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i32> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i32> [[TMP3]] to <16 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <4 x float>
+// CHECK-NEXT:    [[TMP9:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <4 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP6]] to <4 x float>
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast exact <16 x b8> [[TMP7]] to <4 x float>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v4f32.p0(<4 x float> [[TMP8]], <4 x float> [[TMP9]], <4 x float> [[TMP10]], <4 x float> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4931,14 +5415,14 @@ void test_vst4q_lane_f32(float32_t  *a, float32x4x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_2_EXTRACT]] to <2 x i64>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x double>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x double> [[B_COERCE_FCA_3_EXTRACT]] to <2 x i64>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i64> [[TMP3]] to <16 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <16 x i8> [[TMP4]] to <2 x double>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <16 x i8> [[TMP5]] to <2 x double>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <16 x i8> [[TMP6]] to <2 x double>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <16 x i8> [[TMP7]] to <2 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i64> [[TMP0]] to <16 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i64> [[TMP1]] to <16 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i64> [[TMP2]] to <16 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i64> [[TMP3]] to <16 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <16 x b8> [[TMP4]] to <2 x double>
+// CHECK-NEXT:    [[TMP9:%.*]] = bytecast exact <16 x b8> [[TMP5]] to <2 x double>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <16 x b8> [[TMP6]] to <2 x double>
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast exact <16 x b8> [[TMP7]] to <2 x double>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v2f64.p0(<2 x double> [[TMP8]], <2 x double> [[TMP9]], <2 x double> [[TMP10]], <2 x double> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4947,13 +5431,17 @@ void test_vst4q_lane_f64(float64_t  *a, float64x2x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst4q_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x i8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <16 x b8>] alignstack(16) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v16i8.p0(<16 x i8> [[B_COERCE_FCA_0_EXTRACT]], <16 x i8> [[B_COERCE_FCA_1_EXTRACT]], <16 x i8> [[B_COERCE_FCA_2_EXTRACT]], <16 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 15, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <16 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <16 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v16i8.p0(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i8> [[TMP2]], <16 x i8> [[TMP3]], i64 15, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst4q_lane_p8(poly8_t  *a, poly8x16x4_t b) {
@@ -4967,14 +5455,14 @@ void test_vst4q_lane_p8(poly8_t  *a, poly8x16x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <8 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <8 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <8 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <8 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <8 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <8 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <8 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <8 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i16.p0(<8 x i16> [[TMP4]], <8 x i16> [[TMP5]], <8 x i16> [[TMP6]], <8 x i16> [[TMP7]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -4989,14 +5477,14 @@ void test_vst4q_lane_p16(poly16_t  *a, poly16x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <16 x i8> [[TMP0]] to <2 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <16 x i8> [[TMP2]] to <2 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <16 x i8> [[TMP3]] to <2 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <16 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <16 x b8> [[TMP0]] to <2 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <16 x b8> [[TMP2]] to <2 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <16 x b8> [[TMP3]] to <2 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v2i64.p0(<2 x i64> [[TMP4]], <2 x i64> [[TMP5]], <2 x i64> [[TMP6]], <2 x i64> [[TMP7]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5005,13 +5493,17 @@ void test_vst4q_lane_p64(poly64_t  *a, poly64x2x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst4_lane_u8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], <8 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], <8 x i8> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst4_lane_u8(uint8_t  *a, uint8x8x4_t b) {
@@ -5025,14 +5517,14 @@ void test_vst4_lane_u8(uint8_t  *a, uint8x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP5]], <4 x i16> [[TMP6]], <4 x i16> [[TMP7]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5047,14 +5539,14 @@ void test_vst4_lane_u16(uint16_t  *a, uint16x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <2 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <2 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v2i32.p0(<2 x i32> [[TMP4]], <2 x i32> [[TMP5]], <2 x i32> [[TMP6]], <2 x i32> [[TMP7]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5069,14 +5561,14 @@ void test_vst4_lane_u32(uint32_t  *a, uint32x2x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP5]], <1 x i64> [[TMP6]], <1 x i64> [[TMP7]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5085,13 +5577,17 @@ void test_vst4_lane_u64(uint64_t  *a, uint64x1x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst4_lane_s8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], <8 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], <8 x i8> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst4_lane_s8(int8_t  *a, int8x8x4_t b) {
@@ -5105,14 +5601,14 @@ void test_vst4_lane_s8(int8_t  *a, int8x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP5]], <4 x i16> [[TMP6]], <4 x i16> [[TMP7]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5127,14 +5623,14 @@ void test_vst4_lane_s16(int16_t  *a, int16x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x i32>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <2 x i32>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <2 x i32>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <2 x i32>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <2 x i32>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x i32> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <2 x i32>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <2 x i32>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <2 x i32>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <2 x i32>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v2i32.p0(<2 x i32> [[TMP4]], <2 x i32> [[TMP5]], <2 x i32> [[TMP6]], <2 x i32> [[TMP7]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5149,14 +5645,14 @@ void test_vst4_lane_s32(int32_t  *a, int32x2x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP5]], <1 x i64> [[TMP6]], <1 x i64> [[TMP7]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5171,7 +5667,15 @@ void test_vst4_lane_s64(int64_t  *a, int64x1x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], <8 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <8 x i8> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <8 x i8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <8 x i8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <8 x i8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i8.p0(<8 x i8> [[TMP4]], <8 x i8> [[TMP5]], <8 x i8> [[TMP6]], <8 x i8> [[TMP7]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst4_lane_mf8(mfloat8_t *a, mfloat8x8x4_t b) {
@@ -5189,14 +5693,14 @@ void test_vst4_lane_mf8(mfloat8_t *a, mfloat8x8x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_2_EXTRACT]] to <4 x i16>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x half>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x half> [[B_COERCE_FCA_3_EXTRACT]] to <4 x i16>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i16> [[TMP3]] to <8 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP4]] to <4 x half>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP5]] to <4 x half>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <8 x i8> [[TMP6]] to <4 x half>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP7]] to <4 x half>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <4 x i16> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <4 x i16> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <4 x i16> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <4 x i16> [[TMP3]] to <8 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <4 x half>
+// CHECK-NEXT:    [[TMP9:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <4 x half>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP6]] to <4 x half>
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast exact <8 x b8> [[TMP7]] to <4 x half>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v4f16.p0(<4 x half> [[TMP8]], <4 x half> [[TMP9]], <4 x half> [[TMP10]], <4 x half> [[TMP11]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5215,14 +5719,14 @@ void test_vst4_lane_f16(float16_t  *a, float16x4x4_t b) {
 // CHECK-NEXT:    [[TMP2:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_2_EXTRACT]] to <2 x i32>
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <2 x float>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <2 x float> [[B_COERCE_FCA_3_EXTRACT]] to <2 x i32>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i32> [[TMP3]] to <8 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP4]] to <2 x float>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP5]] to <2 x float>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <8 x i8> [[TMP6]] to <2 x float>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP7]] to <2 x float>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <2 x i32> [[TMP0]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <2 x i32> [[TMP1]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <2 x i32> [[TMP2]] to <8 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <2 x i32> [[TMP3]] to <8 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <2 x float>
+// CHECK-NEXT:    [[TMP9:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <2 x float>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP6]] to <2 x float>
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast exact <8 x b8> [[TMP7]] to <2 x float>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v2f32.p0(<2 x float> [[TMP8]], <2 x float> [[TMP9]], <2 x float> [[TMP10]], <2 x float> [[TMP11]], i64 1, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5245,14 +5749,14 @@ void test_vst4_lane_f32(float32_t  *a, float32x2x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <1 x double>] [[B_COERCE]], 3
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x double> [[B_COERCE_FCA_3_EXTRACT]] to i64
 // CHECK-NEXT:    [[B_SROA_6_24_VEC_INSERT:%.*]] = insertelement <1 x i64> undef, i64 [[TMP3]], i32 0
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <1 x i64> [[B_SROA_4_16_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <1 x i64> [[B_SROA_6_24_VEC_INSERT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP8:%.*]] = bitcast <8 x i8> [[TMP4]] to <1 x double>
-// CHECK-NEXT:    [[TMP9:%.*]] = bitcast <8 x i8> [[TMP5]] to <1 x double>
-// CHECK-NEXT:    [[TMP10:%.*]] = bitcast <8 x i8> [[TMP6]] to <1 x double>
-// CHECK-NEXT:    [[TMP11:%.*]] = bitcast <8 x i8> [[TMP7]] to <1 x double>
+// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <1 x i64> [[B_SROA_0_0_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <1 x i64> [[B_SROA_2_8_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <1 x i64> [[B_SROA_4_16_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <1 x i64> [[B_SROA_6_24_VEC_INSERT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP8:%.*]] = bytecast exact <8 x b8> [[TMP4]] to <1 x double>
+// CHECK-NEXT:    [[TMP9:%.*]] = bytecast exact <8 x b8> [[TMP5]] to <1 x double>
+// CHECK-NEXT:    [[TMP10:%.*]] = bytecast exact <8 x b8> [[TMP6]] to <1 x double>
+// CHECK-NEXT:    [[TMP11:%.*]] = bytecast exact <8 x b8> [[TMP7]] to <1 x double>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v1f64.p0(<1 x double> [[TMP8]], <1 x double> [[TMP9]], <1 x double> [[TMP10]], <1 x double> [[TMP11]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5261,13 +5765,17 @@ void test_vst4_lane_f64(float64_t  *a, float64x1x4_t b) {
 }
 
 // CHECK-LABEL: define dso_local void @test_vst4_lane_p8(
-// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x i8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: ptr noundef [[A:%.*]], [4 x <8 x b8>] alignstack(8) [[B_COERCE:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 0
-// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 1
-// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 2
-// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x i8>] [[B_COERCE]], 3
-// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i8.p0(<8 x i8> [[B_COERCE_FCA_0_EXTRACT]], <8 x i8> [[B_COERCE_FCA_1_EXTRACT]], <8 x i8> [[B_COERCE_FCA_2_EXTRACT]], <8 x i8> [[B_COERCE_FCA_3_EXTRACT]], i64 7, ptr [[A]])
+// CHECK-NEXT:    [[B_COERCE_FCA_0_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 0
+// CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 1
+// CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 2
+// CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <8 x b8>] [[B_COERCE]], 3
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bytecast exact <8 x b8> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
+// CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v8i8.p0(<8 x i8> [[TMP0]], <8 x i8> [[TMP1]], <8 x i8> [[TMP2]], <8 x i8> [[TMP3]], i64 7, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
 void test_vst4_lane_p8(poly8_t  *a, poly8x8x4_t b) {
@@ -5281,14 +5789,14 @@ void test_vst4_lane_p8(poly8_t  *a, poly8x8x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <4 x i16>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <4 x i16>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <4 x i16>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <4 x i16>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <4 x i16>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <4 x i16> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <4 x i16>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <4 x i16>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <4 x i16>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <4 x i16>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v4i16.p0(<4 x i16> [[TMP4]], <4 x i16> [[TMP5]], <4 x i16> [[TMP6]], <4 x i16> [[TMP7]], i64 3, ptr [[A]])
 // CHECK-NEXT:    ret void
 //
@@ -5303,14 +5811,14 @@ void test_vst4_lane_p16(poly16_t  *a, poly16x4x4_t b) {
 // CHECK-NEXT:    [[B_COERCE_FCA_1_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 1
 // CHECK-NEXT:    [[B_COERCE_FCA_2_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 2
 // CHECK-NEXT:    [[B_COERCE_FCA_3_EXTRACT:%.*]] = extractvalue [4 x <1 x i64>] [[B_COERCE]], 3
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x i8>
-// CHECK-NEXT:    [[TMP4:%.*]] = bitcast <8 x i8> [[TMP0]] to <1 x i64>
-// CHECK-NEXT:    [[TMP5:%.*]] = bitcast <8 x i8> [[TMP1]] to <1 x i64>
-// CHECK-NEXT:    [[TMP6:%.*]] = bitcast <8 x i8> [[TMP2]] to <1 x i64>
-// CHECK-NEXT:    [[TMP7:%.*]] = bitcast <8 x i8> [[TMP3]] to <1 x i64>
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_0_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_1_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP2:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_2_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP3:%.*]] = bitcast <1 x i64> [[B_COERCE_FCA_3_EXTRACT]] to <8 x b8>
+// CHECK-NEXT:    [[TMP4:%.*]] = bytecast exact <8 x b8> [[TMP0]] to <1 x i64>
+// CHECK-NEXT:    [[TMP5:%.*]] = bytecast exact <8 x b8> [[TMP1]] to <1 x i64>
+// CHECK-NEXT:    [[TMP6:%.*]] = bytecast exact <8 x b8> [[TMP2]] to <1 x i64>
+// CHECK-NEXT:    [[TMP7:%.*]] = bytecast exact <8 x b8> [[TMP3]] to <1 x i64>
 // CHECK-NEXT:    call void @llvm.aarch64.neon.st4lane.v1i64.p0(<1 x i64> [[TMP4]], <1 x i64> [[TMP5]], <1 x i64> [[TMP6]], <1 x i64> [[TMP7]], i64 0, ptr [[A]])
 // CHECK-NEXT:    ret void
 //

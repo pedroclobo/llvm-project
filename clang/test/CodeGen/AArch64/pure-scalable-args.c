@@ -49,7 +49,7 @@ typedef struct  {
     char data[16];
 } SmallAgg;
 
-// CHECK: %struct.PST = type { <2 x i8>, <2 x double>, [2 x <4 x float>], <16 x i8>, <2 x i8> }
+// CHECK: %struct.PST = type { <2 x b8>, <2 x double>, [2 x <4 x float>], <16 x i8>, <2 x b8> }
 
 // Test argument passing of Pure Scalable Types by examining the generated
 // LLVM IR function declarations. A PST argument in C/C++ should map to:
@@ -69,9 +69,9 @@ void test_argpass_simple(PST *p) {
 }
 // CHECK-AAPCS:      define dso_local void @test_argpass_simple(ptr noundef readonly captures(none) %p)
 // CHECK-AAPCS-NEXT: entry:
-// CHECK-AAPCS-NEXT: %0 = load <2 x i8>, ptr %p, align 16
-// CHECK-AAPCS-NEXT: %cast.scalable = tail call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v2i8(<vscale x 2 x i8> poison, <2 x i8> %0, i64 0)
-// CHECK-AAPCS-NEXT: %1 = bitcast <vscale x 2 x i8> %cast.scalable to <vscale x 16 x i1>
+// CHECK-AAPCS-NEXT: %0 = load <2 x b8>, ptr %p, align 16
+// CHECK-AAPCS-NEXT: %cast.scalable = tail call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v2b8(<vscale x 2 x b8> poison, <2 x b8> %0, i64 0)
+// CHECK-AAPCS-NEXT: %1 = bytecast exact <vscale x 2 x b8> %cast.scalable to <vscale x 16 x i1>
 // CHECK-AAPCS-NEXT: %2 = getelementptr inbounds nuw i8, ptr %p, i64 16
 // CHECK-AAPCS-NEXT: %3 = load <2 x double>, ptr %2, align 16
 // CHECK-AAPCS-NEXT: %cast.scalable1 = tail call <vscale x 2 x double> @llvm.vector.insert.nxv2f64.v2f64(<vscale x 2 x double> poison, <2 x double> %3, i64 0)
@@ -85,9 +85,9 @@ void test_argpass_simple(PST *p) {
 // CHECK-AAPCS-NEXT: %9 = load <16 x i8>, ptr %8, align 16
 // CHECK-AAPCS-NEXT: %cast.scalable4 = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> %9, i64 0)
 // CHECK-AAPCS-NEXT: %10 = getelementptr inbounds nuw i8, ptr %p, i64 80
-// CHECK-AAPCS-NEXT: %11 = load <2 x i8>, ptr %10, align 16
-// CHECK-AAPCS-NEXT: %cast.scalable5 = tail call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v2i8(<vscale x 2 x i8> poison, <2 x i8> %11, i64 0)
-// CHECK-AAPCS-NEXT: %12 = bitcast <vscale x 2 x i8> %cast.scalable5 to <vscale x 16 x i1>
+// CHECK-AAPCS-NEXT: %11 = load <2 x b8>, ptr %10, align 16
+// CHECK-AAPCS-NEXT: %cast.scalable5 = tail call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v2b8(<vscale x 2 x b8> poison, <2 x b8> %11, i64 0)
+// CHECK-AAPCS-NEXT: %12 = bytecast exact <vscale x 2 x b8> %cast.scalable5 to <vscale x 16 x i1>
 // CHECK-AAPCS-NEXT: tail call void @argpass_simple_callee(<vscale x 16 x i1> %1, <vscale x 2 x double> %cast.scalable1, <vscale x 4 x float> %cast.scalable2, <vscale x 4 x float> %cast.scalable3, <vscale x 16 x i8> %cast.scalable4, <vscale x 16 x i1> %12)
 // CHECK-AAPCS-NEXT: ret void
 
@@ -157,7 +157,7 @@ void test_argpass_no_z(PST *p, double dummy, svmfloat8_t u, int8x16_t v, mfloat8
     void argpass_no_z_callee(svmfloat8_t, int8x16_t, mfloat8x16_t, double, double, int, PST, int, double, svbool_t);
     argpass_no_z_callee(u, v, w, .0, .0, 1, *p, 2, 3.0, svptrue_b64());
 }
-// CHECK: declare void @argpass_no_z_callee(<vscale x 16 x i8>, <16 x i8> noundef, <16 x i8>, double noundef, double noundef, i32 noundef, ptr dead_on_return noundef, i32 noundef, double noundef, <vscale x 16 x i1>)
+// CHECK: declare void @argpass_no_z_callee(<vscale x 16 x i8>, <16 x b8> noundef, <16 x i8>, double noundef, double noundef, i32 noundef, ptr dead_on_return noundef, i32 noundef, double noundef, <vscale x 16 x i1>)
 
 
 // Like the above, using a tuple to occupy some registers.
@@ -353,9 +353,9 @@ void test_argpass_callee_side(PST v) {
 // CHECK-AAPCS:      define dso_local void @test_argpass_callee_side(<vscale x 16 x i1> %0, <vscale x 2 x double> %.coerce1, <vscale x 4 x float> %.coerce3, <vscale x 4 x float> %.coerce5, <vscale x 16 x i8> %.coerce7, <vscale x 16 x i1> %1)
 // CHECK-AAPCS-NEXT: entry:
 // CHECK-AAPCS-NEXT:   %v = alloca %struct.PST, align 16
-// CHECK-AAPCS-NEXT:   %.coerce = bitcast <vscale x 16 x i1> %0 to <vscale x 2 x i8>
-// CHECK-AAPCS-NEXT:   %cast.fixed = tail call <2 x i8> @llvm.vector.extract.v2i8.nxv2i8(<vscale x 2 x i8> %.coerce, i64 0)
-// CHECK-AAPCS-NEXT:   store <2 x i8> %cast.fixed, ptr %v, align 16
+// CHECK-AAPCS-NEXT:   %.coerce = bitcast <vscale x 16 x i1> %0 to <vscale x 2 x b8>
+// CHECK-AAPCS-NEXT:   %cast.fixed = tail call <2 x b8> @llvm.vector.extract.v2b8.nxv2b8(<vscale x 2 x b8> %.coerce, i64 0)
+// CHECK-AAPCS-NEXT:   store <2 x b8> %cast.fixed, ptr %v, align 16
 // CHECK-AAPCS-NEXT:   %2 = getelementptr inbounds nuw i8, ptr %v, i64 16
 // CHECK-AAPCS-NEXT:   %cast.fixed2 = tail call <2 x double> @llvm.vector.extract.v2f64.nxv2f64(<vscale x 2 x double> %.coerce1, i64 0)
 // CHECK-AAPCS-NEXT:   store <2 x double> %cast.fixed2, ptr %2, align 16
@@ -369,9 +369,9 @@ void test_argpass_callee_side(PST v) {
 // CHECK-AAPCS-NEXT:   %cast.fixed8 = tail call <16 x i8> @llvm.vector.extract.v16i8.nxv16i8(<vscale x 16 x i8> %.coerce7, i64 0)
 // CHECK-AAPCS-NEXT:   store <16 x i8> %cast.fixed8, ptr %5, align 16
 // CHECK-AAPCS-NEXT:   %6 = getelementptr inbounds nuw i8, ptr %v, i64 80
-// CHECK-AAPCS-NEXT:   %.coerce9 = bitcast <vscale x 16 x i1> %1 to <vscale x 2 x i8>
-// CHECK-AAPCS-NEXT:   %cast.fixed10 = tail call <2 x i8> @llvm.vector.extract.v2i8.nxv2i8(<vscale x 2 x i8> %.coerce9, i64 0)
-// CHECK-AAPCS-NEXT:   store <2 x i8> %cast.fixed10, ptr %6, align 16
+// CHECK-AAPCS-NEXT:   %.coerce9 = bitcast <vscale x 16 x i1> %1 to <vscale x 2 x b8>
+// CHECK-AAPCS-NEXT:   %cast.fixed10 = tail call <2 x b8> @llvm.vector.extract.v2b8.nxv2b8(<vscale x 2 x b8> %.coerce9, i64 0)
+// CHECK-AAPCS-NEXT:   store <2 x b8> %cast.fixed10, ptr %6, align 16
 // CHECK-AAPCS-NEXT:   call void @use(ptr noundef nonnull %v)
 // CHECK-AAPCS-NEXT:   ret void
 // CHECK-AAPCS-NEXT: }
@@ -382,7 +382,7 @@ void test_argpass_callee_side(PST v) {
 #endif
 void test_va_arg(int n, ...) {
      va_list ap;
-     va_start(ap, n);  
+     va_start(ap, n);
      PST v = va_arg(ap, PST);
      va_end(ap);
 
@@ -427,12 +427,12 @@ void test_va_arg(int n, ...) {
 // Extra indirection, for a composite passed indirectly.
 // CHECK-AAPCS-NEXT:   %vaarg.addr = load ptr, ptr %vaargs.addr, align 8
 
-// CHECK-AAPCS-NEXT:   %v.sroa.0.0.copyload = load <2 x i8>, ptr %vaarg.addr, align 16
+// CHECK-AAPCS-NEXT:   %v.sroa.0.0.copyload = load <2 x b8>, ptr %vaarg.addr, align 16
 // CHECK-AAPCS-NEXT:   %v.sroa.43.0.vaarg.addr.sroa_idx = getelementptr inbounds nuw i8, ptr %vaarg.addr, i64 48
 // CHECK-AAPCS-NEXT:   %v.sroa.43.0.copyload = load <4 x float>, ptr %v.sroa.43.0.vaarg.addr.sroa_idx, align 16
 // CHECK-AAPCS-NEXT:   call void @llvm.va_end.p0(ptr nonnull %ap)
-// CHECK-AAPCS-NEXT:   %cast.scalable = call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v2i8(<vscale x 2 x i8> poison, <2 x i8> %v.sroa.0.0.copyload, i64 0)
-// CHECK-AAPCS-NEXT:   %3 = bitcast <vscale x 2 x i8> %cast.scalable to <vscale x 16 x i1>
+// CHECK-AAPCS-NEXT:   %cast.scalable = call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v2b8(<vscale x 2 x b8> poison, <2 x b8> %v.sroa.0.0.copyload, i64 0)
+// CHECK-AAPCS-NEXT:   %3 = bytecast exact <vscale x 2 x b8> %cast.scalable to <vscale x 16 x i1>
 // CHECK-AAPCS-NEXT:   %cast.scalable2 = call <vscale x 4 x float> @llvm.vector.insert.nxv4f32.v4f32(<vscale x 4 x float> poison, <4 x float> %v.sroa.43.0.copyload, i64 0)
 // CHECK-AAPCS-NEXT:   call void @use1(<vscale x 16 x i1> noundef %3, <vscale x 4 x float> noundef %cast.scalable2)
 // CHECK-AAPCS-NEXT:   call void @llvm.lifetime.end.p0(ptr nonnull %ap)
@@ -448,12 +448,12 @@ void test_va_arg(int n, ...) {
 // CHECK-DARWIN-NEXT:   %argp.next = getelementptr inbounds nuw i8, ptr %argp.cur, i64 8
 // CHECK-DARWIN-NEXT:   store ptr %argp.next, ptr %ap, align 8
 // CHECK-DARWIN-NEXT:   %0 = load ptr, ptr %argp.cur, align 8
-// CHECK-DARWIN-NEXT:   %v.sroa.0.0.copyload = load <2 x i8>, ptr %0, align 16
+// CHECK-DARWIN-NEXT:   %v.sroa.0.0.copyload = load <2 x b8>, ptr %0, align 16
 // CHECK-DARWIN-NEXT:   %v.sroa.43.0..sroa_idx = getelementptr inbounds nuw i8, ptr %0, i64 48
 // CHECK-DARWIN-NEXT:   %v.sroa.43.0.copyload = load <4 x float>, ptr %v.sroa.43.0..sroa_idx, align 16
 // CHECK-DARWIN-NEXT:   call void @llvm.va_end.p0(ptr nonnull %ap)
-// CHECK-DARWIN-NEXT:   %cast.scalable = call <vscale x 2 x i8> @llvm.vector.insert.nxv2i8.v2i8(<vscale x 2 x i8> poison, <2 x i8> %v.sroa.0.0.copyload, i64 0)
-// CHECK-DARWIN-NEXT:   %1 = bitcast <vscale x 2 x i8> %cast.scalable to <vscale x 16 x i1>
+// CHECK-DARWIN-NEXT:   %cast.scalable = call <vscale x 2 x b8> @llvm.vector.insert.nxv2b8.v2b8(<vscale x 2 x b8> poison, <2 x b8> %v.sroa.0.0.copyload, i64 0)
+// CHECK-DARWIN-NEXT:   %1 = bytecast exact <vscale x 2 x b8> %cast.scalable to <vscale x 16 x i1>
 // CHECK-DARWIN-NEXT:   %cast.scalable2 = call <vscale x 4 x float> @llvm.vector.insert.nxv4f32.v4f32(<vscale x 4 x float> poison, <4 x float> %v.sroa.43.0.copyload, i64 0)
 // CHECK-DARWIN-NEXT:   call void @use1(<vscale x 16 x i1> noundef %1, <vscale x 4 x float> noundef %cast.scalable2)
 // CHECK-DARWIN-NEXT:   call void @llvm.lifetime.end.p0(ptr nonnull %ap)
