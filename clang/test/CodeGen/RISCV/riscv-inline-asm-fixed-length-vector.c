@@ -37,7 +37,7 @@ i32x2 test_vr2(i32x2 a) {
 
 fixed_i8mf2_t test_vd(fixed_i8mf2_t a) {
 // CHECK-LABEL: define{{.*}} @test_vd
-// CHECK: %0 = tail call <8 x i8> asm sideeffect "vadd.vv $0, $1, $2", "=^vd,^vr,^vr"(<8 x i8> %a, <8 x i8> %a)
+// CHECK: %0 = tail call <8 x b8> asm sideeffect "vadd.vv $0, $1, $2", "=^vd,^vr,^vr"(<8 x b8> %a, <8 x b8> %a)
   fixed_i8mf2_t ret;
   asm volatile ("vadd.vv %0, %1, %2" : "=vd"(ret) : "vr"(a), "vr"(a));
   return ret;
@@ -45,7 +45,7 @@ fixed_i8mf2_t test_vd(fixed_i8mf2_t a) {
 
 i8x4 test_vd2(i8x4 a) {
 // CHECK-LABEL: define{{.*}} @test_vd2
-// CHECK: %1 = tail call <4 x i8> asm sideeffect "vadd.vv $0, $1, $2", "=^vd,^vr,^vr"(<4 x i8> %0, <4 x i8> %0)
+// CHECK: %1 = tail call <4 x b8> asm sideeffect "vadd.vv $0, $1, $2", "=^vd,^vr,^vr"(<4 x b8> %0, <4 x b8> %0)
   i8x4 ret;
   asm volatile ("vadd.vv %0, %1, %2" : "=vd"(ret) : "vr"(a), "vr"(a));
   return ret;
@@ -53,7 +53,9 @@ i8x4 test_vd2(i8x4 a) {
 
 fixed_bool1_t test_vm(fixed_bool1_t a) {
 // CHECK-LABEL: define{{.*}} @test_vm
-// CHECK: %1 = tail call <16 x i8> asm sideeffect "vmand.mm $0, $1, $2", "=^vm,^vm,^vm"(<16 x i8> %a, <16 x i8> %a)
+// CHECK: %0 = bitcast <vscale x 64 x i1> %a.coerce to <vscale x 8 x b8>
+// CHECK: %1 = tail call <16 x b8> @llvm.vector.extract.v16b8.nxv8b8(<vscale x 8 x b8> %0, i64 0)
+// CHECK: %2 = tail call <16 x b8> asm sideeffect "vmand.mm $0, $1, $2", "=^vm,^vm,^vm"(<16 x b8> %1, <16 x b8> %1)
   fixed_bool1_t ret;
   asm volatile ("vmand.mm %0, %1, %2" : "=vm"(ret) : "vm"(a), "vm"(a));
   return ret;

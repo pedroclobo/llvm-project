@@ -105,7 +105,10 @@ fixed_bool32_t from_vbool32_t(vbool32_t type) {
 
 // CHECK-LABEL: @to_vbool32_t(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <vscale x 2 x i1> [[TMP0:%.*]]
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> undef, i64 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 2 x i1> @llvm.vector.extract.nxv2i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-NEXT:    ret <vscale x 2 x i1> [[TMP1]]
 //
 vbool32_t to_vbool32_t(fixed_bool32_t type) {
   return type;

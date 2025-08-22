@@ -11,12 +11,12 @@
 
 // CHECK-RV32-LABEL: @test_sf_vc_vvv_se_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv1i8.nxv1i8.nxv1i8.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], <vscale x 1 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv1b8.nxv1b8.nxv1b8.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], <vscale x 1 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_vvv_se_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv1i8.nxv1i8.nxv1i8.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], <vscale x 1 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv1b8.nxv1b8.nxv1b8.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], <vscale x 1 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_vvv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, vuint8mf8_t vs1, size_t vl) {
@@ -25,12 +25,12 @@ void test_sf_vc_vvv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, vuint8mf8_t vs1, s
 
 // CHECK-RV32-LABEL: @test_sf_vc_vvv_se_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv2i8.nxv2i8.nxv2i8.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], <vscale x 2 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv2b8.nxv2b8.nxv2b8.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], <vscale x 2 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_vvv_se_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv2i8.nxv2i8.nxv2i8.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], <vscale x 2 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv2b8.nxv2b8.nxv2b8.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], <vscale x 2 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_vvv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, vuint8mf4_t vs1, size_t vl) {
@@ -39,12 +39,12 @@ void test_sf_vc_vvv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, vuint8mf4_t vs1, s
 
 // CHECK-RV32-LABEL: @test_sf_vc_vvv_se_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv4i8.nxv4i8.nxv4i8.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], <vscale x 4 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv4b8.nxv4b8.nxv4b8.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], <vscale x 4 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_vvv_se_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv4i8.nxv4i8.nxv4i8.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], <vscale x 4 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv4b8.nxv4b8.nxv4b8.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], <vscale x 4 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_vvv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, vuint8mf2_t vs1, size_t vl) {
@@ -53,12 +53,12 @@ void test_sf_vc_vvv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, vuint8mf2_t vs1, s
 
 // CHECK-RV32-LABEL: @test_sf_vc_vvv_se_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv8i8.nxv8i8.nxv8i8.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], <vscale x 8 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv8b8.nxv8b8.nxv8b8.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], <vscale x 8 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_vvv_se_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv8i8.nxv8i8.nxv8i8.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], <vscale x 8 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv8b8.nxv8b8.nxv8b8.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], <vscale x 8 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_vvv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, vuint8m1_t vs1, size_t vl) {
@@ -67,12 +67,12 @@ void test_sf_vc_vvv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, vuint8m1_t vs1, size_
 
 // CHECK-RV32-LABEL: @test_sf_vc_vvv_se_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv16i8.nxv16i8.nxv16i8.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], <vscale x 16 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv16b8.nxv16b8.nxv16b8.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], <vscale x 16 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_vvv_se_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv16i8.nxv16i8.nxv16i8.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], <vscale x 16 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv16b8.nxv16b8.nxv16b8.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], <vscale x 16 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_vvv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, vuint8m2_t vs1, size_t vl) {
@@ -81,12 +81,12 @@ void test_sf_vc_vvv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, vuint8m2_t vs1, size_
 
 // CHECK-RV32-LABEL: @test_sf_vc_vvv_se_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv32i8.nxv32i8.nxv32i8.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], <vscale x 32 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv32b8.nxv32b8.nxv32b8.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], <vscale x 32 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_vvv_se_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv32i8.nxv32i8.nxv32i8.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], <vscale x 32 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv32b8.nxv32b8.nxv32b8.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], <vscale x 32 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_vvv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, vuint8m4_t vs1, size_t vl) {
@@ -95,12 +95,12 @@ void test_sf_vc_vvv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, vuint8m4_t vs1, size_
 
 // CHECK-RV32-LABEL: @test_sf_vc_vvv_se_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv64i8.nxv64i8.nxv64i8.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], <vscale x 64 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i32.nxv64b8.nxv64b8.nxv64b8.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], <vscale x 64 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_vvv_se_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv64i8.nxv64i8.nxv64i8.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], <vscale x 64 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.vvv.se.i64.nxv64b8.nxv64b8.nxv64b8.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], <vscale x 64 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_vvv_se_u8m8(vuint8m8_t vd, vuint8m8_t vs2, vuint8m8_t vs1, size_t vl) {
@@ -319,13 +319,13 @@ void test_sf_vc_vvv_se_u64m8(vuint64m8_t vd, vuint64m8_t vs2, vuint64m8_t vs1, s
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_se_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv1i8.i32.nxv1i8.nxv1i8.nxv1i8.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], <vscale x 1 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv1b8.i32.nxv1b8.nxv1b8.nxv1b8.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], <vscale x 1 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_se_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv1i8.i64.nxv1i8.nxv1i8.nxv1i8.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], <vscale x 1 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv1b8.i64.nxv1b8.nxv1b8.nxv1b8.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], <vscale x 1 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_sf_vc_v_vvv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, vuint8mf8_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_se_u8mf8(p27_26, vd, vs2, vs1, vl);
@@ -333,13 +333,13 @@ vuint8mf8_t test_sf_vc_v_vvv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, vuint8mf8
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_se_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv2i8.i32.nxv2i8.nxv2i8.nxv2i8.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], <vscale x 2 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv2b8.i32.nxv2b8.nxv2b8.nxv2b8.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], <vscale x 2 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_se_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv2i8.i64.nxv2i8.nxv2i8.nxv2i8.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], <vscale x 2 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv2b8.i64.nxv2b8.nxv2b8.nxv2b8.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], <vscale x 2 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_sf_vc_v_vvv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, vuint8mf4_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_se_u8mf4(p27_26, vd, vs2, vs1, vl);
@@ -347,13 +347,13 @@ vuint8mf4_t test_sf_vc_v_vvv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, vuint8mf4
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_se_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv4i8.i32.nxv4i8.nxv4i8.nxv4i8.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], <vscale x 4 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv4b8.i32.nxv4b8.nxv4b8.nxv4b8.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], <vscale x 4 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_se_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv4i8.i64.nxv4i8.nxv4i8.nxv4i8.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], <vscale x 4 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv4b8.i64.nxv4b8.nxv4b8.nxv4b8.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], <vscale x 4 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_sf_vc_v_vvv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, vuint8mf2_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_se_u8mf2(p27_26, vd, vs2, vs1, vl);
@@ -361,13 +361,13 @@ vuint8mf2_t test_sf_vc_v_vvv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, vuint8mf2
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_se_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv8i8.i32.nxv8i8.nxv8i8.nxv8i8.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], <vscale x 8 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv8b8.i32.nxv8b8.nxv8b8.nxv8b8.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], <vscale x 8 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_se_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv8i8.i64.nxv8i8.nxv8i8.nxv8i8.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], <vscale x 8 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv8b8.i64.nxv8b8.nxv8b8.nxv8b8.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], <vscale x 8 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_sf_vc_v_vvv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, vuint8m1_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_se_u8m1(p27_26, vd, vs2, vs1, vl);
@@ -375,13 +375,13 @@ vuint8m1_t test_sf_vc_v_vvv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, vuint8m1_t vs
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_se_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv16i8.i32.nxv16i8.nxv16i8.nxv16i8.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], <vscale x 16 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv16b8.i32.nxv16b8.nxv16b8.nxv16b8.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], <vscale x 16 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_se_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv16i8.i64.nxv16i8.nxv16i8.nxv16i8.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], <vscale x 16 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv16b8.i64.nxv16b8.nxv16b8.nxv16b8.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], <vscale x 16 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_sf_vc_v_vvv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, vuint8m2_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_se_u8m2(p27_26, vd, vs2, vs1, vl);
@@ -389,13 +389,13 @@ vuint8m2_t test_sf_vc_v_vvv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, vuint8m2_t vs
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_se_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv32i8.i32.nxv32i8.nxv32i8.nxv32i8.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], <vscale x 32 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv32b8.i32.nxv32b8.nxv32b8.nxv32b8.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], <vscale x 32 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_se_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv32i8.i64.nxv32i8.nxv32i8.nxv32i8.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], <vscale x 32 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv32b8.i64.nxv32b8.nxv32b8.nxv32b8.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], <vscale x 32 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_sf_vc_v_vvv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, vuint8m4_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_se_u8m4(p27_26, vd, vs2, vs1, vl);
@@ -403,13 +403,13 @@ vuint8m4_t test_sf_vc_v_vvv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, vuint8m4_t vs
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_se_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv64i8.i32.nxv64i8.nxv64i8.nxv64i8.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], <vscale x 64 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv64b8.i32.nxv64b8.nxv64b8.nxv64b8.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], <vscale x 64 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_se_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.vvv.se.nxv64i8.i64.nxv64i8.nxv64i8.nxv64i8.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], <vscale x 64 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.vvv.se.nxv64b8.i64.nxv64b8.nxv64b8.nxv64b8.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], <vscale x 64 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_sf_vc_v_vvv_se_u8m8(vuint8m8_t vd, vuint8m8_t vs2, vuint8m8_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_se_u8m8(p27_26, vd, vs2, vs1, vl);
@@ -627,13 +627,13 @@ vuint64m8_t test_sf_vc_v_vvv_se_u64m8(vuint64m8_t vd, vuint64m8_t vs2, vuint64m8
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.vvv.nxv1i8.i32.nxv1i8.nxv1i8.nxv1i8.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], <vscale x 1 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.vvv.nxv1b8.i32.nxv1b8.nxv1b8.nxv1b8.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], <vscale x 1 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.vvv.nxv1i8.i64.nxv1i8.nxv1i8.nxv1i8.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], <vscale x 1 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.vvv.nxv1b8.i64.nxv1b8.nxv1b8.nxv1b8.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], <vscale x 1 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_sf_vc_v_vvv_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, vuint8mf8_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_u8mf8(p27_26, vd, vs2, vs1, vl);
@@ -641,13 +641,13 @@ vuint8mf8_t test_sf_vc_v_vvv_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, vuint8mf8_t 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.vvv.nxv2i8.i32.nxv2i8.nxv2i8.nxv2i8.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], <vscale x 2 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.vvv.nxv2b8.i32.nxv2b8.nxv2b8.nxv2b8.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], <vscale x 2 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.vvv.nxv2i8.i64.nxv2i8.nxv2i8.nxv2i8.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], <vscale x 2 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.vvv.nxv2b8.i64.nxv2b8.nxv2b8.nxv2b8.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], <vscale x 2 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_sf_vc_v_vvv_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, vuint8mf4_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_u8mf4(p27_26, vd, vs2, vs1, vl);
@@ -655,13 +655,13 @@ vuint8mf4_t test_sf_vc_v_vvv_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, vuint8mf4_t 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.vvv.nxv4i8.i32.nxv4i8.nxv4i8.nxv4i8.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], <vscale x 4 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.vvv.nxv4b8.i32.nxv4b8.nxv4b8.nxv4b8.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], <vscale x 4 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.vvv.nxv4i8.i64.nxv4i8.nxv4i8.nxv4i8.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], <vscale x 4 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.vvv.nxv4b8.i64.nxv4b8.nxv4b8.nxv4b8.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], <vscale x 4 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_sf_vc_v_vvv_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, vuint8mf2_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_u8mf2(p27_26, vd, vs2, vs1, vl);
@@ -669,13 +669,13 @@ vuint8mf2_t test_sf_vc_v_vvv_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, vuint8mf2_t 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.vvv.nxv8i8.i32.nxv8i8.nxv8i8.nxv8i8.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], <vscale x 8 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.vvv.nxv8b8.i32.nxv8b8.nxv8b8.nxv8b8.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], <vscale x 8 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.vvv.nxv8i8.i64.nxv8i8.nxv8i8.nxv8i8.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], <vscale x 8 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.vvv.nxv8b8.i64.nxv8b8.nxv8b8.nxv8b8.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], <vscale x 8 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_sf_vc_v_vvv_u8m1(vuint8m1_t vd, vuint8m1_t vs2, vuint8m1_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_u8m1(p27_26, vd, vs2, vs1, vl);
@@ -683,13 +683,13 @@ vuint8m1_t test_sf_vc_v_vvv_u8m1(vuint8m1_t vd, vuint8m1_t vs2, vuint8m1_t vs1, 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.vvv.nxv16i8.i32.nxv16i8.nxv16i8.nxv16i8.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], <vscale x 16 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.vvv.nxv16b8.i32.nxv16b8.nxv16b8.nxv16b8.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], <vscale x 16 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.vvv.nxv16i8.i64.nxv16i8.nxv16i8.nxv16i8.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], <vscale x 16 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.vvv.nxv16b8.i64.nxv16b8.nxv16b8.nxv16b8.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], <vscale x 16 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_sf_vc_v_vvv_u8m2(vuint8m2_t vd, vuint8m2_t vs2, vuint8m2_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_u8m2(p27_26, vd, vs2, vs1, vl);
@@ -697,13 +697,13 @@ vuint8m2_t test_sf_vc_v_vvv_u8m2(vuint8m2_t vd, vuint8m2_t vs2, vuint8m2_t vs1, 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.vvv.nxv32i8.i32.nxv32i8.nxv32i8.nxv32i8.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], <vscale x 32 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.vvv.nxv32b8.i32.nxv32b8.nxv32b8.nxv32b8.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], <vscale x 32 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.vvv.nxv32i8.i64.nxv32i8.nxv32i8.nxv32i8.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], <vscale x 32 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.vvv.nxv32b8.i64.nxv32b8.nxv32b8.nxv32b8.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], <vscale x 32 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_sf_vc_v_vvv_u8m4(vuint8m4_t vd, vuint8m4_t vs2, vuint8m4_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_u8m4(p27_26, vd, vs2, vs1, vl);
@@ -711,13 +711,13 @@ vuint8m4_t test_sf_vc_v_vvv_u8m4(vuint8m4_t vd, vuint8m4_t vs2, vuint8m4_t vs1, 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_vvv_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.vvv.nxv64i8.i32.nxv64i8.nxv64i8.nxv64i8.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], <vscale x 64 x i8> [[VS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.vvv.nxv64b8.i32.nxv64b8.nxv64b8.nxv64b8.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], <vscale x 64 x b8> [[VS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_vvv_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.vvv.nxv64i8.i64.nxv64i8.nxv64i8.nxv64i8.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], <vscale x 64 x i8> [[VS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.vvv.nxv64b8.i64.nxv64b8.nxv64b8.nxv64b8.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], <vscale x 64 x b8> [[VS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_sf_vc_v_vvv_u8m8(vuint8m8_t vd, vuint8m8_t vs2, vuint8m8_t vs1, size_t vl) {
   return __riscv_sf_vc_v_vvv_u8m8(p27_26, vd, vs2, vs1, vl);
@@ -935,12 +935,12 @@ vuint64m8_t test_sf_vc_v_vvv_u64m8(vuint64m8_t vd, vuint64m8_t vs2, vuint64m8_t 
 
 // CHECK-RV32-LABEL: @test_sf_vc_xvv_se_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv1i8.nxv1i8.i8.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv1b8.nxv1b8.b8.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_xvv_se_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv1i8.nxv1i8.i8.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv1b8.nxv1b8.b8.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_xvv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, uint8_t rs1, size_t vl) {
@@ -949,12 +949,12 @@ void test_sf_vc_xvv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, uint8_t rs1, size_
 
 // CHECK-RV32-LABEL: @test_sf_vc_xvv_se_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv2i8.nxv2i8.i8.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv2b8.nxv2b8.b8.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_xvv_se_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv2i8.nxv2i8.i8.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv2b8.nxv2b8.b8.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_xvv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, uint8_t rs1, size_t vl) {
@@ -963,12 +963,12 @@ void test_sf_vc_xvv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, uint8_t rs1, size_
 
 // CHECK-RV32-LABEL: @test_sf_vc_xvv_se_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv4i8.nxv4i8.i8.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv4b8.nxv4b8.b8.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_xvv_se_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv4i8.nxv4i8.i8.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv4b8.nxv4b8.b8.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_xvv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, uint8_t rs1, size_t vl) {
@@ -977,12 +977,12 @@ void test_sf_vc_xvv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, uint8_t rs1, size_
 
 // CHECK-RV32-LABEL: @test_sf_vc_xvv_se_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv8i8.nxv8i8.i8.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv8b8.nxv8b8.b8.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_xvv_se_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv8i8.nxv8i8.i8.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv8b8.nxv8b8.b8.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_xvv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, uint8_t rs1, size_t vl) {
@@ -991,12 +991,12 @@ void test_sf_vc_xvv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, uint8_t rs1, size_t v
 
 // CHECK-RV32-LABEL: @test_sf_vc_xvv_se_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv16i8.nxv16i8.i8.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv16b8.nxv16b8.b8.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_xvv_se_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv16i8.nxv16i8.i8.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv16b8.nxv16b8.b8.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_xvv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, uint8_t rs1, size_t vl) {
@@ -1005,12 +1005,12 @@ void test_sf_vc_xvv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, uint8_t rs1, size_t v
 
 // CHECK-RV32-LABEL: @test_sf_vc_xvv_se_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv32i8.nxv32i8.i8.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv32b8.nxv32b8.b8.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_xvv_se_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv32i8.nxv32i8.i8.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv32b8.nxv32b8.b8.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_xvv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, uint8_t rs1, size_t vl) {
@@ -1019,12 +1019,12 @@ void test_sf_vc_xvv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, uint8_t rs1, size_t v
 
 // CHECK-RV32-LABEL: @test_sf_vc_xvv_se_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv64i8.nxv64i8.i8.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i32.nxv64b8.nxv64b8.b8.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_xvv_se_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv64i8.nxv64i8.i8.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.xvv.se.i64.nxv64b8.nxv64b8.b8.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_xvv_se_u8m8(vuint8m8_t vd, vuint8m8_t vs2, uint8_t rs1, size_t vl) {
@@ -1187,13 +1187,13 @@ void test_sf_vc_xvv_se_u32m8(vuint32m8_t vd, vuint32m8_t vs2, uint32_t rs1, size
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_se_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv1i8.i32.nxv1i8.nxv1i8.i8.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv1b8.i32.nxv1b8.nxv1b8.b8.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_se_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv1i8.i64.nxv1i8.nxv1i8.i8.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv1b8.i64.nxv1b8.nxv1b8.b8.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_sf_vc_v_xvv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_se_u8mf8(p27_26, vd, vs2, rs1, vl);
@@ -1201,13 +1201,13 @@ vuint8mf8_t test_sf_vc_v_xvv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, uint8_t r
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_se_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv2i8.i32.nxv2i8.nxv2i8.i8.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv2b8.i32.nxv2b8.nxv2b8.b8.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_se_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv2i8.i64.nxv2i8.nxv2i8.i8.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv2b8.i64.nxv2b8.nxv2b8.b8.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_sf_vc_v_xvv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_se_u8mf4(p27_26, vd, vs2, rs1, vl);
@@ -1215,13 +1215,13 @@ vuint8mf4_t test_sf_vc_v_xvv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, uint8_t r
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_se_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv4i8.i32.nxv4i8.nxv4i8.i8.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv4b8.i32.nxv4b8.nxv4b8.b8.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_se_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv4i8.i64.nxv4i8.nxv4i8.i8.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv4b8.i64.nxv4b8.nxv4b8.b8.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_sf_vc_v_xvv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_se_u8mf2(p27_26, vd, vs2, rs1, vl);
@@ -1229,13 +1229,13 @@ vuint8mf2_t test_sf_vc_v_xvv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, uint8_t r
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_se_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv8i8.i32.nxv8i8.nxv8i8.i8.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv8b8.i32.nxv8b8.nxv8b8.b8.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_se_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv8i8.i64.nxv8i8.nxv8i8.i8.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv8b8.i64.nxv8b8.nxv8b8.b8.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_sf_vc_v_xvv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_se_u8m1(p27_26, vd, vs2, rs1, vl);
@@ -1243,13 +1243,13 @@ vuint8m1_t test_sf_vc_v_xvv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, uint8_t rs1, 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_se_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv16i8.i32.nxv16i8.nxv16i8.i8.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv16b8.i32.nxv16b8.nxv16b8.b8.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_se_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv16i8.i64.nxv16i8.nxv16i8.i8.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv16b8.i64.nxv16b8.nxv16b8.b8.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_sf_vc_v_xvv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_se_u8m2(p27_26, vd, vs2, rs1, vl);
@@ -1257,13 +1257,13 @@ vuint8m2_t test_sf_vc_v_xvv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, uint8_t rs1, 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_se_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv32i8.i32.nxv32i8.nxv32i8.i8.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv32b8.i32.nxv32b8.nxv32b8.b8.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_se_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv32i8.i64.nxv32i8.nxv32i8.i8.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv32b8.i64.nxv32b8.nxv32b8.b8.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_sf_vc_v_xvv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_se_u8m4(p27_26, vd, vs2, rs1, vl);
@@ -1271,13 +1271,13 @@ vuint8m4_t test_sf_vc_v_xvv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, uint8_t rs1, 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_se_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv64i8.i32.nxv64i8.nxv64i8.i8.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv64b8.i32.nxv64b8.nxv64b8.b8.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_se_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.xvv.se.nxv64i8.i64.nxv64i8.nxv64i8.i8.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.xvv.se.nxv64b8.i64.nxv64b8.nxv64b8.b8.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_sf_vc_v_xvv_se_u8m8(vuint8m8_t vd, vuint8m8_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_se_u8m8(p27_26, vd, vs2, rs1, vl);
@@ -1439,13 +1439,13 @@ vuint32m8_t test_sf_vc_v_xvv_se_u32m8(vuint32m8_t vd, vuint32m8_t vs2, uint32_t 
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.xvv.nxv1i8.i32.nxv1i8.nxv1i8.i8.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.xvv.nxv1b8.i32.nxv1b8.nxv1b8.b8.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.xvv.nxv1i8.i64.nxv1i8.nxv1i8.i8.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.xvv.nxv1b8.i64.nxv1b8.nxv1b8.b8.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_sf_vc_v_xvv_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_u8mf8(p27_26, vd, vs2, rs1, vl);
@@ -1453,13 +1453,13 @@ vuint8mf8_t test_sf_vc_v_xvv_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, uint8_t rs1,
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.xvv.nxv2i8.i32.nxv2i8.nxv2i8.i8.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.xvv.nxv2b8.i32.nxv2b8.nxv2b8.b8.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.xvv.nxv2i8.i64.nxv2i8.nxv2i8.i8.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.xvv.nxv2b8.i64.nxv2b8.nxv2b8.b8.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_sf_vc_v_xvv_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_u8mf4(p27_26, vd, vs2, rs1, vl);
@@ -1467,13 +1467,13 @@ vuint8mf4_t test_sf_vc_v_xvv_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, uint8_t rs1,
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.xvv.nxv4i8.i32.nxv4i8.nxv4i8.i8.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.xvv.nxv4b8.i32.nxv4b8.nxv4b8.b8.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.xvv.nxv4i8.i64.nxv4i8.nxv4i8.i8.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.xvv.nxv4b8.i64.nxv4b8.nxv4b8.b8.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_sf_vc_v_xvv_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_u8mf2(p27_26, vd, vs2, rs1, vl);
@@ -1481,13 +1481,13 @@ vuint8mf2_t test_sf_vc_v_xvv_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, uint8_t rs1,
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.xvv.nxv8i8.i32.nxv8i8.nxv8i8.i8.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.xvv.nxv8b8.i32.nxv8b8.nxv8b8.b8.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.xvv.nxv8i8.i64.nxv8i8.nxv8i8.i8.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.xvv.nxv8b8.i64.nxv8b8.nxv8b8.b8.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_sf_vc_v_xvv_u8m1(vuint8m1_t vd, vuint8m1_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_u8m1(p27_26, vd, vs2, rs1, vl);
@@ -1495,13 +1495,13 @@ vuint8m1_t test_sf_vc_v_xvv_u8m1(vuint8m1_t vd, vuint8m1_t vs2, uint8_t rs1, siz
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.xvv.nxv16i8.i32.nxv16i8.nxv16i8.i8.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.xvv.nxv16b8.i32.nxv16b8.nxv16b8.b8.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.xvv.nxv16i8.i64.nxv16i8.nxv16i8.i8.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.xvv.nxv16b8.i64.nxv16b8.nxv16b8.b8.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_sf_vc_v_xvv_u8m2(vuint8m2_t vd, vuint8m2_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_u8m2(p27_26, vd, vs2, rs1, vl);
@@ -1509,13 +1509,13 @@ vuint8m2_t test_sf_vc_v_xvv_u8m2(vuint8m2_t vd, vuint8m2_t vs2, uint8_t rs1, siz
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.xvv.nxv32i8.i32.nxv32i8.nxv32i8.i8.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.xvv.nxv32b8.i32.nxv32b8.nxv32b8.b8.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.xvv.nxv32i8.i64.nxv32i8.nxv32i8.i8.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.xvv.nxv32b8.i64.nxv32b8.nxv32b8.b8.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_sf_vc_v_xvv_u8m4(vuint8m4_t vd, vuint8m4_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_u8m4(p27_26, vd, vs2, rs1, vl);
@@ -1523,13 +1523,13 @@ vuint8m4_t test_sf_vc_v_xvv_u8m4(vuint8m4_t vd, vuint8m4_t vs2, uint8_t rs1, siz
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_xvv_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.xvv.nxv64i8.i32.nxv64i8.nxv64i8.i8.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.xvv.nxv64b8.i32.nxv64b8.nxv64b8.b8.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_xvv_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.xvv.nxv64i8.i64.nxv64i8.nxv64i8.i8.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i8 [[RS1:%.*]], i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.xvv.nxv64b8.i64.nxv64b8.nxv64b8.b8.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], b8 [[RS1:%.*]], i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_sf_vc_v_xvv_u8m8(vuint8m8_t vd, vuint8m8_t vs2, uint8_t rs1, size_t vl) {
   return __riscv_sf_vc_v_xvv_u8m8(p27_26, vd, vs2, rs1, vl);
@@ -1691,12 +1691,12 @@ vuint32m8_t test_sf_vc_v_xvv_u32m8(vuint32m8_t vd, vuint32m8_t vs2, uint32_t rs1
 
 // CHECK-RV32-LABEL: @test_sf_vc_ivv_se_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv1i8.nxv1i8.i32.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv1b8.nxv1b8.i32.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_ivv_se_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv1i8.nxv1i8.i64.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv1b8.nxv1b8.i64.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_ivv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, size_t vl) {
@@ -1705,12 +1705,12 @@ void test_sf_vc_ivv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_ivv_se_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv2i8.nxv2i8.i32.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv2b8.nxv2b8.i32.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_ivv_se_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv2i8.nxv2i8.i64.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv2b8.nxv2b8.i64.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_ivv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, size_t vl) {
@@ -1719,12 +1719,12 @@ void test_sf_vc_ivv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_ivv_se_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv4i8.nxv4i8.i32.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv4b8.nxv4b8.i32.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_ivv_se_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv4i8.nxv4i8.i64.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv4b8.nxv4b8.i64.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_ivv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, size_t vl) {
@@ -1733,12 +1733,12 @@ void test_sf_vc_ivv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_ivv_se_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv8i8.nxv8i8.i32.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv8b8.nxv8b8.i32.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_ivv_se_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv8i8.nxv8i8.i64.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv8b8.nxv8b8.i64.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_ivv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, size_t vl) {
@@ -1747,12 +1747,12 @@ void test_sf_vc_ivv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_ivv_se_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv16i8.nxv16i8.i32.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv16b8.nxv16b8.i32.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_ivv_se_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv16i8.nxv16i8.i64.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv16b8.nxv16b8.i64.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_ivv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, size_t vl) {
@@ -1761,12 +1761,12 @@ void test_sf_vc_ivv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_ivv_se_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv32i8.nxv32i8.i32.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv32b8.nxv32b8.i32.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_ivv_se_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv32i8.nxv32i8.i64.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv32b8.nxv32b8.i64.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_ivv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, size_t vl) {
@@ -1775,12 +1775,12 @@ void test_sf_vc_ivv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_ivv_se_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv64i8.nxv64i8.i32.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i32.nxv64b8.nxv64b8.i32.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
 // CHECK-RV32-NEXT:    ret void
 //
 // CHECK-RV64-LABEL: @test_sf_vc_ivv_se_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv64i8.nxv64i8.i64.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    call void @llvm.riscv.sf.vc.ivv.se.i64.nxv64b8.nxv64b8.i64.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
 // CHECK-RV64-NEXT:    ret void
 //
 void test_sf_vc_ivv_se_u8m8(vuint8m8_t vd, vuint8m8_t vs2, size_t vl) {
@@ -1999,13 +1999,13 @@ void test_sf_vc_ivv_se_u64m8(vuint64m8_t vd, vuint64m8_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_se_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv1i8.i32.nxv1i8.nxv1i8.i32.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv1b8.i32.nxv1b8.nxv1b8.i32.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_se_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv1i8.i64.nxv1i8.nxv1i8.i64.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv1b8.i64.nxv1b8.nxv1b8.i64.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_sf_vc_v_ivv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_se_u8mf8(p27_26, vd, vs2, simm5, vl);
@@ -2013,13 +2013,13 @@ vuint8mf8_t test_sf_vc_v_ivv_se_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, size_t vl
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_se_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv2i8.i32.nxv2i8.nxv2i8.i32.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv2b8.i32.nxv2b8.nxv2b8.i32.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_se_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv2i8.i64.nxv2i8.nxv2i8.i64.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv2b8.i64.nxv2b8.nxv2b8.i64.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_sf_vc_v_ivv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_se_u8mf4(p27_26, vd, vs2, simm5, vl);
@@ -2027,13 +2027,13 @@ vuint8mf4_t test_sf_vc_v_ivv_se_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, size_t vl
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_se_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv4i8.i32.nxv4i8.nxv4i8.i32.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv4b8.i32.nxv4b8.nxv4b8.i32.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_se_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv4i8.i64.nxv4i8.nxv4i8.i64.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv4b8.i64.nxv4b8.nxv4b8.i64.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_sf_vc_v_ivv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_se_u8mf2(p27_26, vd, vs2, simm5, vl);
@@ -2041,13 +2041,13 @@ vuint8mf2_t test_sf_vc_v_ivv_se_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, size_t vl
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_se_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv8i8.i32.nxv8i8.nxv8i8.i32.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv8b8.i32.nxv8b8.nxv8b8.i32.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_se_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv8i8.i64.nxv8i8.nxv8i8.i64.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv8b8.i64.nxv8b8.nxv8b8.i64.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_sf_vc_v_ivv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_se_u8m1(p27_26, vd, vs2, simm5, vl);
@@ -2055,13 +2055,13 @@ vuint8m1_t test_sf_vc_v_ivv_se_u8m1(vuint8m1_t vd, vuint8m1_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_se_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv16i8.i32.nxv16i8.nxv16i8.i32.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv16b8.i32.nxv16b8.nxv16b8.i32.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_se_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv16i8.i64.nxv16i8.nxv16i8.i64.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv16b8.i64.nxv16b8.nxv16b8.i64.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_sf_vc_v_ivv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_se_u8m2(p27_26, vd, vs2, simm5, vl);
@@ -2069,13 +2069,13 @@ vuint8m2_t test_sf_vc_v_ivv_se_u8m2(vuint8m2_t vd, vuint8m2_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_se_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv32i8.i32.nxv32i8.nxv32i8.i32.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv32b8.i32.nxv32b8.nxv32b8.i32.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_se_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv32i8.i64.nxv32i8.nxv32i8.i64.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv32b8.i64.nxv32b8.nxv32b8.i64.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_sf_vc_v_ivv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_se_u8m4(p27_26, vd, vs2, simm5, vl);
@@ -2083,13 +2083,13 @@ vuint8m4_t test_sf_vc_v_ivv_se_u8m4(vuint8m4_t vd, vuint8m4_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_se_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv64i8.i32.nxv64i8.nxv64i8.i32.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv64b8.i32.nxv64b8.nxv64b8.i32.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_se_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.ivv.se.nxv64i8.i64.nxv64i8.nxv64i8.i64.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.ivv.se.nxv64b8.i64.nxv64b8.nxv64b8.i64.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_sf_vc_v_ivv_se_u8m8(vuint8m8_t vd, vuint8m8_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_se_u8m8(p27_26, vd, vs2, simm5, vl);
@@ -2307,13 +2307,13 @@ vuint64m8_t test_sf_vc_v_ivv_se_u64m8(vuint64m8_t vd, vuint64m8_t vs2, size_t vl
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_u8mf8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.ivv.nxv1i8.i32.nxv1i8.nxv1i8.i32.i32(i32 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.ivv.nxv1b8.i32.nxv1b8.nxv1b8.i32.i32(i32 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_u8mf8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x i8> @llvm.riscv.sf.vc.v.ivv.nxv1i8.i64.nxv1i8.nxv1i8.i64.i64(i64 3, <vscale x 1 x i8> [[VD:%.*]], <vscale x 1 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 1 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 1 x b8> @llvm.riscv.sf.vc.v.ivv.nxv1b8.i64.nxv1b8.nxv1b8.i64.i64(i64 3, <vscale x 1 x b8> [[VD:%.*]], <vscale x 1 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 1 x b8> [[TMP0]]
 //
 vuint8mf8_t test_sf_vc_v_ivv_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_u8mf8(p27_26, vd, vs2, simm5, vl);
@@ -2321,13 +2321,13 @@ vuint8mf8_t test_sf_vc_v_ivv_u8mf8(vuint8mf8_t vd, vuint8mf8_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_u8mf4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.ivv.nxv2i8.i32.nxv2i8.nxv2i8.i32.i32(i32 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.ivv.nxv2b8.i32.nxv2b8.nxv2b8.i32.i32(i32 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_u8mf4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x i8> @llvm.riscv.sf.vc.v.ivv.nxv2i8.i64.nxv2i8.nxv2i8.i64.i64(i64 3, <vscale x 2 x i8> [[VD:%.*]], <vscale x 2 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 2 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 2 x b8> @llvm.riscv.sf.vc.v.ivv.nxv2b8.i64.nxv2b8.nxv2b8.i64.i64(i64 3, <vscale x 2 x b8> [[VD:%.*]], <vscale x 2 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 2 x b8> [[TMP0]]
 //
 vuint8mf4_t test_sf_vc_v_ivv_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_u8mf4(p27_26, vd, vs2, simm5, vl);
@@ -2335,13 +2335,13 @@ vuint8mf4_t test_sf_vc_v_ivv_u8mf4(vuint8mf4_t vd, vuint8mf4_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_u8mf2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.ivv.nxv4i8.i32.nxv4i8.nxv4i8.i32.i32(i32 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.ivv.nxv4b8.i32.nxv4b8.nxv4b8.i32.i32(i32 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_u8mf2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x i8> @llvm.riscv.sf.vc.v.ivv.nxv4i8.i64.nxv4i8.nxv4i8.i64.i64(i64 3, <vscale x 4 x i8> [[VD:%.*]], <vscale x 4 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 4 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 4 x b8> @llvm.riscv.sf.vc.v.ivv.nxv4b8.i64.nxv4b8.nxv4b8.i64.i64(i64 3, <vscale x 4 x b8> [[VD:%.*]], <vscale x 4 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 4 x b8> [[TMP0]]
 //
 vuint8mf2_t test_sf_vc_v_ivv_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_u8mf2(p27_26, vd, vs2, simm5, vl);
@@ -2349,13 +2349,13 @@ vuint8mf2_t test_sf_vc_v_ivv_u8mf2(vuint8mf2_t vd, vuint8mf2_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_u8m1(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.ivv.nxv8i8.i32.nxv8i8.nxv8i8.i32.i32(i32 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.ivv.nxv8b8.i32.nxv8b8.nxv8b8.i32.i32(i32 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_u8m1(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x i8> @llvm.riscv.sf.vc.v.ivv.nxv8i8.i64.nxv8i8.nxv8i8.i64.i64(i64 3, <vscale x 8 x i8> [[VD:%.*]], <vscale x 8 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 8 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 8 x b8> @llvm.riscv.sf.vc.v.ivv.nxv8b8.i64.nxv8b8.nxv8b8.i64.i64(i64 3, <vscale x 8 x b8> [[VD:%.*]], <vscale x 8 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 8 x b8> [[TMP0]]
 //
 vuint8m1_t test_sf_vc_v_ivv_u8m1(vuint8m1_t vd, vuint8m1_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_u8m1(p27_26, vd, vs2, simm5, vl);
@@ -2363,13 +2363,13 @@ vuint8m1_t test_sf_vc_v_ivv_u8m1(vuint8m1_t vd, vuint8m1_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_u8m2(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.ivv.nxv16i8.i32.nxv16i8.nxv16i8.i32.i32(i32 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.ivv.nxv16b8.i32.nxv16b8.nxv16b8.i32.i32(i32 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_u8m2(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x i8> @llvm.riscv.sf.vc.v.ivv.nxv16i8.i64.nxv16i8.nxv16i8.i64.i64(i64 3, <vscale x 16 x i8> [[VD:%.*]], <vscale x 16 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 16 x b8> @llvm.riscv.sf.vc.v.ivv.nxv16b8.i64.nxv16b8.nxv16b8.i64.i64(i64 3, <vscale x 16 x b8> [[VD:%.*]], <vscale x 16 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 16 x b8> [[TMP0]]
 //
 vuint8m2_t test_sf_vc_v_ivv_u8m2(vuint8m2_t vd, vuint8m2_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_u8m2(p27_26, vd, vs2, simm5, vl);
@@ -2377,13 +2377,13 @@ vuint8m2_t test_sf_vc_v_ivv_u8m2(vuint8m2_t vd, vuint8m2_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_u8m4(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.ivv.nxv32i8.i32.nxv32i8.nxv32i8.i32.i32(i32 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.ivv.nxv32b8.i32.nxv32b8.nxv32b8.i32.i32(i32 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_u8m4(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x i8> @llvm.riscv.sf.vc.v.ivv.nxv32i8.i64.nxv32i8.nxv32i8.i64.i64(i64 3, <vscale x 32 x i8> [[VD:%.*]], <vscale x 32 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 32 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 32 x b8> @llvm.riscv.sf.vc.v.ivv.nxv32b8.i64.nxv32b8.nxv32b8.i64.i64(i64 3, <vscale x 32 x b8> [[VD:%.*]], <vscale x 32 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 32 x b8> [[TMP0]]
 //
 vuint8m4_t test_sf_vc_v_ivv_u8m4(vuint8m4_t vd, vuint8m4_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_u8m4(p27_26, vd, vs2, simm5, vl);
@@ -2391,13 +2391,13 @@ vuint8m4_t test_sf_vc_v_ivv_u8m4(vuint8m4_t vd, vuint8m4_t vs2, size_t vl) {
 
 // CHECK-RV32-LABEL: @test_sf_vc_v_ivv_u8m8(
 // CHECK-RV32-NEXT:  entry:
-// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.ivv.nxv64i8.i32.nxv64i8.nxv64i8.i32.i32(i32 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
-// CHECK-RV32-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV32-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.ivv.nxv64b8.i32.nxv64b8.nxv64b8.i32.i32(i32 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], i32 10, i32 [[VL:%.*]])
+// CHECK-RV32-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 // CHECK-RV64-LABEL: @test_sf_vc_v_ivv_u8m8(
 // CHECK-RV64-NEXT:  entry:
-// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x i8> @llvm.riscv.sf.vc.v.ivv.nxv64i8.i64.nxv64i8.nxv64i8.i64.i64(i64 3, <vscale x 64 x i8> [[VD:%.*]], <vscale x 64 x i8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
-// CHECK-RV64-NEXT:    ret <vscale x 64 x i8> [[TMP0]]
+// CHECK-RV64-NEXT:    [[TMP0:%.*]] = call <vscale x 64 x b8> @llvm.riscv.sf.vc.v.ivv.nxv64b8.i64.nxv64b8.nxv64b8.i64.i64(i64 3, <vscale x 64 x b8> [[VD:%.*]], <vscale x 64 x b8> [[VS2:%.*]], i64 10, i64 [[VL:%.*]])
+// CHECK-RV64-NEXT:    ret <vscale x 64 x b8> [[TMP0]]
 //
 vuint8m8_t test_sf_vc_v_ivv_u8m8(vuint8m8_t vd, vuint8m8_t vs2, size_t vl) {
   return __riscv_sf_vc_v_ivv_u8m8(p27_26, vd, vs2, simm5, vl);
