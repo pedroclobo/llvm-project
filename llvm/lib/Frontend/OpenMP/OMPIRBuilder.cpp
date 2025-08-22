@@ -9674,7 +9674,7 @@ OpenMPIRBuilder::InsertPointTy OpenMPIRBuilder::createAtomicCompare(
     assert(V.ElemTy == X.ElemTy && "x and v must be of same type");
   }
 
-  bool IsInteger = E->getType()->isIntegerTy();
+  bool IsInteger = E->getType()->isIntegerTy() || E->getType()->isByteTy();
 
   if (Op == OMPAtomicCompareOp::EQ) {
     AtomicCmpXchgInst *Result = nullptr;
@@ -9744,12 +9744,23 @@ OpenMPIRBuilder::InsertPointTy OpenMPIRBuilder::createAtomicCompare(
     if (R.Var) {
       assert(R.Var->getType()->isPointerTy() &&
              "r.var must be of pointer type");
-      assert(R.ElemTy->isIntegerTy() && "r must be of integral type");
+      assert((R.ElemTy->isIntegerTy() || R.ElemTy->isByteTy()) &&
+             "r must be of integral type");
 
       Value *SuccessFailureVal = Builder.CreateExtractValue(Result, /*Idxs=*/1);
-      Value *ResultCast = R.IsSigned
-                              ? Builder.CreateSExt(SuccessFailureVal, R.ElemTy)
-                              : Builder.CreateZExt(SuccessFailureVal, R.ElemTy);
+      Value *ResultCast = nullptr;
+      if (R.ElemTy->isIntegerTy()) {
+        ResultCast = R.IsSigned
+                          ? Builder.CreateSExt(SuccessFailureVal, R.ElemTy)
+                          : Builder.CreateZExt(SuccessFailureVal, R.ElemTy);
+      } else {
+        llvm::Type *IntTy = llvm::Type::getIntNTy(
+          M.getContext(), R.ElemTy->getScalarSizeInBits());
+        ResultCast = R.IsSigned
+                          ? Builder.CreateSExt(SuccessFailureVal, IntTy)
+                          : Builder.CreateZExt(SuccessFailureVal, IntTy);
+        ResultCast = Builder.CreateBitCast(ResultCast, R.ElemTy);
+      }
       Builder.CreateStore(ResultCast, R.Var, R.IsVolatile);
     }
   } else {
@@ -9792,7 +9803,7 @@ OpenMPIRBuilder::InsertPointTy OpenMPIRBuilder::createAtomicCompare(
       }
     }
 
-    AtomicRMWInst *OldValue =
+    Value *OldValue =
         Builder.CreateAtomicRMW(NewOp, X.Var, E, MaybeAlign(), AO);
     if (V.Var) {
       Value *CapturedValue = nullptr;
@@ -9822,6 +9833,10 @@ OpenMPIRBuilder::InsertPointTy OpenMPIRBuilder::createAtomicCompare(
         default:
           llvm_unreachable("unexpected comparison op");
         }
+        if (OldValue->getType()->isByteOrByteVectorTy())
+          OldValue = Builder.CreateExactByteCastToInt(OldValue);
+        if (E->getType()->isByteOrByteVectorTy())
+          E = Builder.CreateExactByteCastToInt(E);
         Value *NonAtomicCmp = Builder.CreateCmp(Pred, OldValue, E);
         CapturedValue = Builder.CreateSelect(NonAtomicCmp, E, OldValue);
       }

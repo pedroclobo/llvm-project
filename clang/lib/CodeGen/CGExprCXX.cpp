@@ -733,6 +733,8 @@ static llvm::Value *EmitCXXNewAllocSize(CodeGenFunction &CGF,
       *e->getArraySize(), (*e->getArraySize())->getType());
   if (!numElements)
     numElements = CGF.EmitScalarExpr(*e->getArraySize());
+  if (numElements->getType()->isByteOrByteVectorTy())
+    numElements = CGF.Builder.CreateExactByteCastToInt(numElements);
   assert(isa<llvm::IntegerType>(numElements->getType()));
 
   // The number of elements can be have an arbitrary integer type;

@@ -240,23 +240,23 @@ void test1() {
 // CHECK-PPC: error: assigning to
 
   res_vbc =  vec_eqv(vbc, vbc);
-// CHECK: [[T1:%.+]] = bitcast <16 x i8> {{.+}} to <4 x i32>
-// CHECK: [[T2:%.+]] = bitcast <16 x i8> {{.+}} to <4 x i32>
+// CHECK: [[T1:%.+]] = bytecast exact <16 x b8> {{.+}} to <4 x i32>
+// CHECK: [[T2:%.+]] = bytecast exact <16 x b8> {{.+}} to <4 x i32>
 // CHECK: [[T3:%.+]] = call <4 x i32> @llvm.ppc.vsx.xxleqv(<4 x i32> [[T1]], <4 x i32> [[T2]])
-// CHECK-LE: [[T1:%.+]] = bitcast <16 x i8> {{.+}} to <4 x i32>
-// CHECK-LE: [[T2:%.+]] = bitcast <16 x i8> {{.+}} to <4 x i32>
+// CHECK-LE: [[T1:%.+]] = bytecast exact <16 x b8> {{.+}} to <4 x i32>
+// CHECK-LE: [[T2:%.+]] = bytecast exact <16 x b8> {{.+}} to <4 x i32>
 // CHECK-LE: [[T3:%.+]] = call <4 x i32> @llvm.ppc.vsx.xxleqv(<4 x i32> [[T1]], <4 x i32> [[T2]])
-// CHECK-LE: bitcast <4 x i32> [[T3]] to <16 x i8>
+// CHECK-LE: bitcast <4 x i32> [[T3]] to <16 x b8>
 // CHECK-PPC: error: assigning to
 
   res_vuc =  vec_eqv(vuc, vuc);
-// CHECK: [[T1:%.+]] = bitcast <16 x i8> {{.+}} to <4 x i32>
-// CHECK: [[T2:%.+]] = bitcast <16 x i8> {{.+}} to <4 x i32>
+// CHECK: [[T1:%.+]] = bytecast exact <16 x b8> {{.+}} to <4 x i32>
+// CHECK: [[T2:%.+]] = bytecast exact <16 x b8> {{.+}} to <4 x i32>
 // CHECK: [[T3:%.+]] = call <4 x i32> @llvm.ppc.vsx.xxleqv(<4 x i32> [[T1]], <4 x i32> [[T2]])
-// CHECK-LE: [[T1:%.+]] = bitcast <16 x i8> {{.+}} to <4 x i32>
-// CHECK-LE: [[T2:%.+]] = bitcast <16 x i8> {{.+}} to <4 x i32>
+// CHECK-LE: [[T1:%.+]] = bytecast exact <16 x b8> {{.+}} to <4 x i32>
+// CHECK-LE: [[T2:%.+]] = bytecast exact <16 x b8> {{.+}} to <4 x i32>
 // CHECK-LE: [[T3:%.+]] = call <4 x i32> @llvm.ppc.vsx.xxleqv(<4 x i32> [[T1]], <4 x i32> [[T2]])
-// CHECK-LE: bitcast <4 x i32> [[T3]] to <16 x i8>
+// CHECK-LE: bitcast <4 x i32> [[T3]] to <16 x b8>
 // CHECK-PPC: error: assigning to
 
   res_vss =  vec_eqv(vss, vss);
@@ -390,13 +390,13 @@ void test1() {
 
   /* vec_cntlz */
   res_vsc = vec_cntlz(vsc);
-// CHECK: call <16 x i8> @llvm.ctlz.v16i8(<16 x i8> %{{.+}}, i1 false)
-// CHECK-LE: call <16 x i8> @llvm.ctlz.v16i8(<16 x i8> %{{.+}}, i1 false)
+// CHECK: call <16 x b8> @llvm.ctlz.v16b8(<16 x b8> %{{.+}}, i1 false)
+// CHECK-LE: call <16 x b8> @llvm.ctlz.v16b8(<16 x b8> %{{.+}}, i1 false)
 // CHECK-PPC: error: call to undeclared function 'vec_cntlz'
 
   res_vuc = vec_cntlz(vuc);
-// CHECK: call <16 x i8> @llvm.ctlz.v16i8(<16 x i8> %{{.+}}, i1 false)
-// CHECK-LE: call <16 x i8> @llvm.ctlz.v16i8(<16 x i8> %{{.+}}, i1 false)
+// CHECK: call <16 x b8> @llvm.ctlz.v16b8(<16 x b8> %{{.+}}, i1 false)
+// CHECK-LE: call <16 x b8> @llvm.ctlz.v16b8(<16 x b8> %{{.+}}, i1 false)
 
   res_vss = vec_cntlz(vss);
 // CHECK: call <8 x i16> @llvm.ctlz.v8i16(<8 x i16> %{{.+}}, i1 false)

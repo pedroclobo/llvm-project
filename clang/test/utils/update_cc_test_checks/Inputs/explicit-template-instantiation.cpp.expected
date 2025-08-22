@@ -39,12 +39,12 @@ public:
 // CHECK-LABEL: @_ZN3FooIcEC1Ec(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[THIS_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[X_ADDR:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[X_ADDR:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[THIS:%.*]], ptr [[THIS_ADDR]], align 8
-// CHECK-NEXT:    store i8 [[X:%.*]], ptr [[X_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[X:%.*]], ptr [[X_ADDR]], align 1
 // CHECK-NEXT:    [[THIS1:%.*]] = load ptr, ptr [[THIS_ADDR]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X_ADDR]], align 1
-// CHECK-NEXT:    call void @_ZN3FooIcEC2Ec(ptr noundef nonnull align 1 dereferenceable(1) [[THIS1]], i8 noundef signext [[TMP0]])
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X_ADDR]], align 1
+// CHECK-NEXT:    call void @_ZN3FooIcEC2Ec(ptr noundef nonnull align 1 dereferenceable(1) [[THIS1]], b8 noundef signext [[TMP0]])
 // CHECK-NEXT:    ret void
 //
 // CHECK-LABEL: @_ZN3FooIcED1Ev(
@@ -61,19 +61,19 @@ public:
 // CHECK-NEXT:    store ptr [[THIS:%.*]], ptr [[THIS_ADDR]], align 8
 // CHECK-NEXT:    [[THIS1:%.*]] = load ptr, ptr [[THIS_ADDR]], align 8
 // CHECK-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_FOO:%.*]], ptr [[THIS1]], i32 0, i32 0
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[X]], align 1
-// CHECK-NEXT:    ret i8 [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[X]], align 1
+// CHECK-NEXT:    ret b8 [[TMP0]]
 //
 // CHECK-LABEL: @_ZN3FooIcE3setEc(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[THIS_ADDR:%.*]] = alloca ptr, align 8
-// CHECK-NEXT:    [[_X_ADDR:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[_X_ADDR:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    store ptr [[THIS:%.*]], ptr [[THIS_ADDR]], align 8
-// CHECK-NEXT:    store i8 [[_X:%.*]], ptr [[_X_ADDR]], align 1
+// CHECK-NEXT:    store b8 [[_X:%.*]], ptr [[_X_ADDR]], align 1
 // CHECK-NEXT:    [[THIS1:%.*]] = load ptr, ptr [[THIS_ADDR]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[_X_ADDR]], align 1
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[_X_ADDR]], align 1
 // CHECK-NEXT:    [[X:%.*]] = getelementptr inbounds nuw [[STRUCT_FOO:%.*]], ptr [[THIS1]], i32 0, i32 0
-// CHECK-NEXT:    store i8 [[TMP0]], ptr [[X]], align 1
+// CHECK-NEXT:    store b8 [[TMP0]], ptr [[X]], align 1
 // CHECK-NEXT:    ret void
 //
 template struct Foo<char>;

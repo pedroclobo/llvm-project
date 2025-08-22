@@ -10,9 +10,9 @@ __constant const unsigned long gtest1 = 1UL << 31;
 
 // NOOPT: @negativeShift32
 int negativeShift32(int a,int b) {
-  // NOOPT: %array0 = alloca [256 x i8]
+  // NOOPT: %array0 = alloca [256 x b8]
   char array0[((int)1)<<40];
-  // NOOPT: %array1 = alloca [256 x i8]
+  // NOOPT: %array1 = alloca [256 x b8]
   char array1[((int)1)<<(-24)];
 
   // NOOPT: ret i32 65536

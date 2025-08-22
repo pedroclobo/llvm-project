@@ -14,10 +14,10 @@
 // unit ("Aligned..."), the normal ABI alignment of 2 should still be
 // in effect.
 
-// ALIGNED: @ExtUnal = external global i8, align 2
-// UNALIGN: @ExtUnal = external global i8, align 1
-// CHECK:   @ExtExplAlign = external global i8, align 2
-// CHECK:   @Aligned = {{(dso_local )?}}global i8 0, align 2
+// ALIGNED: @ExtUnal = external global b8, align 2
+// UNALIGN: @ExtUnal = external global b8, align 1
+// CHECK:   @ExtExplAlign = external global b8, align 2
+// CHECK:   @Aligned = {{(dso_local )?}}global b8 0, align 2
 extern unsigned char ExtUnal;
 extern unsigned char ExtExplAlign __attribute__((aligned(2)));
 unsigned char Aligned;
@@ -25,10 +25,10 @@ unsigned char foo0 () {
   return ExtUnal + ExtExplAlign + Aligned;
 }
 
-// ALIGNED: @ExtUnal_c2Arr = external global [2 x i8], align 2
-// UNALIGN: @ExtUnal_c2Arr = external global [2 x i8], align 1
-// CHECK:   @ExtExplAlign_c2Arr = external global [2 x i8], align 2
-// CHECK:   @Aligned_c2Arr = {{(dso_local )?}}global [2 x i8] zeroinitializer, align 2
+// ALIGNED: @ExtUnal_c2Arr = external global [2 x b8], align 2
+// UNALIGN: @ExtUnal_c2Arr = external global [2 x b8], align 1
+// CHECK:   @ExtExplAlign_c2Arr = external global [2 x b8], align 2
+// CHECK:   @Aligned_c2Arr = {{(dso_local )?}}global [2 x b8] zeroinitializer, align 2
 extern unsigned char ExtUnal_c2Arr[2];
 extern unsigned char ExtExplAlign_c2Arr[2] __attribute__((aligned(2)));
 unsigned char Aligned_c2Arr[2];
@@ -102,8 +102,8 @@ unsigned char foo6 () {
 
 // A weak symbol could be replaced with an unaligned one at link time.
 // CHECK-LABEL: foo7
-// ALIGNED: load i8, ptr @Weaksym, align 2
-// UNALIGN: load i8, ptr @Weaksym, align 1
+// ALIGNED: load b8, ptr @Weaksym, align 2
+// UNALIGN: load b8, ptr @Weaksym, align 1
 unsigned char __attribute__((weak)) Weaksym = 0;
 unsigned char foo7 () {
   return Weaksym;

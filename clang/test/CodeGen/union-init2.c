@@ -6,7 +6,7 @@
 union x {long long b;union x* a;} r = {.a = &r};
 
 
-// CHECK: global { [3 x i8], [5 x i8] } zeroinitializer
+// CHECK: global { [3 x b8], [5 x i8] } zeroinitializer
 union z {
   char a[3];
   long long b;

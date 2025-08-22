@@ -97,7 +97,8 @@ int main(int argc, char **argv) {
   // CHECK: [[ARGC:%.+]] = load i32, ptr %
   // CHECK: [[T_X:%.+]] = call noundef i32 @"?get_x@Test1@@QEBAHXZ"(ptr {{[^,]*}} %{{.+}})
   // CHECK: [[CAST2:%.+]] = trunc i32 [[T_X]] to i8
-  // CHECK: call void @"?PutY@?$St@M@@QEAAXDHN@Z"(ptr {{[^,]*}} [[P2]], i8 noundef [[CAST2]], i32 noundef [[ARGC]], double noundef [[CAST]])
+  // CHECK: [[CAST3:%.+]] = bitcast i8 [[CAST2]] to b8
+  // CHECK: call void @"?PutY@?$St@M@@QEAAXDHN@Z"(ptr {{[^,]*}} [[P2]], b8 noundef [[CAST3]], i32 noundef [[ARGC]], double noundef [[CAST]])
   p2->y[t.X][argc] =  p1->x[22][33];
   // CHECK: [[P2_1:%.+]] = load ptr, ptr
   // CHECK: [[P2_2:%.+]] = load ptr, ptr
@@ -105,8 +106,10 @@ int main(int argc, char **argv) {
   // CHECK: [[ARGC:%.+]] = load i32, ptr %
   // CHECK: [[P1_X_ARGC_0:%.+]] = call noundef i32 @"?GetX@S@@QEAAHHH@Z"(ptr {{[^,]*}} [[P1]], i32 noundef [[ARGC]], i32 noundef 0)
   // CHECK: [[CAST:%.+]] = trunc i32 [[P1_X_ARGC_0]] to i8
-  // CHECK: [[P2_Y_p1_X_ARGC_0_T:%.+]] = call noundef i8 @"?GetY@?$St@M@@QEAADDVTest1@@@Z"(ptr {{[^,]*}} [[P2_2]], i8 noundef [[CAST]], ptr dead_on_return noundef %{{.+}})
-  // CHECK: [[CAST:%.+]] = sitofp i8 [[P2_Y_p1_X_ARGC_0_T]] to float
+  // CHECK: [[CAST2:%.+]] = bitcast i8 [[CAST]] to b8
+  // CHECK: [[P2_Y_p1_X_ARGC_0_T:%.+]] = call noundef b8 @"?GetY@?$St@M@@QEAADDVTest1@@@Z"(ptr {{[^,]*}} [[P2_2]], b8 noundef [[CAST2]], ptr dead_on_return noundef %{{.+}})
+  // CHECK: [[CONV:%.+]] = bytecast exact b8 [[P2_Y_p1_X_ARGC_0_T]] to i8
+  // CHECK: [[CAST:%.+]] = sitofp i8 [[CONV]] to float
   // CHECK: [[J:%.+]] = load i32, ptr %
   // CHECK: [[CAST1:%.+]] = sitofp i32 [[J]] to float
   // CHECK: [[J:%.+]] = load i32, ptr %
@@ -122,8 +125,8 @@ int main(int argc, char **argv) {
 // CHECK: call noundef i32 @"?GetX@?$St@H@@QEAAHHH@Z"(ptr {{[^,]*}} [[BAR:%.+]], i32 noundef %{{.+}} i32 noundef %{{.+}})
 // CHECK: call noundef i32 @"?PutX@?$St@H@@QEAAHHHH@Z"(ptr {{[^,]*}} [[BAR]], i32 noundef %{{.+}}, i32 noundef %{{.+}}, i32 noundef %{{.+}})
 // CHECK: call noundef i32 @"?GetX@?$St@H@@QEAAHHH@Z"(ptr {{[^,]*}} [[BAR]], i32 noundef %{{.+}} i32 noundef %{{.+}})
-// CHECK: call void @"?PutY@?$St@H@@QEAAXDHN@Z"(ptr {{[^,]*}} [[BAR]], i8 noundef %{{.+}}, i32 noundef %{{.+}}, double noundef %{{.+}}
+// CHECK: call void @"?PutY@?$St@H@@QEAAXDHN@Z"(ptr {{[^,]*}} [[BAR]], b8 noundef %{{.+}}, i32 noundef %{{.+}}, double noundef %{{.+}}
 // CHECK: call noundef i32 @"?GetX@?$St@H@@QEAAHHH@Z"(ptr {{[^,]*}} [[BAR]], i32 noundef %{{.+}} i32 noundef %{{.+}})
-// CHECK: call noundef i8 @"?GetY@?$St@H@@QEAADDVTest1@@@Z"(ptr {{[^,]*}} [[BAR]], i8 noundef %{{.+}}, ptr dead_on_return noundef %{{.+}})
+// CHECK: call noundef b8 @"?GetY@?$St@H@@QEAADDVTest1@@@Z"(ptr {{[^,]*}} [[BAR]], b8 noundef %{{.+}}, ptr dead_on_return noundef %{{.+}})
 // CHECK: call noundef i32 @"?PutX@?$St@H@@QEAAHHHH@Z"(ptr {{[^,]*}} [[BAR]], i32 noundef %{{.+}}, i32 noundef %{{.+}}, i32 noundef %{{.+}})
 #endif //HEADER

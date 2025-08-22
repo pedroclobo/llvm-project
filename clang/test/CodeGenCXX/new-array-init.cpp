@@ -83,7 +83,7 @@ void string_nonconst(int n) {
   // CHECK: select
   // CHECK: %[[PTR:.*]] = call noalias noundef nonnull ptr @_Zna{{.}}(i{{32|64}}
   // CHECK: call void @llvm.memcpy{{.*}}(ptr align {{[0-9]+}} %[[PTR]], ptr align {{[0-9]+}} @[[ABC4]], i32 4,
-  // CHECK: %[[REST:.*]] = getelementptr inbounds i8, ptr %[[PTR]], i32 4
+  // CHECK: %[[REST:.*]] = getelementptr inbounds b8, ptr %[[PTR]], i32 4
   // CHECK: %[[RESTSIZE:.*]] = sub {{.*}}, 4
   // CHECK: call void @llvm.memset{{.*}}(ptr align {{[0-9]+}} %[[REST]], i8 0, i{{32|64}} %[[RESTSIZE]],
   new char[n] { "abc" };
@@ -97,7 +97,7 @@ void string_nonconst_paren(int n) {
   // CHECKCXX20: select
   // CHECKCXX20: %[[PTR:.*]] = call noalias noundef nonnull ptr @_Zna{{.}}(i{{32|64}}
   // CHECKCXX20: call void @llvm.memcpy{{.*}}(ptr align {{[0-9]+}} %[[PTR]], ptr align {{[0-9]+}} @[[ABC4]], i32 4,
-  // CHECKCXX20: %[[REST:.*]] = getelementptr inbounds i8, ptr %[[PTR]], i32 4
+  // CHECKCXX20: %[[REST:.*]] = getelementptr inbounds b8, ptr %[[PTR]], i32 4
   // CHECKCXX20: %[[RESTSIZE:.*]] = sub {{.*}}, 4
   // CHECKCXX20: call void @llvm.memset{{.*}}(ptr align {{[0-9]+}} %[[REST]], i8 0, i{{32|64}} %[[RESTSIZE]],
   new char[n]("abc");
@@ -110,7 +110,7 @@ void string_nonconst_paren_extra_paren(int n) {
   // CHECKCXX20: select
   // CHECKCXX20: %[[PTR:.*]] = call noalias noundef nonnull ptr @_Zna{{.}}(i{{32|64}}
   // CHECKCXX20: call void @llvm.memcpy{{.*}}(ptr align {{[0-9]+}} %[[PTR]], ptr align {{[0-9]+}} @[[ABC4]], i32 4,
-  // CHECKCXX20: %[[REST:.*]] = getelementptr inbounds i8, ptr %[[PTR]], i32 4
+  // CHECKCXX20: %[[REST:.*]] = getelementptr inbounds b8, ptr %[[PTR]], i32 4
   // CHECKCXX20: %[[RESTSIZE:.*]] = sub {{.*}}, 4
   // CHECKCXX20: call void @llvm.memset{{.*}}(ptr align {{[0-9]+}} %[[REST]], i8 0, i{{32|64}} %[[RESTSIZE]],
   new char[n](("abc"));

@@ -344,11 +344,12 @@ for (int i = 0; i < argc; ++i) {
 // CHECK1:       .cancel.continue2:
 // CHECK1-NEXT:    [[TMP10:%.*]] = load i32, ptr [[TMP1]], align 4
 // CHECK1-NEXT:    [[CONV:%.*]] = trunc i32 [[TMP10]] to i8
-// CHECK1-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[TMP0]], align 8
-// CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds ptr, ptr [[TMP11]], i64 0
-// CHECK1-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8
-// CHECK1-NEXT:    [[ARRAYIDX3:%.*]] = getelementptr inbounds i8, ptr [[TMP12]], i64 0
-// CHECK1-NEXT:    store i8 [[CONV]], ptr [[ARRAYIDX3]], align 1
+// CHECK1-NEXT:    [[TMP11:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK1-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[TMP0]], align 8
+// CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds ptr, ptr [[TMP12]], i64 0
+// CHECK1-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[ARRAYIDX]], align 8
+// CHECK1-NEXT:    [[ARRAYIDX3:%.*]] = getelementptr inbounds b8, ptr [[TMP13]], i64 0
+// CHECK1-NEXT:    store b8 [[TMP11]], ptr [[ARRAYIDX3]], align 1
 // CHECK1-NEXT:    br label [[RETURN]]
 // CHECK1:       return:
 // CHECK1-NEXT:    ret void

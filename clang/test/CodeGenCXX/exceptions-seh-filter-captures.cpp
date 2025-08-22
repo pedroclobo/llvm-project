@@ -76,7 +76,7 @@ void V::test_virtual(int p1) {
 // CHECK: store ptr %this, ptr %[[this_addr]], align 8
 // CHECK: invoke void @might_crash()
 
-// CHECK-LABEL: define internal void @"?fin$0@0@test_virtual@V@@"(i8 noundef %abnormal_termination, ptr noundef %frame_pointer)
+// CHECK-LABEL: define internal void @"?fin$0@0@test_virtual@V@@"(b8 noundef %abnormal_termination, ptr noundef %frame_pointer)
 // CHECK: %[[this_i8:[^ ]*]] = call ptr @llvm.localrecover(ptr @"?test_virtual@V@@QEAAXH@Z", ptr %frame_pointer, i32 0)
 // CHECK: %[[this:[^ ]*]] = load ptr, ptr %[[this_i8]], align 8
 // CHECK: %[[p1_i8:[^ ]*]] = call ptr @llvm.localrecover(ptr @"?test_virtual@V@@QEAAXH@Z", ptr %frame_pointer, i32 1)

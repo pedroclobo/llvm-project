@@ -63,10 +63,10 @@ bfloat16x8_t test_ret_v8bf16(bfloat16x8_t v) {
   return v;
 }
 
-// CHECK-LABEL: define dso_local noundef <16 x i8> @test_ret_v16s8(
-// CHECK-SAME: <16 x i8> noundef returned [[V:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local noundef <16 x b8> @test_ret_v16s8(
+// CHECK-SAME: <16 x b8> noundef returned [[V:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <16 x i8> [[V]]
+// CHECK-NEXT:    ret <16 x b8> [[V]]
 //
 int8x16_t test_ret_v16s8(int8x16_t v) {
   return v;
@@ -99,10 +99,10 @@ int64x2_t test_ret_v64s2(int64x2_t v) {
   return v;
 }
 
-// CHECK-LABEL: define dso_local noundef <16 x i8> @test_ret_v16u8(
-// CHECK-SAME: <16 x i8> noundef returned [[V:%.*]]) local_unnamed_addr #[[ATTR0]] {
+// CHECK-LABEL: define dso_local noundef <16 x b8> @test_ret_v16u8(
+// CHECK-SAME: <16 x b8> noundef returned [[V:%.*]]) local_unnamed_addr #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    ret <16 x i8> [[V]]
+// CHECK-NEXT:    ret <16 x b8> [[V]]
 //
 uint8x16_t test_ret_v16u8(uint8x16_t v) {
   return v;

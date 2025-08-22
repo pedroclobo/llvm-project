@@ -510,7 +510,9 @@ public:
     return llvm::ConstantByte::get(Ty, E->getValue());
   }
   Value *VisitObjCBoolLiteralExpr(const ObjCBoolLiteralExpr *E) {
-    return llvm::ConstantInt::get(ConvertType(E->getType()), E->getValue());
+    llvm::Type *Ty = ConvertType(E->getType());
+    return Ty->isByteTy() ? llvm::ConstantByte::get(Ty, E->getValue())
+                          : llvm::ConstantInt::get(Ty, E->getValue());
   }
   Value *VisitCXXBoolLiteralExpr(const CXXBoolLiteralExpr *E) {
     return llvm::ConstantInt::get(ConvertType(E->getType()), E->getValue());
@@ -818,6 +820,13 @@ public:
         !CanElideOverflowCheck(CGF.getContext(), Ops))
       return EmitOverflowCheckedBinOp(Ops);
 
+    // Bytecast vector of bytes to vector of integers
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy())
+      return Builder.CreateAdd(
+          Builder.CreateExactByteCastToInt(Ops.LHS),
+          Builder.CreateExactByteCastToInt(Ops.RHS), "add");
+
     if (Ops.LHS->getType()->isFPOrFPVectorTy()) {
       //  Preserve the old values
       CodeGenFunction::CGFPOptionsRAII FPOptsRAII(CGF, Ops.FPFeatures);
@@ -848,12 +857,27 @@ public:
   Value *EmitShl(const BinOpInfo &Ops);
   Value *EmitShr(const BinOpInfo &Ops);
   Value *EmitAnd(const BinOpInfo &Ops) {
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy())
+      return Builder.CreateAnd(
+        Builder.CreateExactByteCastToInt(Ops.LHS),
+        Builder.CreateExactByteCastToInt(Ops.RHS), "and");
     return Builder.CreateAnd(Ops.LHS, Ops.RHS, "and");
   }
   Value *EmitXor(const BinOpInfo &Ops) {
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy())
+      return Builder.CreateXor(
+        Builder.CreateExactByteCastToInt(Ops.LHS),
+        Builder.CreateExactByteCastToInt(Ops.RHS), "xor");
     return Builder.CreateXor(Ops.LHS, Ops.RHS, "xor");
   }
   Value *EmitOr (const BinOpInfo &Ops) {
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy())
+      return Builder.CreateOr(
+        Builder.CreateExactByteCastToInt(Ops.LHS),
+        Builder.CreateExactByteCastToInt(Ops.RHS), "Or");
     return Builder.CreateOr(Ops.LHS, Ops.RHS, "or");
   }
 
@@ -889,6 +913,11 @@ public:
       }
       return Ctx.FloatTy;
     }
+
+    if (auto *VT = Ty->getAs<VectorType>())
+      if (ConvertType(VT->getElementType())->isByteTy(8))
+        return Ctx.getVectorType(Ctx.Char8Ty, VT->getNumElements(),
+                                 VT->getVectorKind());
 
     return QualType();
   }
@@ -1083,8 +1112,9 @@ EmitIntegerTruncationCheckHelper(Value *Src, QualType SrcType, Value *Dst,
   // This should be truncation of integral types.
   assert(Src != Dst);
   assert(SrcTy->getScalarSizeInBits() > Dst->getType()->getScalarSizeInBits());
-  assert(isa<llvm::IntegerType>(SrcTy) && isa<llvm::IntegerType>(DstTy) &&
-         "non-integer llvm type");
+  assert((isa<llvm::IntegerType>(SrcTy) || SrcTy->isByteTy(8)) &&
+         (isa<llvm::IntegerType>(DstTy) || DstTy->isByteTy(8)) &&
+         "non-integer/b8 llvm type");
 
   bool SrcSigned = SrcType->isSignedIntegerOrEnumerationType();
   bool DstSigned = DstType->isSignedIntegerOrEnumerationType();
@@ -1103,7 +1133,12 @@ EmitIntegerTruncationCheckHelper(Value *Src, QualType SrcType, Value *Dst,
 
   llvm::Value *Check = nullptr;
   // 1. Extend the truncated value back to the same width as the Src.
-  Check = Builder.CreateIntCast(Dst, SrcTy, DstSigned, "anyext");
+  if (DstTy->isByteTy(8) && !SrcTy->isByteTy(8)) {
+    Check = Builder.CreateExactByteCastToInt(Dst, "conv");
+    Check = Builder.CreateIntCast(Check, SrcTy, DstSigned, "anyext");
+  } else {
+    Check = Builder.CreateIntCast(Dst, SrcTy, DstSigned, "anyext");
+  }
   // 2. Equality-compare with the original source value
   Check = Builder.CreateICmpEQ(Check, Src, "truncheck");
   // If the comparison result is 'i1 false', then the truncation was lossy.
@@ -1187,6 +1222,8 @@ static llvm::Value *EmitIsNegativeTestHelper(Value *V, QualType VType,
                                              const char *Name,
                                              CGBuilderTy &Builder) {
   bool VSigned = VType->isSignedIntegerOrEnumerationType();
+  if (V->getType()->isByteOrByteVectorTy())
+    V = Builder.CreateExactByteCastToInt(V, "conv");
   llvm::Type *VTy = V->getType();
   if (!VSigned) {
     // If the value is unsigned, then it is never negative.
@@ -1207,8 +1244,9 @@ EmitIntegerSignChangeCheckHelper(Value *Src, QualType SrcType, Value *Dst,
   llvm::Type *SrcTy = Src->getType();
   llvm::Type *DstTy = Dst->getType();
 
-  assert(isa<llvm::IntegerType>(SrcTy) && isa<llvm::IntegerType>(DstTy) &&
-         "non-integer llvm type");
+  assert((isa<llvm::IntegerType>(SrcTy) || SrcTy->isByteTy(8)) &&
+         (isa<llvm::IntegerType>(DstTy) || DstTy->isByteTy(8)) &&
+         "non-integer/b8 llvm type");
 
   bool SrcSigned = SrcType->isSignedIntegerOrEnumerationType();
   bool DstSigned = DstType->isSignedIntegerOrEnumerationType();
@@ -1408,6 +1446,9 @@ void CodeGenFunction::EmitBitfieldConversionCheck(Value *Src, QualType SrcType,
   if (DstType->isBooleanType() || SrcType->isBooleanType())
     return;
 
+  if (Dst->getType()->isByteOrByteVectorTy())
+    Dst = Builder.CreateExactByteCastToInt(Dst, "conv");
+
   // This should be truncation of integral types.
   assert(isa<llvm::IntegerType>(Src->getType()) &&
          isa<llvm::IntegerType>(Dst->getType()) && "non-integer llvm type");
@@ -1500,7 +1541,7 @@ Value *ScalarExprEmitter::EmitScalarCast(Value *Src, QualType SrcType,
       InputSigned = true;
 
     llvm::Value *IntResult = Builder.CreateExactByteCastToInt(Src, "conv");
-    if (DstTy->isIntegerTy())
+    if (DstTy->isIntOrIntVectorTy())
       return Builder.CreateIntCast(IntResult, DstTy, InputSigned, "conv");
 
     assert(DstTy->isFloatingPointTy() &&
@@ -1705,7 +1746,9 @@ Value *ScalarExprEmitter::EmitScalarConversion(Value *Src, QualType SrcType,
     llvm::TypeSize SrcSize = SrcTy->getPrimitiveSizeInBits();
     llvm::TypeSize DstSize = DstTy->getPrimitiveSizeInBits();
     if (SrcSize == DstSize)
-      return Builder.CreateBitCast(Src, DstTy, "conv");
+      return SrcTy->isByteOrByteVectorTy()
+                 ? Builder.CreateExactByteCast(Src, DstTy, "conv")
+                 : Builder.CreateBitCast(Src, DstTy, "conv");
 
     // Conversions between vectors of different sizes are not allowed except
     // when vectors of half are involved. Operations on storage-only half
@@ -1718,16 +1761,27 @@ Value *ScalarExprEmitter::EmitScalarConversion(Value *Src, QualType SrcType,
     llvm::Type *DstElementTy = cast<llvm::VectorType>(DstTy)->getElementType();
     (void)DstElementTy;
 
-    assert(((SrcElementTy->isIntegerTy() &&
-             DstElementTy->isIntegerTy()) ||
+    assert((((SrcElementTy->isIntegerTy() || SrcElementTy->isByteTy()) &&
+             (DstElementTy->isIntegerTy() || DstElementTy->isByteTy())) ||
             (SrcElementTy->isFloatingPointTy() &&
              DstElementTy->isFloatingPointTy())) &&
            "unexpected conversion between a floating-point vector and an "
-           "integer vector");
+           "integer/byte vector");
 
     // Truncate an i32 vector to an i16 vector.
-    if (SrcElementTy->isIntegerTy())
+    if (SrcElementTy->isIntegerTy()) {
+      if (DstElementTy->isByteTy()) {
+        llvm::Type *ElTy =
+          llvm::IntegerType::get(SrcTy->getContext(),
+                                 DstElementTy->getScalarSizeInBits());
+        llvm::ElementCount EC =
+          cast<llvm::VectorType>(DstTy)->getElementCount();
+        llvm::Type *VecTy = llvm::VectorType::get(ElTy, EC);
+        Src = Builder.CreateIntCast(Src, VecTy, false, "conv");
+        return Builder.CreateBitCast(Src, DstTy, "conv");
+      }
       return Builder.CreateIntCast(Src, DstTy, false, "conv");
+    }
 
     // Truncate a float vector to a half vector.
     if (SrcSize > DstSize)
@@ -1933,6 +1987,8 @@ Value *ScalarExprEmitter::VisitShuffleVectorExpr(ShuffleVectorExpr *E) {
   if (E->getNumSubExprs() == 2) {
     Value *LHS = CGF.EmitScalarExpr(E->getExpr(0));
     Value *RHS = CGF.EmitScalarExpr(E->getExpr(1));
+    if (RHS->getType()->isByteOrByteVectorTy())
+      RHS = Builder.CreateExactByteCastToInt(RHS, "conv");
     Value *Mask;
 
     auto *LTy = cast<llvm::FixedVectorType>(LHS->getType());
@@ -2035,7 +2091,17 @@ Value *ScalarExprEmitter::VisitConvertVectorExpr(ConvertVectorExpr *E) {
     bool InputSigned = SrcEltType->isSignedIntegerOrEnumerationType();
     if (isa<llvm::IntegerType>(DstEltTy))
       Res = Builder.CreateIntCast(Src, DstTy, InputSigned, "conv");
-    else {
+    else if (isa<llvm::ByteType>(DstEltTy)) {
+      auto *VecTy = cast<llvm::VectorType>(DstTy);
+      unsigned NumEls = VecTy->getElementCount().getKnownMinValue();
+      unsigned BitWidth = VecTy->getElementType()->getPrimitiveSizeInBits();
+      auto *IntermTy = llvm::VectorType::get(
+                         llvm::IntegerType::get(DstTy->getContext(), BitWidth),
+                         NumEls, DstTy->isScalableTy());
+
+      Res = Builder.CreateIntCast(Src, IntermTy, InputSigned, "conv");
+      Res = Builder.CreateBitCast(Res, DstTy, "conv");
+    } else {
       CodeGenFunction::CGFPOptionsRAII FPOptions(CGF, E);
       if (InputSigned)
         Res = Builder.CreateSIToFP(Src, DstTy, "conv");
@@ -2043,12 +2109,31 @@ Value *ScalarExprEmitter::VisitConvertVectorExpr(ConvertVectorExpr *E) {
         Res = Builder.CreateUIToFP(Src, DstTy, "conv");
     }
   } else if (isa<llvm::IntegerType>(DstEltTy)) {
-    assert(SrcEltTy->isFloatingPointTy() && "Unknown real conversion");
-    CodeGenFunction::CGFPOptionsRAII FPOptions(CGF, E);
-    if (DstEltType->isSignedIntegerOrEnumerationType())
-      Res = Builder.CreateFPToSI(Src, DstTy, "conv");
+    assert((SrcEltTy->isFloatingPointTy() || SrcEltTy->isByteTy()) &&
+           "Unknown real conversion");
+    if (SrcEltTy->isFloatingPointTy())
+      if (DstEltType->isSignedIntegerOrEnumerationType())
+        Res = Builder.CreateFPToSI(Src, DstTy, "conv");
+      else
+        Res = Builder.CreateFPToUI(Src, DstTy, "conv");
+    else {
+      Res = Builder.CreateExactByteCastToInt(Src, "conv");
+      Res = Builder.CreateIntCast(
+          Res, DstTy, SrcEltType->isSignedIntegerOrEnumerationType(), "conv");
+    }
+  } else if (isa<llvm::ByteType>(SrcEltTy)) {
+    assert((DstEltTy->isIntegerTy() || DstEltTy->isFloatingPointTy()) &&
+            "Unknown byte conversion");
+
+    Res = Builder.CreateExactByteCastToInt(Src, "conv");
+
+    if (DstEltTy->isIntegerTy())
+      Res = Builder.CreateIntCast(
+        Res, DstTy, DstEltType->isSignedIntegerOrEnumerationType(), "conv");
     else
-      Res = Builder.CreateFPToUI(Src, DstTy, "conv");
+      Res = DstEltType->isSignedIntegerOrEnumerationType()
+        ? Builder.CreateSIToFP(Res, DstTy, "conv")
+        : Builder.CreateUIToFP(Res, DstTy, "conv");
   } else {
     assert(SrcEltTy->isFloatingPointTy() && DstEltTy->isFloatingPointTy() &&
            "Unknown real conversion");
@@ -2555,10 +2640,11 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
     // bitcast.
     if (auto *FixedSrcTy = dyn_cast<llvm::FixedVectorType>(SrcTy)) {
       if (auto *ScalableDstTy = dyn_cast<llvm::ScalableVectorType>(DstTy)) {
-        // If we are casting a fixed i8 vector to a scalable i1 predicate
-        // vector, use a vector insert and bitcast the result.
+        // If we are casting a fixed i8/b8 vector to a scalable i1 predicate
+        // vector, use a vector insert and bitcast/bytecast the result.
         if (ScalableDstTy->getElementType()->isIntegerTy(1) &&
-            FixedSrcTy->getElementType()->isIntegerTy(8)) {
+            (FixedSrcTy->getElementType()->isIntegerTy(8) ||
+             FixedSrcTy->getElementType()->isByteTy(8))) {
           ScalableDstTy = llvm::ScalableVectorType::get(
               FixedSrcTy->getElementType(),
               llvm::divideCeil(
@@ -2571,7 +2657,9 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
           ScalableDstTy = cast<llvm::ScalableVectorType>(
               llvm::VectorType::getWithSizeAndScalar(ScalableDstTy, DstTy));
           if (Result->getType() != ScalableDstTy)
-            Result = Builder.CreateBitCast(Result, ScalableDstTy);
+            Result = Result->getType()->isByteOrByteVectorTy()
+              ? Builder.CreateExactByteCast(Result, ScalableDstTy)
+              : Builder.CreateBitCast(Result, ScalableDstTy);
           if (Result->getType() != DstTy)
             Result = Builder.CreateExtractVector(DstTy, Result, uint64_t(0));
           return Result;
@@ -2584,10 +2672,11 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
     // bitcast.
     if (auto *ScalableSrcTy = dyn_cast<llvm::ScalableVectorType>(SrcTy)) {
       if (auto *FixedDstTy = dyn_cast<llvm::FixedVectorType>(DstTy)) {
-        // If we are casting a scalable i1 predicate vector to a fixed i8
-        // vector, bitcast the source and use a vector extract.
+        // If we are casting a scalable i1 predicate vector to a fixed i8/b8
+        // vector, bitcast/bytecast the source and use a vector extract.
         if (ScalableSrcTy->getElementType()->isIntegerTy(1) &&
-            FixedDstTy->getElementType()->isIntegerTy(8)) {
+            (FixedDstTy->getElementType()->isIntegerTy(8) ||
+             FixedDstTy->getElementType()->isByteTy(8))) {
           if (!ScalableSrcTy->getElementCount().isKnownMultipleOf(8)) {
             ScalableSrcTy = llvm::ScalableVectorType::get(
                 ScalableSrcTy->getElementType(),
@@ -2601,7 +2690,9 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
           ScalableSrcTy = llvm::ScalableVectorType::get(
               FixedDstTy->getElementType(),
               ScalableSrcTy->getElementCount().getKnownMinValue() / 8);
-          Src = Builder.CreateBitCast(Src, ScalableSrcTy);
+          Src->getType()->isByteOrByteVectorTy()
+              ? Src = Builder.CreateExactByteCast(Src, ScalableSrcTy)
+              : Src = Builder.CreateBitCast(Src, ScalableSrcTy);
         }
         if (ScalableSrcTy->getElementType() == FixedDstTy->getElementType())
           return Builder.CreateExtractVector(DstTy, Src, uint64_t(0),
@@ -2628,7 +2719,19 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
       return EmitLoadOfLValue(DestLV, CE->getExprLoc());
     }
 
-    llvm::Value *Result = Builder.CreateBitCast(Src, DstTy);
+    llvm::Value *Result;
+    if (SrcTy->isByteOrByteVectorTy() && !DstTy->isByteOrByteVectorTy()) {
+      const llvm::DataLayout &DL = CGF.CGM.getDataLayout();
+      llvm::Type *IntermTy = DstTy->isPtrOrPtrVectorTy()
+                                 ? DL.getBytePtrType(DstTy)
+                                 : DL.getByteIntType(DstTy);
+
+      Result = Builder.CreateExactByteCast(Builder.CreateBitCast(Src, IntermTy),
+                                           DstTy);
+    } else {
+      Result = Builder.CreateBitCast(Src, DstTy);
+    }
+
     return CGF.authPointerToPointerCast(Result, E->getType(), DestTy);
   }
   case CK_AddressSpaceConversion: {
@@ -2796,6 +2899,11 @@ Value *ScalarExprEmitter::VisitCastExpr(CastExpr *CE) {
     }
 
     PtrExpr = CGF.authPointerToPointerCast(PtrExpr, E->getType(), DestTy);
+    llvm::Type *DstTy = ConvertType(DestTy);
+    if (DstTy->isByteTy(8)) {
+      PtrExpr = Builder.CreatePtrToInt(PtrExpr, CGF.CGM.Int8Ty);
+      return Builder.CreateBitCast(PtrExpr, DstTy);
+    }
     return Builder.CreatePtrToInt(PtrExpr, ConvertType(DestTy));
   }
   case CK_ToVoid: {
@@ -3296,6 +3404,8 @@ ScalarExprEmitter::EmitScalarPrePostIncDec(const UnaryOperator *E, LValue LV,
   // Vector increment/decrement.
   } else if (type->isVectorType()) {
     if (type->hasIntegerRepresentation()) {
+      if (value->getType()->isByteOrByteVectorTy())
+        value = Builder.CreateExactByteCastToInt(value);
       llvm::Value *amt = llvm::ConstantInt::get(value->getType(), amount);
 
       value = Builder.CreateAdd(value, amt, isInc ? "inc" : "dec");
@@ -3493,6 +3603,10 @@ Value *ScalarExprEmitter::VisitMinus(const UnaryOperator *E,
 Value *ScalarExprEmitter::VisitUnaryNot(const UnaryOperator *E) {
   TestAndClearIgnoreResultAssign();
   Value *Op = Visit(E->getSubExpr());
+  if (Op->getType()->isVectorTy() && Op->getType()->getScalarType()->isByteTy(8))
+    Op = Builder.CreateExactByteCastToInt(Op, "conv");
+    assert(!Op->getType()->isByteOrByteVectorTy() &&
+           "byte type should have been converted to int type");
   return Builder.CreateNot(Op, "not");
 }
 
@@ -3768,12 +3882,34 @@ Value *ScalarExprEmitter::VisitImag(const UnaryOperator *E,
 
 Value *ScalarExprEmitter::EmitPromotedValue(Value *result,
                                             QualType PromotionType) {
-  return CGF.Builder.CreateFPExt(result, ConvertType(PromotionType), "ext");
+  auto *Ty = ConvertType(PromotionType);
+  if (result->getType()->isByteOrByteVectorTy() && !Ty->isByteOrByteVectorTy())
+    return CGF.Builder.CreateExactByteCast(result, Ty, "ext");
+
+  if (result->getType()->isVectorTy() && Ty->isVectorTy()) {
+    auto *SrcElTy = cast<llvm::VectorType>(result->getType())->getElementType();
+    auto *DstElTy = cast<llvm::VectorType>(Ty)->getElementType();
+    if (SrcElTy->getScalarSizeInBits() > DstElTy->getScalarSizeInBits())
+      return CGF.Builder.CreateTrunc(result, Ty, "ext");
+  }
+
+  return CGF.Builder.CreateFPExt(result, Ty, "ext");
 }
 
 Value *ScalarExprEmitter::EmitUnPromotedValue(Value *result,
                                               QualType ExprType) {
-  return CGF.Builder.CreateFPTrunc(result, ConvertType(ExprType), "unpromotion");
+  auto *Ty = ConvertType(ExprType);
+  if (!result->getType()->isByteOrByteVectorTy() && Ty->isByteOrByteVectorTy())
+    return CGF.Builder.CreateBitCast(result, Ty, "unpromotion");
+
+  if (result->getType()->isVectorTy() && Ty->isVectorTy()) {
+    auto *SrcElTy = cast<llvm::VectorType>(result->getType())->getElementType();
+    auto *DstElTy = cast<llvm::VectorType>(Ty)->getElementType();
+    if (SrcElTy->getScalarSizeInBits() < DstElTy->getScalarSizeInBits())
+      return CGF.Builder.CreateZExt(result, Ty, "unpromotion");
+  }
+
+  return CGF.Builder.CreateFPTrunc(result, Ty, "unpromotion");
 }
 
 Value *ScalarExprEmitter::EmitPromoted(const Expr *E, QualType PromotionType) {
@@ -4081,6 +4217,13 @@ Value *ScalarExprEmitter::EmitDiv(const BinOpInfo &Ops) {
                               Ops.Ty->hasUnsignedIntegerRepresentation());
   }
 
+  // Bytecast vector of bytes to vector of integers
+  if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+      Ops.RHS->getType()->isByteOrByteVectorTy())
+    return Builder.CreateAdd(
+        Builder.CreateExactByteCastToInt(Ops.LHS),
+        Builder.CreateExactByteCastToInt(Ops.RHS), "add");
+
   if (Ops.LHS->getType()->isFPOrFPVectorTy()) {
     llvm::Value *Val;
     CodeGenFunction::CGFPOptionsRAII FPOptsRAII(CGF, Ops.FPFeatures);
@@ -4109,6 +4252,13 @@ Value *ScalarExprEmitter::EmitRem(const BinOpInfo &Ops) {
     llvm::Value *Zero = llvm::Constant::getNullValue(ConvertType(Ops.Ty));
     EmitUndefinedBehaviorIntegerDivAndRemCheck(Ops, Zero, false);
   }
+
+  // Bytecast vector of bytes to vector of integers
+  if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+      Ops.RHS->getType()->isByteOrByteVectorTy())
+    return Builder.CreateAdd(
+        Builder.CreateExactByteCastToInt(Ops.LHS),
+        Builder.CreateExactByteCastToInt(Ops.RHS), "add");
 
   if (Ops.Ty->hasUnsignedIntegerRepresentation())
     return Builder.CreateURem(Ops.LHS, Ops.RHS, "rem");
@@ -4518,6 +4668,13 @@ Value *ScalarExprEmitter::EmitAdd(const BinOpInfo &op) {
     }
   }
 
+  // Bytecast vector of bytes to vector of integers
+  if (op.LHS->getType()->isByteOrByteVectorTy() &&
+      op.RHS->getType()->isByteOrByteVectorTy())
+    return Builder.CreateAdd(
+        Builder.CreateExactByteCastToInt(op.LHS),
+        Builder.CreateExactByteCastToInt(op.RHS), "add");
+
   // For vector and matrix adds, try to fold into a fmuladd.
   if (op.LHS->getType()->isFPOrFPVectorTy()) {
     CodeGenFunction::CGFPOptionsRAII FPOptsRAII(CGF, op.FPFeatures);
@@ -4674,6 +4831,13 @@ Value *ScalarExprEmitter::EmitSub(const BinOpInfo &op) {
       }
     }
 
+    // Bytecast vector of bytes to vector of integers
+    if (op.LHS->getType()->isByteOrByteVectorTy() &&
+        op.RHS->getType()->isByteOrByteVectorTy())
+      return Builder.CreateAdd(
+          Builder.CreateExactByteCastToInt(op.LHS),
+          Builder.CreateExactByteCastToInt(op.RHS), "add");
+
     // For vector and matrix subs, try to fold into a fmuladd.
     if (op.LHS->getType()->isFPOrFPVectorTy()) {
       CodeGenFunction::CGFPOptionsRAII FPOptsRAII(CGF, op.FPFeatures);
@@ -4804,8 +4968,13 @@ Value *ScalarExprEmitter::EmitShl(const BinOpInfo &Ops) {
   // LLVM requires the LHS and RHS to be the same type: promote or truncate the
   // RHS to the same size as the LHS.
   Value *RHS = Ops.RHS;
-  if (Ops.LHS->getType() != RHS->getType())
+  if (Ops.LHS->getType() != RHS->getType()) {
+    if (RHS->getType()->isByteTy())
+      RHS = Builder.CreateExactByteCastToInt(RHS, "sh_prom");
+    else if (RHS->getType()->isByteOrByteVectorTy())
+      RHS = Builder.CreateExactByteCastToInt(RHS);
     RHS = Builder.CreateIntCast(RHS, Ops.LHS->getType(), false, "sh_prom");
+  }
 
   bool SanitizeSignedBase = CGF.SanOpts.has(SanitizerKind::ShiftBase) &&
                             Ops.Ty->hasSignedIntegerRepresentation() &&
@@ -4882,6 +5051,12 @@ Value *ScalarExprEmitter::EmitShl(const BinOpInfo &Ops) {
     EmitBinOpCheck(Checks, Ops);
   }
 
+  if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+      Ops.RHS->getType()->isByteOrByteVectorTy())
+    return Builder.CreateShl(
+      Builder.CreateExactByteCastToInt(Ops.LHS),
+      Builder.CreateExactByteCastToInt(Ops.RHS), "shl");
+
   return Builder.CreateShl(Ops.LHS, RHS, "shl");
 }
 
@@ -4909,8 +5084,21 @@ Value *ScalarExprEmitter::EmitShr(const BinOpInfo &Ops) {
     EmitBinOpCheck(std::make_pair(Valid, SanitizerKind::SO_ShiftExponent), Ops);
   }
 
-  if (Ops.Ty->hasUnsignedIntegerRepresentation())
+  if (Ops.Ty->hasUnsignedIntegerRepresentation()) {
+    if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+        Ops.RHS->getType()->isByteOrByteVectorTy())
+      return Builder.CreateLShr(
+        Builder.CreateExactByteCastToInt(Ops.LHS),
+        Builder.CreateExactByteCastToInt(Ops.RHS), "shr");
     return Builder.CreateLShr(Ops.LHS, RHS, "shr");
+  }
+
+  if (Ops.LHS->getType()->isByteOrByteVectorTy() &&
+      Ops.RHS->getType()->isByteOrByteVectorTy())
+    return Builder.CreateAShr(
+      Builder.CreateExactByteCastToInt(Ops.LHS),
+      Builder.CreateExactByteCastToInt(Ops.RHS), "shr");
+
   return Builder.CreateAShr(Ops.LHS, RHS, "shr");
 }
 
@@ -5044,6 +5232,13 @@ Value *ScalarExprEmitter::EmitCompare(const BinaryOperator *E,
 
       Value *CR6Param = Builder.getInt32(CR6);
       llvm::Function *F = CGF.CGM.getIntrinsic(ID);
+      llvm::FunctionType *FTy = F->getFunctionType();
+      if (FirstVecArg->getType()->isByteOrByteVectorTy() &&
+          !FTy->getParamType(0)->isByteOrByteVectorTy())
+        FirstVecArg = Builder.CreateExactByteCastToInt(FirstVecArg);
+      if (SecondVecArg->getType()->isByteOrByteVectorTy() &&
+          !FTy->getParamType(1)->isByteOrByteVectorTy())
+        SecondVecArg = Builder.CreateExactByteCastToInt(SecondVecArg);
       Result = Builder.CreateCall(F, {CR6Param, FirstVecArg, SecondVecArg});
 
       // The result type of intrinsic may not be same as E->getType().
@@ -5068,6 +5263,10 @@ Value *ScalarExprEmitter::EmitCompare(const BinaryOperator *E,
       else
         Result = Builder.CreateFCmpS(FCmpOpc, LHS, RHS, "cmp");
     } else if (LHSTy->hasSignedIntegerRepresentation()) {
+      if (LHS->getType()->isByteOrByteVectorTy())
+        LHS = Builder.CreateExactByteCastToInt(LHS);
+      if (RHS->getType()->isByteOrByteVectorTy())
+        RHS = Builder.CreateExactByteCastToInt(RHS);
       Result = Builder.CreateICmp(SICmpOpc, LHS, RHS, "cmp");
     } else {
       // Unsigned integers and pointers.
@@ -5088,13 +5287,29 @@ Value *ScalarExprEmitter::EmitCompare(const BinaryOperator *E,
           RHS = Builder.CreateStripInvariantGroup(RHS);
       }
 
+      if (LHS->getType()->isByteOrByteVectorTy())
+        LHS = Builder.CreateExactByteCastToInt(LHS);
+      if (RHS->getType()->isByteOrByteVectorTy())
+        RHS = Builder.CreateExactByteCastToInt(RHS);
       Result = Builder.CreateICmp(UICmpOpc, LHS, RHS, "cmp");
     }
 
     // If this is a vector comparison, sign extend the result to the appropriate
     // vector integer type and return it (don't convert to bool).
-    if (LHSTy->isVectorType())
+    if (LHSTy->isVectorType()) {
+      llvm::Type *DstTy = ConvertType(E->getType());
+      if (DstTy->isByteOrByteVectorTy()) {
+        llvm::Type *ElTy =
+          llvm::IntegerType::get(CGF.getLLVMContext(),
+                                 DstTy->getScalarType()->getScalarSizeInBits());
+        llvm::ElementCount EC =
+          cast<llvm::VectorType>(DstTy)->getElementCount();
+        llvm::Type *VecTy = llvm::VectorType::get(ElTy, EC);
+        Result = Builder.CreateSExt(Result, VecTy, "sext");
+        return Builder.CreateBitCast(Result, DstTy);
+      }
       return Builder.CreateSExt(Result, ConvertType(E->getType()), "sext");
+    }
 
   } else {
     // Complex Comparison: can only be an equality comparison.
@@ -5788,13 +6003,14 @@ static Value *ConvertVec3AndVec4(CGBuilderTy &Builder, CodeGenFunction &CGF,
 // DstTy. \p Src has the same size as \p DstTy. Both are single value types
 // but could be scalar or vectors of different lengths, and either can be
 // pointer.
-// There are 4 cases:
-// 1. non-pointer -> non-pointer  : needs 1 bitcast
-// 2. pointer -> pointer          : needs 1 bitcast or addrspacecast
-// 3. pointer -> non-pointer
+// There are 5 cases:
+// 1. byte -> pointer/intptr_t    : needs 1 bytecast
+// 2. non-pointer -> non-pointer  : needs 1 bitcast
+// 3. pointer -> pointer          : needs 1 bitcast or addrspacecast
+// 4. pointer -> non-pointer
 //   a) pointer -> intptr_t       : needs 1 ptrtoint
 //   b) pointer -> non-intptr_t   : needs 1 ptrtoint then 1 bitcast
-// 4. non-pointer -> pointer
+// 5. non-pointer -> pointer
 //   a) intptr_t -> pointer       : needs 1 inttoptr
 //   b) non-intptr_t -> pointer   : needs 1 bitcast then 1 inttoptr
 // Note: for cases 3b and 4b two casts are required since LLVM casts do not
@@ -5807,26 +6023,31 @@ static Value *createCastsForTypeOfSameSize(CGBuilderTy &Builder,
   auto SrcTy = Src->getType();
 
   // Case 1.
+  if (SrcTy->isByteOrByteVectorTy() &&
+      (DstTy->isPtrOrPtrVectorTy() || DstTy->isIntOrIntVectorTy()))
+    return Builder.CreateExactByteCast(Src, DstTy, Name);
+
+  // Case 2.
   if (!SrcTy->isPointerTy() && !DstTy->isPointerTy())
     return Builder.CreateBitCast(Src, DstTy, Name);
 
-  // Case 2.
+  // Case 3.
   if (SrcTy->isPointerTy() && DstTy->isPointerTy())
     return Builder.CreatePointerBitCastOrAddrSpaceCast(Src, DstTy, Name);
 
-  // Case 3.
+  // Case 4.
   if (SrcTy->isPointerTy() && !DstTy->isPointerTy()) {
-    // Case 3b.
+    // Case 4b.
     if (!DstTy->isIntegerTy())
       Src = Builder.CreatePtrToInt(Src, DL.getIntPtrType(SrcTy));
-    // Cases 3a and 3b.
+    // Cases 4a and 4b.
     return Builder.CreateBitOrPointerCast(Src, DstTy, Name);
   }
 
-  // Case 4b.
+  // Case 5b.
   if (!SrcTy->isIntegerTy())
     Src = Builder.CreateBitCast(Src, DL.getIntPtrType(DstTy));
-  // Cases 4a and 4b.
+  // Cases 5a and 5b.
   return Builder.CreateIntToPtr(Src, DstTy, Name);
 }
 

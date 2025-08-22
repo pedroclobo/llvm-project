@@ -92,7 +92,9 @@ void test_builtin_elementwise_abs(float f1, float f2, double d1, double d2,
   // CHECK-NEXT: [[BFSHL:%.+]] = shl i16 [[BFLOAD]], 6
   // CHECK-NEXT: [[BFASHR:%.+]] = ashr i16 [[BFSHL]], 14
   // CHECK-NEXT: [[BFCAST:%.+]] = trunc i16 [[BFASHR]] to i8
-  // CHECK-NEXT: [[RES:%.+]] = call i8 @llvm.abs.i8(i8 [[BFCAST]], i1 false)
+  // CHECK-NEXT: [[BFCAST2:%.+]] = bitcast i8 [[BFCAST]] to b8
+  // CHECK-NEXT: [[CAST:%.+]] = bytecast exact b8 [[BFCAST2]] to i8
+  // CHECK-NEXT: [[RES:%.+]] = call i8 @llvm.abs.i8(i8 [[CAST]], i1 false)
   ci = __builtin_elementwise_abs(t.c);
 
   // CHECK:      [[BFLOAD:%.+]] = load i16, ptr %t, align 8
@@ -158,14 +160,18 @@ void test_builtin_elementwise_add_sat(float f1, float f2, double d1, double d2,
   // CHECK: store i64 98, ptr %i1.addr, align 8
   i1 = __builtin_elementwise_add_sat(1, 'a');
 
-  // CHECK:      [[C1:%.+]] = load i8, ptr %c1.addr, align 1
-  // CHECK-NEXT: [[C2:%.+]] = load i8, ptr %c2.addr, align 1
-  // CHECK-NEXT: call i8 @llvm.sadd.sat.i8(i8 [[C1]], i8 [[C2]])
+  // CHECK:      [[C1:%.+]] = load b8, ptr %c1.addr, align 1
+  // CHECK-NEXT: [[C2:%.+]] = load b8, ptr %c2.addr, align 1
+  // CHECK-NEXT: [[CAST1:%.+]] = bytecast exact b8 [[C1]] to i8
+  // CHECK-NEXT: [[CAST2:%.+]] = bytecast exact b8 [[C2]] to i8
+  // CHECK-NEXT: call i8 @llvm.sadd.sat.i8(i8 [[CAST1]], i8 [[CAST2]])
   c1 = __builtin_elementwise_add_sat(c1, c2);
 
-  // CHECK:      [[UC1:%.+]] = load i8, ptr %uc1.addr, align 1
-  // CHECK-NEXT: [[UC2:%.+]] = load i8, ptr %uc2.addr, align 1
-  // CHECK-NEXT: call i8 @llvm.uadd.sat.i8(i8 [[UC1]], i8 [[UC2]])
+  // CHECK:      [[UC1:%.+]] = load b8, ptr %uc1.addr, align 1
+  // CHECK-NEXT: [[UC2:%.+]] = load b8, ptr %uc2.addr, align 1
+  // CHECK-NEXT: [[CAST1:%.+]] = bytecast exact b8 [[UC1]] to i8
+  // CHECK-NEXT: [[CAST2:%.+]] = bytecast exact b8 [[UC2]] to i8
+  // CHECK-NEXT: call i8 @llvm.uadd.sat.i8(i8 [[CAST1]], i8 [[CAST2]])
   uc1 = __builtin_elementwise_add_sat(uc1, uc2);
 
   // CHECK:      [[S1:%.+]] = load i16, ptr %s1.addr, align 2
@@ -241,14 +247,18 @@ void test_builtin_elementwise_sub_sat(float f1, float f2, double d1, double d2,
   // CHECK: store i64 -96, ptr %i1.addr, align 8
   i1 = __builtin_elementwise_sub_sat(1, 'a');
 
-  // CHECK:      [[C1:%.+]] = load i8, ptr %c1.addr, align 1
-  // CHECK-NEXT: [[C2:%.+]] = load i8, ptr %c2.addr, align 1
-  // CHECK-NEXT: call i8 @llvm.ssub.sat.i8(i8 [[C1]], i8 [[C2]])
+  // CHECK:      [[C1:%.+]] = load b8, ptr %c1.addr, align 1
+  // CHECK-NEXT: [[C2:%.+]] = load b8, ptr %c2.addr, align 1
+  // CHECK-NEXT: [[CAST1:%.+]] = bytecast exact b8 [[C1]] to i8
+  // CHECK-NEXT: [[CAST2:%.+]] = bytecast exact b8 [[C2]] to i8
+  // CHECK-NEXT: call i8 @llvm.ssub.sat.i8(i8 [[CAST1]], i8 [[CAST2]])
   c1 = __builtin_elementwise_sub_sat(c1, c2);
 
-  // CHECK:      [[UC1:%.+]] = load i8, ptr %uc1.addr, align 1
-  // CHECK-NEXT: [[UC2:%.+]] = load i8, ptr %uc2.addr, align 1
-  // CHECK-NEXT: call i8 @llvm.usub.sat.i8(i8 [[UC1]], i8 [[UC2]])
+  // CHECK:      [[UC1:%.+]] = load b8, ptr %uc1.addr, align 1
+  // CHECK-NEXT: [[UC2:%.+]] = load b8, ptr %uc2.addr, align 1
+  // CHECK-NEXT: [[CAST1:%.+]] = bytecast exact b8 [[UC1]] to i8
+  // CHECK-NEXT: [[CAST2:%.+]] = bytecast exact b8 [[UC2]] to i8
+  // CHECK-NEXT: call i8 @llvm.usub.sat.i8(i8 [[CAST1]], i8 [[CAST2]])
   uc1 = __builtin_elementwise_sub_sat(uc1, uc2);
 
   // CHECK:      [[S1:%.+]] = load i16, ptr %s1.addr, align 2
@@ -517,7 +527,7 @@ void test_builtin_elementwise_bitreverse(si8 vi1, si8 vi2,
                                   long long int i1, long long int i2, short si,
                                   _BitInt(31) bi1, _BitInt(31) bi2,
                                   char ci) {
-  
+
 
   // CHECK:      [[I1:%.+]] = load i64, ptr %i1.addr, align 8
   // CHECK-NEXT: call i64 @llvm.bitreverse.i64(i64 [[I1]])
@@ -554,8 +564,9 @@ void test_builtin_elementwise_bitreverse(si8 vi1, si8 vi2,
   // CHECK:      store i16 28671, ptr %si.addr, align 2
   si = __builtin_elementwise_bitreverse((unsigned short)-10);
 
-  // CHECK:      [[CI:%.+]] = load i8, ptr %ci.addr, align 1
-  // CHECK-NEXT: [[RES:%.+]] = call i8 @llvm.bitreverse.i8(i8 [[CI]])
+  // CHECK:      [[CI:%.+]] = load b8, ptr %ci.addr, align 1
+  // CHECK:      [[CAST:%.+]] = bytecast exact b8 [[CI]] to i8
+  // CHECK-NEXT: [[RES:%.+]] = call i8 @llvm.bitreverse.i8(i8 [[CAST]])
   ci = __builtin_elementwise_bitreverse(ci);
 
   // CHECK:      store i8 111, ptr %ci.addr, align 1
@@ -832,8 +843,9 @@ void test_builtin_elementwise_popcount(si8 vi1, si8 vi2, long long int i1,
   // CHECK:      store i16 3, ptr %si.addr, align 2
   si = __builtin_elementwise_popcount((short)32771);
 
-  // CHECK:      [[CI:%.+]] = load i8, ptr %ci.addr, align 1
-  // CHECK-NEXT: [[RES:%.+]] = call i8 @llvm.ctpop.i8(i8 [[CI]])
+  // CHECK:      [[CI:%.+]] = load b8, ptr %ci.addr, align 1
+  // CHECK:      [[CAST:%.+]] = bytecast exact b8 [[CI]] to i8
+  // CHECK-NEXT: [[RES:%.+]] = call i8 @llvm.ctpop.i8(i8 [[CAST]])
   ci = __builtin_elementwise_popcount(ci);
 
   // CHECK:      store i8 2, ptr %ci.addr, align 1

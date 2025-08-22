@@ -6,7 +6,7 @@ extern void varargs_simple(int, ...);
 // CHECK-LABEL: define dso_local void @foo(
 // CHECK-SAME: ) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[C:%.*]] = alloca i8, align 1
+// CHECK-NEXT:    [[C:%.*]] = alloca b8, align 1
 // CHECK-NEXT:    [[S:%.*]] = alloca i16, align 2
 // CHECK-NEXT:    [[I:%.*]] = alloca i32, align 4
 // CHECK-NEXT:    [[L:%.*]] = alloca i64, align 8
@@ -21,40 +21,41 @@ extern void varargs_simple(int, ...);
 // CHECK-NEXT:    store i64 1, ptr [[L]], align 8
 // CHECK-NEXT:    store float 1.000000e+00, ptr [[F]], align 4
 // CHECK-NEXT:    store double 1.000000e+00, ptr [[D]], align 8
-// CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[C]], align 1
-// CHECK-NEXT:    [[CONV:%.*]] = sext i8 [[TMP0]] to i32
+// CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[C]], align 1
+// CHECK-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// CHECK-NEXT:    [[CONV1:%.*]] = sext i8 [[CONV]] to i32
 // CHECK-NEXT:    [[TMP1:%.*]] = load i16, ptr [[S]], align 2
-// CHECK-NEXT:    [[CONV1:%.*]] = sext i16 [[TMP1]] to i32
+// CHECK-NEXT:    [[CONV2:%.*]] = sext i16 [[TMP1]] to i32
 // CHECK-NEXT:    [[TMP2:%.*]] = load i32, ptr [[I]], align 4
 // CHECK-NEXT:    [[TMP3:%.*]] = load i64, ptr [[L]], align 8
 // CHECK-NEXT:    [[TMP4:%.*]] = load float, ptr [[F]], align 4
-// CHECK-NEXT:    [[CONV2:%.*]] = fpext float [[TMP4]] to double
+// CHECK-NEXT:    [[CONV3:%.*]] = fpext float [[TMP4]] to double
 // CHECK-NEXT:    [[TMP5:%.*]] = load double, ptr [[D]], align 8
-// CHECK-NEXT:    call void (i32, ...) @varargs_simple(i32 noundef 0, i32 noundef [[CONV]], i32 noundef [[CONV1]], i32 noundef [[TMP2]], i64 noundef [[TMP3]], double noundef [[CONV2]], double noundef [[TMP5]]) #[[ATTR3:[0-9]+]]
+// CHECK-NEXT:    call void (i32, ...) @varargs_simple(i32 noundef 0, i32 noundef [[CONV1]], i32 noundef [[CONV2]], i32 noundef [[TMP2]], i64 noundef [[TMP3]], double noundef [[CONV3]], double noundef [[TMP5]]) #[[ATTR3:[0-9]+]]
 // CHECK-NEXT:    call void @llvm.memcpy.p0.p0.i64(ptr align 4 [[A]], ptr align 4 @__const.foo.a, i64 12, i1 false)
 // CHECK-NEXT:    [[TMP6:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON]], ptr [[A]], i32 0, i32 0
 // CHECK-NEXT:    [[TMP7:%.*]] = load i32, ptr [[TMP6]], align 4
 // CHECK-NEXT:    [[TMP8:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON]], ptr [[A]], i32 0, i32 1
-// CHECK-NEXT:    [[TMP9:%.*]] = load i8, ptr [[TMP8]], align 4
+// CHECK-NEXT:    [[TMP9:%.*]] = load b8, ptr [[TMP8]], align 4
 // CHECK-NEXT:    [[TMP10:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON]], ptr [[A]], i32 0, i32 2
 // CHECK-NEXT:    [[TMP11:%.*]] = load i32, ptr [[TMP10]], align 4
-// CHECK-NEXT:    call void (i32, ...) @varargs_simple(i32 noundef 0, i32 [[TMP7]], i8 [[TMP9]], i32 [[TMP11]]) #[[ATTR3]]
+// CHECK-NEXT:    call void (i32, ...) @varargs_simple(i32 noundef 0, i32 [[TMP7]], b8 [[TMP9]], i32 [[TMP11]]) #[[ATTR3]]
 // CHECK-NEXT:    store <4 x i32> splat (i32 1), ptr [[V]], align 16
 // CHECK-NEXT:    [[TMP12:%.*]] = load <4 x i32>, ptr [[V]], align 16
 // CHECK-NEXT:    call void (i32, ...) @varargs_simple(i32 noundef 0, <4 x i32> noundef [[TMP12]]) #[[ATTR3]]
 // CHECK-NEXT:    [[TMP13:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON_0]], ptr [[T]], i32 0, i32 0
-// CHECK-NEXT:    [[TMP14:%.*]] = load i8, ptr [[TMP13]], align 1
+// CHECK-NEXT:    [[TMP14:%.*]] = load b8, ptr [[TMP13]], align 1
 // CHECK-NEXT:    [[TMP15:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON_0]], ptr [[T]], i32 0, i32 1
-// CHECK-NEXT:    [[TMP16:%.*]] = load i8, ptr [[TMP15]], align 1
+// CHECK-NEXT:    [[TMP16:%.*]] = load b8, ptr [[TMP15]], align 1
 // CHECK-NEXT:    [[TMP17:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON_0]], ptr [[T]], i32 0, i32 0
-// CHECK-NEXT:    [[TMP18:%.*]] = load i8, ptr [[TMP17]], align 1
+// CHECK-NEXT:    [[TMP18:%.*]] = load b8, ptr [[TMP17]], align 1
 // CHECK-NEXT:    [[TMP19:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON_0]], ptr [[T]], i32 0, i32 1
-// CHECK-NEXT:    [[TMP20:%.*]] = load i8, ptr [[TMP19]], align 1
+// CHECK-NEXT:    [[TMP20:%.*]] = load b8, ptr [[TMP19]], align 1
 // CHECK-NEXT:    [[TMP21:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON_0]], ptr [[T]], i32 0, i32 0
-// CHECK-NEXT:    [[TMP22:%.*]] = load i8, ptr [[TMP21]], align 1
+// CHECK-NEXT:    [[TMP22:%.*]] = load b8, ptr [[TMP21]], align 1
 // CHECK-NEXT:    [[TMP23:%.*]] = getelementptr inbounds nuw [[STRUCT_ANON_0]], ptr [[T]], i32 0, i32 1
-// CHECK-NEXT:    [[TMP24:%.*]] = load i8, ptr [[TMP23]], align 1
-// CHECK-NEXT:    call void (i32, ...) @varargs_simple(i32 noundef 0, i8 [[TMP14]], i8 [[TMP16]], i8 [[TMP18]], i8 [[TMP20]], i32 noundef 0, i8 [[TMP22]], i8 [[TMP24]]) #[[ATTR3]]
+// CHECK-NEXT:    [[TMP24:%.*]] = load b8, ptr [[TMP23]], align 1
+// CHECK-NEXT:    call void (i32, ...) @varargs_simple(i32 noundef 0, b8 [[TMP14]], b8 [[TMP16]], b8 [[TMP18]], b8 [[TMP20]], i32 noundef 0, b8 [[TMP22]], b8 [[TMP24]]) #[[ATTR3]]
 // CHECK-NEXT:    ret void
 //
 void foo() {

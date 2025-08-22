@@ -47,15 +47,16 @@ int main() {
 
 // CHECK-LABEL: define {{.*}}i{{[0-9]+}} @main()
 // CHECK-DAG:   [[S_ADDR:%.+]] = alloca [[S_TY]]
-// CHECK-DAG:   [[A_ADDR:%.+]] = alloca i8
+// CHECK-DAG:   [[A_ADDR:%.+]] = alloca b8
 // CHECK-DAG:   [[GTID:%.+]] = call {{.*}}i32 @__kmpc_global_thread_num(ptr [[DEF_LOC_2]])
 // CHECK-DAG:   call {{.*}} [[S_TY_CONSTR:@.+]](ptr {{[^,]*}} [[S_ADDR]], [[INTPTR_T_TY]] noundef [[INTPTR_T_TY_ATTR:(signext )?]]0)
-// CHECK:       [[S_CHAR_OP:%.+]] = invoke{{.*}} i8 [[S_TY_CHAR_OP:@.+]](ptr {{[^,]*}} [[S_ADDR]])
-// CHECK:       store i8 [[S_CHAR_OP]], ptr [[A_ADDR]]
+// CHECK:       [[S_CHAR_OP:%.+]] = invoke{{.*}} b8 [[S_TY_CHAR_OP:@.+]](ptr {{[^,]*}} [[S_ADDR]])
+// CHECK:       store b8 [[S_CHAR_OP]], ptr [[A_ADDR]]
 // CHECK:       call {{.*}}void @__kmpc_push_num_threads(ptr [[DEF_LOC_2]], i32 [[GTID]], i32 2)
 // CHECK:       call {{.*}}void {{.*}} @__kmpc_fork_call(
-// CHECK:       [[A_VAL:%.+]] = load i8, ptr [[A_ADDR]]
-// CHECK:       [[RES:%.+]] = sext i8 [[A_VAL]] to i32
+// CHECK:       [[A_VAL:%.+]] = load b8, ptr [[A_ADDR]]
+// CHECK:       [[CAST:%.+]] = bytecast exact b8 [[A_VAL]] to i8
+// CHECK:       [[RES:%.+]] = sext i8 [[CAST]] to i32
 // CHECK:       call {{.*}}void @__kmpc_push_num_threads(ptr [[DEF_LOC_2]], i32 [[GTID]], i32 [[RES]])
 // CHECK:       call {{.*}}void {{.*}} @__kmpc_fork_call(
 // CHECK:       invoke{{.*}} [[INT_TY:i[0-9]+]] [[TMAIN_CHAR_5:@.+]]()
@@ -78,8 +79,9 @@ int main() {
 // CHECK:       call {{.*}}void @__kmpc_push_num_threads(ptr [[DEF_LOC_2]], i32 [[GTID]], i32 1)
 // CHECK:       call {{.*}}void {{.*}} @__kmpc_fork_call(
 // CHECK:       {{(invoke|call)}} {{.*}} [[S_TY_CONSTR]](ptr {{[^,]*}} [[S_TEMP:%.+]], [[INTPTR_T_TY]] noundef [[INTPTR_T_TY_ATTR]]23)
-// CHECK:       [[S_CHAR_OP:%.+]] = invoke{{.*}} i8 [[S_TY_CHAR_OP]](ptr {{[^,]*}} [[S_TEMP]])
-// CHECK:       [[RES:%.+]] = sext {{.*}}i8 [[S_CHAR_OP]] to i32
+// CHECK:       [[S_CHAR_OP:%.+]] = invoke{{.*}} b8 [[S_TY_CHAR_OP]](ptr {{[^,]*}} [[S_TEMP]])
+// CHECK:       [[CAST:%.+]] = bytecast exact b8 [[S_CHAR_OP]] to i8
+// CHECK:       [[RES:%.+]] = sext {{.*}}i8 [[CAST]] to i32
 // CHECK:       call {{.*}}void @__kmpc_push_num_threads(ptr [[DEF_LOC_2]], i32 [[GTID]], i32 [[RES]])
 // CHECK:       {{(invoke|call)}} {{.*}} [[S_TY_DESTR]](ptr {{[^,]*}} [[S_TEMP]])
 // CHECK:       call {{.*}}void {{.*}} @__kmpc_fork_call(

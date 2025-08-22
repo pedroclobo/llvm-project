@@ -29,7 +29,7 @@ A c { 1, 0, 'A', f(), { 3 } };
 
 // @b has a constant initializer
 // CHECK: @[[STR_B:.*]] = {{.*}} [8 x i8] c"bazquux\00"
-// CHECK: @b ={{.*}} global {{.*}} i32 4, {{.*}} @[[STR_B]], i8 117, i32 42, {{.*}} i8 9
+// CHECK: @b ={{.*}} global {{.*}} i32 4, {{.*}} @[[STR_B]], b8 117, i32 42, {{.*}} b8 9
 
 B x;
 B y {};
@@ -53,8 +53,8 @@ C n{};
 // CHECK: store ptr @[[STR_A]], ptr getelementptr inbounds nuw ({{.*}} @a, i32 0, i32 1)
 // CHECK: load ptr, ptr getelementptr inbounds nuw ({{.*}} @a, i32 0, i32 1)
 // CHECK: load i32, ptr @a
-// CHECK: getelementptr inbounds i8, ptr %{{.*}}, {{.*}} %{{.*}}
-// CHECK: store i8 %{{.*}}, ptr getelementptr inbounds nuw ({{.*}} @a, i32 0, i32 2)
+// CHECK: getelementptr inbounds b8, ptr %{{.*}}, {{.*}} %{{.*}}
+// CHECK: store b8 %{{.*}}, ptr getelementptr inbounds nuw ({{.*}} @a, i32 0, i32 2)
 // CHECK: call noundef i32 @_ZN1A1fEv({{.*}} @a)
 // CHECK: store i32 %{{.*}}, ptr getelementptr inbounds nuw ({{.*}}, ptr @a, i32 0, i32 3)
 // CHECK: store double 1.000000e+00, ptr getelementptr inbounds nuw ({{.*}} @a, i32 0, i32 4)

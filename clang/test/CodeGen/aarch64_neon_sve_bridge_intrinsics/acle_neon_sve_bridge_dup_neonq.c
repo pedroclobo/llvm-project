@@ -16,15 +16,15 @@
 
 // CHECK-LABEL: @test_svdup_neonq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> [[N:%.*]], i64 0)
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP0]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> poison, <16 x b8> [[N:%.*]], i64 0)
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x b8> @llvm.aarch64.sve.dupq.lane.nxv16b8(<vscale x 16 x b8> [[TMP0]], i64 0)
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svdup_neonq_s811__Int8x16_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> [[N:%.*]], i64 0)
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP0]], i64 0)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP1]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> poison, <16 x b8> [[N:%.*]], i64 0)
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x b8> @llvm.aarch64.sve.dupq.lane.nxv16b8(<vscale x 16 x b8> [[TMP0]], i64 0)
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 svint8_t test_svdup_neonq_s8(int8x16_t n) {
   return SVE_ACLE_FUNC(svdup_neonq, _s8, , )(n);
@@ -80,15 +80,15 @@ svint64_t test_svdup_neonq_s64(int64x2_t n) {
 
 // CHECK-LABEL: @test_svdup_neonq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> [[N:%.*]], i64 0)
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP0]], i64 0)
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP1]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> poison, <16 x b8> [[N:%.*]], i64 0)
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x b8> @llvm.aarch64.sve.dupq.lane.nxv16b8(<vscale x 16 x b8> [[TMP0]], i64 0)
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svdup_neonq_u812__Uint8x16_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.vector.insert.nxv16i8.v16i8(<vscale x 16 x i8> poison, <16 x i8> [[N:%.*]], i64 0)
-// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.dupq.lane.nxv16i8(<vscale x 16 x i8> [[TMP0]], i64 0)
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP1]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x b8> @llvm.vector.insert.nxv16b8.v16b8(<vscale x 16 x b8> poison, <16 x b8> [[N:%.*]], i64 0)
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x b8> @llvm.aarch64.sve.dupq.lane.nxv16b8(<vscale x 16 x b8> [[TMP0]], i64 0)
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[TMP1]]
 //
 svuint8_t test_svdup_neonq_u8(uint8x16_t n) {
   return SVE_ACLE_FUNC(svdup_neonq, _u8, , )(n);

@@ -7,7 +7,7 @@
 // AIX-LABEL: define void @retVoid()
 void retVoid(void) {}
 
-// AIX-LABEL: define signext i8 @retChar(i8 noundef signext %x)
+// AIX-LABEL: define signext b8 @retChar(b8 noundef signext %x)
 char retChar(char x) { return x; }
 
 // AIX-LABEL: define signext i16 @retShort(i16 noundef signext %x)
@@ -20,7 +20,7 @@ int retInt(int x) { return 1; }
 // AIX-LABEL: define i64 @retLongLong(i64 noundef %x)
 long long retLongLong(long long x) { return x; }
 
-// AIX-LABEL: define signext i8 @retEnumChar(i8 noundef signext %x)
+// AIX-LABEL: define signext b8 @retEnumChar(b8 noundef signext %x)
 enum EnumChar : char { IsChar };
 enum EnumChar retEnumChar(enum EnumChar x) {
   return x;

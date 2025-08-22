@@ -301,18 +301,18 @@ void foo_simd(int low, int up) {
 // CHECK1-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[Y:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[DOTOMP_IV:%.*]] = alloca i64, align 8
-// CHECK1-NEXT:    [[TMP:%.*]] = alloca i8, align 1
+// CHECK1-NEXT:    [[TMP:%.*]] = alloca b8, align 1
 // CHECK1-NEXT:    [[_TMP1:%.*]] = alloca i32, align 4
-// CHECK1-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca i8, align 1
+// CHECK1-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca b8, align 1
 // CHECK1-NEXT:    [[DOTCAPTURE_EXPR_2:%.*]] = alloca i64, align 8
-// CHECK1-NEXT:    [[I:%.*]] = alloca i8, align 1
-// CHECK1-NEXT:    [[X6:%.*]] = alloca i32, align 4
+// CHECK1-NEXT:    [[I:%.*]] = alloca b8, align 1
+// CHECK1-NEXT:    [[X7:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[DOTOMP_LB:%.*]] = alloca i64, align 8
 // CHECK1-NEXT:    [[DOTOMP_UB:%.*]] = alloca i64, align 8
 // CHECK1-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i64, align 8
 // CHECK1-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK1-NEXT:    [[I8:%.*]] = alloca i8, align 1
-// CHECK1-NEXT:    [[X9:%.*]] = alloca i32, align 4
+// CHECK1-NEXT:    [[I10:%.*]] = alloca b8, align 1
+// CHECK1-NEXT:    [[X11:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[TMP0:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
 // CHECK1-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[B]], ptr [[B_ADDR]], align 8
@@ -322,94 +322,103 @@ void foo_simd(int low, int up) {
 // CHECK1-NEXT:    store i32 0, ptr [[Y]], align 4
 // CHECK1-NEXT:    [[TMP1:%.*]] = load i32, ptr [[Y]], align 4
 // CHECK1-NEXT:    [[CONV:%.*]] = trunc i32 [[TMP1]] to i8
-// CHECK1-NEXT:    store i8 [[CONV]], ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-NEXT:    [[TMP2:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-NEXT:    [[CONV3:%.*]] = sext i8 [[TMP2]] to i32
-// CHECK1-NEXT:    [[SUB:%.*]] = sub i32 57, [[CONV3]]
+// CHECK1-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK1-NEXT:    store b8 [[TMP2]], ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-NEXT:    [[TMP3:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-NEXT:    [[CONV3:%.*]] = bytecast exact b8 [[TMP3]] to i8
+// CHECK1-NEXT:    [[CONV4:%.*]] = sext i8 [[CONV3]] to i32
+// CHECK1-NEXT:    [[SUB:%.*]] = sub i32 57, [[CONV4]]
 // CHECK1-NEXT:    [[ADD:%.*]] = add i32 [[SUB]], 1
 // CHECK1-NEXT:    [[DIV:%.*]] = udiv i32 [[ADD]], 1
-// CHECK1-NEXT:    [[CONV4:%.*]] = zext i32 [[DIV]] to i64
-// CHECK1-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV4]], 11
-// CHECK1-NEXT:    [[SUB5:%.*]] = sub nsw i64 [[MUL]], 1
-// CHECK1-NEXT:    store i64 [[SUB5]], ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK1-NEXT:    [[TMP3:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-NEXT:    store i8 [[TMP3]], ptr [[I]], align 1
-// CHECK1-NEXT:    store i32 11, ptr [[X6]], align 4
-// CHECK1-NEXT:    [[TMP4:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-NEXT:    [[CONV7:%.*]] = sext i8 [[TMP4]] to i32
-// CHECK1-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV7]], 57
+// CHECK1-NEXT:    [[CONV5:%.*]] = zext i32 [[DIV]] to i64
+// CHECK1-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV5]], 11
+// CHECK1-NEXT:    [[SUB6:%.*]] = sub nsw i64 [[MUL]], 1
+// CHECK1-NEXT:    store i64 [[SUB6]], ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK1-NEXT:    [[TMP4:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-NEXT:    store b8 [[TMP4]], ptr [[I]], align 1
+// CHECK1-NEXT:    store i32 11, ptr [[X7]], align 4
+// CHECK1-NEXT:    [[TMP5:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-NEXT:    [[CONV8:%.*]] = bytecast exact b8 [[TMP5]] to i8
+// CHECK1-NEXT:    [[CONV9:%.*]] = sext i8 [[CONV8]] to i32
+// CHECK1-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV9]], 57
 // CHECK1-NEXT:    br i1 [[CMP]], label [[OMP_PRECOND_THEN:%.*]], label [[OMP_PRECOND_END:%.*]]
 // CHECK1:       omp.precond.then:
 // CHECK1-NEXT:    store i64 0, ptr [[DOTOMP_LB]], align 8
-// CHECK1-NEXT:    [[TMP5:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK1-NEXT:    store i64 [[TMP5]], ptr [[DOTOMP_UB]], align 8
+// CHECK1-NEXT:    [[TMP6:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK1-NEXT:    store i64 [[TMP6]], ptr [[DOTOMP_UB]], align 8
 // CHECK1-NEXT:    store i64 1, ptr [[DOTOMP_STRIDE]], align 8
 // CHECK1-NEXT:    store i32 0, ptr [[DOTOMP_IS_LAST]], align 4
-// CHECK1-NEXT:    [[TMP6:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK1-NEXT:    call void @__kmpc_dispatch_init_8(ptr @[[GLOB1]], i32 [[TMP0]], i32 1073741894, i64 0, i64 [[TMP6]], i64 1, i64 1)
+// CHECK1-NEXT:    [[TMP7:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK1-NEXT:    call void @__kmpc_dispatch_init_8(ptr @[[GLOB1]], i32 [[TMP0]], i32 1073741894, i64 0, i64 [[TMP7]], i64 1, i64 1)
 // CHECK1-NEXT:    br label [[OMP_DISPATCH_COND:%.*]]
 // CHECK1:       omp.dispatch.cond:
-// CHECK1-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_dispatch_next_8(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]])
-// CHECK1-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP7]], 0
+// CHECK1-NEXT:    [[TMP8:%.*]] = call i32 @__kmpc_dispatch_next_8(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]])
+// CHECK1-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP8]], 0
 // CHECK1-NEXT:    br i1 [[TOBOOL]], label [[OMP_DISPATCH_BODY:%.*]], label [[OMP_DISPATCH_END:%.*]]
 // CHECK1:       omp.dispatch.body:
-// CHECK1-NEXT:    [[TMP8:%.*]] = load i64, ptr [[DOTOMP_LB]], align 8
-// CHECK1-NEXT:    store i64 [[TMP8]], ptr [[DOTOMP_IV]], align 8
+// CHECK1-NEXT:    [[TMP9:%.*]] = load i64, ptr [[DOTOMP_LB]], align 8
+// CHECK1-NEXT:    store i64 [[TMP9]], ptr [[DOTOMP_IV]], align 8
 // CHECK1-NEXT:    br label [[OMP_INNER_FOR_COND:%.*]]
 // CHECK1:       omp.inner.for.cond:
-// CHECK1-NEXT:    [[TMP9:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-NEXT:    [[TMP10:%.*]] = load i64, ptr [[DOTOMP_UB]], align 8
-// CHECK1-NEXT:    [[CMP10:%.*]] = icmp sle i64 [[TMP9]], [[TMP10]]
-// CHECK1-NEXT:    br i1 [[CMP10]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
+// CHECK1-NEXT:    [[TMP10:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK1-NEXT:    [[TMP11:%.*]] = load i64, ptr [[DOTOMP_UB]], align 8
+// CHECK1-NEXT:    [[CMP12:%.*]] = icmp sle i64 [[TMP10]], [[TMP11]]
+// CHECK1-NEXT:    br i1 [[CMP12]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
 // CHECK1:       omp.inner.for.body:
-// CHECK1-NEXT:    [[TMP11:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-NEXT:    [[CONV11:%.*]] = sext i8 [[TMP11]] to i64
-// CHECK1-NEXT:    [[TMP12:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-NEXT:    [[DIV12:%.*]] = sdiv i64 [[TMP12]], 11
-// CHECK1-NEXT:    [[MUL13:%.*]] = mul nsw i64 [[DIV12]], 1
-// CHECK1-NEXT:    [[ADD14:%.*]] = add nsw i64 [[CONV11]], [[MUL13]]
-// CHECK1-NEXT:    [[CONV15:%.*]] = trunc i64 [[ADD14]] to i8
-// CHECK1-NEXT:    store i8 [[CONV15]], ptr [[I8]], align 1
+// CHECK1-NEXT:    [[TMP12:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-NEXT:    [[CONV13:%.*]] = bytecast exact b8 [[TMP12]] to i8
+// CHECK1-NEXT:    [[CONV14:%.*]] = sext i8 [[CONV13]] to i64
 // CHECK1-NEXT:    [[TMP13:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-NEXT:    [[TMP14:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-NEXT:    [[DIV16:%.*]] = sdiv i64 [[TMP14]], 11
-// CHECK1-NEXT:    [[MUL17:%.*]] = mul nsw i64 [[DIV16]], 11
-// CHECK1-NEXT:    [[SUB18:%.*]] = sub nsw i64 [[TMP13]], [[MUL17]]
-// CHECK1-NEXT:    [[MUL19:%.*]] = mul nsw i64 [[SUB18]], 1
-// CHECK1-NEXT:    [[SUB20:%.*]] = sub nsw i64 11, [[MUL19]]
-// CHECK1-NEXT:    [[CONV21:%.*]] = trunc i64 [[SUB20]] to i32
-// CHECK1-NEXT:    store i32 [[CONV21]], ptr [[X9]], align 4
+// CHECK1-NEXT:    [[DIV15:%.*]] = sdiv i64 [[TMP13]], 11
+// CHECK1-NEXT:    [[MUL16:%.*]] = mul nsw i64 [[DIV15]], 1
+// CHECK1-NEXT:    [[ADD17:%.*]] = add nsw i64 [[CONV14]], [[MUL16]]
+// CHECK1-NEXT:    [[CONV18:%.*]] = trunc i64 [[ADD17]] to i8
+// CHECK1-NEXT:    [[TMP14:%.*]] = bitcast i8 [[CONV18]] to b8
+// CHECK1-NEXT:    store b8 [[TMP14]], ptr [[I10]], align 1
+// CHECK1-NEXT:    [[TMP15:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK1-NEXT:    [[TMP16:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK1-NEXT:    [[DIV19:%.*]] = sdiv i64 [[TMP16]], 11
+// CHECK1-NEXT:    [[MUL20:%.*]] = mul nsw i64 [[DIV19]], 11
+// CHECK1-NEXT:    [[SUB21:%.*]] = sub nsw i64 [[TMP15]], [[MUL20]]
+// CHECK1-NEXT:    [[MUL22:%.*]] = mul nsw i64 [[SUB21]], 1
+// CHECK1-NEXT:    [[SUB23:%.*]] = sub nsw i64 11, [[MUL22]]
+// CHECK1-NEXT:    [[CONV24:%.*]] = trunc i64 [[SUB23]] to i32
+// CHECK1-NEXT:    store i32 [[CONV24]], ptr [[X11]], align 4
 // CHECK1-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK1-NEXT:    [[TMP15:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP16:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK1-NEXT:    [[IDXPROM:%.*]] = sext i8 [[TMP16]] to i64
-// CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP15]], i64 [[IDXPROM]]
-// CHECK1-NEXT:    [[TMP17:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK1-NEXT:    [[TMP18:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP19:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK1-NEXT:    [[IDXPROM22:%.*]] = sext i8 [[TMP19]] to i64
-// CHECK1-NEXT:    [[ARRAYIDX23:%.*]] = getelementptr inbounds float, ptr [[TMP18]], i64 [[IDXPROM22]]
-// CHECK1-NEXT:    [[TMP20:%.*]] = load float, ptr [[ARRAYIDX23]], align 4
-// CHECK1-NEXT:    [[MUL24:%.*]] = fmul float [[TMP17]], [[TMP20]]
-// CHECK1-NEXT:    [[TMP21:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP22:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK1-NEXT:    [[IDXPROM25:%.*]] = sext i8 [[TMP22]] to i64
-// CHECK1-NEXT:    [[ARRAYIDX26:%.*]] = getelementptr inbounds float, ptr [[TMP21]], i64 [[IDXPROM25]]
-// CHECK1-NEXT:    [[TMP23:%.*]] = load float, ptr [[ARRAYIDX26]], align 4
-// CHECK1-NEXT:    [[MUL27:%.*]] = fmul float [[MUL24]], [[TMP23]]
-// CHECK1-NEXT:    [[TMP24:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP25:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK1-NEXT:    [[IDXPROM28:%.*]] = sext i8 [[TMP25]] to i64
-// CHECK1-NEXT:    [[ARRAYIDX29:%.*]] = getelementptr inbounds float, ptr [[TMP24]], i64 [[IDXPROM28]]
-// CHECK1-NEXT:    store float [[MUL27]], ptr [[ARRAYIDX29]], align 4
+// CHECK1-NEXT:    [[TMP17:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP18:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK1-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP18]] to i8
+// CHECK1-NEXT:    [[IDXPROM25:%.*]] = sext i8 [[IDXPROM]] to i64
+// CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP17]], i64 [[IDXPROM25]]
+// CHECK1-NEXT:    [[TMP19:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK1-NEXT:    [[TMP20:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP21:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK1-NEXT:    [[IDXPROM26:%.*]] = bytecast exact b8 [[TMP21]] to i8
+// CHECK1-NEXT:    [[IDXPROM27:%.*]] = sext i8 [[IDXPROM26]] to i64
+// CHECK1-NEXT:    [[ARRAYIDX28:%.*]] = getelementptr inbounds float, ptr [[TMP20]], i64 [[IDXPROM27]]
+// CHECK1-NEXT:    [[TMP22:%.*]] = load float, ptr [[ARRAYIDX28]], align 4
+// CHECK1-NEXT:    [[MUL29:%.*]] = fmul float [[TMP19]], [[TMP22]]
+// CHECK1-NEXT:    [[TMP23:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP24:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK1-NEXT:    [[IDXPROM30:%.*]] = bytecast exact b8 [[TMP24]] to i8
+// CHECK1-NEXT:    [[IDXPROM31:%.*]] = sext i8 [[IDXPROM30]] to i64
+// CHECK1-NEXT:    [[ARRAYIDX32:%.*]] = getelementptr inbounds float, ptr [[TMP23]], i64 [[IDXPROM31]]
+// CHECK1-NEXT:    [[TMP25:%.*]] = load float, ptr [[ARRAYIDX32]], align 4
+// CHECK1-NEXT:    [[MUL33:%.*]] = fmul float [[MUL29]], [[TMP25]]
+// CHECK1-NEXT:    [[TMP26:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP27:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK1-NEXT:    [[IDXPROM34:%.*]] = bytecast exact b8 [[TMP27]] to i8
+// CHECK1-NEXT:    [[IDXPROM35:%.*]] = sext i8 [[IDXPROM34]] to i64
+// CHECK1-NEXT:    [[ARRAYIDX36:%.*]] = getelementptr inbounds float, ptr [[TMP26]], i64 [[IDXPROM35]]
+// CHECK1-NEXT:    store float [[MUL33]], ptr [[ARRAYIDX36]], align 4
 // CHECK1-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK1-NEXT:    br label [[OMP_BODY_CONTINUE:%.*]]
 // CHECK1:       omp.body.continue:
 // CHECK1-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK1:       omp.inner.for.inc:
-// CHECK1-NEXT:    [[TMP26:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-NEXT:    [[ADD30:%.*]] = add nsw i64 [[TMP26]], 1
-// CHECK1-NEXT:    store i64 [[ADD30]], ptr [[DOTOMP_IV]], align 8
+// CHECK1-NEXT:    [[TMP28:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK1-NEXT:    [[ADD37:%.*]] = add nsw i64 [[TMP28]], 1
+// CHECK1-NEXT:    store i64 [[ADD37]], ptr [[DOTOMP_IV]], align 8
 // CHECK1-NEXT:    call void @__kmpc_dispatch_fini_8(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK1-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK1:       omp.inner.for.end:
@@ -433,13 +442,13 @@ void foo_simd(int low, int up) {
 // CHECK1-NEXT:    [[D_ADDR:%.*]] = alloca ptr, align 8
 // CHECK1-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[DOTOMP_IV:%.*]] = alloca i32, align 4
-// CHECK1-NEXT:    [[TMP:%.*]] = alloca i8, align 1
+// CHECK1-NEXT:    [[TMP:%.*]] = alloca b8, align 1
 // CHECK1-NEXT:    [[_TMP1:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[DOTOMP_LB:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[DOTOMP_UB:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK1-NEXT:    [[I:%.*]] = alloca i8, align 1
+// CHECK1-NEXT:    [[I:%.*]] = alloca b8, align 1
 // CHECK1-NEXT:    [[X2:%.*]] = alloca i32, align 4
 // CHECK1-NEXT:    [[TMP0:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
 // CHECK1-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
@@ -472,46 +481,51 @@ void foo_simd(int low, int up) {
 // CHECK1-NEXT:    [[MUL:%.*]] = mul nsw i32 [[DIV]], 1
 // CHECK1-NEXT:    [[ADD:%.*]] = add nsw i32 48, [[MUL]]
 // CHECK1-NEXT:    [[CONV:%.*]] = trunc i32 [[ADD]] to i8
-// CHECK1-NEXT:    store i8 [[CONV]], ptr [[I]], align 1
-// CHECK1-NEXT:    [[TMP6:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK1-NEXT:    [[TMP6:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK1-NEXT:    store b8 [[TMP6]], ptr [[I]], align 1
 // CHECK1-NEXT:    [[TMP7:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK1-NEXT:    [[DIV3:%.*]] = sdiv i32 [[TMP7]], 20
+// CHECK1-NEXT:    [[TMP8:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK1-NEXT:    [[DIV3:%.*]] = sdiv i32 [[TMP8]], 20
 // CHECK1-NEXT:    [[MUL4:%.*]] = mul nsw i32 [[DIV3]], 20
-// CHECK1-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP6]], [[MUL4]]
+// CHECK1-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP7]], [[MUL4]]
 // CHECK1-NEXT:    [[MUL5:%.*]] = mul nsw i32 [[SUB]], 1
 // CHECK1-NEXT:    [[ADD6:%.*]] = add nsw i32 -10, [[MUL5]]
 // CHECK1-NEXT:    store i32 [[ADD6]], ptr [[X2]], align 4
 // CHECK1-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK1-NEXT:    [[TMP8:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP9:%.*]] = load i8, ptr [[I]], align 1
-// CHECK1-NEXT:    [[IDXPROM:%.*]] = zext i8 [[TMP9]] to i64
-// CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP8]], i64 [[IDXPROM]]
-// CHECK1-NEXT:    [[TMP10:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK1-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP12:%.*]] = load i8, ptr [[I]], align 1
-// CHECK1-NEXT:    [[IDXPROM7:%.*]] = zext i8 [[TMP12]] to i64
-// CHECK1-NEXT:    [[ARRAYIDX8:%.*]] = getelementptr inbounds nuw float, ptr [[TMP11]], i64 [[IDXPROM7]]
-// CHECK1-NEXT:    [[TMP13:%.*]] = load float, ptr [[ARRAYIDX8]], align 4
-// CHECK1-NEXT:    [[MUL9:%.*]] = fmul float [[TMP10]], [[TMP13]]
-// CHECK1-NEXT:    [[TMP14:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP15:%.*]] = load i8, ptr [[I]], align 1
-// CHECK1-NEXT:    [[IDXPROM10:%.*]] = zext i8 [[TMP15]] to i64
-// CHECK1-NEXT:    [[ARRAYIDX11:%.*]] = getelementptr inbounds nuw float, ptr [[TMP14]], i64 [[IDXPROM10]]
-// CHECK1-NEXT:    [[TMP16:%.*]] = load float, ptr [[ARRAYIDX11]], align 4
-// CHECK1-NEXT:    [[MUL12:%.*]] = fmul float [[MUL9]], [[TMP16]]
-// CHECK1-NEXT:    [[TMP17:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP18:%.*]] = load i8, ptr [[I]], align 1
-// CHECK1-NEXT:    [[IDXPROM13:%.*]] = zext i8 [[TMP18]] to i64
-// CHECK1-NEXT:    [[ARRAYIDX14:%.*]] = getelementptr inbounds nuw float, ptr [[TMP17]], i64 [[IDXPROM13]]
-// CHECK1-NEXT:    store float [[MUL12]], ptr [[ARRAYIDX14]], align 4
+// CHECK1-NEXT:    [[TMP9:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP10:%.*]] = load b8, ptr [[I]], align 1
+// CHECK1-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP10]] to i8
+// CHECK1-NEXT:    [[IDXPROM7:%.*]] = zext i8 [[IDXPROM]] to i64
+// CHECK1-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP9]], i64 [[IDXPROM7]]
+// CHECK1-NEXT:    [[TMP11:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK1-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP13:%.*]] = load b8, ptr [[I]], align 1
+// CHECK1-NEXT:    [[IDXPROM8:%.*]] = bytecast exact b8 [[TMP13]] to i8
+// CHECK1-NEXT:    [[IDXPROM9:%.*]] = zext i8 [[IDXPROM8]] to i64
+// CHECK1-NEXT:    [[ARRAYIDX10:%.*]] = getelementptr inbounds nuw float, ptr [[TMP12]], i64 [[IDXPROM9]]
+// CHECK1-NEXT:    [[TMP14:%.*]] = load float, ptr [[ARRAYIDX10]], align 4
+// CHECK1-NEXT:    [[MUL11:%.*]] = fmul float [[TMP11]], [[TMP14]]
+// CHECK1-NEXT:    [[TMP15:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP16:%.*]] = load b8, ptr [[I]], align 1
+// CHECK1-NEXT:    [[IDXPROM12:%.*]] = bytecast exact b8 [[TMP16]] to i8
+// CHECK1-NEXT:    [[IDXPROM13:%.*]] = zext i8 [[IDXPROM12]] to i64
+// CHECK1-NEXT:    [[ARRAYIDX14:%.*]] = getelementptr inbounds nuw float, ptr [[TMP15]], i64 [[IDXPROM13]]
+// CHECK1-NEXT:    [[TMP17:%.*]] = load float, ptr [[ARRAYIDX14]], align 4
+// CHECK1-NEXT:    [[MUL15:%.*]] = fmul float [[MUL11]], [[TMP17]]
+// CHECK1-NEXT:    [[TMP18:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP19:%.*]] = load b8, ptr [[I]], align 1
+// CHECK1-NEXT:    [[IDXPROM16:%.*]] = bytecast exact b8 [[TMP19]] to i8
+// CHECK1-NEXT:    [[IDXPROM17:%.*]] = zext i8 [[IDXPROM16]] to i64
+// CHECK1-NEXT:    [[ARRAYIDX18:%.*]] = getelementptr inbounds nuw float, ptr [[TMP18]], i64 [[IDXPROM17]]
+// CHECK1-NEXT:    store float [[MUL15]], ptr [[ARRAYIDX18]], align 4
 // CHECK1-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK1-NEXT:    br label [[OMP_BODY_CONTINUE:%.*]]
 // CHECK1:       omp.body.continue:
 // CHECK1-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK1:       omp.inner.for.inc:
-// CHECK1-NEXT:    [[TMP19:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK1-NEXT:    [[ADD15:%.*]] = add nsw i32 [[TMP19]], 1
-// CHECK1-NEXT:    store i32 [[ADD15]], ptr [[DOTOMP_IV]], align 4
+// CHECK1-NEXT:    [[TMP20:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK1-NEXT:    [[ADD19:%.*]] = add nsw i32 [[TMP20]], 1
+// CHECK1-NEXT:    store i32 [[ADD19]], ptr [[DOTOMP_IV]], align 4
 // CHECK1-NEXT:    call void @__kmpc_dispatch_fini_4(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK1-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK1:       omp.inner.for.end:
@@ -917,18 +931,18 @@ void foo_simd(int low, int up) {
 // CHECK1-IRBUILDER-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    [[Y:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_IV:%.*]] = alloca i64, align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP:%.*]] = alloca i8, align 1
+// CHECK1-IRBUILDER-NEXT:    [[TMP:%.*]] = alloca b8, align 1
 // CHECK1-IRBUILDER-NEXT:    [[_TMP1:%.*]] = alloca i32, align 4
-// CHECK1-IRBUILDER-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca i8, align 1
+// CHECK1-IRBUILDER-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca b8, align 1
 // CHECK1-IRBUILDER-NEXT:    [[DOTCAPTURE_EXPR_2:%.*]] = alloca i64, align 8
-// CHECK1-IRBUILDER-NEXT:    [[I:%.*]] = alloca i8, align 1
-// CHECK1-IRBUILDER-NEXT:    [[X6:%.*]] = alloca i32, align 4
+// CHECK1-IRBUILDER-NEXT:    [[I:%.*]] = alloca b8, align 1
+// CHECK1-IRBUILDER-NEXT:    [[X7:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_LB:%.*]] = alloca i64, align 8
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_UB:%.*]] = alloca i64, align 8
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i64, align 8
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK1-IRBUILDER-NEXT:    [[I8:%.*]] = alloca i8, align 1
-// CHECK1-IRBUILDER-NEXT:    [[X9:%.*]] = alloca i32, align 4
+// CHECK1-IRBUILDER-NEXT:    [[I10:%.*]] = alloca b8, align 1
+// CHECK1-IRBUILDER-NEXT:    [[X11:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK1-IRBUILDER-NEXT:    store ptr [[B]], ptr [[B_ADDR]], align 8
 // CHECK1-IRBUILDER-NEXT:    store ptr [[C]], ptr [[C_ADDR]], align 8
@@ -937,113 +951,122 @@ void foo_simd(int low, int up) {
 // CHECK1-IRBUILDER-NEXT:    store i32 0, ptr [[Y]], align 4
 // CHECK1-IRBUILDER-NEXT:    [[TMP0:%.*]] = load i32, ptr [[Y]], align 4
 // CHECK1-IRBUILDER-NEXT:    [[CONV:%.*]] = trunc i32 [[TMP0]] to i8
-// CHECK1-IRBUILDER-NEXT:    store i8 [[CONV]], ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[TMP1:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[CONV3:%.*]] = sext i8 [[TMP1]] to i32
-// CHECK1-IRBUILDER-NEXT:    [[SUB:%.*]] = sub i32 57, [[CONV3]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP1:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK1-IRBUILDER-NEXT:    store b8 [[TMP1]], ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[TMP2:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[CONV3:%.*]] = bytecast exact b8 [[TMP2]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[CONV4:%.*]] = sext i8 [[CONV3]] to i32
+// CHECK1-IRBUILDER-NEXT:    [[SUB:%.*]] = sub i32 57, [[CONV4]]
 // CHECK1-IRBUILDER-NEXT:    [[ADD:%.*]] = add i32 [[SUB]], 1
 // CHECK1-IRBUILDER-NEXT:    [[DIV:%.*]] = udiv i32 [[ADD]], 1
-// CHECK1-IRBUILDER-NEXT:    [[CONV4:%.*]] = zext i32 [[DIV]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV4]], 11
-// CHECK1-IRBUILDER-NEXT:    [[SUB5:%.*]] = sub nsw i64 [[MUL]], 1
-// CHECK1-IRBUILDER-NEXT:    store i64 [[SUB5]], ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP2:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-IRBUILDER-NEXT:    store i8 [[TMP2]], ptr [[I]], align 1
-// CHECK1-IRBUILDER-NEXT:    store i32 11, ptr [[X6]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[TMP3:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[CONV7:%.*]] = sext i8 [[TMP3]] to i32
-// CHECK1-IRBUILDER-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV7]], 57
+// CHECK1-IRBUILDER-NEXT:    [[CONV5:%.*]] = zext i32 [[DIV]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV5]], 11
+// CHECK1-IRBUILDER-NEXT:    [[SUB6:%.*]] = sub nsw i64 [[MUL]], 1
+// CHECK1-IRBUILDER-NEXT:    store i64 [[SUB6]], ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP3:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-IRBUILDER-NEXT:    store b8 [[TMP3]], ptr [[I]], align 1
+// CHECK1-IRBUILDER-NEXT:    store i32 11, ptr [[X7]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[TMP4:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[CONV8:%.*]] = bytecast exact b8 [[TMP4]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[CONV9:%.*]] = sext i8 [[CONV8]] to i32
+// CHECK1-IRBUILDER-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV9]], 57
 // CHECK1-IRBUILDER-NEXT:    br i1 [[CMP]], label [[OMP_PRECOND_THEN:%.*]], label [[OMP_PRECOND_END:%.*]]
 // CHECK1-IRBUILDER:       omp.precond.then:
 // CHECK1-IRBUILDER-NEXT:    store i64 0, ptr [[DOTOMP_LB]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP4:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK1-IRBUILDER-NEXT:    store i64 [[TMP4]], ptr [[DOTOMP_UB]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP5:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK1-IRBUILDER-NEXT:    store i64 [[TMP5]], ptr [[DOTOMP_UB]], align 8
 // CHECK1-IRBUILDER-NEXT:    store i64 1, ptr [[DOTOMP_STRIDE]], align 8
 // CHECK1-IRBUILDER-NEXT:    store i32 0, ptr [[DOTOMP_IS_LAST]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[TMP5:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP6:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
 // CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8:[0-9]+]])
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_init_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM]], i32 1073741894, i64 0, i64 [[TMP5]], i64 1, i64 1)
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_init_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM]], i32 1073741894, i64 0, i64 [[TMP6]], i64 1, i64 1)
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_COND:%.*]]
 // CHECK1-IRBUILDER:       omp.dispatch.cond:
-// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM10:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
-// CHECK1-IRBUILDER-NEXT:    [[TMP6:%.*]] = call i32 @__kmpc_dispatch_next_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM10]], ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]])
-// CHECK1-IRBUILDER-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP6]], 0
+// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM12:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
+// CHECK1-IRBUILDER-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_dispatch_next_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM12]], ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]])
+// CHECK1-IRBUILDER-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP7]], 0
 // CHECK1-IRBUILDER-NEXT:    br i1 [[TOBOOL]], label [[OMP_DISPATCH_BODY:%.*]], label [[OMP_DISPATCH_END:%.*]]
 // CHECK1-IRBUILDER:       omp.dispatch.body:
-// CHECK1-IRBUILDER-NEXT:    [[TMP7:%.*]] = load i64, ptr [[DOTOMP_LB]], align 8
-// CHECK1-IRBUILDER-NEXT:    store i64 [[TMP7]], ptr [[DOTOMP_IV]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP8:%.*]] = load i64, ptr [[DOTOMP_LB]], align 8
+// CHECK1-IRBUILDER-NEXT:    store i64 [[TMP8]], ptr [[DOTOMP_IV]], align 8
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_COND:%.*]]
 // CHECK1-IRBUILDER:       omp.inner.for.cond:
-// CHECK1-IRBUILDER-NEXT:    [[TMP8:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP9:%.*]] = load i64, ptr [[DOTOMP_UB]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[CMP11:%.*]] = icmp sle i64 [[TMP8]], [[TMP9]]
-// CHECK1-IRBUILDER-NEXT:    br i1 [[CMP11]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP9:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP10:%.*]] = load i64, ptr [[DOTOMP_UB]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[CMP13:%.*]] = icmp sle i64 [[TMP9]], [[TMP10]]
+// CHECK1-IRBUILDER-NEXT:    br i1 [[CMP13]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
 // CHECK1-IRBUILDER:       omp.inner.for.body:
-// CHECK1-IRBUILDER-NEXT:    [[TMP10:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[CONV12:%.*]] = sext i8 [[TMP10]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[TMP11:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[DIV13:%.*]] = sdiv i64 [[TMP11]], 11
-// CHECK1-IRBUILDER-NEXT:    [[MUL14:%.*]] = mul nsw i64 [[DIV13]], 1
-// CHECK1-IRBUILDER-NEXT:    [[ADD15:%.*]] = add nsw i64 [[CONV12]], [[MUL14]]
-// CHECK1-IRBUILDER-NEXT:    [[CONV16:%.*]] = trunc i64 [[ADD15]] to i8
-// CHECK1-IRBUILDER-NEXT:    store i8 [[CONV16]], ptr [[I8]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[TMP11:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[CONV14:%.*]] = bytecast exact b8 [[TMP11]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[CONV15:%.*]] = sext i8 [[CONV14]] to i64
 // CHECK1-IRBUILDER-NEXT:    [[TMP12:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP13:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[DIV17:%.*]] = sdiv i64 [[TMP13]], 11
-// CHECK1-IRBUILDER-NEXT:    [[MUL18:%.*]] = mul nsw i64 [[DIV17]], 11
-// CHECK1-IRBUILDER-NEXT:    [[SUB19:%.*]] = sub nsw i64 [[TMP12]], [[MUL18]]
-// CHECK1-IRBUILDER-NEXT:    [[MUL20:%.*]] = mul nsw i64 [[SUB19]], 1
-// CHECK1-IRBUILDER-NEXT:    [[SUB21:%.*]] = sub nsw i64 11, [[MUL20]]
-// CHECK1-IRBUILDER-NEXT:    [[CONV22:%.*]] = trunc i64 [[SUB21]] to i32
-// CHECK1-IRBUILDER-NEXT:    store i32 [[CONV22]], ptr [[X9]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM23:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM23]])
-// CHECK1-IRBUILDER-NEXT:    [[TMP14:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP15:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[IDXPROM:%.*]] = sext i8 [[TMP15]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP14]], i64 [[IDXPROM]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP16:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[TMP17:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP18:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[IDXPROM24:%.*]] = sext i8 [[TMP18]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX25:%.*]] = getelementptr inbounds float, ptr [[TMP17]], i64 [[IDXPROM24]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP19:%.*]] = load float, ptr [[ARRAYIDX25]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[MUL26:%.*]] = fmul float [[TMP16]], [[TMP19]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP20:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP21:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[IDXPROM27:%.*]] = sext i8 [[TMP21]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX28:%.*]] = getelementptr inbounds float, ptr [[TMP20]], i64 [[IDXPROM27]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP22:%.*]] = load float, ptr [[ARRAYIDX28]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[MUL29:%.*]] = fmul float [[MUL26]], [[TMP22]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP23:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP24:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[IDXPROM30:%.*]] = sext i8 [[TMP24]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX31:%.*]] = getelementptr inbounds float, ptr [[TMP23]], i64 [[IDXPROM30]]
-// CHECK1-IRBUILDER-NEXT:    store float [[MUL29]], ptr [[ARRAYIDX31]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[DIV16:%.*]] = sdiv i64 [[TMP12]], 11
+// CHECK1-IRBUILDER-NEXT:    [[MUL17:%.*]] = mul nsw i64 [[DIV16]], 1
+// CHECK1-IRBUILDER-NEXT:    [[ADD18:%.*]] = add nsw i64 [[CONV15]], [[MUL17]]
+// CHECK1-IRBUILDER-NEXT:    [[CONV19:%.*]] = trunc i64 [[ADD18]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[TMP13:%.*]] = bitcast i8 [[CONV19]] to b8
+// CHECK1-IRBUILDER-NEXT:    store b8 [[TMP13]], ptr [[I10]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[TMP14:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP15:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[DIV20:%.*]] = sdiv i64 [[TMP15]], 11
+// CHECK1-IRBUILDER-NEXT:    [[MUL21:%.*]] = mul nsw i64 [[DIV20]], 11
+// CHECK1-IRBUILDER-NEXT:    [[SUB22:%.*]] = sub nsw i64 [[TMP14]], [[MUL21]]
+// CHECK1-IRBUILDER-NEXT:    [[MUL23:%.*]] = mul nsw i64 [[SUB22]], 1
+// CHECK1-IRBUILDER-NEXT:    [[SUB24:%.*]] = sub nsw i64 11, [[MUL23]]
+// CHECK1-IRBUILDER-NEXT:    [[CONV25:%.*]] = trunc i64 [[SUB24]] to i32
+// CHECK1-IRBUILDER-NEXT:    store i32 [[CONV25]], ptr [[X11]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM26:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM26]])
+// CHECK1-IRBUILDER-NEXT:    [[TMP16:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP17:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP17]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM27:%.*]] = sext i8 [[IDXPROM]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP16]], i64 [[IDXPROM27]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP18:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[TMP19:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP20:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM28:%.*]] = bytecast exact b8 [[TMP20]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM29:%.*]] = sext i8 [[IDXPROM28]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX30:%.*]] = getelementptr inbounds float, ptr [[TMP19]], i64 [[IDXPROM29]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP21:%.*]] = load float, ptr [[ARRAYIDX30]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[MUL31:%.*]] = fmul float [[TMP18]], [[TMP21]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP22:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP23:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM32:%.*]] = bytecast exact b8 [[TMP23]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM33:%.*]] = sext i8 [[IDXPROM32]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX34:%.*]] = getelementptr inbounds float, ptr [[TMP22]], i64 [[IDXPROM33]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP24:%.*]] = load float, ptr [[ARRAYIDX34]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[MUL35:%.*]] = fmul float [[MUL31]], [[TMP24]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP25:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP26:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM36:%.*]] = bytecast exact b8 [[TMP26]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM37:%.*]] = sext i8 [[IDXPROM36]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX38:%.*]] = getelementptr inbounds float, ptr [[TMP25]], i64 [[IDXPROM37]]
+// CHECK1-IRBUILDER-NEXT:    store float [[MUL35]], ptr [[ARRAYIDX38]], align 4
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_BODY_ORDERED_AFTER:%.*]]
 // CHECK1-IRBUILDER:       omp.inner.for.body.ordered.after:
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM23]])
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM26]])
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_BODY_CONTINUE:%.*]]
 // CHECK1-IRBUILDER:       omp.body.continue:
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK1-IRBUILDER:       omp.inner.for.inc:
-// CHECK1-IRBUILDER-NEXT:    [[TMP25:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[ADD32:%.*]] = add nsw i64 [[TMP25]], 1
-// CHECK1-IRBUILDER-NEXT:    store i64 [[ADD32]], ptr [[DOTOMP_IV]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM33:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_fini_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM33]])
+// CHECK1-IRBUILDER-NEXT:    [[TMP27:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[ADD39:%.*]] = add nsw i64 [[TMP27]], 1
+// CHECK1-IRBUILDER-NEXT:    store i64 [[ADD39]], ptr [[DOTOMP_IV]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM40:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_fini_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM40]])
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK1-IRBUILDER:       omp.inner.for.end:
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_INC:%.*]]
 // CHECK1-IRBUILDER:       omp.dispatch.inc:
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_COND]]
 // CHECK1-IRBUILDER:       omp.dispatch.end:
-// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM34:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_deinit(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM34]])
+// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM41:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_deinit(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM41]])
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_PRECOND_END]]
 // CHECK1-IRBUILDER:       omp.precond.end:
-// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM35:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM35]])
+// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM42:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM42]])
 // CHECK1-IRBUILDER-NEXT:    ret void
 //
 //
@@ -1056,13 +1079,13 @@ void foo_simd(int low, int up) {
 // CHECK1-IRBUILDER-NEXT:    [[D_ADDR:%.*]] = alloca ptr, align 8
 // CHECK1-IRBUILDER-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_IV:%.*]] = alloca i32, align 4
-// CHECK1-IRBUILDER-NEXT:    [[TMP:%.*]] = alloca i8, align 1
+// CHECK1-IRBUILDER-NEXT:    [[TMP:%.*]] = alloca b8, align 1
 // CHECK1-IRBUILDER-NEXT:    [[_TMP1:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_LB:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_UB:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK1-IRBUILDER-NEXT:    [[I:%.*]] = alloca i8, align 1
+// CHECK1-IRBUILDER-NEXT:    [[I:%.*]] = alloca b8, align 1
 // CHECK1-IRBUILDER-NEXT:    [[X2:%.*]] = alloca i32, align 4
 // CHECK1-IRBUILDER-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK1-IRBUILDER-NEXT:    store ptr [[B]], ptr [[B_ADDR]], align 8
@@ -1096,39 +1119,44 @@ void foo_simd(int low, int up) {
 // CHECK1-IRBUILDER-NEXT:    [[MUL:%.*]] = mul nsw i32 [[DIV]], 1
 // CHECK1-IRBUILDER-NEXT:    [[ADD:%.*]] = add nsw i32 48, [[MUL]]
 // CHECK1-IRBUILDER-NEXT:    [[CONV:%.*]] = trunc i32 [[ADD]] to i8
-// CHECK1-IRBUILDER-NEXT:    store i8 [[CONV]], ptr [[I]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[TMP5:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[TMP5:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK1-IRBUILDER-NEXT:    store b8 [[TMP5]], ptr [[I]], align 1
 // CHECK1-IRBUILDER-NEXT:    [[TMP6:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[DIV4:%.*]] = sdiv i32 [[TMP6]], 20
+// CHECK1-IRBUILDER-NEXT:    [[TMP7:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[DIV4:%.*]] = sdiv i32 [[TMP7]], 20
 // CHECK1-IRBUILDER-NEXT:    [[MUL5:%.*]] = mul nsw i32 [[DIV4]], 20
-// CHECK1-IRBUILDER-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP5]], [[MUL5]]
+// CHECK1-IRBUILDER-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP6]], [[MUL5]]
 // CHECK1-IRBUILDER-NEXT:    [[MUL6:%.*]] = mul nsw i32 [[SUB]], 1
 // CHECK1-IRBUILDER-NEXT:    [[ADD7:%.*]] = add nsw i32 -10, [[MUL6]]
 // CHECK1-IRBUILDER-NEXT:    store i32 [[ADD7]], ptr [[X2]], align 4
 // CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM8:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
 // CHECK1-IRBUILDER-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM8]])
-// CHECK1-IRBUILDER-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP8:%.*]] = load i8, ptr [[I]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[IDXPROM:%.*]] = zext i8 [[TMP8]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP7]], i64 [[IDXPROM]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP9:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP11:%.*]] = load i8, ptr [[I]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[IDXPROM9:%.*]] = zext i8 [[TMP11]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX10:%.*]] = getelementptr inbounds nuw float, ptr [[TMP10]], i64 [[IDXPROM9]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP12:%.*]] = load float, ptr [[ARRAYIDX10]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[MUL11:%.*]] = fmul float [[TMP9]], [[TMP12]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP14:%.*]] = load i8, ptr [[I]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[IDXPROM12:%.*]] = zext i8 [[TMP14]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX13:%.*]] = getelementptr inbounds nuw float, ptr [[TMP13]], i64 [[IDXPROM12]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP15:%.*]] = load float, ptr [[ARRAYIDX13]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[MUL14:%.*]] = fmul float [[MUL11]], [[TMP15]]
-// CHECK1-IRBUILDER-NEXT:    [[TMP16:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK1-IRBUILDER-NEXT:    [[TMP17:%.*]] = load i8, ptr [[I]], align 1
-// CHECK1-IRBUILDER-NEXT:    [[IDXPROM15:%.*]] = zext i8 [[TMP17]] to i64
-// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX16:%.*]] = getelementptr inbounds nuw float, ptr [[TMP16]], i64 [[IDXPROM15]]
-// CHECK1-IRBUILDER-NEXT:    store float [[MUL14]], ptr [[ARRAYIDX16]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[TMP8:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP9:%.*]] = load b8, ptr [[I]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP9]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM9:%.*]] = zext i8 [[IDXPROM]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP8]], i64 [[IDXPROM9]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP10:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP12:%.*]] = load b8, ptr [[I]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM10:%.*]] = bytecast exact b8 [[TMP12]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM11:%.*]] = zext i8 [[IDXPROM10]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX12:%.*]] = getelementptr inbounds nuw float, ptr [[TMP11]], i64 [[IDXPROM11]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP13:%.*]] = load float, ptr [[ARRAYIDX12]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[MUL13:%.*]] = fmul float [[TMP10]], [[TMP13]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP14:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP15:%.*]] = load b8, ptr [[I]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM14:%.*]] = bytecast exact b8 [[TMP15]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM15:%.*]] = zext i8 [[IDXPROM14]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX16:%.*]] = getelementptr inbounds nuw float, ptr [[TMP14]], i64 [[IDXPROM15]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP16:%.*]] = load float, ptr [[ARRAYIDX16]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[MUL17:%.*]] = fmul float [[MUL13]], [[TMP16]]
+// CHECK1-IRBUILDER-NEXT:    [[TMP17:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK1-IRBUILDER-NEXT:    [[TMP18:%.*]] = load b8, ptr [[I]], align 1
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM18:%.*]] = bytecast exact b8 [[TMP18]] to i8
+// CHECK1-IRBUILDER-NEXT:    [[IDXPROM19:%.*]] = zext i8 [[IDXPROM18]] to i64
+// CHECK1-IRBUILDER-NEXT:    [[ARRAYIDX20:%.*]] = getelementptr inbounds nuw float, ptr [[TMP17]], i64 [[IDXPROM19]]
+// CHECK1-IRBUILDER-NEXT:    store float [[MUL17]], ptr [[ARRAYIDX20]], align 4
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_BODY_ORDERED_AFTER:%.*]]
 // CHECK1-IRBUILDER:       omp.inner.for.body.ordered.after:
 // CHECK1-IRBUILDER-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM8]])
@@ -1136,21 +1164,21 @@ void foo_simd(int low, int up) {
 // CHECK1-IRBUILDER:       omp.body.continue:
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK1-IRBUILDER:       omp.inner.for.inc:
-// CHECK1-IRBUILDER-NEXT:    [[TMP18:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[ADD17:%.*]] = add nsw i32 [[TMP18]], 1
-// CHECK1-IRBUILDER-NEXT:    store i32 [[ADD17]], ptr [[DOTOMP_IV]], align 4
-// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM18:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_fini_4(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM18]])
+// CHECK1-IRBUILDER-NEXT:    [[TMP19:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[ADD21:%.*]] = add nsw i32 [[TMP19]], 1
+// CHECK1-IRBUILDER-NEXT:    store i32 [[ADD21]], ptr [[DOTOMP_IV]], align 4
+// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM22:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_fini_4(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM22]])
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK1-IRBUILDER:       omp.inner.for.end:
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_INC:%.*]]
 // CHECK1-IRBUILDER:       omp.dispatch.inc:
 // CHECK1-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_COND]]
 // CHECK1-IRBUILDER:       omp.dispatch.end:
-// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM19:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_deinit(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM19]])
-// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM20:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM20]])
+// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM23:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_dispatch_deinit(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM23]])
+// CHECK1-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM24:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK1-IRBUILDER-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM24]])
 // CHECK1-IRBUILDER-NEXT:    ret void
 //
 //
@@ -1541,18 +1569,18 @@ void foo_simd(int low, int up) {
 // CHECK3-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[Y:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_IV:%.*]] = alloca i64, align 8
-// CHECK3-NEXT:    [[TMP:%.*]] = alloca i8, align 1
+// CHECK3-NEXT:    [[TMP:%.*]] = alloca b8, align 1
 // CHECK3-NEXT:    [[_TMP1:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca i8, align 1
+// CHECK3-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca b8, align 1
 // CHECK3-NEXT:    [[DOTCAPTURE_EXPR_2:%.*]] = alloca i64, align 8
-// CHECK3-NEXT:    [[I:%.*]] = alloca i8, align 1
-// CHECK3-NEXT:    [[X6:%.*]] = alloca i32, align 4
+// CHECK3-NEXT:    [[I:%.*]] = alloca b8, align 1
+// CHECK3-NEXT:    [[X7:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_LB:%.*]] = alloca i64, align 8
 // CHECK3-NEXT:    [[DOTOMP_UB:%.*]] = alloca i64, align 8
 // CHECK3-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i64, align 8
 // CHECK3-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[I8:%.*]] = alloca i8, align 1
-// CHECK3-NEXT:    [[X9:%.*]] = alloca i32, align 4
+// CHECK3-NEXT:    [[I10:%.*]] = alloca b8, align 1
+// CHECK3-NEXT:    [[X11:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[TMP0:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
 // CHECK3-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK3-NEXT:    store ptr [[B]], ptr [[B_ADDR]], align 8
@@ -1562,94 +1590,103 @@ void foo_simd(int low, int up) {
 // CHECK3-NEXT:    store i32 0, ptr [[Y]], align 4
 // CHECK3-NEXT:    [[TMP1:%.*]] = load i32, ptr [[Y]], align 4
 // CHECK3-NEXT:    [[CONV:%.*]] = trunc i32 [[TMP1]] to i8
-// CHECK3-NEXT:    store i8 [[CONV]], ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-NEXT:    [[TMP2:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-NEXT:    [[CONV3:%.*]] = sext i8 [[TMP2]] to i32
-// CHECK3-NEXT:    [[SUB:%.*]] = sub i32 57, [[CONV3]]
+// CHECK3-NEXT:    [[TMP2:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK3-NEXT:    store b8 [[TMP2]], ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-NEXT:    [[TMP3:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-NEXT:    [[CONV3:%.*]] = bytecast exact b8 [[TMP3]] to i8
+// CHECK3-NEXT:    [[CONV4:%.*]] = sext i8 [[CONV3]] to i32
+// CHECK3-NEXT:    [[SUB:%.*]] = sub i32 57, [[CONV4]]
 // CHECK3-NEXT:    [[ADD:%.*]] = add i32 [[SUB]], 1
 // CHECK3-NEXT:    [[DIV:%.*]] = udiv i32 [[ADD]], 1
-// CHECK3-NEXT:    [[CONV4:%.*]] = zext i32 [[DIV]] to i64
-// CHECK3-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV4]], 11
-// CHECK3-NEXT:    [[SUB5:%.*]] = sub nsw i64 [[MUL]], 1
-// CHECK3-NEXT:    store i64 [[SUB5]], ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK3-NEXT:    [[TMP3:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-NEXT:    store i8 [[TMP3]], ptr [[I]], align 1
-// CHECK3-NEXT:    store i32 11, ptr [[X6]], align 4
-// CHECK3-NEXT:    [[TMP4:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-NEXT:    [[CONV7:%.*]] = sext i8 [[TMP4]] to i32
-// CHECK3-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV7]], 57
+// CHECK3-NEXT:    [[CONV5:%.*]] = zext i32 [[DIV]] to i64
+// CHECK3-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV5]], 11
+// CHECK3-NEXT:    [[SUB6:%.*]] = sub nsw i64 [[MUL]], 1
+// CHECK3-NEXT:    store i64 [[SUB6]], ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK3-NEXT:    [[TMP4:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-NEXT:    store b8 [[TMP4]], ptr [[I]], align 1
+// CHECK3-NEXT:    store i32 11, ptr [[X7]], align 4
+// CHECK3-NEXT:    [[TMP5:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-NEXT:    [[CONV8:%.*]] = bytecast exact b8 [[TMP5]] to i8
+// CHECK3-NEXT:    [[CONV9:%.*]] = sext i8 [[CONV8]] to i32
+// CHECK3-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV9]], 57
 // CHECK3-NEXT:    br i1 [[CMP]], label [[OMP_PRECOND_THEN:%.*]], label [[OMP_PRECOND_END:%.*]]
 // CHECK3:       omp.precond.then:
 // CHECK3-NEXT:    store i64 0, ptr [[DOTOMP_LB]], align 8
-// CHECK3-NEXT:    [[TMP5:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK3-NEXT:    store i64 [[TMP5]], ptr [[DOTOMP_UB]], align 8
+// CHECK3-NEXT:    [[TMP6:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK3-NEXT:    store i64 [[TMP6]], ptr [[DOTOMP_UB]], align 8
 // CHECK3-NEXT:    store i64 1, ptr [[DOTOMP_STRIDE]], align 8
 // CHECK3-NEXT:    store i32 0, ptr [[DOTOMP_IS_LAST]], align 4
-// CHECK3-NEXT:    [[TMP6:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK3-NEXT:    call void @__kmpc_dispatch_init_8(ptr @[[GLOB1]], i32 [[TMP0]], i32 70, i64 0, i64 [[TMP6]], i64 1, i64 1)
+// CHECK3-NEXT:    [[TMP7:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK3-NEXT:    call void @__kmpc_dispatch_init_8(ptr @[[GLOB1]], i32 [[TMP0]], i32 70, i64 0, i64 [[TMP7]], i64 1, i64 1)
 // CHECK3-NEXT:    br label [[OMP_DISPATCH_COND:%.*]]
 // CHECK3:       omp.dispatch.cond:
-// CHECK3-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_dispatch_next_8(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]])
-// CHECK3-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP7]], 0
+// CHECK3-NEXT:    [[TMP8:%.*]] = call i32 @__kmpc_dispatch_next_8(ptr @[[GLOB1]], i32 [[TMP0]], ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]])
+// CHECK3-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP8]], 0
 // CHECK3-NEXT:    br i1 [[TOBOOL]], label [[OMP_DISPATCH_BODY:%.*]], label [[OMP_DISPATCH_END:%.*]]
 // CHECK3:       omp.dispatch.body:
-// CHECK3-NEXT:    [[TMP8:%.*]] = load i64, ptr [[DOTOMP_LB]], align 8
-// CHECK3-NEXT:    store i64 [[TMP8]], ptr [[DOTOMP_IV]], align 8
+// CHECK3-NEXT:    [[TMP9:%.*]] = load i64, ptr [[DOTOMP_LB]], align 8
+// CHECK3-NEXT:    store i64 [[TMP9]], ptr [[DOTOMP_IV]], align 8
 // CHECK3-NEXT:    br label [[OMP_INNER_FOR_COND:%.*]]
 // CHECK3:       omp.inner.for.cond:
-// CHECK3-NEXT:    [[TMP9:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-NEXT:    [[TMP10:%.*]] = load i64, ptr [[DOTOMP_UB]], align 8
-// CHECK3-NEXT:    [[CMP10:%.*]] = icmp sle i64 [[TMP9]], [[TMP10]]
-// CHECK3-NEXT:    br i1 [[CMP10]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
+// CHECK3-NEXT:    [[TMP10:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK3-NEXT:    [[TMP11:%.*]] = load i64, ptr [[DOTOMP_UB]], align 8
+// CHECK3-NEXT:    [[CMP12:%.*]] = icmp sle i64 [[TMP10]], [[TMP11]]
+// CHECK3-NEXT:    br i1 [[CMP12]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
 // CHECK3:       omp.inner.for.body:
-// CHECK3-NEXT:    [[TMP11:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-NEXT:    [[CONV11:%.*]] = sext i8 [[TMP11]] to i64
-// CHECK3-NEXT:    [[TMP12:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-NEXT:    [[DIV12:%.*]] = sdiv i64 [[TMP12]], 11
-// CHECK3-NEXT:    [[MUL13:%.*]] = mul nsw i64 [[DIV12]], 1
-// CHECK3-NEXT:    [[ADD14:%.*]] = add nsw i64 [[CONV11]], [[MUL13]]
-// CHECK3-NEXT:    [[CONV15:%.*]] = trunc i64 [[ADD14]] to i8
-// CHECK3-NEXT:    store i8 [[CONV15]], ptr [[I8]], align 1
+// CHECK3-NEXT:    [[TMP12:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-NEXT:    [[CONV13:%.*]] = bytecast exact b8 [[TMP12]] to i8
+// CHECK3-NEXT:    [[CONV14:%.*]] = sext i8 [[CONV13]] to i64
 // CHECK3-NEXT:    [[TMP13:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-NEXT:    [[TMP14:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-NEXT:    [[DIV16:%.*]] = sdiv i64 [[TMP14]], 11
-// CHECK3-NEXT:    [[MUL17:%.*]] = mul nsw i64 [[DIV16]], 11
-// CHECK3-NEXT:    [[SUB18:%.*]] = sub nsw i64 [[TMP13]], [[MUL17]]
-// CHECK3-NEXT:    [[MUL19:%.*]] = mul nsw i64 [[SUB18]], 1
-// CHECK3-NEXT:    [[SUB20:%.*]] = sub nsw i64 11, [[MUL19]]
-// CHECK3-NEXT:    [[CONV21:%.*]] = trunc i64 [[SUB20]] to i32
-// CHECK3-NEXT:    store i32 [[CONV21]], ptr [[X9]], align 4
+// CHECK3-NEXT:    [[DIV15:%.*]] = sdiv i64 [[TMP13]], 11
+// CHECK3-NEXT:    [[MUL16:%.*]] = mul nsw i64 [[DIV15]], 1
+// CHECK3-NEXT:    [[ADD17:%.*]] = add nsw i64 [[CONV14]], [[MUL16]]
+// CHECK3-NEXT:    [[CONV18:%.*]] = trunc i64 [[ADD17]] to i8
+// CHECK3-NEXT:    [[TMP14:%.*]] = bitcast i8 [[CONV18]] to b8
+// CHECK3-NEXT:    store b8 [[TMP14]], ptr [[I10]], align 1
+// CHECK3-NEXT:    [[TMP15:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK3-NEXT:    [[TMP16:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK3-NEXT:    [[DIV19:%.*]] = sdiv i64 [[TMP16]], 11
+// CHECK3-NEXT:    [[MUL20:%.*]] = mul nsw i64 [[DIV19]], 11
+// CHECK3-NEXT:    [[SUB21:%.*]] = sub nsw i64 [[TMP15]], [[MUL20]]
+// CHECK3-NEXT:    [[MUL22:%.*]] = mul nsw i64 [[SUB21]], 1
+// CHECK3-NEXT:    [[SUB23:%.*]] = sub nsw i64 11, [[MUL22]]
+// CHECK3-NEXT:    [[CONV24:%.*]] = trunc i64 [[SUB23]] to i32
+// CHECK3-NEXT:    store i32 [[CONV24]], ptr [[X11]], align 4
 // CHECK3-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK3-NEXT:    [[TMP15:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK3-NEXT:    [[TMP16:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK3-NEXT:    [[IDXPROM:%.*]] = sext i8 [[TMP16]] to i64
-// CHECK3-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP15]], i64 [[IDXPROM]]
-// CHECK3-NEXT:    [[TMP17:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK3-NEXT:    [[TMP18:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK3-NEXT:    [[TMP19:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK3-NEXT:    [[IDXPROM22:%.*]] = sext i8 [[TMP19]] to i64
-// CHECK3-NEXT:    [[ARRAYIDX23:%.*]] = getelementptr inbounds float, ptr [[TMP18]], i64 [[IDXPROM22]]
-// CHECK3-NEXT:    [[TMP20:%.*]] = load float, ptr [[ARRAYIDX23]], align 4
-// CHECK3-NEXT:    [[MUL24:%.*]] = fmul float [[TMP17]], [[TMP20]]
-// CHECK3-NEXT:    [[TMP21:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK3-NEXT:    [[TMP22:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK3-NEXT:    [[IDXPROM25:%.*]] = sext i8 [[TMP22]] to i64
-// CHECK3-NEXT:    [[ARRAYIDX26:%.*]] = getelementptr inbounds float, ptr [[TMP21]], i64 [[IDXPROM25]]
-// CHECK3-NEXT:    [[TMP23:%.*]] = load float, ptr [[ARRAYIDX26]], align 4
-// CHECK3-NEXT:    [[MUL27:%.*]] = fmul float [[MUL24]], [[TMP23]]
-// CHECK3-NEXT:    [[TMP24:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK3-NEXT:    [[TMP25:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK3-NEXT:    [[IDXPROM28:%.*]] = sext i8 [[TMP25]] to i64
-// CHECK3-NEXT:    [[ARRAYIDX29:%.*]] = getelementptr inbounds float, ptr [[TMP24]], i64 [[IDXPROM28]]
-// CHECK3-NEXT:    store float [[MUL27]], ptr [[ARRAYIDX29]], align 4
+// CHECK3-NEXT:    [[TMP17:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK3-NEXT:    [[TMP18:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK3-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP18]] to i8
+// CHECK3-NEXT:    [[IDXPROM25:%.*]] = sext i8 [[IDXPROM]] to i64
+// CHECK3-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP17]], i64 [[IDXPROM25]]
+// CHECK3-NEXT:    [[TMP19:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK3-NEXT:    [[TMP20:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK3-NEXT:    [[TMP21:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK3-NEXT:    [[IDXPROM26:%.*]] = bytecast exact b8 [[TMP21]] to i8
+// CHECK3-NEXT:    [[IDXPROM27:%.*]] = sext i8 [[IDXPROM26]] to i64
+// CHECK3-NEXT:    [[ARRAYIDX28:%.*]] = getelementptr inbounds float, ptr [[TMP20]], i64 [[IDXPROM27]]
+// CHECK3-NEXT:    [[TMP22:%.*]] = load float, ptr [[ARRAYIDX28]], align 4
+// CHECK3-NEXT:    [[MUL29:%.*]] = fmul float [[TMP19]], [[TMP22]]
+// CHECK3-NEXT:    [[TMP23:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK3-NEXT:    [[TMP24:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK3-NEXT:    [[IDXPROM30:%.*]] = bytecast exact b8 [[TMP24]] to i8
+// CHECK3-NEXT:    [[IDXPROM31:%.*]] = sext i8 [[IDXPROM30]] to i64
+// CHECK3-NEXT:    [[ARRAYIDX32:%.*]] = getelementptr inbounds float, ptr [[TMP23]], i64 [[IDXPROM31]]
+// CHECK3-NEXT:    [[TMP25:%.*]] = load float, ptr [[ARRAYIDX32]], align 4
+// CHECK3-NEXT:    [[MUL33:%.*]] = fmul float [[MUL29]], [[TMP25]]
+// CHECK3-NEXT:    [[TMP26:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK3-NEXT:    [[TMP27:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK3-NEXT:    [[IDXPROM34:%.*]] = bytecast exact b8 [[TMP27]] to i8
+// CHECK3-NEXT:    [[IDXPROM35:%.*]] = sext i8 [[IDXPROM34]] to i64
+// CHECK3-NEXT:    [[ARRAYIDX36:%.*]] = getelementptr inbounds float, ptr [[TMP26]], i64 [[IDXPROM35]]
+// CHECK3-NEXT:    store float [[MUL33]], ptr [[ARRAYIDX36]], align 4
 // CHECK3-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK3-NEXT:    br label [[OMP_BODY_CONTINUE:%.*]]
 // CHECK3:       omp.body.continue:
 // CHECK3-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK3:       omp.inner.for.inc:
-// CHECK3-NEXT:    [[TMP26:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-NEXT:    [[ADD30:%.*]] = add nsw i64 [[TMP26]], 1
-// CHECK3-NEXT:    store i64 [[ADD30]], ptr [[DOTOMP_IV]], align 8
+// CHECK3-NEXT:    [[TMP28:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK3-NEXT:    [[ADD37:%.*]] = add nsw i64 [[TMP28]], 1
+// CHECK3-NEXT:    store i64 [[ADD37]], ptr [[DOTOMP_IV]], align 8
 // CHECK3-NEXT:    call void @__kmpc_dispatch_fini_8(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK3-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK3:       omp.inner.for.end:
@@ -1673,13 +1710,13 @@ void foo_simd(int low, int up) {
 // CHECK3-NEXT:    [[D_ADDR:%.*]] = alloca ptr, align 8
 // CHECK3-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_IV:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[TMP:%.*]] = alloca i8, align 1
+// CHECK3-NEXT:    [[TMP:%.*]] = alloca b8, align 1
 // CHECK3-NEXT:    [[_TMP1:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_LB:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_UB:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK3-NEXT:    [[I:%.*]] = alloca i8, align 1
+// CHECK3-NEXT:    [[I:%.*]] = alloca b8, align 1
 // CHECK3-NEXT:    [[X2:%.*]] = alloca i32, align 4
 // CHECK3-NEXT:    [[TMP0:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
 // CHECK3-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
@@ -1712,46 +1749,51 @@ void foo_simd(int low, int up) {
 // CHECK3-NEXT:    [[MUL:%.*]] = mul nsw i32 [[DIV]], 1
 // CHECK3-NEXT:    [[ADD:%.*]] = add nsw i32 48, [[MUL]]
 // CHECK3-NEXT:    [[CONV:%.*]] = trunc i32 [[ADD]] to i8
-// CHECK3-NEXT:    store i8 [[CONV]], ptr [[I]], align 1
-// CHECK3-NEXT:    [[TMP6:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK3-NEXT:    [[TMP6:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK3-NEXT:    store b8 [[TMP6]], ptr [[I]], align 1
 // CHECK3-NEXT:    [[TMP7:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK3-NEXT:    [[DIV3:%.*]] = sdiv i32 [[TMP7]], 20
+// CHECK3-NEXT:    [[TMP8:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK3-NEXT:    [[DIV3:%.*]] = sdiv i32 [[TMP8]], 20
 // CHECK3-NEXT:    [[MUL4:%.*]] = mul nsw i32 [[DIV3]], 20
-// CHECK3-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP6]], [[MUL4]]
+// CHECK3-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP7]], [[MUL4]]
 // CHECK3-NEXT:    [[MUL5:%.*]] = mul nsw i32 [[SUB]], 1
 // CHECK3-NEXT:    [[ADD6:%.*]] = add nsw i32 -10, [[MUL5]]
 // CHECK3-NEXT:    store i32 [[ADD6]], ptr [[X2]], align 4
 // CHECK3-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[TMP0]])
-// CHECK3-NEXT:    [[TMP8:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK3-NEXT:    [[TMP9:%.*]] = load i8, ptr [[I]], align 1
-// CHECK3-NEXT:    [[IDXPROM:%.*]] = zext i8 [[TMP9]] to i64
-// CHECK3-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP8]], i64 [[IDXPROM]]
-// CHECK3-NEXT:    [[TMP10:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK3-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK3-NEXT:    [[TMP12:%.*]] = load i8, ptr [[I]], align 1
-// CHECK3-NEXT:    [[IDXPROM7:%.*]] = zext i8 [[TMP12]] to i64
-// CHECK3-NEXT:    [[ARRAYIDX8:%.*]] = getelementptr inbounds nuw float, ptr [[TMP11]], i64 [[IDXPROM7]]
-// CHECK3-NEXT:    [[TMP13:%.*]] = load float, ptr [[ARRAYIDX8]], align 4
-// CHECK3-NEXT:    [[MUL9:%.*]] = fmul float [[TMP10]], [[TMP13]]
-// CHECK3-NEXT:    [[TMP14:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK3-NEXT:    [[TMP15:%.*]] = load i8, ptr [[I]], align 1
-// CHECK3-NEXT:    [[IDXPROM10:%.*]] = zext i8 [[TMP15]] to i64
-// CHECK3-NEXT:    [[ARRAYIDX11:%.*]] = getelementptr inbounds nuw float, ptr [[TMP14]], i64 [[IDXPROM10]]
-// CHECK3-NEXT:    [[TMP16:%.*]] = load float, ptr [[ARRAYIDX11]], align 4
-// CHECK3-NEXT:    [[MUL12:%.*]] = fmul float [[MUL9]], [[TMP16]]
-// CHECK3-NEXT:    [[TMP17:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK3-NEXT:    [[TMP18:%.*]] = load i8, ptr [[I]], align 1
-// CHECK3-NEXT:    [[IDXPROM13:%.*]] = zext i8 [[TMP18]] to i64
-// CHECK3-NEXT:    [[ARRAYIDX14:%.*]] = getelementptr inbounds nuw float, ptr [[TMP17]], i64 [[IDXPROM13]]
-// CHECK3-NEXT:    store float [[MUL12]], ptr [[ARRAYIDX14]], align 4
+// CHECK3-NEXT:    [[TMP9:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK3-NEXT:    [[TMP10:%.*]] = load b8, ptr [[I]], align 1
+// CHECK3-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP10]] to i8
+// CHECK3-NEXT:    [[IDXPROM7:%.*]] = zext i8 [[IDXPROM]] to i64
+// CHECK3-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP9]], i64 [[IDXPROM7]]
+// CHECK3-NEXT:    [[TMP11:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK3-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK3-NEXT:    [[TMP13:%.*]] = load b8, ptr [[I]], align 1
+// CHECK3-NEXT:    [[IDXPROM8:%.*]] = bytecast exact b8 [[TMP13]] to i8
+// CHECK3-NEXT:    [[IDXPROM9:%.*]] = zext i8 [[IDXPROM8]] to i64
+// CHECK3-NEXT:    [[ARRAYIDX10:%.*]] = getelementptr inbounds nuw float, ptr [[TMP12]], i64 [[IDXPROM9]]
+// CHECK3-NEXT:    [[TMP14:%.*]] = load float, ptr [[ARRAYIDX10]], align 4
+// CHECK3-NEXT:    [[MUL11:%.*]] = fmul float [[TMP11]], [[TMP14]]
+// CHECK3-NEXT:    [[TMP15:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK3-NEXT:    [[TMP16:%.*]] = load b8, ptr [[I]], align 1
+// CHECK3-NEXT:    [[IDXPROM12:%.*]] = bytecast exact b8 [[TMP16]] to i8
+// CHECK3-NEXT:    [[IDXPROM13:%.*]] = zext i8 [[IDXPROM12]] to i64
+// CHECK3-NEXT:    [[ARRAYIDX14:%.*]] = getelementptr inbounds nuw float, ptr [[TMP15]], i64 [[IDXPROM13]]
+// CHECK3-NEXT:    [[TMP17:%.*]] = load float, ptr [[ARRAYIDX14]], align 4
+// CHECK3-NEXT:    [[MUL15:%.*]] = fmul float [[MUL11]], [[TMP17]]
+// CHECK3-NEXT:    [[TMP18:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK3-NEXT:    [[TMP19:%.*]] = load b8, ptr [[I]], align 1
+// CHECK3-NEXT:    [[IDXPROM16:%.*]] = bytecast exact b8 [[TMP19]] to i8
+// CHECK3-NEXT:    [[IDXPROM17:%.*]] = zext i8 [[IDXPROM16]] to i64
+// CHECK3-NEXT:    [[ARRAYIDX18:%.*]] = getelementptr inbounds nuw float, ptr [[TMP18]], i64 [[IDXPROM17]]
+// CHECK3-NEXT:    store float [[MUL15]], ptr [[ARRAYIDX18]], align 4
 // CHECK3-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK3-NEXT:    br label [[OMP_BODY_CONTINUE:%.*]]
 // CHECK3:       omp.body.continue:
 // CHECK3-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK3:       omp.inner.for.inc:
-// CHECK3-NEXT:    [[TMP19:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK3-NEXT:    [[ADD15:%.*]] = add nsw i32 [[TMP19]], 1
-// CHECK3-NEXT:    store i32 [[ADD15]], ptr [[DOTOMP_IV]], align 4
+// CHECK3-NEXT:    [[TMP20:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK3-NEXT:    [[ADD19:%.*]] = add nsw i32 [[TMP20]], 1
+// CHECK3-NEXT:    store i32 [[ADD19]], ptr [[DOTOMP_IV]], align 4
 // CHECK3-NEXT:    call void @__kmpc_dispatch_fini_4(ptr @[[GLOB1]], i32 [[TMP0]])
 // CHECK3-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK3:       omp.inner.for.end:
@@ -2157,18 +2199,18 @@ void foo_simd(int low, int up) {
 // CHECK3-IRBUILDER-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    [[Y:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_IV:%.*]] = alloca i64, align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP:%.*]] = alloca i8, align 1
+// CHECK3-IRBUILDER-NEXT:    [[TMP:%.*]] = alloca b8, align 1
 // CHECK3-IRBUILDER-NEXT:    [[_TMP1:%.*]] = alloca i32, align 4
-// CHECK3-IRBUILDER-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca i8, align 1
+// CHECK3-IRBUILDER-NEXT:    [[DOTCAPTURE_EXPR_:%.*]] = alloca b8, align 1
 // CHECK3-IRBUILDER-NEXT:    [[DOTCAPTURE_EXPR_2:%.*]] = alloca i64, align 8
-// CHECK3-IRBUILDER-NEXT:    [[I:%.*]] = alloca i8, align 1
-// CHECK3-IRBUILDER-NEXT:    [[X6:%.*]] = alloca i32, align 4
+// CHECK3-IRBUILDER-NEXT:    [[I:%.*]] = alloca b8, align 1
+// CHECK3-IRBUILDER-NEXT:    [[X7:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_LB:%.*]] = alloca i64, align 8
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_UB:%.*]] = alloca i64, align 8
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i64, align 8
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK3-IRBUILDER-NEXT:    [[I8:%.*]] = alloca i8, align 1
-// CHECK3-IRBUILDER-NEXT:    [[X9:%.*]] = alloca i32, align 4
+// CHECK3-IRBUILDER-NEXT:    [[I10:%.*]] = alloca b8, align 1
+// CHECK3-IRBUILDER-NEXT:    [[X11:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK3-IRBUILDER-NEXT:    store ptr [[B]], ptr [[B_ADDR]], align 8
 // CHECK3-IRBUILDER-NEXT:    store ptr [[C]], ptr [[C_ADDR]], align 8
@@ -2177,113 +2219,122 @@ void foo_simd(int low, int up) {
 // CHECK3-IRBUILDER-NEXT:    store i32 0, ptr [[Y]], align 4
 // CHECK3-IRBUILDER-NEXT:    [[TMP0:%.*]] = load i32, ptr [[Y]], align 4
 // CHECK3-IRBUILDER-NEXT:    [[CONV:%.*]] = trunc i32 [[TMP0]] to i8
-// CHECK3-IRBUILDER-NEXT:    store i8 [[CONV]], ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[TMP1:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[CONV3:%.*]] = sext i8 [[TMP1]] to i32
-// CHECK3-IRBUILDER-NEXT:    [[SUB:%.*]] = sub i32 57, [[CONV3]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP1:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK3-IRBUILDER-NEXT:    store b8 [[TMP1]], ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[TMP2:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[CONV3:%.*]] = bytecast exact b8 [[TMP2]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[CONV4:%.*]] = sext i8 [[CONV3]] to i32
+// CHECK3-IRBUILDER-NEXT:    [[SUB:%.*]] = sub i32 57, [[CONV4]]
 // CHECK3-IRBUILDER-NEXT:    [[ADD:%.*]] = add i32 [[SUB]], 1
 // CHECK3-IRBUILDER-NEXT:    [[DIV:%.*]] = udiv i32 [[ADD]], 1
-// CHECK3-IRBUILDER-NEXT:    [[CONV4:%.*]] = zext i32 [[DIV]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV4]], 11
-// CHECK3-IRBUILDER-NEXT:    [[SUB5:%.*]] = sub nsw i64 [[MUL]], 1
-// CHECK3-IRBUILDER-NEXT:    store i64 [[SUB5]], ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP2:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-IRBUILDER-NEXT:    store i8 [[TMP2]], ptr [[I]], align 1
-// CHECK3-IRBUILDER-NEXT:    store i32 11, ptr [[X6]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[TMP3:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[CONV7:%.*]] = sext i8 [[TMP3]] to i32
-// CHECK3-IRBUILDER-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV7]], 57
+// CHECK3-IRBUILDER-NEXT:    [[CONV5:%.*]] = zext i32 [[DIV]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[MUL:%.*]] = mul nsw i64 [[CONV5]], 11
+// CHECK3-IRBUILDER-NEXT:    [[SUB6:%.*]] = sub nsw i64 [[MUL]], 1
+// CHECK3-IRBUILDER-NEXT:    store i64 [[SUB6]], ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP3:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-IRBUILDER-NEXT:    store b8 [[TMP3]], ptr [[I]], align 1
+// CHECK3-IRBUILDER-NEXT:    store i32 11, ptr [[X7]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[TMP4:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[CONV8:%.*]] = bytecast exact b8 [[TMP4]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[CONV9:%.*]] = sext i8 [[CONV8]] to i32
+// CHECK3-IRBUILDER-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV9]], 57
 // CHECK3-IRBUILDER-NEXT:    br i1 [[CMP]], label [[OMP_PRECOND_THEN:%.*]], label [[OMP_PRECOND_END:%.*]]
 // CHECK3-IRBUILDER:       omp.precond.then:
 // CHECK3-IRBUILDER-NEXT:    store i64 0, ptr [[DOTOMP_LB]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP4:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
-// CHECK3-IRBUILDER-NEXT:    store i64 [[TMP4]], ptr [[DOTOMP_UB]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP5:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK3-IRBUILDER-NEXT:    store i64 [[TMP5]], ptr [[DOTOMP_UB]], align 8
 // CHECK3-IRBUILDER-NEXT:    store i64 1, ptr [[DOTOMP_STRIDE]], align 8
 // CHECK3-IRBUILDER-NEXT:    store i32 0, ptr [[DOTOMP_IS_LAST]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[TMP5:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP6:%.*]] = load i64, ptr [[DOTCAPTURE_EXPR_2]], align 8
 // CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8:[0-9]+]])
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_init_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM]], i32 70, i64 0, i64 [[TMP5]], i64 1, i64 1)
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_init_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM]], i32 70, i64 0, i64 [[TMP6]], i64 1, i64 1)
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_COND:%.*]]
 // CHECK3-IRBUILDER:       omp.dispatch.cond:
-// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM10:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
-// CHECK3-IRBUILDER-NEXT:    [[TMP6:%.*]] = call i32 @__kmpc_dispatch_next_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM10]], ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]])
-// CHECK3-IRBUILDER-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP6]], 0
+// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM12:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
+// CHECK3-IRBUILDER-NEXT:    [[TMP7:%.*]] = call i32 @__kmpc_dispatch_next_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM12]], ptr [[DOTOMP_IS_LAST]], ptr [[DOTOMP_LB]], ptr [[DOTOMP_UB]], ptr [[DOTOMP_STRIDE]])
+// CHECK3-IRBUILDER-NEXT:    [[TOBOOL:%.*]] = icmp ne i32 [[TMP7]], 0
 // CHECK3-IRBUILDER-NEXT:    br i1 [[TOBOOL]], label [[OMP_DISPATCH_BODY:%.*]], label [[OMP_DISPATCH_END:%.*]]
 // CHECK3-IRBUILDER:       omp.dispatch.body:
-// CHECK3-IRBUILDER-NEXT:    [[TMP7:%.*]] = load i64, ptr [[DOTOMP_LB]], align 8
-// CHECK3-IRBUILDER-NEXT:    store i64 [[TMP7]], ptr [[DOTOMP_IV]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP8:%.*]] = load i64, ptr [[DOTOMP_LB]], align 8
+// CHECK3-IRBUILDER-NEXT:    store i64 [[TMP8]], ptr [[DOTOMP_IV]], align 8
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_COND:%.*]]
 // CHECK3-IRBUILDER:       omp.inner.for.cond:
-// CHECK3-IRBUILDER-NEXT:    [[TMP8:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP9:%.*]] = load i64, ptr [[DOTOMP_UB]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[CMP11:%.*]] = icmp sle i64 [[TMP8]], [[TMP9]]
-// CHECK3-IRBUILDER-NEXT:    br i1 [[CMP11]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP9:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP10:%.*]] = load i64, ptr [[DOTOMP_UB]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[CMP13:%.*]] = icmp sle i64 [[TMP9]], [[TMP10]]
+// CHECK3-IRBUILDER-NEXT:    br i1 [[CMP13]], label [[OMP_INNER_FOR_BODY:%.*]], label [[OMP_INNER_FOR_END:%.*]]
 // CHECK3-IRBUILDER:       omp.inner.for.body:
-// CHECK3-IRBUILDER-NEXT:    [[TMP10:%.*]] = load i8, ptr [[DOTCAPTURE_EXPR_]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[CONV12:%.*]] = sext i8 [[TMP10]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[TMP11:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[DIV13:%.*]] = sdiv i64 [[TMP11]], 11
-// CHECK3-IRBUILDER-NEXT:    [[MUL14:%.*]] = mul nsw i64 [[DIV13]], 1
-// CHECK3-IRBUILDER-NEXT:    [[ADD15:%.*]] = add nsw i64 [[CONV12]], [[MUL14]]
-// CHECK3-IRBUILDER-NEXT:    [[CONV16:%.*]] = trunc i64 [[ADD15]] to i8
-// CHECK3-IRBUILDER-NEXT:    store i8 [[CONV16]], ptr [[I8]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[TMP11:%.*]] = load b8, ptr [[DOTCAPTURE_EXPR_]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[CONV14:%.*]] = bytecast exact b8 [[TMP11]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[CONV15:%.*]] = sext i8 [[CONV14]] to i64
 // CHECK3-IRBUILDER-NEXT:    [[TMP12:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP13:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[DIV17:%.*]] = sdiv i64 [[TMP13]], 11
-// CHECK3-IRBUILDER-NEXT:    [[MUL18:%.*]] = mul nsw i64 [[DIV17]], 11
-// CHECK3-IRBUILDER-NEXT:    [[SUB19:%.*]] = sub nsw i64 [[TMP12]], [[MUL18]]
-// CHECK3-IRBUILDER-NEXT:    [[MUL20:%.*]] = mul nsw i64 [[SUB19]], 1
-// CHECK3-IRBUILDER-NEXT:    [[SUB21:%.*]] = sub nsw i64 11, [[MUL20]]
-// CHECK3-IRBUILDER-NEXT:    [[CONV22:%.*]] = trunc i64 [[SUB21]] to i32
-// CHECK3-IRBUILDER-NEXT:    store i32 [[CONV22]], ptr [[X9]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM23:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM23]])
-// CHECK3-IRBUILDER-NEXT:    [[TMP14:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP15:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[IDXPROM:%.*]] = sext i8 [[TMP15]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP14]], i64 [[IDXPROM]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP16:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[TMP17:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP18:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[IDXPROM24:%.*]] = sext i8 [[TMP18]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX25:%.*]] = getelementptr inbounds float, ptr [[TMP17]], i64 [[IDXPROM24]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP19:%.*]] = load float, ptr [[ARRAYIDX25]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[MUL26:%.*]] = fmul float [[TMP16]], [[TMP19]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP20:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP21:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[IDXPROM27:%.*]] = sext i8 [[TMP21]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX28:%.*]] = getelementptr inbounds float, ptr [[TMP20]], i64 [[IDXPROM27]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP22:%.*]] = load float, ptr [[ARRAYIDX28]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[MUL29:%.*]] = fmul float [[MUL26]], [[TMP22]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP23:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP24:%.*]] = load i8, ptr [[I8]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[IDXPROM30:%.*]] = sext i8 [[TMP24]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX31:%.*]] = getelementptr inbounds float, ptr [[TMP23]], i64 [[IDXPROM30]]
-// CHECK3-IRBUILDER-NEXT:    store float [[MUL29]], ptr [[ARRAYIDX31]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[DIV16:%.*]] = sdiv i64 [[TMP12]], 11
+// CHECK3-IRBUILDER-NEXT:    [[MUL17:%.*]] = mul nsw i64 [[DIV16]], 1
+// CHECK3-IRBUILDER-NEXT:    [[ADD18:%.*]] = add nsw i64 [[CONV15]], [[MUL17]]
+// CHECK3-IRBUILDER-NEXT:    [[CONV19:%.*]] = trunc i64 [[ADD18]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[TMP13:%.*]] = bitcast i8 [[CONV19]] to b8
+// CHECK3-IRBUILDER-NEXT:    store b8 [[TMP13]], ptr [[I10]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[TMP14:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP15:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[DIV20:%.*]] = sdiv i64 [[TMP15]], 11
+// CHECK3-IRBUILDER-NEXT:    [[MUL21:%.*]] = mul nsw i64 [[DIV20]], 11
+// CHECK3-IRBUILDER-NEXT:    [[SUB22:%.*]] = sub nsw i64 [[TMP14]], [[MUL21]]
+// CHECK3-IRBUILDER-NEXT:    [[MUL23:%.*]] = mul nsw i64 [[SUB22]], 1
+// CHECK3-IRBUILDER-NEXT:    [[SUB24:%.*]] = sub nsw i64 11, [[MUL23]]
+// CHECK3-IRBUILDER-NEXT:    [[CONV25:%.*]] = trunc i64 [[SUB24]] to i32
+// CHECK3-IRBUILDER-NEXT:    store i32 [[CONV25]], ptr [[X11]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM26:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM26]])
+// CHECK3-IRBUILDER-NEXT:    [[TMP16:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP17:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP17]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM27:%.*]] = sext i8 [[IDXPROM]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP16]], i64 [[IDXPROM27]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP18:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[TMP19:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP20:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM28:%.*]] = bytecast exact b8 [[TMP20]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM29:%.*]] = sext i8 [[IDXPROM28]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX30:%.*]] = getelementptr inbounds float, ptr [[TMP19]], i64 [[IDXPROM29]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP21:%.*]] = load float, ptr [[ARRAYIDX30]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[MUL31:%.*]] = fmul float [[TMP18]], [[TMP21]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP22:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP23:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM32:%.*]] = bytecast exact b8 [[TMP23]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM33:%.*]] = sext i8 [[IDXPROM32]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX34:%.*]] = getelementptr inbounds float, ptr [[TMP22]], i64 [[IDXPROM33]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP24:%.*]] = load float, ptr [[ARRAYIDX34]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[MUL35:%.*]] = fmul float [[MUL31]], [[TMP24]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP25:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP26:%.*]] = load b8, ptr [[I10]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM36:%.*]] = bytecast exact b8 [[TMP26]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM37:%.*]] = sext i8 [[IDXPROM36]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX38:%.*]] = getelementptr inbounds float, ptr [[TMP25]], i64 [[IDXPROM37]]
+// CHECK3-IRBUILDER-NEXT:    store float [[MUL35]], ptr [[ARRAYIDX38]], align 4
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_BODY_ORDERED_AFTER:%.*]]
 // CHECK3-IRBUILDER:       omp.inner.for.body.ordered.after:
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM23]])
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM26]])
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_BODY_CONTINUE:%.*]]
 // CHECK3-IRBUILDER:       omp.body.continue:
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK3-IRBUILDER:       omp.inner.for.inc:
-// CHECK3-IRBUILDER-NEXT:    [[TMP25:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[ADD32:%.*]] = add nsw i64 [[TMP25]], 1
-// CHECK3-IRBUILDER-NEXT:    store i64 [[ADD32]], ptr [[DOTOMP_IV]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM33:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_fini_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM33]])
+// CHECK3-IRBUILDER-NEXT:    [[TMP27:%.*]] = load i64, ptr [[DOTOMP_IV]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[ADD39:%.*]] = add nsw i64 [[TMP27]], 1
+// CHECK3-IRBUILDER-NEXT:    store i64 [[ADD39]], ptr [[DOTOMP_IV]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM40:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_fini_8(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM40]])
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK3-IRBUILDER:       omp.inner.for.end:
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_INC:%.*]]
 // CHECK3-IRBUILDER:       omp.dispatch.inc:
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_COND]]
 // CHECK3-IRBUILDER:       omp.dispatch.end:
-// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM34:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_deinit(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM34]])
+// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM41:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB8]])
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_deinit(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM41]])
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_PRECOND_END]]
 // CHECK3-IRBUILDER:       omp.precond.end:
-// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM35:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM35]])
+// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM42:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM42]])
 // CHECK3-IRBUILDER-NEXT:    ret void
 //
 //
@@ -2296,13 +2347,13 @@ void foo_simd(int low, int up) {
 // CHECK3-IRBUILDER-NEXT:    [[D_ADDR:%.*]] = alloca ptr, align 8
 // CHECK3-IRBUILDER-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_IV:%.*]] = alloca i32, align 4
-// CHECK3-IRBUILDER-NEXT:    [[TMP:%.*]] = alloca i8, align 1
+// CHECK3-IRBUILDER-NEXT:    [[TMP:%.*]] = alloca b8, align 1
 // CHECK3-IRBUILDER-NEXT:    [[_TMP1:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_LB:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_UB:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_STRIDE:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    [[DOTOMP_IS_LAST:%.*]] = alloca i32, align 4
-// CHECK3-IRBUILDER-NEXT:    [[I:%.*]] = alloca i8, align 1
+// CHECK3-IRBUILDER-NEXT:    [[I:%.*]] = alloca b8, align 1
 // CHECK3-IRBUILDER-NEXT:    [[X2:%.*]] = alloca i32, align 4
 // CHECK3-IRBUILDER-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK3-IRBUILDER-NEXT:    store ptr [[B]], ptr [[B_ADDR]], align 8
@@ -2336,39 +2387,44 @@ void foo_simd(int low, int up) {
 // CHECK3-IRBUILDER-NEXT:    [[MUL:%.*]] = mul nsw i32 [[DIV]], 1
 // CHECK3-IRBUILDER-NEXT:    [[ADD:%.*]] = add nsw i32 48, [[MUL]]
 // CHECK3-IRBUILDER-NEXT:    [[CONV:%.*]] = trunc i32 [[ADD]] to i8
-// CHECK3-IRBUILDER-NEXT:    store i8 [[CONV]], ptr [[I]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[TMP5:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[TMP5:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK3-IRBUILDER-NEXT:    store b8 [[TMP5]], ptr [[I]], align 1
 // CHECK3-IRBUILDER-NEXT:    [[TMP6:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[DIV4:%.*]] = sdiv i32 [[TMP6]], 20
+// CHECK3-IRBUILDER-NEXT:    [[TMP7:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[DIV4:%.*]] = sdiv i32 [[TMP7]], 20
 // CHECK3-IRBUILDER-NEXT:    [[MUL5:%.*]] = mul nsw i32 [[DIV4]], 20
-// CHECK3-IRBUILDER-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP5]], [[MUL5]]
+// CHECK3-IRBUILDER-NEXT:    [[SUB:%.*]] = sub nsw i32 [[TMP6]], [[MUL5]]
 // CHECK3-IRBUILDER-NEXT:    [[MUL6:%.*]] = mul nsw i32 [[SUB]], 1
 // CHECK3-IRBUILDER-NEXT:    [[ADD7:%.*]] = add nsw i32 -10, [[MUL6]]
 // CHECK3-IRBUILDER-NEXT:    store i32 [[ADD7]], ptr [[X2]], align 4
 // CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM8:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
 // CHECK3-IRBUILDER-NEXT:    call void @__kmpc_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM8]])
-// CHECK3-IRBUILDER-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP8:%.*]] = load i8, ptr [[I]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[IDXPROM:%.*]] = zext i8 [[TMP8]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP7]], i64 [[IDXPROM]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP9:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP11:%.*]] = load i8, ptr [[I]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[IDXPROM9:%.*]] = zext i8 [[TMP11]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX10:%.*]] = getelementptr inbounds nuw float, ptr [[TMP10]], i64 [[IDXPROM9]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP12:%.*]] = load float, ptr [[ARRAYIDX10]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[MUL11:%.*]] = fmul float [[TMP9]], [[TMP12]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP14:%.*]] = load i8, ptr [[I]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[IDXPROM12:%.*]] = zext i8 [[TMP14]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX13:%.*]] = getelementptr inbounds nuw float, ptr [[TMP13]], i64 [[IDXPROM12]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP15:%.*]] = load float, ptr [[ARRAYIDX13]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[MUL14:%.*]] = fmul float [[MUL11]], [[TMP15]]
-// CHECK3-IRBUILDER-NEXT:    [[TMP16:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK3-IRBUILDER-NEXT:    [[TMP17:%.*]] = load i8, ptr [[I]], align 1
-// CHECK3-IRBUILDER-NEXT:    [[IDXPROM15:%.*]] = zext i8 [[TMP17]] to i64
-// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX16:%.*]] = getelementptr inbounds nuw float, ptr [[TMP16]], i64 [[IDXPROM15]]
-// CHECK3-IRBUILDER-NEXT:    store float [[MUL14]], ptr [[ARRAYIDX16]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[TMP8:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP9:%.*]] = load b8, ptr [[I]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP9]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM9:%.*]] = zext i8 [[IDXPROM]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP8]], i64 [[IDXPROM9]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP10:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP12:%.*]] = load b8, ptr [[I]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM10:%.*]] = bytecast exact b8 [[TMP12]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM11:%.*]] = zext i8 [[IDXPROM10]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX12:%.*]] = getelementptr inbounds nuw float, ptr [[TMP11]], i64 [[IDXPROM11]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP13:%.*]] = load float, ptr [[ARRAYIDX12]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[MUL13:%.*]] = fmul float [[TMP10]], [[TMP13]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP14:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP15:%.*]] = load b8, ptr [[I]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM14:%.*]] = bytecast exact b8 [[TMP15]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM15:%.*]] = zext i8 [[IDXPROM14]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX16:%.*]] = getelementptr inbounds nuw float, ptr [[TMP14]], i64 [[IDXPROM15]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP16:%.*]] = load float, ptr [[ARRAYIDX16]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[MUL17:%.*]] = fmul float [[MUL13]], [[TMP16]]
+// CHECK3-IRBUILDER-NEXT:    [[TMP17:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK3-IRBUILDER-NEXT:    [[TMP18:%.*]] = load b8, ptr [[I]], align 1
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM18:%.*]] = bytecast exact b8 [[TMP18]] to i8
+// CHECK3-IRBUILDER-NEXT:    [[IDXPROM19:%.*]] = zext i8 [[IDXPROM18]] to i64
+// CHECK3-IRBUILDER-NEXT:    [[ARRAYIDX20:%.*]] = getelementptr inbounds nuw float, ptr [[TMP17]], i64 [[IDXPROM19]]
+// CHECK3-IRBUILDER-NEXT:    store float [[MUL17]], ptr [[ARRAYIDX20]], align 4
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_BODY_ORDERED_AFTER:%.*]]
 // CHECK3-IRBUILDER:       omp.inner.for.body.ordered.after:
 // CHECK3-IRBUILDER-NEXT:    call void @__kmpc_end_ordered(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM8]])
@@ -2376,21 +2432,21 @@ void foo_simd(int low, int up) {
 // CHECK3-IRBUILDER:       omp.body.continue:
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_INC:%.*]]
 // CHECK3-IRBUILDER:       omp.inner.for.inc:
-// CHECK3-IRBUILDER-NEXT:    [[TMP18:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[ADD17:%.*]] = add nsw i32 [[TMP18]], 1
-// CHECK3-IRBUILDER-NEXT:    store i32 [[ADD17]], ptr [[DOTOMP_IV]], align 4
-// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM18:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_fini_4(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM18]])
+// CHECK3-IRBUILDER-NEXT:    [[TMP19:%.*]] = load i32, ptr [[DOTOMP_IV]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[ADD21:%.*]] = add nsw i32 [[TMP19]], 1
+// CHECK3-IRBUILDER-NEXT:    store i32 [[ADD21]], ptr [[DOTOMP_IV]], align 4
+// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM22:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_fini_4(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM22]])
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_INNER_FOR_COND]]
 // CHECK3-IRBUILDER:       omp.inner.for.end:
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_INC:%.*]]
 // CHECK3-IRBUILDER:       omp.dispatch.inc:
 // CHECK3-IRBUILDER-NEXT:    br label [[OMP_DISPATCH_COND]]
 // CHECK3-IRBUILDER:       omp.dispatch.end:
-// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM19:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_deinit(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM19]])
-// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM20:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
-// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM20]])
+// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM23:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB10]])
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_dispatch_deinit(ptr @[[GLOB1]], i32 [[OMP_GLOBAL_THREAD_NUM23]])
+// CHECK3-IRBUILDER-NEXT:    [[OMP_GLOBAL_THREAD_NUM24:%.*]] = call i32 @__kmpc_global_thread_num(ptr @[[GLOB1]])
+// CHECK3-IRBUILDER-NEXT:    call void @__kmpc_barrier(ptr @[[GLOB4]], i32 [[OMP_GLOBAL_THREAD_NUM24]])
 // CHECK3-IRBUILDER-NEXT:    ret void
 //
 //
@@ -2709,7 +2765,7 @@ void foo_simd(int low, int up) {
 // CHECK5-NEXT:    [[D_ADDR:%.*]] = alloca ptr, align 8
 // CHECK5-NEXT:    [[X:%.*]] = alloca i32, align 4
 // CHECK5-NEXT:    [[Y:%.*]] = alloca i32, align 4
-// CHECK5-NEXT:    [[I:%.*]] = alloca i8, align 1
+// CHECK5-NEXT:    [[I:%.*]] = alloca b8, align 1
 // CHECK5-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK5-NEXT:    store ptr [[B]], ptr [[B_ADDR]], align 8
 // CHECK5-NEXT:    store ptr [[C]], ptr [[C_ADDR]], align 8
@@ -2718,57 +2774,65 @@ void foo_simd(int low, int up) {
 // CHECK5-NEXT:    store i32 0, ptr [[Y]], align 4
 // CHECK5-NEXT:    [[TMP0:%.*]] = load i32, ptr [[Y]], align 4
 // CHECK5-NEXT:    [[CONV:%.*]] = trunc i32 [[TMP0]] to i8
-// CHECK5-NEXT:    store i8 [[CONV]], ptr [[I]], align 1
+// CHECK5-NEXT:    [[TMP1:%.*]] = bitcast i8 [[CONV]] to b8
+// CHECK5-NEXT:    store b8 [[TMP1]], ptr [[I]], align 1
 // CHECK5-NEXT:    br label [[FOR_COND:%.*]]
 // CHECK5:       for.cond:
-// CHECK5-NEXT:    [[TMP1:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[CONV1:%.*]] = sext i8 [[TMP1]] to i32
-// CHECK5-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV1]], 57
-// CHECK5-NEXT:    br i1 [[CMP]], label [[FOR_BODY:%.*]], label [[FOR_END13:%.*]]
+// CHECK5-NEXT:    [[TMP2:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[CONV1:%.*]] = bytecast exact b8 [[TMP2]] to i8
+// CHECK5-NEXT:    [[CONV2:%.*]] = sext i8 [[CONV1]] to i32
+// CHECK5-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV2]], 57
+// CHECK5-NEXT:    br i1 [[CMP]], label [[FOR_BODY:%.*]], label [[FOR_END20:%.*]]
 // CHECK5:       for.body:
 // CHECK5-NEXT:    store i32 11, ptr [[X]], align 4
-// CHECK5-NEXT:    br label [[FOR_COND2:%.*]]
-// CHECK5:       for.cond2:
-// CHECK5-NEXT:    [[TMP2:%.*]] = load i32, ptr [[X]], align 4
-// CHECK5-NEXT:    [[CMP3:%.*]] = icmp ugt i32 [[TMP2]], 0
-// CHECK5-NEXT:    br i1 [[CMP3]], label [[FOR_BODY4:%.*]], label [[FOR_END:%.*]]
-// CHECK5:       for.body4:
-// CHECK5-NEXT:    [[TMP3:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK5-NEXT:    [[TMP4:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[IDXPROM:%.*]] = sext i8 [[TMP4]] to i64
-// CHECK5-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP3]], i64 [[IDXPROM]]
-// CHECK5-NEXT:    [[TMP5:%.*]] = load float, ptr [[ARRAYIDX]], align 4
-// CHECK5-NEXT:    [[TMP6:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK5-NEXT:    [[TMP7:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[IDXPROM5:%.*]] = sext i8 [[TMP7]] to i64
-// CHECK5-NEXT:    [[ARRAYIDX6:%.*]] = getelementptr inbounds float, ptr [[TMP6]], i64 [[IDXPROM5]]
-// CHECK5-NEXT:    [[TMP8:%.*]] = load float, ptr [[ARRAYIDX6]], align 4
-// CHECK5-NEXT:    [[MUL:%.*]] = fmul float [[TMP5]], [[TMP8]]
-// CHECK5-NEXT:    [[TMP9:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK5-NEXT:    [[TMP10:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[IDXPROM7:%.*]] = sext i8 [[TMP10]] to i64
-// CHECK5-NEXT:    [[ARRAYIDX8:%.*]] = getelementptr inbounds float, ptr [[TMP9]], i64 [[IDXPROM7]]
-// CHECK5-NEXT:    [[TMP11:%.*]] = load float, ptr [[ARRAYIDX8]], align 4
-// CHECK5-NEXT:    [[MUL9:%.*]] = fmul float [[MUL]], [[TMP11]]
-// CHECK5-NEXT:    [[TMP12:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK5-NEXT:    [[TMP13:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[IDXPROM10:%.*]] = sext i8 [[TMP13]] to i64
-// CHECK5-NEXT:    [[ARRAYIDX11:%.*]] = getelementptr inbounds float, ptr [[TMP12]], i64 [[IDXPROM10]]
-// CHECK5-NEXT:    store float [[MUL9]], ptr [[ARRAYIDX11]], align 4
+// CHECK5-NEXT:    br label [[FOR_COND3:%.*]]
+// CHECK5:       for.cond3:
+// CHECK5-NEXT:    [[TMP3:%.*]] = load i32, ptr [[X]], align 4
+// CHECK5-NEXT:    [[CMP4:%.*]] = icmp ugt i32 [[TMP3]], 0
+// CHECK5-NEXT:    br i1 [[CMP4]], label [[FOR_BODY5:%.*]], label [[FOR_END:%.*]]
+// CHECK5:       for.body5:
+// CHECK5-NEXT:    [[TMP4:%.*]] = load ptr, ptr [[B_ADDR]], align 8
+// CHECK5-NEXT:    [[TMP5:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP5]] to i8
+// CHECK5-NEXT:    [[IDXPROM6:%.*]] = sext i8 [[IDXPROM]] to i64
+// CHECK5-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds float, ptr [[TMP4]], i64 [[IDXPROM6]]
+// CHECK5-NEXT:    [[TMP6:%.*]] = load float, ptr [[ARRAYIDX]], align 4
+// CHECK5-NEXT:    [[TMP7:%.*]] = load ptr, ptr [[C_ADDR]], align 8
+// CHECK5-NEXT:    [[TMP8:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[IDXPROM7:%.*]] = bytecast exact b8 [[TMP8]] to i8
+// CHECK5-NEXT:    [[IDXPROM8:%.*]] = sext i8 [[IDXPROM7]] to i64
+// CHECK5-NEXT:    [[ARRAYIDX9:%.*]] = getelementptr inbounds float, ptr [[TMP7]], i64 [[IDXPROM8]]
+// CHECK5-NEXT:    [[TMP9:%.*]] = load float, ptr [[ARRAYIDX9]], align 4
+// CHECK5-NEXT:    [[MUL:%.*]] = fmul float [[TMP6]], [[TMP9]]
+// CHECK5-NEXT:    [[TMP10:%.*]] = load ptr, ptr [[D_ADDR]], align 8
+// CHECK5-NEXT:    [[TMP11:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[IDXPROM10:%.*]] = bytecast exact b8 [[TMP11]] to i8
+// CHECK5-NEXT:    [[IDXPROM11:%.*]] = sext i8 [[IDXPROM10]] to i64
+// CHECK5-NEXT:    [[ARRAYIDX12:%.*]] = getelementptr inbounds float, ptr [[TMP10]], i64 [[IDXPROM11]]
+// CHECK5-NEXT:    [[TMP12:%.*]] = load float, ptr [[ARRAYIDX12]], align 4
+// CHECK5-NEXT:    [[MUL13:%.*]] = fmul float [[MUL]], [[TMP12]]
+// CHECK5-NEXT:    [[TMP13:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK5-NEXT:    [[TMP14:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[IDXPROM14:%.*]] = bytecast exact b8 [[TMP14]] to i8
+// CHECK5-NEXT:    [[IDXPROM15:%.*]] = sext i8 [[IDXPROM14]] to i64
+// CHECK5-NEXT:    [[ARRAYIDX16:%.*]] = getelementptr inbounds float, ptr [[TMP13]], i64 [[IDXPROM15]]
+// CHECK5-NEXT:    store float [[MUL13]], ptr [[ARRAYIDX16]], align 4
 // CHECK5-NEXT:    br label [[FOR_INC:%.*]]
 // CHECK5:       for.inc:
-// CHECK5-NEXT:    [[TMP14:%.*]] = load i32, ptr [[X]], align 4
-// CHECK5-NEXT:    [[DEC:%.*]] = add i32 [[TMP14]], -1
+// CHECK5-NEXT:    [[TMP15:%.*]] = load i32, ptr [[X]], align 4
+// CHECK5-NEXT:    [[DEC:%.*]] = add i32 [[TMP15]], -1
 // CHECK5-NEXT:    store i32 [[DEC]], ptr [[X]], align 4
-// CHECK5-NEXT:    br label [[FOR_COND2]], !llvm.loop [[LOOP5:![0-9]+]]
+// CHECK5-NEXT:    br label [[FOR_COND3]], !llvm.loop [[LOOP5:![0-9]+]]
 // CHECK5:       for.end:
-// CHECK5-NEXT:    br label [[FOR_INC12:%.*]]
-// CHECK5:       for.inc12:
-// CHECK5-NEXT:    [[TMP15:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[INC:%.*]] = add i8 [[TMP15]], 1
-// CHECK5-NEXT:    store i8 [[INC]], ptr [[I]], align 1
+// CHECK5-NEXT:    br label [[FOR_INC17:%.*]]
+// CHECK5:       for.inc17:
+// CHECK5-NEXT:    [[TMP16:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[CONV18:%.*]] = bytecast exact b8 [[TMP16]] to i8
+// CHECK5-NEXT:    [[INC:%.*]] = add i8 [[CONV18]], 1
+// CHECK5-NEXT:    [[CONV19:%.*]] = bitcast i8 [[INC]] to b8
+// CHECK5-NEXT:    store b8 [[CONV19]], ptr [[I]], align 1
 // CHECK5-NEXT:    br label [[FOR_COND]], !llvm.loop [[LOOP6:![0-9]+]]
-// CHECK5:       for.end13:
+// CHECK5:       for.end20:
 // CHECK5-NEXT:    ret void
 //
 //
@@ -2780,7 +2844,7 @@ void foo_simd(int low, int up) {
 // CHECK5-NEXT:    [[C_ADDR:%.*]] = alloca ptr, align 8
 // CHECK5-NEXT:    [[D_ADDR:%.*]] = alloca ptr, align 8
 // CHECK5-NEXT:    [[X:%.*]] = alloca i32, align 4
-// CHECK5-NEXT:    [[I:%.*]] = alloca i8, align 1
+// CHECK5-NEXT:    [[I:%.*]] = alloca b8, align 1
 // CHECK5-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK5-NEXT:    store ptr [[B]], ptr [[B_ADDR]], align 8
 // CHECK5-NEXT:    store ptr [[C]], ptr [[C_ADDR]], align 8
@@ -2789,54 +2853,61 @@ void foo_simd(int low, int up) {
 // CHECK5-NEXT:    store i8 48, ptr [[I]], align 1
 // CHECK5-NEXT:    br label [[FOR_COND:%.*]]
 // CHECK5:       for.cond:
-// CHECK5-NEXT:    [[TMP0:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[CONV:%.*]] = zext i8 [[TMP0]] to i32
-// CHECK5-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV]], 57
-// CHECK5-NEXT:    br i1 [[CMP]], label [[FOR_BODY:%.*]], label [[FOR_END13:%.*]]
+// CHECK5-NEXT:    [[TMP0:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[CONV:%.*]] = bytecast exact b8 [[TMP0]] to i8
+// CHECK5-NEXT:    [[CONV1:%.*]] = zext i8 [[CONV]] to i32
+// CHECK5-NEXT:    [[CMP:%.*]] = icmp sle i32 [[CONV1]], 57
+// CHECK5-NEXT:    br i1 [[CMP]], label [[FOR_BODY:%.*]], label [[FOR_END20:%.*]]
 // CHECK5:       for.body:
 // CHECK5-NEXT:    store i32 -10, ptr [[X]], align 4
-// CHECK5-NEXT:    br label [[FOR_COND1:%.*]]
-// CHECK5:       for.cond1:
+// CHECK5-NEXT:    br label [[FOR_COND2:%.*]]
+// CHECK5:       for.cond2:
 // CHECK5-NEXT:    [[TMP1:%.*]] = load i32, ptr [[X]], align 4
-// CHECK5-NEXT:    [[CMP2:%.*]] = icmp slt i32 [[TMP1]], 10
-// CHECK5-NEXT:    br i1 [[CMP2]], label [[FOR_BODY3:%.*]], label [[FOR_END:%.*]]
-// CHECK5:       for.body3:
+// CHECK5-NEXT:    [[CMP3:%.*]] = icmp slt i32 [[TMP1]], 10
+// CHECK5-NEXT:    br i1 [[CMP3]], label [[FOR_BODY4:%.*]], label [[FOR_END:%.*]]
+// CHECK5:       for.body4:
 // CHECK5-NEXT:    [[TMP2:%.*]] = load ptr, ptr [[B_ADDR]], align 8
-// CHECK5-NEXT:    [[TMP3:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[IDXPROM:%.*]] = zext i8 [[TMP3]] to i64
-// CHECK5-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP2]], i64 [[IDXPROM]]
+// CHECK5-NEXT:    [[TMP3:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[IDXPROM:%.*]] = bytecast exact b8 [[TMP3]] to i8
+// CHECK5-NEXT:    [[IDXPROM5:%.*]] = zext i8 [[IDXPROM]] to i64
+// CHECK5-NEXT:    [[ARRAYIDX:%.*]] = getelementptr inbounds nuw float, ptr [[TMP2]], i64 [[IDXPROM5]]
 // CHECK5-NEXT:    [[TMP4:%.*]] = load float, ptr [[ARRAYIDX]], align 4
 // CHECK5-NEXT:    [[TMP5:%.*]] = load ptr, ptr [[C_ADDR]], align 8
-// CHECK5-NEXT:    [[TMP6:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[IDXPROM4:%.*]] = zext i8 [[TMP6]] to i64
-// CHECK5-NEXT:    [[ARRAYIDX5:%.*]] = getelementptr inbounds nuw float, ptr [[TMP5]], i64 [[IDXPROM4]]
-// CHECK5-NEXT:    [[TMP7:%.*]] = load float, ptr [[ARRAYIDX5]], align 4
+// CHECK5-NEXT:    [[TMP6:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[IDXPROM6:%.*]] = bytecast exact b8 [[TMP6]] to i8
+// CHECK5-NEXT:    [[IDXPROM7:%.*]] = zext i8 [[IDXPROM6]] to i64
+// CHECK5-NEXT:    [[ARRAYIDX8:%.*]] = getelementptr inbounds nuw float, ptr [[TMP5]], i64 [[IDXPROM7]]
+// CHECK5-NEXT:    [[TMP7:%.*]] = load float, ptr [[ARRAYIDX8]], align 4
 // CHECK5-NEXT:    [[MUL:%.*]] = fmul float [[TMP4]], [[TMP7]]
 // CHECK5-NEXT:    [[TMP8:%.*]] = load ptr, ptr [[D_ADDR]], align 8
-// CHECK5-NEXT:    [[TMP9:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[IDXPROM6:%.*]] = zext i8 [[TMP9]] to i64
-// CHECK5-NEXT:    [[ARRAYIDX7:%.*]] = getelementptr inbounds nuw float, ptr [[TMP8]], i64 [[IDXPROM6]]
-// CHECK5-NEXT:    [[TMP10:%.*]] = load float, ptr [[ARRAYIDX7]], align 4
-// CHECK5-NEXT:    [[MUL8:%.*]] = fmul float [[MUL]], [[TMP10]]
+// CHECK5-NEXT:    [[TMP9:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[IDXPROM9:%.*]] = bytecast exact b8 [[TMP9]] to i8
+// CHECK5-NEXT:    [[IDXPROM10:%.*]] = zext i8 [[IDXPROM9]] to i64
+// CHECK5-NEXT:    [[ARRAYIDX11:%.*]] = getelementptr inbounds nuw float, ptr [[TMP8]], i64 [[IDXPROM10]]
+// CHECK5-NEXT:    [[TMP10:%.*]] = load float, ptr [[ARRAYIDX11]], align 4
+// CHECK5-NEXT:    [[MUL12:%.*]] = fmul float [[MUL]], [[TMP10]]
 // CHECK5-NEXT:    [[TMP11:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK5-NEXT:    [[TMP12:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[IDXPROM9:%.*]] = zext i8 [[TMP12]] to i64
-// CHECK5-NEXT:    [[ARRAYIDX10:%.*]] = getelementptr inbounds nuw float, ptr [[TMP11]], i64 [[IDXPROM9]]
-// CHECK5-NEXT:    store float [[MUL8]], ptr [[ARRAYIDX10]], align 4
+// CHECK5-NEXT:    [[TMP12:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[IDXPROM13:%.*]] = bytecast exact b8 [[TMP12]] to i8
+// CHECK5-NEXT:    [[IDXPROM14:%.*]] = zext i8 [[IDXPROM13]] to i64
+// CHECK5-NEXT:    [[ARRAYIDX15:%.*]] = getelementptr inbounds nuw float, ptr [[TMP11]], i64 [[IDXPROM14]]
+// CHECK5-NEXT:    store float [[MUL12]], ptr [[ARRAYIDX15]], align 4
 // CHECK5-NEXT:    br label [[FOR_INC:%.*]]
 // CHECK5:       for.inc:
 // CHECK5-NEXT:    [[TMP13:%.*]] = load i32, ptr [[X]], align 4
 // CHECK5-NEXT:    [[INC:%.*]] = add nsw i32 [[TMP13]], 1
 // CHECK5-NEXT:    store i32 [[INC]], ptr [[X]], align 4
-// CHECK5-NEXT:    br label [[FOR_COND1]], !llvm.loop [[LOOP7:![0-9]+]]
+// CHECK5-NEXT:    br label [[FOR_COND2]], !llvm.loop [[LOOP7:![0-9]+]]
 // CHECK5:       for.end:
-// CHECK5-NEXT:    br label [[FOR_INC11:%.*]]
-// CHECK5:       for.inc11:
-// CHECK5-NEXT:    [[TMP14:%.*]] = load i8, ptr [[I]], align 1
-// CHECK5-NEXT:    [[INC12:%.*]] = add i8 [[TMP14]], 1
-// CHECK5-NEXT:    store i8 [[INC12]], ptr [[I]], align 1
+// CHECK5-NEXT:    br label [[FOR_INC16:%.*]]
+// CHECK5:       for.inc16:
+// CHECK5-NEXT:    [[TMP14:%.*]] = load b8, ptr [[I]], align 1
+// CHECK5-NEXT:    [[CONV17:%.*]] = bytecast exact b8 [[TMP14]] to i8
+// CHECK5-NEXT:    [[INC18:%.*]] = add i8 [[CONV17]], 1
+// CHECK5-NEXT:    [[CONV19:%.*]] = bitcast i8 [[INC18]] to b8
+// CHECK5-NEXT:    store b8 [[CONV19]], ptr [[I]], align 1
 // CHECK5-NEXT:    br label [[FOR_COND]], !llvm.loop [[LOOP8:![0-9]+]]
-// CHECK5:       for.end13:
+// CHECK5:       for.end20:
 // CHECK5-NEXT:    ret void
 //
 //

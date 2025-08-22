@@ -370,7 +370,10 @@ Value *CodeGenFunction::EmitAMDGPUBuiltinExpr(unsigned BuiltinID,
       if (I < (BuiltinID == AMDGPU::BI__builtin_amdgcn_update_dpp ? 2u : 1u) &&
           Size < 32) {
         if (!DataTy->isIntegerTy())
-          V = Builder.CreateBitCast(
+          V = DataTy->isByteOrByteVectorTy()
+            ? Builder.CreateExactByteCast(V,
+              llvm::IntegerType::get(Builder.getContext(), Size))
+            : Builder.CreateBitCast(
               V, llvm::IntegerType::get(Builder.getContext(), Size));
         V = Builder.CreateZExtOrBitCast(V, IntTy);
       }

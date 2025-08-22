@@ -3,7 +3,7 @@
 typedef double dx5x5_t __attribute__((matrix_type(5, 5)));
 typedef float fx3x4_t __attribute__((matrix_type(3, 4)));
 
-// CHECK: %struct.Matrix = type { i8, [12 x float], float }
+// CHECK: %struct.Matrix = type { b8, [12 x float], float }
 
 void load_store(dx5x5_t *a, dx5x5_t *b) {
   // CHECK-LABEL:  define{{.*}} void @_Z10load_storePu11matrix_typeILm5ELm5EdES0_(

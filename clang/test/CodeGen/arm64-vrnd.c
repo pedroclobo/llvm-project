@@ -10,13 +10,13 @@
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[VRNDZ_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CHECK-NEXT:    [[VRNDZ_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x double>
 // CHECK-NEXT:    [[VRNDZ1_I:%.*]] = call <2 x double> @llvm.trunc.v2f64(<2 x double> [[VRNDZ_I]])
 // CHECK-NEXT:    store <2 x double> [[VRNDZ1_I]], ptr [[REF_TMP_I]], align 16
 // CHECK-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -31,13 +31,13 @@ float64x2_t rnd5(float64x2_t a) { return vrndq_f64(a); }
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[VRNDN_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CHECK-NEXT:    [[VRNDN_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x double>
 // CHECK-NEXT:    [[VRNDN1_I:%.*]] = call <2 x double> @llvm.roundeven.v2f64(<2 x double> [[VRNDN_I]])
 // CHECK-NEXT:    store <2 x double> [[VRNDN1_I]], ptr [[REF_TMP_I]], align 16
 // CHECK-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -52,13 +52,13 @@ float64x2_t rnd9(float64x2_t a) { return vrndnq_f64(a); }
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[VRNDM_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CHECK-NEXT:    [[VRNDM_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x double>
 // CHECK-NEXT:    [[VRNDM1_I:%.*]] = call <2 x double> @llvm.floor.v2f64(<2 x double> [[VRNDM_I]])
 // CHECK-NEXT:    store <2 x double> [[VRNDM1_I]], ptr [[REF_TMP_I]], align 16
 // CHECK-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -73,13 +73,13 @@ float64x2_t rnd13(float64x2_t a) { return vrndmq_f64(a); }
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[VRNDP_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CHECK-NEXT:    [[VRNDP_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x double>
 // CHECK-NEXT:    [[VRNDP1_I:%.*]] = call <2 x double> @llvm.ceil.v2f64(<2 x double> [[VRNDP_I]])
 // CHECK-NEXT:    store <2 x double> [[VRNDP1_I]], ptr [[REF_TMP_I]], align 16
 // CHECK-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -94,13 +94,13 @@ float64x2_t rnd18(float64x2_t a) { return vrndpq_f64(a); }
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[VRNDA_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CHECK-NEXT:    [[VRNDA_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x double>
 // CHECK-NEXT:    [[VRNDA1_I:%.*]] = call <2 x double> @llvm.round.v2f64(<2 x double> [[VRNDA_I]])
 // CHECK-NEXT:    store <2 x double> [[VRNDA1_I]], ptr [[REF_TMP_I]], align 16
 // CHECK-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
@@ -115,13 +115,13 @@ float64x2_t rnd22(float64x2_t a) { return vrndaq_f64(a); }
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    [[__P0_ADDR_I:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    [[__RET_I:%.*]] = alloca <2 x double>, align 16
-// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x i8>, align 16
+// CHECK-NEXT:    [[REF_TMP_I:%.*]] = alloca <16 x b8>, align 16
 // CHECK-NEXT:    [[A_ADDR:%.*]] = alloca <2 x double>, align 16
 // CHECK-NEXT:    store <2 x double> [[A]], ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    [[TMP0:%.*]] = load <2 x double>, ptr [[A_ADDR]], align 16
 // CHECK-NEXT:    store <2 x double> [[TMP0]], ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x i8>, ptr [[__P0_ADDR_I]], align 16
-// CHECK-NEXT:    [[VRNDX_I:%.*]] = bitcast <16 x i8> [[TMP1]] to <2 x double>
+// CHECK-NEXT:    [[TMP1:%.*]] = load <16 x b8>, ptr [[__P0_ADDR_I]], align 16
+// CHECK-NEXT:    [[VRNDX_I:%.*]] = bytecast exact <16 x b8> [[TMP1]] to <2 x double>
 // CHECK-NEXT:    [[VRNDX1_I:%.*]] = call <2 x double> @llvm.rint.v2f64(<2 x double> [[VRNDX_I]])
 // CHECK-NEXT:    store <2 x double> [[VRNDX1_I]], ptr [[REF_TMP_I]], align 16
 // CHECK-NEXT:    [[TMP2:%.*]] = load <2 x double>, ptr [[REF_TMP_I]], align 16
