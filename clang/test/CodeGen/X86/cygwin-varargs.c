@@ -6,7 +6,7 @@ struct foo {
   float y;
   char z;
 };
-// CHECK: %[[STRUCT_FOO:.*]] = type { i32, float, i8 }
+// CHECK: %[[STRUCT_FOO:.*]] = type { i32, float, b8 }
 
 void f(int a, ...) {
   // CHECK-LABEL: define dso_local void @f

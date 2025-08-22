@@ -25,7 +25,7 @@
 unsigned char test__rolb(unsigned char value, int shift) {
 // CHECK-LABEL: test__rolb
 // CHECK:   [[R:%.*]] = call i8 @llvm.fshl.i8(i8 [[X:%.*]], i8 [[X]], i8 [[Y:%.*]])
-// CHECK:   ret i8 [[R]]
+// CHECK:   ret b8 {{.*}}
   return __rolb(value, shift);
 }
 TEST_CONSTEXPR(__rolb(0x01, 5) == 0x20);
@@ -59,7 +59,7 @@ TEST_CONSTEXPR(__rolq(0xFEDCBA9876543210ULL, 55) == 0x087F6E5D4C3B2A19ULL);
 unsigned char test__rorb(unsigned char value, int shift) {
 // CHECK-LABEL: test__rorb
 // CHECK:   [[R:%.*]] = call i8 @llvm.fshr.i8(i8 [[X:%.*]], i8 [[X]], i8 [[Y:%.*]])
-// CHECK:   ret i8 [[R]]
+// CHECK:   ret b8 {{.*}}
   return __rorb(value, shift);
 }
 TEST_CONSTEXPR(__rorb(0x01, 5) == 0x08);
