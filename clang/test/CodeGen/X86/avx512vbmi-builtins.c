@@ -15,7 +15,7 @@
 __m512i test_mm512_mask2_permutex2var_epi8(__m512i __A, __m512i __I, __mmask64 __U, __m512i __B) {
   // CHECK-LABEL: test_mm512_mask2_permutex2var_epi8
   // CHECK: call <64 x i8> @llvm.x86.avx512.vpermi2var.qi.512(<64 x i8> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}})
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_mask2_permutex2var_epi8(__A, __I, __U, __B); 
 }
 
@@ -28,14 +28,14 @@ __m512i test_mm512_permutex2var_epi8(__m512i __A, __m512i __I, __m512i __B) {
 __m512i test_mm512_mask_permutex2var_epi8(__m512i __A, __mmask64 __U, __m512i __I, __m512i __B) {
   // CHECK-LABEL: test_mm512_mask_permutex2var_epi8
   // CHECK: call <64 x i8> @llvm.x86.avx512.vpermi2var.qi.512(<64 x i8> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}})
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_mask_permutex2var_epi8(__A, __U, __I, __B); 
 }
 
 __m512i test_mm512_maskz_permutex2var_epi8(__mmask64 __U, __m512i __A, __m512i __I, __m512i __B) {
   // CHECK-LABEL: test_mm512_maskz_permutex2var_epi8
   // CHECK: call <64 x i8> @llvm.x86.avx512.vpermi2var.qi.512(<64 x i8> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}})
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_maskz_permutex2var_epi8(__U, __A, __I, __B); 
 }
 
@@ -196,14 +196,14 @@ __m512i test_mm512_permutexvar_epi8(__m512i __A, __m512i __B) {
 __m512i test_mm512_maskz_permutexvar_epi8(__mmask64 __M, __m512i __A, __m512i __B) {
   // CHECK-LABEL: test_mm512_maskz_permutexvar_epi8
   // CHECK: call <64 x i8> @llvm.x86.avx512.permvar.qi.512(<64 x i8> %{{.*}}, <64 x i8> %{{.*}})
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_maskz_permutexvar_epi8(__M, __A, __B); 
 }
 
 __m512i test_mm512_mask_permutexvar_epi8(__m512i __W, __mmask64 __M, __m512i __A, __m512i __B) {
   // CHECK-LABEL: test_mm512_mask_permutexvar_epi8
   // CHECK: call <64 x i8> @llvm.x86.avx512.permvar.qi.512(<64 x i8> %{{.*}}, <64 x i8> %{{.*}})
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_mask_permutexvar_epi8(__W, __M, __A, __B); 
 }
 
@@ -274,7 +274,7 @@ TEST_CONSTEXPR(match_v64qu(
 __m512i test_mm512_mask_multishift_epi64_epi8(__m512i __W, __mmask64 __M, __m512i __X, __m512i __Y) {
   // CHECK-LABEL: test_mm512_mask_multishift_epi64_epi8
   // CHECK: call <64 x i8> @llvm.x86.avx512.pmultishift.qb.512(<64 x i8> %{{.*}}, <64 x i8> %{{.*}})
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_mask_multishift_epi64_epi8(__W, __M, __X, __Y);
 }
 
@@ -320,7 +320,7 @@ TEST_CONSTEXPR(match_v64qu(
 __m512i test_mm512_maskz_multishift_epi64_epi8(__mmask64 __M, __m512i __X, __m512i __Y) {
   // CHECK-LABEL: test_mm512_maskz_multishift_epi64_epi8
   // CHECK: call <64 x i8> @llvm.x86.avx512.pmultishift.qb.512(<64 x i8> %{{.*}}, <64 x i8> %{{.*}})
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_maskz_multishift_epi64_epi8(__M, __X, __Y);
 }
 

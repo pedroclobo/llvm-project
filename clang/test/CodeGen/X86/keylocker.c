@@ -222,6 +222,7 @@ unsigned int test_encodekey256_u32(unsigned int htype, __m128i key_lo, __m128i k
 
 // CHECK64-LABEL: @test_mm_aesenc256kl_u8(
 // CHECK64-NEXT:  entry:
+// CHECK64-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK64-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca <2 x i64>, align 16
 // CHECK64-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 8
@@ -253,10 +254,13 @@ unsigned int test_encodekey256_u32(unsigned int htype, __m128i key_lo, __m128i k
 // CHECK64-NEXT:    br label [[_MM_AESENC256KL_U8_EXIT]]
 // CHECK64:       _mm_aesenc256kl_u8.exit:
 // CHECK64-NEXT:    [[TMP10:%.*]] = extractvalue { i8, <2 x i64> } [[TMP6]], 0
-// CHECK64-NEXT:    ret i8 [[TMP10]]
+// CHECK64-NEXT:    store i8 [[TMP10]], ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    [[TMP11:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    ret b8 [[TMP11]]
 //
 // CHECK32-LABEL: @test_mm_aesenc256kl_u8(
 // CHECK32-NEXT:  entry:
+// CHECK32-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK32-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca <2 x i64>, align 16
 // CHECK32-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 4
@@ -288,7 +292,9 @@ unsigned int test_encodekey256_u32(unsigned int htype, __m128i key_lo, __m128i k
 // CHECK32-NEXT:    br label [[_MM_AESENC256KL_U8_EXIT]]
 // CHECK32:       _mm_aesenc256kl_u8.exit:
 // CHECK32-NEXT:    [[TMP10:%.*]] = extractvalue { i8, <2 x i64> } [[TMP6]], 0
-// CHECK32-NEXT:    ret i8 [[TMP10]]
+// CHECK32-NEXT:    store i8 [[TMP10]], ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    [[TMP11:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    ret b8 [[TMP11]]
 //
 unsigned char test_mm_aesenc256kl_u8(__m128i *odata, __m128i idata, const void *h) {
   return _mm_aesenc256kl_u8(odata, idata, h);
@@ -296,6 +302,7 @@ unsigned char test_mm_aesenc256kl_u8(__m128i *odata, __m128i idata, const void *
 
 // CHECK64-LABEL: @test_mm_aesdec256kl_u8(
 // CHECK64-NEXT:  entry:
+// CHECK64-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK64-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca <2 x i64>, align 16
 // CHECK64-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 8
@@ -327,10 +334,13 @@ unsigned char test_mm_aesenc256kl_u8(__m128i *odata, __m128i idata, const void *
 // CHECK64-NEXT:    br label [[_MM_AESDEC256KL_U8_EXIT]]
 // CHECK64:       _mm_aesdec256kl_u8.exit:
 // CHECK64-NEXT:    [[TMP10:%.*]] = extractvalue { i8, <2 x i64> } [[TMP6]], 0
-// CHECK64-NEXT:    ret i8 [[TMP10]]
+// CHECK64-NEXT:    store i8 [[TMP10]], ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    [[TMP11:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    ret b8 [[TMP11]]
 //
 // CHECK32-LABEL: @test_mm_aesdec256kl_u8(
 // CHECK32-NEXT:  entry:
+// CHECK32-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK32-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca <2 x i64>, align 16
 // CHECK32-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 4
@@ -362,7 +372,9 @@ unsigned char test_mm_aesenc256kl_u8(__m128i *odata, __m128i idata, const void *
 // CHECK32-NEXT:    br label [[_MM_AESDEC256KL_U8_EXIT]]
 // CHECK32:       _mm_aesdec256kl_u8.exit:
 // CHECK32-NEXT:    [[TMP10:%.*]] = extractvalue { i8, <2 x i64> } [[TMP6]], 0
-// CHECK32-NEXT:    ret i8 [[TMP10]]
+// CHECK32-NEXT:    store i8 [[TMP10]], ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    [[TMP11:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    ret b8 [[TMP11]]
 //
 unsigned char test_mm_aesdec256kl_u8(__m128i *odata, __m128i idata, const void *h) {
   return _mm_aesdec256kl_u8(odata, idata, h);
@@ -370,6 +382,7 @@ unsigned char test_mm_aesdec256kl_u8(__m128i *odata, __m128i idata, const void *
 
 // CHECK64-LABEL: @test_mm_aesenc128kl_u8(
 // CHECK64-NEXT:  entry:
+// CHECK64-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK64-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca <2 x i64>, align 16
 // CHECK64-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 8
@@ -401,10 +414,13 @@ unsigned char test_mm_aesdec256kl_u8(__m128i *odata, __m128i idata, const void *
 // CHECK64-NEXT:    br label [[_MM_AESENC128KL_U8_EXIT]]
 // CHECK64:       _mm_aesenc128kl_u8.exit:
 // CHECK64-NEXT:    [[TMP10:%.*]] = extractvalue { i8, <2 x i64> } [[TMP6]], 0
-// CHECK64-NEXT:    ret i8 [[TMP10]]
+// CHECK64-NEXT:    store i8 [[TMP10]], ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    [[TMP11:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    ret b8 [[TMP11]]
 //
 // CHECK32-LABEL: @test_mm_aesenc128kl_u8(
 // CHECK32-NEXT:  entry:
+// CHECK32-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK32-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca <2 x i64>, align 16
 // CHECK32-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 4
@@ -436,7 +452,9 @@ unsigned char test_mm_aesdec256kl_u8(__m128i *odata, __m128i idata, const void *
 // CHECK32-NEXT:    br label [[_MM_AESENC128KL_U8_EXIT]]
 // CHECK32:       _mm_aesenc128kl_u8.exit:
 // CHECK32-NEXT:    [[TMP10:%.*]] = extractvalue { i8, <2 x i64> } [[TMP6]], 0
-// CHECK32-NEXT:    ret i8 [[TMP10]]
+// CHECK32-NEXT:    store i8 [[TMP10]], ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    [[TMP11:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    ret b8 [[TMP11]]
 //
 unsigned char test_mm_aesenc128kl_u8(__m128i *odata, __m128i idata, const void *h) {
   return _mm_aesenc128kl_u8(odata, idata, h);
@@ -444,6 +462,7 @@ unsigned char test_mm_aesenc128kl_u8(__m128i *odata, __m128i idata, const void *
 
 // CHECK64-LABEL: @test_mm_aesdec128kl_u8(
 // CHECK64-NEXT:  entry:
+// CHECK64-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK64-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca <2 x i64>, align 16
 // CHECK64-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 8
@@ -475,10 +494,13 @@ unsigned char test_mm_aesenc128kl_u8(__m128i *odata, __m128i idata, const void *
 // CHECK64-NEXT:    br label [[_MM_AESDEC128KL_U8_EXIT]]
 // CHECK64:       _mm_aesdec128kl_u8.exit:
 // CHECK64-NEXT:    [[TMP10:%.*]] = extractvalue { i8, <2 x i64> } [[TMP6]], 0
-// CHECK64-NEXT:    ret i8 [[TMP10]]
+// CHECK64-NEXT:    store i8 [[TMP10]], ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    [[TMP11:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    ret b8 [[TMP11]]
 //
 // CHECK32-LABEL: @test_mm_aesdec128kl_u8(
 // CHECK32-NEXT:  entry:
+// CHECK32-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK32-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca <2 x i64>, align 16
 // CHECK32-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 4
@@ -510,7 +532,9 @@ unsigned char test_mm_aesenc128kl_u8(__m128i *odata, __m128i idata, const void *
 // CHECK32-NEXT:    br label [[_MM_AESDEC128KL_U8_EXIT]]
 // CHECK32:       _mm_aesdec128kl_u8.exit:
 // CHECK32-NEXT:    [[TMP10:%.*]] = extractvalue { i8, <2 x i64> } [[TMP6]], 0
-// CHECK32-NEXT:    ret i8 [[TMP10]]
+// CHECK32-NEXT:    store i8 [[TMP10]], ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    [[TMP11:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    ret b8 [[TMP11]]
 //
 unsigned char test_mm_aesdec128kl_u8(__m128i *odata, __m128i idata, const void *h) {
   return _mm_aesdec128kl_u8(odata, idata, h);
@@ -518,6 +542,7 @@ unsigned char test_mm_aesdec128kl_u8(__m128i *odata, __m128i idata, const void *
 
 // CHECK64-LABEL: @test__mm_aesencwide128kl_u8(
 // CHECK64-NEXT:  entry:
+// CHECK64-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK64-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 8
@@ -599,10 +624,13 @@ unsigned char test_mm_aesdec128kl_u8(__m128i *odata, __m128i idata, const void *
 // CHECK64-NEXT:    br label [[_MM_AESENCWIDE128KL_U8_EXIT]]
 // CHECK64:       _mm_aesencwide128kl_u8.exit:
 // CHECK64-NEXT:    [[TMP46:%.*]] = extractvalue { i8, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[TMP21]], 0
-// CHECK64-NEXT:    ret i8 [[TMP46]]
+// CHECK64-NEXT:    store i8 [[TMP46]], ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    [[TMP47:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    ret b8 [[TMP47]]
 //
 // CHECK32-LABEL: @test__mm_aesencwide128kl_u8(
 // CHECK32-NEXT:  entry:
+// CHECK32-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK32-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 4
@@ -684,7 +712,9 @@ unsigned char test_mm_aesdec128kl_u8(__m128i *odata, __m128i idata, const void *
 // CHECK32-NEXT:    br label [[_MM_AESENCWIDE128KL_U8_EXIT]]
 // CHECK32:       _mm_aesencwide128kl_u8.exit:
 // CHECK32-NEXT:    [[TMP46:%.*]] = extractvalue { i8, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[TMP21]], 0
-// CHECK32-NEXT:    ret i8 [[TMP46]]
+// CHECK32-NEXT:    store i8 [[TMP46]], ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    [[TMP47:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    ret b8 [[TMP47]]
 //
 unsigned char test__mm_aesencwide128kl_u8(__m128i odata[8], const __m128i idata[8], const void* h) {
   return _mm_aesencwide128kl_u8(odata, idata, h);
@@ -692,6 +722,7 @@ unsigned char test__mm_aesencwide128kl_u8(__m128i odata[8], const __m128i idata[
 
 // CHECK64-LABEL: @test__mm_aesdecwide128kl_u8(
 // CHECK64-NEXT:  entry:
+// CHECK64-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK64-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 8
@@ -773,10 +804,13 @@ unsigned char test__mm_aesencwide128kl_u8(__m128i odata[8], const __m128i idata[
 // CHECK64-NEXT:    br label [[_MM_AESDECWIDE128KL_U8_EXIT]]
 // CHECK64:       _mm_aesdecwide128kl_u8.exit:
 // CHECK64-NEXT:    [[TMP46:%.*]] = extractvalue { i8, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[TMP21]], 0
-// CHECK64-NEXT:    ret i8 [[TMP46]]
+// CHECK64-NEXT:    store i8 [[TMP46]], ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    [[TMP47:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    ret b8 [[TMP47]]
 //
 // CHECK32-LABEL: @test__mm_aesdecwide128kl_u8(
 // CHECK32-NEXT:  entry:
+// CHECK32-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK32-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 4
@@ -858,7 +892,9 @@ unsigned char test__mm_aesencwide128kl_u8(__m128i odata[8], const __m128i idata[
 // CHECK32-NEXT:    br label [[_MM_AESDECWIDE128KL_U8_EXIT]]
 // CHECK32:       _mm_aesdecwide128kl_u8.exit:
 // CHECK32-NEXT:    [[TMP46:%.*]] = extractvalue { i8, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[TMP21]], 0
-// CHECK32-NEXT:    ret i8 [[TMP46]]
+// CHECK32-NEXT:    store i8 [[TMP46]], ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    [[TMP47:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    ret b8 [[TMP47]]
 //
 unsigned char test__mm_aesdecwide128kl_u8(__m128i odata[8], const __m128i idata[8], const void* h) {
   return _mm_aesdecwide128kl_u8(odata, idata, h);
@@ -866,6 +902,7 @@ unsigned char test__mm_aesdecwide128kl_u8(__m128i odata[8], const __m128i idata[
 
 // CHECK64-LABEL: @test__mm_aesencwide256kl_u8(
 // CHECK64-NEXT:  entry:
+// CHECK64-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK64-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 8
@@ -947,10 +984,13 @@ unsigned char test__mm_aesdecwide128kl_u8(__m128i odata[8], const __m128i idata[
 // CHECK64-NEXT:    br label [[_MM_AESENCWIDE256KL_U8_EXIT]]
 // CHECK64:       _mm_aesencwide256kl_u8.exit:
 // CHECK64-NEXT:    [[TMP46:%.*]] = extractvalue { i8, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[TMP21]], 0
-// CHECK64-NEXT:    ret i8 [[TMP46]]
+// CHECK64-NEXT:    store i8 [[TMP46]], ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    [[TMP47:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    ret b8 [[TMP47]]
 //
 // CHECK32-LABEL: @test__mm_aesencwide256kl_u8(
 // CHECK32-NEXT:  entry:
+// CHECK32-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK32-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 4
@@ -1032,7 +1072,9 @@ unsigned char test__mm_aesdecwide128kl_u8(__m128i odata[8], const __m128i idata[
 // CHECK32-NEXT:    br label [[_MM_AESENCWIDE256KL_U8_EXIT]]
 // CHECK32:       _mm_aesencwide256kl_u8.exit:
 // CHECK32-NEXT:    [[TMP46:%.*]] = extractvalue { i8, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[TMP21]], 0
-// CHECK32-NEXT:    ret i8 [[TMP46]]
+// CHECK32-NEXT:    store i8 [[TMP46]], ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    [[TMP47:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    ret b8 [[TMP47]]
 //
 unsigned char test__mm_aesencwide256kl_u8(__m128i odata[8], const __m128i idata[8], const void* h) {
   return _mm_aesencwide256kl_u8(odata, idata, h);
@@ -1040,6 +1082,7 @@ unsigned char test__mm_aesencwide256kl_u8(__m128i odata[8], const __m128i idata[
 
 // CHECK64-LABEL: @test__mm_aesdecwide256kl_u8(
 // CHECK64-NEXT:  entry:
+// CHECK64-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK64-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca ptr, align 8
 // CHECK64-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 8
@@ -1121,10 +1164,13 @@ unsigned char test__mm_aesencwide256kl_u8(__m128i odata[8], const __m128i idata[
 // CHECK64-NEXT:    br label [[_MM_AESDECWIDE256KL_U8_EXIT]]
 // CHECK64:       _mm_aesdecwide256kl_u8.exit:
 // CHECK64-NEXT:    [[TMP46:%.*]] = extractvalue { i8, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[TMP21]], 0
-// CHECK64-NEXT:    ret i8 [[TMP46]]
+// CHECK64-NEXT:    store i8 [[TMP46]], ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    [[TMP47:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK64-NEXT:    ret b8 [[TMP47]]
 //
 // CHECK32-LABEL: @test__mm_aesdecwide256kl_u8(
 // CHECK32-NEXT:  entry:
+// CHECK32-NEXT:    [[RETVAL_I:%.*]] = alloca b8, align 1
 // CHECK32-NEXT:    [[__ODATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__IDATA_ADDR_I:%.*]] = alloca ptr, align 4
 // CHECK32-NEXT:    [[__H_ADDR_I:%.*]] = alloca ptr, align 4
@@ -1206,7 +1252,9 @@ unsigned char test__mm_aesencwide256kl_u8(__m128i odata[8], const __m128i idata[
 // CHECK32-NEXT:    br label [[_MM_AESDECWIDE256KL_U8_EXIT]]
 // CHECK32:       _mm_aesdecwide256kl_u8.exit:
 // CHECK32-NEXT:    [[TMP46:%.*]] = extractvalue { i8, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64>, <2 x i64> } [[TMP21]], 0
-// CHECK32-NEXT:    ret i8 [[TMP46]]
+// CHECK32-NEXT:    store i8 [[TMP46]], ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    [[TMP47:%.*]] = load b8, ptr [[RETVAL_I]], align 1
+// CHECK32-NEXT:    ret b8 [[TMP47]]
 //
 unsigned char test__mm_aesdecwide256kl_u8(__m128i odata[8], const __m128i idata[8], const void* h) {
   return _mm_aesdecwide256kl_u8(odata, idata, h);

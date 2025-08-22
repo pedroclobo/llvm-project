@@ -11,7 +11,7 @@ __m512i test_mm512_loadrs_epi8(const __m512i * __A) {
 __m512i test_mm512_mask_loadrs_epi8(__m512i __A, __mmask64 __B, const __m512i * __C) {
   // CHECK-LABEL: @test_mm512_mask_loadrs_epi8(
   // CHECK: call <64 x i8> @llvm.x86.avx10.vmovrsb512(
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_mask_loadrs_epi8(__A, __B, __C);
 }
 
@@ -19,7 +19,7 @@ __m512i test_mm512_maskz_loadrs_epi8(__mmask64 __A, const __m512i * __B) {
   // CHECK-LABEL: @test_mm512_maskz_loadrs_epi8(
   // CHECK: call <64 x i8> @llvm.x86.avx10.vmovrsb512(
   // CHECK: store <8 x i64> zeroinitializer
-  // CHECK: select <64 x i1> %{{.*}}, <64 x i8> %{{.*}}, <64 x i8> %{{.*}}
+  // CHECK: select <64 x i1> %{{.*}}, <64 x b8> %{{.*}}, <64 x b8> %{{.*}}
   return _mm512_maskz_loadrs_epi8(__A, __B);
 }
 
