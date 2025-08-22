@@ -73,7 +73,11 @@ fixed_bool1_t from_vbool1_t(vbool1_t type) {
 
 // CHECK-LABEL: @to_vbool1_t(
 // CHECK-NEXT:  entry:
+<<<<<<< HEAD
 // CHECK-NEXT:    ret <vscale x 64 x i1> [[TMP0:%.*]]
+=======
+// CHECK-NEXT:    ret <vscale x 64 x i1> [[TYPE_COERCE:%.*]]
+>>>>>>> 413685f4027f (riscv)
 //
 vbool1_t to_vbool1_t(fixed_bool1_t type) {
   return type;
@@ -89,7 +93,11 @@ fixed_bool4_t from_vbool4_t(vbool4_t type) {
 
 // CHECK-LABEL: @to_vbool4_t(
 // CHECK-NEXT:  entry:
+<<<<<<< HEAD
 // CHECK-NEXT:    ret <vscale x 16 x i1> [[TMP0:%.*]]
+=======
+// CHECK-NEXT:    ret <vscale x 16 x i1> [[TYPE_COERCE:%.*]]
+>>>>>>> 413685f4027f (riscv)
 //
 vbool4_t to_vbool4_t(fixed_bool4_t type) {
   return type;
@@ -105,7 +113,14 @@ fixed_bool32_t from_vbool32_t(vbool32_t type) {
 
 // CHECK-LABEL: @to_vbool32_t(
 // CHECK-NEXT:  entry:
+<<<<<<< HEAD
 // CHECK-NEXT:    ret <vscale x 2 x i1> [[TMP0:%.*]]
+=======
+// CHECK-NEXT:    [[CAST_SCALABLE:%.*]] = tail call <vscale x 1 x b8> @llvm.vector.insert.nxv1b8.v1b8(<vscale x 1 x b8> poison, <1 x b8> undef, i64 0)
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 1 x b8> [[CAST_SCALABLE]] to <vscale x 8 x i1>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 2 x i1> @llvm.vector.extract.nxv2i1.nxv8i1(<vscale x 8 x i1> [[TMP0]], i64 0)
+// CHECK-NEXT:    ret <vscale x 2 x i1> [[TMP1]]
+>>>>>>> 413685f4027f (riscv)
 //
 vbool32_t to_vbool32_t(fixed_bool32_t type) {
   return type;
