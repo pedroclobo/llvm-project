@@ -1005,7 +1005,7 @@ __m256 test_mm256_dp_ps(__m256 A, __m256 B) {
 
 int test_mm256_extract_epi8(__m256i A) {
   // CHECK-LABEL: test_mm256_extract_epi8
-  // CHECK: extractelement <32 x i8> %{{.*}}, {{i32|i64}} 31
+  // CHECK: extractelement <32 x {{i8|b8}}> %{{.*}}, {{i32|i64}} 31
   // CHECK: zext i8 %{{.*}} to i32
   return _mm256_extract_epi8(A, 31);
 }
@@ -1087,7 +1087,7 @@ __m256 test_mm256_hsub_ps(__m256 A, __m256 B) {
 
 __m256i test_mm256_insert_epi8(__m256i x, char b) {
   // CHECK-LABEL: test_mm256_insert_epi8
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, {{i32|i64}} 14
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, {{i32|i64}} 14
   return _mm256_insert_epi8(x, b, 14);
 }
 
@@ -1433,38 +1433,38 @@ __m256i test_mm256_set_epi8(char A0, char A1, char A2, char A3, char A4, char A5
                             char A16, char A17, char A18, char A19, char A20, char A21, char A22, char A23,
                             char A24, char A25, char A26, char A27, char A28, char A29, char A30, char A31) {
   // CHECK-LABEL: test_mm256_set_epi8
-  // CHECK: insertelement <32 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 15
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 16
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 17
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 18
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 19
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 20
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 21
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 22
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 23
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 24
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 25
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 26
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 27
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 28
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 29
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 30
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 31
+  // CHECK: insertelement <32 x {{i8|b8}}> poison, {{i8|b8}} %{{.*}}, i32 0
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 1
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 2
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 3
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 4
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 5
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 6
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 7
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 8
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 9
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 10
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 11
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 12
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 13
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 14
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 15
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 16
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 17
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 18
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 19
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 20
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 21
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 22
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 23
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 24
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 25
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 26
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 27
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 28
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 29
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 30
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 31
   return _mm256_set_epi8(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22, A23, A24, A25, A26, A27, A28, A29, A30, A31);
 }
 TEST_CONSTEXPR(match_v32qi(_mm256_set_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31), 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0));
@@ -1560,38 +1560,38 @@ TEST_CONSTEXPR(match_m256(_mm256_set_ps(-1.0f, +2.0f, -3.0f, +4.0f, -5.0f, +6.0f
 
 __m256i test_mm256_set1_epi8(char A) {
   // CHECK-LABEL: test_mm256_set1_epi8
-  // CHECK: insertelement <32 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 15
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 16
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 17
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 18
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 19
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 20
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 21
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 22
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 23
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 24
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 25
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 26
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 27
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 28
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 29
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 30
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 31
+  // CHECK: insertelement <32 x {{i8|b8}}> poison, {{i8|b8}} %{{.*}}, i32 0
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 1
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 2
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 3
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 4
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 5
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 6
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 7
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 8
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 9
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 10
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 11
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 12
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 13
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 14
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 15
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 16
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 17
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 18
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 19
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 20
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 21
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 22
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 23
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 24
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 25
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 26
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 27
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 28
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 29
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 30
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 31
   return _mm256_set1_epi8(A);
 }
 TEST_CONSTEXPR(match_v32qi(_mm256_set1_epi8(99), 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99));
@@ -1671,38 +1671,38 @@ __m256i test_mm256_setr_epi8(char A0, char A1, char A2, char A3, char A4, char A
                              char A16, char A17, char A18, char A19, char A20, char A21, char A22, char A23,
                              char A24, char A25, char A26, char A27, char A28, char A29, char A30, char A31) {
   // CHECK-LABEL: test_mm256_setr_epi8
-  // CHECK: insertelement <32 x i8> poison, i8 %{{.*}}, i32 0
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 1
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 2
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 3
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 4
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 5
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 6
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 7
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 8
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 9
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 10
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 11
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 12
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 13
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 14
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 15
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 16
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 17
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 18
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 19
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 20
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 21
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 22
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 23
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 24
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 25
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 26
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 27
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 28
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 29
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 30
-  // CHECK: insertelement <32 x i8> %{{.*}}, i8 %{{.*}}, i32 31
+  // CHECK: insertelement <32 x {{i8|b8}}> poison, {{i8|b8}} %{{.*}}, i32 0
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 1
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 2
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 3
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 4
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 5
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 6
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 7
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 8
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 9
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 10
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 11
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 12
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 13
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 14
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 15
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 16
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 17
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 18
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 19
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 20
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 21
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 22
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 23
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 24
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 25
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 26
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 27
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 28
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 29
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 30
+  // CHECK: insertelement <32 x {{i8|b8}}> %{{.*}}, {{i8|b8}} %{{.*}}, i32 31
   return _mm256_setr_epi8(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22, A23, A24, A25, A26, A27, A28, A29, A30, A31);
 }
 TEST_CONSTEXPR(match_v32qi(_mm256_setr_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));

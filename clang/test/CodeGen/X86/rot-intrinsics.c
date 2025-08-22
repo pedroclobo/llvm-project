@@ -17,7 +17,7 @@
 unsigned char test__rolb(unsigned char value, int shift) {
 // CHECK-LABEL: test__rolb
 // CHECK:   [[R:%.*]] = call i8 @llvm.fshl.i8(i8 [[X:%.*]], i8 [[X]], i8 [[Y:%.*]])
-// CHECK:   ret i8 [[R]]
+// CHECK:   ret b8 {{.*}}
   return __rolb(value, shift);
 }
 
@@ -47,7 +47,7 @@ unsigned long test__rolq(unsigned long value, int shift) {
 unsigned char test__rorb(unsigned char value, int shift) {
 // CHECK-LABEL: test__rorb
 // CHECK:   [[R:%.*]] = call i8 @llvm.fshr.i8(i8 [[X:%.*]], i8 [[X]], i8 [[Y:%.*]])
-// CHECK:   ret i8 [[R]]
+// CHECK:   ret b8 {{.*}}
   return __rorb(value, shift);
 }
 

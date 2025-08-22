@@ -6,7 +6,11 @@ struct foo {
   float y;
   char z;
 };
+<<<<<<< HEAD
 // CHECK: %[[STRUCT_FOO:.*]] = type { i32, float, i8 }
+=======
+// CHECK: %[[STRUCT_FOO:.*]] = type { i32, float, b8 }
+>>>>>>> d5d2d4c47f2d (x86 tests)
 
 void f(int a, ...) {
   // CHECK-LABEL: define dso_local void @f
