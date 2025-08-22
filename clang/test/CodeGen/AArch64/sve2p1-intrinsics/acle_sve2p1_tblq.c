@@ -35,17 +35,23 @@
 #define ATTR
 #endif
 
-// CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svtblq_u8
-// CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CHECK-LABEL: define dso_local <vscale x 16 x b8> @test_svtblq_u8
+// CHECK-SAME: (<vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CPP-CHECK-LABEL: define dso_local <vscale x 16 x i8> @_Z14test_svtblq_u8u11__SVUint8_tS_
-// CPP-CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) #[[ATTR0:[0-9]+]] {
+// CPP-CHECK-LABEL: define dso_local <vscale x 16 x b8> @_Z14test_svtblq_u8u11__SVUint8_tS_
+// CPP-CHECK-SAME: (<vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) #[[ATTR0:[0-9]+]] {
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svuint8_t test_svtblq_u8(svuint8_t zn, svuint8_t zm) ATTR {
   return SVE_ACLE_FUNC(svtblq, _u8,,)(zn, zm);
@@ -99,17 +105,23 @@ svuint64_t test_svtblq_u64(svuint64_t zn, svuint64_t zm) ATTR {
   return SVE_ACLE_FUNC(svtblq, _u64,,)(zn, zm);
 }
 
-// CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svtblq_s8
-// CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) #[[ATTR0]] {
+// CHECK-LABEL: define dso_local <vscale x 16 x b8> @test_svtblq_s8
+// CHECK-SAME: (<vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 16 x b8>
+// CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
-// CPP-CHECK-LABEL: define dso_local <vscale x 16 x i8> @_Z14test_svtblq_s8u10__SVInt8_tu11__SVUint8_t
-// CPP-CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) #[[ATTR0]] {
+// CPP-CHECK-LABEL: define dso_local <vscale x 16 x b8> @_Z14test_svtblq_s8u10__SVInt8_tu11__SVUint8_t
+// CPP-CHECK-SAME: (<vscale x 16 x b8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZN]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = bytecast <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP2:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[TMP0]], <vscale x 16 x i8> [[TMP1]])
+// CPP-CHECK-NEXT:    [[DOTCAST:%.*]] = bitcast <vscale x 16 x i8> [[TMP2]] to <vscale x 16 x b8>
+// CPP-CHECK-NEXT:    ret <vscale x 16 x b8> [[DOTCAST]]
 //
 svint8_t test_svtblq_s8(svint8_t zn, svuint8_t zm) ATTR {
     return SVE_ACLE_FUNC(svtblq, _s8,,)(zn, zm);
@@ -228,16 +240,18 @@ svbfloat16_t test_svtblq_bf16(svbfloat16_t zn, svuint16_t zm) ATTR {
 }
 
 // CHECK-LABEL: define dso_local <vscale x 16 x i8> @test_svtblq_mf8
-// CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) #[[ATTR0]] {
+// CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) #[[ATTR0]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[TMP0]])
+// CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP1]]
 //
 // CPP-CHECK-LABEL: define dso_local <vscale x 16 x i8> @_Z15test_svtblq_mf8u13__SVMfloat8_tu11__SVUint8_t
-// CPP-CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x i8> [[ZM:%.*]]) #[[ATTR0]] {
+// CPP-CHECK-SAME: (<vscale x 16 x i8> [[ZN:%.*]], <vscale x 16 x b8> [[ZM:%.*]]) #[[ATTR0]] {
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[ZM]])
-// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = bytecast <vscale x 16 x b8> [[ZM]] to <vscale x 16 x i8>
+// CPP-CHECK-NEXT:    [[TMP1:%.*]] = tail call <vscale x 16 x i8> @llvm.aarch64.sve.tblq.nxv16i8(<vscale x 16 x i8> [[ZN]], <vscale x 16 x i8> [[TMP0]])
+// CPP-CHECK-NEXT:    ret <vscale x 16 x i8> [[TMP1]]
 //
 svmfloat8_t test_svtblq_mf8(svmfloat8_t zn, svuint8_t zm) ATTR {
     return SVE_ACLE_FUNC(svtblq, _mf8,,)(zn, zm);
