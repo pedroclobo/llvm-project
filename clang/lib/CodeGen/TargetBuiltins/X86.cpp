@@ -54,14 +54,16 @@ translateX86ToMsvcIntrin(unsigned BuiltinID) {
   llvm_unreachable("must return from switch");
 }
 
-// Convert the mask from an integer type to a vector of i1.
+// Convert the mask from an integer/byte type to a vector of i1.
 static Value *getMaskVecValue(CodeGenFunction &CGF, Value *Mask,
                               unsigned NumElts) {
 
   auto *MaskTy = llvm::FixedVectorType::get(
       CGF.Builder.getInt1Ty(),
-      cast<IntegerType>(Mask->getType())->getBitWidth());
-  Value *MaskVec = CGF.Builder.CreateBitCast(Mask, MaskTy);
+      Mask->getType()->getScalarSizeInBits());
+  Value *MaskVec = Mask->getType()->isByteOrByteVectorTy()
+    ? CGF.Builder.CreateByteCast(Mask, MaskTy)
+    : CGF.Builder.CreateBitCast(Mask, MaskTy);
 
   // If we have less than 8 elements, then the starting mask was an i8 and
   // we need to extract down to the right number of elements.
@@ -198,7 +200,7 @@ static Value *EmitX86CompressStore(CodeGenFunction &CGF,
 static Value *EmitX86MaskLogic(CodeGenFunction &CGF, Instruction::BinaryOps Opc,
                               ArrayRef<Value *> Ops,
                               bool InvertLHS = false) {
-  unsigned NumElts = Ops[0]->getType()->getIntegerBitWidth();
+  unsigned NumElts = Ops[0]->getType()->getScalarSizeInBits();
   Value *LHS = getMaskVecValue(CGF, Ops[0], NumElts);
   Value *RHS = getMaskVecValue(CGF, Ops[1], NumElts);
 
@@ -211,6 +213,11 @@ static Value *EmitX86MaskLogic(CodeGenFunction &CGF, Instruction::BinaryOps Opc,
 
 static Value *EmitX86FunnelShift(CodeGenFunction &CGF, Value *Op0, Value *Op1,
                                  Value *Amt, bool IsRight) {
+  if (Op0->getType()->isByteOrByteVectorTy())
+    Op0 = CGF.Builder.CreateByteCastToInt(Op0);
+  if (Op1->getType()->isByteOrByteVectorTy())
+    Op1 = CGF.Builder.CreateByteCastToInt(Op1);
+
   llvm::Type *Ty = Op0->getType();
 
   // Amount may be scalar immediate, in which case create a splat vector.
@@ -262,9 +269,17 @@ static Value *EmitX86vpcom(CodeGenFunction &CGF, ArrayRef<Value *> Ops,
     llvm_unreachable("Unexpected XOP vpcom/vpcomu predicate");
   }
 
+  if (Op0->getType()->isByteOrByteVectorTy())
+    Op0 = CGF.Builder.CreateByteCastToInt(Op0);
+  if (Op1->getType()->isByteOrByteVectorTy())
+    Op1 = CGF.Builder.CreateByteCastToInt(Op1);
   Value *Cmp = CGF.Builder.CreateICmp(Pred, Op0, Op1);
-  Value *Res = CGF.Builder.CreateSExt(Cmp, Ty);
-  return Res;
+  if (Ty->isByteOrByteVectorTy()) {
+    llvm::Type *IntTy = Cmp->getType()->getWithNewType(IntegerType::get(CGF.getLLVMContext(), Ty->getScalarSizeInBits()));
+    Value *SExt = CGF.Builder.CreateSExt(Cmp, IntTy);
+    return CGF.Builder.CreateBitCast(SExt, Ty);
+  }
+  return CGF.Builder.CreateSExt(Cmp, Ty);
 }
 
 static Value *EmitX86Select(CodeGenFunction &CGF,
@@ -289,8 +304,10 @@ static Value *EmitX86ScalarSelect(CodeGenFunction &CGF,
       return Op0;
 
   auto *MaskTy = llvm::FixedVectorType::get(
-      CGF.Builder.getInt1Ty(), Mask->getType()->getIntegerBitWidth());
-  Mask = CGF.Builder.CreateBitCast(Mask, MaskTy);
+      CGF.Builder.getInt1Ty(), Mask->getType()->getScalarSizeInBits());
+  Mask = Mask->getType()->isByteOrByteVectorTy()
+    ? CGF.Builder.CreateByteCast(Mask, MaskTy)
+    : CGF.Builder.CreateBitCast(Mask, MaskTy);
   Mask = CGF.Builder.CreateExtractElement(Mask, (uint64_t)0);
   return CGF.Builder.CreateSelect(Mask, Op0, Op1);
 }
@@ -343,7 +360,7 @@ static Value *EmitX86MaskedCompare(CodeGenFunction &CGF, unsigned CC,
     case 5: Pred = Signed ? ICmpInst::ICMP_SGE : ICmpInst::ICMP_UGE; break;
     case 6: Pred = Signed ? ICmpInst::ICMP_SGT : ICmpInst::ICMP_UGT; break;
     }
-    Cmp = CGF.Builder.CreateICmp(Pred, Ops[0], Ops[1]);
+    Cmp = CGF.Builder.CreateICmp(Pred, Ops[0]->getType()->isByteOrByteVectorTy() ? CGF.Builder.CreateByteCastToInt(Ops[0]) : Ops[0], Ops[1]->getType()->isByteOrByteVectorTy() ? CGF.Builder.CreateByteCastToInt(Ops[1]) : Ops[1]);
   }
 
   Value *MaskIn = nullptr;
@@ -624,6 +641,11 @@ static Value *EmitX86SExtMask(CodeGenFunction &CGF, Value *Op,
   unsigned NumberOfElements =
       cast<llvm::FixedVectorType>(DstTy)->getNumElements();
   Value *Mask = getMaskVecValue(CGF, Op, NumberOfElements);
+  if (DstTy->isByteOrByteVectorTy()) {
+    llvm::Type *IntTy = Mask->getType()->getWithNewType(IntegerType::get(CGF.getLLVMContext(), DstTy->getScalarSizeInBits()));
+    Value *SExt = CGF.Builder.CreateSExt(Mask, IntTy, "vpmovm2");
+    return CGF.Builder.CreateBitCast(SExt, DstTy, "vpmovm2.cast");
+  }
   return CGF.Builder.CreateSExt(Mask, DstTy, "vpmovm2");
 }
 
@@ -1641,12 +1663,20 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   }
   case X86::BI__builtin_ia32_pmovqd512_mask:
   case X86::BI__builtin_ia32_pmovwb512_mask: {
+    if (Ops[1]->getType()->isByteOrByteVectorTy())
+      Ops[1] = Builder.CreateByteCastToInt(Ops[1]);
+    if (Ops[2]->getType()->isByteOrByteVectorTy())
+      Ops[2] = Builder.CreateByteCastToInt(Ops[2]);
     Value *Res = Builder.CreateTrunc(Ops[0], Ops[1]->getType());
     return EmitX86Select(*this, Ops[2], Res, Ops[1]);
   }
   case X86::BI__builtin_ia32_pmovdb512_mask:
   case X86::BI__builtin_ia32_pmovdw512_mask:
   case X86::BI__builtin_ia32_pmovqw512_mask: {
+    if (Ops[1]->getType()->isByteOrByteVectorTy())
+      Ops[1] = Builder.CreateByteCastToInt(Ops[1]);
+    if (Ops[2]->getType()->isByteOrByteVectorTy())
+      Ops[2] = Builder.CreateByteCastToInt(Ops[2]);
     if (const auto *C = dyn_cast<Constant>(Ops[2]))
       if (C->isAllOnesValue())
         return Builder.CreateTrunc(Ops[0], Ops[1]->getType());
@@ -1991,7 +2021,7 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__builtin_ia32_kshiftlisi:
   case X86::BI__builtin_ia32_kshiftlidi: {
     unsigned ShiftVal = cast<llvm::ConstantInt>(Ops[1])->getZExtValue() & 0xff;
-    unsigned NumElts = Ops[0]->getType()->getIntegerBitWidth();
+    unsigned NumElts = Ops[0]->getType()->getScalarSizeInBits();
 
     if (ShiftVal >= NumElts)
       return llvm::Constant::getNullValue(Ops[0]->getType());
@@ -2012,7 +2042,7 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__builtin_ia32_kshiftrisi:
   case X86::BI__builtin_ia32_kshiftridi: {
     unsigned ShiftVal = cast<llvm::ConstantInt>(Ops[1])->getZExtValue() & 0xff;
-    unsigned NumElts = Ops[0]->getType()->getIntegerBitWidth();
+    unsigned NumElts = Ops[0]->getType()->getScalarSizeInBits();
 
     if (ShiftVal >= NumElts)
       return llvm::Constant::getNullValue(Ops[0]->getType());
@@ -2148,7 +2178,11 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__builtin_ia32_kortestcsi:
   case X86::BI__builtin_ia32_kortestcdi: {
     Value *Or = EmitX86MaskLogic(*this, Instruction::Or, Ops);
+    if (Or->getType()->isByteOrByteVectorTy())
+      Or = Builder.CreateByteCastToInt(Or);
     Value *C = llvm::Constant::getAllOnesValue(Ops[0]->getType());
+    if (C->getType()->isByteOrByteVectorTy())
+      C = Builder.CreateByteCastToInt(C);
     Value *Cmp = Builder.CreateICmpEQ(Or, C);
     return Builder.CreateZExt(Cmp, ConvertType(E->getType()));
   }
@@ -2157,7 +2191,11 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__builtin_ia32_kortestzsi:
   case X86::BI__builtin_ia32_kortestzdi: {
     Value *Or = EmitX86MaskLogic(*this, Instruction::Or, Ops);
+    if (Or->getType()->isByteOrByteVectorTy())
+      Or = Builder.CreateByteCastToInt(Or);
     Value *C = llvm::Constant::getNullValue(Ops[0]->getType());
+    if (C->getType()->isByteOrByteVectorTy())
+      C = Builder.CreateByteCastToInt(C);
     Value *Cmp = Builder.CreateICmpEQ(Or, C);
     return Builder.CreateZExt(Cmp, ConvertType(E->getType()));
   }
@@ -2199,7 +2237,7 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
       break;
     }
 
-    unsigned NumElts = Ops[0]->getType()->getIntegerBitWidth();
+    unsigned NumElts = Ops[0]->getType()->getScalarSizeInBits();
     Value *LHS = getMaskVecValue(*this, Ops[0], NumElts);
     Value *RHS = getMaskVecValue(*this, Ops[1], NumElts);
     Function *Intr = CGM.getIntrinsic(IID);
@@ -2227,7 +2265,7 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
       break;
     }
 
-    unsigned NumElts = Ops[0]->getType()->getIntegerBitWidth();
+    unsigned NumElts = Ops[0]->getType()->getScalarSizeInBits();
     Value *LHS = getMaskVecValue(*this, Ops[0], NumElts);
     Value *RHS = getMaskVecValue(*this, Ops[1], NumElts);
     Function *Intr = CGM.getIntrinsic(IID);
@@ -2263,7 +2301,7 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__builtin_ia32_knothi:
   case X86::BI__builtin_ia32_knotsi:
   case X86::BI__builtin_ia32_knotdi: {
-    unsigned NumElts = Ops[0]->getType()->getIntegerBitWidth();
+    unsigned NumElts = Ops[0]->getType()->getScalarSizeInBits();
     Value *Res = getMaskVecValue(*this, Ops[0], NumElts);
     return Builder.CreateBitCast(Builder.CreateNot(Res),
                                  Ops[0]->getType());
@@ -2275,7 +2313,7 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
     // Bitcast to vXi1 type and then back to integer. This gets the mask
     // register type into the IR, but might be optimized out depending on
     // what's around it.
-    unsigned NumElts = Ops[0]->getType()->getIntegerBitWidth();
+    unsigned NumElts = Ops[0]->getType()->getScalarSizeInBits();
     Value *Res = getMaskVecValue(*this, Ops[0], NumElts);
     return Builder.CreateBitCast(Res, Ops[0]->getType());
   }
@@ -2283,7 +2321,7 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__builtin_ia32_kunpckdi:
   case X86::BI__builtin_ia32_kunpcksi:
   case X86::BI__builtin_ia32_kunpckhi: {
-    unsigned NumElts = Ops[0]->getType()->getIntegerBitWidth();
+    unsigned NumElts = Ops[0]->getType()->getScalarSizeInBits();
     Value *LHS = getMaskVecValue(*this, Ops[0], NumElts);
     Value *RHS = getMaskVecValue(*this, Ops[1], NumElts);
     int Indices[64];
@@ -2323,6 +2361,8 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
         IID = Intrinsic::x86_avx512_mask_sqrt_ss;
         break;
       }
+      if (Ops[3]->getType()->isByteTy())
+        Ops[3] = Builder.CreateByteCastToInt(Ops[3]);
       return Builder.CreateCall(CGM.getIntrinsic(IID), Ops);
     }
     Value *A = Builder.CreateExtractElement(Ops[1], (uint64_t)0);
@@ -2525,6 +2565,8 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
       break;
     }
 
+    if (Ops[0]->getType()->isByteTy())
+      Ops[0] = Builder.CreateByteCastToInt(Ops[0]);
     Value *Call = Builder.CreateCall(CGM.getIntrinsic(IID),
                                      { Ops[0], Ops[1], Ops[2] });
     Builder.CreateDefaultAlignedStore(Builder.CreateExtractValue(Call, 1),
@@ -2677,6 +2719,10 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
       ID = Intrinsic::x86_avx512_vpshufbitqmb_512;
       break;
     }
+
+    for (unsigned i = 0; i < Ops.size(); ++i)
+      if (Ops[i]->getType()->isByteOrByteVectorTy())
+        Ops[i] = Builder.CreateByteCastToInt(Ops[i]);
 
     Value *Shufbit = Builder.CreateCall(CGM.getIntrinsic(ID), Ops);
     return EmitX86MaskedCompareResult(*this, Shufbit, NumElts, MaskIn);
@@ -3007,6 +3053,8 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
     // shiftleft128(Low, High, Amt) -> fshl(High, Low, Amt)
     // shiftright128(Low, High, Amt) -> fshr(High, Low, Amt)
     std::swap(Ops[0], Ops[1]);
+    if (Ops[2]->getType()->isByteOrByteVectorTy())
+      Ops[2] = Builder.CreateByteCastToInt(Ops[2]);
     Ops[2] = Builder.CreateZExt(Ops[2], Int64Ty);
     return Builder.CreateCall(F, Ops);
   }
@@ -3025,6 +3073,8 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__stosb: {
     // We treat __stosb as a volatile memset - it may not generate "rep stosb"
     // instruction, but it will create a memset that won't be optimized away.
+    if (Ops[1]->getType()->isByteTy())
+      Ops[1] = Builder.CreateByteCastToInt(Ops[1]);
     return Builder.CreateMemSet(Ops[0], Ops[1], Ops[2], Align(1), true);
   }
   case X86::BI__ud2:
@@ -3223,6 +3273,8 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__builtin_ia32_vfmaddcsh_round_mask: {
     Intrinsic::ID IID = IsConjFMA ? Intrinsic::x86_avx512fp16_mask_vfcmadd_csh
                                   : Intrinsic::x86_avx512fp16_mask_vfmadd_csh;
+    if (Ops[3]->getType()->isByteTy())
+      Ops[3] = Builder.CreateByteCastToInt(Ops[3]);
     Value *Call = Builder.CreateCall(CGM.getIntrinsic(IID), Ops);
     Value *And = Builder.CreateAnd(Ops[3], llvm::ConstantInt::get(Int8Ty, 1));
     return EmitX86Select(*this, And, Call, Ops[0]);
@@ -3233,6 +3285,8 @@ Value *CodeGenFunction::EmitX86BuiltinExpr(unsigned BuiltinID,
   case X86::BI__builtin_ia32_vfmaddcsh_round_mask3: {
     Intrinsic::ID IID = IsConjFMA ? Intrinsic::x86_avx512fp16_mask_vfcmadd_csh
                                   : Intrinsic::x86_avx512fp16_mask_vfmadd_csh;
+    if (Ops[3]->getType()->isByteTy())
+      Ops[3] = Builder.CreateByteCastToInt(Ops[3]);
     Value *Call = Builder.CreateCall(CGM.getIntrinsic(IID), Ops);
     static constexpr int Mask[] = {0, 5, 6, 7};
     return Builder.CreateShuffleVector(Call, Ops[2], Mask);
