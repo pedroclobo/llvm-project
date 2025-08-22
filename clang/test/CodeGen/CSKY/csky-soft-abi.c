@@ -8,7 +8,7 @@
 // Doubles are passed in FPRs, so argument 'i' will be passed zero-extended
 // because it will be passed in a GPR.
 
-// CHECK: define{{.*}} void @f_fpr_tracking(double noundef %a, double noundef %b, double noundef %c, double noundef %d, i8 noundef zeroext %i)
+// CHECK: define{{.*}} void @f_fpr_tracking(double noundef %a, double noundef %b, double noundef %c, double noundef %d, b8 noundef zeroext %i)
 void f_fpr_tracking(double a, double b, double c, double d, uint8_t i) {}
 
 // A struct containing just one floating-point real is passed as though it
@@ -377,7 +377,7 @@ struct large {
 // the presence of large return values that consume a register due to the need
 // to pass a pointer.
 
-// CHECK-LABEL: define{{.*}} void @f_scalar_stack_2(ptr dead_on_unwind noalias writable sret(%struct.large) align 4 %agg.result, float noundef %a, i64 noundef %b, double noundef %c, double noundef %d, i8 noundef zeroext %e, i8 noundef signext %f, i8 noundef zeroext %g)
+// CHECK-LABEL: define{{.*}} void @f_scalar_stack_2(ptr dead_on_unwind noalias writable sret(%struct.large) align 4 %agg.result, float noundef %a, i64 noundef %b, double noundef %c, double noundef %d, b8 noundef zeroext %e, b8 noundef signext %f, b8 noundef zeroext %g)
 struct large f_scalar_stack_2(float a, int64_t b, double c, long double d,
                               uint8_t e, int8_t f, uint8_t g) {
   return (struct large){a, e, f, g};

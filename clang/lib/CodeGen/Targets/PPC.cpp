@@ -472,6 +472,8 @@ RValue PPC32_SVR4_ABIInfo::EmitVAArg(CodeGenFunction &CGF, Address VAList,
   }
 
   llvm::Value *NumRegs = Builder.CreateLoad(NumRegsAddr, "numUsedRegs");
+  if (NumRegs->getType()->isByteTy())
+    NumRegs = Builder.CreateExactByteCastToInt(NumRegs, "conv");
 
   // "Align" the register count when TY is i64.
   if (isI64 || (isF64 && IsSoftFloatABI)) {

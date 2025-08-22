@@ -647,7 +647,7 @@ namespace test24 {
 
   static char bar() { return 0; }
   void test1() {
-    // CHECK: call noundef signext i8 @_ZN6test24L3barEv()
+    // CHECK: call noundef signext b8 @_ZN6test24L3barEv()
     bar();
   }
 }

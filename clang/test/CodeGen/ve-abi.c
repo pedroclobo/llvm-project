@@ -10,12 +10,12 @@
 
 // RUN: %clang_cc1 -triple ve-linux-gnu -emit-llvm -Wno-strict-prototypes %s -o - | FileCheck %s
 
-// CHECK-LABEL: define{{.*}} signext i8 @fun_si8(i8 noundef signext %a, i8 noundef signext %b) #0 {
+// CHECK-LABEL: define{{.*}} signext b8 @fun_si8(b8 noundef signext %a, b8 noundef signext %b) #0 {
 char fun_si8(char a, char b) {
   return a;
 }
 
-// CHECK-LABEL: define{{.*}} zeroext i8 @fun_zi8(i8 noundef zeroext %a, i8 noundef zeroext %b) #0 {
+// CHECK-LABEL: define{{.*}} zeroext b8 @fun_zi8(b8 noundef zeroext %a, b8 noundef zeroext %b) #0 {
 unsigned char fun_zi8(unsigned char a, unsigned char b) {
   return a;
 }

@@ -76,7 +76,7 @@ int test_load_T(void) {
 void test_mI(unsigned char *c) {
   asm volatile("cli %0, %1" :: "Q" (*c), "I" (100));
 // CHECK-LABEL: define{{.*}} void @test_mI(ptr noundef %c)
-// CHECK: call void asm sideeffect "cli $0, $1", "*Q,I"(ptr elementtype(i8) %c, i32 100)
+// CHECK: call void asm sideeffect "cli $0, $1", "*Q,I"(ptr elementtype(b8) %c, i32 100)
 }
 
 unsigned int test_dJa(unsigned int i, unsigned int j) {

@@ -49,16 +49,16 @@ vector pixel p1;
 void test_vector_bool_pixel_init(void) {
   // vector bool char initialization
   vbi8_1 = (vector bool char)('a');
-  // MIXED: <i8 97, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0, i8 0>
-  // XL: splat (i8 97)
+  // MIXED: <b8 97, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0, b8 0>
+  // XL: splat (b8 97)
   // GCC: error: invalid conversion between vector type '__vector __bool unsigned char' (vector of 16 'unsigned char' values) and integer type 'unsigned char' of different size
   char c = 'c';
   vbi8_2 = (vector bool char)(c);
-  // MIXED: [[INS:%.*]] = insertelement <16 x i8>
-  // MIXED: store <16 x i8> [[INS:%.*]]
-  // XL: [[INS_ELT:%.*]] = insertelement <16 x i8>
-  // XL: [[SHUFF:%.*]] = shufflevector <16 x i8> [[INS_ELT]], <16 x i8> poison, <16 x i32> zeroinitializer
-  // XL: store <16 x i8> [[SHUFF]]
+  // MIXED: [[INS:%.*]] = insertelement <16 x b8>
+  // MIXED: store <16 x b8> [[INS:%.*]]
+  // XL: [[INS_ELT:%.*]] = insertelement <16 x b8>
+  // XL: [[SHUFF:%.*]] = shufflevector <16 x b8> [[INS_ELT]], <16 x b8> poison, <16 x i32> zeroinitializer
+  // XL: store <16 x b8> [[SHUFF]]
   // GCC: error: invalid conversion between vector type '__vector __bool unsigned char' (vector of 16 'unsigned char' values) and integer type 'unsigned char' of different size
 
   // vector bool short initialization

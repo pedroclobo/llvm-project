@@ -16,13 +16,13 @@
 
 // CHECK-LABEL: @test_svget_neonq_s8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.vector.extract.v16i8.nxv16i8(<vscale x 16 x i8> [[N:%.*]], i64 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x b8> @llvm.vector.extract.v16b8.nxv16b8(<vscale x 16 x b8> [[N:%.*]], i64 0)
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svget_neonq_s8u10__SVInt8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.vector.extract.v16i8.nxv16i8(<vscale x 16 x i8> [[N:%.*]], i64 0)
-// CPP-CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x b8> @llvm.vector.extract.v16b8.nxv16b8(<vscale x 16 x b8> [[N:%.*]], i64 0)
+// CPP-CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 int8x16_t test_svget_neonq_s8(svint8_t n) {
   return SVE_ACLE_FUNC(svget_neonq, _s8, , )(n);
@@ -73,13 +73,13 @@ int64x2_t test_svget_neonq_s64(svint64_t n) {
 //
 // CHECK-LABEL: @test_svget_neonq_u8(
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.vector.extract.v16i8.nxv16i8(<vscale x 16 x i8> [[N:%.*]], i64 0)
-// CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x b8> @llvm.vector.extract.v16b8.nxv16b8(<vscale x 16 x b8> [[N:%.*]], i64 0)
+// CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 // CPP-CHECK-LABEL: @_Z19test_svget_neonq_u8u11__SVUint8_t(
 // CPP-CHECK-NEXT:  entry:
-// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x i8> @llvm.vector.extract.v16i8.nxv16i8(<vscale x 16 x i8> [[N:%.*]], i64 0)
-// CPP-CHECK-NEXT:    ret <16 x i8> [[TMP0]]
+// CPP-CHECK-NEXT:    [[TMP0:%.*]] = tail call <16 x b8> @llvm.vector.extract.v16b8.nxv16b8(<vscale x 16 x b8> [[N:%.*]], i64 0)
+// CPP-CHECK-NEXT:    ret <16 x b8> [[TMP0]]
 //
 uint8x16_t test_svget_neonq_u8(svuint8_t n) {
   return SVE_ACLE_FUNC(svget_neonq, _u8, , )(n);

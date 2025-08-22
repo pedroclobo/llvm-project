@@ -12,7 +12,7 @@ const float *p_f = &var_float;
 
 /*
 CHECK: @var_int = internal constant i32 1{{.*}}
-CHECK: @var_char = internal constant i8 97{{.*}}
+CHECK: @var_char = internal constant b8 97{{.*}}
 CHECK: @var_float = internal constant float 2.5{{.*}}
 */
 

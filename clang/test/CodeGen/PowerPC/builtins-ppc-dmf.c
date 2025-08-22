@@ -8,8 +8,9 @@
 // CHECK-LABEL: @test_dmxvi8gerx4(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load <256 x i1>, ptr [[VPP:%.*]], align 32, !tbaa [[TBAA2:![0-9]+]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.dmxvi8gerx4(<256 x i1> [[TMP0]], <16 x i8> [[VC:%.*]])
-// CHECK-NEXT:    store <1024 x i1> [[TMP1]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6:![0-9]+]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[VC:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.dmxvi8gerx4(<256 x i1> [[TMP0]], <16 x i8> [[TMP1]])
+// CHECK-NEXT:    store <1024 x i1> [[TMP2]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6:![0-9]+]]
 // CHECK-NEXT:    ret void
 //
 void test_dmxvi8gerx4(unsigned char *vdmrp, unsigned char *vpp, vector unsigned char vc, unsigned char *resp) {
@@ -22,8 +23,9 @@ void test_dmxvi8gerx4(unsigned char *vdmrp, unsigned char *vpp, vector unsigned 
 // CHECK-LABEL: @test_pmdmxvi8gerx4(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load <256 x i1>, ptr [[VPP:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP1:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.pmdmxvi8gerx4(<256 x i1> [[TMP0]], <16 x i8> [[VC:%.*]], i32 0, i32 0, i32 0)
-// CHECK-NEXT:    store <1024 x i1> [[TMP1]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
+// CHECK-NEXT:    [[TMP1:%.*]] = bytecast exact <16 x b8> [[VC:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP2:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.pmdmxvi8gerx4(<256 x i1> [[TMP0]], <16 x i8> [[TMP1]], i32 0, i32 0, i32 0)
+// CHECK-NEXT:    store <1024 x i1> [[TMP2]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    ret void
 //
 void test_pmdmxvi8gerx4(unsigned char *vdmrp, unsigned char *vpp, vector unsigned char vc, unsigned char *resp) {
@@ -37,8 +39,9 @@ void test_pmdmxvi8gerx4(unsigned char *vdmrp, unsigned char *vpp, vector unsigne
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load <1024 x i1>, ptr [[VDMRP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    [[TMP1:%.*]] = load <256 x i1>, ptr [[VPP:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.dmxvi8gerx4pp(<1024 x i1> [[TMP0]], <256 x i1> [[TMP1]], <16 x i8> [[VC:%.*]])
-// CHECK-NEXT:    store <1024 x i1> [[TMP2]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[VC:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.dmxvi8gerx4pp(<1024 x i1> [[TMP0]], <256 x i1> [[TMP1]], <16 x i8> [[TMP2]])
+// CHECK-NEXT:    store <1024 x i1> [[TMP3]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    ret void
 //
 void test_dmxvi8gerx4pp(unsigned char *vdmrp, unsigned char *vpp, vector unsigned char vc, unsigned char *resp) {
@@ -52,8 +55,9 @@ void test_dmxvi8gerx4pp(unsigned char *vdmrp, unsigned char *vpp, vector unsigne
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load <1024 x i1>, ptr [[VDMRP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    [[TMP1:%.*]] = load <256 x i1>, ptr [[VPP:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.pmdmxvi8gerx4pp(<1024 x i1> [[TMP0]], <256 x i1> [[TMP1]], <16 x i8> [[VC:%.*]], i32 0, i32 0, i32 0)
-// CHECK-NEXT:    store <1024 x i1> [[TMP2]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[VC:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.pmdmxvi8gerx4pp(<1024 x i1> [[TMP0]], <256 x i1> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 0, i32 0)
+// CHECK-NEXT:    store <1024 x i1> [[TMP3]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    ret void
 //
 void test_pmdmxvi8gerx4pp(unsigned char *vdmrp, unsigned char *vpp, vector unsigned char vc, unsigned char *resp) {
@@ -67,8 +71,9 @@ void test_pmdmxvi8gerx4pp(unsigned char *vdmrp, unsigned char *vpp, vector unsig
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load <1024 x i1>, ptr [[VDMRP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    [[TMP1:%.*]] = load <256 x i1>, ptr [[VPP:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.dmxvi8gerx4spp(<1024 x i1> [[TMP0]], <256 x i1> [[TMP1]], <16 x i8> [[VC:%.*]])
-// CHECK-NEXT:    store <1024 x i1> [[TMP2]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[VC:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.dmxvi8gerx4spp(<1024 x i1> [[TMP0]], <256 x i1> [[TMP1]], <16 x i8> [[TMP2]])
+// CHECK-NEXT:    store <1024 x i1> [[TMP3]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    ret void
 //
 void test_dmxvi8gerx4spp(unsigned char *vdmrp, unsigned char *vpp, vector unsigned char vc, unsigned char *resp) {
@@ -82,8 +87,9 @@ void test_dmxvi8gerx4spp(unsigned char *vdmrp, unsigned char *vpp, vector unsign
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = load <1024 x i1>, ptr [[VDMRP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    [[TMP1:%.*]] = load <256 x i1>, ptr [[VPP:%.*]], align 32, !tbaa [[TBAA2]]
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.pmdmxvi8gerx4spp(<1024 x i1> [[TMP0]], <256 x i1> [[TMP1]], <16 x i8> [[VC:%.*]], i32 0, i32 0, i32 0)
-// CHECK-NEXT:    store <1024 x i1> [[TMP2]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
+// CHECK-NEXT:    [[TMP2:%.*]] = bytecast exact <16 x b8> [[VC:%.*]] to <16 x i8>
+// CHECK-NEXT:    [[TMP3:%.*]] = tail call <1024 x i1> @llvm.ppc.mma.pmdmxvi8gerx4spp(<1024 x i1> [[TMP0]], <256 x i1> [[TMP1]], <16 x i8> [[TMP2]], i32 0, i32 0, i32 0)
+// CHECK-NEXT:    store <1024 x i1> [[TMP3]], ptr [[RESP:%.*]], align 128, !tbaa [[TBAA6]]
 // CHECK-NEXT:    ret void
 //
 void test_pmdmxvi8gerx4spp(unsigned char *vdmrp, unsigned char *vpp, vector unsigned char vc, unsigned char *resp) {

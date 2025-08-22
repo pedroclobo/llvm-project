@@ -5,10 +5,13 @@
 unsigned char test_addcb(unsigned char x, unsigned char y,
                          unsigned char carryin, unsigned char *z) {
   // CHECK: @test_addcb
-  // CHECK: %{{.+}} = {{.*}} call { i8, i1 } @llvm.uadd.with.overflow.i8(i8 %x, i8 %y)
+  // CHECK: %{{.+}} = bytecast exact b8 %x to i8
+  // CHECK: %{{.+}} = bytecast exact b8 %y to i8
+  // CHECK: %{{.+}} = {{.*}} call { i8, i1 } @llvm.uadd.with.overflow.i8(i8 %{{.+}}, i8 %{{.+}})
   // CHECK: %{{.+}} = extractvalue { i8, i1 } %{{.+}}, 1
   // CHECK: %{{.+}} = extractvalue { i8, i1 } %{{.+}}, 0
-  // CHECK: %{{.+}} = {{.*}} call { i8, i1 } @llvm.uadd.with.overflow.i8(i8 %{{.+}}, i8 %carryin)
+  // CHECK: %{{.+}} = bytecast exact b8 %carryin to i8
+  // CHECK: %{{.+}} = {{.*}} call { i8, i1 } @llvm.uadd.with.overflow.i8(i8 %{{.+}}, i8 %{{.+}})
   // CHECK: %{{.+}} = extractvalue { i8, i1 } %{{.+}}, 1
   // CHECK: %{{.+}} = extractvalue { i8, i1 } %{{.+}}, 0
   // CHECK: %{{.+}} = or i1 %{{.+}}, %{{.+}}
@@ -98,10 +101,13 @@ unsigned long long test_addcll(unsigned long long x, unsigned long long y,
 unsigned char test_subcb(unsigned char x, unsigned char y,
                          unsigned char carryin, unsigned char *z) {
   // CHECK: @test_subcb
-  // CHECK: %{{.+}} = {{.*}} call { i8, i1 } @llvm.usub.with.overflow.i8(i8 %x, i8 %y)
+  // CHECK: %{{.+}} = bytecast exact b8 %x to i8
+  // CHECK: %{{.+}} = bytecast exact b8 %y to i8
+  // CHECK: %{{.+}} = {{.*}} call { i8, i1 } @llvm.usub.with.overflow.i8(i8 %{{.+}}, i8 %{{.+}})
   // CHECK: %{{.+}} = extractvalue { i8, i1 } %{{.+}}, 1
   // CHECK: %{{.+}} = extractvalue { i8, i1 } %{{.+}}, 0
-  // CHECK: %{{.+}} = {{.*}} call { i8, i1 } @llvm.usub.with.overflow.i8(i8 %{{.+}}, i8 %carryin)
+  // CHECK: %{{.+}} = bytecast exact b8 %carryin to i8
+  // CHECK: %{{.+}} = {{.*}} call { i8, i1 } @llvm.usub.with.overflow.i8(i8 %{{.+}}, i8 %{{.+}})
   // CHECK: %{{.+}} = extractvalue { i8, i1 } %{{.+}}, 1
   // CHECK: %{{.+}} = extractvalue { i8, i1 } %{{.+}}, 0
   // CHECK: %{{.+}} = or i1 %{{.+}}, %{{.+}}

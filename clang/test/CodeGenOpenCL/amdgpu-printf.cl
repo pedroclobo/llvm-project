@@ -25,7 +25,7 @@ __kernel void test_printf_str_int(int i) {
 // CHECK-LABEL: define dso_local void @__clang_ocl_kern_imp_test_printf_noargs(
 // CHECK-SAME: ) #[[ATTR1:[0-9]+]] !kernel_arg_addr_space [[META4]] !kernel_arg_access_qual [[META4]] !kernel_arg_type [[META4]] !kernel_arg_base_type [[META4]] !kernel_arg_type_qual [[META4]] {
 // CHECK-NEXT:  entry:
-// CHECK-NEXT:    [[CALL:%.*]] = call i32 (ptr addrspace(4), ...) @printf(ptr addrspace(4) noundef @.str) #[[ATTR6:[0-9]+]]
+// CHECK-NEXT:    [[CALL:%.*]] = call i32 (ptr addrspace(4), ...) @printf(ptr addrspace(4) noundef @.str) #[[ATTR5]]
 // CHECK-NEXT:    ret void
 //
 //
@@ -45,7 +45,7 @@ __kernel void test_printf_str_int(int i) {
 // CHECK-NEXT:    [[I_ADDR:%.*]] = alloca i32, align 4, addrspace(5)
 // CHECK-NEXT:    store i32 [[I]], ptr addrspace(5) [[I_ADDR]], align 4, !tbaa [[TBAA9]]
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr addrspace(5) [[I_ADDR]], align 4, !tbaa [[TBAA9]]
-// CHECK-NEXT:    [[CALL:%.*]] = call i32 (ptr addrspace(4), ...) @printf(ptr addrspace(4) noundef @.str.1, i32 noundef [[TMP0]]) #[[ATTR6]]
+// CHECK-NEXT:    [[CALL:%.*]] = call i32 (ptr addrspace(4), ...) @printf(ptr addrspace(4) noundef @.str.1, i32 noundef [[TMP0]]) #[[ATTR5]]
 // CHECK-NEXT:    ret void
 //
 //
@@ -63,11 +63,11 @@ __kernel void test_printf_str_int(int i) {
 // CHECK-SAME: i32 noundef [[I:%.*]]) #[[ATTR1]] !kernel_arg_addr_space [[META5]] !kernel_arg_access_qual [[META6]] !kernel_arg_type [[META7]] !kernel_arg_base_type [[META7]] !kernel_arg_type_qual [[META8]] {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[I_ADDR:%.*]] = alloca i32, align 4, addrspace(5)
-// CHECK-NEXT:    [[S:%.*]] = alloca [4 x i8], align 1, addrspace(5)
+// CHECK-NEXT:    [[S:%.*]] = alloca [4 x b8], align 1, addrspace(5)
 // CHECK-NEXT:    store i32 [[I]], ptr addrspace(5) [[I_ADDR]], align 4, !tbaa [[TBAA9]]
 // CHECK-NEXT:    call void @llvm.lifetime.start.p5(ptr addrspace(5) [[S]]) #[[ATTR7:[0-9]+]]
 // CHECK-NEXT:    call void @llvm.memcpy.p5.p4.i64(ptr addrspace(5) align 1 [[S]], ptr addrspace(4) align 1 @__const.test_printf_str_int.s, i64 4, i1 false)
-// CHECK-NEXT:    [[ARRAYDECAY:%.*]] = getelementptr inbounds [4 x i8], ptr addrspace(5) [[S]], i64 0, i64 0
+// CHECK-NEXT:    [[ARRAYDECAY:%.*]] = getelementptr inbounds [4 x b8], ptr addrspace(5) [[S]], i64 0, i64 0
 // CHECK-NEXT:    [[TMP0:%.*]] = load i32, ptr addrspace(5) [[I_ADDR]], align 4, !tbaa [[TBAA9]]
 // CHECK-NEXT:    [[CALL:%.*]] = call i32 (ptr addrspace(4), ...) @printf(ptr addrspace(4) noundef @.str.2, ptr addrspace(5) noundef [[ARRAYDECAY]], i32 noundef [[TMP0]]) #[[ATTR6]]
 // CHECK-NEXT:    call void @llvm.lifetime.end.p5(ptr addrspace(5) [[S]]) #[[ATTR7]]

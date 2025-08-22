@@ -72,7 +72,7 @@ int t8(void) {
   __asm { int 5}
   __asm int 6
   __asm int 7
-  __asm { 
+  __asm {
     int 8
   }
   return 10;
@@ -152,7 +152,7 @@ void t13(void) {
 // CHECK: call void asm sideeffect inteldialect
 // CHECK-SAME: movzx eax, byte ptr $0
 // CHECK-SAME: movzx eax, word ptr $1
-// CHECK-SAME: "*m,*m,~{eax},~{dirflag},~{fpsr},~{flags}"(ptr elementtype(i8) %{{.*}}i, ptr elementtype(i16) %{{.*}}j)
+// CHECK-SAME: "*m,*m,~{eax},~{dirflag},~{fpsr},~{flags}"(ptr elementtype(b8) %{{.*}}i, ptr elementtype(i16) %{{.*}}j)
 }
 
 void t13_brac(void) {
@@ -164,7 +164,7 @@ void t13_brac(void) {
 // CHECK: call void asm sideeffect inteldialect
 // CHECK-SAME: movzx eax, byte ptr $0
 // CHECK-SAME: movzx eax, word ptr $1
-// CHECK-SAME: "*m,*m,~{eax},~{dirflag},~{fpsr},~{flags}"(ptr elementtype(i8) %{{.*}}i, ptr elementtype(i16) %{{.*}}j)
+// CHECK-SAME: "*m,*m,~{eax},~{dirflag},~{fpsr},~{flags}"(ptr elementtype(b8) %{{.*}}i, ptr elementtype(i16) %{{.*}}j)
 }
 
 void t14(void) {

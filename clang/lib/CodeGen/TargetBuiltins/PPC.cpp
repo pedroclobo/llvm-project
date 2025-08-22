@@ -240,7 +240,10 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
   case PPC::BI__builtin_vsx_lxvll:
   {
     SmallVector<Value *, 2> Ops;
-    Ops.push_back(EmitScalarExpr(E->getArg(0)));
+    Value *Op0 = EmitScalarExpr(E->getArg(0));
+    if (Op0->getType()->isByteOrByteVectorTy())
+      Op0 = Builder.CreateExactByteCastToInt(Op0);
+    Ops.push_back(Op0);
     Ops.push_back(EmitScalarExpr(E->getArg(1)));
     if (!(BuiltinID == PPC::BI__builtin_vsx_lxvl ||
           BuiltinID == PPC::BI__builtin_vsx_lxvll)) {
@@ -308,7 +311,10 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
   case PPC::BI__builtin_vsx_stxvll:
   {
     SmallVector<Value *, 3> Ops;
-    Ops.push_back(EmitScalarExpr(E->getArg(0)));
+    Value *Op0 = EmitScalarExpr(E->getArg(0));
+    if (Op0->getType()->isByteOrByteVectorTy())
+      Op0 = Builder.CreateExactByteCastToInt(Op0);
+    Ops.push_back(Op0);
     Ops.push_back(EmitScalarExpr(E->getArg(1)));
     Ops.push_back(EmitScalarExpr(E->getArg(2)));
     if (!(BuiltinID == PPC::BI__builtin_vsx_stxvl ||
@@ -454,7 +460,10 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
         NumElts = 16;
         break;
       }
-      Value *Vec = Builder.CreateBitCast(
+      Value *Vec = Op2->getType()->isByteOrByteVectorTy()
+        ? Builder.CreateExactByteCast(
+          Op2, llvm::FixedVectorType::get(ConvTy, NumElts))
+        : Builder.CreateBitCast(
           Op2, llvm::FixedVectorType::get(ConvTy, NumElts));
       Value *Ptr =
           Builder.CreateGEP(Int8Ty, Op0, ConstantInt::get(Int64Ty, Offset));
@@ -513,7 +522,11 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
   case PPC::BI__builtin_altivec_vclzw:
   case PPC::BI__builtin_altivec_vclzd: {
     llvm::Type *ResultType = ConvertType(E->getType());
+    if (ResultType->isByteOrByteVectorTy())
+      ResultType = CGM.getDataLayout().getIntByteType(ResultType);
     Value *X = EmitScalarExpr(E->getArg(0));
+    if (X->getType()->isByteOrByteVectorTy())
+      X = Builder.CreateExactByteCastToInt(X);
     Value *Undef = ConstantInt::get(Builder.getInt1Ty(), false);
     Function *F = CGM.getIntrinsic(Intrinsic::ctlz, ResultType);
     return Builder.CreateCall(F, {X, Undef});
@@ -523,7 +536,11 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
   case PPC::BI__builtin_altivec_vctzw:
   case PPC::BI__builtin_altivec_vctzd: {
     llvm::Type *ResultType = ConvertType(E->getType());
+    if (ResultType->isByteOrByteVectorTy())
+      ResultType = CGM.getDataLayout().getIntByteType(ResultType);
     Value *X = EmitScalarExpr(E->getArg(0));
+    if (X->getType()->isByteOrByteVectorTy())
+      X = Builder.CreateExactByteCastToInt(X);
     Value *Undef = ConstantInt::get(Builder.getInt1Ty(), false);
     Function *F = CGM.getIntrinsic(Intrinsic::cttz, ResultType);
     return Builder.CreateCall(F, {X, Undef});
@@ -580,21 +597,36 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
     ID = Is32bit ? Intrinsic::ppc_altivec_vinsw : Intrinsic::ppc_altivec_vinsd;
     Op2 = ConstantInt::getSigned(Int32Ty, ConstArg);
     // Casting input to vector int as per intrinsic definition.
-    Op0 =
-        Is32bit
-            ? Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int32Ty, 4))
-            : Builder.CreateBitCast(Op0,
-                                    llvm::FixedVectorType::get(Int64Ty, 2));
-    return Builder.CreateBitCast(
-        Builder.CreateCall(CGM.getIntrinsic(ID), {Op0, Op1, Op2}), ResultType);
+    if (Is32bit) {
+      Op0 = Op0->getType()->isByteOrByteVectorTy()
+        ? Builder.CreateExactByteCast(Op0,
+                                      llvm::FixedVectorType::get(Int32Ty, 4))
+        : Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int32Ty, 4));
+    } else {
+      Op0 = Op0->getType()->isByteOrByteVectorTy()
+        ? Builder.CreateExactByteCast(Op0,
+                                      llvm::FixedVectorType::get(Int64Ty, 2))
+        : Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int64Ty, 2));
+    }
+
+    Value *Call = Builder.CreateCall(CGM.getIntrinsic(ID), {Op0, Op1, Op2});
+    return Call->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Call, ResultType)
+      : Builder.CreateBitCast(Call, ResultType);
   }
   case PPC::BI__builtin_altivec_vadduqm:
   case PPC::BI__builtin_altivec_vsubuqm: {
     Value *Op0 = EmitScalarExpr(E->getArg(0));
     Value *Op1 = EmitScalarExpr(E->getArg(1));
     llvm::Type *Int128Ty = llvm::IntegerType::get(getLLVMContext(), 128);
-    Op0 = Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int128Ty, 1));
-    Op1 = Builder.CreateBitCast(Op1, llvm::FixedVectorType::get(Int128Ty, 1));
+    Op0 = Op0->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Op0,
+                                    llvm::FixedVectorType::get(Int128Ty, 1))
+      : Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int128Ty, 1));
+    Op1 = Op1->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Op1,
+                                    llvm::FixedVectorType::get(Int128Ty, 1))
+      : Builder.CreateBitCast(Op1, llvm::FixedVectorType::get(Int128Ty, 1));
     if (BuiltinID == PPC::BI__builtin_altivec_vadduqm)
       return Builder.CreateAdd(Op0, Op1, "vadduqm");
     else
@@ -607,8 +639,12 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
     Value *Op1 = EmitScalarExpr(E->getArg(1));
     llvm::Type *V1I128Ty = llvm::FixedVectorType::get(
         llvm::IntegerType::get(getLLVMContext(), 128), 1);
-    Ops.push_back(Builder.CreateBitCast(Op0, V1I128Ty));
-    Ops.push_back(Builder.CreateBitCast(Op1, V1I128Ty));
+    Ops.push_back(Op0->getType()->isByteOrByteVectorTy()
+                     ? Builder.CreateExactByteCast(Op0, V1I128Ty)
+                     : Builder.CreateBitCast(Op0, V1I128Ty));
+    Ops.push_back(Op1->getType()->isByteOrByteVectorTy()
+                     ? Builder.CreateExactByteCast(Op1, V1I128Ty)
+                     : Builder.CreateBitCast(Op1, V1I128Ty));
     ID = (BuiltinID == PPC::BI__builtin_altivec_vaddcuq_c)
              ? Intrinsic::ppc_altivec_vaddcuq
              : Intrinsic::ppc_altivec_vsubcuq;
@@ -624,9 +660,15 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
     Value *Op2 = EmitScalarExpr(E->getArg(2));
     llvm::Type *V1I128Ty = llvm::FixedVectorType::get(
         llvm::IntegerType::get(getLLVMContext(), 128), 1);
-    Ops.push_back(Builder.CreateBitCast(Op0, V1I128Ty));
-    Ops.push_back(Builder.CreateBitCast(Op1, V1I128Ty));
-    Ops.push_back(Builder.CreateBitCast(Op2, V1I128Ty));
+    Ops.push_back(Op0->getType()->isByteOrByteVectorTy()
+                     ? Builder.CreateExactByteCast(Op0, V1I128Ty)
+                     : Builder.CreateBitCast(Op0, V1I128Ty));
+    Ops.push_back(Op1->getType()->isByteOrByteVectorTy()
+                     ? Builder.CreateExactByteCast(Op1, V1I128Ty)
+                     : Builder.CreateBitCast(Op1, V1I128Ty));
+    Ops.push_back(Op2->getType()->isByteOrByteVectorTy()
+                     ? Builder.CreateExactByteCast(Op2, V1I128Ty)
+                     : Builder.CreateBitCast(Op2, V1I128Ty));
     switch (BuiltinID) {
     default:
       llvm_unreachable("Unsupported intrinsic!");
@@ -925,7 +967,10 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
 
     if (getTarget().isLittleEndian()) {
       // Reverse the double words in the vector we will extract from.
-      Op0 = Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int64Ty, 2));
+      Op0 = Op0->getType()->isByteOrByteVectorTy()
+        ? Builder.CreateExactByteCast(Op0,
+                                      llvm::FixedVectorType::get(Int64Ty, 2))
+        : Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int64Ty, 2));
       Op0 = Builder.CreateShuffleVector(Op0, Op0, {1, 0});
 
       // Reverse the index.
@@ -933,7 +978,10 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
     }
 
     // Intrinsic expects the first arg to be a vector of int.
-    Op0 = Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int32Ty, 4));
+    Op0 = Op0->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Op0,
+                                    llvm::FixedVectorType::get(Int32Ty, 4))
+      : Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int32Ty, 4));
     Op2 = ConstantInt::getSigned(Int32Ty, Index);
     return Builder.CreateCall(F, {Op0, Op1, Op2});
   }
@@ -944,7 +992,10 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
     llvm::Function *F = CGM.getIntrinsic(Intrinsic::ppc_vsx_xxextractuw);
 
     // Intrinsic expects the first argument to be a vector of doublewords.
-    Op0 = Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int64Ty, 2));
+    Op0 = Op0->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Op0,
+                                    llvm::FixedVectorType::get(Int64Ty, 2))
+      : Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int64Ty, 2));
 
     // The second argument is a compile time constant int that needs to
     // be clamped to the range [0, 12].
@@ -979,8 +1030,14 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
     assert(ArgCI && "Third arg must be constant integer!");
 
     unsigned Index = ArgCI->getZExtValue();
-    Op0 = Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int64Ty, 2));
-    Op1 = Builder.CreateBitCast(Op1, llvm::FixedVectorType::get(Int64Ty, 2));
+    Op0 = Op0->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Op0,
+                                    llvm::FixedVectorType::get(Int64Ty, 2))
+      : Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int64Ty, 2));
+    Op1 = Op1->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Op1,
+                                    llvm::FixedVectorType::get(Int64Ty, 2))
+      : Builder.CreateBitCast(Op1, llvm::FixedVectorType::get(Int64Ty, 2));
 
     // Account for endianness by treating this as just a shuffle. So we use the
     // same indices for both LE and BE in order to produce expected results in
@@ -1002,8 +1059,14 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
     ConstantInt *ArgCI = dyn_cast<ConstantInt>(Op2);
     assert(ArgCI && "Third argument must be a compile time constant");
     unsigned Index = ArgCI->getZExtValue() & 0x3;
-    Op0 = Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int32Ty, 4));
-    Op1 = Builder.CreateBitCast(Op1, llvm::FixedVectorType::get(Int32Ty, 4));
+    Op0 = Op0->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Op0,
+                                    llvm::FixedVectorType::get(Int32Ty, 4))
+      : Builder.CreateBitCast(Op0, llvm::FixedVectorType::get(Int32Ty, 4));
+    Op1 = Op1->getType()->isByteOrByteVectorTy()
+      ? Builder.CreateExactByteCast(Op1,
+                                    llvm::FixedVectorType::get(Int32Ty, 4))
+      : Builder.CreateBitCast(Op1, llvm::FixedVectorType::get(Int32Ty, 4));
 
     // Create a shuffle mask
     int ElemIdx0;
@@ -1159,8 +1222,11 @@ Value *CodeGenFunction::EmitPPCBuiltinExpr(unsigned BuiltinID,
     }
     if (BuiltinID == PPC::BI__builtin_mma_disassemble_dmr)
       return Builder.CreateAlignedStore(Ops[1], Ops[0], MaybeAlign());
-    for (unsigned i=1; i<Ops.size(); i++)
+    for (unsigned i=1; i<Ops.size(); i++) {
+      if (Ops[i]->getType()->isByteOrByteVectorTy())
+        Ops[i] = Builder.CreateExactByteCastToInt(Ops[i]);
       CallOps.push_back(Ops[i]);
+    }
     llvm::Function *F = CGM.getIntrinsic(ID);
     Value *Call = Builder.CreateCall(F, CallOps);
     return Builder.CreateAlignedStore(Call, Ops[0], MaybeAlign());

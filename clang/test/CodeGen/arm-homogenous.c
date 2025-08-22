@@ -210,7 +210,7 @@ void test_struct_of_vecs(void) {
 // CHECK: test_struct_of_vecs
 // CHECK: call arm_aapcs_vfpcc void @takes_struct_of_vecs(double {{.*}}, %struct.struct_of_vecs {{.*}}, %struct.struct_of_vecs {{.*}}, double {{.*}})
 // CHECK64: test_struct_of_vecs
-// CHECK64: call void @takes_struct_of_vecs(double {{.*}}, [4 x <8 x i8>] {{.*}}, [4 x <8 x i8>] {{.*}}, double {{.*}})
+// CHECK64: call void @takes_struct_of_vecs(double {{.*}}, [4 x <8 x b8>] {{.*}}, [4 x <8 x b8>] {{.*}}, double {{.*}})
   takes_struct_of_vecs(3.0, g_vec, g_vec, 4.0);
 }
 

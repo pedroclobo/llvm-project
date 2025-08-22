@@ -17,6 +17,6 @@ long b;
 };
 
 void f(struct s a, char *b, signed char C) {
-  // CHECK: i8 signext
+  // CHECK: b8 signext
 
 }
