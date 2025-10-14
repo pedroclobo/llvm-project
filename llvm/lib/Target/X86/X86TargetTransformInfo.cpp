@@ -5063,7 +5063,7 @@ InstructionCost X86TTIImpl::getScalarizationOverhead(
       // integer element as a SCALAR_TO_VECTOR, then we build the vector as a
       // series of UNPCK followed by CONCAT_VECTORS - all of these can be
       // considered cheap.
-      if (Ty->isIntOrIntVectorTy())
+      if (Ty->isIntOrIntVectorTy() || Ty->isByteOrByteVectorTy())
         Cost += DemandedElts.popcount();
 
       // Get the smaller of the legalized or original pow2-extended number of
