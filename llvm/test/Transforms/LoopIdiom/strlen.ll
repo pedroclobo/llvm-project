@@ -48,6 +48,44 @@ while.end:
   ret i64 %sub.ptr.sub
 }
 
+define i64 @valid_basic_strlen_byte(ptr %str) {
+; CHECK-LABEL: define i64 @valid_basic_strlen_byte(
+; CHECK-SAME: ptr [[STR:%.*]]) {
+; CHECK-NEXT:  [[ENTRY:.*]]:
+; CHECK-NEXT:    [[STRLEN:%.*]] = call i64 @strlen(ptr [[STR]])
+; CHECK-NEXT:    [[SCEVGEP:%.*]] = getelementptr i8, ptr [[STR]], i64 [[STRLEN]]
+; CHECK-NEXT:    br label %[[WHILE_COND:.*]]
+; CHECK:       [[WHILE_COND]]:
+; CHECK-NEXT:    [[STR_ADDR_0:%.*]] = phi ptr [ [[STR]], %[[ENTRY]] ], [ [[INCDEC_PTR:%.*]], %[[WHILE_COND]] ]
+; CHECK-NEXT:    [[TMP0:%.*]] = load b8, ptr [[STR_ADDR_0]], align 1
+; CHECK-NEXT:    [[TMP1:%.*]] = bytecast b8 [[TMP0]] to i8
+; CHECK-NEXT:    [[CMP_NOT:%.*]] = icmp eq i8 [[TMP1]], 0
+; CHECK-NEXT:    [[INCDEC_PTR]] = getelementptr b8, ptr [[STR_ADDR_0]], i64 1
+; CHECK-NEXT:    br i1 true, label %[[WHILE_END:.*]], label %[[WHILE_COND]]
+; CHECK:       [[WHILE_END]]:
+; CHECK-NEXT:    [[SUB_PTR_LHS_CAST:%.*]] = ptrtoint ptr [[SCEVGEP]] to i64
+; CHECK-NEXT:    [[SUB_PTR_RHS_CAST:%.*]] = ptrtoint ptr [[STR]] to i64
+; CHECK-NEXT:    [[SUB_PTR_SUB:%.*]] = sub i64 [[SUB_PTR_LHS_CAST]], [[SUB_PTR_RHS_CAST]]
+; CHECK-NEXT:    ret i64 [[SUB_PTR_SUB]]
+;
+entry:
+  br label %while.cond
+
+while.cond:
+  %str.addr.0 = phi ptr [ %str, %entry ], [ %incdec.ptr, %while.cond ]
+  %0 = load b8, ptr %str.addr.0, align 1
+  %1 = bytecast b8 %0 to i8
+  %cmp.not = icmp eq i8 %1, 0
+  %incdec.ptr = getelementptr b8, ptr %str.addr.0, i64 1
+  br i1 %cmp.not, label %while.end, label %while.cond
+
+while.end:
+  %sub.ptr.lhs.cast = ptrtoint ptr %str.addr.0 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %str to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  ret i64 %sub.ptr.sub
+}
+
 ; int valid_basic_strlen_rotated(const char* str) {
 ;     const char* base = str;
 ;     if (!*str) return 0;
@@ -617,23 +655,20 @@ define i64 @valid_basic_strlen_with_dbg(ptr %str) {
 ; CHECK-LABEL: define i64 @valid_basic_strlen_with_dbg(
 ; CHECK-SAME: ptr [[STR:%.*]]) {
 ; CHECK-NEXT:  [[ENTRY:.*]]:
-; CHECK-NEXT:    [[STRLEN:%.*]] = call i64 @strlen(ptr [[STR]]), !dbg [[DBGLOC1:![0-9]+]]
+; CHECK-NEXT:    [[STRLEN:%.*]] = call i64 @strlen(ptr [[STR]]), !dbg [[DBG4:![0-9]+]]
 ; CHECK-NEXT:    [[SCEVGEP:%.*]] = getelementptr i8, ptr [[STR]], i64 [[STRLEN]]
 ; CHECK-NEXT:    br label %[[WHILE_COND:.*]]
 ; CHECK:       [[WHILE_COND]]:
 ; CHECK-NEXT:    [[STR_ADDR_0:%.*]] = phi ptr [ [[STR]], %[[ENTRY]] ], [ [[INCDEC_PTR:%.*]], %[[WHILE_COND]] ]
-; CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[STR_ADDR_0]], align 1, !dbg [[DBGLOC2:![0-9]+]]
-; CHECK-NEXT:    [[CMP_NOT:%.*]] = icmp eq i8 [[TMP0]], 0, !dbg [[DBGLOC2]]
-; CHECK-NEXT:    [[INCDEC_PTR]] = getelementptr i8, ptr [[STR_ADDR_0]], i64 1, !dbg [[DBGLOC2]]
-; CHECK-NEXT:    br i1 true, label %[[WHILE_END:.*]], label %[[WHILE_COND]], !dbg [[DBGLOC1]]
+; CHECK-NEXT:    [[TMP0:%.*]] = load i8, ptr [[STR_ADDR_0]], align 1, !dbg [[DBG8:![0-9]+]]
+; CHECK-NEXT:    [[CMP_NOT:%.*]] = icmp eq i8 [[TMP0]], 0, !dbg [[DBG8]]
+; CHECK-NEXT:    [[INCDEC_PTR]] = getelementptr i8, ptr [[STR_ADDR_0]], i64 1, !dbg [[DBG8]]
+; CHECK-NEXT:    br i1 true, label %[[WHILE_END:.*]], label %[[WHILE_COND]], !dbg [[DBG4]]
 ; CHECK:       [[WHILE_END]]:
-; CHECK-NEXT:    [[SUB_PTR_LHS_CAST:%.*]] = ptrtoint ptr [[SCEVGEP]] to i64, !dbg [[DBGLOC2]]
-; CHECK-NEXT:    [[SUB_PTR_RHS_CAST:%.*]] = ptrtoint ptr [[STR]] to i64, !dbg [[DBGLOC2]]
-; CHECK-NEXT:    [[SUB_PTR_SUB:%.*]] = sub i64 [[SUB_PTR_LHS_CAST]], [[SUB_PTR_RHS_CAST]], !dbg [[DBGLOC2]]
-; CHECK-NEXT:    ret i64 [[SUB_PTR_SUB]], !dbg [[DBGLOC2]]
-;
-; CHECK: [[DBGLOC1]] = !DILocation(line: 3, column: 3
-; CHECK: [[DBGLOC2]] = !DILocation(line: 5, column: 3
+; CHECK-NEXT:    [[SUB_PTR_LHS_CAST:%.*]] = ptrtoint ptr [[SCEVGEP]] to i64, !dbg [[DBG8]]
+; CHECK-NEXT:    [[SUB_PTR_RHS_CAST:%.*]] = ptrtoint ptr [[STR]] to i64, !dbg [[DBG8]]
+; CHECK-NEXT:    [[SUB_PTR_SUB:%.*]] = sub i64 [[SUB_PTR_LHS_CAST]], [[SUB_PTR_RHS_CAST]], !dbg [[DBG8]]
+; CHECK-NEXT:    ret i64 [[SUB_PTR_SUB]], !dbg [[DBG8]]
 ;
 entry:
   br label %while.cond
@@ -664,3 +699,13 @@ while.end:
 !6 = distinct !DISubprogram(name: "foo", scope: !2, file: !2, line: 2, type: !7, virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !1)
 !7 = !DISubroutineType(types: !3)
 !8 = !DILocation(line: 5, column: 3, scope: !5)
+;.
+; CHECK: [[META1:![0-9]+]] = distinct !DICompileUnit(language: DW_LANG_C99, file: [[META2:![0-9]+]], producer: "{{.*}}clang version {{.*}}", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, enums: [[META3:![0-9]+]], retainedTypes: [[META3]])
+; CHECK: [[META2]] = !DIFile(filename: "{{.*}}strlen.c", directory: {{.*}})
+; CHECK: [[META3]] = !{}
+; CHECK: [[DBG4]] = !DILocation(line: 3, column: 3, scope: [[META5:![0-9]+]])
+; CHECK: [[META5]] = distinct !DILexicalBlock(scope: [[META6:![0-9]+]], file: [[META2]], line: 2, column: 21)
+; CHECK: [[META6]] = distinct !DISubprogram(name: "foo", scope: [[META2]], file: [[META2]], line: 2, type: [[META7:![0-9]+]], virtualIndex: 6, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: [[META1]])
+; CHECK: [[META7]] = !DISubroutineType(types: [[META3]])
+; CHECK: [[DBG8]] = !DILocation(line: 5, column: 3, scope: [[META5]])
+;.
