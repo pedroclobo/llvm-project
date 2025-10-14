@@ -1540,8 +1540,11 @@ static Value *matchCondition(BranchInst *BI, BasicBlock *LoopEntry,
   if (!Cond)
     return nullptr;
 
-  auto *CmpZero = dyn_cast<ConstantInt>(Cond->getOperand(1));
-  if (!CmpZero || !CmpZero->isZero())
+  auto *CmpZeroInt = dyn_cast<ConstantInt>(Cond->getOperand(1));
+  auto *CmpZeroByte = dyn_cast<ConstantByte>(Cond->getOperand(1));
+  bool isZeroInt = CmpZeroInt && CmpZeroInt->isZero();
+  bool isZeroByte = CmpZeroByte && CmpZeroByte->isZero();
+  if (!isZeroInt && !isZeroByte)
     return nullptr;
 
   BasicBlock *TrueSucc = BI->getSuccessor(0);
@@ -1595,12 +1598,16 @@ public:
     if (!LoopCond)
       return false;
 
+    // Peek through bytecast and try to find a byte load.
+    if (auto *BC = dyn_cast<ByteCastInst>(LoopCond))
+      LoopCond = BC->getOperand(0);
+
     LoadInst *LoopLoad = dyn_cast<LoadInst>(LoopCond);
     if (!LoopLoad || LoopLoad->getPointerAddressSpace() != 0)
       return false;
 
     OperandType = LoopLoad->getType();
-    if (!OperandType || !OperandType->isIntegerTy())
+    if (!OperandType || (!OperandType->isIntegerTy() && !OperandType->isByteTy()))
       return false;
 
     // See if the pointer expression is an AddRec with constant step a of form
@@ -1617,7 +1624,7 @@ public:
     unsigned StepSize = Step->getZExtValue();
 
     // Verify that StepSize is consistent with platform char width.
-    OpWidth = OperandType->getIntegerBitWidth();
+    OpWidth = OperandType->getScalarSizeInBits();
     unsigned WcharSize = TLI->getWCharSize(*LoopLoad->getModule());
     if (OpWidth != StepSize * 8)
       return false;
