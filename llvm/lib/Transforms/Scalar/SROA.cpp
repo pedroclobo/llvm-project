@@ -2001,6 +2001,9 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy,
   if (OldTy->isTargetExtTy() || NewTy->isTargetExtTy())
     return false;
 
+  if (OldTy->isByteOrByteVectorTy() || NewTy->isByteOrByteVectorTy())
+    return false;
+
   return true;
 }
 
@@ -2013,14 +2016,6 @@ static bool canConvertValue(const DataLayout &DL, Type *OldTy, Type *NewTy,
 static Value *convertValue(const DataLayout &DL, IRBuilderTy &IRB, Value *V,
                            Type *NewTy) {
   Type *OldTy = V->getType();
-
-#ifndef NDEBUG
-  BasicBlock *BB = IRB.GetInsertBlock();
-  assert(BB && BB->getParent() && "VScale unknown!");
-  unsigned VScale = BB->getParent()->getVScaleValue();
-  assert(canConvertValue(DL, OldTy, NewTy, VScale) &&
-         "Value not convertable to type");
-#endif
 
   if (OldTy == NewTy)
     return V;

@@ -2877,7 +2877,7 @@ unsigned CastInst::isEliminableCastPair(
     {  1, 0, 0,99,99, 0, 0,99,99,99,99, 7, 3, 0, 0}, // PtrToInt       |
     {  1, 0, 0,99,99, 0, 0,99,99,99,99, 0, 3, 0, 0}, // PtrToAddr      |
     { 99,99,99,99,99,99,99,99,99,11,99,99,15, 0, 0}, // IntToPtr       |
-    {  5, 5, 5, 0, 0, 5, 5, 0, 0,16,16, 5, 1,14, 0}, // BitCast        |
+    {  6, 5, 5, 0, 0, 5, 5, 0, 0,16,16, 5, 1,14, 0}, // BitCast        |
     {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,13,12, 0}, // AddrSpaceCast -+
     {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,99}, // ByteCast -+
   };
@@ -2926,6 +2926,10 @@ unsigned CastInst::isEliminableCastPair(
       // No-op cast in first op implies secondOp as long as the SrcTy
       // is an integer.
       if (SrcTy->isIntegerTy())
+        return secondOp;
+      return 0;
+    case 6:
+      if (SrcTy->isIntegerTy() && DstTy->isIntegerTy())
         return secondOp;
       return 0;
     case 7: {
@@ -3007,14 +3011,14 @@ unsigned CastInst::isEliminableCastPair(
       // FIXME: this state can be merged with (1), but the following assert
       // is useful to check the correcteness of the sequence due to semantic
       // change of bitcast.
-      assert(
-        SrcTy->isIntOrIntVectorTy() &&
-        MidTy->isPtrOrPtrVectorTy() &&
-        DstTy->isPtrOrPtrVectorTy() &&
-        MidTy->getPointerAddressSpace() == DstTy->getPointerAddressSpace() &&
-        "Illegal inttoptr, bitcast sequence!");
-      // Allowed, use first cast's opcode
-      return firstOp;
+      if (SrcTy->isIntOrIntVectorTy() &&
+          MidTy->isPtrOrPtrVectorTy() &&
+          DstTy->isPtrOrPtrVectorTy() &&
+          MidTy->getPointerAddressSpace() == DstTy->getPointerAddressSpace() &&
+          "Illegal inttoptr, bitcast sequence!")
+        // Allowed, use first cast's opcode
+        return firstOp;
+      return 0;
     case 16:
       // FIXME: this state can be merged with (2), but the following assert
       // is useful to check the correcteness of the sequence due to semantic
