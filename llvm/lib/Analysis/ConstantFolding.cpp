@@ -1761,7 +1761,13 @@ Constant *llvm::ConstantFoldCastOperand(unsigned Opcode, Constant *C,
       }
     }
     break;
-  case Instruction::Trunc:
+  case Instruction::Trunc: {
+    if (DestTy->isIntegerTy() && isa<ConstantByte>(C)) {
+      auto *ITy = IntegerType::get(C->getContext(), C->getType()->getByteBitWidth());
+      C = ConstantInt::get(ITy, cast<ConstantByte>(C)->getValue());
+    }
+    break;
+  }
   case Instruction::ZExt:
   case Instruction::SExt:
   case Instruction::FPTrunc:

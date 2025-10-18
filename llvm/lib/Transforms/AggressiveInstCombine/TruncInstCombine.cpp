@@ -489,7 +489,10 @@ void TruncInstCombine::ReduceExpressionGraph(Type *SclTy) {
   Type *DstTy = CurrentTruncInst->getType();
   if (Res->getType() != DstTy) {
     IRBuilder<> Builder(CurrentTruncInst);
-    Res = Builder.CreateIntCast(Res, DstTy, false);
+    if (Res->getType()->getScalarSizeInBits() == DstTy->getScalarSizeInBits())
+      Res = Builder.CreateBitCast(Res, DstTy);
+    else
+      Res = Builder.CreateIntCast(Res, DstTy, false);
     if (auto *ResI = dyn_cast<Instruction>(Res))
       ResI->takeName(CurrentTruncInst);
   }
