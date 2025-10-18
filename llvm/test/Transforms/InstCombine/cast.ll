@@ -2444,3 +2444,13 @@ define b8 @test117(b8 %b) {
   %2 = bitcast i8 %1 to b8
   ret b8 %2
 }
+
+define ptr @test118(i64 %i) {
+; ALL-LABEL: @test118(
+; ALL-NEXT:    [[TMP1:%.*]] = inttoptr i64 [[I:%.*]] to ptr
+; ALL-NEXT:    ret ptr [[TMP1]]
+;
+  %1 = bitcast i64 %i to b64
+  %2 = bytecast exact b64 %1 to ptr
+  ret ptr %2
+}

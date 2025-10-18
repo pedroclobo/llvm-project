@@ -3051,6 +3051,8 @@ unsigned CastInst::isEliminableCastPair(
       // Used for constant expressions
       if (SrcTy->isPtrOrPtrVectorTy() && DstTy->isIntOrIntVectorTy())
         return Instruction::PtrToInt;
+      if (SrcTy->isIntOrIntVectorTy() && DstTy->isPtrOrPtrVectorTy())
+        return Instruction::IntToPtr;
       // (bitcast (bytecast x)) -> (bitcast x)
       return firstOp;
     }
