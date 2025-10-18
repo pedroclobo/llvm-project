@@ -230,10 +230,12 @@ Instruction *InstCombinerImpl::commonCastTransforms(CastInst &CI) {
         (CI.getOpcode() == Instruction::Trunc &&
          shouldChangeType(CI.getSrcTy(), CI.getType()))) {
 
-      // If it's a bitcast involving vectors, make sure it has the same number
-      // of elements on both sides.
-      if (CI.getOpcode() != Instruction::BitCast ||
-          match(&CI, m_ElementWiseBitCast(m_Value()))) {
+      // If it's a bitcast/bytecast involving vectors, make sure it has the
+      // same number of elements on both sides.
+      if ((CI.getOpcode() != Instruction::BitCast &&
+           CI.getOpcode() != Instruction::ByteCast) ||
+          match(&CI, m_ElementWiseBitCast(m_Value())) ||
+          match(&CI, m_ElementWiseByteCast(m_Value()))) {
         if (Instruction *NV = FoldOpIntoSelect(CI, Sel)) {
           replaceAllDbgUsesWith(*Sel, *NV, CI, DT);
           return NV;
