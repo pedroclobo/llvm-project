@@ -349,7 +349,12 @@ Type *TruncInstCombine::getBestTruncatedType() {
       (DesiredBitWidth && DesiredBitWidth != MinBitWidth))
     return nullptr;
 
-  return IntegerType::get(CurrentTruncInst->getContext(), MinBitWidth);
+  if (CurrentTruncInst->getType()->isIntOrIntVectorTy())
+    return IntegerType::get(CurrentTruncInst->getContext(), MinBitWidth);
+
+  assert(CurrentTruncInst->getType()->isByteOrByteVectorTy() &&
+         "Expecting trunc from/to integer/byte type");
+  return ByteType::get(CurrentTruncInst->getContext(), MinBitWidth);
 }
 
 /// Given a reduced scalar type \p Ty and a \p V value, return a reduced type
@@ -489,7 +494,10 @@ void TruncInstCombine::ReduceExpressionGraph(Type *SclTy) {
   Type *DstTy = CurrentTruncInst->getType();
   if (Res->getType() != DstTy) {
     IRBuilder<> Builder(CurrentTruncInst);
-    Res = Builder.CreateIntCast(Res, DstTy, false);
+    if (Res->getType()->getScalarSizeInBits() == DstTy->getScalarSizeInBits())
+      Res = Builder.CreateBitCast(Res, DstTy);
+    else
+      Res = Builder.CreateIntCast(Res, DstTy, false);
     if (auto *ResI = dyn_cast<Instruction>(Res))
       ResI->takeName(CurrentTruncInst);
   }
