@@ -25,6 +25,7 @@ add_llvm_component_library(LLVMPasses
   HipStdPar
   IPO
   InstCombine
+  InstrCount
   IRPrinter
   ObjCARC
   Scalar
