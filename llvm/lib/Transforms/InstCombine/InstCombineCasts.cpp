@@ -199,7 +199,7 @@ Instruction *InstCombinerImpl::commonCastTransforms(CastInst &CI) {
 
       // If it's a bitcast involving vectors, make sure it has the same number
       // of elements on both sides.
-      if (CI.getOpcode() != Instruction::BitCast ||
+      if ((CI.getOpcode() != Instruction::BitCast && CI.getOpcode() != Instruction::ByteCast) ||
           match(&CI, m_ElementWiseBitCast(m_Value()))) {
         if (Instruction *NV = FoldOpIntoSelect(CI, Sel)) {
           replaceAllDbgUsesWith(*Sel, *NV, CI, DT);
