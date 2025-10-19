@@ -3053,6 +3053,8 @@ unsigned CastInst::isEliminableCastPair(
         return Instruction::PtrToInt;
       if (SrcTy->isIntOrIntVectorTy() && DstTy->isPtrOrPtrVectorTy())
         return Instruction::IntToPtr;
+      if (DstTy->isPtrOrPtrVectorTy() && !SrcTy->isPtrOrPtrVectorTy())
+        return 0;
       // (bitcast (bytecast x)) -> (bitcast x)
       return firstOp;
     }

@@ -2454,3 +2454,14 @@ define ptr @test118(i64 %i) {
   %2 = bytecast exact b64 %1 to ptr
   ret ptr %2
 }
+
+define ptr @test119(double %d) {
+; ALL-LABEL: @test119(
+; ALL-NEXT:    [[TMP1:%.*]] = bitcast double [[D:%.*]] to b64
+; ALL-NEXT:    [[TMP2:%.*]] = bytecast exact b64 [[TMP1]] to ptr
+; ALL-NEXT:    ret ptr [[TMP2]]
+;
+  %1 = bitcast double %d to b64
+  %2 = bytecast exact b64 %1 to ptr
+  ret ptr %2
+}
