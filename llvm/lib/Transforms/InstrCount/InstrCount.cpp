@@ -18,6 +18,7 @@ PreservedAnalyses InstrCountPass::run(Function &F,
   uint64_t bytecasts_exact = 0;
   uint64_t bytecast_int = 0;
   uint64_t bytecast_ptr = 0;
+  uint64_t load_bytecast = 0;
   uint64_t bytecast_trunc = 0;
   uint64_t bytecast_sext = 0;
   uint64_t bytecast_zext = 0;
@@ -39,6 +40,15 @@ PreservedAnalyses InstrCountPass::run(Function &F,
         ++bitcasts;
         if (BC->getDestTy()->isByteOrByteVectorTy())
           ++bitcasts_to_byte;
+      }
+      if (auto *LI = dyn_cast<LoadInst>(&I)) {
+        if (!LI->getType()->isByteOrByteVectorTy())
+          continue;
+        if (I.hasOneUse()) {
+          if (isa<ByteCastInst>(*I.user_begin())) {
+            ++load_bytecast;
+          }
+        }
       }
       if (isa<TruncInst>(&I)) {
         if (I.hasOneUse()) {
@@ -64,10 +74,11 @@ PreservedAnalyses InstrCountPass::run(Function &F,
     }
   }
 
-  LLVM_DEBUG(dbgs() << "remark: " << F.getName() << ";" << total << ";" << bitcasts << ";"
-                    << bitcasts_to_byte << ";" << trunc_bitcast_to_byte << ";"
-                    << bytecasts << ";" << bytecasts_exact << ";"
-                    << bytecast_int << ";" << bytecast_ptr << ";"
+  LLVM_DEBUG(dbgs() << "remark: " << F.getName() << ";" << total << ";"
+                    << bitcasts << ";" << bitcasts_to_byte << ";"
+                    << trunc_bitcast_to_byte << ";" << bytecasts << ";"
+                    << bytecasts_exact << ";" << bytecast_int << ";"
+                    << bytecast_ptr << ";" << load_bytecast << ";"
                     << bytecast_trunc << ";" << bytecast_sext << ";"
                     << bytecast_zext << ";" << bytecast_icmp << "\n");
 
