@@ -7611,6 +7611,10 @@ void Clang::ConstructJob(Compilation &C, const JobAction &JA,
           Twine("-funique-source-file-identifier=") + Input.getBaseInput()));
   }
 
+  // Instruction count pass
+  if (Args.hasFlag(options::OPT_finstrcount, options::OPT_fno_instrcount, false))
+    CmdArgs.push_back("-instr-count");
+
   // Setup statistics file output.
   SmallString<128> StatsFile = getStatsFileName(Args, Output, Input, D);
   if (!StatsFile.empty()) {

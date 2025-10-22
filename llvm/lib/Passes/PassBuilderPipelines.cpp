@@ -312,6 +312,7 @@ PipelineTuningOptions::PipelineTuningOptions() {
   LoopInterleaving = true;
   LoopVectorization = true;
   SLPVectorization = false;
+  InstrCount = false;
   LoopUnrolling = true;
   LoopInterchange = EnableLoopInterchange;
   ForgetAllSCEVInLoopUnroll = ForgetSCEVInLoopUnroll;
@@ -1669,7 +1670,8 @@ PassBuilder::buildPerModuleDefaultPipeline(OptimizationLevel Level,
   if (isLTOPreLink(Phase))
     addRequiredLTOPreLinkPasses(MPM);
 
-  MPM.addPass(createModuleToFunctionPassAdaptor(InstrCountPass()));
+  if (PTO.InstrCount)
+    MPM.addPass(createModuleToFunctionPassAdaptor(InstrCountPass()));
 
   return MPM;
 }
