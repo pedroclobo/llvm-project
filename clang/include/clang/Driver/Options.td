@@ -4192,6 +4192,10 @@ def fslp_vectorize : Flag<["-"], "fslp-vectorize">, Group<f_Group>,
 def fno_slp_vectorize : Flag<["-"], "fno-slp-vectorize">, Group<f_Group>;
 def : Flag<["-"], "ftree-slp-vectorize">, Alias<fslp_vectorize>;
 def : Flag<["-"], "fno-tree-slp-vectorize">, Alias<fno_slp_vectorize>;
+
+def finstrcount : Flag<["-"], "finstr-count">, Group<f_Group>,
+  HelpText<"Enable the instruction count pass">;
+def fno_instrcount : Flag<["-"], "fno-instr-count">, Group<f_Group>;
 }
 
 def Wlarge_by_value_copy_def : Flag<["-"], "Wlarge-by-value-copy">,
@@ -7689,6 +7693,9 @@ def vectorize_loops : Flag<["-"], "vectorize-loops">,
 def vectorize_slp : Flag<["-"], "vectorize-slp">,
   HelpText<"Run the SLP vectorization passes">,
   MarshallingInfoFlag<CodeGenOpts<"VectorizeSLP">>;
+def instr_count : Flag<["-"], "instr-count">,
+  HelpText<"Run the instruction count pass">,
+  MarshallingInfoFlag<CodeGenOpts<"InstrCount">>;
 } // let Visibility = [CC1Option, FC1Option]
 
 let Visibility = [CC1Option] in {

@@ -327,6 +327,7 @@ CODEGENOPT(RerollLoops       , 1, 0, Benign) ///< Control whether loops are rero
 CODEGENOPT(NoUseJumpTables   , 1, 0, Benign) ///< Set when -fno-jump-tables is enabled.
 VALUE_CODEGENOPT(UnwindTables, 2, 0, Benign) ///< Unwind tables (1, Benign) or asynchronous unwind tables (2, Benign)
 CODEGENOPT(LinkBitcodePostopt, 1, 0, Benign) ///< Link builtin bitcodes after optimization pipeline.
+CODEGENOPT(InstrCount        , 1, 0, Benign) ///< Run instruction count pass.
 CODEGENOPT(VectorizeLoop     , 1, 0, Benign) ///< Run loop vectorizer.
 CODEGENOPT(VectorizeSLP      , 1, 0, Benign) ///< Run SLP vectorizer.
 CODEGENOPT(ProfileSampleAccurate, 1, 0, Benign) ///< Sample profile is accurate.
