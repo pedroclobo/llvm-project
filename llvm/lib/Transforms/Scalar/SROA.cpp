@@ -1483,7 +1483,7 @@ findCommonType(AllocaSlices::const_iterator B, AllocaSlices::const_iterator E,
     if (isa<MemCpyInst>(*U->getUser()) ||
         isa<MemMoveInst>(*U->getUser())) {
       uint64_t Size = (EndOffset - B->beginOffset()) * 8;
-      if (Size <= 8)
+      if (Size < 256)
         BTy = ByteType::getByteNTy(U->getUser()->getContext(), Size);
     }
 
