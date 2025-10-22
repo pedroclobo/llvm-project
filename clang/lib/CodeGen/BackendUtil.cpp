@@ -902,6 +902,7 @@ void EmitAssemblyHelper::RunOptimizationPipeline(
   PTO.LoopInterleaving = CodeGenOpts.UnrollLoops;
   PTO.LoopVectorization = CodeGenOpts.VectorizeLoop;
   PTO.SLPVectorization = CodeGenOpts.VectorizeSLP;
+  PTO.InstrCount = CodeGenOpts.InstrCount;
   PTO.MergeFunctions = CodeGenOpts.MergeFunctions;
   // Only enable CGProfilePass when using integrated assembler, since
   // non-integrated assemblers don't recognize .cgprofile section.

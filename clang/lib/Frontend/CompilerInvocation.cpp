@@ -1997,6 +1997,7 @@ bool CompilerInvocation::ParseCodeGenArgs(CodeGenOptions &Opts, ArgList &Args,
   Opts.SimplifyLibCalls = !LangOpts->NoBuiltin;
   if (Opts.SimplifyLibCalls)
     Opts.NoBuiltinFuncs = LangOpts->NoBuiltinFuncs;
+  Opts.InstrCount = Args.hasFlag(OPT_instr_count, OPT_fno_instrcount, false);
   Opts.UnrollLoops =
       Args.hasFlag(OPT_funroll_loops, OPT_fno_unroll_loops,
                    (Opts.OptimizationLevel > 1));

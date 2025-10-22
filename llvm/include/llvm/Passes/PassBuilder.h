@@ -58,6 +58,9 @@ public:
   /// level.
   bool SLPVectorization;
 
+  /// Tuning option to enable/disable instruction count pass.
+  bool InstrCount;
+
   /// Tuning option to enable/disable loop unrolling. Its default value is true.
   bool LoopUnrolling;
 
