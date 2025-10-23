@@ -595,6 +595,9 @@ void X86InterleavedAccessGroup::deinterleave8bitStride3(
   TransposedMatrix[0] = Builder.CreateShuffleVector(Vec[0], VPAlign2);
   TransposedMatrix[1] = VecElems == 8 ? Vec[2] : TempVec;
   TransposedMatrix[2] = VecElems == 8 ? TempVec : Vec[2];
+  for (int i = 0; i < 3; i++)
+    if (TransposedMatrix[i]->getType() != Shuffles[0]->getType())
+      TransposedMatrix[i] = Builder.CreateBitCast(TransposedMatrix[i], Shuffles[0]->getType());
 }
 
 // group2Shuffle reorder the shuffle stride back into continuous order.
