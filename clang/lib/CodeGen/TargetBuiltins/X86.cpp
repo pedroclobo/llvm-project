@@ -127,14 +127,18 @@ static Value *EmitX86CompressExpand(CodeGenFunction &CGF,
 
 static Value *EmitX86CompressStore(CodeGenFunction &CGF,
                                    ArrayRef<Value *> Ops) {
-  auto *ResultTy = cast<llvm::FixedVectorType>(Ops[1]->getType());
+  auto *newOp = Ops[1]->getType()->isByteOrByteVectorTy() ?
+    CGF.Builder.CreateByteCastToInt(Ops[1])
+    : Ops[1];
+
+  auto *ResultTy = cast<llvm::FixedVectorType>(newOp->getType());
   Value *Ptr = Ops[0];
 
   Value *MaskVec = getMaskVecValue(CGF, Ops[2], ResultTy->getNumElements());
 
   llvm::Function *F = CGF.CGM.getIntrinsic(Intrinsic::masked_compressstore,
                                            ResultTy);
-  return CGF.Builder.CreateCall(F, { Ops[1], Ptr, MaskVec });
+  return CGF.Builder.CreateCall(F, { newOp, Ptr, MaskVec });
 }
 
 static Value *EmitX86MaskLogic(CodeGenFunction &CGF, Instruction::BinaryOps Opc,
