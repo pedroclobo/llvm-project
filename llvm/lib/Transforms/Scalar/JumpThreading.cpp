@@ -544,13 +544,16 @@ static Constant *getKnownConstant(Value *Val, ConstantPreference Preference) {
   if (Preference == WantBlockAddress)
     return dyn_cast<BlockAddress>(Val->stripPointerCasts());
 
+  if (ConstantByte *CB = dyn_cast<ConstantByte>(Val))
+    return CB;
+
   return dyn_cast<ConstantInt>(Val);
 }
 
 /// computeValueKnownInPredecessors - Given a basic block BB and a value V, see
-/// if we can infer that the value is a known ConstantInt/BlockAddress or undef
-/// in any of our predecessors.  If so, return the known list of value and pred
-/// BB in the result vector.
+/// if we can infer that the value is a known ConstantInt/ConstantByte/
+/// BlockAddress or undef in any of our predecessors.  If so, return the known
+/// list of value and pred BB in the result vector.
 ///
 /// This returns true if there were any known values.
 bool JumpThreadingPass::computeValueKnownInPredecessorsImpl(
