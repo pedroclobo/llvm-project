@@ -544,6 +544,9 @@ static Constant *getKnownConstant(Value *Val, ConstantPreference Preference) {
   if (Preference == WantBlockAddress)
     return dyn_cast<BlockAddress>(Val->stripPointerCasts());
 
+  if (ConstantByte *CB = dyn_cast<ConstantByte>(Val))
+    return CB;
+
   return dyn_cast<ConstantInt>(Val);
 }
 
