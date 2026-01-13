@@ -21,9 +21,9 @@ define void @memcpy_x(ptr %dst, ptr %src, i64 %x) nounwind  !prof !0 {
 ; CHECK-NEXT:    br i1 [[TMP1]], label %[[DYNAMIC_MEMCPY_EXPANSION_MAIN_BODY:.*]], label %[[DYNAMIC_MEMCPY_POST_EXPANSION:.*]], !prof [[PROF2:![0-9]+]]
 ; CHECK:       [[DYNAMIC_MEMCPY_EXPANSION_MAIN_BODY]]:
 ; CHECK-NEXT:    [[LOOP_INDEX:%.*]] = phi i64 [ 0, [[TMP0:%.*]] ], [ [[TMP5:%.*]], %[[DYNAMIC_MEMCPY_EXPANSION_MAIN_BODY]] ]
-; CHECK-NEXT:    [[TMP2:%.*]] = getelementptr inbounds i8, ptr [[SRC]], i64 [[LOOP_INDEX]]
+; CHECK-NEXT:    [[TMP2:%.*]] = getelementptr inbounds b8, ptr [[SRC]], i64 [[LOOP_INDEX]]
 ; CHECK-NEXT:    [[TMP3:%.*]] = load b8, ptr [[TMP2]], align 1
-; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 [[LOOP_INDEX]]
+; CHECK-NEXT:    [[TMP4:%.*]] = getelementptr inbounds b8, ptr [[DST]], i64 [[LOOP_INDEX]]
 ; CHECK-NEXT:    store b8 [[TMP3]], ptr [[TMP4]], align 1
 ; CHECK-NEXT:    [[TMP5]] = add i64 [[LOOP_INDEX]], 1
 ; CHECK-NEXT:    [[TMP6:%.*]] = icmp ult i64 [[TMP5]], [[X]]
@@ -33,9 +33,9 @@ define void @memcpy_x(ptr %dst, ptr %src, i64 %x) nounwind  !prof !0 {
 ; CHECK-NEXT:    br i1 [[TMP7]], label %[[DYNAMIC_MEMCPY_EXPANSION_MAIN_BODY2:.*]], label %[[DYNAMIC_MEMCPY_POST_EXPANSION1:.*]], !prof [[PROF2]]
 ; CHECK:       [[DYNAMIC_MEMCPY_EXPANSION_MAIN_BODY2]]:
 ; CHECK-NEXT:    [[LOOP_INDEX3:%.*]] = phi i64 [ 0, %[[DYNAMIC_MEMCPY_POST_EXPANSION]] ], [ [[TMP11:%.*]], %[[DYNAMIC_MEMCPY_EXPANSION_MAIN_BODY2]] ]
-; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr inbounds i8, ptr [[SRC]], i64 [[LOOP_INDEX3]]
+; CHECK-NEXT:    [[TMP8:%.*]] = getelementptr inbounds b8, ptr [[SRC]], i64 [[LOOP_INDEX3]]
 ; CHECK-NEXT:    [[TMP19:%.*]] = load volatile b8, ptr [[TMP8]], align 1
-; CHECK-NEXT:    [[TMP20:%.*]] = getelementptr inbounds i8, ptr [[DST]], i64 [[LOOP_INDEX3]]
+; CHECK-NEXT:    [[TMP20:%.*]] = getelementptr inbounds b8, ptr [[DST]], i64 [[LOOP_INDEX3]]
 ; CHECK-NEXT:    store volatile b8 [[TMP19]], ptr [[TMP20]], align 1
 ; CHECK-NEXT:    [[TMP11]] = add i64 [[LOOP_INDEX3]], 1
 ; CHECK-NEXT:    [[TMP12:%.*]] = icmp ult i64 [[TMP11]], [[X]]

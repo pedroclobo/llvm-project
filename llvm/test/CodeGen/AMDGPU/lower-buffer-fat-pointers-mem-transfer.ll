@@ -384,6 +384,7 @@ define void @memcpy_unknown(ptr addrspace(7) inreg %src, ptr addrspace(7) inreg 
 ; CHECK-NEXT:    [[TMP9:%.*]] = add i32 [[TMP2]], [[RESIDUAL_LOOP_INDEX]]
 ; CHECK-NEXT:    [[TMP10:%.*]] = add i32 [[SRC_OFF]], [[TMP9]]
 ; CHECK-NEXT:    [[TMP11:%.*]] = call i8 @llvm.amdgcn.raw.ptr.buffer.load.i8(ptr addrspace(8) align 1 [[SRC_RSRC]], i32 [[TMP10]], i32 0, i32 0)
+; CHECK-NEXT:    [[TMP16:%.*]] = bitcast i8 [[TMP11]] to b8
 ; CHECK-NEXT:    [[TMP12:%.*]] = add i32 [[DST_OFF]], [[TMP9]]
 ; CHECK-NEXT:    call void @llvm.amdgcn.raw.ptr.buffer.store.i8(i8 [[TMP11]], ptr addrspace(8) align 1 [[DST_RSRC]], i32 [[TMP12]], i32 0, i32 0)
 ; CHECK-NEXT:    [[TMP13]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
@@ -1041,6 +1042,7 @@ define void @memcpy.inline_unknown(ptr addrspace(7) inreg %src, ptr addrspace(7)
 ; CHECK-NEXT:    [[TMP9:%.*]] = add i32 [[TMP2]], [[RESIDUAL_LOOP_INDEX]]
 ; CHECK-NEXT:    [[TMP10:%.*]] = add i32 [[SRC_OFF]], [[TMP9]]
 ; CHECK-NEXT:    [[TMP11:%.*]] = call i8 @llvm.amdgcn.raw.ptr.buffer.load.i8(ptr addrspace(8) align 1 [[SRC_RSRC]], i32 [[TMP10]], i32 0, i32 0)
+; CHECK-NEXT:    [[TMP16:%.*]] = bitcast i8 [[TMP11]] to b8
 ; CHECK-NEXT:    [[TMP12:%.*]] = add i32 [[DST_OFF]], [[TMP9]]
 ; CHECK-NEXT:    call void @llvm.amdgcn.raw.ptr.buffer.store.i8(i8 [[TMP11]], ptr addrspace(8) align 1 [[DST_RSRC]], i32 [[TMP12]], i32 0, i32 0)
 ; CHECK-NEXT:    [[TMP13]] = add i32 [[RESIDUAL_LOOP_INDEX]], 1
