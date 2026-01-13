@@ -243,6 +243,51 @@ define <16 x i16> @concat_bitcast_v4i32_v16i16(<4 x i32> %a0, <4 x i32> %a1) {
   ret <16 x i16> %r
 }
 
+; bytecasts (same element count)
+
+define <8 x i32> @concat_bytecast_v4i32_v4i32(<4 x b32> %a0, <4 x b32> %a1) {
+; CHECK-LABEL: define <8 x i32> @concat_bytecast_v4i32_v4i32(
+; CHECK-SAME: <4 x b32> [[A0:%.*]], <4 x b32> [[A1:%.*]]) #[[ATTR0]] {
+; CHECK-NEXT:    [[TMP1:%.*]] = shufflevector <4 x b32> [[A0]], <4 x b32> [[A1]], <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
+; CHECK-NEXT:    [[R:%.*]] = bytecast <8 x b32> [[TMP1]] to <8 x i32>
+; CHECK-NEXT:    ret <8 x i32> [[R]]
+;
+  %x0 = bytecast <4 x b32> %a0 to <4 x i32>
+  %x1 = bytecast <4 x b32> %a1 to <4 x i32>
+  %r = shufflevector <4 x i32> %x0, <4 x i32> %x1, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
+  ret <8 x i32> %r
+}
+
+; bytecasts (lower element count)
+
+define <4 x i64> @concat_bytecast_v8b16_v4i64(<8 x b16> %a0, <8 x b16> %a1) {
+; CHECK-LABEL: define <4 x i64> @concat_bytecast_v8b16_v4i64(
+; CHECK-SAME: <8 x b16> [[A0:%.*]], <8 x b16> [[A1:%.*]]) #[[ATTR0]] {
+; CHECK-NEXT:    [[TMP1:%.*]] = shufflevector <8 x b16> [[A0]], <8 x b16> [[A1]], <16 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
+; CHECK-NEXT:    [[R:%.*]] = bytecast <16 x b16> [[TMP1]] to <4 x i64>
+; CHECK-NEXT:    ret <4 x i64> [[R]]
+;
+  %x0 = bytecast <8 x b16> %a0 to <2 x i64>
+  %x1 = bytecast <8 x b16> %a1 to <2 x i64>
+  %r = shufflevector <2 x i64> %x0, <2 x i64> %x1, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
+  ret <4 x i64> %r
+}
+
+; bytecasts (higher element count)
+
+define <16 x i16> @concat_bytecast_v4b32_v16i16(<4 x b32> %a0, <4 x b32> %a1) {
+; CHECK-LABEL: define <16 x i16> @concat_bytecast_v4b32_v16i16(
+; CHECK-SAME: <4 x b32> [[A0:%.*]], <4 x b32> [[A1:%.*]]) #[[ATTR0]] {
+; CHECK-NEXT:    [[TMP1:%.*]] = shufflevector <4 x b32> [[A0]], <4 x b32> [[A1]], <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
+; CHECK-NEXT:    [[R:%.*]] = bytecast <8 x b32> [[TMP1]] to <16 x i16>
+; CHECK-NEXT:    ret <16 x i16> [[R]]
+;
+  %x0 = bytecast <4 x b32> %a0 to <8 x i16>
+  %x1 = bytecast <4 x b32> %a1 to <8 x i16>
+  %r = shufflevector <8 x i16> %x0, <8 x i16> %x1, <16 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
+  ret <16 x i16> %r
+}
+
 ; multiuse - ensure cost of any duplicated casts are worth it
 
 define <8 x i16> @concat_trunc_v4i32_v8i16_multiuse(<4 x i32> %a0, <4 x i32> %a1, ptr %a2) {
