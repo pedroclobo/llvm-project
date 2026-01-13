@@ -24,10 +24,10 @@ entry:
 
 ; IR:         dynamic-memcpy-expansion-main-body:
 ; IR:         %loop-index = phi i64 [ 0, %entry ], [ [[IndexInc:%[0-9]+]], %dynamic-memcpy-expansion-main-body ]
-; IR:         [[SrcGep:%[0-9]+]] = getelementptr inbounds i8, ptr %src, i64 %loop-index
-; IR:         [[Load:%[0-9]+]] = load i8, ptr [[SrcGep]]
-; IR:         [[DstGep:%[0-9]+]] = getelementptr inbounds i8, ptr %dst, i64 %loop-index
-; IR:         store i8 [[Load]], ptr [[DstGep]]
+; IR:         [[SrcGep:%[0-9]+]] = getelementptr inbounds b8, ptr %src, i64 %loop-index
+; IR:         [[Load:%[0-9]+]] = load b8, ptr [[SrcGep]]
+; IR:         [[DstGep:%[0-9]+]] = getelementptr inbounds b8, ptr %dst, i64 %loop-index
+; IR:         store b8 [[Load]], ptr [[DstGep]]
 ; IR:         [[IndexInc]] = add i64 %loop-index, 1
 ; IR:         [[Cond2:%[0-9]+]] = icmp ult i64 [[IndexInc]], %n
 ; IR:         br i1 [[Cond2]], label %dynamic-memcpy-expansion-main-body, label %dynamic-memcpy-post-expansion
@@ -57,10 +57,10 @@ entry:
 
 ; IR:         dynamic-memcpy-expansion-main-body:
 ; IR:         %loop-index = phi i64 [ 0, %entry ], [ [[IndexInc:%[0-9]+]], %dynamic-memcpy-expansion-main-body ]
-; IR:         [[SrcGep:%[0-9]+]] = getelementptr inbounds i8, ptr %src, i64 %loop-index
-; IR:         [[Load:%[0-9]+]] = load volatile i8, ptr [[SrcGep]]
-; IR:         [[DstGep:%[0-9]+]] = getelementptr inbounds i8, ptr %dst, i64 %loop-index
-; IR:         store volatile i8 [[Load]], ptr [[DstGep]]
+; IR:         [[SrcGep:%[0-9]+]] = getelementptr inbounds b8, ptr %src, i64 %loop-index
+; IR:         [[Load:%[0-9]+]] = load volatile b8, ptr [[SrcGep]]
+; IR:         [[DstGep:%[0-9]+]] = getelementptr inbounds b8, ptr %dst, i64 %loop-index
+; IR:         store volatile b8 [[Load]], ptr [[DstGep]]
 ; IR:         [[IndexInc]] = add i64 %loop-index, 1
 ; IR:         [[Cond2:%[0-9]+]] = icmp ult i64 [[IndexInc]], %n
 ; IR:         br i1 [[Cond2]], label %dynamic-memcpy-expansion-main-body, label %dynamic-memcpy-post-expansion
@@ -85,8 +85,8 @@ entry:
 
 ; Check that casts in calls to memcpy are handled properly
 ; IR-LABEL:   @memcpy_casting_caller
-; IR:         getelementptr inbounds i8, ptr %src
-; IR:         getelementptr inbounds i8, ptr %dst
+; IR:         getelementptr inbounds b8, ptr %src
+; IR:         getelementptr inbounds b8, ptr %dst
 }
 
 define ptr @memcpy_known_size(ptr %dst, ptr %src) {
@@ -100,10 +100,10 @@ entry:
 ; IR:          br label %static-memcpy-expansion-main-body
 ; IR:          static-memcpy-expansion-main-body:
 ; IR:          %loop-index = phi i64 [ 0, %entry ], [ [[IndexInc:%[0-9]+]], %static-memcpy-expansion-main-body ]
-; IR:          [[SrcGep:%[0-9]+]] = getelementptr inbounds i8, ptr %src, i64 %loop-index
-; IR:          [[Load:%[0-9]+]] = load i8, ptr [[SrcGep]]
-; IR:          [[DstGep:%[0-9]+]] = getelementptr inbounds i8, ptr %dst, i64 %loop-index
-; IR:          store i8 [[Load]], ptr [[DstGep]]
+; IR:          [[SrcGep:%[0-9]+]] = getelementptr inbounds b8, ptr %src, i64 %loop-index
+; IR:          [[Load:%[0-9]+]] = load b8, ptr [[SrcGep]]
+; IR:          [[DstGep:%[0-9]+]] = getelementptr inbounds b8, ptr %dst, i64 %loop-index
+; IR:          store b8 [[Load]], ptr [[DstGep]]
 ; IR:          [[IndexInc]] = add i64 %loop-index, 1
 ; IR:          [[Cond:%[0-9]+]] = icmp ult i64 %3, 144
 ; IR:          br i1 [[Cond]], label %static-memcpy-expansion-main-body, label %static-memcpy-post-expansion

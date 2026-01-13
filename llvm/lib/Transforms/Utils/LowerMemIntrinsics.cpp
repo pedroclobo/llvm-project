@@ -431,11 +431,11 @@ void llvm::createMemCpyLoopUnknownSize(
   assert((!AtomicElementSize || LoopOpSize % *AtomicElementSize == 0) &&
          "Atomic memcpy lowering is not supported for selected operand size");
 
-  Type *Int8Type = Type::getInt8Ty(Ctx);
+  Type *Byte8Type = Type::getByte8Ty(Ctx);
 
   Type *ResidualLoopOpType = AtomicElementSize
-                                 ? Type::getIntNTy(Ctx, *AtomicElementSize * 8)
-                                 : Int8Type;
+                                 ? Type::getByteNTy(Ctx, *AtomicElementSize * 8)
+                                 : Byte8Type;
   unsigned ResidualLoopOpSize = DL.getTypeStoreSize(ResidualLoopOpType);
   assert(ResidualLoopOpSize == (AtomicElementSize ? *AtomicElementSize : 1) &&
          "Store size is expected to match type size");
@@ -454,7 +454,7 @@ void llvm::createMemCpyLoopUnknownSize(
   // we would miss bytes if TypeStoreSize != TypeAllocSize. Therefore, use byte
   // offsets computed from the TypeStoreSize.
   Value *SrcGEP =
-      MainLoopBuilder.CreateInBoundsGEP(Int8Type, SrcAddr, LEI.MainLoopIndex);
+      MainLoopBuilder.CreateInBoundsGEP(Byte8Type, SrcAddr, LEI.MainLoopIndex);
   LoadInst *Load = MainLoopBuilder.CreateAlignedLoad(
       LoopOpType, SrcGEP, PartSrcAlign, SrcIsVolatile);
   if (!CanOverlap) {
@@ -462,7 +462,7 @@ void llvm::createMemCpyLoopUnknownSize(
     Load->setMetadata(LLVMContext::MD_alias_scope, MDNode::get(Ctx, NewScope));
   }
   Value *DstGEP =
-      MainLoopBuilder.CreateInBoundsGEP(Int8Type, DstAddr, LEI.MainLoopIndex);
+      MainLoopBuilder.CreateInBoundsGEP(Byte8Type, DstAddr, LEI.MainLoopIndex);
   StoreInst *Store = MainLoopBuilder.CreateAlignedStore(
       Load, DstGEP, PartDstAlign, DstIsVolatile);
   if (!CanOverlap) {
@@ -482,7 +482,7 @@ void llvm::createMemCpyLoopUnknownSize(
   Align ResDstAlign(commonAlignment(PartDstAlign, ResidualLoopOpSize));
 
   IRBuilder<> ResLoopBuilder(LEI.ResidualLoopIP);
-  Value *ResSrcGEP = ResLoopBuilder.CreateInBoundsGEP(Int8Type, SrcAddr,
+  Value *ResSrcGEP = ResLoopBuilder.CreateInBoundsGEP(Byte8Type, SrcAddr,
                                                       LEI.ResidualLoopIndex);
   LoadInst *ResLoad = ResLoopBuilder.CreateAlignedLoad(
       ResidualLoopOpType, ResSrcGEP, ResSrcAlign, SrcIsVolatile);
@@ -491,7 +491,7 @@ void llvm::createMemCpyLoopUnknownSize(
     ResLoad->setMetadata(LLVMContext::MD_alias_scope,
                          MDNode::get(Ctx, NewScope));
   }
-  Value *ResDstGEP = ResLoopBuilder.CreateInBoundsGEP(Int8Type, DstAddr,
+  Value *ResDstGEP = ResLoopBuilder.CreateInBoundsGEP(Byte8Type, DstAddr,
                                                       LEI.ResidualLoopIndex);
   StoreInst *ResStore = ResLoopBuilder.CreateAlignedStore(
       ResLoad, ResDstGEP, ResDstAlign, DstIsVolatile);
