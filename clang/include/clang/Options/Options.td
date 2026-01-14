@@ -4457,6 +4457,14 @@ def unique_source_file_identifier_EQ: Joined<["-"], "funique-source-file-identif
 def funsigned_bitfields : Flag<["-"], "funsigned-bitfields">, Group<f_Group>;
 def funsigned_char : Flag<["-"], "funsigned-char">, Group<f_Group>;
 def fno_unsigned_char : Flag<["-"], "fno-unsigned-char">;
+def fbyte_type : Flag<["-"], "fbyte-type">, Group<f_Group>,
+  Visibility<[ClangOption, CC1Option]>,
+  HelpText<"Use byte type for char lowering (default)">,
+  MarshallingInfoFlag<CodeGenOpts<"UseByteType">>;
+def fno_byte_type : Flag<["-"], "fno-byte-type">, Group<f_Group>,
+  Visibility<[ClangOption, CC1Option]>,
+  HelpText<"Use integer type for char lowering">,
+  MarshallingInfoNegativeFlag<CodeGenOpts<"UseByteType">>;
 def funwind_tables : Flag<["-"], "funwind-tables">, Group<f_Group>;
 defm register_global_dtors_with_atexit : BoolFOption<"register-global-dtors-with-atexit",
   CodeGenOpts<"RegisterGlobalDtorsWithAtExit">, DefaultFalse,
