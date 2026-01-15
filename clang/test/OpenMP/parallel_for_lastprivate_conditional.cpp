@@ -61,7 +61,7 @@ int main() {
 // CHECK1-NEXT:    store ptr [[DOTGLOBAL_TID_]], ptr [[DOTGLOBAL_TID__ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[DOTBOUND_TID_]], ptr [[DOTBOUND_TID__ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[A_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[A_ADDR]], align 8, !nonnull [[META3:![0-9]+]], !align [[META4:![0-9]+]]
 // CHECK1-NEXT:    store i32 0, ptr [[DOTOMP_LB]], align 4
 // CHECK1-NEXT:    store i32 9, ptr [[DOTOMP_UB]], align 4
 // CHECK1-NEXT:    store i32 1, ptr [[DOTOMP_STRIDE]], align 4
@@ -203,8 +203,8 @@ int main() {
 // CHECK1-NEXT:    store ptr [[DOTBOUND_TID_]], ptr [[DOTBOUND_TID__ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[I]], ptr [[I_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP1:%.*]] = load ptr, ptr [[I_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[A_ADDR]], align 8, !nonnull [[META3]], !align [[META4]]
+// CHECK1-NEXT:    [[TMP1:%.*]] = load ptr, ptr [[I_ADDR]], align 8, !nonnull [[META3]], !align [[META4]]
 // CHECK1-NEXT:    store i32 0, ptr [[A1]], align 4
 // CHECK1-NEXT:    [[TMP2:%.*]] = load i32, ptr [[TMP1]], align 4
 // CHECK1-NEXT:    [[TMP3:%.*]] = load i32, ptr [[A1]], align 4
@@ -265,8 +265,8 @@ int main() {
 // CHECK1-NEXT:    store ptr [[DOTBOUND_TID_]], ptr [[DOTBOUND_TID__ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[A]], ptr [[A_ADDR]], align 8
 // CHECK1-NEXT:    store ptr [[I]], ptr [[I_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[A_ADDR]], align 8
-// CHECK1-NEXT:    [[TMP1:%.*]] = load ptr, ptr [[I_ADDR]], align 8
+// CHECK1-NEXT:    [[TMP0:%.*]] = load ptr, ptr [[A_ADDR]], align 8, !nonnull [[META3]], !align [[META4]]
+// CHECK1-NEXT:    [[TMP1:%.*]] = load ptr, ptr [[I_ADDR]], align 8, !nonnull [[META3]], !align [[META4]]
 // CHECK1-NEXT:    [[TMP2:%.*]] = load i32, ptr [[TMP1]], align 4
 // CHECK1-NEXT:    [[TMP3:%.*]] = atomicrmw add ptr [[TMP0]], i32 [[TMP2]] monotonic, align 4
 // CHECK1-NEXT:    [[TMP4:%.*]] = getelementptr inbounds nuw [[STRUCT_LASPRIVATE_CONDITIONAL:%.*]], ptr [[TMP0]], i32 0, i32 1
