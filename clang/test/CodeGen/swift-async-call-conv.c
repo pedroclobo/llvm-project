@@ -112,7 +112,7 @@ SWIFTASYNCCALL void async_mutual_loop2(unsigned u, char * ASYNC_CONTEXT ctx) {
 // When swiftasynccall functions are called by non-swiftasynccall functions,
 // the call isn't marked as a tail call.
 
-// CHECK-LABEL: swiftcc i8 {{.*}}sync_calling_async
+// CHECK-LABEL: swiftcc b8 {{.*}}sync_calling_async
 // CHECK-NOT: tail call
 // CHECK: call swifttailcc void @{{.*}}async_branch
 // CHECK-NOT: tail call
@@ -124,7 +124,7 @@ SWIFTCALL char sync_calling_async(MYBOOL b, unsigned u) {
   return x;
 }
 
-// CHECK-LABEL: i8 {{.*}}c_calling_async
+// CHECK-LABEL: b8 {{.*}}c_calling_async
 // CHECK-NOT: tail call
 // CHECK: call swifttailcc void @{{.*}}async_branch
 // CHECK-NOT: tail call

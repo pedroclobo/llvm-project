@@ -27,43 +27,43 @@ struct STestB6 {int a:1; char b; int c:13; } stb6;
 // CHECK-NEXT: ]>
 
 // CHECK-LABEL: LLVMType:%struct.STest3 =
-// CHECK-SAME: type { i8, i16, i32 }
+// CHECK-SAME: type { b8, i16, i32 }
 // CHECK: BitFields:[
 // CHECK-NEXT: ]>
 
 // CHECK-LABEL: LLVMType:%struct.STestB1 =
-// CHECK-SAME: type { i8, i8 }
+// CHECK-SAME: type { b8, i8 }
 // CHECK: BitFields:[
 // CHECK-NEXT: <CGBitFieldInfo Offset:0 Size:2 IsSigned:1 StorageSize:8 StorageOffset:1
 // CHECK-NEXT: ]>
 
 // CHECK-LABEL: LLVMType:%struct.STestB2 =
-// CHECK-SAME: type <{ i8, i16 }>
+// CHECK-SAME: type <{ b8, i16 }>
 // CHECK: BitFields:[
 // CHECK-NEXT: <CGBitFieldInfo Offset:0 Size:5 IsSigned:1 StorageSize:16 StorageOffset:1
 // CHECK-NEXT: <CGBitFieldInfo Offset:8 Size:4 IsSigned:1 StorageSize:16 StorageOffset:1
 // CHECK-NEXT: ]>
 
 // CHECK-LABEL: LLVMType:%struct.STestB3 =
-// CHECK-SAME: type { i8, i8 }
+// CHECK-SAME: type { b8, i8 }
 // CHECK: BitFields:[
 // CHECK-NEXT: <CGBitFieldInfo Offset:0 Size:2 IsSigned:1 StorageSize:8 StorageOffset:1
 // CHECK-NEXT: ]>
 
 // CHECK-LABEL: LLVMType:%struct.STestB4 =
-// CHECK-SAME: type { i8, i8, i8, i8 }
+// CHECK-SAME: type { b8, i8, b8, i8 }
 // CHECK: BitFields:[
 // CHECK-NEXT: <CGBitFieldInfo Offset:0 Size:2 IsSigned:1 StorageSize:8 StorageOffset:1
 // CHECK-NEXT: ]>
 
 // CHECK-LABEL: LLVMType:%struct.STestB5 =
-// CHECK-SAME: type { i8, i16, i8 }
+// CHECK-SAME: type { b8, i16, b8 }
 // CHECK: BitFields:[
 // CHECK-NEXT: <CGBitFieldInfo Offset:0 Size:10 IsSigned:1 StorageSize:16 StorageOffset:2
 // CHECK-NEXT: ]>
 
 // CHECK-LABEL: LLVMType:%struct.STestB6 =
-// CHECK-SAME: type { i8, i8, i16 }
+// CHECK-SAME: type { i8, b8, i16 }
 // CHECK: BitFields:[
 // CHECK-NEXT: <CGBitFieldInfo Offset:0 Size:1 IsSigned:1 StorageSize:8 StorageOffset:0
 // CHECK-NEXT: <CGBitFieldInfo Offset:0 Size:13 IsSigned:1 StorageSize:16 StorageOffset:2

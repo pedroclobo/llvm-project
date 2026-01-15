@@ -12,7 +12,7 @@
     unsigned int numBytes;
 }
 @end
-    
+
 @interface NSConstantString : NSSimpleCString
 @end
 

@@ -1,6 +1,6 @@
 // RUN: %clang_cc1 -emit-llvm -o - -triple i386-linux-gnu %s | FileCheck %s
 
-// This checks that the global won't be marked as common. 
+// This checks that the global won't be marked as common.
 // (It shouldn't because it's being initialized).
 
 int a;
@@ -33,7 +33,7 @@ struct ManyFields {
   int f;
 };
 
-// CHECK: global { i32, i32, i32, i8, [3 x i8], i32, i32 } { i32 1, i32 2, i32 0, i8 0, [3 x i8] zeroinitializer, i32 0, i32 0 }
+// CHECK: global { i32, i32, i32, b8, [3 x i8], i32, i32 } { i32 1, i32 2, i32 0, b8 0, [3 x i8] zeroinitializer, i32 0, i32 0 }
 struct ManyFields FewInits = {1, 2};
 
 

@@ -41,7 +41,7 @@ typedef union tu_l {
 } tu_l_t __attribute__((transparent_union));
 
 // CHECK-LABEL: define{{.*}} void @ftest0(
-// CHECK-SAME: i8 noundef signext [[UC_COERCE:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: b8 noundef signext [[UC_COERCE:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    ret void
 void ftest0(tu_c_t uc) { }
@@ -82,7 +82,7 @@ typedef union etest {
 } etest_t __attribute__((transparent_union));
 
 // CHECK-LABEL: define{{.*}} void @ftest4(
-// CHECK-SAME: i8 noundef zeroext [[A_COERCE:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
+// CHECK-SAME: b8 noundef zeroext [[A_COERCE:%.*]]) local_unnamed_addr #[[ATTR0:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
 // CHECK-NEXT:    ret void
 void ftest4(etest_t a) {}

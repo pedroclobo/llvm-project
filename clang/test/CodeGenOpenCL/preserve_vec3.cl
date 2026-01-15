@@ -69,10 +69,11 @@ void kernel char8_to_short3(global short3 *a, global char8 *b) {
 }
 
 // CHECK-LABEL: define dso_local spir_func void @from_char3(
-// CHECK-SAME: <3 x i8> noundef [[A:%.*]], ptr addrspace(1) noundef writeonly captures(none) initializes((0, 4)) [[OUT:%.*]]) local_unnamed_addr #[[ATTR2:[0-9]+]] {
+// CHECK-SAME: <3 x b8> noundef [[A:%.*]], ptr addrspace(1) noundef writeonly captures(none) initializes((0, 4)) [[OUT:%.*]]) local_unnamed_addr #[[ATTR2:[0-9]+]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <3 x i8> [[A]], <3 x i8> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
-// CHECK-NEXT:    store <4 x i8> [[TMP0]], ptr addrspace(1) [[OUT]], align 4, !tbaa [[INT_TBAA3:![0-9]+]]
+// CHECK-NEXT:    [[TMP0:%.*]] = shufflevector <3 x b8> [[A]], <3 x b8> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 poison>
+// CHECK-NEXT:    [[ASTYPE:%.*]] = bytecast <4 x b8> [[TMP0]] to i32
+// CHECK-NEXT:    store i32 [[ASTYPE]], ptr addrspace(1) [[OUT]], align 4, !tbaa [[INT_TBAA3:![0-9]+]]
 // CHECK-NEXT:    ret void
 //
 void from_char3(char3 a, global int *out) {
@@ -93,10 +94,10 @@ void from_short3(short3 a, global long *out) {
 // CHECK-LABEL: define dso_local spir_func void @scalar_to_char3(
 // CHECK-SAME: i32 noundef [[A:%.*]], ptr addrspace(1) noundef writeonly captures(none) initializes((0, 4)) [[OUT:%.*]]) local_unnamed_addr #[[ATTR2]] {
 // CHECK-NEXT:  [[ENTRY:.*:]]
-// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i32 [[A]] to <4 x i8>
-// CHECK-NEXT:    [[ASTYPE:%.*]] = shufflevector <4 x i8> [[TMP0]], <4 x i8> poison, <3 x i32> <i32 0, i32 1, i32 2>
-// CHECK-NEXT:    [[EXTRACTVEC:%.*]] = shufflevector <3 x i8> [[ASTYPE]], <3 x i8> <i8 undef, i8 poison, i8 poison>, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
-// CHECK-NEXT:    store <4 x i8> [[EXTRACTVEC]], ptr addrspace(1) [[OUT]], align 4, !tbaa [[CHAR_TBAA12]]
+// CHECK-NEXT:    [[TMP0:%.*]] = bitcast i32 [[A]] to <4 x b8>
+// CHECK-NEXT:    [[ASTYPE:%.*]] = shufflevector <4 x b8> [[TMP0]], <4 x b8> poison, <3 x i32> <i32 0, i32 1, i32 2>
+// CHECK-NEXT:    [[EXTRACTVEC:%.*]] = shufflevector <3 x b8> [[ASTYPE]], <3 x b8> <b8 undef, b8 poison, b8 poison>, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
+// CHECK-NEXT:    store <4 x b8> [[EXTRACTVEC]], ptr addrspace(1) [[OUT]], align 4, !tbaa [[CHAR_TBAA12]]
 // CHECK-NEXT:    ret void
 //
 void scalar_to_char3(int a, global char3 *out) {

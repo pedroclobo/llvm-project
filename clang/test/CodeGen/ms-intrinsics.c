@@ -23,12 +23,12 @@ void test__stosb(unsigned char *Dest, unsigned char Data, size_t Count) {
 }
 
 // CHECK-I386: define{{.*}}void @test__stosb
-// CHECK-I386:   tail call void @llvm.memset.p0.i32(ptr align 1 %Dest, i8 %Data, i32 %Count, i1 true)
+// CHECK-I386:   tail call void @llvm.memset.p0.i32(ptr align 1 %Dest, i8 {{.*}}, i32 %Count, i1 true)
 // CHECK-I386:   ret void
 // CHECK-I386: }
 
 // CHECK-X64: define{{.*}}void @test__stosb
-// CHECK-X64:   tail call void @llvm.memset.p0.i64(ptr align 1 %Dest, i8 %Data, i64 %Count, i1 true)
+// CHECK-X64:   tail call void @llvm.memset.p0.i64(ptr align 1 %Dest, i8 {{.*}}, i64 %Count, i1 true)
 // CHECK-X64:   ret void
 // CHECK-X64: }
 
@@ -149,12 +149,12 @@ void *test_AddressOfReturnAddress(void) {
 unsigned char test_BitScanForward(unsigned long *Index, unsigned long Mask) {
   return _BitScanForward(++Index, Mask);
 }
-// CHECK: define{{.*}}i8 @test_BitScanForward(ptr {{.*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK: define{{.*}}b8 @test_BitScanForward(ptr {{.*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK:   [[ISNOTZERO:%[a-z0-9._]+]] = icmp eq i32 %Mask, 0
 // CHECK:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK:   [[END_LABEL]]:
-// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK:   ret i8 [[RESULT]]
+// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK:   ret b8 [[RESULT]]
 // CHECK:   [[ISNOTZERO_LABEL]]:
 // CHECK:   [[IDXGEP:%[a-z0-9._]+]] = getelementptr inbounds nuw i8, ptr %Index, {{i64|i32}} 4
 // CHECK:   [[INDEX:%[0-9]+]] = tail call range(i32 0, 33) i32 @llvm.cttz.i32(i32 %Mask, i1 true)
@@ -164,12 +164,12 @@ unsigned char test_BitScanForward(unsigned long *Index, unsigned long Mask) {
 unsigned char test_BitScanReverse(unsigned long *Index, unsigned long Mask) {
   return _BitScanReverse(++Index, Mask);
 }
-// CHECK: define{{.*}}i8 @test_BitScanReverse(ptr {{.*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
+// CHECK: define{{.*}}b8 @test_BitScanReverse(ptr {{.*}}%Index, i32 {{[a-z_ ]*}}%Mask){{.*}}{
 // CHECK:   [[ISNOTZERO:%[0-9]+]] = icmp eq i32 %Mask, 0
 // CHECK:   br i1 [[ISNOTZERO]], label %[[END_LABEL:[a-z0-9._]+]], label %[[ISNOTZERO_LABEL:[a-z0-9._]+]]
 // CHECK:   [[END_LABEL]]:
-// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi i8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
-// CHECK:   ret i8 [[RESULT]]
+// CHECK:   [[RESULT:%[a-z0-9._]+]] = phi b8 [ 0, %[[ISZERO_LABEL:[a-z0-9._]+]] ], [ 1, %[[ISNOTZERO_LABEL]] ]
+// CHECK:   ret b8 [[RESULT]]
 // CHECK:   [[ISNOTZERO_LABEL]]:
 // CHECK:   [[IDXGEP:%[a-z0-9._]+]] = getelementptr inbounds nuw i8, ptr %Index, {{i64|i32}} 4
 // CHECK:   [[REVINDEX:%[0-9]+]] = tail call range(i32 0, 33) i32 @llvm.ctlz.i32(i32 %Mask, i1 true)
@@ -237,7 +237,7 @@ void *test_InterlockedExchangePointer_nf(void * volatile *Target, void *Value) {
   return _InterlockedExchangePointer_nf(Target, Value);
 }
 
-// CHECK-ARM-ARM64: define{{.*}}ptr @test_InterlockedExchangePointer_nf(ptr {{.*}}%Target, ptr {{[a-z_ ]*}}%Value){{.*}}{
+// CHECK-ARM-ARM64: define{{.*}}ptr @test_InterlockedExchangePointer_nf(ptr {{[a-z_ ]*}}%Target, ptr {{[a-z_ ]*}}%Value){{.*}}{
 // CHECK-ARM-ARM64:   %[[VALUE:[0-9]+]] = ptrtoint ptr %Value to [[iPTR]]
 // CHECK-ARM-ARM64:   %[[EXCHANGE:[0-9]+]] = atomicrmw xchg ptr %Target, [[iPTR]] %[[VALUE]] monotonic, align {{4|8}}
 // CHECK-ARM-ARM64:   %[[RESULT:[0-9]+]] = inttoptr [[iPTR]] %[[EXCHANGE]] to ptr
@@ -275,7 +275,7 @@ void *test_InterlockedCompareExchangePointer_nf(void * volatile *Destination,
   return _InterlockedCompareExchangePointer_nf(Destination, Exchange, Comparand);
 }
 
-// CHECK: define{{.*}}ptr @test_InterlockedCompareExchangePointer_nf(ptr {{.*}}%Destination, ptr {{[a-z_ ]*}}%Exchange, ptr {{[a-z_ ]*}}%Comparand){{.*}}{
+// CHECK: define{{.*}}ptr @test_InterlockedCompareExchangePointer_nf(ptr {{[a-z_ ]*}}%Destination, ptr {{[a-z_ ]*}}%Exchange, ptr {{[a-z_ ]*}}%Comparand){{.*}}{
 // CHECK:   %[[EXCHANGE:[0-9]+]] = ptrtoint ptr %Exchange to [[iPTR]]
 // CHECK:   %[[COMPARAND:[0-9]+]] = ptrtoint ptr %Comparand to [[iPTR]]
 // CHECK:   %[[XCHG:[0-9]+]] = cmpxchg volatile ptr %[[DEST:.+]], [[iPTR]] %[[COMPARAND:[0-9]+]], [[iPTR]] %[[EXCHANGE:[0-9]+]] monotonic monotonic, align {{4|8}}
@@ -290,7 +290,7 @@ void *test_InterlockedCompareExchangePointer_acq(void * volatile *Destination,
   return _InterlockedCompareExchangePointer_acq(Destination, Exchange, Comparand);
 }
 
-// CHECK-ARM-ARM64: define{{.*}}ptr @test_InterlockedCompareExchangePointer_acq(ptr {{.*}}%Destination, ptr {{[a-z_ ]*}}%Exchange, ptr {{[a-z_ ]*}}%Comparand){{.*}}{
+// CHECK-ARM-ARM64: define{{.*}}ptr @test_InterlockedCompareExchangePointer_acq(ptr {{[a-z_ ]*}}%Destination, ptr {{[a-z_ ]*}}%Exchange, ptr {{[a-z_ ]*}}%Comparand){{.*}}{
 // CHECK-ARM-ARM64:   %[[EXCHANGE:[0-9]+]] = ptrtoint ptr %Exchange to [[iPTR]]
 // CHECK-ARM-ARM64:   %[[COMPARAND:[0-9]+]] = ptrtoint ptr %Comparand to [[iPTR]]
 // CHECK-ARM-ARM64:   %[[XCHG:[0-9]+]] = cmpxchg volatile ptr %[[DEST:.+]], [[iPTR]] %[[COMPARAND:[0-9]+]], [[iPTR]] %[[EXCHANGE:[0-9]+]] acquire acquire, align {{4|8}}
@@ -305,7 +305,7 @@ void *test_InterlockedCompareExchangePointer_rel(void * volatile *Destination,
   return _InterlockedCompareExchangePointer_rel(Destination, Exchange, Comparand);
 }
 
-// CHECK-ARM-ARM64: define{{.*}}ptr @test_InterlockedCompareExchangePointer_rel(ptr {{.*}}%Destination, ptr {{[a-z_ ]*}}%Exchange, ptr {{[a-z_ ]*}}%Comparand){{.*}}{
+// CHECK-ARM-ARM64: define{{.*}}ptr @test_InterlockedCompareExchangePointer_rel(ptr {{[a-z_ ]*}}%Destination, ptr {{[a-z_ ]*}}%Exchange, ptr {{[a-z_ ]*}}%Comparand){{.*}}{
 // CHECK-ARM-ARM64:   %[[EXCHANGE:[0-9]+]] = ptrtoint ptr %Exchange to [[iPTR]]
 // CHECK-ARM-ARM64:   %[[COMPARAND:[0-9]+]] = ptrtoint ptr %Comparand to [[iPTR]]
 // CHECK-ARM-ARM64:   %[[XCHG:[0-9]+]] = cmpxchg volatile ptr %[[DEST:.+]], [[iPTR]] %[[COMPARAND:[0-9]+]], [[iPTR]] %[[EXCHANGE:[0-9]+]] release monotonic, align {{4|8}}
@@ -318,9 +318,10 @@ void *test_InterlockedCompareExchangePointer_rel(void * volatile *Destination,
 char test_InterlockedExchange8(char volatile *value, char mask) {
   return _InterlockedExchange8(value, mask);
 }
-// CHECK: define{{.*}}i8 @test_InterlockedExchange8(ptr{{.*}}%value, i8{{[a-z_ ]*}}%mask){{.*}}{
-// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw xchg ptr %value, i8 %mask seq_cst, align 1
-// CHECK:   ret i8 [[RESULT:%[0-9]+]]
+// CHECK: define{{.*}}b8 @test_InterlockedExchange8(ptr{{.*}}%value, b8{{[a-z_ ]*}}%mask){{.*}}{
+// CHECK:   [[CAST:%[0-9]+]] = bytecast b8 %mask to i8
+// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw xchg ptr %value, i8 [[CAST]] seq_cst, align 1
+// CHECK:   ret b8 [[RESULT:%[0-9]+]]
 // CHECK: }
 
 short test_InterlockedExchange16(short volatile *value, short mask) {
@@ -342,9 +343,10 @@ long test_InterlockedExchange(long volatile *value, long mask) {
 char test_InterlockedExchangeAdd8(char volatile *value, char mask) {
   return _InterlockedExchangeAdd8(value, mask);
 }
-// CHECK: define{{.*}}i8 @test_InterlockedExchangeAdd8(ptr{{.*}}%value, i8{{[a-z_ ]*}}%mask){{.*}}{
-// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw add ptr %value, i8 %mask seq_cst, align 1
-// CHECK:   ret i8 [[RESULT:%[0-9]+]]
+// CHECK: define{{.*}}b8 @test_InterlockedExchangeAdd8(ptr{{.*}}%value, b8{{[a-z_ ]*}}%mask){{.*}}{
+// CHECK:   [[CAST:%[0-9]+]] = bytecast b8 %mask to i8
+// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw add ptr %value, i8 [[CAST]] seq_cst, align 1
+// CHECK:   ret b8 [[RESULT:%[0-9]+]]
 // CHECK: }
 
 short test_InterlockedExchangeAdd16(short volatile *value, short mask) {
@@ -366,9 +368,10 @@ long test_InterlockedExchangeAdd(long volatile *value, long mask) {
 char test_InterlockedExchangeSub8(char volatile *value, char mask) {
   return _InterlockedExchangeSub8(value, mask);
 }
-// CHECK: define{{.*}}i8 @test_InterlockedExchangeSub8(ptr{{.*}}%value, i8{{[a-z_ ]*}}%mask){{.*}}{
-// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw sub ptr %value, i8 %mask seq_cst, align 1
-// CHECK:   ret i8 [[RESULT:%[0-9]+]]
+// CHECK: define{{.*}}b8 @test_InterlockedExchangeSub8(ptr{{.*}}%value, b8{{[a-z_ ]*}}%mask){{.*}}{
+// CHECK:   [[CAST:%[0-9]+]] = bytecast b8 %mask to i8
+// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw sub ptr %value, i8 [[CAST]] seq_cst, align 1
+// CHECK:   ret b8 [[RESULT:%[0-9]+]]
 // CHECK: }
 
 short test_InterlockedExchangeSub16(short volatile *value, short mask) {
@@ -390,9 +393,10 @@ long test_InterlockedExchangeSub(long volatile *value, long mask) {
 char test_InterlockedOr8(char volatile *value, char mask) {
   return _InterlockedOr8(value, mask);
 }
-// CHECK: define{{.*}}i8 @test_InterlockedOr8(ptr{{.*}}%value, i8{{[a-z_ ]*}}%mask){{.*}}{
-// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw or ptr %value, i8 %mask seq_cst, align 1
-// CHECK:   ret i8 [[RESULT:%[0-9]+]]
+// CHECK: define{{.*}}b8 @test_InterlockedOr8(ptr{{.*}}%value, b8{{[a-z_ ]*}}%mask){{.*}}{
+// CHECK:   [[CAST:%[0-9]+]] = bytecast b8 %mask to i8
+// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw or ptr %value, i8 [[CAST]] seq_cst, align 1
+// CHECK:   ret b8 [[RESULT:%[0-9]+]]
 // CHECK: }
 
 short test_InterlockedOr16(short volatile *value, short mask) {
@@ -414,9 +418,11 @@ long test_InterlockedOr(long volatile *value, long mask) {
 char test_InterlockedXor8(char volatile *value, char mask) {
   return _InterlockedXor8(value, mask);
 }
-// CHECK: define{{.*}}i8 @test_InterlockedXor8(ptr{{.*}}%value, i8{{[a-z_ ]*}}%mask){{.*}}{
-// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw xor ptr %value, i8 %mask seq_cst, align 1
-// CHECK:   ret i8 [[RESULT:%[0-9]+]]
+// CHECK: define{{.*}}b8 @test_InterlockedXor8(ptr{{.*}}%value, b8{{[a-z_ ]*}}%mask){{.*}}{
+// CHECK:   [[CAST:%[0-9]+]] = bytecast b8 %mask to i8
+// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw xor ptr %value, i8 [[CAST:%[0-9]+]] seq_cst, align 1
+// CHECK:   [[BCAST:%[0-9]+]] = bitcast i8 [[RESULT:%[0-9]+]] to b8
+// CHECK:   ret b8 [[BCAST:%[0-9]+]]
 // CHECK: }
 
 short test_InterlockedXor16(short volatile *value, short mask) {
@@ -438,9 +444,11 @@ long test_InterlockedXor(long volatile *value, long mask) {
 char test_InterlockedAnd8(char volatile *value, char mask) {
   return _InterlockedAnd8(value, mask);
 }
-// CHECK: define{{.*}}i8 @test_InterlockedAnd8(ptr{{.*}}%value, i8{{[a-z_ ]*}}%mask){{.*}}{
-// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw and ptr %value, i8 %mask seq_cst, align 1
-// CHECK:   ret i8 [[RESULT:%[0-9]+]]
+// CHECK: define{{.*}}b8 @test_InterlockedAnd8(ptr{{.*}}%value, b8{{[a-z_ ]*}}%mask){{.*}}{
+// CHECK:   [[CAST:%[0-9]+]] = bytecast b8 %mask to i8
+// CHECK:   [[RESULT:%[0-9]+]] = atomicrmw and ptr %value, i8 [[CAST:%[0-9]+]] seq_cst, align 1
+// CHECK:   [[BCAST:%[0-9]+]] = bitcast i8 [[RESULT:%[0-9]+]] to b8
+// CHECK:   ret b8 [[BCAST:%[0-9]+]]
 // CHECK: }
 
 short test_InterlockedAnd16(short volatile *value, short mask) {

@@ -56,7 +56,7 @@ signed char foo_char(_Complex signed char x) {
   return __real__ x;
 }
 
-// CHECK: define{{.*}} signext i8 @foo_char(i8 noundef {{[%A-Za-z0-9.]+}}, i8 noundef {{[%A-Za-z0-9.]+}}) [[NUW]] {
+// CHECK: define{{.*}} signext b8 @foo_char(b8 noundef {{[%A-Za-z0-9.]+}}, b8 noundef {{[%A-Za-z0-9.]+}}) [[NUW]] {
 
 long foo_long(_Complex long x) {
   return __real__ x;
@@ -171,16 +171,16 @@ void bar_char(void) {
 }
 
 // CHECK: define{{.*}} void @bar_char() [[NUW]] {
-// CHECK: %[[VAR51:[A-Za-z0-9.]+]] = alloca { i8, i8 }, align 1
-// CHECK: %[[VAR52:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i8, i8 }, ptr %[[VAR51]], i32 0, i32 0
-// CHECK: %[[VAR53:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i8, i8 }, ptr %[[VAR51]], i32 0, i32 1
-// CHECK: store i8 2, ptr %[[VAR52]]
-// CHECK: store i8 -3, ptr %[[VAR53]]
-// CHECK: %[[VAR54:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i8, i8 }, ptr %[[VAR51]], i32 0, i32 0
-// CHECK: %[[VAR55:[A-Za-z0-9.]+]] = load i8, ptr %[[VAR54]], align 1
-// CHECK: %[[VAR56:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { i8, i8 }, ptr %[[VAR51]], i32 0, i32 1
-// CHECK: %[[VAR57:[A-Za-z0-9.]+]] = load i8, ptr %[[VAR56]], align 1
-// CHECK: %{{[A-Za-z0-9.]+}} = call signext i8 @foo_char(i8 noundef %[[VAR55]], i8 noundef %[[VAR57]])
+// CHECK: %[[VAR51:[A-Za-z0-9.]+]] = alloca { b8, b8 }, align 1
+// CHECK: %[[VAR52:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b8, b8 }, ptr %[[VAR51]], i32 0, i32 0
+// CHECK: %[[VAR53:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b8, b8 }, ptr %[[VAR51]], i32 0, i32 1
+// CHECK: store b8 2, ptr %[[VAR52]]
+// CHECK: store b8 -3, ptr %[[VAR53]]
+// CHECK: %[[VAR54:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b8, b8 }, ptr %[[VAR51]], i32 0, i32 0
+// CHECK: %[[VAR55:[A-Za-z0-9.]+]] = load b8, ptr %[[VAR54]], align 1
+// CHECK: %[[VAR56:[A-Za-z0-9.]+]] = getelementptr inbounds nuw { b8, b8 }, ptr %[[VAR51]], i32 0, i32 1
+// CHECK: %[[VAR57:[A-Za-z0-9.]+]] = load b8, ptr %[[VAR56]], align 1
+// CHECK: %{{[A-Za-z0-9.]+}} = call signext b8 @foo_char(b8 noundef %[[VAR55]], b8 noundef %[[VAR57]])
 
 void bar_long(void) {
   foo_long(2L - 3Li);

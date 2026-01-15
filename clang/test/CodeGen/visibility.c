@@ -5,23 +5,23 @@
 // CHECK-DEFAULT: @g_def ={{.*}} global i32 0
 // CHECK-DEFAULT: @g_com ={{.*}} global i32 0
 // CHECK-DEFAULT: @g_ext = external global i32
+// CHECK-DEFAULT: @test4 = hidden global i32 10
 // CHECK-DEFAULT: @g_deferred = internal global
 // CHECK-PROTECTED: @g_def = protected global i32 0
 // CHECK-PROTECTED: @g_com = protected global i32 0
 // CHECK-PROTECTED: @g_ext = external global i32
+// CHECK-PROTECTED: @test4 = hidden global i32 10
 // CHECK-PROTECTED: @g_deferred = internal global
 // CHECK-HIDDEN: @g_def = hidden global i32 0
 // CHECK-HIDDEN: @g_com = hidden global i32 0
 // CHECK-HIDDEN: @g_ext = external global i32
+// CHECK-HIDDEN: @test4 = hidden global i32 10
 // CHECK-HIDDEN: @g_deferred = internal global
 int g_com;
 int g_def = 0;
 extern int g_ext;
 static char g_deferred[] = "hello";
 
-// CHECK-DEFAULT: @test4 = hidden global i32 10
-// CHECK-PROTECTED: @test4 = hidden global i32 10
-// CHECK-HIDDEN: @test4 = hidden global i32 10
 
 // CHECK-DEFAULT-LABEL: define{{.*}} i32 @f_def()
 // CHECK-DEFAULT: declare void @f_ext()

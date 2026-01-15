@@ -41,7 +41,7 @@ char *var_var(char *base, unsigned long offset) {
   // CHECK-NEXT:                        store i64 %[[OFFSET]], ptr %[[OFFSET_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[OFFSET_RELOADED:.*]] = load i64, ptr %[[OFFSET_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr %[[BASE_RELOADED]], i64 %[[OFFSET_RELOADED]]
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr %[[BASE_RELOADED]], i64 %[[OFFSET_RELOADED]]
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_AGGREGATE:.*]] = call { i64, i1 } @llvm.smul.with.overflow.i64(i64 1, i64 %[[OFFSET_RELOADED]]), !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_OVERFLOWED:.*]] = extractvalue { i64, i1 } %[[COMPUTED_OFFSET_AGGREGATE]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[OR_OV:.+]] = or i1 %[[COMPUTED_OFFSET_OVERFLOWED]], false, !nosanitize
@@ -73,7 +73,7 @@ char *var_zero(char *base) {
   // CHECK-NEXT:                          %[[BASE_ADDR:.*]] = alloca ptr, align 8
   // CHECK-NEXT:                          store ptr %[[BASE]], ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                          %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
-  // CHECK-NEXT:                          %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr %[[BASE_RELOADED]], i64 0
+  // CHECK-NEXT:                          %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr %[[BASE_RELOADED]], i64 0
   // CHECK-NEXT:                          ret ptr %[[ADD_PTR]]
   static const unsigned long offset = 0;
 #line 200
@@ -86,7 +86,7 @@ char *var_one(char *base) {
   // CHECK-NEXT:                        %[[BASE_ADDR:.*]] = alloca ptr, align 8
   // CHECK-NEXT:                        store ptr %[[BASE]], ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr %[[BASE_RELOADED]], i64 1
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr %[[BASE_RELOADED]], i64 1
   // CHECK-SANITIZE-NEXT:               %[[BASE_RELOADED_INT:.*]] = ptrtoint ptr %[[BASE_RELOADED]] to i64, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_GEP:.*]] = add i64 %[[BASE_RELOADED_INT]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[BASE_IS_NOT_NULLPTR:.*]] = icmp ne ptr %[[BASE_RELOADED]], null, !nosanitize
@@ -114,7 +114,7 @@ char *var_allones(char *base) {
   // CHECK-NEXT:                        %[[BASE_ADDR:.*]] = alloca ptr, align 8
   // CHECK-NEXT:                        store ptr %[[BASE]], ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr %[[BASE_RELOADED]], i64 -1
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr %[[BASE_RELOADED]], i64 -1
   // CHECK-SANITIZE-NEXT:               %[[BASE_RELOADED_INT:.*]] = ptrtoint ptr %[[BASE_RELOADED]] to i64, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_GEP:.*]] = add i64 %[[BASE_RELOADED_INT]], -1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[BASE_IS_NOT_NULLPTR:.*]] = icmp ne ptr %[[BASE_RELOADED]], null, !nosanitize
@@ -144,7 +144,7 @@ char *nullptr_var(unsigned long offset) {
   // CHECK-NEXT:                        %[[OFFSET_ADDR:.*]] = alloca i64, align 8
   // CHECK-NEXT:                        store i64 %[[OFFSET]], ptr %[[OFFSET_ADDR]], align 8
   // CHECK-NEXT:                        %[[OFFSET_RELOADED:.*]] = load i64, ptr %[[OFFSET_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr null, i64 %[[OFFSET_RELOADED]]
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr null, i64 %[[OFFSET_RELOADED]]
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_AGGREGATE:.*]] = call { i64, i1 } @llvm.smul.with.overflow.i64(i64 1, i64 %[[OFFSET_RELOADED]]), !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_OVERFLOWED:.*]] = extractvalue { i64, i1 } %[[COMPUTED_OFFSET_AGGREGATE]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[OR_OV:.+]] = or i1 %[[COMPUTED_OFFSET_OVERFLOWED]], false, !nosanitize
@@ -182,16 +182,16 @@ char *nullptr_zero(void) {
 char *nullptr_one_BAD(void) {
   // CHECK:                           define{{.*}} ptr @nullptr_one_BAD()
   // CHECK-NEXT:                      [[ENTRY:.*]]:
-  // CHECK-SANITIZE-NEXT:             %[[CMP:.*]] = icmp ne i64 ptrtoint (ptr getelementptr inbounds nuw (i8, ptr null, i64 1) to i64), 0, !nosanitize
+  // CHECK-SANITIZE-NEXT:             %[[CMP:.*]] = icmp ne i64 ptrtoint (ptr getelementptr inbounds nuw (b8, ptr null, i64 1) to i64), 0, !nosanitize
   // CHECK-SANITIZE-NEXT:             %[[COND:.*]] = icmp eq i1 false, %[[CMP]], !nosanitize
   // CHECK-SANITIZE-NEXT:             br i1 %[[COND]], label %[[CONT:.*]], label %[[HANDLER_POINTER_OVERFLOW:[^,]+]],{{.*}} !nosanitize
   // CHECK-SANITIZE:                  [[HANDLER_POINTER_OVERFLOW]]:
-  // CHECK-SANITIZE-NORECOVER-NEXT:     call void @__ubsan_handle_pointer_overflow_abort(ptr @[[LINE_700]], i64 0, i64 ptrtoint (ptr getelementptr inbounds nuw (i8, ptr null, i64 1) to i64))
-  // CHECK-SANITIZE-RECOVER-NEXT:       call void @__ubsan_handle_pointer_overflow(ptr @[[LINE_700]], i64 0, i64 ptrtoint (ptr getelementptr inbounds nuw (i8, ptr null, i64 1) to i64))
+  // CHECK-SANITIZE-NORECOVER-NEXT:     call void @__ubsan_handle_pointer_overflow_abort(ptr @[[LINE_700]], i64 0, i64 ptrtoint (ptr getelementptr inbounds nuw (b8, ptr null, i64 1) to i64))
+  // CHECK-SANITIZE-RECOVER-NEXT:       call void @__ubsan_handle_pointer_overflow(ptr @[[LINE_700]], i64 0, i64 ptrtoint (ptr getelementptr inbounds nuw (b8, ptr null, i64 1) to i64))
   // CHECK-SANITIZE-TRAP-NEXT:          call void @llvm.ubsantrap(i8 19){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT:   unreachable, !nosanitize
   // CHECK-SANITIZE:                  [[CONT]]:
-  // CHECK-NEXT:                        ret ptr getelementptr inbounds nuw (i8, ptr null, i64 1)
+  // CHECK-NEXT:                        ret ptr getelementptr inbounds nuw (b8, ptr null, i64 1)
   static char *const base = (char *)0;
   static const unsigned long offset = 1;
 #line 700
@@ -201,16 +201,16 @@ char *nullptr_one_BAD(void) {
 char *nullptr_allones_BAD(void) {
   // CHECK:                           define{{.*}} ptr @nullptr_allones_BAD()
   // CHECK-NEXT:                      [[ENTRY:.*]]:
-  // CHECK-SANITIZE-NEXT:             %[[CMP:.*]] = icmp ne i64 ptrtoint (ptr getelementptr inbounds nuw (i8, ptr null, i64 -1) to i64), 0, !nosanitize
+  // CHECK-SANITIZE-NEXT:             %[[CMP:.*]] = icmp ne i64 ptrtoint (ptr getelementptr inbounds nuw (b8, ptr null, i64 -1) to i64), 0, !nosanitize
   // CHECK-SANITIZE-NEXT:             %[[COND:.*]] = icmp eq i1 false, %[[CMP]], !nosanitize
   // CHECK-SANITIZE-NEXT:             br i1 %[[COND]], label %[[CONT:.*]], label %[[HANDLER_POINTER_OVERFLOW:[^,]+]],{{.*}} !nosanitize
   // CHECK-SANITIZE:                  [[HANDLER_POINTER_OVERFLOW]]:
-  // CHECK-SANITIZE-NORECOVER-NEXT:     call void @__ubsan_handle_pointer_overflow_abort(ptr @[[LINE_800]], i64 0, i64 ptrtoint (ptr getelementptr inbounds nuw (i8, ptr null, i64 -1) to i64))
-  // CHECK-SANITIZE-RECOVER-NEXT:       call void @__ubsan_handle_pointer_overflow(ptr @[[LINE_800]], i64 0, i64 ptrtoint (ptr getelementptr inbounds nuw (i8, ptr null, i64 -1) to i64))
+  // CHECK-SANITIZE-NORECOVER-NEXT:     call void @__ubsan_handle_pointer_overflow_abort(ptr @[[LINE_800]], i64 0, i64 ptrtoint (ptr getelementptr inbounds nuw (b8, ptr null, i64 -1) to i64))
+  // CHECK-SANITIZE-RECOVER-NEXT:       call void @__ubsan_handle_pointer_overflow(ptr @[[LINE_800]], i64 0, i64 ptrtoint (ptr getelementptr inbounds nuw (b8, ptr null, i64 -1) to i64))
   // CHECK-SANITIZE-TRAP-NEXT:          call void @llvm.ubsantrap(i8 19){{.*}}, !nosanitize
   // CHECK-SANITIZE-UNREACHABLE-NEXT:   unreachable, !nosanitize
   // CHECK-SANITIZE:                  [[CONT]]:
-  // CHECK-NEXT:                        ret ptr getelementptr inbounds nuw (i8, ptr null, i64 -1)
+  // CHECK-NEXT:                        ret ptr getelementptr inbounds nuw (b8, ptr null, i64 -1)
   static char *const base = (char *)0;
   static const unsigned long offset = -1;
 #line 800
@@ -234,7 +234,7 @@ char *void_ptr(void *base, unsigned long offset) {
   // CHECK-NEXT:                        store i64 %[[OFFSET]], ptr %[[OFFSET_ADDR]], align 8
   // CHECK-NEXT:                        %[[BASE_RELOADED:.*]] = load ptr, ptr %[[BASE_ADDR]], align 8
   // CHECK-NEXT:                        %[[OFFSET_RELOADED:.*]] = load i64, ptr %[[OFFSET_ADDR]], align 8
-  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw i8, ptr %[[BASE_RELOADED]], i64 %[[OFFSET_RELOADED]]
+  // CHECK-NEXT:                        %[[ADD_PTR:.*]] = getelementptr inbounds nuw b8, ptr %[[BASE_RELOADED]], i64 %[[OFFSET_RELOADED]]
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_AGGREGATE:.*]] = call { i64, i1 } @llvm.smul.with.overflow.i64(i64 1, i64 %[[OFFSET_RELOADED]]), !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[COMPUTED_OFFSET_OVERFLOWED:.*]] = extractvalue { i64, i1 } %[[COMPUTED_OFFSET_AGGREGATE]], 1, !nosanitize
   // CHECK-SANITIZE-NEXT:               %[[OR_OV:.+]] = or i1 %[[COMPUTED_OFFSET_OVERFLOWED]], false, !nosanitize
