@@ -352,6 +352,20 @@ static Value *getStoreValueForLoadHelper(Value *SrcVal, unsigned Offset,
   uint64_t StoreSize =
       (DL.getTypeSizeInBits(SrcVal->getType()).getFixedValue() + 7) / 8;
   uint64_t LoadSize = (DL.getTypeSizeInBits(LoadTy).getFixedValue() + 7) / 8;
+  // Compute byte-typed subranges with byte instructions. The result is then
+  // coerced to the final load type by the caller.
+  if (SrcVal->getType()->isByteTy()) {
+    unsigned BitOffset;
+    if (DL.isLittleEndian())
+      BitOffset = Offset * 8;
+    else
+      BitOffset = (StoreSize - LoadSize - Offset) * 8;
+    if (BitOffset || LoadSize != StoreSize)
+      SrcVal = Builder.CreateBitExtract(Type::getByteNTy(Ctx, LoadSize * 8),
+                                        SrcVal, Builder.getInt32(BitOffset));
+    return SrcVal;
+  }
+
   // Compute which bits of the stored value are being used by the load.  Convert
   // to an integer type to start with.
   if (SrcVal->getType()->isPtrOrPtrVectorTy())

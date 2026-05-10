@@ -21,9 +21,7 @@ define ptr addrspace(1) @byte_to_nonintegral_ptr(b64 %x) {
 define ptr @byte_to_integral_ptr(b64 %x) {
 ; CHECK-LABEL: define ptr @byte_to_integral_ptr(
 ; CHECK-SAME: b64 [[X:%.*]]) {
-; CHECK-NEXT:    [[A:%.*]] = alloca b64, align 8
-; CHECK-NEXT:    store b64 [[X]], ptr [[A]], align 8
-; CHECK-NEXT:    [[A_0_V:%.*]] = load ptr, ptr [[A]], align 8
+; CHECK-NEXT:    [[A_0_V:%.*]] = bitcast b64 [[X]] to ptr
 ; CHECK-NEXT:    ret ptr [[A_0_V]]
 ;
   %a = alloca b64, align 8

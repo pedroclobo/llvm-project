@@ -8,9 +8,8 @@ define i8 @byte_store_to_narrow_int_load_be(ptr %p, b32 %x) {
 ; CHECK-SAME: ptr [[P:%.*]], b32 [[X:%.*]]) {
 ; CHECK-NEXT:    store b32 [[X]], ptr [[P]], align 4
 ; CHECK-NEXT:    [[Q:%.*]] = getelementptr i8, ptr [[P]], i64 1
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast b32 [[X]] to i32
-; CHECK-NEXT:    [[TMP2:%.*]] = lshr i32 [[TMP1]], 16
-; CHECK-NEXT:    [[TMP3:%.*]] = trunc i32 [[TMP2]] to i8
+; CHECK-NEXT:    [[TMP1:%.*]] = bitextract b8, b32 [[X]], i32 16
+; CHECK-NEXT:    [[TMP3:%.*]] = bitcast b8 [[TMP1]] to i8
 ; CHECK-NEXT:    ret i8 [[TMP3]]
 ;
   store b32 %x, ptr %p, align 4
@@ -24,10 +23,7 @@ define b8 @byte_store_to_narrow_byte_load_be(ptr %p, b32 %x) {
 ; CHECK-SAME: ptr [[P:%.*]], b32 [[X:%.*]]) {
 ; CHECK-NEXT:    store b32 [[X]], ptr [[P]], align 4
 ; CHECK-NEXT:    [[Q:%.*]] = getelementptr i8, ptr [[P]], i64 1
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast b32 [[X]] to i32
-; CHECK-NEXT:    [[TMP2:%.*]] = lshr i32 [[TMP1]], 16
-; CHECK-NEXT:    [[TMP3:%.*]] = trunc i32 [[TMP2]] to i8
-; CHECK-NEXT:    [[TMP4:%.*]] = bitcast i8 [[TMP3]] to b8
+; CHECK-NEXT:    [[TMP4:%.*]] = bitextract b8, b32 [[X]], i32 16
 ; CHECK-NEXT:    ret b8 [[TMP4]]
 ;
   store b32 %x, ptr %p, align 4
