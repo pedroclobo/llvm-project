@@ -6,9 +6,8 @@ target datalayout = "E-p:64:64:64-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32
 define i8 @extract_int_from_byte_be(b32 %x) {
 ; CHECK-LABEL: define i8 @extract_int_from_byte_be(
 ; CHECK-SAME: b32 [[X:%.*]]) {
-; CHECK-NEXT:    [[TMP2:%.*]] = bitcast b32 [[X]] to i32
-; CHECK-NEXT:    [[A_2_EXTRACT_SHIFT:%.*]] = lshr i32 [[TMP2]], 8
-; CHECK-NEXT:    [[TMP1:%.*]] = trunc i32 [[A_2_EXTRACT_SHIFT]] to i8
+; CHECK-NEXT:    [[A_2_EXTRACT_EXTRACT:%.*]] = bitextract b8, b32 [[X]], i32 8
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast b8 [[A_2_EXTRACT_EXTRACT]] to i8
 ; CHECK-NEXT:    ret i8 [[TMP1]]
 ;
   %a = alloca b32, align 4
@@ -21,11 +20,7 @@ define i8 @extract_int_from_byte_be(b32 %x) {
 define b32 @insert_byte_into_byte_be(b32 %old, b8 %x) {
 ; CHECK-LABEL: define b32 @insert_byte_into_byte_be(
 ; CHECK-SAME: b32 [[OLD:%.*]], b8 [[X:%.*]]) {
-; CHECK-NEXT:    [[A:%.*]] = alloca b32, align 4
-; CHECK-NEXT:    store b32 [[OLD]], ptr [[A]], align 4
-; CHECK-NEXT:    [[A_2_P_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[A]], i64 2
-; CHECK-NEXT:    store b8 [[X]], ptr [[A_2_P_SROA_IDX]], align 2
-; CHECK-NEXT:    [[INSERT:%.*]] = load b32, ptr [[A]], align 4
+; CHECK-NEXT:    [[INSERT:%.*]] = bitinsert b32 [[OLD]], b8 [[X]], i32 8
 ; CHECK-NEXT:    ret b32 [[INSERT]]
 ;
   %a = alloca b32, align 4
@@ -39,10 +34,7 @@ define b32 @insert_byte_into_byte_be(b32 %old, b8 %x) {
 define b8 @extract_byte_from_byte_be(b32 %x) {
 ; CHECK-LABEL: define b8 @extract_byte_from_byte_be(
 ; CHECK-SAME: b32 [[X:%.*]]) {
-; CHECK-NEXT:    [[A:%.*]] = alloca b32, align 4
-; CHECK-NEXT:    store b32 [[X]], ptr [[A]], align 4
-; CHECK-NEXT:    [[A_2_P_SROA_IDX:%.*]] = getelementptr inbounds i8, ptr [[A]], i64 2
-; CHECK-NEXT:    [[A_2_V:%.*]] = load b8, ptr [[A_2_P_SROA_IDX]], align 2
+; CHECK-NEXT:    [[A_2_V:%.*]] = bitextract b8, b32 [[X]], i32 8
 ; CHECK-NEXT:    ret b8 [[A_2_V]]
 ;
   %a = alloca b32, align 4
@@ -55,12 +47,8 @@ define b8 @extract_byte_from_byte_be(b32 %x) {
 define b32 @insert_int_into_byte_be(b32 %old, i8 %x) {
 ; CHECK-LABEL: define b32 @insert_int_into_byte_be(
 ; CHECK-SAME: b32 [[OLD:%.*]], i8 [[X:%.*]]) {
-; CHECK-NEXT:    [[TMP1:%.*]] = bitcast b32 [[OLD]] to i32
-; CHECK-NEXT:    [[A_2_INSERT_EXT:%.*]] = zext i8 [[X]] to i32
-; CHECK-NEXT:    [[A_2_INSERT_SHIFT:%.*]] = shl i32 [[A_2_INSERT_EXT]], 8
-; CHECK-NEXT:    [[A_2_INSERT_MASK:%.*]] = and i32 [[TMP1]], -65281
-; CHECK-NEXT:    [[A_2_INSERT_INSERT:%.*]] = or i32 [[A_2_INSERT_MASK]], [[A_2_INSERT_SHIFT]]
-; CHECK-NEXT:    [[TMP2:%.*]] = bitcast i32 [[A_2_INSERT_INSERT]] to b32
+; CHECK-NEXT:    [[TMP1:%.*]] = bitcast i8 [[X]] to b8
+; CHECK-NEXT:    [[TMP2:%.*]] = bitinsert b32 [[OLD]], b8 [[TMP1]], i32 8
 ; CHECK-NEXT:    ret b32 [[TMP2]]
 ;
   %a = alloca b32, align 4
@@ -86,9 +74,7 @@ define i8 @bytetoint_be(b8 %x) {
 define ptr @bytetoptr_be(b64 %x) {
 ; CHECK-LABEL: define ptr @bytetoptr_be(
 ; CHECK-SAME: b64 [[X:%.*]]) {
-; CHECK-NEXT:    [[A:%.*]] = alloca b64, align 8
-; CHECK-NEXT:    store b64 [[X]], ptr [[A]], align 8
-; CHECK-NEXT:    [[A_0_V:%.*]] = load ptr, ptr [[A]], align 8
+; CHECK-NEXT:    [[A_0_V:%.*]] = bitcast b64 [[X]] to ptr
 ; CHECK-NEXT:    ret ptr [[A_0_V]]
 ;
   %a = alloca b64, align 8
