@@ -588,6 +588,9 @@ class IRTranslatorImpl {
   bool translateFence(const User &U, MachineIRBuilder &MIRBuilder);
   bool translateFreeze(const User &U, MachineIRBuilder &MIRBuilder);
 
+  bool translateBitExtract(const User &U, MachineIRBuilder &MIRBuilder);
+  bool translateBitInsert(const User &U, MachineIRBuilder &MIRBuilder);
+
   // Stubs to keep the compiler happy while we implement the rest of the
   // translation.
   bool translateResume(const User &U, MachineIRBuilder &MIRBuilder) {
