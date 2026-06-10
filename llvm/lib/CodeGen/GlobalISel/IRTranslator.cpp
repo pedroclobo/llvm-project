@@ -3590,7 +3590,7 @@ bool IRTranslatorImpl::translateBitInsert(const User &U,
       MIRBuilder.buildAdd(BaseTy, LegalOffset, ValWidth).getReg(0);
 
   Register RotatedBase =
-      MIRBuilder.buildRotateLeft(BaseTy, Base, RotateAmount).getReg(0);
+      MIRBuilder.buildRotateRight(BaseTy, Base, RotateAmount).getReg(0);
 
   // Truncate or extend Val to BaseTy so only the inserted bit range remains.
   Register ExtVal = MIRBuilder.buildZExtOrTrunc(BaseTy, Val).getReg(0);
@@ -3605,7 +3605,7 @@ bool IRTranslatorImpl::translateBitInsert(const User &U,
   Register Inserted = MIRBuilder.buildOr(BaseTy, ClearedBase, ExtVal).getReg(0);
 
   // Restore bit positions
-  MIRBuilder.buildRotateRight(Res, Inserted, RotateAmount);
+  MIRBuilder.buildRotateLeft(Res, Inserted, RotateAmount);
   return true;
 }
 
@@ -3634,7 +3634,7 @@ bool IRTranslatorImpl::translateBitExtract(const User &U,
 
   // Rotate left by (Offset + ResultWidth)
   Register Rotated =
-      MIRBuilder.buildRotateLeft(SrcTy, Src, RotateAmount).getReg(0);
+      MIRBuilder.buildRotateRight(SrcTy, Src, RotateAmount).getReg(0);
 
   // Truncating to ResTy discards the high bits for free
   if (SrcTy == ResTy)
