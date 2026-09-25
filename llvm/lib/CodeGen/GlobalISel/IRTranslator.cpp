@@ -2348,16 +2348,26 @@ bool IRTranslatorImpl::translateBitCast(const User &U,
     return translateCopy(U, *U.getOperand(0), MIRBuilder);
   }
 
-  // Only the scalar byte<->ptr crossing is redirected to G_INTTOPTR/G_PTRTOINT,
-  // which is the well-typed MIR shape for that boundary. Vector byte<->ptr
-  // (e.g. <N x b32> -> ptr produced by mixed-type load coalescing) and other
-  // legacy ptr/non-ptr IR bitcasts (AMDGPU iN<->p3 kernarg packing, etc.)
-  // keep their historical G_BITCAST lowering — G_INTTOPTR has no vector-src
-  // -> scalar-ptr form, and downstream passes already handle G_BITCAST.
-  if (DstTy->isPointerTy() && SrcTy->isByteTy())
-    return translateCast(TargetOpcode::G_INTTOPTR, U, MIRBuilder);
-  if (SrcTy->isPointerTy() && DstTy->isByteTy())
-    return translateCast(TargetOpcode::G_PTRTOINT, U, MIRBuilder);
+  // G_BITCAST cannot cross the pointer boundary, so byte <-> ptr goes through
+  // an integer with the pointer's shape (e.g. <2 x b32> -> i64 -> ptr).
+  if (SrcTy->isByteOrByteVectorTy() && DstTy->isPtrOrPtrVectorTy()) {
+    LLT IntTy = getLLTForType(*DL->getIntPtrType(DstTy), *DL);
+    Register Src = getOrCreateVReg(*U.getOperand(0));
+    if (MRI->getType(Src) == IntTy)
+      return translateCast(TargetOpcode::G_INTTOPTR, U, MIRBuilder);
+    MIRBuilder.buildIntToPtr(getOrCreateVReg(U),
+                             MIRBuilder.buildBitcast(IntTy, Src));
+    return true;
+  }
+  if (SrcTy->isPtrOrPtrVectorTy() && DstTy->isByteOrByteVectorTy()) {
+    LLT IntTy = getLLTForType(*DL->getIntPtrType(SrcTy), *DL);
+    Register Dst = getOrCreateVReg(U);
+    if (MRI->getType(Dst) == IntTy)
+      return translateCast(TargetOpcode::G_PTRTOINT, U, MIRBuilder);
+    Register Src = getOrCreateVReg(*U.getOperand(0));
+    MIRBuilder.buildBitcast(Dst, MIRBuilder.buildPtrToInt(IntTy, Src));
+    return true;
+  }
 
   return translateCast(TargetOpcode::G_BITCAST, U, MIRBuilder);
 }

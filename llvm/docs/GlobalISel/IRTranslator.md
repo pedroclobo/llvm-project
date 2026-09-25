@@ -123,10 +123,12 @@ SelectionDAG behaviour, where `bN` maps to the same `EVT` as `iN`.
 - `getLLTForType` lowers `ByteType` to `LLT::integer(N)`.
 - `ConstantByte` is materialised via `G_CONSTANT` using the underlying
   `APInt`, the same path as `ConstantInt`.
-- A `bitcast` between a byte type and a pointer (the only ptr/non-ptr
-  `bitcast` IR permits with byte) is lowered to `G_INTTOPTR` or
-  `G_PTRTOINT` rather than `G_BITCAST`, since `G_BITCAST` cannot cross
-  the pointer/non-pointer boundary under `MachineVerifier`.
+- A `bitcast` between a byte type (or vector of bytes) and a pointer (or
+  vector of pointers) is lowered to `G_INTTOPTR` or `G_PTRTOINT` rather than
+  `G_BITCAST`, since `G_BITCAST` cannot cross the pointer/non-pointer boundary
+  under `MachineVerifier`. If the byte side does not have the shape of the
+  pointer's integer type (e.g. `<2 x b32>` and `ptr`), a `G_BITCAST` to that
+  integer type is inserted first.
 
 The mid-end semantics of the byte type (per-bit poison, conditional pointer
 provenance preservation) are not representable in MIR and are not consumed by
